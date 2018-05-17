@@ -1,0 +1,66 @@
+#!/bin/bash
+
+set -e
+
+cd "$(dirname $0)/.."
+
+echo "==> Checking prerequisites…"
+exit_code=0
+
+if hash php 2>/dev/null; then
+    echo "Php found: $(php --version)"
+else
+    echo "Php is required to run the project."
+    exit_code=1
+fi
+
+if hash phpcs 2>/dev/null; then
+    echo "PHP_CodeSniffer found: $(phpcs --version)"
+else
+    echo "PHP_CodeSniffer is required to run the project."
+    exit_code=1
+fi
+
+if hash npm 2>/dev/null; then
+    echo "NPM found: npm version $(npm --version), node version $(node --version)"
+else
+    echo "Node.js and NPM are required to build the project."
+    exit_code=1
+fi
+
+if hash yarn 2>/dev/null; then
+    echo "Yarn found: $(yarn --version)"
+else
+    echo "Yarn is required to run the project."
+    exit_code=1
+fi
+
+if hash composer 2>/dev/null; then
+    echo "composer found: $(composer --version)"
+else
+    echo "composer is required to run the project."
+    exit_code=1
+fi
+
+do_update=
+if [[ "$1" == "-u" ]]; then
+    do_update=1
+fi
+
+cd .git/hooks
+ln -sf ../../script/pre-commit pre-commit
+cd ../../
+
+echo "==> Installing Php dependencies…"
+composer install
+
+echo "==> Installing NPM dependencies… ${do_update:+'(force update)'}"
+yarn install ${do_update:+'--force'}
+
+echo "==> Creating database…"
+php bin/console doctrine:database:create > /dev/null
+
+echo "==> Update database schema…"
+php bin/console doctrine:schema:update --force
+
+exit $exit_code

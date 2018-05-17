@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+cd "$(dirname $0)/.."
+
+port=8000
+while getopts p: option
+do
+    case "${option}"
+        in
+        p) port=${OPTARG};;
+    esac
+done
+php bin/console server:run -q $port &
+echo "Webserver is running on http://127.0.0.1:$port"

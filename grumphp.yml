@@ -1,0 +1,29 @@
+parameters:
+    git_dir: .
+    bin_dir: vendor/bin
+    tasks: null
+    ignore_unstaged_changes: true
+    tasks:
+        phpcs:
+            standard: 'PSR2'
+            severity: ~
+            error_severity: ~
+            warning_severity: ~
+            tab_width: ~
+            ignore_patterns:
+                - /var/
+                - /web/
+                - /app/
+            encoding: ~
+            sniffs: []
+            triggered_by: [php]
+        phplint:
+            exclude: []
+            jobs: ~
+            triggered_by: ['php']
+        securitychecker:
+            lockfile: ./composer.lock
+            format: ~
+            end_point: ~
+            timeout: ~
+            run_always: false
