@@ -25,6 +25,19 @@ framework:
         json_manifest_path: '%kernel.project_dir%/web/assets/manifest.json'
     php_errors:
         log: true
+    translator:
+        fallbacks: ['fr']
+        paths: ['%kernel.project_dir%/translations']
+
+translation:
+    locales: ['fr', 'en', 'es', 'de', 'it']
+    configs:
+        app:
+            dirs: ["%kernel.root_dir%/Resources/views", "%kernel.project_dir%/src"]
+            output_dir: "%kernel.project_dir%/translations"
+            excluded_dirs: [cache, data, logs]
+    webui:
+        enabled: true
 
 # Twig Configuration
 twig:
