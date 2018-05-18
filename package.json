@@ -1,0 +1,30 @@
+{
+  "name": "rochedor-nsi",
+  "version": "1.0.0",
+  "description": "rochedor-nsi ============",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "standard": "./node_modules/.bin/standard ./app/Resources/assets/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/logomotion/rochedor-nsi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/logomotion/rochedor-nsi/issues"
+  },
+  "homepage": "https://gitlab.com/logomotion/rochedor-nsi#README",
+  "dependencies": {
+    "@symfony/webpack-encore": "^0.20.1",
+    "node-sass": "^4.9.0",
+    "sass": "^1.3.2",
+    "sass-loader": "^7.0.1",
+    "standard": "^11.0.1"
+  }
+}
