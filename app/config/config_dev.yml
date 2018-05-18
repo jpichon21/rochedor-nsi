@@ -39,3 +39,6 @@ doctrine:
         password: '%database_password%'
         charset: UTF8
         path: '%kernel.project_dir%/var/data/data.sqlite'
+translation:
+    symfony_profiler:
+        enabled: true
