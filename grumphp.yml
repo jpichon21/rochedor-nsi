@@ -27,3 +27,7 @@ parameters:
             end_point: ~
             timeout: ~
             run_always: false
+        npm_script:
+            script: 'standard'
+            triggered_by: [js, jsx, ts, sass, scss]
+            is_run_task: true
