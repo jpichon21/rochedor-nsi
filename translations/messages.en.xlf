@@ -1,16 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
-  <file id="messages.en">
-    <unit id="3P24U.9" name="home.title">
-      <notes>
-        <note category="file-source" priority="1">app/Resources/views/default/index.html.twig:6</note>
-        <note category="file-source" priority="1">app/Resources/views/default/index.html.twig:12</note>
-        <note category="state" priority="1">new</note>
-      </notes>
-      <segment>
-        <source>home.title</source>
-        <target>Hello world</target>
-      </segment>
-    </unit>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="XLjEtrS" resname="menu.one">
+        <source>menu.one</source>
+        <target>__menu.one</target>
+      </trans-unit>
+      <trans-unit id="td1g_X_" resname="menu.two">
+        <source>menu.two</source>
+        <target>__menu.two</target>
+      </trans-unit>
+      <trans-unit id="_QTPx9b" resname="menu.three">
+        <source>menu.three</source>
+        <target>__menu.three</target>
+      </trans-unit>
+      <trans-unit id="QokeGaI" resname="menu.one.one">
+        <source>menu.one.one</source>
+        <target>__menu.one.one</target>
+      </trans-unit>
+      <trans-unit id="DY.PFaX" resname="menu.one.two">
+        <source>menu.one.two</source>
+        <target>__menu.one.two</target>
+      </trans-unit>
+      <trans-unit id="ABGsIRc" resname="menu.one.three">
+        <source>menu.one.three</source>
+        <target>__menu.one.three</target>
+      </trans-unit>
+      <trans-unit id="5vJ0eNt" resname="menu.one.four">
+        <source>menu.one.four</source>
+        <target>__menu.one.four</target>
+      </trans-unit>
+      <trans-unit id="TfDK6ic" resname="menu.two.one">
+        <source>menu.two.one</source>
+        <target>__menu.two.one</target>
+      </trans-unit>
+      <trans-unit id="zFwSu3O" resname="menu.two.two">
+        <source>menu.two.two</source>
+        <target>__menu.two.two</target>
+      </trans-unit>
+      <trans-unit id="OipSnvA" resname="menu.two.three">
+        <source>menu.two.three</source>
+        <target>__menu.two.three</target>
+      </trans-unit>
+      <trans-unit id="NEzhIK_" resname="menu.two.four">
+        <source>menu.two.four</source>
+        <target>__menu.two.four</target>
+      </trans-unit>
+      <trans-unit id="d2ahr5A" resname="menu.four">
+        <source>menu.four</source>
+        <target>__menu.four</target>
+      </trans-unit>
+      <trans-unit id="yImul.f" resname="menu.five">
+        <source>menu.five</source>
+        <target>__menu.five</target>
+      </trans-unit>
+      <trans-unit id="Uu.vp07" resname="menu.six">
+        <source>menu.six</source>
+        <target>__menu.six</target>
+      </trans-unit>
+      <trans-unit id="Ne9wirQ" resname="menu.four.one">
+        <source>menu.four.one</source>
+        <target>__menu.four.one</target>
+      </trans-unit>
+      <trans-unit id="t9xDnqi" resname="menu.four.two">
+        <source>menu.four.two</source>
+        <target>__menu.four.two</target>
+      </trans-unit>
+      <trans-unit id="xm3Wl2D" resname="menu.four.three">
+        <source>menu.four.three</source>
+        <target>__menu.four.three</target>
+      </trans-unit>
+      <trans-unit id="ADfxTyP" resname="menu.four.four">
+        <source>menu.four.four</source>
+        <target>__menu.four.four</target>
+      </trans-unit>
+      <trans-unit id="rehny29" resname="menu.five.one">
+        <source>menu.five.one</source>
+        <target>__menu.five.one</target>
+      </trans-unit>
+      <trans-unit id="JQrk3we" resname="menu.five.two">
+        <source>menu.five.two</source>
+        <target>__menu.five.two</target>
+      </trans-unit>
+      <trans-unit id="Vvb_xEv" resname="menu.five.three">
+        <source>menu.five.three</source>
+        <target>__menu.five.three</target>
+      </trans-unit>
+      <trans-unit id="aY4iGkg" resname="menu.six.one">
+        <source>menu.six.one</source>
+        <target>__menu.six.one</target>
+      </trans-unit>
+      <trans-unit id="nrz9.5B" resname="menu.six.two">
+        <source>menu.six.two</source>
+        <target>__menu.six.two</target>
+      </trans-unit>
+    </body>
   </file>
 </xliff>
