@@ -1,14 +1,74 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Hello world</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/main.css") }}" />
-    <script src="{{ asset("assets/js/main.js") }}" defer async></script>
-</head>
-<body>
-    <h1>Hello world</h1>
-</body>
-</html>
+{% set bodyClass = "home" %}
+{% set bodyBackground = asset('assets/img/fallback.jpg') %}
+{% extends "layout.html.twig" %}
+{% block content %}
+<div class="animation-intro">
+    <div class="element">
+        <div class="logo"></div>
+    </div>
+</div>
+<div class="overlay-begin"></div>
+<div class="swipe-background"></div>
+<section class="swipe-section">
+    <article class="article-1 align-left">
+        <div class="box">
+            <h2><small>La communauté </small>et ses maisons</h2>
+            <i>Dieu n'a pas d'habitude ! <br>Il bouge tout le temps, <br>et nous devons toujours être en avance, <br>sur notre propre devenir !</i>
+            <span>Florin Callerand</span>
+            <a class="button yellow" href="#">Découvrir</a>
+        </div>
+        <div class="scroll-down">
+            <img src="{{ asset('assets/img/scroll.png') }}">
+        </div>
+        <div class="nouveautes">
+            <h2>Nouveautés</h2>
+            <i>Pour les 100 ans de Florin Callerand "Un regard croise les écrits de Florin Callerand, prophète pour ces temps"</i>
+            <div class="text">
+                <p>En cette année 2017 où sont fêtés les cent ans de la naissance de Florin Callerand (1917-1998), ce bel ouvrage vient célébrer les nuances fines et puissantes de toute sa vie !</p>
+                <p>Il y aurait tant à dire de ce prêtre franc-comtois, fondateur du Foyer de Charité de La Roche d'Or...</p>
+            </div>
+            <a class="button black" href="#">Lire la suite</a>
+        </div>
+    </article>
+    <article class="article-2 align-right">
+        <div class="box">
+            <h2><small>Les </small>retraites</h2>
+            <i>Toute personne en recherche <br>d'approfondissement de sa foi ou en quête <br>du sens de sa vie, face aux questions <br>existentielles soulevées par la société <br>d'aujourd'hui.</i>
+            <a class="button yellow" href="#">Découvrir</a>
+        </div>
+    </article>
+    <article class="article-3 align-left">
+        <div class="box">
+            <h2><small>Le </small>calendrier</h2>
+            <i>Chacun, en communauté, <br>est la perle précieuse <br>sur qui Dieu compte totalement <br>pour le Bien Commun.</i>
+            <span>Florin Callerand</span>
+            <a class="button yellow" href="#">Découvrir</a>
+        </div>
+    </article>
+    <article class="article-4 align-right">
+        <div class="box">
+            <h2><small>Nous </small>soutenir</h2>
+            <i>Marche avec Dieu <br>comme avec un ami, <br>il te fera voir le monde <br>à sa façon !</i>
+            <a class="button yellow" href="#">Découvrir</a>
+        </div>
+    </article>
+    <article class="article-5 right align-right">
+        <div class="box">
+            <h2><small>Les éditions </small>de la roche d'or</h2>
+            <i>Dieu est mis au banc des accusés : <br>Pourquoi permet-il tout cela? <br>Question éternellement posée...</i>
+            <a class="button yellow" href="#">Découvrir</a>
+        </div>
+    </article>
+    <article class="article-6 right align-left">
+        <div class="box">
+            <h2><small>Informations </small>et contacts</h2>
+            <i>L'âge achevé de la vraie mystique, <br>c'est de voir Dieu présent dans la matière.</i>
+            <span>Florin Callerand</span>
+            <a class="button yellow" href="#">Découvrir</a>
+        </div>
+    </article>
+</section>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset("assets/js/home.js") }}"></script>
+{% endblock %}
