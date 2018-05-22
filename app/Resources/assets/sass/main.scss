@@ -481,15 +481,11 @@ body.intro {
   to { top: 58px; }
 }
 
-/* Flotype */
+/* Page */
 
-body.flotype {
+body.page {
   height: 100vh;
   overflow: hidden;
-  background-image: url('../img/background-flotype.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
   .header {
     .right {
       .sub-menu {
@@ -510,7 +506,7 @@ body.flotype {
   }
   .footer {
     .hover {
-      background-image: url('../img/background-flotype.png');
+      background-image: url('../img/background-page.png');
     }
   }
 }
@@ -809,7 +805,7 @@ body.flotype {
 
 /* Home */
 
-.home {
+body.home {
   position: relative;
   overflow-x: hidden;
   section {
