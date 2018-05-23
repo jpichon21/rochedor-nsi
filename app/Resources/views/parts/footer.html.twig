@@ -1,5 +1,5 @@
 <div class="footer">
-    <div class="hover" style="{{ asset(bodyBackground)|background }}">
+    <div class="hover" {% if bodyClass != 'home' %}style="{{ asset(bodyBackground)|background }}"{% endif %}>
         <div class="top">
             <span>Informations pratiques</span>
             <span>Conditions d'utilisation</span>
