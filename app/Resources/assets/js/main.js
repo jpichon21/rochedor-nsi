@@ -1,6 +1,5 @@
 import $ from 'jquery'
 import Velocity from 'velocityjs'
-import 'magnific-popup-js'
 
 /* Zoom Text */
 

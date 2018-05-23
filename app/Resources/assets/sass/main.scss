@@ -15,6 +15,9 @@ body {
   display: flex;
   flex-direction: column;
   font-family: 'Azo Sans', sans-serif;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -504,11 +507,6 @@ body.page {
       }
     }
   }
-  .footer {
-    .hover {
-      background-image: url('../img/background-page.png');
-    }
-  }
 }
 
 .content {
@@ -658,7 +656,7 @@ body.page {
           z-index: 0;
         }
         p,
-        .author {
+        strong {
           position: relative;
           animation-name: blockquoteEnter;
           animation-duration: 0.8s;
@@ -668,14 +666,18 @@ body.page {
           z-index: 1;
         }
         p {
+          margin: 0;
           font-family: 'Playfair Display', serif;
           font-size: 18px;
           font-style: italic;
           line-height: 24px;
         }
-        .author {
+        strong {
+          display: block;
+          margin-top: 15px;
           font-family: 'Lato', sans-serif;
           font-size: 12px;
+          font-style: normal;
           text-transform: uppercase;
         }
       }
@@ -683,7 +685,7 @@ body.page {
   }
 }
 
-.carrousel {
+.carousel {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -767,7 +769,7 @@ body.page {
             background-image: url('../img/plus.png');
             z-index: 1;
           }
-          &.youtube {
+          &.iframe {
             &:after {
               background-image: url('../img/play.png');
             }
@@ -1003,11 +1005,6 @@ body.intervenants {
   .content {
     flex-direction: column;
   }
-  .footer {
-    .hover {
-      background-image: url('../img/background-retraites.jpg');
-    }
-  }
   .zone {
     width: 100%;
     padding: 120px 100px 0;
@@ -1120,70 +1117,11 @@ body.calendrier {
   .content {
     flex-direction: column;
   }
-  .footer {
-    .hover {
-      background-image: url('../img/background-nous-soutenir.png');
-    }
-  }
   .zone {
     position: relative;
     width: 100%;
     padding: 120px 100px 0;
     box-sizing: border-box;
-  }
-  .hover-filtre {
-    position: absolute;
-    left: 101px;
-    padding-top: 30px;
-    opacity: 0;
-    &.site {
-      top: 239px;
-      z-index: 0;
-    }
-    &.type {
-      top: 332px;
-      z-index: 1;
-    }
-    &.date {
-      top: 420px;
-      z-index: 2;
-    }
-    &.intervenant {
-      top: 555px;
-      z-index: 3;
-    }
-    &.traduction {
-      top: 649px;
-      z-index: 4;
-    }
-    &.active {  
-      opacity: 1;
-      z-index: 5;
-    }
-  }
-  .hover-select {
-    position: absolute;
-    left: 0;
-    padding: 4px 0 5px 1490px;
-    opacity: 0;
-    &.line-1 {
-      top: 299px;
-    }
-    &.line-2 {
-      top: 354px;
-    }
-    &.line-3 {
-      top: 407px;
-    }
-    &.line-4 {
-      top: 498px;
-    }
-    &.line-5 {
-      top: 551px;
-    }
-    &:hover {  
-      opacity: 1;
-    }
   }
 }
 
@@ -1207,11 +1145,6 @@ body.nous-soutenir {
       .zone {
         padding: 210px 100px 0 0;
       }
-    }
-  }
-  .footer {
-    .hover {
-      background-image: url('../img/background-nous-soutenir.png');
     }
   }
   .dropdown {
@@ -1260,11 +1193,6 @@ body.infos {
       .zone {
         padding: 210px 100px 0 0;
       }
-    }
-  }
-  .footer {
-    .hover {
-      background-image: url('../img/background-nous-soutenir.png');
     }
   }
 }
@@ -1334,9 +1262,6 @@ body.editions-collections {
     width: 100%;
     bottom: 0;
     z-index: 2;
-    .hover {
-      background-image: url('../img/background-editions.png');
-    }
   }
   .zone {
     width: 100%;
@@ -1576,7 +1501,7 @@ body {
           font-size: 20px;
           line-height: 24px;
         }
-        .author {
+        strong {
           font-size: 16px;
         }
       }
@@ -1628,7 +1553,7 @@ body {
           font-size: 22px;
           line-height: 26px;
         }
-        .author {
+        strong {
           font-size: 18px;
         }
       }

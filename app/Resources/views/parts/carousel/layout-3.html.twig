@@ -1,0 +1,8 @@
+<div class="top">
+    <div class="left">
+        <a class="full {{ images[0].type }}" title="{{ images[0].alt }}" href="{% if (images[0].type == 'iframe') %}{{ asset(images[0].youtubeId) }}{% else %}{{ asset(images[0].url) }}{% endif %}" style="{{ asset(images[0].url)|background }}"></a>
+    </div>
+    <div class="right">
+        <a class="full {{ images[1].type }}" title="{{ images[1].alt }}" href="{% if (images[1].type == 'iframe') %}{{ asset(images[1].youtubeId) }}{% else %}{{ asset(images[1].url) }}{% endif %}" style="{{ asset(images[1].url)|background }}"></a>
+    </div>
+</div>

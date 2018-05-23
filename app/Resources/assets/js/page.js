@@ -1,6 +1,7 @@
 import $ from 'jquery'
+import 'magnific-popup-js'
 
-/* Carrousel */
+/* Carousel */
 
 function upElement (prev, next) {
   next.addClass('active fade')
@@ -10,28 +11,33 @@ function upElement (prev, next) {
   }, 800)
 }
 
-function changeCarrousel (reference) {
-  let prev = $('.carrousel.active')
-  let next = $('[data-carrousel-element="' + reference + '"]')
+function changeCarousel (reference) {
+  let prev = $('.carousel.active')
+  let next = $('[data-carousel-element="' + reference + '"]')
   if (!next.hasClass('active')) {
     upElement(prev, next)
   }
 }
 
 function changeSlide (direction) {
-  let carrousel = $('.carrousel.active')
-  let prev = $('.slide.active', carrousel)
+  let carousel = $('.carousel.active')
+  let prev = $('.slide.active', carousel)
   let next = prev[direction]()
   if (!next.length) {
     next = (direction === 'next')
-      ? $('.slide:first', carrousel)
-      : $('.slide:last', carrousel)
+      ? $('.slide:first', carousel)
+      : $('.slide:last', carousel)
   }
   upElement(prev, next)
 }
 
-$('.carrousel .slide a').magnificPopup({ type: 'image' })
-$('.carrousel .slide .youtube').magnificPopup({ type: 'iframe' })
+$('.carousel .prev, .carousel .next').on('click', function () {
+  let direction = $(this).hasClass('prev') ? 'prev' : 'next'
+  changeSlide(direction)
+})
+
+$('.carousel .slide .image').magnificPopup({'type': 'image'})
+$('.carousel .slide .iframe').magnificPopup({'type': 'iframe'})
 
 /* Dropdowns */
 
@@ -47,9 +53,9 @@ $('.dropdown .item').on('click', function () {
   })
   this.classList.add('active')
   updateHeightDropdown()
-  let reference = this.getAttribute('data-carrousel-id')
+  let reference = this.getAttribute('data-carousel-id')
   if (reference) {
-    changeCarrousel(reference)
+    changeCarousel(reference)
   }
 })
 

@@ -11,6 +11,7 @@ Encore
   .enableVersioning()
   .addEntry('js/main', './app/Resources/assets/js/main.js')
   .addEntry('js/home', './app/Resources/assets/js/home.js')
+  .addEntry('js/page', './app/Resources/assets/js/page.js')
   .addStyleEntry('css/main', './app/Resources/assets/sass/main.scss')
   .enableSassLoader()
   .enableVersioning()

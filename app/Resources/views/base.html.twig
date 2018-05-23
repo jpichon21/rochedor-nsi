@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/main.css") }}">
 </head>
-<body class="{{ bodyClass }}" style="background-image: url('{{ bodyBackground }}')">
+<body class="{{ bodyClass }}" style="{{ asset(bodyBackground)|background }}">
     {% include 'parts/header.html.twig' %}
     {% block content %}{% endblock %}
     {% include 'parts/footer.html.twig' %}
