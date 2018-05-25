@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="it" datatype="plaintext" original="file.ext">
+  <file source-language="fr" target-language="it" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -96,6 +96,86 @@
       <trans-unit id="nrz9.5B" resname="menu.six.two">
         <source>menu.six.two</source>
         <target>__menu.six.two</target>
+      </trans-unit>
+      <trans-unit id="_xIh0pv" resname="filter.title.site">
+        <source>filter.title.site</source>
+        <target>__filter.title.site</target>
+      </trans-unit>
+      <trans-unit id="6EbXPX3" resname="filter.title.type">
+        <source>filter.title.type</source>
+        <target>__filter.title.type</target>
+      </trans-unit>
+      <trans-unit id="YBxvI.S" resname="filter.title.intervenants">
+        <source>filter.title.intervenants</source>
+        <target>__filter.title.intervenants</target>
+      </trans-unit>
+      <trans-unit id="4A1GNtj" resname="filter.title.traductions">
+        <source>filter.title.traductions</source>
+        <target>__filter.title.traductions</target>
+      </trans-unit>
+      <trans-unit id="ZsqTtfH" resname="filter.inner.default">
+        <source>filter.inner.default</source>
+        <target>__filter.inner.default</target>
+      </trans-unit>
+      <trans-unit id="WJZTCIa" resname="filter.inner.selection.singular">
+        <source>filter.inner.selection.singular</source>
+        <target>__filter.inner.selection.singular</target>
+      </trans-unit>
+      <trans-unit id="TRhsePV" resname="filter.inner.selection.plural">
+        <source>filter.inner.selection.plural</source>
+        <target>__filter.inner.selection.plural</target>
+      </trans-unit>
+      <trans-unit id="FM0PXMD" resname="filter.inner.date.in">
+        <source>filter.inner.date.in</source>
+        <target>__filter.inner.date.in</target>
+      </trans-unit>
+      <trans-unit id="gGyMDWm" resname="filter.inner.date.out">
+        <source>filter.inner.date.out</source>
+        <target>__filter.inner.date.out</target>
+      </trans-unit>
+      <trans-unit id="pbylFh8" resname="filter.inner.submit">
+        <source>filter.inner.submit</source>
+        <target>__filter.inner.submit</target>
+      </trans-unit>
+      <trans-unit id="wY2f8rr" resname="filter.title.keyword">
+        <source>filter.title.keyword</source>
+        <target>__filter.title.keyword</target>
+      </trans-unit>
+      <trans-unit id=".0VN0jX" resname="filter.inner.keyword">
+        <source>filter.inner.keyword</source>
+        <target>__filter.inner.keyword</target>
+      </trans-unit>
+      <trans-unit id="Q6jhgTg" resname="retreats.table.head.dates">
+        <source>retreats.table.head.dates</source>
+        <target>__retreats.table.head.dates</target>
+      </trans-unit>
+      <trans-unit id="fxGgGMw" resname="retreats.table.head.sites">
+        <source>retreats.table.head.sites</source>
+        <target>__retreats.table.head.sites</target>
+      </trans-unit>
+      <trans-unit id="2kGPPNK" resname="retreats.table.head.events">
+        <source>retreats.table.head.events</source>
+        <target>__retreats.table.head.events</target>
+      </trans-unit>
+      <trans-unit id="z44_LRk" resname="retreats.table.head.speakers">
+        <source>retreats.table.head.speakers</source>
+        <target>__retreats.table.head.speakers</target>
+      </trans-unit>
+      <trans-unit id="gYOavAc" resname="retreats.table.head.types">
+        <source>retreats.table.head.types</source>
+        <target>__retreats.table.head.types</target>
+      </trans-unit>
+      <trans-unit id="0j2BAw_" resname="retreats.table.head.durations">
+        <source>retreats.table.head.durations</source>
+        <target>__retreats.table.head.durations</target>
+      </trans-unit>
+      <trans-unit id="33juit3" resname="retreats.table.head.translations">
+        <source>retreats.table.head.translations</source>
+        <target>__retreats.table.head.translations</target>
+      </trans-unit>
+      <trans-unit id="7tmJeqV" resname="retreats.table.head.selections">
+        <source>retreats.table.head.selections</source>
+        <target>__retreats.table.head.selections</target>
       </trans-unit>
     </body>
   </file>

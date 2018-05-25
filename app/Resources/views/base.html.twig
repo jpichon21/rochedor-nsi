@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://use.typekit.net/ozm6rkb.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/main.css") }}">
+    {% block stylesheets %}{% endblock %}
 </head>
 <body class="{{ bodyClass }}" style="{{ asset(bodyBackground)|background }}">
     {% include 'parts/header.html.twig' %}

@@ -1,0 +1,113 @@
+{% set bodyClass = "calendrier" %}
+{% set bodyBackground = page.background %}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/calendrier.css") }}">
+{% endblock %}
+{% block content %}
+<div class="content">
+    <h1><small>{{ page.title1 }} </small>{{ page.title2 }}</h1>
+    <div class="zone">
+        <div class="left">
+            <div class="filters">
+                {% include 'parts/filter.html.twig' with {
+                    'name': 'site',
+                    'items': sites,
+                    'title': 'filter.title.site' | trans(),
+                    'abbreviation': true } %}
+                {% include 'parts/filter.html.twig' with {
+                    'name': 'type',
+                    'items': types,
+                    'title': 'filter.title.type' | trans(),
+                    'abbreviation': true } %}
+                <div class="filter dates">
+                    <span class="title">Dates</span>
+                    <div class="date-in">{{ 'filter.inner.date.in' | trans() }} <span></span></div>
+                    <div class="calendar-in"></div>
+                    <div class="date-out">{{ 'filter.inner.date.out' | trans() }} <span></span></div>
+                    <div class="calendar-out"></div>
+                    <button class="submit">{{ 'filter.inner.submit' | trans() }}</button>
+                </div>
+                {% include 'parts/filter.html.twig' with {
+                    'name': 'intervenants',
+                    'items': intervenants,
+                    'title': 'filter.title.intervenants' | trans(),
+                    'abbreviation': false } %}
+                {% include 'parts/filter.html.twig' with {
+                    'name': 'traductions',
+                    'items': traductions,
+                    'title': 'filter.title.traductions' | trans(),
+                    'abbreviation': false } %}
+                <div class="filter keywords">
+                    <span class="title">{{ 'filter.title.keyword' | trans() }}</span>
+                    <input type="text" value="{{ 'filter.inner.keyword' | trans() }}">
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="retreats-table">
+                <div class="head">
+                    <span>{{ 'retreats.table.head.dates' | trans() }}</span>
+                    <span class="center">{{ 'retreats.table.head.sites' | trans() }}</span>
+                    <span>{{ 'retreats.table.head.events' | trans() }}</span>
+                    <span>{{ 'retreats.table.head.speakers' | trans() }}</span>
+                    <span class="center">{{ 'retreats.table.head.types' | trans() }}</span>
+                    <span class="center">{{ 'retreats.table.head.durations' | trans() }}</span>
+                    <span class="center">{{ 'retreats.table.head.translations' | trans() }}</span>
+                </div>
+                <div class="body">
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+{% endblock %}
+{% block javascripts %}
+<script type="text/template" class="calendar-template">
+    <div class="clndr-controls">
+        <div class="clndr-control-button">
+            <span class="clndr-previous-button">previous</span>
+        </div>
+        <div class="month"><%= month %> <%= year %></div>
+        <div class="clndr-control-button rightalign">
+            <span class="clndr-next-button">next</span>
+        </div>
+    </div>
+    <table class="clndr-table" border="0" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr class="header-days">
+            <% for(var i = 0; i < daysOfTheWeek.length; i++) { %>
+                <td class="header-day"><%= daysOfTheWeek[i] %></td>
+            <% } %>
+            </tr>
+        </thead>
+        <tbody>
+        <% for(var i = 0; i < numberOfRows; i++){ %>
+            <tr>
+            <% for(var j = 0; j < 7; j++){ %>
+            <% var d = j + i * 7; %>
+                <td class="<%= days[d].classes %>">
+                    <div class="day-contents"><%= ('0' + days[d].day).slice(-2) %></div>
+                </td>
+            <% } %>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+</script>
+<script type="text/template" class="retreats-template">
+    <% for(var i = 0; i < retreats.length; i++){ %>
+        <div class="retreat">
+            <span class="dates"><%= retreats[i].dates %></span>
+            <span class="site center" style="color: <%= retreats[i].site.color %>"><%= retreats[i].site.abbr %></span>
+            <span class="event"><%= retreats[i].event %></span>
+            <span class="speaker"><%= retreats[i].speaker %></span>
+            <span class="type center"><i style="color: <%= retreats[i].type.color %>"></i><%= retreats[i].type.abbr %></span>
+            <span class="duration center"><%= retreats[i].duration %></span>
+            <span class="translation center"><%= retreats[i].translation %></span>
+        </div>
+    <% } %>
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+<script src="{{ asset("assets/js/calendrier.js") }}"></script>
+{% endblock %}
