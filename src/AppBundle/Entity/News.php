@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
 
 /**
  * News
@@ -28,7 +27,6 @@ class News
      * @var string
      *
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
      * @ORM\Column(name="intro", type="text", nullable=true)
      */
     private $intro;
@@ -37,7 +35,6 @@ class News
      * @var string
      *
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
      * @ORM\Column(name="description", type="text")
      */
     private $description;
@@ -46,7 +43,6 @@ class News
      * @var string
      *
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
      * @ORM\Column(name="url", type="string", length=255, nullable=true)
      */
     private $url;
@@ -67,6 +63,13 @@ class News
      */
     private $stop;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="locale", type="string", length=10, nullable=true)
+     */
+    private $locale;
 
     /**
      * Get id
@@ -196,5 +199,29 @@ class News
     public function getStop()
     {
         return $this->stop;
+    }
+
+    /**
+     * Set locale
+     *
+     * @param string $locale
+     *
+     * @return News
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     * Get locale
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
     }
 }
