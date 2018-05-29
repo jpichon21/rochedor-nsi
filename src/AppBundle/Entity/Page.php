@@ -15,6 +15,7 @@ use Gedmo\Loggable\Entity\MappedSuperclass\AbstractLogEntry;
  *
  * @ORM\Table(name="page")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PageRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @Gedmo\Loggable
  */
 class Page
@@ -103,6 +104,13 @@ class Page
      * cascade={"persist", "remove"})
      */
     private $routes;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated", type="datetime", nullable=true)
+     */
+    private $updated;
 
     public function __construct()
     {
@@ -360,5 +368,38 @@ class Page
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateModified()
+    {
+        $this->setUpdated(new \DateTime());
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Page
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }
