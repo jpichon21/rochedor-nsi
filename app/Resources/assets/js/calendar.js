@@ -71,6 +71,7 @@ $('.filter').on('change', function () {
   } else {
     $('.value .plural', $(this)).addClass('active')
   }
+  updateFilters()
 })
 
 $('.filters .keywords input').on('focus', function () {
@@ -95,14 +96,37 @@ function updateRetreats (data) {
 
 updateRetreats(retreatsData)
 
-const isAtLRDO = (retreat) => retreat.site.abbr === 'RO'
+function applyFilters (filters) {
+  const retreats = retreatsData.filter((retreat) => {
+    if (filters['site'].length === 0) { return true }
+    return filters['site'].indexOf(retreat.site.abbr) >= 0
+  }).filter((retreat) => {
+    if (filters['type'].length === 0) { return true }
+    return filters['type'].indexOf(retreat.type.value) >= 0
+  }).filter((retreat) => {
+    if (filters['speaker'].length === 0) { return true }
+    return filters['speaker'].indexOf(retreat.speaker.value) >= 0
+  }).filter((retreat) => {
+    if (filters['translation'].length === 0) { return true }
+    return filters['translation'].indexOf(retreat.translation) >= 0
+  })
+  console.log(retreats)
+  updateRetreats(retreats)
+}
 
-let resultSet = query()
-  .select()
-  .from(retreatsData)
-  .where(isAtLRDO)
-  .execute()
-
-setTimeout(() => {
-  updateRetreats(resultSet)
-}, 2000)
+function updateFilters () {
+  let filtersActived = {
+    site: [],
+    type: [],
+    speaker: [],
+    translation: []
+  }
+  $('.filter').each(function () {
+    const values = $(this).serializeArray()
+    $.each(values, function (key, elmt) {
+      filtersActived[elmt.name].push(elmt.value)
+    })
+  })
+  console.log(filtersActived)
+  applyFilters(filtersActived)
+}

@@ -29,14 +29,14 @@
                     <button class="submit">{{ 'filter.inner.submit' | trans() }}</button>
                 </div>
                 {% include 'parts/filter.html.twig' with {
-                    'name': 'intervenants',
-                    'items': intervenants,
-                    'title': 'filter.title.intervenants' | trans(),
+                    'name': 'speaker',
+                    'items': speakers,
+                    'title': 'filter.title.speakers' | trans(),
                     'abbreviation': false } %}
                 {% include 'parts/filter.html.twig' with {
-                    'name': 'traductions',
-                    'items': traductions,
-                    'title': 'filter.title.traductions' | trans(),
+                    'name': 'translation',
+                    'items': translations,
+                    'title': 'filter.title.translations' | trans(),
                     'abbreviation': false } %}
                 <div class="filter keywords">
                     <span class="title">{{ 'filter.title.keyword' | trans() }}</span>
@@ -121,7 +121,7 @@
         </td>
         <td class="site center" style="color: <%= retreats[i].site.color %>"><%= retreats[i].site.abbr %></td>
         <td class="event"><%= retreats[i].event %></td>
-        <td class="speaker"><%= retreats[i].speaker %></td>
+        <td class="speaker"><%= retreats[i].speaker.name %></td>
         <td class="type center"><i style="color: <%= retreats[i].type.color %>"></i><%= retreats[i].type.abbr %></td>
         <td class="duration center"><%= retreats[i].duration %></td>
         <td class="translation center"><%= retreats[i].translation %></td>

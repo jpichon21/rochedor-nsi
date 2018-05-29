@@ -11,8 +11,13 @@ export const retreatsData = [
       color: '#00ff00'
     },
     event: 'Posuere nostrud posuere quis vero exercitationem quis viverra.',
-    speaker: 'Père Bernanrd Miserez',
+    speaker: {
+      name: 'Père Bernanrd Miserez',
+      value: 'pere_bernanrd_miserez'
+    },
     type: {
+      name: 'Week-end Temps fort',
+      value: 'week_end_temps_fort',
       abbr: 'W',
       color: '#00B6E8'
     },
@@ -29,8 +34,13 @@ export const retreatsData = [
       color: '#ffff00'
     },
     event: 'Dolorum porta luctus quam hac, sociis, quidem irure habitant molestie!',
-    speaker: 'Bruno Barral',
+    speaker: {
+      name: 'Bruno Barral',
+      value: 'bruno_barral'
+    },
     type: {
+      name: 'Retraite à l\'écoute de l\'Evangile',
+      value: 'retraite_a_lecoute_de_levangile',
       abbr: 'R',
       color: '#31BF31'
     },
@@ -47,8 +57,13 @@ export const retreatsData = [
       color: '#ffff00'
     },
     event: 'Dolorum porta luctus quam hac, sociis, quidem irure habitant molestie!',
-    speaker: 'Bruno Barral',
+    speaker: {
+      name: 'Bruno Barral',
+      value: 'bruno_barral'
+    },
     type: {
+      name: 'Retraite à l\'écoute de l\'Evangile',
+      value: 'retraite_a_lecoute_de_levangile',
       abbr: 'R',
       color: '#31BF31'
     },
@@ -65,8 +80,13 @@ export const retreatsData = [
       color: '#00ff00'
     },
     event: 'Mollitia do adipisci massa et venenatis totam magni unde, laoreet.',
-    speaker: 'Père Olivier Sournia',
+    speaker: {
+      name: 'Père Olivier Sournia',
+      value: 'pere_olivier_sournia'
+    },
     type: {
+      name: 'Retraite Fondamentale',
+      value: 'retraite_fondamentale',
       abbr: 'F',
       color: '#E10076'
     },
@@ -83,8 +103,13 @@ export const retreatsData = [
       color: '#00ff00'
     },
     event: 'Ornare placerat mollis eros taciti nostrud cupidatat voluptate, adipisci venenatis.',
-    speaker: 'Père Bernanrd Miserez',
+    speaker: {
+      name: 'Père Bernanrd Miserez',
+      value: 'pere_bernanrd_miserez'
+    },
     type: {
+      name: 'Week-end Temps fort',
+      value: 'week_end_temps_fort',
       abbr: 'W',
       color: '#00B6E8'
     },
