@@ -7,12 +7,20 @@ import Moment from 'moment'
 export class PageList extends React.Component {
   constructor (props) {
     super(props)
+    console.log(props)
+    this.setTitle = this.setTitle.bind(this)
     this.state = {
 
     }
   }
   componentWillMount () {
     this.props.dispatch(getPages())
+  }
+  componentDidMount () {
+    this.setTitle()
+  }
+  setTitle () {
+    this.props.title('Liste des pages')
   }
   render () {
     Moment.locale('fr')
