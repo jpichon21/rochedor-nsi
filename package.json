@@ -21,6 +21,8 @@
   },
   "homepage": "https://gitlab.com/logomotion/rochedor-nsi#README",
   "dependencies": {
+    "@material-ui/core": "^1.1.0",
+    "@material-ui/icons": "^1.1.0",
     "@symfony/webpack-encore": "^0.20.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
@@ -32,6 +34,7 @@
     "jquery-zoom": "^1.7.21",
     "jquery.easing": "^1.4.1",
     "magnific-popup": "^1.1.0",
+    "moment": "^2.22.1",
     "node-sass": "^4.9.0",
     "path": "^0.12.7",
     "react": "^16.4.0",

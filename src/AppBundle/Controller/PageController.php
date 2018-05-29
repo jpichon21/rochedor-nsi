@@ -53,9 +53,13 @@ class PageController extends Controller
      * @Rest\Get("/pages")
      * @Rest\View()
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
-        $pages = $this->getDoctrine()->getRepository('AppBundle:Page')->findAll();
+        $locale = ($request->query->has('locale')) ?
+            $request->query->get('locale') :
+            $this->container->getParameter('locale');
+        
+        $pages = $this->getDoctrine()->getRepository('AppBundle:Page')->findByLocale($locale);
         if (empty($pages)) {
             return new JsonResponse("Page not found", Response::HTTP_NOT_FOUND);
         } else {
