@@ -5,3 +5,6 @@ rest_api:
     type: rest
     prefix: /api
     resource: '@AppBundle/Resources/config/rest_routes.yml'
+file:
+    resource: "@AppBundle/Controller/FileController.php"
+    type:     annotation

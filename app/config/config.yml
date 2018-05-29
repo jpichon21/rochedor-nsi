@@ -5,6 +5,7 @@ imports:
 
 parameters:
     locale: fr
+    files_directory: '%kernel.root_dir%/../web/uploads'
 
 framework:
     secret: '%secret%'
@@ -89,6 +90,6 @@ fos_rest:
         serialize_null: true
     format_listener:
         rules:
+        - { path: '^/api/file', priorities: [ 'text/html', '*/*'], fallback_format: html, prefer_extension: true }
         - { path: '^/api', priorities: ['json'], fallback_format: 'json' }
-        - { path: '^/', priorities: [ 'html', '*/*'], fallback_format: ~, prefer_extension: true }
     
