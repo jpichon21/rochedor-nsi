@@ -1,12 +1,13 @@
 import $ from 'jquery'
 import moment from 'moment'
 import 'clndr'
-import 'datattables'
+import query from 'sql-js'
+import { retreatsData } from './sample'
 
 moment.locale('fr')
 
-let dateToday = moment().format('LL')
-let dateOneYear = moment().add(1, 'y').format('LL')
+const dateToday = moment().format('LL')
+const dateOneYear = moment().add(1, 'y').format('LL')
 
 $('.date-in span').text(dateToday)
 $('.date-out span').text(dateOneYear)
@@ -56,11 +57,11 @@ $('.filter').on('click', function () {
 })
 
 $('.filter').on('change', function () {
-  let values = []
+  const values = []
   $(this).find('input:checked').each(function (index) {
     values.push($(this).val())
   })
-  let count = values.length
+  const count = values.length
   $('.value .count', $(this)).text(count)
   $('.value div', $(this)).removeClass('active')
   if (count === 0) {
@@ -84,87 +85,24 @@ $('.filters .keywords input').on('blur', function () {
   }
 })
 
-let retreatsData = [
-  {
-    dates: [
-      '01-08-2018',
-      '05-08-2018'
-    ],
-    site: {
-      abbr: 'RO',
-      color: '#00ff00'
-    },
-    event: 'Posuere nostrud posuere quis vero exercitationem quis viverra.',
-    speaker: 'Père Bernanrd Miserez',
-    type: {
-      abbr: 'W',
-      color: '#00B6E8'
-    },
-    duration: '2 jours',
-    translation: 'en'
-  },
-  {
-    dates: [
-      '07-08-2018',
-      '09-09-2018'
-    ],
-    site: {
-      abbr: 'RO',
-      color: '#00ff00'
-    },
-    event: 'Mollitia do adipisci massa et venenatis totam magni unde, laoreet.',
-    speaker: 'Père Olivier Sournia',
-    type: {
-      abbr: 'F',
-      color: '#E10076'
-    },
-    duration: '2 jours',
-    translation: 'fr'
-  },
-  {
-    dates: [
-      '01-08-2018',
-      '05-08-2018'
-    ],
-    site: {
-      abbr: 'FT',
-      color: '#ffff00'
-    },
-    event: 'Dolorum porta luctus quam hac, sociis, quidem irure habitant molestie!',
-    speaker: 'Bruno Barral',
-    type: {
-      abbr: 'R',
-      color: '#31BF31'
-    },
-    duration: '5 jours',
-    translation: 'es'
-  },
-  {
-    dates: [
-      '07-12-2018',
-      '09-12-2018'
-    ],
-    site: {
-      abbr: 'RO',
-      color: '#00ff00'
-    },
-    event: 'Ornare placerat mollis eros taciti nostrud cupidatat voluptate, adipisci venenatis.',
-    speaker: 'Père Bernanrd Miserez',
-    type: {
-      abbr: 'W',
-      color: '#00B6E8'
-    },
-    duration: '3 jours',
-    translation: 'it'
-  }
-]
-
-let retreatsTemplate = _.template($('.retreats-template').html())
+const retreatsTemplate = _.template($('.retreats-template').html())
 
 function updateRetreats (data) {
-  $('.retreats-table .body').html(retreatsTemplate({
+  $('.retreats-table tbody').html(retreatsTemplate({
     retreats: data
   }))
 }
 
 updateRetreats(retreatsData)
+
+const isAtLRDO = (retreat) => retreat.site.abbr === 'RO'
+
+let resultSet = query()
+  .select()
+  .from(retreatsData)
+  .where(isAtLRDO)
+  .execute()
+
+setTimeout(() => {
+  updateRetreats(resultSet)
+}, 2000)

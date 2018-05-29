@@ -12,9 +12,9 @@ Encore
   .addEntry('js/main', './app/Resources/assets/js/main.js')
   .addEntry('js/home', './app/Resources/assets/js/home.js')
   .addEntry('js/page', './app/Resources/assets/js/page.js')
-  .addEntry('js/calendrier', './app/Resources/assets/js/calendrier.js')
+  .addEntry('js/calendar', './app/Resources/assets/js/calendar.js')
   .addStyleEntry('css/main', './app/Resources/assets/sass/main.scss')
-  .addStyleEntry('css/calendrier', './app/Resources/assets/sass/calendrier.scss')
+  .addStyleEntry('css/calendar', './app/Resources/assets/sass/calendar.scss')
   .enableSassLoader()
   .enableVersioning()
   .addPlugin(new webpack.optimize.UglifyJsPlugin({
@@ -33,8 +33,7 @@ config.resolve.alias = {
   'ScrollMagic': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'),
   'animation.gsap': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'),
   'magnific-popup-js': path.resolve('node_modules', 'magnific-popup/dist/jquery.magnific-popup.js'),
-  'magnific-popup-css': path.resolve('node_modules', 'magnific-popup/src/css/main.scss'),
-  'datattables': path.resolve('node_modules', 'datatables/media/js/jquery.dataTables.js')
+  'magnific-popup-css': path.resolve('node_modules', 'magnific-popup/src/css/main.scss')
 }
 
 module.exports = config

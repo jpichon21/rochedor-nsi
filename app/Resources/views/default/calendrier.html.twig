@@ -1,8 +1,8 @@
-{% set bodyClass = "calendrier" %}
+{% set bodyClass = "calendar" %}
 {% set bodyBackground = page.background %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-<link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/calendrier.css") }}">
+<link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/calendar.css") }}">
 {% endblock %}
 {% block content %}
 <div class="content">
@@ -45,19 +45,22 @@
             </div>
         </div>
         <div class="right">
-            <div class="retreats-table">
-                <div class="head">
-                    <span>{{ 'retreats.table.head.dates' | trans() }}</span>
-                    <span class="center">{{ 'retreats.table.head.sites' | trans() }}</span>
-                    <span>{{ 'retreats.table.head.events' | trans() }}</span>
-                    <span>{{ 'retreats.table.head.speakers' | trans() }}</span>
-                    <span class="center">{{ 'retreats.table.head.types' | trans() }}</span>
-                    <span class="center">{{ 'retreats.table.head.durations' | trans() }}</span>
-                    <span class="center">{{ 'retreats.table.head.translations' | trans() }}</span>
-                </div>
-                <div class="body">
-                </div>
-            </div>
+            <table class="retreats-table">
+                <thead>
+                    <tr>
+                        <th class="dates">{{ 'retreats.table.head.dates' | trans() }}</th>
+                        <th class="sites center">{{ 'retreats.table.head.sites' | trans() }}</th>
+                        <th class="events">{{ 'retreats.table.head.events' | trans() }}</th>
+                        <th class="speakers">{{ 'retreats.table.head.speakers' | trans() }}</th>
+                        <th class="types center">{{ 'retreats.table.head.types' | trans() }}</th>
+                        <th class="durations center">{{ 'retreats.table.head.durations' | trans() }}</th>
+                        <th class="translations center">{{ 'retreats.table.head.translations' | trans() }}</th>
+                        <th class="selections center">{{ 'retreats.table.head.selections' | trans() }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </div>    
 </div>
@@ -96,18 +99,36 @@
     </table>
 </script>
 <script type="text/template" class="retreats-template">
-    <% for(var i = 0; i < retreats.length; i++){ %>
-        <div class="retreat">
-            <span class="dates"><%= retreats[i].dates %></span>
-            <span class="site center" style="color: <%= retreats[i].site.color %>"><%= retreats[i].site.abbr %></span>
-            <span class="event"><%= retreats[i].event %></span>
-            <span class="speaker"><%= retreats[i].speaker %></span>
-            <span class="type center"><i style="color: <%= retreats[i].type.color %>"></i><%= retreats[i].type.abbr %></span>
-            <span class="duration center"><%= retreats[i].duration %></span>
-            <span class="translation center"><%= retreats[i].translation %></span>
-        </div>
+<% var lastMonth = 0 %>
+<% for (var i = 0; i < retreats.length; i++) { %>
+    <% if (retreats[i].dates[0].format('M') !== lastMonth) { %>
+    <% var lastMonth = retreats[i].dates[0].format('M') %>
+    <tr class="month">
+        <td colspan="8">
+            <%= retreats[i].dates[0].format('MMMM YYYY') %>
+        </td>
+    </tr>
     <% } %>
+    <% if (!retreats[i + 1] || retreats[i + 1].dates[0].format('M') !== lastMonth) { %>
+    <tr class="retreat last">
+    <% } else { %>
+    <tr class="retreat">
+    <% } %>
+        <td class="dates">
+            <span class="bullet"></span>
+            <span class="fadeline"></span>
+            <%= retreats[i].dates[0].format('Do MMM') %> - <%= retreats[i].dates[1].format('Do MMM') %>
+        </td>
+        <td class="site center" style="color: <%= retreats[i].site.color %>"><%= retreats[i].site.abbr %></td>
+        <td class="event"><%= retreats[i].event %></td>
+        <td class="speaker"><%= retreats[i].speaker %></td>
+        <td class="type center"><i style="color: <%= retreats[i].type.color %>"></i><%= retreats[i].type.abbr %></td>
+        <td class="duration center"><%= retreats[i].duration %></td>
+        <td class="translation center"><%= retreats[i].translation %></td>
+        <td class="selection center"><i>></i></td>
+    </tr>
+<% } %>
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
-<script src="{{ asset("assets/js/calendrier.js") }}"></script>
+<script src="{{ asset("assets/js/calendar.js") }}"></script>
 {% endblock %}

@@ -1,23 +1,25 @@
+import $ from 'jquery'
+
 /* Nouveautés */
 
 var slickNouveautes = $('.editions-nouveautes .slick').slick({
-    slidesToShow: 1,
-    arrows: false
+  slidesToShow: 1,
+  arrows: false
 })
 
-changeSlickNouveautes = function (direction) {
-    slickNouveautes.slick(direction)
+function changeSlickNouveautes (direction) {
+  slickNouveautes.slick(direction)
 }
 
 /* Details */
 
-$('.pictures .carrousel').zoom();
+$('.pictures .carrousel').zoom()
 
 var slickDetails = $('.editions-details .slick').slick({
-    slidesToShow: 1,
-    arrows: false
+  slidesToShow: 1,
+  arrows: false
 })
 
-changeSlickDetails = function (direction) {
-    slickDetails.slick(direction)
+function changeSlickDetails (direction) {
+  slickDetails.slick(direction)
 }

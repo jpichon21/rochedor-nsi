@@ -1,6 +1,6 @@
 $roche-yellow: #faf28e;
 
-body.calendrier {
+body.calendar {
   height: 100vh;
   overflow: hidden;
   .content {
@@ -263,51 +263,112 @@ body.calendrier {
 .retreats-table {
   width: 100%;
   color: $roche-yellow;
-  border-collapse: separate;
-  border-spacing: 20px 0;
-  .head {
+  thead {
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 1.4px;
     text-transform: uppercase;
-    span {
+    th {
       position: relative;
-      padding-bottom: 10px;
+      padding: 10px 20px;
+      text-align: left;
+      border-bottom: 1px #575432 solid;
+      &.sites {
+        padding-right: 20px;
+      }
+      &.dates {
+        padding-left: 0;
+      }
+      &.selections {
+        padding-right: 0;
+      }
     }
   }
-  .body {
-    span {
-      padding-top: 20px;
-      font-size: 14px;
-      color: #ffffff;
-      &.center {
-        text-align: center;
-      }
-      &.right {
-        text-align: right;
-      }
-      &.event {
-        max-width: 200px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      &.type {
-        i {
-          display: inline-block;
-          width: 6px;
-          height: 6px;
-          margin-right: 5px;
-          border: 2px solid;
-          border-radius: 100%;
+  tbody {
+    tr {
+      &.month {
+        td {
+          padding: 20px 0 10px;
+          font-size: 12px;
+          font-weight: 500;
+          letter-spacing: 1.4px;
+          text-transform: uppercase;
         }
       }
-      &.duration {
-        color: $roche-yellow;
+      &.retreat {
+        td {
+          padding: 10px 20px;
+          font-size: 14px;
+          color: #ffffff;
+          border-bottom: 1px #262626 solid;
+          &.dates {
+            padding-left: 30px;
+            white-space: nowrap;
+          }
+          &.site {
+            height: 28px;
+            padding-right: 20px;
+          }
+          &.speaker {
+            white-space: nowrap;
+          }
+          &.type {
+            i {
+              display: inline-block;
+              width: 6px;
+              height: 6px;
+              margin-right: 5px;
+              border: 2px solid;
+              border-radius: 100%;
+            }
+          }
+          &.duration {
+            color: $roche-yellow;
+          }
+          &.translation {
+            font-size: 11px;
+            font-weight: 500;
+            color: $roche-yellow;
+            text-transform: uppercase;
+          }
+          &.selections {
+            padding-right: 0;
+          }
+        }
       }
-      &.translation {
-        font-size: 11px;
-        color: $roche-yellow;
-        text-transform: uppercase;
+    }
+  }
+  .center {
+    text-align: center;
+  }
+  .dates {
+    position: relative;
+    .bullet {
+      position: absolute;
+      top: 15px;
+      left: 0;
+      width: 7px;
+      height: 7px;
+      border-radius: 100%;
+      background: $roche-yellow;
+    }
+    .fadeline {
+      position: absolute;
+      top: 15px;
+      left: 3px;
+      width: 1px;
+      height: 50px;
+      background: $roche-yellow;
+    }
+  }
+  .retreat {
+    &.last {
+      td {
+        border: none;
+      }
+      .fadeline {
+        height: 30px;
+        background: linear-gradient(to bottom, $roche-yellow 0%, #000000 100%);
       }
     }
   }
