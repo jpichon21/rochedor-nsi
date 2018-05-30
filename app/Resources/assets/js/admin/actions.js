@@ -24,3 +24,27 @@ export function getPages (locale = 'fr') {
       .catch(error => dispatch({ type: GET_PAGES_FAILURE, error }))
   }
 }
+
+/* ACTIONS */
+export const POST_PAGE = 'POST_PAGE'
+export const POST_PAGE_SUCCESS = 'POST_PAGE_SUCCESS'
+export const POST_PAGE_FAILURE = 'POST_PAGE_FAILURE'
+
+export function postPage (attributes) {
+  return dispatch => {
+    dispatch({ type: POST_PAGE, attributes })
+
+    return window.fetch(`${API_URL}pages`, {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify(attributes)
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res.error) throw res.error
+        dispatch({ type: POST_PAGE_SUCCESS, data: res })
+      })
+      .catch(error => dispatch({ type: POST_PAGE_FAILURE, error }))
+  }
+}
