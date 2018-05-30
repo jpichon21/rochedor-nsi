@@ -32,7 +32,11 @@ class PageController extends Controller
         
         $route = new CmfRoute();
 
-        $routeName = $this->slugify($page->getTitle());
+        if (!$page->getUrl()) {
+            $routeName = $this->slugify($page->getTitle());
+        } else {
+            $routeName =  $this->slugify($page->getUrl());
+        }
         if ($routeProvider->getRoutesByNames([$routeName])) {
             return new JsonResponse("Route already exists", Response::HTTP_FORBIDDEN);
         }
@@ -176,7 +180,7 @@ class PageController extends Controller
         if (!empty($replace)) {
             $clean = str_replace((array) $replace, ' ', $clean);
         }
-        $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+        $clean = preg_replace("/[^a-zA-Z0-9_|+ -]/", '', $clean);
         $clean = strtolower($clean);
         $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
         $clean = trim($clean, $delimiter);
