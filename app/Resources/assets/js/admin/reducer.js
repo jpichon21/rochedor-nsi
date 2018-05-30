@@ -8,6 +8,7 @@ import {
 } from './actions'
 
 export const rootReducer = (state, action) => {
+  console.log(action)
   switch (action.type) {
     case GET_PAGES:
       return {
@@ -28,17 +29,20 @@ export const rootReducer = (state, action) => {
     case POST_PAGE:
       return {
         ...state,
+        postPageStatus: null,
         loading: true
       }
     case POST_PAGE_SUCCESS:
       return {
         ...state,
+        postPageStatus: action.res.status,
         pages: [...action.data],
         loading: false
       }
     case POST_PAGE_FAILURE:
       return {
         ...state,
+        postPageStatus: action.res.status,
         loading: false
       }
   }
