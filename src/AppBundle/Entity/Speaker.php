@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
 
 /**
  * Speaker
@@ -33,20 +32,18 @@ class Speaker
     private $name;
 
     /**
-     * @var string
+     * @var array
      *
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="json_array")
      */
     private $title;
 
     /**
-     * @var string
+     * @var array
      *
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="json_array")
      */
     private $description;
 
@@ -96,7 +93,7 @@ class Speaker
     /**
      * Set title
      *
-     * @param string $title
+     * @param array $title
      *
      * @return Speaker
      */
@@ -110,7 +107,7 @@ class Speaker
     /**
      * Get title
      *
-     * @return string
+     * @return array
      */
     public function getTitle()
     {
@@ -120,7 +117,7 @@ class Speaker
     /**
      * Set description
      *
-     * @param string $description
+     * @param array $description
      *
      * @return Speaker
      */
@@ -134,7 +131,7 @@ class Speaker
     /**
      * Get description
      *
-     * @return string
+     * @return array
      */
     public function getDescription()
     {

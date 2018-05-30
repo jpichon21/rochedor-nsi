@@ -1,0 +1,4 @@
+page:
+    type: rest
+    name_prefix: api_
+    resource: AppBundle\Controller\PageController

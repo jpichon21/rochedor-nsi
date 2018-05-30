@@ -28,6 +28,8 @@ framework:
     translator:
         fallbacks: ['fr']
         paths: ['%kernel.project_dir%/translations']
+    serializer:
+        enabled: true
 
 translation:
     locales: ['fr', 'en', 'es', 'de', 'it']
@@ -60,26 +62,12 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         mappings:
-            gedmo_translatable:
-                type: annotation
-                prefix: Gedmo\Translatable\Entity
-                dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
-                alias: GedmoTranslatable
-                is_bundle: false
-            gedmo_translator:
-                type: annotation
-                prefix: Gedmo\Translator\Entity
-                dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
-                alias: GedmoTranslator
-                is_bundle: false
-            gedmo_loggable:
+           gedmo_loggable:
                 type: annotation
                 prefix: Gedmo\Loggable\Entity
                 dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
                 alias: GedmoLoggable
                 is_bundle: false
-stof_doctrine_extensions:
-    default_locale: fr
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -88,3 +76,19 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+sensio_framework_extra:
+    request: { converters: true }
+fos_rest:
+    body_converter:
+        enabled: true
+    view:
+        formats: { json: true, xml: false, rss: false }
+        view_response_listener: true
+    serializer:
+        serialize_null: true
+    format_listener:
+        rules:
+        - { path: '^/api', priorities: ['json'], fallback_format: 'json' }
+        - { path: '^/', priorities: [ 'html', '*/*'], fallback_format: ~, prefer_extension: true }
+    

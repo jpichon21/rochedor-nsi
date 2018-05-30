@@ -23,6 +23,7 @@
         "php": ">=5.5.9",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
+        "friendsofsymfony/rest-bundle": "^2.3",
         "incenteev/composer-parameter-handler": "^2.0",
         "php-translation/symfony-bundle": "^0.7.0",
         "sensio/distribution-bundle": "^5.0.19",

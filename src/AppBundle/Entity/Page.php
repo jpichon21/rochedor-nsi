@@ -4,7 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
+use Gedmo\Loggable\Entity\MappedSuperclass\AbstractLogEntry;
 
 /**
  * Page
@@ -13,7 +13,7 @@ use Gedmo\Translatable\Translatable;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PageRepository")
  * @Gedmo\Loggable
  */
-class Page implements Translatable
+class Page
 {
     const BACKGROUNDS = [
         0 => 'web/assets/img/bg-fallback.jpg',
@@ -37,7 +37,6 @@ class Page implements Translatable
      * @var string
      *
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
@@ -46,7 +45,6 @@ class Page implements Translatable
      * @var string
      *
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
      * @ORM\Column(name="subTitle", type="string", length=255)
      */
     private $subTitle;
@@ -55,7 +53,6 @@ class Page implements Translatable
      * @var string
      *
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
@@ -64,7 +61,6 @@ class Page implements Translatable
      * @var array
      *
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
      * @ORM\Column(name="content", type="json_array", nullable=true)
      */
     private $content;
@@ -76,6 +72,18 @@ class Page implements Translatable
      */
     private $background;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="locale", type="string", length=10, nullable=true)
+     */
+    private $locale;
+
+    /**
+     * @var AppBundle/Entity/Page
+     * @ORM\ManyToOne(targetEntity="Page")
+     */
+    private $parent;
 
     /**
      * Get id
@@ -205,5 +213,53 @@ class Page implements Translatable
     public function getSubTitle()
     {
         return $this->subTitle;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\Page $parent
+     *
+     * @return Page
+     */
+    public function setParent(\AppBundle\Entity\Page $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\Page
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Set locale
+     *
+     * @param string $locale
+     *
+     * @return Page
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     * Get locale
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
     }
 }
