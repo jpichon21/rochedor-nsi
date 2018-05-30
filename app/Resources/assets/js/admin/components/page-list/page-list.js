@@ -1,8 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getPages } from '../../actions'
-import { Table, TableBody, TableCell, TableHead, TableRow, Select, MenuItem } from '@material-ui/core'
+import { Table, TableBody, TableCell, TableHead, TableRow, Select, MenuItem, Button } from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add'
 import Moment from 'moment'
+import { withRouter } from 'react-router-dom'
 
 export class PageList extends React.Component {
   constructor (props) {
@@ -27,6 +29,9 @@ export class PageList extends React.Component {
     this.setState({locale: event.target.value}, () => {
       this.props.dispatch(getPages(this.state.locale))
     })
+  }
+  goTo (path) {
+    this.props.history.push(path)
   }
   render () {
     Moment.locale('fr')
@@ -75,6 +80,9 @@ export class PageList extends React.Component {
               </Table>
             )
         }
+        <Button variant='fab' color='primary' aria-label='Ajouter' onClick={() => this.goTo('/page-create')} >
+          <AddIcon />
+        </Button>
       </div>
     )
   }
@@ -87,4 +95,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(PageList)
+export default withRouter(connect(mapStateToProps)(PageList))

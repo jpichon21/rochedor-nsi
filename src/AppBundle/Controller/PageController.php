@@ -60,11 +60,7 @@ class PageController extends Controller
             $this->container->getParameter('locale');
         
         $pages = $this->getDoctrine()->getRepository('AppBundle:Page')->findByLocale($locale);
-        if (empty($pages)) {
-            return new JsonResponse("Page not found", Response::HTTP_NOT_FOUND);
-        } else {
-            return $pages;
-        }
+        return $pages;
     }
 
     /**
