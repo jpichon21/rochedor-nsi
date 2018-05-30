@@ -7,11 +7,11 @@ export const GET_PAGES = 'GET_PAGES'
 export const GET_PAGES_SUCCESS = 'GET_PAGES_SUCCESS'
 export const GET_PAGES_FAILURE = 'GET_PAGES_FAILURE'
 
-export function getPages (terms = '', types = { tags: false, symbol: false, name: false }) {
+export function getPages (locale = 'fr') {
   return dispatch => {
-    dispatch({ type: GET_PAGES, terms, types })
+    dispatch({ type: GET_PAGES, locale })
 
-    return window.fetch(`${API_URL}pages`, {
+    return window.fetch(`${API_URL}pages?locale=${locale}`, {
       headers: { 'Content-Type': 'application/json' },
       method: 'GET',
       credentials: 'include'
