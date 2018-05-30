@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 import { Route, Switch } from 'react-router'
 import { connect, Provider } from 'react-redux'
 import PageList from './components/page-list/page-list'
+import PageCreate from './components/page-create/page-create'
 import AppMenu from './components/app-menu/app-menu'
 import { configureStore } from './store'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -28,6 +29,7 @@ class App extends React.Component {
               <AppMenu title={this.state.title} />
               <Switch>
                 <Route path='/page-list' render={(props) => (<PageList title={this.updateTitle} />)} />
+                <Route path='/page-create' render={(props) => (<PageCreate title={this.updateTitle} />)} />
               </Switch>
             </Fragment>
           </HashRouter>
