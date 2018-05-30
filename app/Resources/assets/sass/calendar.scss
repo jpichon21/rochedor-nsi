@@ -24,14 +24,21 @@ body.calendar {
 }
 
 .filters {
+  padding-right: 80px;
+  color: $roche-yellow;
+  .title {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+  }
   .filter {
     position: relative;
-    max-width: 200px;
     margin-bottom: 40px;
-    color: $roche-yellow;
     z-index: 0;
     &.active {
-      z-index: 1;
+      z-index: 2;
       .select {
       ul {
         display: block;
@@ -40,13 +47,6 @@ body.calendar {
         background-image: url('../img/filter-arrow-up.png');
       }
     }
-  }
-  .title {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1.4px;
   }
   .select {
     position: relative;
@@ -124,22 +124,10 @@ body.calendar {
     }
   }
   }
-  .submit {
-    position: absolute;
-    bottom: 0;
-    right: -50px;
-    width: 40px;
-    height: 32px;
-    font-size: 10px;
-    color: #000000;
-    text-align: center;
-    text-transform: uppercase;
-    background: $roche-yellow;
-    border: 1px $roche-yellow solid;
-    outline: none;
-    cursor: pointer;
-  }
-  .dates {
+  .filter-dates {
+    position: relative;
+    margin-bottom: 40px;
+    z-index: 1;
     .date-in,
     .date-out {
       padding: 0 10px;
@@ -240,21 +228,25 @@ body.calendar {
       }
     }
   }
-  .keywords {
+  .filter-keywords {
+    position: relative;
+    margin-bottom: 40px;
+    z-index: 1;
     input {
       width: 100%;
       padding: 0 10px;
       line-height: 30px;
       font-size: 10px;
       text-transform: uppercase;
-      color: $roche-yellow;
+      color: #ffffff;
       letter-spacing: 1.4px;
       background: transparent;
       border: 1px $roche-yellow solid;
       box-sizing: border-box;
       outline: none;
-      &.active {
-        color: #ffffff;
+      &::placeholder {
+        color: $roche-yellow;
+        opacity: 1;
       }
     }
   }

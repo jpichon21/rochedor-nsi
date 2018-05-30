@@ -259,5 +259,17 @@
         <target>Sélections</target>
       </segment>
     </unit>
+    <unit id="3_6XCKH" name="filter.title.speakers">
+      <segment>
+        <source>filter.title.speakers</source>
+        <target>Intervenants</target>
+      </segment>
+    </unit>
+    <unit id="JtjutUk" name="filter.title.translations">
+      <segment>
+        <source>filter.title.translations</source>
+        <target>Traductions</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

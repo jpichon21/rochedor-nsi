@@ -177,6 +177,14 @@
         <source>retreats.table.head.selections</source>
         <target>__retreats.table.head.selections</target>
       </trans-unit>
+      <trans-unit id="3_6XCKH" resname="filter.title.speakers">
+        <source>filter.title.speakers</source>
+        <target>__filter.title.speakers</target>
+      </trans-unit>
+      <trans-unit id="JtjutUk" resname="filter.title.translations">
+        <source>filter.title.translations</source>
+        <target>__filter.title.translations</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -2,10 +2,8 @@ import moment from 'moment'
 
 export const retreatsData = [
   {
-    dates: [
-      moment('01-08-2018'),
-      moment('05-08-2018')
-    ],
+    dateIn: moment('20180801'),
+    dateOut: moment('20180805'),
     site: {
       abbr: 'RO',
       color: '#00ff00'
@@ -25,10 +23,8 @@ export const retreatsData = [
     translation: 'en'
   },
   {
-    dates: [
-      moment('01-08-2018'),
-      moment('05-08-2018')
-    ],
+    dateIn: moment('20180814'),
+    dateOut: moment('20180820'),
     site: {
       abbr: 'FT',
       color: '#ffff00'
@@ -48,10 +44,8 @@ export const retreatsData = [
     translation: 'es'
   },
   {
-    dates: [
-      moment('01-08-2018'),
-      moment('05-08-2018')
-    ],
+    dateIn: moment('20180817'),
+    dateOut: moment('20180820'),
     site: {
       abbr: 'FT',
       color: '#ffff00'
@@ -71,10 +65,8 @@ export const retreatsData = [
     translation: 'es'
   },
   {
-    dates: [
-      moment('07-08-2018'),
-      moment('09-09-2018')
-    ],
+    dateIn: moment('20181220'),
+    dateOut: moment('20181221'),
     site: {
       abbr: 'RO',
       color: '#00ff00'
@@ -94,10 +86,8 @@ export const retreatsData = [
     translation: 'fr'
   },
   {
-    dates: [
-      moment('07-12-2018'),
-      moment('09-12-2018')
-    ],
+    dateIn: moment('20181207'),
+    dateOut: moment('20181209'),
     site: {
       abbr: 'RO',
       color: '#00ff00'

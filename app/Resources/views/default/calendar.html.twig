@@ -20,14 +20,15 @@
                     'items': types,
                     'title': 'filter.title.type' | trans(),
                     'abbreviation': true } %}
-                <div class="filter dates">
+                <form class="filter-dates">
                     <span class="title">Dates</span>
                     <div class="date-in">{{ 'filter.inner.date.in' | trans() }} <span></span></div>
+                    <input class="date-in-value" name="dateIn" type="hidden">
                     <div class="calendar-in"></div>
                     <div class="date-out">{{ 'filter.inner.date.out' | trans() }} <span></span></div>
+                    <input class="date-out-value" name="dateOut" type="hidden">
                     <div class="calendar-out"></div>
-                    <button class="submit">{{ 'filter.inner.submit' | trans() }}</button>
-                </div>
+                </form>
                 {% include 'parts/filter.html.twig' with {
                     'name': 'speaker',
                     'items': speakers,
@@ -38,10 +39,10 @@
                     'items': translations,
                     'title': 'filter.title.translations' | trans(),
                     'abbreviation': false } %}
-                <div class="filter keywords">
+                <form class="filter-keywords">
                     <span class="title">{{ 'filter.title.keyword' | trans() }}</span>
-                    <input type="text" value="{{ 'filter.inner.keyword' | trans() }}">
-                </div>
+                    <input type="text" name="keywords" placeholder="{{ 'filter.inner.keyword' | trans() }}">
+                </form>
             </div>
         </div>
         <div class="right">
@@ -101,15 +102,15 @@
 <script type="text/template" class="retreats-template">
 <% var lastMonth = 0 %>
 <% for (var i = 0; i < retreats.length; i++) { %>
-    <% if (retreats[i].dates[0].format('M') !== lastMonth) { %>
-    <% var lastMonth = retreats[i].dates[0].format('M') %>
+    <% if (retreats[i].dateIn.format('M') !== lastMonth) { %>
+    <% var lastMonth = retreats[i].dateIn.format('M') %>
     <tr class="month">
         <td colspan="8">
-            <%= retreats[i].dates[0].format('MMMM YYYY') %>
+            <%= retreats[i].dateIn.format('MMMM YYYY') %>
         </td>
     </tr>
     <% } %>
-    <% if (!retreats[i + 1] || retreats[i + 1].dates[0].format('M') !== lastMonth) { %>
+    <% if (!retreats[i + 1] || retreats[i + 1].dateIn.format('M') !== lastMonth) { %>
     <tr class="retreat last">
     <% } else { %>
     <tr class="retreat">
@@ -117,7 +118,7 @@
         <td class="dates">
             <span class="bullet"></span>
             <span class="fadeline"></span>
-            <%= retreats[i].dates[0].format('Do MMM') %> - <%= retreats[i].dates[1].format('Do MMM') %>
+            <%= retreats[i].dateIn.format('Do MMM') %> - <%= retreats[i].dateOut.format('Do MMM') %>
         </td>
         <td class="site center" style="color: <%= retreats[i].site.color %>"><%= retreats[i].site.abbr %></td>
         <td class="event"><%= retreats[i].event %></td>

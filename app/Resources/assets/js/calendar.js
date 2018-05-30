@@ -1,8 +1,42 @@
 import $ from 'jquery'
 import moment from 'moment'
 import 'clndr'
-import query from 'sql-js'
 import { retreatsData } from './sample'
+
+/* Filters */
+
+$('.filter')
+
+  .on('click', function () {
+    if ($(this).hasClass('active')) {
+      if (!$(this).hasClass('dates')) {
+        $(this).removeClass('active')
+      }
+    } else {
+      $('.filter').removeClass('active')
+      $(this).addClass('active')
+    }
+  })
+
+  .on('change', function () {
+    const values = []
+    $(this).find('input:checked').each(function (index) {
+      values.push($(this).val())
+    })
+    const count = values.length
+    $('.value .count', $(this)).text(count)
+    $('.value div', $(this)).removeClass('active')
+    if (count === 0) {
+      $('.value .default', $(this)).addClass('active')
+    } else if (count === 1) {
+      $('.value .singular', $(this)).addClass('active')
+    } else {
+      $('.value .plural', $(this)).addClass('active')
+    }
+    updateFilters()
+  })
+
+/* Dates */
 
 moment.locale('fr')
 
@@ -18,6 +52,7 @@ $('.calendar-in').clndr({
   clickEvents: {
     click: function (target) {
       $('.date-in').text('Du ' + moment(target.date._i).format('LL')).addClass('active')
+      $('.date-in-value').val(moment(target.date._i).format('YYYYMMDD'))
       $('.calendar-in').removeClass('active')
       $('.calendar-out').addClass('active')
     }
@@ -30,8 +65,10 @@ $('.calendar-out').clndr({
   clickEvents: {
     click: function (target) {
       $('.date-out').text('Au ' + moment(target.date._i).format('LL')).addClass('active')
+      $('.date-out-value').val(moment(target.date._i).format('YYYYMMDD'))
       $('.calendar-out').removeClass('active')
       $('.filter.dates').removeClass('active')
+      updateFilters()
     }
   }
 })
@@ -45,46 +82,7 @@ $('.date-out').on('click', function () {
   $('.calendar-out').toggleClass('active')
 })
 
-$('.filter').on('click', function () {
-  if ($(this).hasClass('active')) {
-    if (!$(this).hasClass('dates')) {
-      $(this).removeClass('active')
-    }
-  } else {
-    $('.filter').removeClass('active')
-    $(this).addClass('active')
-  }
-})
-
-$('.filter').on('change', function () {
-  const values = []
-  $(this).find('input:checked').each(function (index) {
-    values.push($(this).val())
-  })
-  const count = values.length
-  $('.value .count', $(this)).text(count)
-  $('.value div', $(this)).removeClass('active')
-  if (count === 0) {
-    $('.value .default', $(this)).addClass('active')
-  } else if (count === 1) {
-    $('.value .singular', $(this)).addClass('active')
-  } else {
-    $('.value .plural', $(this)).addClass('active')
-  }
-  updateFilters()
-})
-
-$('.filters .keywords input').on('focus', function () {
-  if ($(this).val() === 'Mot clé') {
-    $(this).val('').addClass('active')
-  }
-})
-
-$('.filters .keywords input').on('blur', function () {
-  if ($(this).val() === '') {
-    $(this).val('Mot clé').removeClass('active')
-  }
-})
+/* Table */
 
 const retreatsTemplate = _.template($('.retreats-template').html())
 
@@ -109,8 +107,16 @@ function applyFilters (filters) {
   }).filter((retreat) => {
     if (filters['translation'].length === 0) { return true }
     return filters['translation'].indexOf(retreat.translation) >= 0
+  }).filter((retreat) => {
+    if (filters['dateIn'].length === 0) { return true }
+    return moment(retreat.dateIn).isAfter(filters['dateIn'])
+  }).filter((retreat) => {
+    if (filters['dateOut'].length === 0) { return true }
+    return moment(retreat.dateOut).isBefore(filters['dateOut'])
+  }).filter((retreat) => {
+    if (filters['keywords'].length === 0) { return true }
+    return retreat.event.toLowerCase().includes(filters['keywords'].toLowerCase())
   })
-  console.log(retreats)
   updateRetreats(retreats)
 }
 
@@ -118,8 +124,11 @@ function updateFilters () {
   let filtersActived = {
     site: [],
     type: [],
+    dateIn: '',
+    dateOut: '',
     speaker: [],
-    translation: []
+    translation: [],
+    keywords: ''
   }
   $('.filter').each(function () {
     const values = $(this).serializeArray()
@@ -127,6 +136,19 @@ function updateFilters () {
       filtersActived[elmt.name].push(elmt.value)
     })
   })
-  console.log(filtersActived)
+  const dates = $('.filter-dates').serializeArray()
+  $.each(dates, function (key, elmt) {
+    filtersActived[elmt.name] = elmt.value
+  })
+  const keywords = $('.filter-keywords').serializeArray()
+  $.each(keywords, function (key, elmt) {
+    filtersActived[elmt.name] = elmt.value
+  })
   applyFilters(filtersActived)
 }
+
+/* Keywords */
+
+$('.filter-keywords').on('keyup', 'input', function () {
+  updateFilters()
+})
