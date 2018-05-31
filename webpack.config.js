@@ -12,7 +12,8 @@ Encore
   .addEntry('js/page', './app/Resources/assets/js/page.js')
   .addStyleEntry('css/main', './app/Resources/assets/sass/main.scss')
   .addEntry('js/admin/app', './app/Resources/assets/js/admin/app.js')
-
+  .addStyleEntry('css/Draft/Draft', './app/Resources/assets/css/Draft.css')
+  .addStyleEntry('css/Draft/RichEditor', './app/Resources/assets/css/RichEditor.css')
   .enableSassLoader()
   .enableVersioning(Encore.isProduction())
   .enableReactPreset()
