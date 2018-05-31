@@ -12,7 +12,7 @@ import { configureStore } from './store'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
-const store = configureStore({ pages: [], postPageStatus: null })
+const store = configureStore({ pages: [], postPageStatus: null, page: {} })
 
 const theme = createMuiTheme({
   container: {
@@ -40,7 +40,7 @@ class App extends React.Component {
           <Switch>
             <Route path='/page-list' render={(props) => (<PageList title={this.updateTitle} />)} />
             <Route path='/page-create' render={(props) => (<PageCreate title={this.updateTitle} />)} />
-            <Route path='/page-edit' render={(props) => (<PageEdit title={this.updateTitle} />)} />
+            <Route path='/page-edit/:pageId' render={(props) => (<PageEdit title={this.updateTitle} />)} />
           </Switch>
         </Fragment>
       </HashRouter>

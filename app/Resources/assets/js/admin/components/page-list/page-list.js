@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
-import { withRouter } from 'react-router-dom'
+import { withRouter, NavLink } from 'react-router-dom'
 
 export class PageList extends React.Component {
   constructor (props) {
@@ -44,8 +44,8 @@ export class PageList extends React.Component {
     const items = this.props.pages.map(p => {
       return (
         <TableRow key={p.id}>
-          <TableCell>{p.title}</TableCell>
-          <TableCell>{Moment(p.updated).format('DD/MM/YY')}</TableCell>
+          <TableCell><NavLink to={`/page-edit/${p.id}`}>{p.title}</NavLink></TableCell>
+          <TableCell><NavLink to={`/page-edit/${p.id}`}>{Moment(p.updated).format('DD/MM/YY')}</NavLink></TableCell>
         </TableRow>
       )
     })

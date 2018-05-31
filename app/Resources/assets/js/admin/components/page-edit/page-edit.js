@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { TextField, Button, DialogActions, Dialog, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
-import { postPage } from '../../actions'
+import { getPage } from '../../actions'
 
 const errors = {
   'Route already exists': 'Ce nom ou cette adresse est déjà utilisé, veuillez utiliser autre chose.'
@@ -30,6 +30,8 @@ export class PageEdit extends React.Component {
   }
   componentDidMount () {
     this.setTitle()
+    const { match: { params } } = this.props
+    this.props.dispatch(getPage(params.pageId))
   }
   setTitle () {
     this.props.title(`Modification de la page ${this.state.page.title}`)
@@ -104,7 +106,7 @@ export class PageEdit extends React.Component {
 const mapStateToProps = state => {
   return {
     loading: state.loading,
-    status: state.postPageStatus
+    page: state.page
   }
 }
 
