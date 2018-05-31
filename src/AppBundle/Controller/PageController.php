@@ -37,11 +37,7 @@ class PageController extends Controller
     public function listAction()
     {
         $pages = $this->getDoctrine()->getRepository('AppBundle:Page')->findAll();
-        if (empty($pages)) {
-            return new JsonResponse("Page not found", Response::HTTP_NOT_FOUND);
-        } else {
-            return $pages;
-        }
+        return $pages;
     }
 
     /**
