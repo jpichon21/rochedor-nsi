@@ -1,8 +1,13 @@
 import React from 'react'
+import { compose } from 'redux'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getPages } from '../../actions'
 import { Table, TableBody, TableCell, TableHead, TableRow, Select, MenuItem, Button } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
+import Paper from '@material-ui/core/Paper'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
 import { withRouter } from 'react-router-dom'
 
@@ -35,58 +40,75 @@ export class PageList extends React.Component {
   }
   render () {
     Moment.locale('fr')
+    const { classes } = this.props
     const items = this.props.pages.map(p => {
       return (
         <TableRow key={p.id}>
           <TableCell>{p.title}</TableCell>
-          <TableCell>{Moment(p.updated).format('D/MM/YY')}</TableCell>
+          <TableCell>{Moment(p.updated).format('DD/MM/YY')}</TableCell>
         </TableRow>
       )
     })
-
     return (
-      <div>
-        <h1>Liste des pages</h1>
-        <Select
-          value={this.state.locale}
-          onChange={this.handleLocaleChange}
-          inputProps={{
-            name: 'langue',
-            id: 'locale'
-          }}
-        >
-          <MenuItem value={'fr'}>fr</MenuItem>
-          <MenuItem value={'en'}>en</MenuItem>
-          <MenuItem value={'es'}>es</MenuItem>
-          <MenuItem value={'de'}>de</MenuItem>
-          <MenuItem value={'it'}>it</MenuItem>
-        </Select>
-
-        {
-          this.props.loading ? (
-            <div>'Chargement...'</div>
-          )
-            : (
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Intitulé</TableCell>
-                    <TableCell>Dernière modification</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {items}
-                </TableBody>
-              </Table>
-            )
-        }
-        <Button variant='fab' color='primary' aria-label='Ajouter' onClick={() => this.goTo('/page-create')} >
-          <AddIcon />
-        </Button>
+      <div className={classes.container}>
+        <div className={classes.languages}>
+          <Select
+            value={this.state.locale}
+            onChange={this.handleLocaleChange}
+            inputProps={{
+              name: 'langue',
+              id: 'locale'
+            }}>
+            <MenuItem value={'fr'}>FR</MenuItem>
+            <MenuItem value={'en'}>EN</MenuItem>
+            <MenuItem value={'es'}>ES</MenuItem>
+            <MenuItem value={'de'}>DE</MenuItem>
+            <MenuItem value={'it'}>IT</MenuItem>
+          </Select>
+        </div>
+        <Paper>
+          {
+            this.props.loading
+              ? <CircularProgress size={50} />
+              : (
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Intitulé</TableCell>
+                      <TableCell>Dernière modification</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {items}
+                  </TableBody>
+                </Table>
+              )
+          }
+        </Paper>
+        <div className={classes.buttons}>
+          <Button variant='fab' color='primary' aria-label='Ajouter' onClick={() => this.goTo('/page-create')} >
+            <AddIcon />
+          </Button>
+        </div>
       </div>
     )
   }
 }
+
+const styles = theme => ({
+  container: theme.container,
+  languages: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginBottom: 20
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginTop: -30,
+    marginRight: 20
+  }
+})
 
 const mapStateToProps = state => {
   return {
@@ -95,4 +117,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(PageList))
+PageList.propTypes = {
+  classes: PropTypes.object.isRequired
+}
+
+export default withRouter(compose(withStyles(styles), connect(mapStateToProps))(PageList))
