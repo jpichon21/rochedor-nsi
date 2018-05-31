@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -111,4 +112,11 @@ AppMenu.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(AppMenu)
+const mapStateToProps = state => {
+  return {
+    loading: state.loading,
+    title: state.title,
+  }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(AppMenu))

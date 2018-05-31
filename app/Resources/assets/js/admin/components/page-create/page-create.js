@@ -2,14 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Button, DialogActions, Dialog, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
-import { postPage, initStatus, setMessage } from '../../actions'
+import { postPage, initStatus, setMessage, setTitle } from '../../actions'
 import PageForm from '../page-form/page-form'
 import { t } from '../../translations'
 
 export class PageCreate extends React.Component {
   constructor (props) {
     super(props)
-    this.setTitle = this.setTitle.bind(this)
     this.state = {
       page: {
         title: '',
@@ -24,10 +23,7 @@ export class PageCreate extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
   componentDidMount () {
-    this.setTitle()
-  }
-  setTitle () {
-    this.props.title('Ajout d\'une page')
+    this.props.dispatch(setTitle('Ajout d\'une page'))
   }
   handleClose () {
     this.setState({alertOpen: false})

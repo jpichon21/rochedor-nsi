@@ -2,14 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { TextField, Button, DialogActions, Dialog, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
-import { getPage, putPage } from '../../actions'
+import { getPage, putPage, setTitle } from '../../actions'
 import PageForm from '../page-form/page-form'
 import { t } from '../../translations'
 
 export class PageEdit extends React.Component {
   constructor (props) {
     super(props)
-    this.setTitle = this.setTitle.bind(this)
     this.state = {
       page: {
         title: '',
@@ -25,18 +24,16 @@ export class PageEdit extends React.Component {
     this.handleClose = this.handleClose.bind(this)
   }
   componentDidMount () {
-    this.setTitle()
     const { match: { params } } = this.props
     this.props.dispatch(getPage(params.pageId))
-  }
-  setTitle () {
-    this.props.title(`Modification de la page ${this.props.page.title}`)
   }
   handleClose () {
     this.setState({alertOpen: false})
   }
   componentWillReceiveProps (nextProps) {
-    this.setState({ alertOpen: (nextProps.status !== 'ok' && nextProps.status !== null) })
+    this.props.dispatch(setTitle(`Modification de la page ${(nextProps.page) ? nextProps.page.title : ''}`))
+    this.setState({ alertOpen: (nextProps.status !== 'ok' && nextProps.status !== null) }), () => {
+    }  
   }
   onSubmit (page) {
     this.props.dispatch(putPage(page))

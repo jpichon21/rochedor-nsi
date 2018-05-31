@@ -10,7 +10,8 @@ import {
   GET_PAGE_FAILURE,
   INIT_STATUS,
   SET_MESSAGE,
-  RESET_MESSAGE
+  RESET_MESSAGE,
+  SET_TITLE
 } from './actions'
 
 export const rootReducer = (state, action) => {
@@ -85,6 +86,11 @@ export const rootReducer = (state, action) => {
       return {
         ...state,
         message: null
+      }
+    case SET_TITLE:
+      return {
+        ...state,
+        title: action.title
       }
   }
   return state

@@ -11,8 +11,9 @@ import AppMenu from './components/app-menu/app-menu'
 import { configureStore } from './store'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import { setTitle } from './actions'
 
-const store = configureStore({ pages: [], status: '', page: {} })
+const store = configureStore({ pages: [], status: '', page: {title: ''}, title: 'Accueil' })
 
 const marge = 20
 
@@ -66,7 +67,9 @@ class App extends React.Component {
     this.state = {
       title: 'Accueil'
     }
-    this.updateTitle = this.updateTitle.bind(this)
+  }
+  componentDidMount () {
+    // this.props.dispatch(setTitle('Accueil'))
   }
   render () {
     return (
@@ -74,17 +77,13 @@ class App extends React.Component {
         <Fragment>
           <AppMenu title={this.state.title} />
           <Switch>
-            <Route path='/page-list' render={(props) => (<PageList title={this.updateTitle} />)} />
-            <Route path='/page-create' render={(props) => (<PageCreate title={this.updateTitle} />)} />
-            <Route path='/page-edit/:pageId' render={(props) => (<PageEdit title={this.updateTitle} />)} />
+            <Route path='/page-list' render={(props) => (<PageList />)} />
+            <Route path='/page-create' render={(props) => (<PageCreate />)} />
+            <Route path='/page-edit/:pageId' render={(props) => (<PageEdit />)} />
           </Switch>
         </Fragment>
       </HashRouter>
     )
-  }
-  updateTitle (title) {
-    console.log('title')
-    this.setState({title: title})
   }
 }
 

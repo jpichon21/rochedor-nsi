@@ -2,7 +2,7 @@ import React from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getPages } from '../../actions'
+import { getPages, setTitle } from '../../actions'
 import { Table, TableBody, TableCell, TableHead, TableRow, Select, MenuItem, Button, CircularProgress, Paper, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
@@ -11,7 +11,6 @@ import { withRouter, NavLink } from 'react-router-dom'
 export class PageList extends React.Component {
   constructor (props) {
     super(props)
-    this.setTitle = this.setTitle.bind(this)
     this.state = {
       locale: 'fr'
     }
@@ -22,10 +21,7 @@ export class PageList extends React.Component {
     this.props.dispatch(getPages(this.state.locale))
   }
   componentDidMount () {
-    this.setTitle()
-  }
-  setTitle () {
-    this.props.title('Liste des pages')
+    this.props.dispatch(setTitle('Liste des pages'))
   }
   handleLocaleChange (event) {
     this.setState({locale: event.target.value}, () => {
