@@ -2,3 +2,7 @@ page:
     type: rest
     name_prefix: api_
     resource: AppBundle\Controller\PageController
+speaker:
+    type: rest
+    name_prefix: api_
+    resource: AppBundle\Controller\SpeakerController
