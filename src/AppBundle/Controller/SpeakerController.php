@@ -81,12 +81,12 @@ class SpeakerController extends Controller
         $em = $this->getDoctrine()->getManager();
         $speaker = $this->getDoctrine()->getRepository('AppBundle:Speaker')->find($id);
         if (empty($speaker)) {
-            return new JsonResponse("Speaker not found", Response::HTTP_NOT_FOUND);
+            return new JsonResponse(['message' => 'Speaker not found'], Response::HTTP_NOT_FOUND);
         } else {
             $em->remove($speaker);
             $em->flush();
         }
-        return new JsonResponse("deleted successfully", Response::HTTP_OK);
+        return new JsonResponse(['message' => 'speaker deleted'], Response::HTTP_OK);
     }
 
     /**
