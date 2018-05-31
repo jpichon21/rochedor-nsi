@@ -62,7 +62,7 @@ class PageController extends Controller
         $pages = $this->getDoctrine()->getRepository('AppBundle:Page')->findByLocale($locale);
         return $pages;
     }
-
+  
     /**
      * @Rest\Get("/pages/{id}")
      * @Rest\View()
@@ -159,7 +159,28 @@ class PageController extends Controller
         return $page->getChildren();
     }
 
-   /**
+    /**
+     * @Rest\Get("pages/{id}/brother")
+     * @Rest\View()
+     *
+     * @param integer $id
+     * @return json
+     */
+    public function getBrotherAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $page = $em->getRepository('AppBundle:Page')->findOneById($id);
+        if (empty($page)) {
+            return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
+        }
+        $parent = $page->getParent();
+        if ($parent === null) {
+            return new JsonResponse(['message' => 'Page has no parent'], Response::HTTP_FORBIDDEN);
+        }
+        return $parent->getChildren();
+    }
+
+    /**
     * Return slugified string
     *
     * @param string $string
