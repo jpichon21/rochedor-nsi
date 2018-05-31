@@ -40,10 +40,14 @@ export function postPage (attributes) {
       credentials: 'include',
       body: JSON.stringify(attributes)
     })
-      .then(res => res.json())
       .then(res => {
-        if (res.error) throw res.error
-        dispatch({ type: POST_PAGE_SUCCESS, data: res })
+        if (res.status >= 400) {
+          dispatch({ type: POST_PAGE_FAILURE, res })
+        } else {
+          res.json().then(res => {
+            dispatch({ type: POST_PAGE_SUCCESS, ...{'data': res} })
+          })
+        }
       })
       .catch(error => dispatch({ type: POST_PAGE_FAILURE, error }))
   }

@@ -9,6 +9,7 @@ use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Loggable\Entity\MappedSuperclass\AbstractLogEntry;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Page
@@ -111,6 +112,12 @@ class Page
      * @ORM\Column(name="updated", type="datetime", nullable=true)
      */
     private $updated;
+
+    /**
+     * @var string
+     * @Type("string")
+     */
+    private $url;
 
     public function __construct()
     {
@@ -401,5 +408,15 @@ class Page
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 }

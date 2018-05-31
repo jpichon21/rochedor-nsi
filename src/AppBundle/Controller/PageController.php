@@ -32,7 +32,11 @@ class PageController extends Controller
         
         $route = new CmfRoute();
 
-        $routeName = $this->slugify($page->getTitle());
+        if (!$page->getUrl()) {
+            $routeName = $this->slugify($page->getTitle());
+        } else {
+            $routeName =  $this->slugify($page->getUrl());
+        }
         if ($routeProvider->getRoutesByNames([$routeName])) {
             return new JsonResponse("Route already exists", Response::HTTP_FORBIDDEN);
         }
@@ -64,17 +68,29 @@ class PageController extends Controller
     }
 
     /**
-     * @Rest\Get("/pages/{id}")
+     * @Rest\Get("/pages/{id}/{version}", requirements={"version"="\d+"} , defaults={"version" = null})
      * @Rest\View()
      */
-    public function showAction($id)
+    public function showAction($id, $version)
     {
-        $em = $this->getDoctrine()->getManager();
-        $page = $em->getRepository('AppBundle:Page')->findOneById($id);
-        if (empty($page)) {
-            return new JsonResponse("Page not found", Response::HTTP_NOT_FOUND);
-        } else {
+        if ($version === null) {
+            $em = $this->getDoctrine()->getManager();
+            $page = $em->getRepository('AppBundle:Page')->findOneById($id);
             return $page;
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $repo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry'); // we use default log entry class
+            $page = $em->getRepository('AppBundle:Page')->findOneById($id);
+            $logs = $repo->getLogEntries($page);
+            $countLogs = count($logs) - 1;
+            $firstLog = $logs[$countLogs];
+            for ($i = ($countLogs); $i >= 0; $i--) {
+                if ($logs[$i]->getVersion() <= $version) {
+                    $diff = array_diff_key($firstLog->getData(), $logs[$i]->getData());
+                    $oldPage = array_merge($diff, $logs[$i]->getData());
+                }
+            }
+            return $oldPage;
         }
     }
 
@@ -176,7 +192,7 @@ class PageController extends Controller
         if (!empty($replace)) {
             $clean = str_replace((array) $replace, ' ', $clean);
         }
-        $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+        $clean = preg_replace("/[^a-zA-Z0-9_|+ -]/", '', $clean);
         $clean = strtolower($clean);
         $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
         $clean = trim($clean, $delimiter);
