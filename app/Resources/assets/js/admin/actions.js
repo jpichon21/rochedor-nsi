@@ -90,7 +90,7 @@ export function putPage (attributes) {
 
     return window.fetch(`${API_URL}pages/${attributes.id}`, {
       headers: { 'Content-Type': 'application/json' },
-      method: 'POST',
+      method: 'PUT',
       credentials: 'include',
       body: JSON.stringify(attributes)
     })

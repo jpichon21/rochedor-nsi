@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom'
 import { TextField, Button, Paper, Typography, Grid, Select, MenuItem, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { withStyles } from '@material-ui/core/styles'
-import { postPage, getPages } from '../../actions'
+import { getPages } from '../../actions'
 import RichEditor from './RichEditor'
 
 export class PageForm extends React.Component {
@@ -15,17 +15,16 @@ export class PageForm extends React.Component {
     this.state = {
       locale: 'fr',
       history: '20180513',
+      submitDisabled: true,
       page: {
         title: '',
         sub_title: '',
         url: '',
         description: '',
-        locale: 'fr',
         content: {
           intro: ''
         }
-      },
-      submitDisabled: true
+      }
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
@@ -71,6 +70,11 @@ export class PageForm extends React.Component {
       event.preventDefault()
     }
   }
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.page) {
+      this.setState({page: nextProps.page})
+    }
+  }
   render () {
     const { classes } = this.props
     return (
@@ -90,20 +94,28 @@ export class PageForm extends React.Component {
             <MenuItem value={'de'}>DE</MenuItem>
             <MenuItem value={'it'}>IT</MenuItem>
           </Select>
-          <Select
-            className={classes.option}
-            value={this.state.history}
-            onChange={this.handleHistoryChange}
-            inputProps={{
-              name: 'historique',
-              id: 'history'
-            }}>
-            <MenuItem value={'20180513'}>13/05/18</MenuItem>
-            <MenuItem value={'20180517'}>17/05/18</MenuItem>
-            <MenuItem value={'20180521'}>21/05/18</MenuItem>
-            <MenuItem value={'20180612'}>12/06/18</MenuItem>
-            <MenuItem value={'20180613'}>13/06/18</MenuItem>
-          </Select>
+          {
+            this.props.edit
+              ? (
+                <Select
+                  className={classes.option}
+                  value={this.state.history}
+                  onChange={this.handleHistoryChange}
+                  inputProps={{
+                    name: 'historique',
+                    id: 'history'
+                  }}>
+                  <MenuItem value={'20180513'}>13/05/18</MenuItem>
+                  <MenuItem value={'20180517'}>17/05/18</MenuItem>
+                  <MenuItem value={'20180521'}>21/05/18</MenuItem>
+                  <MenuItem value={'20180612'}>12/06/18</MenuItem>
+                  <MenuItem value={'20180613'}>13/06/18</MenuItem>
+                </Select>
+              )
+              : (
+                ''
+              )
+          }
         </div>
         <Paper className={classes.paper}>
           <Typography variant='headline' className={classes.title} component='h2'>
@@ -195,7 +207,8 @@ export class PageForm extends React.Component {
                   className={classes.button}
                   variant='raised'
                   color='secondary'
-                  aria-label='Sauvegarder'>
+                  aria-label='Sauvegarder'
+                  onClick={this.handleSubmit}>
                   Sauvegarder
                 </Button>
               </div>
@@ -208,6 +221,7 @@ export class PageForm extends React.Component {
               color='primary'>
                 Ajouter
             </Button>
+
           </div>
         </Paper>
       </div>

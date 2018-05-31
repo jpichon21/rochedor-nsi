@@ -59,7 +59,7 @@ export class PageEdit extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
-        <PageForm page={this.props.page} handleSubmit={this.onSubmit} />
+        <PageForm page={this.props.page} submitHandler={this.onSubmit} edit />
       </div>
     )
   }

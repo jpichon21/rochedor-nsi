@@ -12,7 +12,18 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { setTitle } from './actions'
 
-const store = configureStore({ pages: [], status: '', page: {title: ''}, title: 'Accueil' })
+const store = configureStore({
+  pages: [],
+  status: '',
+  page: {
+    title: '',
+    sub_title: '',
+    url: '',
+    description: '',
+    content: {}
+  },
+  title: 'Accueil' }
+)
 
 const myMarge = 30
 
