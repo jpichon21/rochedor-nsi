@@ -3,6 +3,10 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Loggable\Entity\MappedSuperclass\AbstractLogEntry;
 
@@ -11,6 +15,7 @@ use Gedmo\Loggable\Entity\MappedSuperclass\AbstractLogEntry;
  *
  * @ORM\Table(name="page")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PageRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @Gedmo\Loggable
  */
 class Page
@@ -81,9 +86,37 @@ class Page
 
     /**
      * @var AppBundle/Entity/Page
-     * @ORM\ManyToOne(targetEntity="Page")
+     * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
      */
     private $parent;
+
+    /**
+     * @var AppBundle/Entity/Page
+     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent", cascade={"persist"})
+     */
+    private $children;
+
+    /**
+     * @var RouteObjectInterface[]|ArrayCollection
+     *
+     * @ORM\ManyToMany(
+     * targetEntity="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route",
+     * cascade={"persist", "remove"})
+     */
+    private $routes;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated", type="datetime", nullable=true)
+     */
+    private $updated;
+
+    public function __construct()
+    {
+        $this->routes = new ArrayCollection();
+        $this->children = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -261,5 +294,112 @@ class Page
     public function getLocale()
     {
         return $this->locale;
+    }
+
+    /**
+     * @return RouteObjectInterface[]|ArrayCollection
+     */
+    public function getRoutes()
+    {
+        return $this->routes;
+    }
+
+    /**
+     * @param RouteObjectInterface[]|ArrayCollection $routes
+     */
+    public function setRoutes($routes)
+    {
+        $this->routes = $routes;
+    }
+
+    /**
+     * @param RouteObjectInterface $route
+     *
+     * @return $this
+     */
+    public function addRoute($route)
+    {
+        $this->routes[] = $route;
+
+        return $this;
+    }
+
+    /**
+     * @param RouteObjectInterface $route
+     *
+     * @return $this
+     */
+    public function removeRoute($route)
+    {
+        $this->routes->removeElement($route);
+
+        return $this;
+    }
+
+    /**
+     * Add child
+     *
+     * @param Page $child
+     *
+     * @return Page
+     */
+    public function addChild(Page $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param Page $child
+     */
+    public function removeChild(Page $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateModified()
+    {
+        $this->setUpdated(new \DateTime());
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Page
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

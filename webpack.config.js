@@ -7,21 +7,31 @@ const path = require('path')
 Encore
   .setOutputPath('web/assets/')
   .setPublicPath('/assets')
-  .enableSourceMaps(!Encore.isProduction())
-  .enableVersioning()
   .addEntry('js/main', './app/Resources/assets/js/main.js')
   .addEntry('js/home', './app/Resources/assets/js/home.js')
   .addEntry('js/page', './app/Resources/assets/js/page.js')
   .addStyleEntry('css/main', './app/Resources/assets/sass/main.scss')
+  .addEntry('js/admin/app', './app/Resources/assets/js/admin/app.js')
+
   .enableSassLoader()
-  .enableVersioning()
-  .addPlugin(new webpack.optimize.UglifyJsPlugin({
-    parallel: true
-  }))
+  .enableVersioning(Encore.isProduction())
+  .enableReactPreset()
+  .enableSourceMaps(!Encore.isProduction())
+  .configureBabel(function (babelConfig) {
+    babelConfig.presets.push('react')
+    babelConfig.presets.push('env')
+    babelConfig.presets.push('stage-2')
+  })
   .addPlugin(new CopyWebpackPlugin([{
     from: './app/Resources/assets/img',
     to: 'img'
   }]))
+
+if (Encore.isProduction()) {
+  Encore.addPlugin(new webpack.optimize.UglifyJsPlugin({
+    parallel: true
+  }))
+}
 
 const config = Encore.getWebpackConfig()
 

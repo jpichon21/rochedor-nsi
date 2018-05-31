@@ -1,102 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
-    <header>
-      <tool tool-id="symfony" tool-name="Symfony"/>
-    </header>
-    <body>
-      <trans-unit id="XLjEtrS" resname="menu.one">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="fr">
+  <file id="messages.fr">
+    <unit id="XLjEtrS" name="menu.one">
+      <segment>
         <source>menu.one</source>
         <target>La communauté et les maisons</target>
-      </trans-unit>
-      <trans-unit id="td1g_X_" resname="menu.two">
+      </segment>
+    </unit>
+    <unit id="td1g_X_" name="menu.two">
+      <segment>
         <source>menu.two</source>
         <target>Les retraites</target>
-      </trans-unit>
-      <trans-unit id="_QTPx9b" resname="menu.three">
+      </segment>
+    </unit>
+    <unit id="_QTPx9b" name="menu.three">
+      <segment>
         <source>menu.three</source>
         <target>Le calendrier</target>
-      </trans-unit>
-      <trans-unit id="QokeGaI" resname="menu.one.one">
+      </segment>
+    </unit>
+    <unit id="QokeGaI" name="menu.one.one">
+      <segment>
         <source>menu.one.one</source>
         <target><![CDATA[La <br>communauté]]></target>
-      </trans-unit>
-      <trans-unit id="DY.PFaX" resname="menu.one.two">
+      </segment>
+    </unit>
+    <unit id="DY.PFaX" name="menu.one.two">
+      <segment>
         <source>menu.one.two</source>
         <target><![CDATA[Les <br>fondateurs]]></target>
-      </trans-unit>
-      <trans-unit id="ABGsIRc" resname="menu.one.three">
+      </segment>
+    </unit>
+    <unit id="ABGsIRc" name="menu.one.three">
+      <segment>
         <source>menu.one.three</source>
         <target><![CDATA[La <br>Roche d'Or]]></target>
-      </trans-unit>
-      <trans-unit id="5vJ0eNt" resname="menu.one.four">
+      </segment>
+    </unit>
+    <unit id="5vJ0eNt" name="menu.one.four">
+      <segment>
         <source>menu.one.four</source>
         <target><![CDATA[Les <br>Fontanilles]]></target>
-      </trans-unit>
-      <trans-unit id="TfDK6ic" resname="menu.two.one">
+      </segment>
+    </unit>
+    <unit id="TfDK6ic" name="menu.two.one">
+      <segment>
         <source>menu.two.one</source>
         <target><![CDATA[Venir <br>en retraite]]></target>
-      </trans-unit>
-      <trans-unit id="zFwSu3O" resname="menu.two.two">
+      </segment>
+    </unit>
+    <unit id="zFwSu3O" name="menu.two.two">
+      <segment>
         <source>menu.two.two</source>
         <target><![CDATA[Retraites <br>à la Roche d'Or]]></target>
-      </trans-unit>
-      <trans-unit id="OipSnvA" resname="menu.two.three">
+      </segment>
+    </unit>
+    <unit id="OipSnvA" name="menu.two.three">
+      <segment>
         <source>menu.two.three</source>
         <target><![CDATA[Retraites <br>aux Fontanilles]]></target>
-      </trans-unit>
-      <trans-unit id="NEzhIK_" resname="menu.two.four">
+      </segment>
+    </unit>
+    <unit id="NEzhIK_" name="menu.two.four">
+      <segment>
         <source>menu.two.four</source>
         <target><![CDATA[Les <br>intervenants]]></target>
-      </trans-unit>
-      <trans-unit id="d2ahr5A" resname="menu.four">
+      </segment>
+    </unit>
+    <unit id="d2ahr5A" name="menu.four">
+      <segment>
         <source>menu.four</source>
         <target>Informations pratiques</target>
-      </trans-unit>
-      <trans-unit id="yImul.f" resname="menu.five">
+      </segment>
+    </unit>
+    <unit id="yImul.f" name="menu.five">
+      <segment>
         <source>menu.five</source>
         <target>Les Éditions Roche d'Or</target>
-      </trans-unit>
-      <trans-unit id="Uu.vp07" resname="menu.six">
+      </segment>
+    </unit>
+    <unit id="Uu.vp07" name="menu.six">
+      <segment>
         <source>menu.six</source>
         <target>Nous soutenir</target>
-      </trans-unit>
-      <trans-unit id="Ne9wirQ" resname="menu.four.one">
+      </segment>
+    </unit>
+    <unit id="Ne9wirQ" name="menu.four.one">
+      <segment>
         <source>menu.four.one</source>
         <target><![CDATA[Infos pratiques<br> de la Roche d'Or]]></target>
-      </trans-unit>
-      <trans-unit id="t9xDnqi" resname="menu.four.two">
+      </segment>
+    </unit>
+    <unit id="t9xDnqi" name="menu.four.two">
+      <segment>
         <source>menu.four.two</source>
         <target><![CDATA[Infos pratiques<br> des Fontanilles]]></target>
-      </trans-unit>
-      <trans-unit id="xm3Wl2D" resname="menu.four.three">
+      </segment>
+    </unit>
+    <unit id="xm3Wl2D" name="menu.four.three">
+      <segment>
         <source>menu.four.three</source>
         <target><![CDATA[Accueil<br> des enfants]]></target>
-      </trans-unit>
-      <trans-unit id="ADfxTyP" resname="menu.four.four">
+      </segment>
+    </unit>
+    <unit id="ADfxTyP" name="menu.four.four">
+      <segment>
         <source>menu.four.four</source>
         <target><![CDATA[Liens<br> amis]]></target>
-      </trans-unit>
-      <trans-unit id="rehny29" resname="menu.five.one">
+      </segment>
+    </unit>
+    <unit id="rehny29" name="menu.five.one">
+      <segment>
         <source>menu.five.one</source>
         <target><![CDATA[Les Editions<br> Roche d'Or]]></target>
-      </trans-unit>
-      <trans-unit id="JQrk3we" resname="menu.five.two">
+      </segment>
+    </unit>
+    <unit id="JQrk3we" name="menu.five.two">
+      <segment>
         <source>menu.five.two</source>
         <target><![CDATA[Les<br> Nouveautés]]></target>
-      </trans-unit>
-      <trans-unit id="Vvb_xEv" resname="menu.five.three">
+      </segment>
+    </unit>
+    <unit id="Vvb_xEv" name="menu.five.three">
+      <segment>
         <source>menu.five.three</source>
         <target><![CDATA[Les<br> Collections]]></target>
-      </trans-unit>
-      <trans-unit id="aY4iGkg" resname="menu.six.one">
+      </segment>
+    </unit>
+    <unit id="aY4iGkg" name="menu.six.one">
+      <segment>
         <source>menu.six.one</source>
         <target><![CDATA[Donner<br> du temps]]></target>
-      </trans-unit>
-      <trans-unit id="nrz9.5B" resname="menu.six.two">
+      </segment>
+    </unit>
+    <unit id="nrz9.5B" name="menu.six.two">
+      <segment>
         <source>menu.six.two</source>
         <target><![CDATA[Faire<br> un don]]></target>
-      </trans-unit>
-    </body>
+      </segment>
+    </unit>
+    <unit id="3P24U.9" name="home.title">
+      <segment>
+        <source>home.title</source>
+        <target>home.title</target>
+      </segment>
+    </unit>
+    <unit id="XneOvFD" name="admin.title">
+      <segment>
+        <source>admin.title</source>
+        <target>Roche d'Or - Panneau d'administration CMS</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

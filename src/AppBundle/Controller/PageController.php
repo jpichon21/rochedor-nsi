@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Gedmo\Loggable;
+use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route as CmfRoute;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 
 class PageController extends Controller
 {
@@ -23,6 +25,23 @@ class PageController extends Controller
     public function postAction(Page $page)
     {
         $em = $this->getDoctrine()->getManager();
+        $em->persist($page);
+
+        $contentRepository = $this->container->get('cmf_routing.content_repository');
+        $routeProvider = $this->container->get('cmf_routing.route_provider');
+        
+        $route = new CmfRoute();
+
+        $routeName = $this->slugify($page->getTitle());
+        if ($routeProvider->getRoutesByNames([$routeName])) {
+            return new JsonResponse("Route already exists", Response::HTTP_FORBIDDEN);
+        }
+
+        $route->setName($routeName);
+        $route->setStaticPrefix('/' . $route->getName());
+        $route->setDefault(RouteObjectInterface::CONTENT_ID, $contentRepository->getContentId($page));
+        $route->setContent($page);
+        $page->addRoute($route);
 
         $em->persist($page);
         $em->flush();
@@ -34,9 +53,13 @@ class PageController extends Controller
      * @Rest\Get("/pages")
      * @Rest\View()
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
-        $pages = $this->getDoctrine()->getRepository('AppBundle:Page')->findAll();
+        $locale = ($request->query->has('locale')) ?
+            $request->query->get('locale') :
+            $this->container->getParameter('locale');
+        
+        $pages = $this->getDoctrine()->getRepository('AppBundle:Page')->findByLocale($locale);
         return $pages;
     }
 
@@ -117,5 +140,46 @@ class PageController extends Controller
         $repo->revert($page, $version);
         $em->persist($page);
         $em->flush();
+    }
+
+    /**
+     * @Rest\Get("pages/{id}/children")
+     * @Rest\View()
+     *
+     * @param integer $id
+     * @return json
+     */
+    public function getChildrenAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $page = $em->getRepository('AppBundle:Page')->findOneById($id);
+        if (empty($page)) {
+            return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
+        }
+        return $page->getChildren();
+    }
+
+   /**
+    * Return slugified string
+    *
+    * @param string $string
+    * @param array $replace
+    * @param string $delimiter
+    * @return string Slugified string
+    */
+    private function slugify($string, $replace = array(), $delimiter = '-')
+    {
+        if (!extension_loaded('iconv')) {
+            throw new Exception('iconv module not loaded');
+        }
+        $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
+        if (!empty($replace)) {
+            $clean = str_replace((array) $replace, ' ', $clean);
+        }
+        $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+        $clean = strtolower($clean);
+        $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
+        $clean = trim($clean, $delimiter);
+        return $clean;
     }
 }
