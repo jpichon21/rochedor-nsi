@@ -2,7 +2,6 @@
 
 export const API_URL = '/api/'
 
-/* ACTIONS */
 export const GET_PAGES = 'GET_PAGES'
 export const GET_PAGES_SUCCESS = 'GET_PAGES_SUCCESS'
 export const GET_PAGES_FAILURE = 'GET_PAGES_FAILURE'
@@ -25,10 +24,10 @@ export function getPages (locale = 'fr') {
   }
 }
 
-/* ACTIONS */
 export const POST_PAGE = 'POST_PAGE'
 export const POST_PAGE_SUCCESS = 'POST_PAGE_SUCCESS'
 export const POST_PAGE_FAILURE = 'POST_PAGE_FAILURE'
+export const INIT_POST_PAGE = 'INIT_POST_PAGE'
 
 export function postPage (attributes) {
   return dispatch => {
@@ -52,5 +51,26 @@ export function postPage (attributes) {
         }
       })
       .catch(error => dispatch({ type: POST_PAGE_FAILURE, ...{ data: error } }))
+  }
+}
+
+export function initPostPage () {
+  return dispatch => {
+    dispatch({ type: INIT_POST_PAGE })
+  }
+}
+
+export const SET_MESSAGE = 'SET_MESSAGE'
+export const RESET_MESSAGE = 'RESET_MESSAGE'
+
+export function setMessage (message, error = false) {
+  return dispatch => {
+    dispatch({ type: SET_MESSAGE, ...{message: message, error: error} })
+  }
+}
+
+export function resetMessage () {
+  return dispatch => {
+    dispatch({ type: RESET_MESSAGE })
   }
 }

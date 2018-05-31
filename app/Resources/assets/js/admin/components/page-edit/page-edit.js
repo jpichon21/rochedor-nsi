@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { TextField, Button, DialogActions, Dialog, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
-import { postPage, initPostPage, setMessage } from '../../actions'
+import { postPage } from '../../actions'
 
 const errors = {
   'Route already exists': 'Ce nom ou cette adresse est déjà utilisé, veuillez utiliser autre chose.'
 }
 
-export class PageCreate extends React.Component {
+export class PageEdit extends React.Component {
   constructor (props) {
     super(props)
     this.setTitle = this.setTitle.bind(this)
@@ -32,7 +32,7 @@ export class PageCreate extends React.Component {
     this.setTitle()
   }
   setTitle () {
-    this.props.title('Ajout d\'une page')
+    this.props.title(`Modification de la page ${this.state.page.title}`)
   }
   handleInputChange (event) {
     const value = event.target.value
@@ -66,20 +66,9 @@ export class PageCreate extends React.Component {
     this.setState({alertOpen: false})
   }
   componentWillReceiveProps (nextProps) {
-    this.setState({ alertOpen: (nextProps.status !== 'ok' && nextProps.status !== null) }, () => {
-      this.props.dispatch(setMessage('Page créee'))
-    })
-  }
-  componentWillMount () {
-    this.props.dispatch(initPostPage())
-  }
-  componentWillUnMount () {
-    this.props.dispatch(initPostPage())
+    this.setState({ alertOpen: (nextProps.status !== 'ok' && nextProps.status !== null) })
   }
   render () {
-    if (this.props.status === 'ok') {
-      return <Redirect to='/page-list' />
-    }
     return (
       <div>
         <Dialog
@@ -115,9 +104,8 @@ export class PageCreate extends React.Component {
 const mapStateToProps = state => {
   return {
     loading: state.loading,
-    status: state.postPageStatus,
-    page: state.page
+    status: state.postPageStatus
   }
 }
 
-export default connect(mapStateToProps)(PageCreate)
+export default withRouter(connect(mapStateToProps)(PageEdit))

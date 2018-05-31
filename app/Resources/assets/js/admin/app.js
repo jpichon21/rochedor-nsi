@@ -6,12 +6,13 @@ import { Route, Switch } from 'react-router'
 import { connect, Provider } from 'react-redux'
 import PageList from './components/page-list/page-list'
 import PageCreate from './components/page-create/page-create'
+import PageEdit from './components/page-edit/page-edit'
 import AppMenu from './components/app-menu/app-menu'
 import { configureStore } from './store'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
-const store = configureStore({ pages: [] })
+const store = configureStore({ pages: [], postPageStatus: null })
 
 const theme = createMuiTheme({
   container: {
@@ -38,7 +39,8 @@ class App extends React.Component {
           <AppMenu title={this.state.title} />
           <Switch>
             <Route path='/page-list' render={(props) => (<PageList title={this.updateTitle} />)} />
-            <Route path='/page-create' render={(props) => (<PageCreate title={this.updateTitle} status={null} />)} />
+            <Route path='/page-create' render={(props) => (<PageCreate title={this.updateTitle} />)} />
+            <Route path='/page-edit' render={(props) => (<PageEdit title={this.updateTitle} />)} />
           </Switch>
         </Fragment>
       </HashRouter>
