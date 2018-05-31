@@ -9,6 +9,7 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\ServiceShowPage;
 
 class DefaultController extends Controller
 {
@@ -26,5 +27,10 @@ class DefaultController extends Controller
     public function adminAction()
     {
         return $this->render('admin/index.html.twig');
+    }
+
+    public function showPageAction($contentDocument)
+    {
+        return $this->render('default/page.html.twig', array('page' => $contentDocument));
     }
 }
