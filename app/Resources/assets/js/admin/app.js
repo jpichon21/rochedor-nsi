@@ -28,7 +28,7 @@ const theme = createMuiTheme({
   },
   paper: {
     paddingTop: marge,
-    paddingBottom: marge
+    marginBottom: marge * 2
   },
   title: {
     margin: marge,
@@ -37,16 +37,18 @@ const theme = createMuiTheme({
   buttons: {
     display: 'flex',
     justifyContent: 'flex-end',
-    margin: marge,
-    marginBottom: 0
+    padding: marge
   },
   button: {
-    marginLeft: marge
+    marginLeft: marge / 2
   },
   options: {
     display: 'flex',
     justifyContent: 'flex-end',
     marginBottom: marge
+  },
+  option: {
+    marginLeft: marge / 2
   },
   divider: {
     marginTop: marge,

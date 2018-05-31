@@ -3,21 +3,27 @@ import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { TextField, Button, Paper, Typography, Select, MenuItem } from '@material-ui/core'
+import { TextField, Button, Paper, Typography, Grid, Select, MenuItem, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary } from '@material-ui/core'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { withStyles } from '@material-ui/core/styles'
 import { postPage, getPages } from '../../actions'
+import RichEditor from './RichEditor'
 
 export class PageForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       locale: 'fr',
+      history: '20180513',
       page: {
         title: '',
         sub_title: '',
         url: '',
         description: '',
-        locale: 'fr'
+        locale: 'fr',
+        content: {
+          intro: ''
+        }
       },
       submitDisabled: true
     }
@@ -25,10 +31,16 @@ export class PageForm extends React.Component {
     this.handleInputFilter = this.handleInputFilter.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleLocaleChange = this.handleLocaleChange.bind(this)
+    this.handleHistoryChange = this.handleHistoryChange.bind(this)
   }
   handleLocaleChange (event) {
     this.setState({ locale: event.target.value }, () => {
       this.props.dispatch(getPages(this.state.locale))
+    })
+  }
+  handleHistoryChange (event) {
+    this.setState({ history: event.target.value }, () => {
+      this.props.dispatch(getPages(this.state.history))
     })
   }
   handleInputChange (event) {
@@ -65,6 +77,7 @@ export class PageForm extends React.Component {
       <div className={classes.container}>
         <div className={classes.options}>
           <Select
+            className={classes.option}
             value={this.state.locale}
             onChange={this.handleLocaleChange}
             inputProps={{
@@ -76,6 +89,20 @@ export class PageForm extends React.Component {
             <MenuItem value={'es'}>ES</MenuItem>
             <MenuItem value={'de'}>DE</MenuItem>
             <MenuItem value={'it'}>IT</MenuItem>
+          </Select>
+          <Select
+            className={classes.option}
+            value={this.state.history}
+            onChange={this.handleHistoryChange}
+            inputProps={{
+              name: 'historique',
+              id: 'history'
+            }}>
+            <MenuItem value={'20180513'}>13/05/18</MenuItem>
+            <MenuItem value={'20180517'}>17/05/18</MenuItem>
+            <MenuItem value={'20180521'}>21/05/18</MenuItem>
+            <MenuItem value={'20180612'}>12/06/18</MenuItem>
+            <MenuItem value={'20180613'}>13/06/18</MenuItem>
           </Select>
         </div>
         <Paper className={classes.paper}>
@@ -127,15 +154,59 @@ export class PageForm extends React.Component {
               value={this.state.page.description}
               onChange={this.handleInputChange} />
           </form>
+        </Paper>
+        <Paper className={classes.paper}>
+          <Typography variant='headline' className={classes.title} component='h2'>
+            CONTENU
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={this.handleSubmit}>
+            <TextField
+              autoComplete='off'
+              InputLabelProps={{ shrink: true }}
+              className={classes.textfield}
+              fullWidth
+              multiline
+              id='intro'
+              name='intro'
+              label='Introduction'
+              value={this.state.page.content.intro}
+              onChange={this.handleInputChange} />
+            <ExpansionPanel>
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography>
+                  Paragraphe 1
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails className={classes.details}>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <RichEditor />
+                  </Grid>
+                </Grid>
+              </ExpansionPanelDetails>
+              <div className={classes.buttons}>
+                <Button
+                  className={classes.button}
+                  variant='raised'
+                  aria-label='Supprimer'>
+                  Supprimer
+                </Button>
+                <Button
+                  className={classes.button}
+                  variant='raised'
+                  color='secondary'
+                  aria-label='Sauvegarder'>
+                  Sauvegarder
+                </Button>
+              </div>
+            </ExpansionPanel>
+          </form>
           <div className={classes.buttons}>
             <Button
               className={classes.button}
               variant='raised'
-              color='primary'
-              aria-label='Sauvegarder'
-              onClick={this.handleSubmit}
-              disabled={this.state.submitDisabled || this.props.loading}>
-                Sauvegarder
+              color='primary'>
+                Ajouter
             </Button>
           </div>
         </Paper>
@@ -145,7 +216,39 @@ export class PageForm extends React.Component {
 }
 
 const styles = theme => ({
-  ...theme
+  ...theme,
+  root: {
+    width: '100%'
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15)
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary
+  },
+  icon: {
+    verticalAlign: 'bottom',
+    height: 20,
+    width: 20
+  },
+  details: {
+    alignItems: 'center'
+  },
+  column: {
+    flexBasis: '33.33%'
+  },
+  helper: {
+    borderLeft: `2px solid ${theme.palette.divider}`,
+    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`
+  },
+  link: {
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
+  }
 })
 
 const mapStateToProps = state => {
