@@ -9,8 +9,19 @@ import PageCreate from './components/page-create/page-create'
 import AppMenu from './components/app-menu/app-menu'
 import { configureStore } from './store'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 const store = configureStore({ pages: [] })
+
+const theme = createMuiTheme({
+  container: {
+    maxWidth: '1024px',
+    marginTop: '50px',
+    marginBottom: '50px',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  }
+})
 
 class App extends React.Component {
   constructor () {
@@ -22,19 +33,15 @@ class App extends React.Component {
   }
   render () {
     return (
-      <div>
-        <CssBaseline>
-          <HashRouter>
-            <Fragment>
-              <AppMenu title={this.state.title} />
-              <Switch>
-                <Route path='/page-list' render={(props) => (<PageList title={this.updateTitle} />)} />
-                <Route path='/page-create' render={(props) => (<PageCreate title={this.updateTitle} />)} />
-              </Switch>
-            </Fragment>
-          </HashRouter>
-        </CssBaseline>
-      </div>
+      <HashRouter>
+        <Fragment>
+          <AppMenu title={this.state.title} />
+          <Switch>
+            <Route path='/page-list' render={(props) => (<PageList title={this.updateTitle} />)} />
+            <Route path='/page-create' render={(props) => (<PageCreate title={this.updateTitle} />)} />
+          </Switch>
+        </Fragment>
+      </HashRouter>
     )
   }
   updateTitle (title) {
@@ -47,7 +54,11 @@ export default connect()(hot(module)(App))
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline>
+        <App />
+      </CssBaseline>
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('app')
 )

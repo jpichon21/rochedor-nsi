@@ -9,23 +9,6 @@ import MenuIcon from '@material-ui/icons/Menu'
 import { Menu, MenuItem } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 
-const styles = {
-  root: {
-    flexGrow: 1
-  },
-  flex: {
-    flex: 1
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  },
-  link: {
-    textDecoration: 'none',
-    outline: 'none'
-  }
-}
-
 class AppMenu extends React.Component {
   constructor (props) {
     super(props)
@@ -59,11 +42,11 @@ class AppMenu extends React.Component {
       <AppBar position='static'>
         <Toolbar>
           <IconButton
+            className={classes.menuButton}
             aria-owns={open ? 'menu-appbar' : null}
             aria-haspopup='true'
             onClick={this.handleMenu}
-            color='inherit'
-          >
+            color='inherit'>
             <MenuIcon />
           </IconButton>
           <Typography variant='title' color='inherit' className={classes.flex}>
@@ -81,8 +64,7 @@ class AppMenu extends React.Component {
               horizontal: 'right'
             }}
             open={open}
-            onClose={this.handleClose}
-          >
+            onClose={this.handleClose}>
             <NavLink to='/page-list' className={classes.link}>
               <MenuItem onClick={this.handleClose}>Pages</MenuItem>
             </NavLink>
@@ -93,12 +75,12 @@ class AppMenu extends React.Component {
             </NavLink>
             <NavLink to='' className={classes.link}>
               <MenuItem onClick={this.handleClose}>
-              Nouveautés
+                Nouveautés
               </MenuItem>
             </NavLink>
             <NavLink to='' className={classes.link}>
               <MenuItem onClick={this.handleClose}>
-              Intervenants
+                Intervenants
               </MenuItem>
             </NavLink>
           </Menu>
@@ -107,6 +89,23 @@ class AppMenu extends React.Component {
     )
   }
 }
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  flex: {
+    flex: 1
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  },
+  link: {
+    textDecoration: 'none',
+    outline: 'none'
+  }
+})
 
 AppMenu.propTypes = {
   classes: PropTypes.object.isRequired
