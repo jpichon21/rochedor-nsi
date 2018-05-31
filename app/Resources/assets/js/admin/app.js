@@ -2,91 +2,62 @@ import React, { Fragment } from 'react'
 import { hot } from 'react-hot-loader'
 import { HashRouter } from 'react-router-dom'
 import ReactDOM from 'react-dom'
-import { Route, Switch } from 'react-router'
+import { Route, Switch, Redirect } from 'react-router'
 import { connect, Provider } from 'react-redux'
 import PageList from './components/page-list/page-list'
 import PageCreate from './components/page-create/page-create'
 import PageEdit from './components/page-edit/page-edit'
-import AppMenu from './components/app-menu/app-menu'
 import { configureStore } from './store'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 const store = configureStore({ pages: [], postPageStatus: null, page: {} })
 
-const marge = 20
+const myMarge = 30
 
 const theme = createMuiTheme({
-  marge: marge,
   container: {
-    maxWidth: 1024,
-    marginTop: marge * 2,
-    marginBottom: marge * 2,
-    marginLeft: 'auto',
-    marginRight: 'auto'
-  },
-  paper: {
-    paddingTop: marge,
-    marginBottom: marge * 2
-  },
-  title: {
-    margin: marge,
-    marginTop: 0
+    padding: myMarge
   },
   buttons: {
     display: 'flex',
     justifyContent: 'flex-end',
-    padding: marge
+    position: 'fixed',
+    right: myMarge,
+    bottom: myMarge
   },
   button: {
-    marginLeft: marge / 2
-  },
-  options: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginBottom: marge
-  },
-  option: {
-    marginLeft: marge / 2
-  },
-  divider: {
-    marginTop: marge,
-    marginBottom: marge
-  },
-  form: {
-    marginLeft: marge,
-    marginRight: marge
+    marginLeft: myMarge / 2
   },
   textfield: {
-    marginBottom: marge
+    marginBottom: myMarge
   }
 })
+
+const RedirectPageList = () => {
+  return <Redirect to='/page-list' />
+}
 
 class App extends React.Component {
   constructor () {
     super()
     this.state = {
-      title: 'Accueil'
+      locale: 'fr'
     }
-    this.updateTitle = this.updateTitle.bind(this)
   }
   render () {
     return (
       <HashRouter>
         <Fragment>
-          <AppMenu title={this.state.title} />
           <Switch>
-            <Route path='/page-list' render={(props) => (<PageList title={this.updateTitle} />)} />
-            <Route path='/page-create' render={(props) => (<PageCreate title={this.updateTitle} />)} />
-            <Route path='/page-edit/:pageId' render={(props) => (<PageEdit title={this.updateTitle} />)} />
+            <Route path='/' exact render={RedirectPageList} />
+            <Route path='/page-list' component={PageList} />
+            <Route path='/page-create' component={PageCreate} />
+            <Route path='/page-edit/:pageId' component={PageEdit} />
           </Switch>
         </Fragment>
       </HashRouter>
     )
-  }
-  updateTitle (title) {
-    console.log('title')
-    this.setState({title: title})
   }
 }
 

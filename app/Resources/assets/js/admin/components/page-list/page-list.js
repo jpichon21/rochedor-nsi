@@ -3,91 +3,69 @@ import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getPages } from '../../actions'
-import { Table, TableBody, TableCell, TableHead, TableRow, Select, MenuItem, Button, CircularProgress, Paper, Typography } from '@material-ui/core'
+import { Table, TableBody, TableCell, TableHead, TableRow, Button, CircularProgress, Paper } from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
 import { withRouter, NavLink } from 'react-router-dom'
+import AppMenu from '../app-menu/app-menu'
 
 export class PageList extends React.Component {
   constructor (props) {
     super(props)
-    this.setTitle = this.setTitle.bind(this)
-    this.state = {
-      locale: 'fr'
-    }
-
     this.handleLocaleChange = this.handleLocaleChange.bind(this)
   }
   componentWillMount () {
-    this.props.dispatch(getPages(this.state.locale))
-  }
-  componentDidMount () {
-    this.setTitle()
-  }
-  setTitle () {
-    this.props.title('Liste des pages')
+    this.props.dispatch(getPages(this.props.locale))
   }
   handleLocaleChange (event) {
     this.setState({locale: event.target.value}, () => {
-      this.props.dispatch(getPages(this.state.locale))
+      this.props.dispatch(getPages(this.props.locale))
     })
   }
   goTo (path) {
     this.props.history.push(path)
   }
   render () {
-    Moment.locale('fr')
+    Moment.locale(this.props.locale)
     const { classes } = this.props
-    const items = this.props.pages.map(p => {
+    const items = this.props.pages.map(page => {
       return (
-        <TableRow key={p.id}>
-          <TableCell><NavLink to={`/page-edit/${p.id}`}>{p.title}</NavLink></TableCell>
-          <TableCell><NavLink to={`/page-edit/${p.id}`}>{Moment(p.updated).format('DD/MM/YY')}</NavLink></TableCell>
+        <TableRow key={page.id}>
+          <TableCell><NavLink to={`/page-edit/${page.id}`}>{page.title}</NavLink></TableCell>
+          <TableCell><NavLink to={`/page-edit/${page.id}`}>{Moment(page.updated).format('DD/MM/YY')}</NavLink></TableCell>
         </TableRow>
       )
     })
     return (
-      <div className={classes.container}>
-        <div className={classes.options}>
-          <Select
-            value={this.state.locale}
-            onChange={this.handleLocaleChange}
-            inputProps={{
-              name: 'langue',
-              id: 'locale'
-            }}>
-            <MenuItem value={'fr'}>FR</MenuItem>
-            <MenuItem value={'en'}>EN</MenuItem>
-            <MenuItem value={'es'}>ES</MenuItem>
-            <MenuItem value={'de'}>DE</MenuItem>
-            <MenuItem value={'it'}>IT</MenuItem>
-          </Select>
-        </div>
-        <Paper className={classes.paper}>
-          <Typography variant='headline' className={classes.title} component='h2'>
-            Pages
-          </Typography>
-          {
-            this.props.loading
-              ? <CircularProgress size={50} />
-              : (
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Intitulé</TableCell>
-                      <TableCell>Dernière modification</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {items}
-                  </TableBody>
-                </Table>
-              )
-          }
+      <div>
+        <AppMenu title={'Liste des pages'} />
+        <div className={classes.container}>
+          <Paper className={classes.paper}>
+            {
+              this.props.loading
+                ? <CircularProgress size={50} />
+                : (
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Intitulé</TableCell>
+                        <TableCell>Dernière modification</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {items}
+                    </TableBody>
+                  </Table>
+                )
+            }
+          </Paper>
           <div className={classes.buttons}>
-            <Button variant='raised' color='primary' aria-label='Ajouter' onClick={() => this.goTo('/page-create')} >Ajouter</Button>
+            <Button variant='fab' color='secondary' aria-label='Ajouter' onClick={() => this.goTo('/page-create')} >
+              <AddIcon />
+            </Button>
           </div>
-        </Paper>
+        </div>
       </div>
     )
   }
