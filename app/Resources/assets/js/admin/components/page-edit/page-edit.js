@@ -2,11 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { TextField, Button, DialogActions, Dialog, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
-import { getPage } from '../../actions'
-
-const errors = {
-  'Route already exists': 'Ce nom ou cette adresse est déjà utilisé, veuillez utiliser autre chose.'
-}
+import { getPage, putPage } from '../../actions'
+import PageForm from '../page-form/page-form'
+import { t } from '../../translations'
 
 export class PageEdit extends React.Component {
   constructor (props) {
@@ -23,9 +21,7 @@ export class PageEdit extends React.Component {
       alertOpen: false,
       submitDisabled: true
     }
-    this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleInputFilter = this.handleInputFilter.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
     this.handleClose = this.handleClose.bind(this)
   }
   componentDidMount () {
@@ -34,41 +30,16 @@ export class PageEdit extends React.Component {
     this.props.dispatch(getPage(params.pageId))
   }
   setTitle () {
-    this.props.title(`Modification de la page ${this.state.page.title}`)
-  }
-  handleInputChange (event) {
-    const value = event.target.value
-    const name = event.target.name
-    this.setState(prevState => {
-      return {
-        page: {
-          ...prevState.page,
-          [name]: value
-        }
-      }
-    }, () => {
-      let disabled = false
-      disabled = (this.state.page.title === '' || this.state.page.description === '')
-      this.setState({ submitDisabled: disabled })
-    })
-  }
-  handleSubmit (event) {
-    if (!this.state.loading && !this.state.submitDisabled) {
-      this.props.dispatch(postPage(this.state.page))
-    }
-    event.preventDefault()
-  }
-  handleInputFilter (event) {
-    const re = /[0-9A-Za-z-]+/g
-    if (!re.test(event.key)) {
-      event.preventDefault()
-    }
+    this.props.title(`Modification de la page ${this.props.page.title}`)
   }
   handleClose () {
     this.setState({alertOpen: false})
   }
   componentWillReceiveProps (nextProps) {
     this.setState({ alertOpen: (nextProps.status !== 'ok' && nextProps.status !== null) })
+  }
+  onSubmit (page) {
+    this.props.dispatch(putPage(page))
   }
   render () {
     return (
@@ -82,7 +53,7 @@ export class PageEdit extends React.Component {
           <DialogTitle id='alert-dialog-title'><Icon color='error'>error</Icon>{'Une erreur est survenue'}</DialogTitle>
           <DialogContent>
             <DialogContentText id='alert-dialog-description'>
-              {errors[this.props.status]}
+              {t.t(this.props.status)}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -91,13 +62,7 @@ export class PageEdit extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
-        <form noValidate onSubmit={this.handleSubmit}>
-          <TextField required id='title' name='title' label='Titre ligne 1' value={this.state.page.title} onChange={this.handleInputChange} onKeyPress={this.handleInputFilter} />
-          <TextField id='sub_title' name='sub_title' label='Titre ligne 2' value={this.state.page.sub_title} onChange={this.handleInputChange} />
-          <TextField id='url' name='url' label='Url' value={this.state.page.url} onChange={this.handleInputChange} onKeyPress={this.handleInputFilter} />
-          <TextField multiline id='description' name='description' label='Meta-description' value={this.state.page.description} onChange={this.handleInputChange} />
-          <Button variant='raised' color='primary' onClick={this.handleSubmit} disabled={this.state.submitDisabled || this.props.loading}>Créer la page</Button>
-        </form>
+        <PageForm page={this.props.page} handleSubmit={this.onSubmit} />
       </div>
     )
   }
@@ -106,7 +71,8 @@ export class PageEdit extends React.Component {
 const mapStateToProps = state => {
   return {
     loading: state.loading,
-    page: state.page
+    page: state.page,
+    status: state.status
   }
 }
 

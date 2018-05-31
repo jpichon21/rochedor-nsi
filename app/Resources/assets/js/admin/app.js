@@ -12,7 +12,7 @@ import { configureStore } from './store'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
-const store = configureStore({ pages: [], postPageStatus: null, page: {} })
+const store = configureStore({ pages: [], status: '', page: {} })
 
 const marge = 20
 

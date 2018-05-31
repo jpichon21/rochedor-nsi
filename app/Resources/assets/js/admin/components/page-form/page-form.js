@@ -49,9 +49,7 @@ export class PageForm extends React.Component {
   }
   handleSubmit (event) {
     if (!this.state.loading && !this.state.submitDisabled) {
-      this.props.dispatch(postPage(this.state.page)).then(() => {
-        this.setState({ alertOpen: (this.props.status >= 400) })
-      })
+      this.props.submitHandler(this.state.page)
     }
     event.preventDefault()
   }
