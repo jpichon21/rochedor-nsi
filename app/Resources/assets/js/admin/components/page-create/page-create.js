@@ -66,18 +66,15 @@ export class PageCreate extends React.Component {
     this.setState({alertOpen: false})
   }
   componentWillReceiveProps (nextProps) {
-    this.setState({ alertOpen: (nextProps.status !== 'ok' && nextProps.status !== null) }, () => {
-      this.props.dispatch(setMessage('Page créee'))
-    })
+    this.setState({ alertOpen: (nextProps.status !== 'ok' && nextProps.status !== null) })
   }
   componentWillMount () {
     this.props.dispatch(initPostPage())
   }
-  componentWillUnMount () {
-    this.props.dispatch(initPostPage())
-  }
   render () {
     if (this.props.status === 'ok') {
+      this.props.dispatch(setMessage('Page créee'))
+      this.props.dispatch(initPostPage())
       return <Redirect to='/page-list' />
     }
     return (
