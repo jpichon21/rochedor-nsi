@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { Button, DialogActions, Dialog, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
+import { postPage, initPostPage, setMessage } from '../../actions'
 import PageForm from '../page-form/page-form'
 
 const errors = {
-  403: 'Ce nom ou cette adresse est déjà utilisé, veuillez utiliser autre chose.'
+  'Route already exists': 'Ce nom ou cette adresse est déjà utilisé, veuillez utiliser autre chose.'
 }
 
 export class PageCreate extends React.Component {
@@ -33,11 +34,22 @@ export class PageCreate extends React.Component {
   handleClose () {
     this.setState({alertOpen: false})
   }
+  componentWillReceiveProps (nextProps) {
+    this.setState({ alertOpen: (nextProps.status !== 'ok' && nextProps.status !== null) })
+  }
+  componentWillMount () {
+    this.props.dispatch(initPostPage())
+  }
   render () {
+    if (this.props.status === 'ok') {
+      this.props.dispatch(setMessage('Page créee'))
+      this.props.dispatch(initPostPage())
+      return <Redirect to='/page-list' />
+    }
     return (
       <div>
         <Dialog
-          open={this.state.alertOpen}
+          open={this.state.alertOpen || false}
           onClose={this.handleClose}
           aria-labelledby='alert-dialog-title'
           aria-describedby='alert-dialog-description'>
@@ -68,4 +80,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(PageCreate))
+export default connect(mapStateToProps)(PageCreate)

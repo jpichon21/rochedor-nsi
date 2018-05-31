@@ -119,6 +119,12 @@ class Page
      */
     private $url;
 
+    /**
+     * @var int
+     * @Type("int")
+     */
+    private $parentId;
+
     public function __construct()
     {
         $this->routes = new ArrayCollection();
@@ -418,5 +424,15 @@ class Page
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Get parentId
+     *
+     * @return int
+     */
+    public function getParentId()
+    {
+        return $this->parentId;
     }
 }

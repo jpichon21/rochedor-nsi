@@ -4,7 +4,10 @@ import {
   GET_PAGES_FAILURE,
   POST_PAGE,
   POST_PAGE_SUCCESS,
-  POST_PAGE_FAILURE
+  POST_PAGE_FAILURE,
+  INIT_POST_PAGE,
+  SET_MESSAGE,
+  RESET_MESSAGE
 } from './actions'
 
 export const rootReducer = (state, action) => {
@@ -35,15 +38,32 @@ export const rootReducer = (state, action) => {
     case POST_PAGE_SUCCESS:
       return {
         ...state,
-        postPageStatus: action.res.status,
-        pages: [...action.data],
+        postPageStatus: 'ok',
+        page: [...action.data],
         loading: false
       }
     case POST_PAGE_FAILURE:
       return {
         ...state,
-        postPageStatus: action.res.status,
+        postPageStatus: action.data,
         loading: false
+      }
+    case INIT_POST_PAGE:
+      return {
+        ...state,
+        postPageStatus: null,
+        loading: false,
+        page: null
+      }
+    case SET_MESSAGE:
+      return {
+        ...state,
+        message: { message: action.message, error: action.error }
+      }
+    case RESET_MESSAGE:
+      return {
+        ...state,
+        message: null
       }
   }
   return state

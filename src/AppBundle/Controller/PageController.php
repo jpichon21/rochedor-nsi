@@ -25,7 +25,24 @@ class PageController extends Controller
     public function postAction(Page $page)
     {
         $em = $this->getDoctrine()->getManager();
+        if ($page->getParentId() != null) {
+            $id = $page->getParentId();
+            $parent = $this->getDoctrine()->getRepository('AppBundle:Page')->find($id);
+            $page->setParent($parent);
+        }
         $em->persist($page);
+
+        if ($page->getLocale() !== "fr" && $parent === null) {
+            return new JsonResponse("Wrong Argument, parent is null", Response::HTTP_FORBIDDEN);
+        }
+        if ($page->getLocale() !== "fr" && $parent !== null) {
+            if ($parent->getLocale() !== 'fr') {
+                return new JsonResponse("Wrong Argument, parent is not fr", Response::HTTP_FORBIDDEN);
+            }
+        }
+        if ($page->getLocale() === "fr" && $parent !== null) {
+            return new JsonResponse("Wrong Argument, Your parent must be null", Response::HTTP_FORBIDDEN);
+        }
 
         $contentRepository = $this->container->get('cmf_routing.content_repository');
         $routeProvider = $this->container->get('cmf_routing.route_provider');
