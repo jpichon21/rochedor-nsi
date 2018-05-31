@@ -30,7 +30,10 @@ export const POST_PAGE_FAILURE = 'POST_PAGE_FAILURE'
 export const GET_PAGE = 'GET_PAGE'
 export const GET_PAGE_SUCCESS = 'GET_PAGE_SUCCESS'
 export const GET_PAGE_FAILURE = 'GET_PAGE_FAILURE'
-export const INIT_POST_PAGE = 'INIT_POST_PAGE'
+export const INIT_STATUS = 'INIT_STATUS'
+export const PUT_PAGE = 'PUT_PAGE'
+export const PUT_PAGE_SUCCESS = 'PUT_PAGE_SUCCESS'
+export const PUT_PAGE_FAILURE = 'PUT_PAGE_FAILURE'
 
 export function postPage (attributes) {
   return dispatch => {
@@ -81,9 +84,34 @@ export function getPage (pageId, version = null) {
   }
 }
 
-export function initPostPage () {
+export function putPage (attributes) {
   return dispatch => {
-    dispatch({ type: INIT_POST_PAGE })
+    dispatch({ type: PUT_PAGE, attributes })
+
+    return window.fetch(`${API_URL}pages/${attributes.id}`, {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify(attributes)
+    })
+      .then(res => {
+        if (res.status >= 400) {
+          res.json().then(res => {
+            dispatch({ type: PUT_PAGE_FAILURE, ...{ data: res } })
+          })
+        } else {
+          res.json().then(res => {
+            dispatch({ type: PUT_PAGE_SUCCESS, ...{ data: res } })
+          })
+        }
+      })
+      .catch(error => dispatch({ type: PUT_PAGE_FAILURE, ...{ data: error } }))
+  }
+}
+
+export function initStatus () {
+  return dispatch => {
+    dispatch({ type: INIT_STATUS })
   }
 }
 
@@ -99,5 +127,12 @@ export function setMessage (message, error = false) {
 export function resetMessage () {
   return dispatch => {
     dispatch({ type: RESET_MESSAGE })
+  }
+}
+
+export const SET_TITLE = 'SET_TITLE'
+export function setTitle (title) {
+  return dispatch => {
+    dispatch({ type: SET_TITLE, ...{title: title} })
   }
 }

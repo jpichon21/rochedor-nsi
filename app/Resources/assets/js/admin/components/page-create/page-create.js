@@ -2,17 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Button, DialogActions, Dialog, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
-import { postPage, initPostPage, setMessage } from '../../actions'
+import { postPage, initStatus, setMessage, setTitle } from '../../actions'
 import PageForm from '../page-form/page-form'
-
-const errors = {
-  'Route already exists': 'Ce nom ou cette adresse est déjà utilisé, veuillez utiliser autre chose.'
-}
+import { t } from '../../translations'
 
 export class PageCreate extends React.Component {
   constructor (props) {
     super(props)
-    this.setTitle = this.setTitle.bind(this)
     this.state = {
       page: {
         title: '',
@@ -24,12 +20,10 @@ export class PageCreate extends React.Component {
       alertOpen: false
     }
     this.handleClose = this.handleClose.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
   componentDidMount () {
-    this.setTitle()
-  }
-  setTitle () {
-    this.props.title('Ajout d\'une page')
+    this.props.dispatch(setTitle('Ajout d\'une page'))
   }
   handleClose () {
     this.setState({alertOpen: false})
@@ -37,13 +31,16 @@ export class PageCreate extends React.Component {
   componentWillReceiveProps (nextProps) {
     this.setState({ alertOpen: (nextProps.status !== 'ok' && nextProps.status !== null) })
   }
+  onSubmit (page) {
+    this.props.dispatch(postPage(page))
+  }
   componentWillMount () {
-    this.props.dispatch(initPostPage())
+    this.props.dispatch(initStatus())
   }
   render () {
     if (this.props.status === 'ok') {
       this.props.dispatch(setMessage('Page créee'))
-      this.props.dispatch(initPostPage())
+      this.props.dispatch(initStatus())
       return <Redirect to='/page-list' />
     }
     return (
@@ -59,7 +56,7 @@ export class PageCreate extends React.Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id='alert-dialog-description'>
-              {errors[this.props.status]}
+              {t.t(this.props.status)}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -68,7 +65,7 @@ export class PageCreate extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
-        <PageForm />
+        <PageForm submitHandler={this.onSubmit} />
       </div>
     )
   }
@@ -76,7 +73,7 @@ export class PageCreate extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    status: state.postPageStatus
+    status: state.status
   }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import { Menu, MenuItem, AppBar, Toolbar, Typography, IconButton, Button } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -145,4 +146,11 @@ AppMenu.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(AppMenu)
+const mapStateToProps = state => {
+  return {
+    loading: state.loading,
+    title: state.title,
+  }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(AppMenu))
