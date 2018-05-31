@@ -89,7 +89,7 @@ export class PageCreate extends React.Component {
           </DialogActions>
         </Dialog>
         <form noValidate onSubmit={this.handleSubmit}>
-          <TextField required id='title' name='title' label='Titre ligne 1' value={this.state.page.title} onChange={this.handleInputChange} onKeyPress={this.handleInputFilter} />
+          <TextField required id='title' name='title' label='Titre ligne 1' value={this.state.page.title} onChange={this.handleInputChange} />
           <TextField id='sub_title' name='sub_title' label='Titre ligne 2' value={this.state.page.sub_title} onChange={this.handleInputChange} />
           <TextField id='url' name='url' label='Url' value={this.state.page.url} onChange={this.handleInputChange} onKeyPress={this.handleInputFilter} />
           <TextField multiline id='description' name='description' label='Meta-description' value={this.state.page.description} onChange={this.handleInputChange} />
