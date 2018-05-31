@@ -13,13 +13,49 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 const store = configureStore({ pages: [] })
 
+const marge = 20
+
 const theme = createMuiTheme({
+  marge: marge,
   container: {
-    maxWidth: '1024px',
-    marginTop: '50px',
-    marginBottom: '50px',
+    maxWidth: 1024,
+    marginTop: marge * 2,
+    marginBottom: marge * 2,
     marginLeft: 'auto',
     marginRight: 'auto'
+  },
+  paper: {
+    paddingTop: marge,
+    paddingBottom: marge
+  },
+  title: {
+    margin: marge,
+    marginTop: 0
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    margin: marge,
+    marginBottom: 0
+  },
+  button: {
+    marginLeft: marge
+  },
+  options: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginBottom: marge
+  },
+  divider: {
+    marginTop: marge,
+    marginBottom: marge
+  },
+  form: {
+    marginLeft: marge,
+    marginRight: marge
+  },
+  textfield: {
+    marginBottom: marge
   }
 })
 
