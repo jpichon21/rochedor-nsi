@@ -25,6 +25,7 @@ class PageController extends Controller
     public function postAction(Page $page)
     {
         $em = $this->getDoctrine()->getManager();
+        $parent = null;
         if ($page->getParentId() != null) {
             $id = $page->getParentId();
             $parent = $this->getDoctrine()->getRepository('AppBundle:Page')->find($id);
@@ -33,15 +34,18 @@ class PageController extends Controller
         $em->persist($page);
 
         if ($page->getLocale() !== "fr" && $parent === null) {
-            return new JsonResponse("Wrong Argument, parent is null", Response::HTTP_FORBIDDEN);
+            return new JsonResponse(['message' => 'Wrong Argument, parent is null'], Response::HTTP_FORBIDDEN);
         }
         if ($page->getLocale() !== "fr" && $parent !== null) {
             if ($parent->getLocale() !== 'fr') {
-                return new JsonResponse("Wrong Argument, parent is not fr", Response::HTTP_FORBIDDEN);
+                return new JsonResponse(['message' => 'Wrong Argument, parent is not fr'], Response::HTTP_FORBIDDEN);
             }
         }
-        if ($page->getLocale() === "fr" && $parent !== null) {
-            return new JsonResponse("Wrong Argument, Your parent must be null", Response::HTTP_FORBIDDEN);
+        if ($page->getLocale() === 'fr' && $parent !== null) {
+            return new JsonResponse(
+                ['message' => 'Wrong Argument, Your parent must be null'],
+                Response::HTTP_FORBIDDEN
+            );
         }
 
         $contentRepository = $this->container->get('cmf_routing.content_repository');
@@ -55,7 +59,7 @@ class PageController extends Controller
             $routeName =  $this->slugify($page->getUrl());
         }
         if ($routeProvider->getRoutesByNames([$routeName])) {
-            return new JsonResponse("Route already exists", Response::HTTP_FORBIDDEN);
+            return new JsonResponse(['message' => 'Route already exists'], Response::HTTP_FORBIDDEN);
         }
 
         $route->setName($routeName);
@@ -93,6 +97,9 @@ class PageController extends Controller
         if ($version === null) {
             $em = $this->getDoctrine()->getManager();
             $page = $em->getRepository('AppBundle:Page')->findOneById($id);
+            if ($page === null) {
+                return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
+            }
             return $page;
         } else {
             $em = $this->getDoctrine()->getManager();
@@ -121,12 +128,12 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
         $page = $this->getDoctrine()->getRepository('AppBundle:Page')->find($id);
         if (empty($page)) {
-            return new JsonResponse("Page not found", Response::HTTP_NOT_FOUND);
+            return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
         } else {
             $em->remove($page);
             $em->flush();
         }
-        return new JsonResponse("deleted successfully", Response::HTTP_OK);
+        return new JsonResponse(['message' => 'Deleted successfully'], Response::HTTP_OK);
     }
 
     /**
