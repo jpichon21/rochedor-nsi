@@ -35,14 +35,14 @@ export const rootReducer = (state, action) => {
     case POST_PAGE_SUCCESS:
       return {
         ...state,
-        postPageStatus: action.res.status,
-        pages: [...action.data],
+        postPageStatus: 'ok',
+        page: [...action.data],
         loading: false
       }
     case POST_PAGE_FAILURE:
       return {
         ...state,
-        postPageStatus: action.res.status,
+        postPageStatus: action.data,
         loading: false
       }
   }

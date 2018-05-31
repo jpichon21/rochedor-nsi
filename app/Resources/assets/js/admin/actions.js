@@ -42,13 +42,15 @@ export function postPage (attributes) {
     })
       .then(res => {
         if (res.status >= 400) {
-          dispatch({ type: POST_PAGE_FAILURE, res })
+          res.json().then(res => {
+            dispatch({ type: POST_PAGE_FAILURE, ...{ data: res } })
+          })
         } else {
           res.json().then(res => {
-            dispatch({ type: POST_PAGE_SUCCESS, ...{'data': res} })
+            dispatch({ type: POST_PAGE_SUCCESS, ...{ data: res } })
           })
         }
       })
-      .catch(error => dispatch({ type: POST_PAGE_FAILURE, error }))
+      .catch(error => dispatch({ type: POST_PAGE_FAILURE, ...{ data: error } }))
   }
 }

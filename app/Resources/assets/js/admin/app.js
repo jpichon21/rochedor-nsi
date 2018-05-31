@@ -38,7 +38,7 @@ class App extends React.Component {
           <AppMenu title={this.state.title} />
           <Switch>
             <Route path='/page-list' render={(props) => (<PageList title={this.updateTitle} />)} />
-            <Route path='/page-create' render={(props) => (<PageCreate title={this.updateTitle} />)} />
+            <Route path='/page-create' render={(props) => (<PageCreate title={this.updateTitle} status={null} />)} />
           </Switch>
         </Fragment>
       </HashRouter>

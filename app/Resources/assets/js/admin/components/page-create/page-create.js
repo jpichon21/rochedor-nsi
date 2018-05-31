@@ -5,7 +5,7 @@ import { TextField, Button, DialogActions, Dialog, DialogContent, DialogContentT
 import { postPage } from '../../actions'
 
 const errors = {
-  403: 'Ce nom ou cette adresse est déjà utilisé, veuillez utiliser autre chose.'
+  'Route already exists': 'Ce nom ou cette adresse est déjà utilisé, veuillez utiliser autre chose.'
 }
 
 export class PageCreate extends React.Component {
@@ -52,9 +52,7 @@ export class PageCreate extends React.Component {
   }
   handleSubmit (event) {
     if (!this.state.loading && !this.state.submitDisabled) {
-      this.props.dispatch(postPage(this.state.page)).then(() => {
-        this.setState({alertOpen: (this.props.status >= 400)})
-      })
+      this.props.dispatch(postPage(this.state.page))
     }
     event.preventDefault()
   }
@@ -67,11 +65,14 @@ export class PageCreate extends React.Component {
   handleClose () {
     this.setState({alertOpen: false})
   }
+  componentWillReceiveProps (nextProps) {
+    this.setState({alertOpen: (nextProps.status !== 'ok' && nextProps.status !== null)})
+  }
   render () {
     return (
       <div>
         <Dialog
-          open={this.state.alertOpen}
+          open={this.state.alertOpen || false}
           onClose={this.handleClose}
           aria-labelledby='alert-dialog-title'
           aria-describedby='alert-dialog-description'
