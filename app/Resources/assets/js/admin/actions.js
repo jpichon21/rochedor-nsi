@@ -27,6 +27,9 @@ export function getPages (locale = 'fr') {
 export const POST_PAGE = 'POST_PAGE'
 export const POST_PAGE_SUCCESS = 'POST_PAGE_SUCCESS'
 export const POST_PAGE_FAILURE = 'POST_PAGE_FAILURE'
+export const GET_PAGE = 'GET_PAGE'
+export const GET_PAGE_SUCCESS = 'GET_PAGE_SUCCESS'
+export const GET_PAGE_FAILURE = 'GET_PAGE_FAILURE'
 export const INIT_POST_PAGE = 'INIT_POST_PAGE'
 
 export function postPage (attributes) {
@@ -51,6 +54,30 @@ export function postPage (attributes) {
         }
       })
       .catch(error => dispatch({ type: POST_PAGE_FAILURE, ...{ data: error } }))
+  }
+}
+
+export function getPage (pageId, version = null) {
+  return dispatch => {
+    dispatch({ type: GET_PAGE, pageId })
+
+    return window.fetch(`${API_URL}pages/${pageId}`, {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then(res => {
+        if (res.status >= 400) {
+          res.json().then(res => {
+            dispatch({ type: GET_PAGE_FAILURE, ...{ data: res } })
+          })
+        } else {
+          res.json().then(res => {
+            dispatch({ type: GET_PAGE_SUCCESS, ...{ data: res } })
+          })
+        }
+      })
+      .catch(error => dispatch({ type: GET_PAGE_FAILURE, ...{ data: error } }))
   }
 }
 
