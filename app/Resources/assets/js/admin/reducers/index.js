@@ -1,5 +1,5 @@
-import * as reducer from 'reduce-reducers'
+import reduceReducers from 'reduce-reducers'
 import pageReducer from './page'
 import commonReducer from './common'
 
-export default reducer(commonReducer, pageReducer)
+export default reduceReducers(commonReducer, pageReducer)
