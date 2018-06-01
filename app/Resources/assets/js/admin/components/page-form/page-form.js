@@ -3,6 +3,8 @@ import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { convertToRaw } from 'draft-js'
+import draftToHtml from 'draftjs-to-html'
 import { MenuItem, Menu, GridList, GridListTile, TextField, Button, Typography, Grid, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, ExpansionPanelActions, Divider, Select } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import WrapTextIcon from '@material-ui/icons/WrapText'
@@ -32,6 +34,7 @@ export class PageForm extends React.Component {
     this.handleCloseLayoutMenu = this.handleCloseLayoutMenu.bind(this)
     this.handleChangeLayoutMenu = this.handleChangeLayoutMenu.bind(this)
     this.handleVersion = this.handleVersion.bind(this)
+    this.handleChangeTextArea = this.handleChangeTextArea.bind(this)
   }
 
   handleLocaleChange (event) {
@@ -88,6 +91,24 @@ export class PageForm extends React.Component {
     })
   }
 
+  handleChangeTextArea (editorState) {
+    const rawContentState = convertToRaw(editorState.getCurrentContent())
+    const markup = draftToHtml(rawContentState)
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        page: {
+          ...prevState.page,
+          sections: {
+            ...prevState.page.sections,
+            body: markup
+          }
+        }
+      }
+    })
+    console.log(this.state.page)
+  }
+
   componentWillReceiveProps (nextProps) {
     if (nextProps.page) {
       this.setState({ page: nextProps.page })
@@ -135,7 +156,6 @@ export class PageForm extends React.Component {
             InputLabelProps={{ shrink: true }}
             className={classes.textfield}
             fullWidth
-            id='title'
             name='title'
             label='Titre ligne 1'
             value={this.state.page.title}
@@ -145,7 +165,6 @@ export class PageForm extends React.Component {
             InputLabelProps={{ shrink: true }}
             className={classes.textfield}
             fullWidth
-            id='sub_title'
             name='sub_title'
             label='Titre ligne 2'
             value={this.state.page.sub_title}
@@ -155,7 +174,6 @@ export class PageForm extends React.Component {
             InputLabelProps={{ shrink: true }}
             className={classes.textfield}
             fullWidth
-            id='url'
             name='url'
             label='Url'
             value={this.state.page.url}
@@ -168,7 +186,6 @@ export class PageForm extends React.Component {
             className={classes.textfield}
             fullWidth
             multiline
-            id='description'
             name='description'
             label='Meta-description'
             value={this.state.page.description}
@@ -184,7 +201,6 @@ export class PageForm extends React.Component {
             className={classes.textfield}
             fullWidth
             multiline
-            id='intro'
             name='intro'
             label='Introduction'
             value={this.state.page.content.intro}
@@ -198,7 +214,17 @@ export class PageForm extends React.Component {
             <ExpansionPanelDetails className={classes.details}>
               <Grid container spacing={32}>
                 <Grid item xs={6}>
-                  <RichEditor />
+                  <TextField
+                    autoComplete='off'
+                    InputLabelProps={{ shrink: true }}
+                    className={classes.textfield}
+                    fullWidth
+                    multiline
+                    name='title'
+                    label='Titre'
+                    value={this.state.page.content.sections.title}
+                    onChange={this.handleInputChange} />
+                  <RichEditor onChange={this.handleChangeTextArea} />
                 </Grid>
                 <Grid item xs={6}>
                   <GridList className={classes.gridList} cols={2} rows={2}>

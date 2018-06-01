@@ -17,7 +17,12 @@ export class PageCreate extends React.Component {
         url: '',
         description: '',
         content: {
-          intro: ''
+          intro: '',
+          sections: {
+            title: '',
+            body: '',
+            slides: []
+          }
         }
       },
       alertOpen: false
