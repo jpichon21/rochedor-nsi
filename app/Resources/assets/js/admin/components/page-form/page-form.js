@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import { MenuItem, Menu, GridList, GridListTile, TextField, Button, Typography, Grid, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, ExpansionPanelActions, Divider, Select } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import AddIcon from '@material-ui/icons/Add'
+import SaveIcon from '@material-ui/icons/Save'
 import { withStyles } from '@material-ui/core/styles'
 import { getPages } from '../../actions'
 import RichEditor from './RichEditor'
@@ -45,6 +46,7 @@ export class PageForm extends React.Component {
       this.props.dispatch(getPages(this.state.locale))
     })
   }
+
   handleVersion (event) {
     this.setState({ versionCount: event.target.value })
     if (!this.state.loading) {
@@ -163,7 +165,6 @@ export class PageForm extends React.Component {
             InputLabelProps={{ shrink: true }}
             className={classes.textfield}
             fullWidth
-            required
             id='title'
             name='title'
             label='Titre ligne 1'
@@ -229,7 +230,7 @@ export class PageForm extends React.Component {
                   <RichEditor />
                 </Grid>
                 <Grid item xs={6}>
-                  <GridList cellHeight={400} className={classes.gridList} cols={2}>
+                  <GridList className={classes.gridList} cols={2}>
                     {tileData.map(tile => (
                       <GridListTile key={tile.id} cols={tile.cols || 1}>
                         <img src={tile.img} alt={tile.title} />
@@ -238,15 +239,15 @@ export class PageForm extends React.Component {
                   </GridList>
                   <div className={classes.options}>
                     <Button
+                      variant='outlined'
                       aria-owns={menuLayoutOpened ? 'layout-menu' : null}
                       aria-haspopup='true'
                       onClick={this.handleLayoutMenu}
-                      color='primary'
                       className={classes.option}>
                       Disposition
                     </Button>
-                    <Button className={classes.option}>Supprimer</Button>
-                    <Button color='secondary' className={classes.option}>Ajouter</Button>
+                    <Button variant='outlined' disabled className={classes.option}>Supprimer</Button>
+                    <Button variant='outlined' color='primary' className={classes.option}>Ajouter</Button>
                   </div>
                   <Menu
                     id='layout-menu'
@@ -293,7 +294,7 @@ export class PageForm extends React.Component {
             <Divider />
             <ExpansionPanelActions>
               <Button>Supprimer</Button>
-              <Button color='secondary'>Sauvegarder</Button>
+              <Button color='primary'>Sauvegarder</Button>
             </ExpansionPanelActions>
           </ExpansionPanel>
         </form>
@@ -301,8 +302,15 @@ export class PageForm extends React.Component {
           <Button
             className={classes.button}
             variant='fab'
-            color='secondary'>
+            color='primary'>
             <AddIcon />
+          </Button>
+          <Button
+            onClick={this.handleSubmit}
+            className={classes.button}
+            variant='fab'
+            color='secondary'>
+            <SaveIcon />
           </Button>
         </div>
       </div>

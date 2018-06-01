@@ -30,7 +30,10 @@ const myMarge = 30
 const theme = createMuiTheme({
   myMarge: myMarge,
   container: {
-    padding: myMarge
+    maxWidth: 1024,
+    padding: myMarge,
+    marginLeft: 'auto',
+    marginRight: 'auto'
   },
   buttons: {
     display: 'flex',
