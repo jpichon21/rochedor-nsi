@@ -10,6 +10,7 @@ import SaveIcon from '@material-ui/icons/Save'
 import { withStyles } from '@material-ui/core/styles'
 import { getPages } from '../../actions'
 import RichEditor from './RichEditor'
+import { tileData } from './tileData'
 
 export class PageForm extends React.Component {
   constructor (props) {
@@ -118,24 +119,6 @@ export class PageForm extends React.Component {
         )
       })
       : null
-    const tileData = [{
-      id: 0,
-      img: 'http://via.placeholder.com/400x400',
-      title: 'Image 1',
-      cols: 1
-    },
-    {
-      id: 1,
-      img: 'http://via.placeholder.com/400x400',
-      title: 'Image 2',
-      cols: 1
-    },
-    {
-      id: 2,
-      img: 'http://via.placeholder.com/800x400',
-      title: 'Image 3',
-      cols: 2
-    }]
     return (
       <div className={classes.container}>
         {
@@ -230,12 +213,14 @@ export class PageForm extends React.Component {
                   <RichEditor />
                 </Grid>
                 <Grid item xs={6}>
-                  <GridList className={classes.gridList} cols={2}>
-                    {tileData.map(tile => (
-                      <GridListTile key={tile.id} cols={tile.cols || 1}>
-                        <img src={tile.img} alt={tile.title} />
-                      </GridListTile>
-                    ))}
+                  <GridList className={classes.gridList} cols={2} rows={2}>
+                    {
+                      tileData[this.state.layout].map(tile => (
+                        <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
+                          <img src={tile.img} alt={tile.title} />
+                        </GridListTile>
+                      ))
+                    }
                   </GridList>
                   <div className={classes.options}>
                     <Button
