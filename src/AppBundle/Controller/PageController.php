@@ -117,10 +117,11 @@ class PageController extends Controller
                     $oldPage = array_merge($diff, $logs[$i]->getData());
                 }
             }
-            // if ($oldPage->getRoutes()) {
-            //     $oldPage->setTempUrl($oldPage->getRoutes()[0]->getName());
-            // }
-            return $oldPage;
+            $page->setTitle($oldPage['title']);
+            $page->setSubTitle($oldPage['subTitle']);
+            $page->setDescription($oldPage['description']);
+            $page->setContent($oldPage['content']);
+            return $page;
         }
     }
 
@@ -212,20 +213,24 @@ class PageController extends Controller
     }
 
     /**
-     * @Rest\Get("pages/{id}/children")
+     * @Rest\Get("pages/{id}/translation")
      * @Rest\View()
      *
      * @param integer $id
      * @return json
      */
-    public function getChildrenAction($id)
+    public function getTranslationAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $page = $em->getRepository('AppBundle:Page')->findOneById($id);
         if (empty($page)) {
             return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
         }
-        return $page->getChildren();
+        $parent = $page->getParent();
+        if ($parent === null) {
+            return new JsonResponse(['message' => 'Page has no parent'], Response::HTTP_FORBIDDEN);
+        }
+        return $parent->getChildren();
     }
 
     /**
