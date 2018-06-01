@@ -5,6 +5,9 @@ import {
   POST_PAGE,
   POST_PAGE_SUCCESS,
   POST_PAGE_FAILURE,
+  PUT_PAGE,
+  PUT_PAGE_SUCCESS,
+  PUT_PAGE_FAILURE,
   GET_PAGE,
   GET_PAGE_SUCCESS,
   GET_PAGE_FAILURE,
@@ -14,7 +17,6 @@ import {
 } from '../actions'
 
 export default function pageReducer (state, action) {
-  console.log(action)
   switch (action.type) {
     case GET_PAGES:
       return {
@@ -30,7 +32,8 @@ export default function pageReducer (state, action) {
     case GET_PAGES_FAILURE:
       return {
         ...state,
-        loading: false
+        loading: false,
+        error: action.data.error,
       }
     case GET_PAGE_VERSIONS:
       return {
@@ -46,7 +49,8 @@ export default function pageReducer (state, action) {
     case GET_PAGE_VERSIONS_FAILURE:
       return {
         ...state,
-        loading: false
+        loading: false,
+        error: action.data.error,
       }
     case POST_PAGE:
       return {
@@ -64,6 +68,26 @@ export default function pageReducer (state, action) {
       return {
         ...state,
         status: action.data.message,
+        error: action.data.error,
+        loading: false
+      }
+    case PUT_PAGE:
+      return {
+        ...state,
+        status: '',
+        loading: true
+      }
+    case PUT_PAGE_SUCCESS:
+      return {
+        ...state,
+        status: 'ok',
+        loading: false
+      }
+    case PUT_PAGE_FAILURE:
+      return {
+        ...state,
+        status: action.data.message,
+        error: action.data.error,
         loading: false
       }
     case GET_PAGE:
@@ -83,6 +107,7 @@ export default function pageReducer (state, action) {
         ...state,
         page: null,
         status: action.data.message,
+        error: action.data.error,
         loading: false
       }
   }

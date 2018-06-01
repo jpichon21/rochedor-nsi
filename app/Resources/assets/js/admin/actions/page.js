@@ -108,15 +108,15 @@ export function getPageVersions (pageId) {
   }
 }
 
-export function putPage (attributes) {
+export function putPage (page) {
   return dispatch => {
-    dispatch({ type: PUT_PAGE, attributes })
+    dispatch({ type: PUT_PAGE, page })
 
-    return window.fetch(`${API_URL}pages/${attributes.id}`, {
+    return window.fetch(`${API_URL}pages/${page.id}`, {
       headers: { 'Content-Type': 'application/json' },
       method: 'PUT',
       credentials: 'include',
-      body: JSON.stringify(attributes)
+      body: JSON.stringify(page)
     })
       .then(res => {
         if (res.status >= 400) {
