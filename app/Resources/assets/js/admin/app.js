@@ -10,7 +10,6 @@ import PageEdit from './components/page-edit/page-edit'
 import { configureStore } from './store'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-import { setTitle } from './actions'
 
 const store = configureStore({
   pages: [],
@@ -23,7 +22,8 @@ const store = configureStore({
     content: {}
   },
   pageVersions: {},
-  title: 'Accueil' }
+  title: 'Accueil'
+}
 )
 
 const myMarge = 30
