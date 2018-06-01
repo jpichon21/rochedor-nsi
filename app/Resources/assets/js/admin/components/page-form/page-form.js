@@ -3,11 +3,11 @@ import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { MenuItem, Menu, GridList, GridListTile, TextField, Button, Typography, Grid, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, ExpansionPanelActions, Divider } from '@material-ui/core'
+import { MenuItem, Menu, GridList, GridListTile, TextField, Button, Typography, Grid, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, ExpansionPanelActions, Divider, Select } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
-import { postPage, getPages } from '../../actions'
+import { getPages } from '../../actions'
 import RichEditor from './RichEditor'
 
 export class PageForm extends React.Component {
@@ -15,19 +15,18 @@ export class PageForm extends React.Component {
     super(props)
     this.state = {
       locale: 'fr',
-      history: '20180513',
       layout: '1-1-2',
+      versionCount: 0,
+      submitDisabled: true,
       page: {
         title: '',
         sub_title: '',
         url: '',
         description: '',
-        locale: 'fr',
         content: {
           intro: ''
         }
       },
-      submitDisabled: true,
       anchorMenuLayout: null,
       menuLayoutOpened: false
     }
@@ -35,10 +34,10 @@ export class PageForm extends React.Component {
     this.handleInputFilter = this.handleInputFilter.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleLocaleChange = this.handleLocaleChange.bind(this)
-    this.handleHistoryChange = this.handleHistoryChange.bind(this)
     this.handleLayoutMenu = this.handleLayoutMenu.bind(this)
     this.handleCloseLayoutMenu = this.handleCloseLayoutMenu.bind(this)
     this.handleChangeLayoutMenu = this.handleChangeLayoutMenu.bind(this)
+    this.handleVersion = this.handleVersion.bind(this)
   }
 
   handleLocaleChange (event) {
@@ -46,10 +45,12 @@ export class PageForm extends React.Component {
       this.props.dispatch(getPages(this.state.locale))
     })
   }
-  handleHistoryChange (event) {
-    this.setState({ history: event.target.value }, () => {
-      this.props.dispatch(getPages(this.state.history))
-    })
+  handleVersion (event) {
+    this.setState({ versionCount: event.target.value })
+    if (!this.state.loading) {
+      this.props.versionHandler(this.state.page, this.props.versions[event.target.value].version)
+    }
+    event.preventDefault()
   }
 
   handleInputChange (event) {
@@ -98,10 +99,23 @@ export class PageForm extends React.Component {
     })
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.page) {
+      this.setState({ page: nextProps.page })
+    }
+  }
+
   render () {
     const { classes } = this.props
     const { anchorMenuLayout } = this.state
     const menuLayoutOpened = Boolean(anchorMenuLayout)
+    const versions = (this.props.versions.length > 0)
+      ? this.props.versions.map((v, k) => {
+        return (
+          <MenuItem value={k} key={v.id}>{v.logged_at}</MenuItem>
+        )
+      })
+      : null
     const tileData = [{
       id: 0,
       img: 'http://via.placeholder.com/400x400',
@@ -122,6 +136,24 @@ export class PageForm extends React.Component {
     }]
     return (
       <div className={classes.container}>
+        {
+          this.props.edit
+            ? (
+              <Select
+                className={classes.option}
+                value={this.state.versionCount}
+                onChange={this.handleVersion}
+                inputProps={{
+                  name: 'historique',
+                  id: 'version'
+                }}>
+                {versions}
+              </Select>
+            )
+            : (
+              ''
+            )
+        }
         <Typography variant='display1' className={classes.title}>
           SEO
         </Typography>
@@ -296,7 +328,9 @@ const styles = theme => ({
 const mapStateToProps = state => {
   return {
     loading: state.loading,
-    status: state.postPageStatus
+    status: state.postPageStatus,
+    versions: state.pageVersions,
+    version: state.pageVersion
   }
 }
 

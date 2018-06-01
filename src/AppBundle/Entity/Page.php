@@ -435,4 +435,25 @@ class Page
     {
         return $this->parentId;
     }
+
+    /**
+     * Get tempUrl
+     *
+     * @return string
+     */
+    public function getTempUrl()
+    {
+        return $this->url;
+    }
+    
+    /**
+     * Set tempUrl
+     *
+     * @return $this
+     */
+    public function setTempUrl($url)
+    {
+        $this->url = $url;
+        return $this;
+    }
 }

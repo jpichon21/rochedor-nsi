@@ -100,6 +100,9 @@ class PageController extends Controller
             if ($page === null) {
                 return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
             }
+            if ($page->getRoutes()) {
+                $page->setTempUrl($page->getRoutes()[0]->getName());
+            }
             return $page;
         } else {
             $em = $this->getDoctrine()->getManager();
@@ -114,7 +117,14 @@ class PageController extends Controller
                     $oldPage = array_merge($diff, $logs[$i]->getData());
                 }
             }
-            return $oldPage;
+            $page->setTitle($oldPage['title']);
+            $page->setSubTitle($oldPage['subTitle']);
+            $page->setDescription($oldPage['description']);
+            $page->setContent($oldPage['content']);
+            if ($page->getRoutes()) {
+                $page->setTempUrl($page->getRoutes()[0]->getName());
+            }
+            return $page;
         }
     }
 
@@ -149,6 +159,7 @@ class PageController extends Controller
         $description = $request->get('description');
         $content = $request->get('content');
         $bg = $request->get('background');
+        $url = $request->get('url');
         $em = $this->getDoctrine()->getManager();
         $page = $em->find('AppBundle\Entity\Page', $id);
         $gedmo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
@@ -161,8 +172,30 @@ class PageController extends Controller
             $page->setDescription($description);
             $page->setContent($content);
             $page->setBackground($bg);
+
+            $oldUrl = null;
+            if ($page->getRoutes()) {
+                $oldUrl = $page->getRoutes()[0]->getName();
+            }
+
+            if ($oldUrl !== $url) {
+                $routeProvider = $this->container->get('cmf_routing.route_provider');
+                if ($routeProvider->getRoutesByNames([$url])) {
+                    return new JsonResponse(['message' => 'Route already exists'], Response::HTTP_FORBIDDEN);
+                }
+    
+                $routes = $page->getRoutes();
+                foreach ($routes as $key => $route) {
+                    $route->setName($url);
+                    $route->setStaticPrefix('/' . $url);
+                    $routes[$key] = $route;
+                }
+            }
+
+            
             $em->persist($page);
             $em->flush();
+
             return new JsonResponse(['message' => 'Page Updated'], Response::HTTP_OK);
         }
     }
@@ -183,20 +216,43 @@ class PageController extends Controller
     }
 
     /**
-     * @Rest\Get("pages/{id}/children")
+     * @Rest\Get("pages/{id}/translation")
      * @Rest\View()
      *
      * @param integer $id
      * @return json
      */
-    public function getChildrenAction($id)
+    public function getTranslationAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $page = $em->getRepository('AppBundle:Page')->findOneById($id);
         if (empty($page)) {
             return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
         }
-        return $page->getChildren();
+        $parent = $page->getParent();
+        if ($parent === null) {
+            return new JsonResponse(['message' => 'Page has no parent'], Response::HTTP_FORBIDDEN);
+        }
+        return $parent->getChildren();
+    }
+
+    /**
+     * @Rest\Get("pages/{id}/versions")
+     * @Rest\View()
+     *
+     * @param integer $id
+     * @return json
+     */
+    public function getVersionsAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry'); // we use default log entry class
+        $page = $em->getRepository('AppBundle:Page')->findOneById($id);
+        if (empty($page)) {
+            return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
+        }
+        $logs = $repo->getLogEntries($page);
+        return $logs;
     }
 
    /**

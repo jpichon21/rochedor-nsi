@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { TextField, Button, DialogActions, Dialog, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
-import { getPage, putPage, setTitle } from '../../actions'
+import { getPage, putPage, setTitle, getPageVersions } from '../../actions'
 import PageForm from '../page-form/page-form'
 import { t } from '../../translations'
 
@@ -22,6 +22,7 @@ export class PageEdit extends React.Component {
     }
     this.onSubmit = this.onSubmit.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.onVersionChange = this.onVersionChange.bind(this)
   }
   componentDidMount () {
     const { match: { params } } = this.props
@@ -32,11 +33,13 @@ export class PageEdit extends React.Component {
   }
   componentWillReceiveProps (nextProps) {
     this.props.dispatch(setTitle(`Modification de la page ${(nextProps.page) ? nextProps.page.title : ''}`))
-    this.setState({ alertOpen: (nextProps.status !== 'ok' && nextProps.status !== null) }), () => {
-    }  
+    this.setState({ alertOpen: (nextProps.status !== 'ok' && nextProps.status !== null) })
   }
   onSubmit (page) {
     this.props.dispatch(putPage(page))
+  }
+  onVersionChange (page, version) {
+    this.props.dispatch(getPage(page.id, version))
   }
   render () {
     return (
@@ -59,7 +62,7 @@ export class PageEdit extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
-        <PageForm page={this.props.page} handleSubmit={this.onSubmit} />
+        <PageForm page={this.props.page} submitHandler={this.onSubmit} versionHandler={this.onVersionChange} edit />
       </div>
     )
   }

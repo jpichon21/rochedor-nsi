@@ -30,6 +30,9 @@ export const POST_PAGE_FAILURE = 'POST_PAGE_FAILURE'
 export const GET_PAGE = 'GET_PAGE'
 export const GET_PAGE_SUCCESS = 'GET_PAGE_SUCCESS'
 export const GET_PAGE_FAILURE = 'GET_PAGE_FAILURE'
+export const GET_PAGE_VERSIONS = 'GET_PAGE_VERSIONS'
+export const GET_PAGE_VERSIONS_SUCCESS = 'GET_PAGE_VERSIONS_SUCCESS'
+export const GET_PAGE_VERSIONS_FAILURE = 'GET_PAGE_VERSIONS_FAILURE'
 export const INIT_STATUS = 'INIT_STATUS'
 export const PUT_PAGE = 'PUT_PAGE'
 export const PUT_PAGE_SUCCESS = 'PUT_PAGE_SUCCESS'
@@ -63,8 +66,8 @@ export function postPage (attributes) {
 export function getPage (pageId, version = null) {
   return dispatch => {
     dispatch({ type: GET_PAGE, pageId })
-
-    return window.fetch(`${API_URL}pages/${pageId}`, {
+    const url = (version) ? `${API_URL}pages/${pageId}/${version}` : `${API_URL}pages/${pageId}`
+    return window.fetch(url, {
       headers: { 'Content-Type': 'application/json' },
       method: 'GET',
       credentials: 'include'
@@ -76,11 +79,36 @@ export function getPage (pageId, version = null) {
           })
         } else {
           res.json().then(res => {
+            dispatch(getPageVersions(res.id))
             dispatch({ type: GET_PAGE_SUCCESS, ...{ data: res } })
           })
         }
       })
       .catch(error => dispatch({ type: GET_PAGE_FAILURE, ...{ data: error } }))
+  }
+}
+
+export function getPageVersions (pageId) {
+  return dispatch => {
+    dispatch({ type: GET_PAGE_VERSIONS, pageId })
+
+    return window.fetch(`${API_URL}pages/${pageId}/versions`, {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then(res => {
+        if (res.status >= 400) {
+          res.json().then(res => {
+            dispatch({ type: GET_PAGE_VERSIONS_FAILURE, ...{ data: res } })
+          })
+        } else {
+          res.json().then(res => {
+            dispatch({ type: GET_PAGE_VERSIONS_SUCCESS, ...{ data: res } })
+          })
+        }
+      })
+      .catch(error => dispatch({ type: GET_PAGE_VERSIONS_FAILURE, ...{ data: error } }))
   }
 }
 
@@ -90,7 +118,7 @@ export function putPage (attributes) {
 
     return window.fetch(`${API_URL}pages/${attributes.id}`, {
       headers: { 'Content-Type': 'application/json' },
-      method: 'POST',
+      method: 'PUT',
       credentials: 'include',
       body: JSON.stringify(attributes)
     })
