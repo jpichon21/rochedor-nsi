@@ -15,17 +15,21 @@ export class PageList extends React.Component {
     super(props)
     this.handleLocaleChange = this.handleLocaleChange.bind(this)
   }
+
   componentWillMount () {
     this.props.dispatch(getPages(this.props.locale))
   }
+
   handleLocaleChange (event) {
     this.setState({locale: event.target.value}, () => {
       this.props.dispatch(getPages(this.props.locale))
     })
   }
+
   goTo (path) {
     this.props.history.push(path)
   }
+
   render () {
     Moment.locale(this.props.locale)
     const { classes } = this.props

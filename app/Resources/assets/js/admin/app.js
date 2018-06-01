@@ -21,16 +21,18 @@ const store = configureStore({
     description: '',
     content: {}
   },
-  pageVersions: {},
-  title: 'Accueil'
-}
-)
+  pageVersions: {}
+})
 
 const myMarge = 30
 
 const theme = createMuiTheme({
+  myMarge: myMarge,
   container: {
-    padding: myMarge
+    maxWidth: 1024,
+    padding: myMarge,
+    marginLeft: 'auto',
+    marginRight: 'auto'
   },
   buttons: {
     display: 'flex',
@@ -44,6 +46,13 @@ const theme = createMuiTheme({
   },
   textfield: {
     marginBottom: myMarge
+  },
+  title: {
+    marginBottom: myMarge,
+    textTransform: 'uppercase'
+  },
+  form: {
+    marginBottom: myMarge / 2
   }
 })
 
@@ -64,9 +73,9 @@ class App extends React.Component {
         <Fragment>
           <Switch>
             <Route path='/' exact render={RedirectPageList} />
-            <Route path='/page-list' component={PageList} />
-            <Route path='/page-create' component={PageCreate} />
-            <Route path='/page-edit/:pageId' component={PageEdit} />
+            <Route path='/page-list' exact component={PageList} />
+            <Route path='/page-create' exact component={PageCreate} />
+            <Route path='/page-edit/:pageId' exact component={PageEdit} />
           </Switch>
         </Fragment>
       </HashRouter>
