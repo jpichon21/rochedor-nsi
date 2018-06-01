@@ -25,18 +25,23 @@ export class PageCreate extends React.Component {
     this.handleClose = this.handleClose.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
   }
+
   handleClose () {
     this.setState({alertOpen: false})
   }
+
   componentWillReceiveProps (nextProps) {
     this.setState({ alertOpen: (nextProps.status !== 'ok' && nextProps.status !== null) })
   }
+
   onSubmit (page) {
     this.props.dispatch(postPage(page))
   }
+
   componentWillMount () {
     this.props.dispatch(initStatus())
   }
+
   render () {
     if (this.props.status === 'ok') {
       this.props.dispatch(setMessage('Page créee'))
