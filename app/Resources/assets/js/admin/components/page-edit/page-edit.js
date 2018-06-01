@@ -9,6 +9,9 @@ import { t } from '../../translations'
 import { locales } from '../../locales'
 
 export class PageEdit extends React.Component {
+  static defaultProps = {
+    page: { }
+  }
   constructor (props) {
     super(props)
     this.state = {
@@ -68,7 +71,7 @@ export class PageEdit extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
-        <AppMenu title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} />
+        <AppMenu title={`Modification de la page ${this.props.page.title}`} localeHandler={this.onLocaleChange} locales={locales} />
         <PageForm page={this.props.page} submitHandler={this.onSubmit} versionHandler={this.onVersionChange} edit />
       </div>
     )

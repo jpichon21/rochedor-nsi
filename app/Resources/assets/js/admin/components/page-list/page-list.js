@@ -45,7 +45,7 @@ export class PageList extends React.Component {
     })
     return (
       <div>
-        <AppMenu title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} />
+        <AppMenu title={'Liste des pages'} localeHandler={this.onLocaleChange} locales={locales} />
         <div className={classes.container}>
           <Paper className={classes.paper}>
             {
