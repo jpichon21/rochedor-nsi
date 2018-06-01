@@ -2,8 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Button, DialogActions, Dialog, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
-import { postPage, initStatus, setMessage, setTitle } from '../../actions'
+import { postPage, initStatus, setMessage } from '../../actions'
 import PageForm from '../page-form/page-form'
+import AppMenu from '../app-menu/app-menu'
 import { t } from '../../translations'
 
 export class PageCreate extends React.Component {
@@ -21,9 +22,6 @@ export class PageCreate extends React.Component {
     }
     this.handleClose = this.handleClose.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
-  }
-  componentDidMount () {
-    this.props.dispatch(setTitle('Ajout d\'une page'))
   }
   handleClose () {
     this.setState({alertOpen: false})
@@ -65,6 +63,7 @@ export class PageCreate extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
+        <AppMenu title={'Création de page'} />
         <PageForm submitHandler={this.onSubmit} />
       </div>
     )
