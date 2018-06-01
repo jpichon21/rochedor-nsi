@@ -9,21 +9,23 @@ import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
 import { withRouter, NavLink } from 'react-router-dom'
 import AppMenu from '../app-menu/app-menu'
+import { locales } from '../../locales'
 
 export class PageList extends React.Component {
   constructor (props) {
     super(props)
-    this.handleLocaleChange = this.handleLocaleChange.bind(this)
+    this.onLocaleChange = this.onLocaleChange.bind(this)
   }
 
   componentWillMount () {
     this.props.dispatch(getPages(this.props.locale))
   }
 
-  handleLocaleChange (event) {
-    this.setState({locale: event.target.value}, () => {
-      this.props.dispatch(getPages(this.props.locale))
-    })
+  componentDidMount () {
+  }
+
+  onLocaleChange (locale) {
+    this.props.dispatch(getPages(locale))
   }
 
   goTo (path) {
@@ -43,7 +45,7 @@ export class PageList extends React.Component {
     })
     return (
       <div>
-        <AppMenu title={'Liste des pages'} />
+        <AppMenu title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} />
         <div className={classes.container}>
           <Paper className={classes.paper}>
             {

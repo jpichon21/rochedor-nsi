@@ -6,18 +6,23 @@ import { Menu, MenuItem, AppBar, Toolbar, Typography, IconButton, Button } from 
 import MenuIcon from '@material-ui/icons/Menu'
 
 class AppMenu extends React.Component {
+  static defaultProps = {
+    locales: { }
+  }
   constructor (props) {
     super(props)
     this.state = {
       anchorMenu: null,
       anchorLang: null,
       menuOpen: false,
-      langOpen: false
+      langOpen: false,
+      locale: 'fr'
     }
     this.handleMenu = this.handleMenu.bind(this)
     this.handleLang = this.handleLang.bind(this)
     this.handleCloseMenu = this.handleCloseMenu.bind(this)
     this.handleCloseLang = this.handleCloseLang.bind(this)
+    this.handleChangeLang = this.handleChangeLang.bind(this)
   }
 
   handleMenu (event) {
@@ -32,10 +37,14 @@ class AppMenu extends React.Component {
     this.setState({ anchorMenu: null })
   }
 
-  handleCloseLang () {
+  handleCloseLang (event) {
     this.setState({ anchorLang: null })
   }
 
+  handleChangeLang (event, locale) {
+    this.setState({ anchorLang: null, locale: locale })
+    this.props.localeHandler(locale)
+  }
   render () {
     const { classes } = this.props
     const { anchorMenu, anchorLang } = this.state
@@ -61,7 +70,7 @@ class AppMenu extends React.Component {
             aria-haspopup='true'
             onClick={this.handleLang}
             color='inherit'>
-            Français
+            {this.props.locales[this.state.locale]}
           </Button>
           <Menu
             id='menu-appbar'
@@ -108,11 +117,16 @@ class AppMenu extends React.Component {
             }}
             open={langOpen}
             onClose={this.handleCloseLang}>
-            <MenuItem onClick={this.handleCloseLang} value={'fr'}>Français</MenuItem>
-            <MenuItem onClick={this.handleCloseLang} value={'en'}>English</MenuItem>
-            <MenuItem onClick={this.handleCloseLang} value={'es'}>Spanish</MenuItem>
-            <MenuItem onClick={this.handleCloseLang} value={'de'}>Deutsch</MenuItem>
-            <MenuItem onClick={this.handleCloseLang} value={'it'}>Italian</MenuItem>
+            {Object.keys(this.props.locales).map((key) => (
+              <MenuItem
+                key={key}
+                disabled={key === 0}
+                selected={key === this.state.selectedIndex}
+                onClick={event => this.handleChangeLang(event, key)}
+              >
+                {this.props.locales[key]}
+              </MenuItem>
+            ))}
           </Menu>
         </Toolbar>
       </AppBar>

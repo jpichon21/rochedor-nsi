@@ -2,10 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Button, DialogActions, Dialog, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
-import { postPage, initStatus, setMessage } from '../../actions'
+import { postPage, initStatus, setMessage, setLocale } from '../../actions'
 import PageForm from '../page-form/page-form'
 import AppMenu from '../app-menu/app-menu'
 import { t } from '../../translations'
+import { locales } from '../../locales'
 
 export class PageCreate extends React.Component {
   constructor (props) {
@@ -22,6 +23,7 @@ export class PageCreate extends React.Component {
     }
     this.handleClose = this.handleClose.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
+    this.onLocaleChange = this.onLocaleChange.bind(this)
   }
   handleClose () {
     this.setState({alertOpen: false})
@@ -34,6 +36,9 @@ export class PageCreate extends React.Component {
   }
   componentWillMount () {
     this.props.dispatch(initStatus())
+  }
+  onLocaleChange (locale) {
+    this.props.dispatch(setLocale(locale))
   }
   render () {
     if (this.props.status === 'ok') {
@@ -63,7 +68,7 @@ export class PageCreate extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
-        <AppMenu title={'Création de page'} />
+        <AppMenu title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} />
         <PageForm submitHandler={this.onSubmit} />
       </div>
     )

@@ -2,7 +2,8 @@ import {
   INIT_STATUS,
   SET_MESSAGE,
   RESET_MESSAGE,
-  SET_TITLE
+  SET_TITLE,
+  SET_LOCALE
 } from '../actions'
 
 export default function commmonReducer (state, action) {
@@ -29,6 +30,11 @@ export default function commmonReducer (state, action) {
       return {
         ...state,
         title: action.title
+      }
+    case SET_LOCALE:
+      return {
+        ...state,
+        locale: action.locale
       }
   }
   return state
