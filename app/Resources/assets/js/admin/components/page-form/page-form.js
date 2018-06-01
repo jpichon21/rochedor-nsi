@@ -91,7 +91,7 @@ export class PageForm extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.page) {
-      this.setState({ page: nextProps.page })
+      this.setState({ page: nextProps.page, submitDisabled: false })
     }
     if (nextProps.locale) {
       this.setState((prevState) => {

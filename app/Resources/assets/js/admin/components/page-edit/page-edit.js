@@ -2,9 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Button, DialogActions, Dialog, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
-import { getPage, putPage, setTitle } from '../../actions'
+import { getPage, putPage, setTitle, setLocale } from '../../actions'
 import PageForm from '../page-form/page-form'
+import AppMenu from '../app-menu/app-menu'
 import { t } from '../../translations'
+import { locales } from '../../locales'
 
 export class PageEdit extends React.Component {
   constructor (props) {
@@ -23,6 +25,7 @@ export class PageEdit extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.onVersionChange = this.onVersionChange.bind(this)
+    this.onLocaleChange = this.onLocaleChange.bind(this)
   }
   componentDidMount () {
     const { match: { params } } = this.props
@@ -40,6 +43,9 @@ export class PageEdit extends React.Component {
   }
   onVersionChange (page, version) {
     this.props.dispatch(getPage(page.id, version))
+  }
+  onLocaleChange (locale) {
+    this.props.dispatch(setLocale(locale))
   }
   render () {
     return (
@@ -62,6 +68,7 @@ export class PageEdit extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
+        <AppMenu title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} />
         <PageForm page={this.props.page} submitHandler={this.onSubmit} versionHandler={this.onVersionChange} edit />
       </div>
     )
