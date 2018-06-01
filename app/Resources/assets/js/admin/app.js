@@ -22,6 +22,7 @@ const store = configureStore({
     description: '',
     content: {}
   },
+  pageVersions: {},
   title: 'Accueil' }
 )
 

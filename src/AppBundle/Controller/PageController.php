@@ -117,9 +117,9 @@ class PageController extends Controller
                     $oldPage = array_merge($diff, $logs[$i]->getData());
                 }
             }
-            if ($oldPage->getRoutes()) {
-                $oldPage->setTempUrl($oldPage->getRoutes()[0]->getName());
-            }
+            // if ($oldPage->getRoutes()) {
+            //     $oldPage->setTempUrl($oldPage->getRoutes()[0]->getName());
+            // }
             return $oldPage;
         }
     }
@@ -226,6 +226,25 @@ class PageController extends Controller
             return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
         }
         return $page->getChildren();
+    }
+
+    /**
+     * @Rest\Get("pages/{id}/versions")
+     * @Rest\View()
+     *
+     * @param integer $id
+     * @return json
+     */
+    public function getVersionsAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry'); // we use default log entry class
+        $page = $em->getRepository('AppBundle:Page')->findOneById($id);
+        if (empty($page)) {
+            return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
+        }
+        $logs = $repo->getLogEntries($page);
+        return $logs;
     }
 
    /**

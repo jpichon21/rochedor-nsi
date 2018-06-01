@@ -14,7 +14,7 @@ export class PageForm extends React.Component {
     super(props)
     this.state = {
       locale: 'fr',
-      history: '20180513',
+      versionCount: 0,
       submitDisabled: true,
       page: {
         title: '',
@@ -30,17 +30,19 @@ export class PageForm extends React.Component {
     this.handleInputFilter = this.handleInputFilter.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleLocaleChange = this.handleLocaleChange.bind(this)
-    this.handleHistoryChange = this.handleHistoryChange.bind(this)
+    this.handleVersion = this.handleVersion.bind(this)
   }
   handleLocaleChange (event) {
     this.setState({ locale: event.target.value }, () => {
       this.props.dispatch(getPages(this.state.locale))
     })
   }
-  handleHistoryChange (event) {
-    this.setState({ history: event.target.value }, () => {
-      this.props.dispatch(getPages(this.state.history))
-    })
+  handleVersion (event) {
+    this.setState({versionCount: event.target.value})
+    if (!this.state.loading) {
+      this.props.versionHandler(this.state.page, this.props.versions[event.target.value].version)
+    }
+    event.preventDefault()
   }
   handleInputChange (event) {
     const value = event.target.value
@@ -77,6 +79,13 @@ export class PageForm extends React.Component {
   }
   render () {
     const { classes } = this.props
+    const versions = (this.props.versions.length > 0)
+      ? this.props.versions.map((v, k) => {
+        return (
+          <MenuItem value={k} key={v.id}>{v.logged_at}</MenuItem>
+        )
+      })
+      : null
     return (
       <div className={classes.container}>
         <div className={classes.options}>
@@ -99,17 +108,13 @@ export class PageForm extends React.Component {
               ? (
                 <Select
                   className={classes.option}
-                  value={this.state.history}
-                  onChange={this.handleHistoryChange}
+                  value={this.state.versionCount}
+                  onChange={this.handleVersion}
                   inputProps={{
                     name: 'historique',
-                    id: 'history'
+                    id: 'version'
                   }}>
-                  <MenuItem value={'20180513'}>13/05/18</MenuItem>
-                  <MenuItem value={'20180517'}>17/05/18</MenuItem>
-                  <MenuItem value={'20180521'}>21/05/18</MenuItem>
-                  <MenuItem value={'20180612'}>12/06/18</MenuItem>
-                  <MenuItem value={'20180613'}>13/06/18</MenuItem>
+                  {versions}
                 </Select>
               )
               : (
@@ -236,7 +241,9 @@ const styles = theme => ({
 const mapStateToProps = state => {
   return {
     loading: state.loading,
-    status: state.postPageStatus
+    status: state.postPageStatus,
+    versions: state.pageVersions,
+    version: state.pageVersion
   }
 }
 

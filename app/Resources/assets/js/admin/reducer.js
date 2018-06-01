@@ -8,6 +8,9 @@ import {
   GET_PAGE,
   GET_PAGE_SUCCESS,
   GET_PAGE_FAILURE,
+  GET_PAGE_VERSIONS,
+  GET_PAGE_VERSIONS_SUCCESS,
+  GET_PAGE_VERSIONS_FAILURE,
   INIT_STATUS,
   SET_MESSAGE,
   RESET_MESSAGE,
@@ -33,6 +36,22 @@ export const rootReducer = (state, action) => {
         ...state,
         loading: false
       }
+    case GET_PAGE_VERSIONS:
+      return {
+        ...state,
+        loading: true
+      }
+    case GET_PAGE_VERSIONS_SUCCESS:
+      return {
+        ...state,
+        pageVersions: [...action.data],
+        loading: false
+      }
+    case GET_PAGE_VERSIONS_FAILURE:
+      return {
+        ...state,
+        loading: false
+      }  
     case POST_PAGE:
       return {
         ...state,
