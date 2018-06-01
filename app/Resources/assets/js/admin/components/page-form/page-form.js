@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { MenuItem, Menu, GridList, GridListTile, TextField, Button, Typography, Grid, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, ExpansionPanelActions, Divider, Select } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import AddIcon from '@material-ui/icons/Add'
+import WrapTextIcon from '@material-ui/icons/WrapText'
 import SaveIcon from '@material-ui/icons/Save'
 import { withStyles } from '@material-ui/core/styles'
 import { getPages } from '../../actions'
@@ -303,7 +303,7 @@ export class PageForm extends React.Component {
             className={classes.button}
             variant='fab'
             color='primary'>
-            <AddIcon />
+            <WrapTextIcon />
           </Button>
           <Button
             onClick={this.handleSubmit}
@@ -330,6 +330,9 @@ const styles = theme => ({
   option: {
     marginRight: theme.myMarge / 3,
     marginLeft: theme.myMarge / 3
+  },
+  expansion: {
+    marginBottom: theme.myMarge
   }
 })
 
