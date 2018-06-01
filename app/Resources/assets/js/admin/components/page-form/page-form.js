@@ -50,9 +50,7 @@ export class PageForm extends React.Component {
 
   handleVersion (event) {
     this.setState({ versionCount: event.target.value })
-    if (!this.state.loading) {
-      this.props.versionHandler(this.state.page, this.props.versions[event.target.value].version)
-    }
+    this.props.versionHandler(this.state.page, this.props.versions[event.target.value].version)
     event.preventDefault()
   }
 
@@ -67,17 +65,13 @@ export class PageForm extends React.Component {
         }
       }
     }, () => {
-      let disabled = false
-      disabled = (this.state.page.title === '' || this.state.page.description === '')
-      this.setState({ submitDisabled: disabled })
+      this.setState({ submitDisabled: (this.state.page.title === '' || this.state.page.description === '') })
     })
   }
 
   handleSubmit (event) {
-    if (!this.state.loading && !this.state.submitDisabled) {
-      this.props.submitHandler(this.state.page)
-    }
     event.preventDefault()
+    this.props.submitHandler(this.state.page)
   }
 
   handleInputFilter (event) {
@@ -142,8 +136,9 @@ export class PageForm extends React.Component {
         <Typography variant='display1' className={classes.title}>
           SEO
         </Typography>
-        <form className={classes.form} noValidate onSubmit={this.handleSubmit}>
+        <form className={classes.form}>
           <TextField
+            required
             autoComplete='off'
             InputLabelProps={{ shrink: true }}
             className={classes.textfield}
@@ -175,6 +170,7 @@ export class PageForm extends React.Component {
             onChange={this.handleInputChange}
             onKeyPress={this.handleInputFilter} />
           <TextField
+            required
             autoComplete='off'
             InputLabelProps={{ shrink: true }}
             className={classes.textfield}
@@ -189,7 +185,7 @@ export class PageForm extends React.Component {
         <Typography variant='display1' className={classes.title}>
           Contenu
         </Typography>
-        <form className={classes.form} noValidate onSubmit={this.handleSubmit}>
+        <form className={classes.form}>
           <TextField
             autoComplete='off'
             InputLabelProps={{ shrink: true }}
@@ -259,27 +255,7 @@ export class PageForm extends React.Component {
             </ExpansionPanelDetails>
             <Divider />
             <ExpansionPanelActions>
-              <Button>Supprimer</Button>
-              <Button color='secondary'>Sauvegarder</Button>
-            </ExpansionPanelActions>
-          </ExpansionPanel>
-          <ExpansionPanel className={classes.expansion}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>
-                Volet 2
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.details}>
-              <Grid container>
-                <Grid item xs={6}>
-                  <RichEditor />
-                </Grid>
-              </Grid>
-            </ExpansionPanelDetails>
-            <Divider />
-            <ExpansionPanelActions>
-              <Button>Supprimer</Button>
-              <Button color='primary'>Sauvegarder</Button>
+              <Button disabled>Supprimer</Button>
             </ExpansionPanelActions>
           </ExpansionPanel>
         </form>
@@ -291,6 +267,7 @@ export class PageForm extends React.Component {
             <WrapTextIcon />
           </Button>
           <Button
+            disabled={this.state.submitDisabled}
             onClick={this.handleSubmit}
             className={classes.button}
             variant='fab'
@@ -323,7 +300,6 @@ const styles = theme => ({
 
 const mapStateToProps = state => {
   return {
-    loading: state.loading,
     status: state.postPageStatus,
     versions: state.pageVersions,
     version: state.pageVersion
