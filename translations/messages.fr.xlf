@@ -4,7 +4,7 @@
     <unit id="XLjEtrS" name="menu.one">
       <segment>
         <source>menu.one</source>
-        <target>La communauté et les maisons</target>
+        <target>La Roche d'Or et ses maisons</target>
       </segment>
     </unit>
     <unit id="td1g_X_" name="menu.two">
@@ -34,13 +34,13 @@
     <unit id="ABGsIRc" name="menu.one.three">
       <segment>
         <source>menu.one.three</source>
-        <target><![CDATA[La <br>Roche d'Or]]></target>
+        <target><![CDATA[La maison <br>Roche d'Or]]></target>
       </segment>
     </unit>
     <unit id="5vJ0eNt" name="menu.one.four">
       <segment>
         <source>menu.one.four</source>
-        <target><![CDATA[Les <br>Fontanilles]]></target>
+        <target><![CDATA[La maison <br>Fontanilles]]></target>
       </segment>
     </unit>
     <unit id="TfDK6ic" name="menu.two.one">
