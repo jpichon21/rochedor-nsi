@@ -14,6 +14,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Gedmo\Loggable;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route as CmfRoute;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use JMS\Serializer\JMSSerializer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class PageController extends Controller
 {
@@ -114,7 +119,11 @@ class PageController extends Controller
                     $oldPage = array_merge($diff, $logs[$i]->getData());
                 }
             }
-            return $oldPage;
+            $page->setTitle($oldPage['title']);
+            $page->setSubTitle($oldPage['subTitle']);
+            $page->setDescription($oldPage['description']);
+            $page->setContent($oldPage['content']);
+            return $page;
         }
     }
 
