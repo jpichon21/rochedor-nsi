@@ -121,6 +121,9 @@ class PageController extends Controller
             $page->setSubTitle($oldPage['subTitle']);
             $page->setDescription($oldPage['description']);
             $page->setContent($oldPage['content']);
+            if ($page->getRoutes()) {
+                $page->setTempUrl($page->getRoutes()[0]->getName());
+            }
             return $page;
         }
     }
