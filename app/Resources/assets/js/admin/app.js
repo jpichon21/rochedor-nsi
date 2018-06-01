@@ -21,9 +21,8 @@ const store = configureStore({
     description: '',
     content: {}
   },
-  pageVersions: {},
-  title: 'Accueil' }
-)
+  pageVersions: {}
+})
 
 const myMarge = 30
 
