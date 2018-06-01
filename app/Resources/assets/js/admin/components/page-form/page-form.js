@@ -14,6 +14,24 @@ import RichEditor from './RichEditor'
 import { tileData } from './tileData'
 
 export class PageForm extends React.Component {
+  static defaultProps = {
+    page: {
+      locale: 'fr',
+      title: '',
+      sub_title: '',
+      url: '',
+      description: '',
+      content: {
+        intro: '',
+        sections: {
+          title: '',
+          body: '',
+          slides: []
+        }
+      }
+    }
+  }
+
   constructor (props) {
     super(props)
     this.state = {
@@ -21,16 +39,6 @@ export class PageForm extends React.Component {
       page: this.props.page,
       versionCount: 0,
       submitDisabled: true,
-      page: {
-        locale: '',
-        title: '',
-        sub_title: '',
-        url: '',
-        description: '',
-        content: {
-          intro: ''
-        }
-      },
       anchorMenuLayout: null,
       menuLayoutOpened: false,
       layout: '1-1-2'

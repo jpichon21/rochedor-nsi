@@ -12,20 +12,6 @@ export class PageCreate extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      page: {
-        title: '',
-        sub_title: '',
-        url: '',
-        description: '',
-        content: {
-          intro: '',
-          sections: {
-            title: '',
-            body: '',
-            slides: []
-          }
-        }
-      },
       alertOpen: false
     }
     this.handleClose = this.handleClose.bind(this)
@@ -80,7 +66,7 @@ export class PageCreate extends React.Component {
           </DialogActions>
         </Dialog>
         <AppMenu title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} />
-        <PageForm page={this.state.page} submitHandler={this.onSubmit} />
+        <PageForm submitHandler={this.onSubmit} />
       </div>
     )
   }
