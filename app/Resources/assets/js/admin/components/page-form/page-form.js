@@ -10,6 +10,7 @@ import SaveIcon from '@material-ui/icons/Save'
 import { withStyles } from '@material-ui/core/styles'
 import { getPages } from '../../actions'
 import RichEditor from './RichEditor'
+import { tileData } from './tileData'
 
 export class PageForm extends React.Component {
   constructor (props) {
@@ -49,9 +50,7 @@ export class PageForm extends React.Component {
 
   handleVersion (event) {
     this.setState({ versionCount: event.target.value })
-    if (!this.state.loading) {
-      this.props.versionHandler(this.state.page, this.props.versions[event.target.value].version)
-    }
+    this.props.versionHandler(this.state.page, this.props.versions[event.target.value].version)
     event.preventDefault()
   }
 
@@ -66,17 +65,13 @@ export class PageForm extends React.Component {
         }
       }
     }, () => {
-      let disabled = false
-      disabled = (this.state.page.title === '' || this.state.page.description === '')
-      this.setState({ submitDisabled: disabled })
+      this.setState({ submitDisabled: (this.state.page.title === '' || this.state.page.description === '') })
     })
   }
 
   handleSubmit (event) {
-    if (!this.state.loading && !this.state.submitDisabled) {
-      this.props.submitHandler(this.state.page)
-    }
     event.preventDefault()
+    this.props.submitHandler(this.state.page)
   }
 
   handleInputFilter (event) {
@@ -118,24 +113,6 @@ export class PageForm extends React.Component {
         )
       })
       : null
-    const tileData = [{
-      id: 0,
-      img: 'http://via.placeholder.com/400x400',
-      title: 'Image 1',
-      cols: 1
-    },
-    {
-      id: 1,
-      img: 'http://via.placeholder.com/400x400',
-      title: 'Image 2',
-      cols: 1
-    },
-    {
-      id: 2,
-      img: 'http://via.placeholder.com/800x400',
-      title: 'Image 3',
-      cols: 2
-    }]
     return (
       <div className={classes.container}>
         {
@@ -159,8 +136,9 @@ export class PageForm extends React.Component {
         <Typography variant='display1' className={classes.title}>
           SEO
         </Typography>
-        <form className={classes.form} noValidate onSubmit={this.handleSubmit}>
+        <form className={classes.form}>
           <TextField
+            required
             autoComplete='off'
             InputLabelProps={{ shrink: true }}
             className={classes.textfield}
@@ -192,6 +170,7 @@ export class PageForm extends React.Component {
             onChange={this.handleInputChange}
             onKeyPress={this.handleInputFilter} />
           <TextField
+            required
             autoComplete='off'
             InputLabelProps={{ shrink: true }}
             className={classes.textfield}
@@ -206,7 +185,7 @@ export class PageForm extends React.Component {
         <Typography variant='display1' className={classes.title}>
           Contenu
         </Typography>
-        <form className={classes.form} noValidate onSubmit={this.handleSubmit}>
+        <form className={classes.form}>
           <TextField
             autoComplete='off'
             InputLabelProps={{ shrink: true }}
@@ -230,12 +209,14 @@ export class PageForm extends React.Component {
                   <RichEditor />
                 </Grid>
                 <Grid item xs={6}>
-                  <GridList className={classes.gridList} cols={2}>
-                    {tileData.map(tile => (
-                      <GridListTile key={tile.id} cols={tile.cols || 1}>
-                        <img src={tile.img} alt={tile.title} />
-                      </GridListTile>
-                    ))}
+                  <GridList className={classes.gridList} cols={2} rows={2}>
+                    {
+                      tileData[this.state.layout].map(tile => (
+                        <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
+                          <img src={tile.img} alt={tile.title} />
+                        </GridListTile>
+                      ))
+                    }
                   </GridList>
                   <div className={classes.options}>
                     <Button
@@ -274,27 +255,7 @@ export class PageForm extends React.Component {
             </ExpansionPanelDetails>
             <Divider />
             <ExpansionPanelActions>
-              <Button>Supprimer</Button>
-              <Button color='secondary'>Sauvegarder</Button>
-            </ExpansionPanelActions>
-          </ExpansionPanel>
-          <ExpansionPanel className={classes.expansion}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>
-                Volet 2
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.details}>
-              <Grid container>
-                <Grid item xs={6}>
-                  <RichEditor />
-                </Grid>
-              </Grid>
-            </ExpansionPanelDetails>
-            <Divider />
-            <ExpansionPanelActions>
-              <Button>Supprimer</Button>
-              <Button color='primary'>Sauvegarder</Button>
+              <Button disabled>Supprimer</Button>
             </ExpansionPanelActions>
           </ExpansionPanel>
         </form>
@@ -306,6 +267,7 @@ export class PageForm extends React.Component {
             <WrapTextIcon />
           </Button>
           <Button
+            disabled={this.state.submitDisabled}
             onClick={this.handleSubmit}
             className={classes.button}
             variant='fab'
@@ -338,7 +300,6 @@ const styles = theme => ({
 
 const mapStateToProps = state => {
   return {
-    loading: state.loading,
     status: state.postPageStatus,
     versions: state.pageVersions,
     version: state.pageVersion
