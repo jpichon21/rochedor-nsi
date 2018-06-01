@@ -10,14 +10,10 @@ import {
   GET_PAGE_FAILURE,
   GET_PAGE_VERSIONS,
   GET_PAGE_VERSIONS_SUCCESS,
-  GET_PAGE_VERSIONS_FAILURE,
-  INIT_STATUS,
-  SET_MESSAGE,
-  RESET_MESSAGE,
-  SET_TITLE
-} from './actions'
+  GET_PAGE_VERSIONS_FAILURE
+} from '../actions'
 
-export const rootReducer = (state, action) => {
+export default function pageReducer (state, action) {
   console.log(action)
   switch (action.type) {
     case GET_PAGES:
@@ -51,7 +47,7 @@ export const rootReducer = (state, action) => {
       return {
         ...state,
         loading: false
-      }  
+      }
     case POST_PAGE:
       return {
         ...state,
@@ -88,28 +84,6 @@ export const rootReducer = (state, action) => {
         page: null,
         status: action.data.message,
         loading: false
-      }
-    case INIT_STATUS:
-      return {
-        ...state,
-        status: '',
-        loading: false,
-        page: null
-      }
-    case SET_MESSAGE:
-      return {
-        ...state,
-        message: { message: action.message, error: action.error }
-      }
-    case RESET_MESSAGE:
-      return {
-        ...state,
-        message: null
-      }
-    case SET_TITLE:
-      return {
-        ...state,
-        title: action.title
       }
   }
   return state

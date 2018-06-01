@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { TextField, Button, DialogActions, Dialog, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
-import { getPage, putPage, setTitle, getPageVersions } from '../../actions'
+import { Button, DialogActions, Dialog, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
+import { getPage, putPage, setTitle } from '../../actions'
 import PageForm from '../page-form/page-form'
 import { t } from '../../translations'
 

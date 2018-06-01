@@ -10,7 +10,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import WrapTextIcon from '@material-ui/icons/WrapText'
 import SaveIcon from '@material-ui/icons/Save'
 import { withStyles } from '@material-ui/core/styles'
-import { getPages } from '../../actions'
 import RichEditor from './RichEditor'
 import { tileData } from './tileData'
 
@@ -22,6 +21,16 @@ export class PageForm extends React.Component {
       page: this.props.page,
       versionCount: 0,
       submitDisabled: true,
+      page: {
+        locale: '',
+        title: '',
+        sub_title: '',
+        url: '',
+        description: '',
+        content: {
+          intro: ''
+        }
+      },
       anchorMenuLayout: null,
       menuLayoutOpened: false,
       layout: '1-1-2'
@@ -29,18 +38,11 @@ export class PageForm extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleLocaleChange = this.handleLocaleChange.bind(this)
     this.handleLayoutMenu = this.handleLayoutMenu.bind(this)
     this.handleCloseLayoutMenu = this.handleCloseLayoutMenu.bind(this)
     this.handleChangeLayoutMenu = this.handleChangeLayoutMenu.bind(this)
     this.handleVersion = this.handleVersion.bind(this)
     this.handleChangeTextArea = this.handleChangeTextArea.bind(this)
-  }
-
-  handleLocaleChange (event) {
-    this.setState({ locale: event.target.value }, () => {
-      this.props.dispatch(getPages(this.state.locale))
-    })
   }
 
   handleVersion (event) {
@@ -112,6 +114,16 @@ export class PageForm extends React.Component {
   componentWillReceiveProps (nextProps) {
     if (nextProps.page) {
       this.setState({ page: nextProps.page })
+    }
+    if (nextProps.locale) {
+      this.setState((prevState) => {
+        return {
+          page: {
+            ...prevState.page,
+            locale: nextProps.locale
+          }
+        }
+      })
     }
   }
 
@@ -320,7 +332,8 @@ const mapStateToProps = state => {
   return {
     status: state.postPageStatus,
     versions: state.pageVersions,
-    version: state.pageVersion
+    version: state.pageVersion,
+    locale: state.locale
   }
 }
 
