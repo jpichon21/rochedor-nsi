@@ -1,5 +1,4 @@
 export const INIT_STATUS = 'INIT_STATUS'
-export const PUT_PAGE = 'PUT_PAGE'
 export const SET_TITLE = 'SET_TITLE'
 export const SET_MESSAGE = 'SET_MESSAGE'
 export const RESET_MESSAGE = 'RESET_MESSAGE'
