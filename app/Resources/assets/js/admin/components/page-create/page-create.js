@@ -17,7 +17,14 @@ export class PageCreate extends React.Component {
         sub_title: '',
         url: '',
         description: '',
-        locale: 'fr'
+        content: {
+          intro: '',
+          sections: {
+            title: '',
+            body: '',
+            slides: []
+          }
+        }
       },
       alertOpen: false
     }
@@ -25,15 +32,19 @@ export class PageCreate extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
     this.onLocaleChange = this.onLocaleChange.bind(this)
   }
+
   handleClose () {
     this.setState({alertOpen: false})
   }
+
   componentWillReceiveProps (nextProps) {
     this.setState({ alertOpen: (nextProps.status !== 'ok' && nextProps.status !== null) })
   }
+
   onSubmit (page) {
     this.props.dispatch(postPage(page))
   }
+
   componentWillMount () {
     this.props.dispatch(initStatus())
   }
@@ -69,7 +80,7 @@ export class PageCreate extends React.Component {
           </DialogActions>
         </Dialog>
         <AppMenu title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} />
-        <PageForm submitHandler={this.onSubmit} />
+        <PageForm page={this.state.page} submitHandler={this.onSubmit} />
       </div>
     )
   }
