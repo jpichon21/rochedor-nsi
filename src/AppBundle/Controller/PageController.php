@@ -14,11 +14,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Gedmo\Loggable;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route as CmfRoute;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
-use JMS\Serializer\JMSSerializer;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class PageController extends Controller
 {
@@ -192,21 +187,26 @@ class PageController extends Controller
     }
 
     /**
-     * @Rest\Get("pages/{id}/children")
+     * @Rest\Get("pages/{id}/translation")
      * @Rest\View()
      *
      * @param integer $id
      * @return json
      */
-    public function getChildrenAction($id)
+    public function getTranslationAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $page = $em->getRepository('AppBundle:Page')->findOneById($id);
         if (empty($page)) {
             return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
         }
-        return $page->getChildren();
+        $parent = $page->getParent();
+        if ($parent === null) {
+            return new JsonResponse(['message' => 'Page has no parent'], Response::HTTP_FORBIDDEN);
+        }
+        return $parent->getChildren();
     }
+
 
    /**
     * Return slugified string
