@@ -16,21 +16,13 @@ export class PageForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      locale: 'fr',
-      layout: '1-1-2',
+      locale: this.props.lang,
+      page: this.props.page,
       versionCount: 0,
       submitDisabled: true,
-      page: {
-        title: '',
-        sub_title: '',
-        url: '',
-        description: '',
-        content: {
-          intro: ''
-        }
-      },
       anchorMenuLayout: null,
-      menuLayoutOpened: false
+      menuLayoutOpened: false,
+      layout: '1-1-2'
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)

@@ -16,7 +16,9 @@ export class PageCreate extends React.Component {
         sub_title: '',
         url: '',
         description: '',
-        locale: 'fr'
+        content: {
+          intro: ''
+        }
       },
       alertOpen: false
     }
@@ -64,7 +66,7 @@ export class PageCreate extends React.Component {
           </DialogActions>
         </Dialog>
         <AppMenu title={'Création de page'} />
-        <PageForm submitHandler={this.onSubmit} />
+        <PageForm page={this.state.page} submitHandler={this.onSubmit} />
       </div>
     )
   }
