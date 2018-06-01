@@ -5,6 +5,7 @@ imports:
 
 parameters:
     locale: fr
+    files_directory: '%kernel.root_dir%/../web/uploads'
 
 framework:
     secret: '%secret%'
@@ -89,6 +90,26 @@ fos_rest:
         serialize_null: true
     format_listener:
         rules:
+        - { path: '^/api/file', priorities: [ 'text/html', '*/*'], fallback_format: html, prefer_extension: true }
         - { path: '^/api', priorities: ['json'], fallback_format: 'json' }
         - { path: '^/', priorities: [ 'html', '*/*'], fallback_format: ~, prefer_extension: true }
-    
+cmf_routing:
+    chain:
+        routers_by_id:
+            router.default: 200
+            cmf_routing.dynamic_router: 100
+    dynamic:
+        enabled: true
+        persistence:
+            orm:
+                enabled: true
+        generic_controller: AppBundle:Default:showPage
+
+nelmio_cors:
+    paths:
+      '^/(login|logout)':
+          allow_origin: ['*']
+          allow_headers: ['Content-Type']
+          allow_methods: ['OPTIONS', 'POST', 'GET']
+          allow_credentials: true
+          max_age: 3600
