@@ -150,6 +150,20 @@ export class PageForm extends React.Component {
     })
   }
 
+  isSubmitEnabled () {
+    const p = this.state.page
+    if (p.title === '' || p.description === '' || p.url === '') {
+      return false
+    }
+    if (p.locale !== 'fr' && !p.parent_id) {
+      return false
+    }
+    if (p.locale === 'fr' && p.parent_id) {
+      return false
+    }
+    return true
+  }
+
   componentWillReceiveProps (nextProps) {
     if (nextProps.page) {
       const p = nextProps.page
@@ -182,7 +196,8 @@ export class PageForm extends React.Component {
         return {
           page: {
             ...prevState.page,
-            locale: nextProps.locale
+            locale: nextProps.locale,
+            parent_id: null
           }
         }
       })
@@ -271,7 +286,7 @@ export class PageForm extends React.Component {
             value={this.state.page.description}
             onChange={this.handleInputChange} />
             {
-          (!this.props.edit && this.props.parents.length > 0)
+          (!this.props.edit && this.props.parents.length > 0 && this.state.page.locale !== 'fr')
             ? (
               <Select
                 placeholder={'Page parente'}
@@ -384,7 +399,7 @@ export class PageForm extends React.Component {
             <WrapTextIcon />
           </Button>
           <Button
-            disabled={this.state.submitDisabled}
+            disabled={!this.isSubmitEnabled()}
             onClick={this.handleSubmit}
             className={classes.button}
             variant='fab'
