@@ -231,11 +231,7 @@ class PageController extends Controller
         if (empty($page)) {
             return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
         }
-        $parent = $page->getParent();
-        if ($parent === null) {
-            return new JsonResponse(['message' => 'Page has no parent'], Response::HTTP_FORBIDDEN);
-        }
-        return $parent->getChildren();
+        return ($page->getParent() === null) ? $page->getChildren() : $page->getParent()->getChildren();
     }
 
     /**

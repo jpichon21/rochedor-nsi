@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { getPage, putPage, setTitle, setLocale, initStatus } from '../../actions'
+import { getPage, putPage, setTitle, setLocale, initStatus, getPageTranslations } from '../../actions'
 import PageForm from '../page-form/page-form'
 import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
 import { locales } from '../../locales'
+import update from 'immutability-helper'
 
 export class PageEdit extends React.Component {
   static defaultProps = {
@@ -21,7 +22,8 @@ export class PageEdit extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      alertOpen: false
+      alertOpen: false,
+      locales: locales
     }
 
     this.onSubmit = this.onSubmit.bind(this)
@@ -38,16 +40,41 @@ export class PageEdit extends React.Component {
     if ((nextProps.status !== 'ok' && nextProps.status !== '') || nextProps.error) {
       this.setState({alertOpen: true})
     }
+    if(nextProps.page.id !== this.props.page.id) {
+      this.props.dispatch(getPageTranslations(nextProps.page.id))
+    }
+    if(nextProps.translations) {
+      const ts = nextProps.translations
+      let l = {'fr': 'Français'}
+      for (let k in ts) {
+        l = update(l, {
+          [ts[k]['locale']]: {
+            $set: locales[ts[k]['locale']]
+          }
+        })
+      }
+      this.setState({locales: l})
+    }
   }
   onSubmit (page) {
-    console.log(page)
     this.props.dispatch(putPage(page))
   }
   onVersionChange (page, version) {
     this.props.dispatch(getPage(page.id, version))
   }
   onLocaleChange (locale) {
+    if (locale === 'fr') {
+      this.props.dispatch(getPage(this.props.page.parent.id))
+    }else{
+      const ts = this.props.translations
+      for(let k in ts) {
+        if(ts[k].locale === locale) {
+          this.props.dispatch(getPage(ts[k].id))
+        }
+      }
+    }
     this.props.dispatch(setLocale(locale))
+    
   }
   handleClose () {
     this.props.dispatch(initStatus())
@@ -57,8 +84,8 @@ export class PageEdit extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={`Modification de la page ${(this.props.page) ? this.props.page.title: ''}`} localeHandler={this.onLocaleChange} locales={locales} />
-        <PageForm page={this.props.page} submitHandler={this.onSubmit} versionHandler={this.onVersionChange} edit />
+        <AppMenu title={`Modification de la page ${(this.props.page) ? this.props.page.title: ''}`} localeHandler={this.onLocaleChange} locales={this.state.locales} />
+        <PageForm page={this.props.page} submitHandler={this.onSubmit} versionHandler={this.onVersionChange} edit translations={this.props.translations} />
       </div>
     )
   }
@@ -69,7 +96,8 @@ const mapStateToProps = state => {
     loading: state.loading,
     page: state.page,
     status: state.status,
-    error: state.error
+    error: state.error,
+    translations: state.pageTranslations
   }
 }
 

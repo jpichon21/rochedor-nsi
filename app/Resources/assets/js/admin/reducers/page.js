@@ -13,7 +13,10 @@ import {
   GET_PAGE_FAILURE,
   GET_PAGE_VERSIONS,
   GET_PAGE_VERSIONS_SUCCESS,
-  GET_PAGE_VERSIONS_FAILURE
+  GET_PAGE_VERSIONS_FAILURE,
+  GET_PAGE_TRANSLATIONS,
+  GET_PAGE_TRANSLATIONS_SUCCESS,
+  GET_PAGE_TRANSLATIONS_FAILURE
 } from '../actions'
 
 export default function pageReducer (state, action) {
@@ -33,7 +36,7 @@ export default function pageReducer (state, action) {
       return {
         ...state,
         loading: false,
-        error: action.data.error,
+        error: action.data.error
       }
     case GET_PAGE_VERSIONS:
       return {
@@ -50,7 +53,24 @@ export default function pageReducer (state, action) {
       return {
         ...state,
         loading: false,
-        error: action.data.error,
+        error: action.data.error
+      }
+    case GET_PAGE_TRANSLATIONS:
+      return {
+        ...state,
+        loading: true
+      }
+    case GET_PAGE_TRANSLATIONS_SUCCESS:
+      return {
+        ...state,
+        pageTranslations: [...action.data],
+        loading: false
+      }
+    case GET_PAGE_TRANSLATIONS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.data.error
       }
     case POST_PAGE:
       return {

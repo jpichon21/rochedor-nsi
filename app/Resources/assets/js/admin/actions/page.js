@@ -10,6 +10,9 @@ export const GET_PAGE_FAILURE = 'GET_PAGE_FAILURE'
 export const GET_PAGE_VERSIONS = 'GET_PAGE_VERSIONS'
 export const GET_PAGE_VERSIONS_SUCCESS = 'GET_PAGE_VERSIONS_SUCCESS'
 export const GET_PAGE_VERSIONS_FAILURE = 'GET_PAGE_VERSIONS_FAILURE'
+export const GET_PAGE_TRANSLATIONS = 'GET_PAGE_TRANSLATIONS'
+export const GET_PAGE_TRANSLATIONS_SUCCESS = 'GET_PAGE_TRANSLATIONS_SUCCESS'
+export const GET_PAGE_TRANSLATIONS_FAILURE = 'GET_PAGE_TRANSLATIONS_FAILURE'
 export const PUT_PAGE = 'PUT_PAGE'
 export const PUT_PAGE_SUCCESS = 'PUT_PAGE_SUCCESS'
 export const PUT_PAGE_FAILURE = 'PUT_PAGE_FAILURE'
@@ -105,6 +108,31 @@ export function getPageVersions (pageId) {
         }
       })
       .catch(error => dispatch({ type: GET_PAGE_VERSIONS_FAILURE, ...{ data: error } }))
+  }
+}
+
+export function getPageTranslations (pageId) {
+  return dispatch => {
+    dispatch({ type: GET_PAGE_TRANSLATIONS, pageId })
+    const url = `${API_URL}pages/${pageId}/translation`
+    return window.fetch(url, {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then(res => {
+        if (res.status >= 400) {
+          res.json().then(res => {
+            dispatch({ type: GET_PAGE_TRANSLATIONS_FAILURE, ...{ data: res } })
+          })
+        } else {
+          res.json().then(res => {
+            dispatch(getPageVersions(res.id))
+            dispatch({ type: GET_PAGE_TRANSLATIONS_SUCCESS, ...{ data: res } })
+          })
+        }
+      })
+      .catch(error => dispatch({ type: GET_PAGE_TRANSLATIONS_FAILURE, ...{ data: error } }))
   }
 }
 
