@@ -65,11 +65,13 @@ export class PageEdit extends React.Component {
   onLocaleChange (locale) {
     if (locale === 'fr') {
       this.props.dispatch(getPage(this.props.page.parent.id))
+      this.props.history.push(`/page-edit/${this.props.page.parent.id}`)
     }else{
       const ts = this.props.translations
       for(let k in ts) {
         if(ts[k].locale === locale) {
           this.props.dispatch(getPage(ts[k].id))
+          this.props.history.push(`/page-edit/${ts[k].id}`)
         }
       }
     }

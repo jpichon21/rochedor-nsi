@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableRow, Button, CircularProgr
 import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
-import { withRouter, NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
 import { locales } from '../../locales'
@@ -42,18 +42,14 @@ export class PageList extends React.Component {
     this.props.dispatch(getPages(locale))
   }
 
-  goTo (path) {
-    this.props.history.push(path)
-  }
-
   render () {
     Moment.locale(this.props.locale)
     const { classes } = this.props
     const items = this.props.pages.map(page => {
       return (
         <TableRow key={page.id}>
-          <TableCell><NavLink to={`/page-edit/${page.id}`}>{page.title}</NavLink></TableCell>
-          <TableCell><NavLink to={`/page-edit/${page.id}`}>{Moment(page.updated).format('DD/MM/YY')}</NavLink></TableCell>
+          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{page.title}</NavLink></TableCell>
+          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{Moment(page.updated).format('DD/MM/YY')}</NavLink></TableCell>
         </TableRow>
       )
     })
@@ -82,7 +78,7 @@ export class PageList extends React.Component {
             }
           </Paper>
           <div className={classes.buttons}>
-            <Button variant='fab' color='secondary' aria-label='Ajouter' onClick={() => this.goTo('/page-create')} >
+            <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/page-create'}>
               <AddIcon />
             </Button>
           </div>
@@ -109,4 +105,4 @@ PageList.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withRouter(compose(withStyles(styles), connect(mapStateToProps))(PageList))
+export default compose(withStyles(styles), connect(mapStateToProps))(PageList)

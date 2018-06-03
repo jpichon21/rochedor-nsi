@@ -2,7 +2,7 @@ import React from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { convertToRaw } from 'draft-js'
 import update from 'immutability-helper'  
 import draftToHtml from 'draftjs-to-html'
@@ -90,6 +90,7 @@ export class PageForm extends React.Component {
       }
     })
   }
+
 
   handleInputChange (event) {
     const value = event.target.value
@@ -392,7 +393,7 @@ export class PageForm extends React.Component {
           </ExpansionPanel>
         </form>
         <div className={classes.buttons}>
-          <Button
+          <Button component={Link} to={'/page-list'}
             className={classes.button}
             variant='fab'
             color='primary'>
@@ -443,4 +444,4 @@ PageForm.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withRouter(compose(withStyles(styles), connect(mapStateToProps))(PageForm))
+export default compose(withStyles(styles), connect(mapStateToProps))(PageForm)
