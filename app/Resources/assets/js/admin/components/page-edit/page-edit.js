@@ -42,8 +42,9 @@ export class PageEdit extends React.Component {
     if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully') || nextProps.error) {
       this.setState({alertOpen: true})
     }
-    if(nextProps.page) {
+    if(nextProps.page !== null && this.props.page !== null) {
       if(nextProps.page.id !== this.props.page.id) {
+        console.log(nextProps.page.id)
         this.props.dispatch(getPageTranslations(nextProps.page.id))
       }
     }
@@ -97,7 +98,7 @@ export class PageEdit extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={`Modification de la page ${(this.props.page) ? this.props.page.title: ''}`} localeHandler={this.onLocaleChange} locales={this.state.locales} />
+        <AppMenu title={`Modification de la page ${(this.props.page) ? this.props.page.title: ''}`} localeHandler={this.onLocaleChange} locales={this.state.locales} locale={this.props.page.locale} />
         <PageForm page={this.props.page} submitHandler={this.onSubmit} deleteHandler={this.onDelete} versionHandler={this.onVersionChange} edit translations={this.props.translations} />
       </div>
     )
