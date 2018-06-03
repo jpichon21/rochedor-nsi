@@ -28,7 +28,7 @@ export class PageList extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if ((nextProps.status !== 'ok' && nextProps.status !== '') || nextProps.error) {
+    if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully') || nextProps.error) {
       this.setState({alertOpen: true})
     }
   }

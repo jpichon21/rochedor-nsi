@@ -87,13 +87,13 @@ class Page
 
     /**
      * @var AppBundle/Entity/Page
-     * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Page", inversedBy="children", cascade={"persist", "remove"})
      */
     private $parent;
 
     /**
      * @var AppBundle/Entity/Page
-     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent", cascade={"persist", "remove"})
      */
     private $children;
 

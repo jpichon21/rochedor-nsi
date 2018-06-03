@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -6,10 +6,11 @@ import { Link } from 'react-router-dom'
 import { convertToRaw } from 'draft-js'
 import update from 'immutability-helper'  
 import draftToHtml from 'draftjs-to-html'
-import { MenuItem, Menu, GridList, GridListTile, TextField, Button, Typography, Grid, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, ExpansionPanelActions, Divider, Select } from '@material-ui/core'
+import { MenuItem, Menu, GridList, GridListTile, TextField, Button, Typography, Grid, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, ExpansionPanelActions, Divider, Select, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import WrapTextIcon from '@material-ui/icons/WrapText'
 import SaveIcon from '@material-ui/icons/Save'
+import DeleteIcon from '@material-ui/icons/Delete'
 import { withStyles } from '@material-ui/core/styles'
 import RichEditor from './RichEditor'
 import { tileData } from './tileData'
@@ -59,7 +60,8 @@ export class PageForm extends React.Component {
       submitDisabled: true,
       anchorMenuLayout: null,
       menuLayoutOpened: false,
-      layout: '1-1-2'
+      layout: '1-1-2',
+      showDeleteAlert: false
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
@@ -70,6 +72,9 @@ export class PageForm extends React.Component {
     this.handleVersion = this.handleVersion.bind(this)
     this.handleParent = this.handleParent.bind(this)
     this.handleChangeTextArea = this.handleChangeTextArea.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
+    this.handleDeleteClose = this.handleDeleteClose.bind(this)
+    this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this)
   }
 
   handleVersion (event) {
@@ -132,6 +137,17 @@ export class PageForm extends React.Component {
       layout: event.target.getAttribute('layout'),
       anchorMenuLayout: null
     })
+  }
+  handleDelete () {
+    this.setState({ showDeleteAlert: true })
+  }
+  handleDeleteClose () {
+    this.setState({ showDeleteAlert: false })
+  }
+  
+  handleDeleteConfirm () {
+    this.props.deleteHandler(this.state.page)
+    this.setState({ showDeleteAlert: false })
   }
 
   handleChangeTextArea (editorState) {
@@ -399,6 +415,41 @@ export class PageForm extends React.Component {
             color='primary'>
             <WrapTextIcon />
           </Button>
+          {
+          (this.props.edit)
+          ? (
+            <div>
+              <Button
+                onClick={this.handleDelete}
+                className={classes.button}
+                variant='fab'
+                color='secondary'>
+                <DeleteIcon />
+              </Button>
+              <Dialog
+              open={this.state.showDeleteAlert}
+              onClose={this.handleDeleteClose}
+              aria-labelledby='alert-dialog-title'
+              aria-describedby='alert-dialog-description'>
+                <DialogTitle id='alert-dialog-title'>
+                  {'Êtes-vous sure?'}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id='alert-dialog-description'>
+                    Cette action est irréversible, souhaitez-vous continuer?
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={this.handleDeleteConfirm} color='secondary' autoFocus>Oui</Button>
+                  <Button onClick={this.handleDeleteClose} color='primary' autoFocus>Annuler</Button>
+                </DialogActions>
+              </Dialog>
+            </div>
+          )
+          : (
+            ''
+          )
+          }
           <Button
             disabled={!this.isSubmitEnabled()}
             onClick={this.handleSubmit}

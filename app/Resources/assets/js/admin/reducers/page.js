@@ -8,6 +8,9 @@ import {
   PUT_PAGE,
   PUT_PAGE_SUCCESS,
   PUT_PAGE_FAILURE,
+  DELETE_PAGE,
+  DELETE_PAGE_SUCCESS,
+  DELETE_PAGE_FAILURE,
   GET_PAGE,
   GET_PAGE_SUCCESS,
   GET_PAGE_FAILURE,
@@ -17,6 +20,7 @@ import {
   GET_PAGE_TRANSLATIONS,
   GET_PAGE_TRANSLATIONS_SUCCESS,
   GET_PAGE_TRANSLATIONS_FAILURE
+
 } from '../actions'
 
 export default function pageReducer (state, action) {
@@ -104,6 +108,25 @@ export default function pageReducer (state, action) {
         loading: false
       }
     case PUT_PAGE_FAILURE:
+      return {
+        ...state,
+        status: action.data.message,
+        error: action.data.error,
+        loading: false
+      }
+    case DELETE_PAGE:
+      return {
+        ...state,
+        status: '',
+        loading: true
+      }
+    case DELETE_PAGE_SUCCESS:
+      return {
+        ...state,
+        status: action.data.message,
+        loading: false
+      }
+    case DELETE_PAGE_FAILURE:
       return {
         ...state,
         status: action.data.message,

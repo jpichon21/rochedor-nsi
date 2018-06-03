@@ -16,6 +16,9 @@ export const GET_PAGE_TRANSLATIONS_FAILURE = 'GET_PAGE_TRANSLATIONS_FAILURE'
 export const PUT_PAGE = 'PUT_PAGE'
 export const PUT_PAGE_SUCCESS = 'PUT_PAGE_SUCCESS'
 export const PUT_PAGE_FAILURE = 'PUT_PAGE_FAILURE'
+export const DELETE_PAGE = 'DELETE_PAGE'
+export const DELETE_PAGE_SUCCESS = 'DELETE_PAGE_SUCCESS'
+export const DELETE_PAGE_FAILURE = 'DELETE_PAGE_FAILURE'
 
 const API_URL = '/api/'
 
@@ -158,5 +161,30 @@ export function putPage (page) {
         }
       })
       .catch(error => dispatch({ type: PUT_PAGE_FAILURE, ...{ data: error } }))
+  }
+}
+
+export function deletePage (page) {
+  return dispatch => {
+    dispatch({ type: DELETE_PAGE, page })
+
+    return window.fetch(`${API_URL}pages/${page.id}`, {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'DELETE',
+      credentials: 'include',
+      body: JSON.stringify(page)
+    })
+      .then(res => {
+        if (res.status >= 400) {
+          res.json().then(res => {
+            dispatch({ type: DELETE_PAGE_FAILURE, ...{ data: res } })
+          })
+        } else {
+          res.json().then(res => {
+            dispatch({ type: DELETE_PAGE_SUCCESS, ...{ data: res } })
+          })
+        }
+      })
+      .catch(error => dispatch({ type: DELETE_PAGE_FAILURE, ...{ data: error } }))
   }
 }

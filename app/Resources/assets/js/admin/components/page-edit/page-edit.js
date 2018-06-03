@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { getPage, putPage, setTitle, setLocale, initStatus, getPageTranslations } from '../../actions'
+import { getPage, putPage, deletePage, setTitle, setLocale, initStatus, getPageTranslations } from '../../actions'
 import PageForm from '../page-form/page-form'
 import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
@@ -11,6 +11,7 @@ import update from 'immutability-helper'
 export class PageEdit extends React.Component {
   static defaultProps = {
     page: {
+      id: null,
       title: '',
       sub_title: '',
       url: '',
@@ -27,6 +28,7 @@ export class PageEdit extends React.Component {
     }
 
     this.onSubmit = this.onSubmit.bind(this)
+    this.onDelete = this.onDelete.bind(this)
     this.onVersionChange = this.onVersionChange.bind(this)
     this.onLocaleChange = this.onLocaleChange.bind(this)
     this.handleClose = this.handleClose.bind(this)
@@ -37,11 +39,13 @@ export class PageEdit extends React.Component {
   }
   componentWillReceiveProps (nextProps) {
     this.props.dispatch(setTitle(`Modification de la page ${(nextProps.page) ? nextProps.page.title : ''}`))
-    if ((nextProps.status !== 'ok' && nextProps.status !== '') || nextProps.error) {
+    if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully') || nextProps.error) {
       this.setState({alertOpen: true})
     }
-    if(nextProps.page.id !== this.props.page.id) {
-      this.props.dispatch(getPageTranslations(nextProps.page.id))
+    if(nextProps.page) {
+      if(nextProps.page.id !== this.props.page.id) {
+        this.props.dispatch(getPageTranslations(nextProps.page.id))
+      }
     }
     if(nextProps.translations) {
       const ts = nextProps.translations
@@ -54,6 +58,10 @@ export class PageEdit extends React.Component {
         })
       }
       this.setState({locales: l})
+    }
+    if(nextProps.status === 'Deleted successfully') {
+      this.props.dispatch(initStatus)
+      this.props.history.push('/page-list')
     }
   }
   onSubmit (page) {
@@ -78,6 +86,9 @@ export class PageEdit extends React.Component {
     this.props.dispatch(setLocale(locale))
     
   }
+  onDelete (page) {
+    this.props.dispatch(deletePage(page))
+  }
   handleClose () {
     this.props.dispatch(initStatus())
     this.setState({alertOpen: false})
@@ -87,7 +98,7 @@ export class PageEdit extends React.Component {
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
         <AppMenu title={`Modification de la page ${(this.props.page) ? this.props.page.title: ''}`} localeHandler={this.onLocaleChange} locales={this.state.locales} />
-        <PageForm page={this.props.page} submitHandler={this.onSubmit} versionHandler={this.onVersionChange} edit translations={this.props.translations} />
+        <PageForm page={this.props.page} submitHandler={this.onSubmit} deleteHandler={this.onDelete} versionHandler={this.onVersionChange} edit translations={this.props.translations} />
       </div>
     )
   }
