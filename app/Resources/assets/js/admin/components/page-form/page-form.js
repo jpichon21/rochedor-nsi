@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { convertToRaw } from 'draft-js'
-import update from 'immutability-helper'
+import immutable from 'object-path-immutable'
 import draftToHtml from 'draftjs-to-html'
 import { MenuItem, Menu, GridList, GridListTile, TextField, Button, Typography, Grid, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, ExpansionPanelActions, Divider, Select, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -62,18 +62,10 @@ export class PageForm extends React.Component {
   }
 
   handleInputChange (event) {
-    const value = event.target.value
-    const name = event.target.name
-    this.setState(prevState => {
-      return {
-        page: {
-          ...prevState.page,
-          [name]: value
-        }
-      }
-    }, () => {
-      this.setState({ submitDisabled: (this.state.page.title === '' || this.state.page.description === '') })
+    const state = immutable.update(this.state, event.target.name, () => {
+      return event.target.value
     })
+    this.setState(state)
   }
 
   handleSubmit (event) {
@@ -147,28 +139,8 @@ export class PageForm extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.page) {
-      const p = nextProps.page
-      const state = update(this.state, {
-        page: {
-          id: {
-            $set: p.id
-          },
-          title: {
-            $set: p.title
-          },
-          sub_title: {
-            $set: p.sub_title
-          },
-          description: {
-            $set: p.description
-          },
-          url: {
-            $set: p.url
-          },
-          content: {
-            $merge: p.content
-          }
-        }
+      const state = immutable.set(this.state, 'page', () => {
+        return nextProps.page
       })
       this.setState(state)
     }
@@ -184,6 +156,7 @@ export class PageForm extends React.Component {
       })
     }
   }
+
   render () {
     const { classes } = this.props
     const { anchorMenuLayout } = this.state
@@ -205,22 +178,17 @@ export class PageForm extends React.Component {
     return (
       <div className={classes.container}>
         {
-          this.props.edit
-            ? (
-              <Select
-                className={classes.option}
-                value={this.state.versionCount}
-                onChange={this.handleVersion}
-                inputProps={{
-                  name: 'historique',
-                  id: 'version'
-                }}>
-                {versions}
-              </Select>
-            )
-            : (
-              ''
-            )
+          this.props.edit &&
+            <Select
+              className={classes.option}
+              value={this.state.versionCount}
+              onChange={this.handleVersion}
+              inputProps={{
+                name: 'historique',
+                id: 'version'
+              }}>
+              {versions}
+            </Select>
         }
         <Typography variant='display1' className={classes.title}>
           SEO
@@ -232,7 +200,7 @@ export class PageForm extends React.Component {
             InputLabelProps={{ shrink: true }}
             className={classes.textfield}
             fullWidth
-            name='title'
+            name='page.title'
             label='Titre ligne 1'
             value={this.state.page.title}
             onChange={this.handleInputChange} />
@@ -241,16 +209,17 @@ export class PageForm extends React.Component {
             InputLabelProps={{ shrink: true }}
             className={classes.textfield}
             fullWidth
-            name='sub_title'
+            name='page.sub_title'
             label='Titre ligne 2'
             value={this.state.page.sub_title}
             onChange={this.handleInputChange} />
           <TextField
+            required
             autoComplete='off'
             InputLabelProps={{ shrink: true }}
             className={classes.textfield}
             fullWidth
-            name='url'
+            name='page.url'
             label='Url'
             value={this.state.page.url}
             onChange={this.handleInputChange}
@@ -262,28 +231,25 @@ export class PageForm extends React.Component {
             className={classes.textfield}
             fullWidth
             multiline
-            name='description'
+            name='page.description'
             label='Meta-description'
             value={this.state.page.description}
             onChange={this.handleInputChange} />
           {
-            (!this.props.edit && this.props.parents.length > 0 && this.state.page.locale !== 'fr')
-              ? (
-                <Select
-                  placeholder={'Page parente'}
-                  className={classes.option}
-                  value={this.state.parentKey}
-                  onChange={this.handleParent}
-                  inputProps={{
-                    name: 'parent_key',
-                    id: 'parent_key'
-                  }}>
-                  {parents}
-                </Select>
-              )
-              : (
-                ''
-              )
+            !this.props.edit &&
+            this.props.parents.length > 0 &&
+            this.state.page.locale !== 'fr' &&
+              <Select
+                placeholder={'Page parente'}
+                className={classes.option}
+                value={this.state.parentKey}
+                onChange={this.handleParent}
+                inputProps={{
+                  name: 'parent_key',
+                  id: 'parent_key'
+                }}>
+                {parents}
+              </Select>
           }
         </form>
         <Typography variant='display1' className={classes.title}>
@@ -296,81 +262,85 @@ export class PageForm extends React.Component {
             className={classes.textfield}
             fullWidth
             multiline
-            name='intro'
+            name='page.content.intro'
             label='Introduction'
             value={this.state.page.content.intro}
             onChange={this.handleInputChange} />
-          <ExpansionPanel className={classes.expansion}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>
-                Volet 1
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.details}>
-              <Grid container spacing={32}>
-                <Grid item xs={6}>
-                  <TextField
-                    autoComplete='off'
-                    InputLabelProps={{ shrink: true }}
-                    className={classes.textfield}
-                    fullWidth
-                    multiline
-                    name='title'
-                    label='Titre'
-                    value={this.state.page.content.sections.title}
-                    onChange={this.handleInputChange} />
-                  <RichEditor onChange={this.handleChangeTextArea} />
-                </Grid>
-                <Grid item xs={6}>
-                  <GridList className={classes.gridList} cols={2} rows={2}>
-                    {
-                      tileData[this.state.layout].map(tile => (
-                        <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
-                          <img src={tile.img} alt={tile.title} />
-                        </GridListTile>
-                      ))
-                    }
-                  </GridList>
-                  <div className={classes.options}>
-                    <Button
-                      variant='outlined'
-                      aria-owns={menuLayoutOpened ? 'layout-menu' : null}
-                      aria-haspopup='true'
-                      onClick={this.handleLayoutMenu}
-                      className={classes.option}>
-                      Disposition
+          {
+            this.state.page.content.sections.map(section => {
+              <ExpansionPanel className={classes.expansion}>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>
+                    Volet 1
+                  </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails className={classes.details}>
+                  <Grid container spacing={32}>
+                    <Grid item xs={6}>
+                      <TextField
+                        autoComplete='off'
+                        InputLabelProps={{ shrink: true }}
+                        className={classes.textfield}
+                        fullWidth
+                        multiline
+                        name='title'
+                        label='Titre'
+                        value={section.title}
+                        onChange={this.handleInputChange} />
+                      <RichEditor onChange={this.handleChangeTextArea} />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <GridList className={classes.gridList} cols={2} rows={2}>
+                        {
+                          tileData[this.state.layout].map(tile => (
+                            <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
+                              <img src={tile.img} alt={tile.title} />
+                            </GridListTile>
+                          ))
+                        }
+                      </GridList>
+                      <div className={classes.options}>
+                        <Button
+                          variant='outlined'
+                          aria-owns={menuLayoutOpened ? 'layout-menu' : null}
+                          aria-haspopup='true'
+                          onClick={this.handleLayoutMenu}
+                          className={classes.option}>
+                          Disposition
                     </Button>
-                    <Button variant='outlined' disabled className={classes.option}>Supprimer</Button>
-                    <Button variant='outlined' color='primary' className={classes.option}>Ajouter</Button>
-                  </div>
-                  <Menu
-                    id='layout-menu'
-                    anchorEl={anchorMenuLayout}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right'
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right'
-                    }}
-                    open={menuLayoutOpened}
-                    onClose={this.handleCloseLayoutMenu}>
-                    <MenuItem onClick={this.handleChangeLayoutMenu} layout={'2'}>1 Image</MenuItem>
-                    <MenuItem onClick={this.handleChangeLayoutMenu} layout={'2-2'}>2 Images horizontales</MenuItem>
-                    <MenuItem onClick={this.handleChangeLayoutMenu} layout={'1-1'}>2 Images verticales</MenuItem>
-                    <MenuItem onClick={this.handleChangeLayoutMenu} layout={'2-1-1'}>3 Images (Horizontale en haut)</MenuItem>
-                    <MenuItem onClick={this.handleChangeLayoutMenu} layout={'1-1-2'}>3 Images (Horizontale en bas)</MenuItem>
-                    <MenuItem onClick={this.handleChangeLayoutMenu} layout={'1-1-1-1'}>4 Images</MenuItem>
-                  </Menu>
-                </Grid>
-              </Grid>
-            </ExpansionPanelDetails>
-            <Divider />
-            <ExpansionPanelActions>
-              <Button disabled>Supprimer</Button>
-            </ExpansionPanelActions>
-          </ExpansionPanel>
+                        <Button variant='outlined' disabled className={classes.option}>Supprimer</Button>
+                        <Button variant='outlined' color='primary' className={classes.option}>Ajouter</Button>
+                      </div>
+                      <Menu
+                        id='layout-menu'
+                        anchorEl={anchorMenuLayout}
+                        anchorOrigin={{
+                          vertical: 'top',
+                          horizontal: 'right'
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'right'
+                        }}
+                        open={menuLayoutOpened}
+                        onClose={this.handleCloseLayoutMenu}>
+                        <MenuItem onClick={this.handleChangeLayoutMenu} layout={'2'}>1 Image</MenuItem>
+                        <MenuItem onClick={this.handleChangeLayoutMenu} layout={'2-2'}>2 Images horizontales</MenuItem>
+                        <MenuItem onClick={this.handleChangeLayoutMenu} layout={'1-1'}>2 Images verticales</MenuItem>
+                        <MenuItem onClick={this.handleChangeLayoutMenu} layout={'2-1-1'}>3 Images (Horizontale en haut)</MenuItem>
+                        <MenuItem onClick={this.handleChangeLayoutMenu} layout={'1-1-2'}>3 Images (Horizontale en bas)</MenuItem>
+                        <MenuItem onClick={this.handleChangeLayoutMenu} layout={'1-1-1-1'}>4 Images</MenuItem>
+                      </Menu>
+                    </Grid>
+                  </Grid>
+                </ExpansionPanelDetails>
+                <Divider />
+                <ExpansionPanelActions>
+                  <Button disabled>Supprimer</Button>
+                </ExpansionPanelActions>
+              </ExpansionPanel>
+            })
+          }
         </form>
         <div className={classes.buttons}>
           <Button component={Link} to={'/page-list'}
@@ -380,39 +350,34 @@ export class PageForm extends React.Component {
             <WrapTextIcon />
           </Button>
           {
-            (this.props.edit)
-              ? (
-                <div>
-                  <Button
-                    onClick={this.handleDelete}
-                    className={classes.button}
-                    variant='fab'
-                    color='secondary'>
-                    <DeleteIcon />
-                  </Button>
-                  <Dialog
-                    open={this.state.showDeleteAlert}
-                    onClose={this.handleDeleteClose}
-                    aria-labelledby='alert-dialog-title'
-                    aria-describedby='alert-dialog-description'>
-                    <DialogTitle id='alert-dialog-title'>
-                      {'Êtes-vous sure?'}
-                    </DialogTitle>
-                    <DialogContent>
-                      <DialogContentText id='alert-dialog-description'>
-                    Cette action est irréversible, souhaitez-vous continuer?
-                      </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={this.handleDeleteConfirm} color='secondary' autoFocus>Oui</Button>
-                      <Button onClick={this.handleDeleteClose} color='primary' autoFocus>Annuler</Button>
-                    </DialogActions>
-                  </Dialog>
-                </div>
-              )
-              : (
-                ''
-              )
+            this.props.edit &&
+              <div>
+                <Button
+                  onClick={this.handleDelete}
+                  className={classes.button}
+                  variant='fab'
+                  color='secondary'>
+                  <DeleteIcon />
+                </Button>
+                <Dialog
+                  open={this.state.showDeleteAlert}
+                  onClose={this.handleDeleteClose}
+                  aria-labelledby='alert-dialog-title'
+                  aria-describedby='alert-dialog-description'>
+                  <DialogTitle id='alert-dialog-title'>
+                    {'Êtes-vous sure?'}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id='alert-dialog-description'>
+                  Cette action est irréversible, souhaitez-vous continuer?
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={this.handleDeleteConfirm} color='secondary' autoFocus>Oui</Button>
+                    <Button onClick={this.handleDeleteClose} color='primary' autoFocus>Annuler</Button>
+                  </DialogActions>
+                </Dialog>
+              </div>
           }
           <Button
             disabled={!this.isSubmitEnabled()}
