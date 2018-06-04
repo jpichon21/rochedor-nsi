@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { convertToRaw } from 'draft-js'
-import update from 'immutability-helper'  
+import update from 'immutability-helper'
 import draftToHtml from 'draftjs-to-html'
 import { MenuItem, Menu, GridList, GridListTile, TextField, Button, Typography, Grid, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, ExpansionPanelActions, Divider, Select, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -75,7 +75,6 @@ export class PageForm extends React.Component {
     })
   }
 
-
   handleInputChange (event) {
     const value = event.target.value
     const name = event.target.name
@@ -123,7 +122,7 @@ export class PageForm extends React.Component {
   handleDeleteClose () {
     this.setState({ showDeleteAlert: false })
   }
-  
+
   handleDeleteConfirm () {
     this.props.deleteHandler(this.state.page)
     this.setState({ showDeleteAlert: false })
@@ -281,25 +280,25 @@ export class PageForm extends React.Component {
             label='Meta-description'
             value={this.state.page.description}
             onChange={this.handleInputChange} />
-            {
-          (!this.props.edit && this.props.parents.length > 0 && this.state.page.locale !== 'fr')
-            ? (
-              <Select
-                placeholder={'Page parente'}
-                className={classes.option}
-                value={this.state.parentKey}
-                onChange={this.handleParent}
-                inputProps={{
-                  name: 'parent_key',
-                  id: 'parent_key'
-                }}>
-                {parents}
-              </Select>
-            )
-            : (
-              ''
-            )
-        }
+          {
+            (!this.props.edit && this.props.parents.length > 0 && this.state.page.locale !== 'fr')
+              ? (
+                <Select
+                  placeholder={'Page parente'}
+                  className={classes.option}
+                  value={this.state.parentKey}
+                  onChange={this.handleParent}
+                  inputProps={{
+                    name: 'parent_key',
+                    id: 'parent_key'
+                  }}>
+                  {parents}
+                </Select>
+              )
+              : (
+                ''
+              )
+          }
         </form>
         <Typography variant='display1' className={classes.title}>
           Contenu
@@ -395,39 +394,39 @@ export class PageForm extends React.Component {
             <WrapTextIcon />
           </Button>
           {
-          (this.props.edit)
-          ? (
-            <div>
-              <Button
-                onClick={this.handleDelete}
-                className={classes.button}
-                variant='fab'
-                color='secondary'>
-                <DeleteIcon />
-              </Button>
-              <Dialog
-              open={this.state.showDeleteAlert}
-              onClose={this.handleDeleteClose}
-              aria-labelledby='alert-dialog-title'
-              aria-describedby='alert-dialog-description'>
-                <DialogTitle id='alert-dialog-title'>
-                  {'Êtes-vous sure?'}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText id='alert-dialog-description'>
+            (this.props.edit)
+              ? (
+                <div>
+                  <Button
+                    onClick={this.handleDelete}
+                    className={classes.button}
+                    variant='fab'
+                    color='secondary'>
+                    <DeleteIcon />
+                  </Button>
+                  <Dialog
+                    open={this.state.showDeleteAlert}
+                    onClose={this.handleDeleteClose}
+                    aria-labelledby='alert-dialog-title'
+                    aria-describedby='alert-dialog-description'>
+                    <DialogTitle id='alert-dialog-title'>
+                      {'Êtes-vous sure?'}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id='alert-dialog-description'>
                     Cette action est irréversible, souhaitez-vous continuer?
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={this.handleDeleteConfirm} color='secondary' autoFocus>Oui</Button>
-                  <Button onClick={this.handleDeleteClose} color='primary' autoFocus>Annuler</Button>
-                </DialogActions>
-              </Dialog>
-            </div>
-          )
-          : (
-            ''
-          )
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={this.handleDeleteConfirm} color='secondary' autoFocus>Oui</Button>
+                      <Button onClick={this.handleDeleteClose} color='primary' autoFocus>Annuler</Button>
+                    </DialogActions>
+                  </Dialog>
+                </div>
+              )
+              : (
+                ''
+              )
           }
           <Button
             disabled={!this.isSubmitEnabled()}
@@ -486,11 +485,13 @@ PageForm.defaultProps = {
     parent_id: null,
     content: {
       intro: '',
-      sections: {
-        title: '',
-        body: '',
-        slides: []
-      }
+      sections: [
+        {
+          title: '',
+          body: '',
+          slides: []
+        }
+      ]
     }
   }
 }
