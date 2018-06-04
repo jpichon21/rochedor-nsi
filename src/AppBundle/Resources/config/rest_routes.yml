@@ -6,3 +6,7 @@ speaker:
     type: rest
     name_prefix: api_speaker_
     resource: AppBundle\Controller\SpeakerController
+news:
+    type: rest
+    name_prefix: api_news_
+    resource: AppBundle\Controller\NewsController
