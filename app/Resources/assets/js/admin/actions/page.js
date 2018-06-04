@@ -61,7 +61,7 @@ export function getPages (locale = 'fr') {
         if (res.error) throw res.error
         dispatch({ type: GET_PAGES_SUCCESS, data: res })
       })
-      .catch(error => dispatch({ type: GET_PAGES_FAILURE, error }))
+      .catch(error => dispatch({ type: GET_PAGES_FAILURE, data: error }))
   }
 }
 
