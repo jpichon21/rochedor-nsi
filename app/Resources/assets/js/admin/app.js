@@ -2,44 +2,89 @@ import React, { Fragment } from 'react'
 import { hot } from 'react-hot-loader'
 import { HashRouter } from 'react-router-dom'
 import ReactDOM from 'react-dom'
-import { Route, Switch } from 'react-router'
+import { Route, Switch, Redirect } from 'react-router'
 import { connect, Provider } from 'react-redux'
 import PageList from './components/page-list/page-list'
 import PageCreate from './components/page-create/page-create'
-import AppMenu from './components/app-menu/app-menu'
+import PageEdit from './components/page-edit/page-edit'
 import { configureStore } from './store'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
-const store = configureStore({ pages: [] })
+const store = configureStore({
+  pages: [],
+  status: '',
+  page: {
+    title: '',
+    sub_title: '',
+    url: '',
+    description: '',
+    content: {}
+  },
+  pageVersions: {}
+})
+
+const myMarge = 30
+
+const theme = createMuiTheme({
+  myMarge: myMarge,
+  container: {
+    maxWidth: 1024,
+    padding: myMarge,
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    position: 'fixed',
+    right: myMarge,
+    bottom: myMarge
+  },
+  button: {
+    marginLeft: myMarge / 2
+  },
+  textfield: {
+    marginBottom: myMarge
+  },
+  title: {
+    marginBottom: myMarge,
+    textTransform: 'uppercase'
+  },
+  form: {
+    marginBottom: myMarge / 2
+  },
+  link: {
+    underline: 'none',
+    textDecoration: 'none',
+    color: 'inherit'
+  }
+})
+
+const RedirectPageList = () => {
+  return <Redirect to='/page-list' />
+}
 
 class App extends React.Component {
   constructor () {
     super()
     this.state = {
-      title: 'Accueil'
+      locale: 'fr'
     }
-    this.updateTitle = this.updateTitle.bind(this)
   }
   render () {
     return (
-      <div>
-        <CssBaseline>
-          <HashRouter>
-            <Fragment>
-              <AppMenu title={this.state.title} />
-              <Switch>
-                <Route path='/page-list' render={(props) => (<PageList title={this.updateTitle} />)} />
-                <Route path='/page-create' render={(props) => (<PageCreate title={this.updateTitle} />)} />
-              </Switch>
-            </Fragment>
-          </HashRouter>
-        </CssBaseline>
-      </div>
+      <HashRouter>
+        <Fragment>
+          <Switch>
+            <Route path='/' exact render={RedirectPageList} />
+            <Route path='/page-list' exact component={PageList} />
+            <Route path='/page-create' exact component={PageCreate} />
+            <Route path='/page-edit/:pageId' exact component={PageEdit} />
+          </Switch>
+        </Fragment>
+      </HashRouter>
     )
-  }
-  updateTitle (title) {
-    console.log('title')
-    this.setState({title: title})
   }
 }
 
@@ -47,7 +92,11 @@ export default connect()(hot(module)(App))
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline>
+        <App />
+      </CssBaseline>
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('app')
 )

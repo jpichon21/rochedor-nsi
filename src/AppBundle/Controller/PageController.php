@@ -25,16 +25,41 @@ class PageController extends Controller
     public function postAction(Page $page)
     {
         $em = $this->getDoctrine()->getManager();
+        $parent = null;
+        if ($page->getParentId() != null) {
+            $id = $page->getParentId();
+            $parent = $this->getDoctrine()->getRepository('AppBundle:Page')->find($id);
+            $page->setParent($parent);
+        }
         $em->persist($page);
+
+        if ($page->getLocale() !== "fr" && $parent === null) {
+            return new JsonResponse(['message' => 'Wrong Argument, parent is null'], Response::HTTP_FORBIDDEN);
+        }
+        if ($page->getLocale() !== "fr" && $parent !== null) {
+            if ($parent->getLocale() !== 'fr') {
+                return new JsonResponse(['message' => 'Wrong Argument, parent is not fr'], Response::HTTP_FORBIDDEN);
+            }
+        }
+        if ($page->getLocale() === 'fr' && $parent !== null) {
+            return new JsonResponse(
+                ['message' => 'Wrong Argument, Your parent must be null'],
+                Response::HTTP_FORBIDDEN
+            );
+        }
 
         $contentRepository = $this->container->get('cmf_routing.content_repository');
         $routeProvider = $this->container->get('cmf_routing.route_provider');
         
         $route = new CmfRoute();
 
-        $routeName = $this->slugify($page->getTitle());
+        if (!$page->getUrl()) {
+            $routeName = $this->slugify($page->getTitle());
+        } else {
+            $routeName =  $this->slugify($page->getUrl());
+        }
         if ($routeProvider->getRoutesByNames([$routeName])) {
-            return new JsonResponse("Route already exists", Response::HTTP_FORBIDDEN);
+            return new JsonResponse(['message' => 'Route already exists'], Response::HTTP_FORBIDDEN);
         }
 
         $route->setName($routeName);
@@ -64,16 +89,41 @@ class PageController extends Controller
     }
 
     /**
-     * @Rest\Get("/pages/{id}")
+     * @Rest\Get("/pages/{id}/{version}", requirements={"version"="\d+"} , defaults={"version" = null})
      * @Rest\View()
      */
-    public function showAction($id)
+    public function showAction($id, $version)
     {
-        $em = $this->getDoctrine()->getManager();
-        $page = $em->getRepository('AppBundle:Page')->findOneById($id);
-        if (empty($page)) {
-            return new JsonResponse("Page not found", Response::HTTP_NOT_FOUND);
+        if ($version === null) {
+            $em = $this->getDoctrine()->getManager();
+            $page = $em->getRepository('AppBundle:Page')->findOneById($id);
+            if ($page === null) {
+                return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
+            }
+            if (count($page->getRoutes()) > 0) {
+                $page->setTempUrl($page->getRoutes()[0]->getName());
+            }
+            return $page;
         } else {
+            $em = $this->getDoctrine()->getManager();
+            $repo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry'); // we use default log entry class
+            $page = $em->getRepository('AppBundle:Page')->findOneById($id);
+            $logs = $repo->getLogEntries($page);
+            $countLogs = count($logs) - 1;
+            $firstLog = $logs[$countLogs];
+            for ($i = ($countLogs); $i >= 0; $i--) {
+                if ($logs[$i]->getVersion() <= $version) {
+                    $diff = array_diff_key($firstLog->getData(), $logs[$i]->getData());
+                    $oldPage = array_merge($diff, $logs[$i]->getData());
+                }
+            }
+            $page->setTitle($oldPage['title']);
+            $page->setSubTitle($oldPage['subTitle']);
+            $page->setDescription($oldPage['description']);
+            $page->setContent($oldPage['content']);
+            if ($page->getRoutes()) {
+                $page->setTempUrl($page->getRoutes()[0]->getName());
+            }
             return $page;
         }
     }
@@ -88,12 +138,12 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
         $page = $this->getDoctrine()->getRepository('AppBundle:Page')->find($id);
         if (empty($page)) {
-            return new JsonResponse("Page not found", Response::HTTP_NOT_FOUND);
+            return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
         } else {
             $em->remove($page);
             $em->flush();
         }
-        return new JsonResponse("deleted successfully", Response::HTTP_OK);
+        return new JsonResponse(['message' => 'Deleted successfully'], Response::HTTP_OK);
     }
 
     /**
@@ -109,6 +159,8 @@ class PageController extends Controller
         $description = $request->get('description');
         $content = $request->get('content');
         $bg = $request->get('background');
+        $url = $request->get('url');
+        $locale = $request->get('locale');
         $em = $this->getDoctrine()->getManager();
         $page = $em->find('AppBundle\Entity\Page', $id);
         $gedmo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
@@ -121,8 +173,31 @@ class PageController extends Controller
             $page->setDescription($description);
             $page->setContent($content);
             $page->setBackground($bg);
+            $page->setLocale($locale);
+
+            $oldUrl = null;
+            if ($page->getRoutes()) {
+                $oldUrl = $page->getRoutes()[0]->getName();
+            }
+
+            if ($oldUrl !== $url) {
+                $routeProvider = $this->container->get('cmf_routing.route_provider');
+                if ($routeProvider->getRoutesByNames([$url])) {
+                    return new JsonResponse(['message' => 'Route already exists'], Response::HTTP_FORBIDDEN);
+                }
+    
+                $routes = $page->getRoutes();
+                foreach ($routes as $key => $route) {
+                    $route->setName($url);
+                    $route->setStaticPrefix('/' . $url);
+                    $routes[$key] = $route;
+                }
+            }
+
+            
             $em->persist($page);
             $em->flush();
+
             return new JsonResponse(['message' => 'Page Updated'], Response::HTTP_OK);
         }
     }
@@ -143,20 +218,39 @@ class PageController extends Controller
     }
 
     /**
-     * @Rest\Get("pages/{id}/children")
+     * @Rest\Get("pages/{id}/translation")
      * @Rest\View()
      *
      * @param integer $id
      * @return json
      */
-    public function getChildrenAction($id)
+    public function getTranslationAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $page = $em->getRepository('AppBundle:Page')->findOneById($id);
         if (empty($page)) {
             return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
         }
-        return $page->getChildren();
+        return ($page->getParent() === null) ? $page->getChildren() : $page->getParent()->getChildren();
+    }
+
+    /**
+     * @Rest\Get("pages/{id}/versions")
+     * @Rest\View()
+     *
+     * @param integer $id
+     * @return json
+     */
+    public function getVersionsAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry'); // we use default log entry class
+        $page = $em->getRepository('AppBundle:Page')->findOneById($id);
+        if (empty($page)) {
+            return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
+        }
+        $logs = $repo->getLogEntries($page);
+        return $logs;
     }
 
    /**
@@ -176,7 +270,7 @@ class PageController extends Controller
         if (!empty($replace)) {
             $clean = str_replace((array) $replace, ' ', $clean);
         }
-        $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+        $clean = preg_replace("/[^a-zA-Z0-9_|+ -]/", '', $clean);
         $clean = strtolower($clean);
         $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
         $clean = trim($clean, $delimiter);

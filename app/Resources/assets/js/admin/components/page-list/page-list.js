@@ -1,98 +1,108 @@
 import React from 'react'
+import { compose } from 'redux'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getPages } from '../../actions'
-import { Table, TableBody, TableCell, TableHead, TableRow, Select, MenuItem, Button } from '@material-ui/core'
+import { getPages, initStatus } from '../../actions'
+import { Table, TableBody, TableCell, TableHead, TableRow, Button, CircularProgress, Paper } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
+import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
-import { withRouter } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
+import AppMenu from '../app-menu/app-menu'
+import Alert from '../alert/alert'
+import { locales } from '../../locales'
 
 export class PageList extends React.Component {
   constructor (props) {
     super(props)
-    this.setTitle = this.setTitle.bind(this)
     this.state = {
-      locale: 'fr'
+      alertOpen: false
     }
 
-    this.handleLocaleChange = this.handleLocaleChange.bind(this)
+    this.onLocaleChange = this.onLocaleChange.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
+
   componentWillMount () {
-    this.props.dispatch(getPages(this.state.locale))
+    this.props.dispatch(getPages(this.props.locale))
   }
-  componentDidMount () {
-    this.setTitle()
+
+  componentWillReceiveProps (nextProps) {
+    if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully') || nextProps.error) {
+      this.setState({alertOpen: true})
+    }
   }
-  setTitle () {
-    this.props.title('Liste des pages')
+
+  handleClose () {
+    this.props.dispatch(initStatus())
+    this.setState({alertOpen: false})
   }
-  handleLocaleChange (event) {
-    this.setState({locale: event.target.value}, () => {
-      this.props.dispatch(getPages(this.state.locale))
-    })
+
+  onLocaleChange (locale) {
+    this.props.dispatch(getPages(locale))
   }
-  goTo (path) {
-    this.props.history.push(path)
-  }
+
   render () {
-    Moment.locale('fr')
-    const items = this.props.pages.map(p => {
+    Moment.locale(this.props.locale)
+    const { classes } = this.props
+    const items = this.props.pages.map(page => {
       return (
-        <TableRow key={p.id}>
-          <TableCell>{p.title}</TableCell>
-          <TableCell>{Moment(p.updated).format('D/MM/YY')}</TableCell>
+        <TableRow key={page.id}>
+          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{page.title}</NavLink></TableCell>
+          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{Moment(page.updated).format('DD/MM/YY')}</NavLink></TableCell>
         </TableRow>
       )
     })
-
     return (
       <div>
-        <h1>Liste des pages</h1>
-        <Select
-          value={this.state.locale}
-          onChange={this.handleLocaleChange}
-          inputProps={{
-            name: 'langue',
-            id: 'locale'
-          }}
-        >
-          <MenuItem value={'fr'}>fr</MenuItem>
-          <MenuItem value={'en'}>en</MenuItem>
-          <MenuItem value={'es'}>es</MenuItem>
-          <MenuItem value={'de'}>de</MenuItem>
-          <MenuItem value={'it'}>it</MenuItem>
-        </Select>
-
-        {
-          this.props.loading ? (
-            <div>'Chargement...'</div>
-          )
-            : (
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Intitulé</TableCell>
-                    <TableCell>Dernière modification</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {items}
-                </TableBody>
-              </Table>
-            )
-        }
-        <Button variant='fab' color='primary' aria-label='Ajouter' onClick={() => this.goTo('/page-create')} >
-          <AddIcon />
-        </Button>
+        <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
+        <AppMenu title={'Liste des pages'} localeHandler={this.onLocaleChange} locales={locales} />
+        <div className={classes.container}>
+          <Paper className={classes.paper}>
+            {
+              this.props.loading
+                ? <CircularProgress size={50} />
+                : (
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Intitulé</TableCell>
+                        <TableCell>Dernière modification</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {items}
+                    </TableBody>
+                  </Table>
+                )
+            }
+          </Paper>
+          <div className={classes.buttons}>
+            <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/page-create'}>
+              <AddIcon />
+            </Button>
+          </div>
+        </div>
       </div>
     )
   }
 }
 
+const styles = theme => ({
+  ...theme
+})
+
 const mapStateToProps = state => {
   return {
     pages: state.pages,
-    loading: state.loading
+    loading: state.loading,
+    status: state.status,
+    error: state.error
   }
 }
 
-export default withRouter(connect(mapStateToProps)(PageList))
+PageList.propTypes = {
+  classes: PropTypes.object.isRequired
+}
+
+export default compose(withStyles(styles), connect(mapStateToProps))(PageList)
