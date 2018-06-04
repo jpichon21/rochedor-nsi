@@ -4,7 +4,7 @@ page:
     resource: AppBundle\Controller\PageController
 speaker:
     type: rest
-    name_prefix: api_speaker_
+    name_prefix: api_speaker
     resource: AppBundle\Controller\SpeakerController
 news:
     type: rest

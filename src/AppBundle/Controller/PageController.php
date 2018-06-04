@@ -162,8 +162,6 @@ class PageController extends Controller
         $locale = $request->get('locale');
         $em = $this->getDoctrine()->getManager();
         $page = $em->find('AppBundle\Entity\Page', $id);
-        $gedmo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
-        $logs = $gedmo->getLogEntries($page);
         if (empty($page)) {
             return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
         } else {
@@ -199,6 +197,16 @@ class PageController extends Controller
 
             return $page;
         }
+        $gedmo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
+        $logs = $gedmo->getLogEntries($page);
+        $page->setTitle($title);
+        $page->setSubTitle($subTitle);
+        $page->setDescription($description);
+        $page->setContent($content);
+        $page->setBackground($bg);
+        $em->persist($page);
+        $em->flush();
+        return new JsonResponse(['message' => 'Page Updated'], Response::HTTP_OK);
     }
 
     /**
@@ -214,6 +222,7 @@ class PageController extends Controller
         $repo->revert($page, $version);
         $em->persist($page);
         $em->flush();
+        return $page;
     }
 
     /**
