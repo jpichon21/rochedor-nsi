@@ -1,4 +1,12 @@
 page:
     type: rest
-    name_prefix: api_
+    name_prefix: api_page_
     resource: AppBundle\Controller\PageController
+speaker:
+    type: rest
+    name_prefix: api_speaker_
+    resource: AppBundle\Controller\SpeakerController
+news:
+    type: rest
+    name_prefix: api_news_
+    resource: AppBundle\Controller\NewsController

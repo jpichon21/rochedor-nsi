@@ -7,6 +7,11 @@
     <div class="left">
         <div class="zone">
             <h1><small>{{ page.title1 }} </small>{{ page.title2 }}</h1>
+            {% if page.content.intro %}
+            <div class="intro">
+                {{ page.content.intro | raw }}
+            </div>
+            {% endif %}
             <div class="dropdown {% if page.content.sections|length == 1 %}single{% endif %}">
                 {% for section in page.content.sections %}
                 <div class="item"

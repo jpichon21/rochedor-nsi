@@ -4,19 +4,15 @@ security:
             memory:
                 users:
                     admin:
-                        password: %admin_password%
-                        roles: ['ROLE_ADMIN']
-        our_db_provider:
-            entity:
-                class: AppBundle:User
-                property: username
+                        password: admin
+                        roles: 'ROLE_ADMIN'
+
+        # our_db_provider:
+        #     entity:
+        #         class: AppBundle:User
 
     encoders:
-        Symfony\Component\Security\Core\User\User:
-            algorithm: bcrypt
-            cost: 12
-        AppBundle\Entity\User:
-            algorithm: bcrypt
+        Symfony\Component\Security\Core\User\User: plaintext
 
     firewalls:
         dev:
@@ -25,6 +21,13 @@ security:
 
         main:
             anonymous: ~
-            http_basic: ~
+            json_login:
+                check_path: /login
+            logout:
+                path:   /logout
+                invalidate_session: true
+                target: /login
+
+
     access_control:
-        - { path: ^/admin/_trans, role: ROLE_ADMIN}
+        - { path: ^/api, role: ROLE_ADMIN}

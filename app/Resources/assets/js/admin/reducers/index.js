@@ -1,5 +1,6 @@
 import reduceReducers from 'reduce-reducers'
-import pageReducer from './page'
 import commonReducer from './common'
+import pageReducer from './page'
+import newsReducer from './news'
 
-export default reduceReducers(commonReducer, pageReducer)
+export default reduceReducers(commonReducer, pageReducer, newsReducer)
