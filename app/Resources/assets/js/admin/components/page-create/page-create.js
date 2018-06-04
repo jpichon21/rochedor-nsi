@@ -1,7 +1,4 @@
 import React from 'react'
-<<<<<<< HEAD
-import { withRouter } from 'react-router-dom'
-=======
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { postPage, initStatus, setMessage, setLocale, getPages } from '../../actions'
@@ -9,7 +6,6 @@ import PageForm from '../page-form/page-form'
 import AppMenu from '../app-menu/app-menu'
 import { locales } from '../../locales'
 import Alert from '../alert/alert'
->>>>>>> 5-developpement-du-backoffice-des-paragraphes-de-contenu
 
 export class PageCreate extends React.Component {
   constructor (props) {
