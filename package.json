@@ -30,6 +30,7 @@
     "draft-js": "^0.10.5",
     "draftjs-to-html": "^0.8.4",
     "gsap": "^1.20.4",
+    "immutability-helper": "^2.7.0",
     "include-media": "^1.4.9",
     "jquery": "^3.3.1",
     "jquery-scrollify": "^1.0.19",

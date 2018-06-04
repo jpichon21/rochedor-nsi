@@ -1,26 +1,31 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { convertToRaw } from 'draft-js'
+import update from 'immutability-helper'  
 import draftToHtml from 'draftjs-to-html'
-import { MenuItem, Menu, GridList, GridListTile, TextField, Button, Typography, Grid, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, ExpansionPanelActions, Divider, Select } from '@material-ui/core'
+import { MenuItem, Menu, GridList, GridListTile, TextField, Button, Typography, Grid, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, ExpansionPanelActions, Divider, Select, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import WrapTextIcon from '@material-ui/icons/WrapText'
 import SaveIcon from '@material-ui/icons/Save'
+import DeleteIcon from '@material-ui/icons/Delete'
 import { withStyles } from '@material-ui/core/styles'
 import RichEditor from './RichEditor'
 import { tileData } from './tileData'
 
 export class PageForm extends React.Component {
   static defaultProps = {
+    parents: {},
+    parentKey: 0,
     page: {
       locale: 'fr',
       title: '',
       sub_title: '',
       url: '',
       description: '',
+      parent_id: null,
       content: {
         intro: '',
         sections: {
@@ -36,12 +41,27 @@ export class PageForm extends React.Component {
     super(props)
     this.state = {
       locale: this.props.lang,
-      page: this.props.page,
+      page: {
+        locale: 'fr',
+        title: '',
+        sub_title: '',
+        url: '',
+        description: '',
+        content: {
+          intro: '',
+          sections: {
+            title: '',
+            body: '',
+            slides: []
+          }
+        }
+      },
       versionCount: 0,
       submitDisabled: true,
       anchorMenuLayout: null,
       menuLayoutOpened: false,
-      layout: '1-1-2'
+      layout: '1-1-2',
+      showDeleteAlert: false
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
@@ -50,7 +70,11 @@ export class PageForm extends React.Component {
     this.handleCloseLayoutMenu = this.handleCloseLayoutMenu.bind(this)
     this.handleChangeLayoutMenu = this.handleChangeLayoutMenu.bind(this)
     this.handleVersion = this.handleVersion.bind(this)
+    this.handleParent = this.handleParent.bind(this)
     this.handleChangeTextArea = this.handleChangeTextArea.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
+    this.handleDeleteClose = this.handleDeleteClose.bind(this)
+    this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this)
   }
 
   handleVersion (event) {
@@ -58,6 +82,20 @@ export class PageForm extends React.Component {
     this.props.versionHandler(this.state.page, this.props.versions[event.target.value].version)
     event.preventDefault()
   }
+
+  handleParent (event) {
+    const parentKey = event.target.value
+    this.setState((prevState) => {
+      return {
+        page: {
+          ...prevState.page,
+          parent_id: this.props.parents[parentKey].id
+        },
+        parentKey: parentKey
+      }
+    })
+  }
+
 
   handleInputChange (event) {
     const value = event.target.value
@@ -100,6 +138,17 @@ export class PageForm extends React.Component {
       anchorMenuLayout: null
     })
   }
+  handleDelete () {
+    this.setState({ showDeleteAlert: true })
+  }
+  handleDeleteClose () {
+    this.setState({ showDeleteAlert: false })
+  }
+  
+  handleDeleteConfirm () {
+    this.props.deleteHandler(this.state.page)
+    this.setState({ showDeleteAlert: false })
+  }
 
   handleChangeTextArea (editorState) {
     const rawContentState = convertToRaw(editorState.getCurrentContent())
@@ -116,25 +165,61 @@ export class PageForm extends React.Component {
         }
       }
     })
-    console.log(this.state.page)
+  }
+
+  isSubmitEnabled () {
+    const p = this.state.page
+    if (p.title === '' || p.description === '' || p.url === '') {
+      return false
+    }
+    if (p.locale !== 'fr' && !p.parent_id) {
+      return false
+    }
+    if (p.locale === 'fr' && p.parent_id) {
+      return false
+    }
+    return true
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.page) {
-      this.setState({ page: nextProps.page })
+      const p = nextProps.page
+      const state = update(this.state, {
+        page: {
+          id: {
+            $set: p.id
+          },
+          title: {
+            $set: p.title
+          },
+          sub_title: {
+            $set: p.sub_title
+          },
+          description: {
+            $set: p.description
+          },
+          url: {
+            $set: p.url
+          },
+          content: {
+            $merge: p.content
+          }
+        }
+      })
+      this.setState(state)
     }
     if (nextProps.locale) {
       this.setState((prevState) => {
         return {
           page: {
             ...prevState.page,
-            locale: nextProps.locale
+            locale: nextProps.locale,
+            parent_id: null
           }
         }
       })
     }
   }
-
   render () {
     const { classes } = this.props
     const { anchorMenuLayout } = this.state
@@ -143,6 +228,13 @@ export class PageForm extends React.Component {
       ? this.props.versions.map((v, k) => {
         return (
           <MenuItem value={k} key={v.id}>{v.logged_at}</MenuItem>
+        )
+      })
+      : null
+    const parents = (this.props.parents.length > 0)
+      ? this.props.parents.map((p, k) => {
+        return (
+          <MenuItem value={k} key={k}>{p.title}</MenuItem>
         )
       })
       : null
@@ -210,6 +302,25 @@ export class PageForm extends React.Component {
             label='Meta-description'
             value={this.state.page.description}
             onChange={this.handleInputChange} />
+            {
+          (!this.props.edit && this.props.parents.length > 0 && this.state.page.locale !== 'fr')
+            ? (
+              <Select
+                placeholder={'Page parente'}
+                className={classes.option}
+                value={this.state.parentKey}
+                onChange={this.handleParent}
+                inputProps={{
+                  name: 'parent_key',
+                  id: 'parent_key'
+                }}>
+                {parents}
+              </Select>
+            )
+            : (
+              ''
+            )
+        }
         </form>
         <Typography variant='display1' className={classes.title}>
           Contenu
@@ -298,14 +409,49 @@ export class PageForm extends React.Component {
           </ExpansionPanel>
         </form>
         <div className={classes.buttons}>
-          <Button
+          <Button component={Link} to={'/page-list'}
             className={classes.button}
             variant='fab'
             color='primary'>
             <WrapTextIcon />
           </Button>
+          {
+          (this.props.edit)
+          ? (
+            <div>
+              <Button
+                onClick={this.handleDelete}
+                className={classes.button}
+                variant='fab'
+                color='secondary'>
+                <DeleteIcon />
+              </Button>
+              <Dialog
+              open={this.state.showDeleteAlert}
+              onClose={this.handleDeleteClose}
+              aria-labelledby='alert-dialog-title'
+              aria-describedby='alert-dialog-description'>
+                <DialogTitle id='alert-dialog-title'>
+                  {'Êtes-vous sure?'}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id='alert-dialog-description'>
+                    Cette action est irréversible, souhaitez-vous continuer?
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={this.handleDeleteConfirm} color='secondary' autoFocus>Oui</Button>
+                  <Button onClick={this.handleDeleteClose} color='primary' autoFocus>Annuler</Button>
+                </DialogActions>
+              </Dialog>
+            </div>
+          )
+          : (
+            ''
+          )
+          }
           <Button
-            disabled={this.state.submitDisabled}
+            disabled={!this.isSubmitEnabled()}
             onClick={this.handleSubmit}
             className={classes.button}
             variant='fab'
@@ -349,4 +495,4 @@ PageForm.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withRouter(compose(withStyles(styles), connect(mapStateToProps))(PageForm))
+export default compose(withStyles(styles), connect(mapStateToProps))(PageForm)

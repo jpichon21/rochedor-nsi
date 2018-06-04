@@ -7,7 +7,8 @@ import MenuIcon from '@material-ui/icons/Menu'
 
 class AppMenu extends React.Component {
   static defaultProps = {
-    locales: { }
+    locales: { },
+    locale: 'fr'
   }
   constructor (props) {
     super(props)
@@ -70,7 +71,7 @@ class AppMenu extends React.Component {
             aria-haspopup='true'
             onClick={this.handleLang}
             color='inherit'>
-            {this.props.locales[this.state.locale]}
+            {this.props.locales[this.props.locale]}
           </Button>
           <Menu
             id='menu-appbar'

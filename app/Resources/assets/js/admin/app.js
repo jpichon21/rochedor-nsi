@@ -53,6 +53,11 @@ const theme = createMuiTheme({
   },
   form: {
     marginBottom: myMarge / 2
+  },
+  link: {
+    underline: 'none',
+    textDecoration: 'none',
+    color: 'inherit'
   }
 })
 

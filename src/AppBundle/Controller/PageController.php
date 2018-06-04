@@ -100,7 +100,7 @@ class PageController extends Controller
             if ($page === null) {
                 return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
             }
-            if ($page->getRoutes()) {
+            if (count($page->getRoutes()) > 0) {
                 $page->setTempUrl($page->getRoutes()[0]->getName());
             }
             return $page;
@@ -160,6 +160,7 @@ class PageController extends Controller
         $content = $request->get('content');
         $bg = $request->get('background');
         $url = $request->get('url');
+        $locale = $request->get('locale');
         $em = $this->getDoctrine()->getManager();
         $page = $em->find('AppBundle\Entity\Page', $id);
         $gedmo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
@@ -172,6 +173,7 @@ class PageController extends Controller
             $page->setDescription($description);
             $page->setContent($content);
             $page->setBackground($bg);
+            $page->setLocale($locale);
 
             $oldUrl = null;
             if ($page->getRoutes()) {
@@ -229,11 +231,7 @@ class PageController extends Controller
         if (empty($page)) {
             return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
         }
-        $parent = $page->getParent();
-        if ($parent === null) {
-            return new JsonResponse(['message' => 'Page has no parent'], Response::HTTP_FORBIDDEN);
-        }
-        return $parent->getChildren();
+        return ($page->getParent() === null) ? $page->getChildren() : $page->getParent()->getChildren();
     }
 
     /**
