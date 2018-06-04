@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import { convertToRaw } from 'draft-js'
 import immutable from 'object-path-immutable'
 import draftToHtml from 'draftjs-to-html'
-import { MenuItem, Menu, GridList, GridListTile, TextField, Button, Typography, Grid, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, ExpansionPanelActions, Divider, Select, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import WrapTextIcon from '@material-ui/icons/WrapText'
 import SaveIcon from '@material-ui/icons/Save'
@@ -14,6 +13,32 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import { withStyles } from '@material-ui/core/styles'
 import RichEditor from './RichEditor'
 import { tileData } from './tileData'
+import { height } from 'window-size';
+import {
+  Tab,
+  Tabs,
+  TabContainer,
+  SwipeableViews,
+  AppBar,
+  MenuItem,
+  Menu,
+  GridList,
+  GridListTile,
+  TextField,
+  Button,
+  Typography,
+  Grid,
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+  ExpansionPanelActions,
+  Divider,
+  Select,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle } from '@material-ui/core'
 
 export class PageForm extends React.Component {
   constructor (props) {
@@ -25,8 +50,8 @@ export class PageForm extends React.Component {
       submitDisabled: true,
       anchorMenuLayout: null,
       menuLayoutOpened: false,
-      layout: '1-1-2',
-      showDeleteAlert: false
+      showDeleteAlert: false,
+      indexTabs: [0, 0, 0, 0, 0]
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
@@ -40,6 +65,12 @@ export class PageForm extends React.Component {
     this.handleDelete = this.handleDelete.bind(this)
     this.handleDeleteClose = this.handleDeleteClose.bind(this)
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this)
+    this.handleChangeTabs = this.handleChangeTabs.bind(this)
+  }
+
+  handleChangeTabs = (indexTabs, indexSection) => {
+    const state = immutable.set(this.state, `indexTabs.${indexSection}`, indexTabs)
+    this.setState(state)
   }
 
   handleVersion (event) {
@@ -62,9 +93,14 @@ export class PageForm extends React.Component {
   }
 
   handleInputChange (event) {
-    const state = immutable.update(this.state, event.target.name, () => {
-      return event.target.value
-    })
+    const state = immutable.set(this.state, event.target.name, event.target.value)
+    this.setState(state)
+  }
+
+  handleChangeTextArea(editorState, indexSection) {
+    const rawContentState = convertToRaw(editorState.getCurrentContent())
+    const html = draftToHtml(rawContentState)
+    const state = immutable.set(this.state, `page.content.sections.${indexSection}.body`, html)
     this.setState(state)
   }
 
@@ -88,9 +124,11 @@ export class PageForm extends React.Component {
     this.setState({ anchorMenuLayout: null })
   }
 
-  handleChangeLayoutMenu (event) {
+  handleChangeLayoutMenu(layout, indexSection) {
+    const indexSlide = this.state.indexTabs[indexSection]
+    const state = immutable.set(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}.layout`, layout)
+    this.setState(state)
     this.setState({
-      layout: event.target.getAttribute('layout'),
       anchorMenuLayout: null
     })
   }
@@ -104,23 +142,6 @@ export class PageForm extends React.Component {
   handleDeleteConfirm () {
     this.props.deleteHandler(this.state.page)
     this.setState({ showDeleteAlert: false })
-  }
-
-  handleChangeTextArea (editorState) {
-    const rawContentState = convertToRaw(editorState.getCurrentContent())
-    const markup = draftToHtml(rawContentState)
-    this.setState(prevState => {
-      return {
-        ...prevState,
-        page: {
-          ...prevState.page,
-          sections: {
-            ...prevState.page.sections,
-            body: markup
-          }
-        }
-      }
-    })
   }
 
   isSubmitEnabled () {
@@ -139,7 +160,7 @@ export class PageForm extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.page) {
-      const state = immutable.set(this.state, 'page', () => {
+      const state = immutable.update(this.state, 'page', () => {
         return nextProps.page
       })
       this.setState(state)
@@ -267,11 +288,11 @@ export class PageForm extends React.Component {
             value={this.state.page.content.intro}
             onChange={this.handleInputChange} />
           {
-            this.state.page.content.sections.map(section => {
-              <ExpansionPanel className={classes.expansion}>
+            this.state.page.content.sections.map((section, indexSection) => (
+              <ExpansionPanel key={indexSection} className={classes.expansion}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography>
-                    Volet 1
+                    {this.state.page.content.sections[indexSection].title}
                   </Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.details}>
@@ -283,22 +304,52 @@ export class PageForm extends React.Component {
                         className={classes.textfield}
                         fullWidth
                         multiline
-                        name='title'
+                        name={`page.content.sections.${indexSection}.title`}
                         label='Titre'
-                        value={section.title}
+                        value={this.state.page.content.sections[indexSection].title}
                         onChange={this.handleInputChange} />
-                      <RichEditor onChange={this.handleChangeTextArea} />
+                      <RichEditor
+                        indexSection={indexSection}
+                        onChange={this.handleChangeTextArea} />
                     </Grid>
                     <Grid item xs={6}>
-                      <GridList className={classes.gridList} cols={2} rows={2}>
+                      <Tabs
+                        value={this.state.indexTabs[indexSection]}
+                        onChange={(event, value) => this.handleChangeTabs(value, indexSection)}
+                        indicatorColor='primary'
+                        textColor='primary'
+                        centered>
                         {
-                          tileData[this.state.layout].map(tile => (
-                            <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
-                              <img src={tile.img} alt={tile.title} />
-                            </GridListTile>
+                          section.slides.map((slide, indexSlide) => (
+                            <Tab key={indexSlide} label={`Slide ${indexSlide + 1}`} />
                           ))
                         }
-                      </GridList>
+                      </Tabs>
+                      {
+                        section.slides.map((slide, indexSlide) => (
+                          <div key={indexSlide}>
+                            {
+                              this.state.indexTabs[indexSection] === indexSlide &&
+                              <GridList className={classes.gridList} cols={2} rows={2}>
+                                  {
+                                    tileData[slide.layout].map((tile, indexImage) => (
+                                      <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
+                                        <div style={{
+                                          width: '100%',
+                                          height: '100%',
+                                          backgroundImage: `url('${tile.img}')`,
+                                          backgroundSize: 'cover',
+                                          backgroundPosition: 'center'
+                                        }}>
+                                        </div>
+                                      </GridListTile>
+                                    ))
+                                  }
+                                </GridList>
+                            }
+                          </div>
+                        ))
+                      }
                       <div className={classes.options}>
                         <Button
                           variant='outlined'
@@ -307,7 +358,7 @@ export class PageForm extends React.Component {
                           onClick={this.handleLayoutMenu}
                           className={classes.option}>
                           Disposition
-                    </Button>
+                        </Button>
                         <Button variant='outlined' disabled className={classes.option}>Supprimer</Button>
                         <Button variant='outlined' color='primary' className={classes.option}>Ajouter</Button>
                       </div>
@@ -324,12 +375,12 @@ export class PageForm extends React.Component {
                         }}
                         open={menuLayoutOpened}
                         onClose={this.handleCloseLayoutMenu}>
-                        <MenuItem onClick={this.handleChangeLayoutMenu} layout={'2'}>1 Image</MenuItem>
-                        <MenuItem onClick={this.handleChangeLayoutMenu} layout={'2-2'}>2 Images horizontales</MenuItem>
-                        <MenuItem onClick={this.handleChangeLayoutMenu} layout={'1-1'}>2 Images verticales</MenuItem>
-                        <MenuItem onClick={this.handleChangeLayoutMenu} layout={'2-1-1'}>3 Images (Horizontale en haut)</MenuItem>
-                        <MenuItem onClick={this.handleChangeLayoutMenu} layout={'1-1-2'}>3 Images (Horizontale en bas)</MenuItem>
-                        <MenuItem onClick={this.handleChangeLayoutMenu} layout={'1-1-1-1'}>4 Images</MenuItem>
+                        <MenuItem onClick={() => {this.handleChangeLayoutMenu('2', indexSection)}}>1 Image</MenuItem>
+                        <MenuItem onClick={() => {this.handleChangeLayoutMenu('2-2', indexSection)}}>2 Images horizontales</MenuItem>
+                        <MenuItem onClick={() => {this.handleChangeLayoutMenu('1-1', indexSection)}}>2 Images verticales</MenuItem>
+                        <MenuItem onClick={() => {this.handleChangeLayoutMenu('2-1-1', indexSection)}}>3 Images (Horizontale en haut)</MenuItem>
+                        <MenuItem onClick={() => {this.handleChangeLayoutMenu('1-1-2', indexSection)}}>3 Images (Horizontale en bas)</MenuItem>
+                        <MenuItem onClick={() => {this.handleChangeLayoutMenu('1-1-1-1', indexSection)}}>4 Images</MenuItem>
                       </Menu>
                     </Grid>
                   </Grid>
@@ -339,7 +390,7 @@ export class PageForm extends React.Component {
                   <Button disabled>Supprimer</Button>
                 </ExpansionPanelActions>
               </ExpansionPanel>
-            })
+            ))
           }
         </form>
         <div className={classes.buttons}>
@@ -369,7 +420,7 @@ export class PageForm extends React.Component {
                   </DialogTitle>
                   <DialogContent>
                     <DialogContentText id='alert-dialog-description'>
-                  Cette action est irréversible, souhaitez-vous continuer?
+                      Cette action est irréversible, souhaitez-vous continuer?
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
@@ -408,6 +459,9 @@ const styles = theme => ({
   },
   expansion: {
     marginBottom: theme.myMarge
+  },
+  gridList: {
+    paddingTop: theme.myMarge
   }
 })
 
@@ -438,9 +492,18 @@ PageForm.defaultProps = {
       intro: '',
       sections: [
         {
-          title: '',
+          title: 'La communauté',
           body: '',
-          slides: []
+          slides: [
+            {
+              layout: '1-1-2',
+              images: []
+            },
+            {
+              layout: '2-1-1',
+              images: []
+            }
+          ]
         }
       ]
     }
