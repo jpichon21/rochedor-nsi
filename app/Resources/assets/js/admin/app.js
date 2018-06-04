@@ -7,6 +7,9 @@ import { connect, Provider } from 'react-redux'
 import PageList from './components/page-list/page-list'
 import PageCreate from './components/page-create/page-create'
 import PageEdit from './components/page-edit/page-edit'
+import NewsList from './components/news-list/news-list'
+import NewsCreate from './components/news-create/news-create'
+import NewsEdit from './components/news-edit/news-edit'
 import { configureStore } from './store'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
@@ -81,6 +84,9 @@ class App extends React.Component {
             <Route path='/page-list' exact component={PageList} />
             <Route path='/page-create' exact component={PageCreate} />
             <Route path='/page-edit/:pageId' exact component={PageEdit} />
+            <Route path='/news-list/' exact component={NewsList} />
+            <Route path='/news-create/' exact component={NewsCreate} />
+            <Route path='/news-edit/:newsId' exact component={NewsEdit} />
           </Switch>
         </Fragment>
       </HashRouter>
