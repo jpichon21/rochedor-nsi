@@ -16,27 +16,6 @@ import RichEditor from './RichEditor'
 import { tileData } from './tileData'
 
 export class PageForm extends React.Component {
-  static defaultProps = {
-    parents: {},
-    parentKey: 0,
-    page: {
-      locale: 'fr',
-      title: '',
-      sub_title: '',
-      url: '',
-      description: '',
-      parent_id: null,
-      content: {
-        intro: '',
-        sections: {
-          title: '',
-          body: '',
-          slides: []
-        }
-      }
-    }
-  }
-
   constructor (props) {
     super(props)
     this.state = {
@@ -493,6 +472,27 @@ const mapStateToProps = state => {
 
 PageForm.propTypes = {
   classes: PropTypes.object.isRequired
+}
+
+PageForm.defaultProps = {
+  parents: {},
+  parentKey: 0,
+  page: {
+    locale: 'fr',
+    title: '',
+    sub_title: '',
+    url: '',
+    description: '',
+    parent_id: null,
+    content: {
+      intro: '',
+      sections: {
+        title: '',
+        body: '',
+        slides: []
+      }
+    }
+  }
 }
 
 export default compose(withStyles(styles), connect(mapStateToProps))(PageForm)
