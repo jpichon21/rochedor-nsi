@@ -19,7 +19,7 @@ export class PageForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      locale: this.props.lang,
+      locale: this.props.locale,
       page: this.props.page,
       versionCount: 0,
       submitDisabled: true,
