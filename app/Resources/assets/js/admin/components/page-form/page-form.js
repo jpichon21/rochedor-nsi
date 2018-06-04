@@ -20,21 +20,7 @@ export class PageForm extends React.Component {
     super(props)
     this.state = {
       locale: this.props.lang,
-      page: {
-        locale: 'fr',
-        title: '',
-        sub_title: '',
-        url: '',
-        description: '',
-        content: {
-          intro: '',
-          sections: {
-            title: '',
-            body: '',
-            slides: []
-          }
-        }
-      },
+      page: this.props.page,
       versionCount: 0,
       submitDisabled: true,
       anchorMenuLayout: null,
