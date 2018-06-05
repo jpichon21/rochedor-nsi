@@ -1,108 +1,54 @@
 import React, { Fragment } from 'react'
 import { hot } from 'react-hot-loader'
 import { HashRouter } from 'react-router-dom'
-import ReactDOM from 'react-dom'
 import { Route, Switch, Redirect } from 'react-router'
-import { connect, Provider } from 'react-redux'
+import { connect } from 'react-redux'
 import PageList from './components/page-list/page-list'
 import PageCreate from './components/page-create/page-create'
 import PageEdit from './components/page-edit/page-edit'
 import NewsList from './components/news-list/news-list'
 import NewsCreate from './components/news-create/news-create'
 import NewsEdit from './components/news-edit/news-edit'
-import { configureStore } from './store'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-
-const store = configureStore({
-  pages: [],
-  status: '',
-  page: {
-    title: '',
-    sub_title: '',
-    url: '',
-    description: '',
-    content: {}
-  },
-  pageVersions: {}
-})
-
-const myMarge = 30
-
-const theme = createMuiTheme({
-  myMarge: myMarge,
-  container: {
-    maxWidth: 1024,
-    padding: myMarge,
-    marginLeft: 'auto',
-    marginRight: 'auto'
-  },
-  buttons: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    position: 'fixed',
-    right: myMarge,
-    bottom: myMarge
-  },
-  button: {
-    marginLeft: myMarge / 2
-  },
-  textfield: {
-    marginBottom: myMarge
-  },
-  title: {
-    marginBottom: myMarge,
-    textTransform: 'uppercase'
-  },
-  form: {
-    marginBottom: myMarge / 2
-  },
-  link: {
-    underline: 'none',
-    textDecoration: 'none',
-    color: 'inherit'
-  }
-})
+import Login from './components/login/login'
+import Logout from './components/logout/logout'
+import PrivateRoute from './components/private-route/private-route'
+import { doCheckLogin } from './actions'
 
 const RedirectPageList = () => {
   return <Redirect to='/page-list' />
 }
 
-class App extends React.Component {
+export class App extends React.Component {
   constructor () {
     super()
     this.state = {
       locale: 'fr'
     }
   }
+  componentWillMount () {
+    this.props.dispatch(doCheckLogin())
+  }
   render () {
     return (
-      <HashRouter>
-        <Fragment>
-          <Switch>
-            <Route path='/' exact render={RedirectPageList} />
-            <Route path='/page-list' exact component={PageList} />
-            <Route path='/page-create' exact component={PageCreate} />
-            <Route path='/page-edit/:pageId' exact component={PageEdit} />
-            <Route path='/news-list/' exact component={NewsList} />
-            <Route path='/news-create/' exact component={NewsCreate} />
-            <Route path='/news-edit/:newsId' exact component={NewsEdit} />
-          </Switch>
-        </Fragment>
-      </HashRouter>
+      <Fragment>
+        <HashRouter>
+          <Fragment>
+            <Switch>
+              <Route path='/' exact render={RedirectPageList} />
+              <PrivateRoute path='/page-list' exact component={PageList} />
+              <PrivateRoute path='/page-create' exact component={PageCreate} />
+              <PrivateRoute path='/page-edit/:pageId' exact component={PageEdit} />
+              <PrivateRoute path='/news-list/' exact component={NewsList} />
+              <PrivateRoute path='/news-create/' exact component={NewsCreate} />
+              <PrivateRoute path='/news-edit/:newsId' exact component={NewsEdit} />
+              <PrivateRoute path='/logout' exact component={Logout} />
+              <Route path='/login' exact component={Login} />
+            </Switch>
+          </Fragment>
+        </HashRouter>
+      </Fragment>
     )
   }
 }
 
 export default connect()(hot(module)(App))
-
-ReactDOM.render(
-  <Provider store={store}>
-    <MuiThemeProvider theme={theme}>
-      <CssBaseline>
-        <App />
-      </CssBaseline>
-    </MuiThemeProvider>
-  </Provider>,
-  document.getElementById('app')
-)

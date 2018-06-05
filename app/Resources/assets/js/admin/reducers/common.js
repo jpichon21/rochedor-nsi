@@ -6,7 +6,12 @@ import {
   SET_LOCALE,
   SET_ALERT,
   OPEN_ALERT,
-  CLOSE_ALERT
+  CLOSE_ALERT,
+  DO_LOGIN,
+  DO_LOGIN_SUCCESS,
+  DO_LOGIN_FAILURE,
+  DO_LOGOUT_SUCCESS,
+  DO_LOGINCHECK_SUCCESS
 } from '../actions'
 
 export default function commmonReducer (state, action) {
@@ -53,6 +58,32 @@ export default function commmonReducer (state, action) {
       return {
         ...state,
         alertOpen: false
+      }
+      case DO_LOGIN:
+      return {
+        ...state,
+        isLogging: true
+      }
+    case DO_LOGINCHECK_SUCCESS:
+    case DO_LOGIN_SUCCESS:
+      return {
+        ...state,
+        roles: action.roles,
+        username: action.username,
+        isLogging: false,
+        errorLoginMessage: null
+      }
+    case DO_LOGIN_FAILURE:
+      return {
+        ...state,
+        isLogging: false,
+        errorLoginMessage: action.error
+      }
+    case DO_LOGOUT_SUCCESS:
+      return {
+        ...state,
+        roles: null,
+        username: null
       }
   }
   return state

@@ -1,5 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Menu, MenuItem, AppBar, Toolbar, Typography, IconButton, Button } from '@material-ui/core'
@@ -104,6 +106,24 @@ class AppMenu extends React.Component {
                 Intervenants
               </MenuItem>
             </NavLink>
+            {
+              !!this.props.username
+              ? (
+
+                <NavLink to='/logout' className={classes.link}>
+                  <MenuItem onClick={this.handleCloseMenu}>
+                    Déconnexion
+                  </MenuItem>
+                </NavLink>
+              )
+              : (
+                <NavLink to='/login' className={classes.link}>
+                  <MenuItem onClick={this.handleCloseMenu}>
+                    Connexion
+                  </MenuItem>
+                </NavLink>
+              )
+            }
           </Menu>
           <Menu
             id='lang-appbar'
@@ -160,4 +180,10 @@ AppMenu.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(AppMenu)
+const mapStateToProps = state => {
+  return {
+    username: state.username
+  }
+}
+
+export default compose(withStyles(styles), connect(mapStateToProps))(AppMenu)

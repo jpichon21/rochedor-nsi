@@ -24,7 +24,6 @@ import {
 } from '../actions'
 
 export default function newsReducer (state, action) {
-  console.log(action)
   switch (action.type) {
     case GET_NEWSSET:
       return {
