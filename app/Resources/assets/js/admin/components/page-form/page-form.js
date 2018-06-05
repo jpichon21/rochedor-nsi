@@ -31,6 +31,7 @@ import {
   ExpansionPanelSummary,
   ExpansionPanelActions,
   Divider,
+  Popover,
   IconButton,
   CircularProgress,
   Select,
@@ -48,6 +49,8 @@ export class PageForm extends React.Component {
       page: this.props.page,
       versionCount: 0,
       submitDisabled: true,
+      anchorPopover: null,
+      popoverOpened: false,
       anchorMenuLayout: null,
       menuLayoutOpened: false,
       showDeleteAlert: false,
@@ -59,6 +62,9 @@ export class PageForm extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleOpenPopover = this.handleOpenPopover.bind(this)
+    this.handleClosePopover = this.handleClosePopover.bind(this)
+    this.handleChangePopover = this.handleChangePopover.bind(this)
     this.handleOpenLayoutMenu = this.handleOpenLayoutMenu.bind(this)
     this.handleCloseLayoutMenu = this.handleCloseLayoutMenu.bind(this)
     this.handleChangeLayoutMenu = this.handleChangeLayoutMenu.bind(this)
@@ -131,6 +137,25 @@ export class PageForm extends React.Component {
     if (!re.test(event.key)) {
       event.preventDefault()
     }
+  }
+
+  handleOpenPopover (event, indexPopover) {
+    this.setState({
+      anchorPopover: event.currentTarget,
+      popoverOpened: indexPopover
+    })
+  }
+
+  handleClosePopover () {
+    this.setState({
+      anchorPopover: null,
+      popoverOpened: false
+    })
+  }
+
+  handleChangePopover (event, indexSection, indexSlide, indexImage) {
+    const state = immutable.set(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}.images.${indexImage}.video`, event.target.value)
+    this.setState(state)
   }
 
   handleOpenLayoutMenu (event, indexSection) {
@@ -443,9 +468,23 @@ export class PageForm extends React.Component {
                                                     onChange={event => { this.handleChangeFileUpload(event, indexSection, indexSlide, indexImage) }} />
                                                 </IconButton>
                                                 <IconButton
-                                                  color={slide.images[tile.id].videoUrl === '' ? 'primary' : 'secondary'}>
+                                                  color={slide.images[tile.id].video === '' ? 'primary' : 'secondary'}
+                                                  onClick={event => { this.handleOpenPopover(event, `${indexSection}-${indexSlide}-${indexImage}`) }}>
                                                   <OnDemandVideoIcon />
                                                 </IconButton>
+                                                <Popover
+                                                  open={this.state.popoverOpened === `${indexSection}-${indexSlide}-${indexImage}`}
+                                                  anchorEl={this.state.anchorPopover}
+                                                  onClose={this.handleClosePopover}>
+                                                  <TextField
+                                                    className={classes.popover}
+                                                    autoComplete='off'
+                                                    InputLabelProps={{ shrink: true }}
+                                                    name='page.title'
+                                                    label='URL Vidéo'
+                                                    value={this.state.page.content.sections[indexSection].slides[indexSlide].images[indexImage].video}
+                                                    onChange={(event) => { this.handleChangePopover(event, indexSection, indexSlide, indexImage) }} />
+                                                </Popover>
                                               </div>
                                             )
                                         }
@@ -593,6 +632,9 @@ const styles = theme => ({
     height: '100%',
     cursor: 'pointer',
     opacity: 0
+  },
+  popover: {
+    margin: theme.myMarge
   }
 })
 
