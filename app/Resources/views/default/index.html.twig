@@ -11,12 +11,11 @@
 <div class="swipe-background"></div>
 <section class="swipe-section">
     <article class="article-1 align-left">
-        <div class="box">
-            <h2><small>La communauté </small>et ses maisons</h2>
-            <i>Dieu n'a pas d'habitude ! <br>Il bouge tout le temps, <br>et nous devons toujours être en avance, <br>sur notre propre devenir !</i>
-            <span>Florin Callerand</span>
-            <a class="button yellow" href="#">Découvrir</a>
-        </div>
+            <div class="box">
+                <h2>{{page.content['sections'][0].title|raw}}</h2>
+                {{page.content['sections'][0].body|raw}}
+                <a class="button yellow" href="#">Découvrir</a>
+            </div>
         <div class="scroll-down">
             <img src="{{ asset('assets/img/scroll.png') }}">
         </div>
@@ -33,40 +32,44 @@
     </article>
     <article class="article-2 align-right">
         <div class="box">
-            <h2><small>Les </small>retraites</h2>
-            <i>Toute personne en recherche <br>d'approfondissement de sa foi ou en quête <br>du sens de sa vie, face aux questions <br>existentielles soulevées par la société <br>d'aujourd'hui.</i>
+            <h2>{{page.content['sections'][1].title|raw}}</h2>
+            {{page.content['sections'][1].body|raw}}
             <a class="button yellow" href="#">Découvrir</a>
         </div>
     </article>
     <article class="article-3 align-left">
         <div class="box">
-            <h2><small>Le </small>calendrier</h2>
-            <i>Chacun, en communauté, <br>est la perle précieuse <br>sur qui Dieu compte totalement <br>pour le Bien Commun.</i>
-            <span>Florin Callerand</span>
+            <h2>{{page.content['sections'][2].title|raw}}</h2>
+            {{page.content['sections'][2].body|raw}}
             <a class="button yellow" href="#">Découvrir</a>
         </div>
     </article>
     <article class="article-4 align-right">
         <div class="box">
-            <h2><small>Nous </small>soutenir</h2>
-            <i>Marche avec Dieu <br>comme avec un ami, <br>il te fera voir le monde <br>à sa façon !</i>
+            <h2>{{page.content['sections'][3].title|raw}}</h2>
+            {{page.content['sections'][3].body|raw}}
             <a class="button yellow" href="#">Découvrir</a>
         </div>
     </article>
     <article class="article-5 right align-right">
         <div class="box">
-            <h2><small>Les éditions </small>de la roche d'or</h2>
-            <i>Dieu est mis au banc des accusés : <br>Pourquoi permet-il tout cela? <br>Question éternellement posée...</i>
+            <h2>{{page.content['sections'][4].title|raw}}</h2>
+            {{page.content['sections'][4].body|raw}}
             <a class="button yellow" href="#">Découvrir</a>
         </div>
     </article>
     <article class="article-6 right align-left">
         <div class="box">
+            <h2>{{page.content['sections'][5].title|raw}}</h2>
+            {{page.content['sections'][5].body|raw}}
+            <a class="button yellow" href="#">Découvrir</a>
+        </div>
+        {# <div class="box">
             <h2><small>Informations </small>et contacts</h2>
             <i>L'âge achevé de la vraie mystique, <br>c'est de voir Dieu présent dans la matière.</i>
             <span>Florin Callerand</span>
             <a class="button yellow" href="#">Découvrir</a>
-        </div>
+        </div> #}
     </article>
 </section>
 {% endblock %}
