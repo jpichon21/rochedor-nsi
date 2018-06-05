@@ -8,6 +8,8 @@ import draftToHtml from 'draftjs-to-html'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import WrapTextIcon from '@material-ui/icons/WrapText'
 import SaveIcon from '@material-ui/icons/Save'
+import OnDemandVideoIcon from '@material-ui/icons/OnDemandVideo'
+import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { withStyles } from '@material-ui/core/styles'
 import RichEditor from './RichEditor'
@@ -28,6 +30,7 @@ import {
   ExpansionPanelSummary,
   ExpansionPanelActions,
   Divider,
+  IconButton,
   Select,
   Dialog,
   DialogActions,
@@ -391,14 +394,17 @@ export class PageForm extends React.Component {
                                 {
                                   tileData[slide.layout].map((tile, indexImage) => (
                                     <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
-                                      <div style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        backgroundImage: `url('${tile.img}')`,
-                                        backgroundSize: 'cover',
-                                        backgroundPosition: 'center'
-                                      }}>
-                                        Coucou
+                                      <div className={classes.tile} style={{backgroundImage: `url('${slide.images[tile.id].url}')`}}>
+                                        <IconButton
+                                          mini
+                                          color={slide.images[tile.id].url === '' ? 'primary' : 'secondary'}>
+                                          <PhotoSizeSelectActualIcon />
+                                        </IconButton>
+                                        <IconButton
+                                          mini
+                                          color={slide.images[tile.id].videoUrl === '' ? 'primary' : 'secondary'}>
+                                          <OnDemandVideoIcon />
+                                        </IconButton>
                                       </div>
                                     </GridListTile>
                                   ))
@@ -526,6 +532,16 @@ const styles = theme => ({
   },
   gridList: {
     paddingTop: theme.myMarge
+  },
+  tile: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundColor: '#eeeeee'
   }
 })
 
@@ -561,7 +577,20 @@ PageForm.defaultProps = {
           slides: [
             {
               layout: '1-1-2',
-              images: []
+              images: [
+                {
+                  url: 'https://placeimg.com/400/400/any',
+                  videoUrl: ''
+                },
+                {
+                  url: '',
+                  videoUrl: ''
+                },
+                {
+                  url: '',
+                  videoUrl: ''
+                }
+              ]
             }
           ]
         }
