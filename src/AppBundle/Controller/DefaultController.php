@@ -10,6 +10,8 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\ServiceShowPage;
+use AppBundle\Controller\PageController;
+use AppBundle\Entity\Page;
 
 class DefaultController extends Controller
 {
@@ -31,6 +33,24 @@ class DefaultController extends Controller
 
     public function showPageAction($contentDocument)
     {
-        return $this->render('default/page.html.twig', array('page' => $contentDocument));
+        if ($contentDocument->getLocale() === "fr") {
+            $cm = $contentDocument->getChildren();
+            $myChild = $cm->getValues();
+        } else {
+            $cm = $contentDocument->getParent();
+            $mc = $cm->getChildren();
+            $myChild = $mc->getValues();
+        }
+        $availableLocal = array();
+        foreach ($myChild as $childPage) {
+            $key = $childPage->getLocale();
+            $tmp = $childPage->getRoutes()->getValues();
+            $availableLocal[$key] = $tmp[0]->getStaticPrefix();
+        }
+
+        return $this->render('default/page.html.twig', array(
+            'page' => $contentDocument,
+            'availableLocal' => $availableLocal
+        ));
     }
 }

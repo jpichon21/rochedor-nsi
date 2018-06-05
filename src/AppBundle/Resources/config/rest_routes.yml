@@ -1,8 +1,8 @@
 page:
     type: rest
-    name_prefix: api_
+    name_prefix: api_page
     resource: AppBundle\Controller\PageController
 speaker:
     type: rest
-    name_prefix: api_
+    name_prefix: api_speaker
     resource: AppBundle\Controller\SpeakerController
