@@ -2,7 +2,6 @@ import React from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { convertToRaw } from 'draft-js'
 import immutable from 'object-path-immutable'
 import draftToHtml from 'draftjs-to-html'
@@ -13,13 +12,9 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import { withStyles } from '@material-ui/core/styles'
 import RichEditor from './RichEditor'
 import { tileData } from './tileData'
-import { height } from 'window-size';
 import {
   Tab,
   Tabs,
-  TabContainer,
-  SwipeableViews,
-  AppBar,
   MenuItem,
   Menu,
   GridList,
@@ -56,7 +51,7 @@ export class PageForm extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleLayoutMenu = this.handleLayoutMenu.bind(this)
+    this.handleOpenLayoutMenu = this.handleOpenLayoutMenu.bind(this)
     this.handleCloseLayoutMenu = this.handleCloseLayoutMenu.bind(this)
     this.handleChangeLayoutMenu = this.handleChangeLayoutMenu.bind(this)
     this.handleVersion = this.handleVersion.bind(this)
@@ -66,9 +61,10 @@ export class PageForm extends React.Component {
     this.handleDeleteClose = this.handleDeleteClose.bind(this)
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this)
     this.handleChangeTabs = this.handleChangeTabs.bind(this)
+    this.handleAddSection = this.handleAddSection.bind(this)
   }
 
-  handleChangeTabs = (indexTabs, indexSection) => {
+  handleChangeTabs (indexTabs, indexSection) {
     const state = immutable.set(this.state, `indexTabs.${indexSection}`, indexTabs)
     this.setState(state)
   }
@@ -97,7 +93,7 @@ export class PageForm extends React.Component {
     this.setState(state)
   }
 
-  handleChangeTextArea(editorState, indexSection) {
+  handleChangeTextArea (editorState, indexSection) {
     const rawContentState = convertToRaw(editorState.getCurrentContent())
     const html = draftToHtml(rawContentState)
     const state = immutable.set(this.state, `page.content.sections.${indexSection}.body`, html)
@@ -116,25 +112,31 @@ export class PageForm extends React.Component {
     }
   }
 
-  handleLayoutMenu (event) {
-    this.setState({ anchorMenuLayout: event.currentTarget })
+  handleOpenLayoutMenu (indexSection, event) {
+    this.setState({
+      anchorMenuLayout: event.currentTarget,
+      menuLayoutOpened: indexSection
+    })
   }
 
   handleCloseLayoutMenu () {
-    this.setState({ anchorMenuLayout: null })
+    this.setState({
+      anchorMenuLayout: null,
+      menuLayoutOpened: false
+    })
   }
 
-  handleChangeLayoutMenu(layout, indexSection) {
+  handleChangeLayoutMenu (layout, indexSection) {
     const indexSlide = this.state.indexTabs[indexSection]
     const state = immutable.set(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}.layout`, layout)
     this.setState(state)
-    this.setState({
-      anchorMenuLayout: null
-    })
+    this.handleCloseLayoutMenu()
   }
+
   handleDelete () {
     this.setState({ showDeleteAlert: true })
   }
+
   handleDeleteClose () {
     this.setState({ showDeleteAlert: false })
   }
@@ -142,6 +144,13 @@ export class PageForm extends React.Component {
   handleDeleteConfirm () {
     this.props.deleteHandler(this.state.page)
     this.setState({ showDeleteAlert: false })
+  }
+
+  handleAddSection () {
+    const emptySection = PageForm.defaultProps.page.content.sections[0]
+    const position = this.state.page.content.sections.length
+    const state = immutable.insert(this.state, `page.content.sections`, emptySection, position)
+    this.setState(state)
   }
 
   isSubmitEnabled () {
@@ -181,7 +190,6 @@ export class PageForm extends React.Component {
   render () {
     const { classes } = this.props
     const { anchorMenuLayout } = this.state
-    const menuLayoutOpened = Boolean(anchorMenuLayout)
     const versions = (this.props.versions.length > 0)
       ? this.props.versions.map((v, k) => {
         return (
@@ -226,6 +234,7 @@ export class PageForm extends React.Component {
             value={this.state.page.title}
             onChange={this.handleInputChange} />
           <TextField
+            required
             autoComplete='off'
             InputLabelProps={{ shrink: true }}
             className={classes.textfield}
@@ -293,9 +302,9 @@ export class PageForm extends React.Component {
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography>
                     {
-                      this.state.page.content.sections[indexSection].title === ''
+                      section.title === ''
                         ? 'Volet ' + (indexSection + 1)
-                        : this.state.page.content.sections[indexSection].title
+                        : section.title
                     }
                   </Typography>
                 </ExpansionPanelSummary>
@@ -303,6 +312,7 @@ export class PageForm extends React.Component {
                   <Grid container spacing={32}>
                     <Grid item xs={6}>
                       <TextField
+                        required
                         autoComplete='off'
                         InputLabelProps={{ shrink: true }}
                         className={classes.textfield}
@@ -310,7 +320,7 @@ export class PageForm extends React.Component {
                         multiline
                         name={`page.content.sections.${indexSection}.title`}
                         label='Titre'
-                        value={this.state.page.content.sections[indexSection].title}
+                        value={section.title}
                         onChange={this.handleInputChange} />
                       <RichEditor
                         indexSection={indexSection}
@@ -335,21 +345,22 @@ export class PageForm extends React.Component {
                             {
                               this.state.indexTabs[indexSection] === indexSlide &&
                               <GridList className={classes.gridList} cols={2} rows={2}>
-                                  {
-                                    tileData[slide.layout].map((tile, indexImage) => (
-                                      <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
-                                        <div style={{
-                                          width: '100%',
-                                          height: '100%',
-                                          backgroundImage: `url('${tile.img}')`,
-                                          backgroundSize: 'cover',
-                                          backgroundPosition: 'center'
-                                        }}>
-                                        </div>
-                                      </GridListTile>
-                                    ))
-                                  }
-                                </GridList>
+                                {
+                                  tileData[slide.layout].map((tile, indexImage) => (
+                                    <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
+                                      <div style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        backgroundImage: `url('${tile.img}')`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center'
+                                      }}>
+                                        Coucou
+                                      </div>
+                                    </GridListTile>
+                                  ))
+                                }
+                              </GridList>
                             }
                           </div>
                         ))
@@ -357,34 +368,23 @@ export class PageForm extends React.Component {
                       <div className={classes.options}>
                         <Button
                           variant='outlined'
-                          aria-owns={menuLayoutOpened ? 'layout-menu' : null}
-                          aria-haspopup='true'
-                          onClick={this.handleLayoutMenu}
+                          onClick={event => { this.handleOpenLayoutMenu(indexSection, event) }}
                           className={classes.option}>
-                          Disposition
+                          Disposition {indexSection}
                         </Button>
                         <Button variant='outlined' disabled className={classes.option}>Supprimer</Button>
                         <Button variant='outlined' color='primary' className={classes.option}>Ajouter</Button>
                       </div>
                       <Menu
-                        id='layout-menu'
                         anchorEl={anchorMenuLayout}
-                        anchorOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right'
-                        }}
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right'
-                        }}
-                        open={menuLayoutOpened}
+                        open={this.state.menuLayoutOpened === indexSection}
                         onClose={this.handleCloseLayoutMenu}>
-                        <MenuItem onClick={() => {this.handleChangeLayoutMenu('2', indexSection)}}>1 Image</MenuItem>
-                        <MenuItem onClick={() => {this.handleChangeLayoutMenu('2-2', indexSection)}}>2 Images horizontales</MenuItem>
-                        <MenuItem onClick={() => {this.handleChangeLayoutMenu('1-1', indexSection)}}>2 Images verticales</MenuItem>
-                        <MenuItem onClick={() => {this.handleChangeLayoutMenu('2-1-1', indexSection)}}>3 Images (Horizontale en haut)</MenuItem>
-                        <MenuItem onClick={() => {this.handleChangeLayoutMenu('1-1-2', indexSection)}}>3 Images (Horizontale en bas)</MenuItem>
-                        <MenuItem onClick={() => {this.handleChangeLayoutMenu('1-1-1-1', indexSection)}}>4 Images</MenuItem>
+                        <MenuItem onClick={() => { this.handleChangeLayoutMenu('2', indexSection) }}>1 Image</MenuItem>
+                        <MenuItem onClick={() => { this.handleChangeLayoutMenu('2-2', indexSection) }}>2 Images horizontales</MenuItem>
+                        <MenuItem onClick={() => { this.handleChangeLayoutMenu('1-1', indexSection) }}>2 Images verticales</MenuItem>
+                        <MenuItem onClick={() => { this.handleChangeLayoutMenu('2-1-1', indexSection) }}>3 Images (Horizontale en haut)</MenuItem>
+                        <MenuItem onClick={() => { this.handleChangeLayoutMenu('1-1-2', indexSection) }}>3 Images (Horizontale en bas)</MenuItem>
+                        <MenuItem onClick={() => { this.handleChangeLayoutMenu('1-1-1-1', indexSection) }}>4 Images</MenuItem>
                       </Menu>
                     </Grid>
                   </Grid>
@@ -398,7 +398,8 @@ export class PageForm extends React.Component {
           }
         </form>
         <div className={classes.buttons}>
-          <Button component={Link} to={'/page-list'}
+          <Button
+            onClick={this.handleAddSection}
             className={classes.button}
             variant='fab'
             color='primary'>
@@ -501,10 +502,6 @@ PageForm.defaultProps = {
           slides: [
             {
               layout: '1-1-2',
-              images: []
-            },
-            {
-              layout: '2-1-1',
               images: []
             }
           ]
