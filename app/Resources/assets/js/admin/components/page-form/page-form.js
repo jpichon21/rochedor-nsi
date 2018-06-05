@@ -46,7 +46,7 @@ export class PageForm extends React.Component {
       anchorMenuLayout: null,
       menuLayoutOpened: false,
       showDeleteAlert: false,
-      indexTabs: [0, 0, 0, 0, 0]
+      indexTabs: []
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
@@ -61,7 +61,11 @@ export class PageForm extends React.Component {
     this.handleDeleteClose = this.handleDeleteClose.bind(this)
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this)
     this.handleChangeTabs = this.handleChangeTabs.bind(this)
+    this.handleInitTabs = this.handleInitTabs.bind(this)
     this.handleAddSection = this.handleAddSection.bind(this)
+    this.handleDeleteSection = this.handleDeleteSection.bind(this)
+    this.handleAddSlide = this.handleAddSlide.bind(this)
+    this.handleDeleteSlide = this.handleDeleteSlide.bind(this)
   }
 
   handleChangeTabs (indexTabs, indexSection) {
@@ -69,10 +73,18 @@ export class PageForm extends React.Component {
     this.setState(state)
   }
 
+  handleInitTabs () {
+    const indexTabs = this.state.page.content.sections.map(() => { return 0 })
+    const state = immutable.set(this.state, `indexTabs`, indexTabs)
+    this.setState(state, () => {
+      console.log(this.state)
+    })
+  }
+
   handleVersion (event) {
-    this.setState({ versionCount: event.target.value })
-    this.props.versionHandler(this.state.page, this.props.versions[event.target.value].version)
     event.preventDefault()
+    this.props.versionHandler(this.state.page, this.props.versions[event.target.value].version)
+    this.setState({ versionCount: event.target.value })
   }
 
   handleParent (event) {
@@ -129,8 +141,9 @@ export class PageForm extends React.Component {
   handleChangeLayoutMenu (layout, indexSection) {
     const indexSlide = this.state.indexTabs[indexSection]
     const state = immutable.set(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}.layout`, layout)
-    this.setState(state)
-    this.handleCloseLayoutMenu()
+    this.setState(state, () => {
+      this.handleCloseLayoutMenu()
+    })
   }
 
   handleDelete () {
@@ -150,7 +163,33 @@ export class PageForm extends React.Component {
     const emptySection = PageForm.defaultProps.page.content.sections[0]
     const position = this.state.page.content.sections.length
     const state = immutable.insert(this.state, `page.content.sections`, emptySection, position)
-    this.setState(state)
+    this.setState(state, () => {
+      this.handleInitTabs()
+    })
+  }
+
+  handleDeleteSection (indexSection) {
+    const state = immutable.del(this.state, `page.content.sections.${indexSection}`)
+    this.setState(state, () => {
+      this.handleInitTabs()
+    })
+  }
+
+  handleAddSlide (indexSection) {
+    const emptySlide = PageForm.defaultProps.page.content.sections[0].slides[0]
+    const position = this.state.page.content.sections[indexSection].slides.length
+    const state = immutable.insert(this.state, `page.content.sections.${indexSection}.slides`, emptySlide, position)
+    this.setState(state, () => {
+      this.handleInitTabs()
+    })
+  }
+
+  handleDeleteSlide (indexSection) {
+    const indexSlide = this.state.indexTabs[indexSection]
+    const state = immutable.del(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}`)
+    this.setState(state, () => {
+      this.handleInitTabs()
+    })
   }
 
   isSubmitEnabled () {
@@ -165,6 +204,10 @@ export class PageForm extends React.Component {
       return false
     }
     return true
+  }
+
+  componentWillMount () {
+    this.handleInitTabs()
   }
 
   componentWillReceiveProps (nextProps) {
@@ -374,12 +417,14 @@ export class PageForm extends React.Component {
                         </Button>
                         <Button
                           variant='outlined'
+                          onClick={() => { this.handleDeleteSlide(indexSection) }}
                           disabled={section.slides.length === 1}
                           className={classes.option}>
                           Supprimer
                         </Button>
                         <Button
                           variant='outlined'
+                          onClick={() => { this.handleAddSlide(indexSection) }}
                           color='primary'
                           className={classes.option}>
                           Ajouter
@@ -402,6 +447,7 @@ export class PageForm extends React.Component {
                 <Divider />
                 <ExpansionPanelActions>
                   <Button
+                    onClick={() => { this.handleDeleteSection(indexSection) }}
                     disabled={this.state.page.content.sections.length === 1}>
                     Supprimer
                   </Button>
