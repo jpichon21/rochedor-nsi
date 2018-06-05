@@ -10,4 +10,24 @@ namespace AppBundle\Repository;
  */
 class NewsRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findNextByLocale($locale)
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT n FROM AppBundle:News n WHERE n.locale = :locale AND n.start >= :now ORDER BY n.start DESC'
+        )
+        ->setParameters(['locale' => $locale, 'now' => new \DateTime()])
+        ->getResult();
+    }
+    
+    public function findCurrent($locale)
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT n FROM AppBundle:News n
+            WHERE :now BETWEEN n.start AND n.stop
+            AND n.locale = :locale
+            ORDER BY n.start DESC'
+        )
+        ->setParameters(['locale' => $locale, 'now' => new \DateTime('now')])
+        ->getResult();
+    }
 }

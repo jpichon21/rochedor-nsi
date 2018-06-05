@@ -20,15 +20,16 @@
         <div class="scroll-down">
             <img src="{{ asset('assets/img/scroll.png') }}">
         </div>
-        <div class="nouveautes">
-            <h2>Nouveautés</h2>
-            <i>Pour les 100 ans de Florin Callerand "Un regard croise les écrits de Florin Callerand, prophète pour ces temps"</i>
-            <div class="text">
-                <p>En cette année 2017 où sont fêtés les cent ans de la naissance de Florin Callerand (1917-1998), ce bel ouvrage vient célébrer les nuances fines et puissantes de toute sa vie !</p>
-                <p>Il y aurait tant à dire de ce prêtre franc-comtois, fondateur du Foyer de Charité de La Roche d'Or...</p>
+        {% if lastNews %}
+            <div class="nouveautes">
+                <h2>Nouveautés</h2>
+                <i>{{lastNews.intro}}</i>
+                <div class="text">
+                    <p>{{lastNews.description}}</p>
+                </div>
+                <a class="button black" href="{{lastNews.url}}">Lire la suite</a>
             </div>
-            <a class="button black" href="#">Lire la suite</a>
-        </div>
+        {% endif %}
     </article>
     <article class="article-2 align-right">
         <div class="box">
