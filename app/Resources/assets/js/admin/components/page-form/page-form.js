@@ -370,10 +370,20 @@ export class PageForm extends React.Component {
                           variant='outlined'
                           onClick={event => { this.handleOpenLayoutMenu(indexSection, event) }}
                           className={classes.option}>
-                          Disposition {indexSection}
+                          Disposition
                         </Button>
-                        <Button variant='outlined' disabled className={classes.option}>Supprimer</Button>
-                        <Button variant='outlined' color='primary' className={classes.option}>Ajouter</Button>
+                        <Button
+                          variant='outlined'
+                          disabled={section.slides.length === 1}
+                          className={classes.option}>
+                          Supprimer
+                        </Button>
+                        <Button
+                          variant='outlined'
+                          color='primary'
+                          className={classes.option}>
+                          Ajouter
+                        </Button>
                       </div>
                       <Menu
                         anchorEl={anchorMenuLayout}
@@ -391,7 +401,10 @@ export class PageForm extends React.Component {
                 </ExpansionPanelDetails>
                 <Divider />
                 <ExpansionPanelActions>
-                  <Button disabled>Supprimer</Button>
+                  <Button
+                    disabled={this.state.page.content.sections.length === 1}>
+                    Supprimer
+                  </Button>
                 </ExpansionPanelActions>
               </ExpansionPanel>
             ))
