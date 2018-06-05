@@ -32,18 +32,22 @@ export class PageCreate extends React.Component {
     this.props.dispatch(initStatus())
     this.props.dispatch(getPages('fr'))
   }
+
   componentWillReceiveProps (nextProps) {
     if ((nextProps.status !== 'ok' && nextProps.status !== '') || nextProps.error) {
       this.setState({alertOpen: true})
     }
   }
+
   onLocaleChange (locale) {
     this.props.dispatch(setLocale(locale))
   }
+
   handleClose () {
     this.props.dispatch(initStatus())
     this.setState({alertOpen: false})
   }
+
   render () {
     if (this.props.status === 'ok') {
       this.props.dispatch(setMessage('Page créee'))
