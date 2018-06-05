@@ -21,7 +21,6 @@ export default function fileReducer (state, action) {
       return {
         ...state,
         uploadStatus: action.data,
-        status: 'ok',
         loading: false
       }
     case UPLOAD_FILE_FAILURE:

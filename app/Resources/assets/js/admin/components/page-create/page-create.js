@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { postPage, initStatus, setMessage, setLocale, getPages, uploadFile } from '../../actions'
+import { postPage, initStatus, setMessage, setLocale, getPages } from '../../actions'
 import PageForm from '../page-form/page-form'
 import AppMenu from '../app-menu/app-menu'
 import { locales } from '../../locales'
@@ -13,19 +13,13 @@ export class PageCreate extends React.Component {
     this.state = {
       alertOpen: false
     }
-
     this.onSubmit = this.onSubmit.bind(this)
-    this.onSubmitFile = this.onSubmitFile.bind(this)
     this.onLocaleChange = this.onLocaleChange.bind(this)
     this.handleClose = this.handleClose.bind(this)
   }
 
   onSubmit (page) {
     this.props.dispatch(postPage(page))
-  }
-
-  onSubmitFile (event) {
-    this.props.dispatch(uploadFile(event.target.files[0]))
   }
 
   componentWillMount () {
@@ -59,9 +53,6 @@ export class PageCreate extends React.Component {
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
         <AppMenu title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} />
         <PageForm submitHandler={this.onSubmit} parents={this.props.parents} />
-        <form encType='multipart/form-data'>
-          <input type='file' name='file' onChange={this.onSubmitFile} />
-        </form>
       </div>
     )
   }

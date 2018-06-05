@@ -14,6 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import { withStyles } from '@material-ui/core/styles'
 import RichEditor from './RichEditor'
 import { tileData } from './tileData'
+import { uploadFile } from '../../actions'
 import {
   Tab,
   Tabs,
@@ -31,6 +32,7 @@ import {
   ExpansionPanelActions,
   Divider,
   IconButton,
+  CircularProgress,
   Select,
   Dialog,
   DialogActions,
@@ -49,7 +51,10 @@ export class PageForm extends React.Component {
       anchorMenuLayout: null,
       menuLayoutOpened: false,
       showDeleteAlert: false,
-      indexTabs: []
+      indexTabs: [],
+      fileUploading: {
+        isUploading: false
+      }
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
@@ -69,6 +74,7 @@ export class PageForm extends React.Component {
     this.handleDeleteSection = this.handleDeleteSection.bind(this)
     this.handleAddSlide = this.handleAddSlide.bind(this)
     this.handleDeleteSlide = this.handleDeleteSlide.bind(this)
+    this.handleChangeFileUpload = this.handleChangeFileUpload.bind(this)
   }
 
   handleChangeTabs (indexTabs, indexSection) {
@@ -127,7 +133,7 @@ export class PageForm extends React.Component {
     }
   }
 
-  handleOpenLayoutMenu (indexSection, event) {
+  handleOpenLayoutMenu (event, indexSection) {
     this.setState({
       anchorMenuLayout: event.currentTarget,
       menuLayoutOpened: indexSection
@@ -209,6 +215,18 @@ export class PageForm extends React.Component {
     return true
   }
 
+  handleChangeFileUpload (event, indexSection, indexSlide, indexImage) {
+    this.props.dispatch(uploadFile(event.target.files[0]))
+    this.setState({
+      fileUploading: {
+        isUploading: true,
+        indexSection: indexSection,
+        indexSlide: indexSlide,
+        indexImage: indexImage
+      }
+    })
+  }
+
   componentWillMount () {
     this.handleInitTabs()
   }
@@ -227,6 +245,19 @@ export class PageForm extends React.Component {
             ...prevState.page,
             locale: nextProps.locale,
             parent_id: null
+          }
+        }
+      })
+    }
+    if (nextProps.uploadStatus) {
+      const fileUploading = this.state.fileUploading
+      const pathImage = nextProps.uploadStatus.path.replace('web/', '')
+      const state = immutable.set(this.state, `page.content.sections.${fileUploading.indexSection}.slides.${fileUploading.indexSlide}.images.${fileUploading.indexImage}.url`, pathImage)
+      this.setState(() => {
+        return {
+          ...state,
+          fileUploading: {
+            isUploading: false
           }
         }
       })
@@ -395,16 +426,29 @@ export class PageForm extends React.Component {
                                   tileData[slide.layout].map((tile, indexImage) => (
                                     <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
                                       <div className={classes.tile} style={{backgroundImage: `url('${slide.images[tile.id].url}')`}}>
-                                        <IconButton
-                                          mini
-                                          color={slide.images[tile.id].url === '' ? 'primary' : 'secondary'}>
-                                          <PhotoSizeSelectActualIcon />
-                                        </IconButton>
-                                        <IconButton
-                                          mini
-                                          color={slide.images[tile.id].videoUrl === '' ? 'primary' : 'secondary'}>
-                                          <OnDemandVideoIcon />
-                                        </IconButton>
+                                        {
+                                          this.state.fileUploading.isUploading &&
+                                          this.state.fileUploading.indexSection === indexSection &&
+                                          this.state.fileUploading.indexSlide === indexSlide &&
+                                          this.state.fileUploading.indexImage === indexImage
+                                            ? <CircularProgress />
+                                            : (
+                                              <div>
+                                                <IconButton
+                                                  color={slide.images[tile.id].url === '' ? 'primary' : 'secondary'}>
+                                                  <PhotoSizeSelectActualIcon />
+                                                  <input
+                                                    type='file'
+                                                    className={classes.inputfile}
+                                                    onChange={event => { this.handleChangeFileUpload(event, indexSection, indexSlide, indexImage) }} />
+                                                </IconButton>
+                                                <IconButton
+                                                  color={slide.images[tile.id].videoUrl === '' ? 'primary' : 'secondary'}>
+                                                  <OnDemandVideoIcon />
+                                                </IconButton>
+                                              </div>
+                                            )
+                                        }
                                       </div>
                                     </GridListTile>
                                   ))
@@ -417,7 +461,7 @@ export class PageForm extends React.Component {
                       <div className={classes.options}>
                         <Button
                           variant='outlined'
-                          onClick={event => { this.handleOpenLayoutMenu(indexSection, event) }}
+                          onClick={event => { this.handleOpenLayoutMenu(event, indexSection) }}
                           className={classes.option}>
                           Disposition
                         </Button>
@@ -542,6 +586,13 @@ const styles = theme => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundColor: '#eeeeee'
+  },
+  inputfile: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    cursor: 'pointer',
+    opacity: 0
   }
 })
 
@@ -550,7 +601,8 @@ const mapStateToProps = state => {
     status: state.postPageStatus,
     versions: state.pageVersions,
     version: state.pageVersion,
-    locale: state.locale
+    locale: state.locale,
+    uploadStatus: state.uploadStatus
   }
 }
 
@@ -578,18 +630,10 @@ PageForm.defaultProps = {
             {
               layout: '1-1-2',
               images: [
-                {
-                  url: 'https://placeimg.com/400/400/any',
-                  videoUrl: ''
-                },
-                {
-                  url: '',
-                  videoUrl: ''
-                },
-                {
-                  url: '',
-                  videoUrl: ''
-                }
+                { type: '', url: '', alt: '', video: '' },
+                { type: '', url: '', alt: '', video: '' },
+                { type: '', url: '', alt: '', video: '' },
+                { type: '', url: '', alt: '', video: '' }
               ]
             }
           ]
