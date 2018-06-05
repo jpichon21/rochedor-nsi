@@ -38,7 +38,7 @@ class FileController extends Controller
         if ($upload->upload($file)) {
             $em->flush();
         }
-        return new JsonResponse("File Upload", Response::HTTP_OK);
+        return new JsonResponse("File uploaded", Response::HTTP_OK);
     }
 
      /**
