@@ -292,7 +292,11 @@ export class PageForm extends React.Component {
               <ExpansionPanel key={indexSection} className={classes.expansion}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography>
-                    {this.state.page.content.sections[indexSection].title}
+                    {
+                      this.state.page.content.sections[indexSection].title === ''
+                        ? 'Volet ' + (indexSection + 1)
+                        : this.state.page.content.sections[indexSection].title
+                    }
                   </Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.details}>
@@ -492,7 +496,7 @@ PageForm.defaultProps = {
       intro: '',
       sections: [
         {
-          title: 'La communauté',
+          title: '',
           body: '',
           slides: [
             {
