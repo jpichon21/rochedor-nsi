@@ -47,7 +47,7 @@ class PageController extends Controller
                 Response::HTTP_FORBIDDEN
             );
         }
-
+        $em->flush();
         $contentRepository = $this->container->get('cmf_routing.content_repository');
         $routeProvider = $this->container->get('cmf_routing.route_provider');
         
@@ -66,8 +66,8 @@ class PageController extends Controller
         $route->setStaticPrefix('/' . $route->getName());
         $route->setDefault(RouteObjectInterface::CONTENT_ID, $contentRepository->getContentId($page));
         $route->setContent($page);
+        $em->persist($route);
         $page->addRoute($route);
-
         $em->persist($page);
         $em->flush();
 
@@ -83,7 +83,6 @@ class PageController extends Controller
         $locale = ($request->query->has('locale')) ?
             $request->query->get('locale') :
             $this->container->getParameter('locale');
-        
         $pages = $this->getDoctrine()->getRepository('AppBundle:Page')->findByLocale($locale);
         return $pages;
     }
