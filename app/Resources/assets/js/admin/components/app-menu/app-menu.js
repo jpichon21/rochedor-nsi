@@ -1,18 +1,16 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Menu, MenuItem, AppBar, Toolbar, Typography, IconButton, Button } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 class AppMenu extends React.Component {
-  static defaultProps = {
-    locales: { },
-    locale: 'fr'
-  }
   constructor (props) {
     super(props)
     this.state = {
+      goBack: false,
       anchorMenu: null,
       anchorLang: null,
       menuOpen: false,
@@ -21,9 +19,14 @@ class AppMenu extends React.Component {
     }
     this.handleMenu = this.handleMenu.bind(this)
     this.handleLang = this.handleLang.bind(this)
+    this.handleGoBack = this.handleGoBack.bind(this)
     this.handleCloseMenu = this.handleCloseMenu.bind(this)
     this.handleCloseLang = this.handleCloseLang.bind(this)
     this.handleChangeLang = this.handleChangeLang.bind(this)
+  }
+
+  handleGoBack () {
+    this.setState({ goBack: true })
   }
 
   handleMenu (event) {
@@ -47,6 +50,9 @@ class AppMenu extends React.Component {
     this.props.localeHandler(locale)
   }
   render () {
+    if (this.state.goBack) {
+      return <Redirect to={this.props.goBack} />
+    }
     const { classes } = this.props
     const { anchorMenu, anchorLang } = this.state
     const menuOpen = Boolean(anchorMenu)
@@ -54,14 +60,27 @@ class AppMenu extends React.Component {
     return (
       <AppBar position='static'>
         <Toolbar>
-          <IconButton
-            className={classes.leftButton}
-            aria-owns={menuOpen ? 'menu-appbar' : null}
-            aria-haspopup='true'
-            onClick={this.handleMenu}
-            color='inherit'>
-            <MenuIcon />
-          </IconButton>
+          {
+            this.props.goBack
+              ? (
+                <IconButton
+                  className={classes.leftButton}
+                  onClick={this.handleGoBack}
+                  color='inherit'>
+                  <ArrowBackIcon />
+                </IconButton>
+              )
+              : (
+                <IconButton
+                  className={classes.leftButton}
+                  aria-owns={menuOpen ? 'menu-appbar' : null}
+                  aria-haspopup='true'
+                  onClick={this.handleMenu}
+                  color='inherit'>
+                  <MenuIcon />
+                </IconButton>
+              )
+          }
           <Typography variant='title' color='inherit' className={classes.flex}>
             { this.props.title }
           </Typography>
@@ -158,6 +177,11 @@ const styles = theme => ({
 
 AppMenu.propTypes = {
   classes: PropTypes.object.isRequired
+}
+
+AppMenu.defaultProps = {
+  locales: {},
+  locale: 'fr'
 }
 
 export default withStyles(styles)(AppMenu)

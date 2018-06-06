@@ -59,7 +59,7 @@ export class NewsEdit extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Modification de la nouveauté'} localeHandler={this.onLocaleChange} locales={locales} locale={(this.props.news) ? this.props.news.locale : 'fr'} />
+        <AppMenu goBack='/news-list' title={'Modification de la nouveauté'} localeHandler={this.onLocaleChange} locales={locales} locale={(this.props.news) ? this.props.news.locale : 'fr'} />
         <NewsForm news={this.props.news} submitHandler={this.onSubmit} deleteHandler={this.onDelete} versionHandler={this.onVersionChange} edit />
       </div>
     )

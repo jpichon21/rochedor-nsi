@@ -51,7 +51,7 @@ export class PageCreate extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} />
+        <AppMenu goBack='/page-list' title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} />
         <PageForm submitHandler={this.onSubmit} parents={this.props.parents} />
       </div>
     )
