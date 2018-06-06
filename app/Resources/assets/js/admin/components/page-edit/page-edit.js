@@ -110,16 +110,37 @@ const mapStateToProps = state => {
   }
 }
 
-PageForm.defaultProps = {
+PageEdit.defaultProps = {
+  parents: {},
+  parentKey: 0,
   page: {
-    id: null,
+    locale: 'fr',
     title: '',
     sub_title: '',
     url: '',
     description: '',
-    locale: 'fr'
-  },
-  status: ''
+    parent_id: null,
+    content: {
+      intro: '',
+      sections: [
+        {
+          title: '',
+          body: '',
+          slides: [
+            {
+              layout: '1-1-2',
+              images: [
+                { type: '', url: '', alt: '', video: '' },
+                { type: '', url: '', alt: '', video: '' },
+                { type: '', url: '', alt: '', video: '' },
+                { type: '', url: '', alt: '', video: '' }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }
 
 export default withRouter(connect(mapStateToProps)(PageEdit))

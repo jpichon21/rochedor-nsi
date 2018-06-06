@@ -12,11 +12,32 @@ const store = configureStore({
   pages: [],
   status: '',
   page: {
+    locale: 'fr',
     title: '',
     sub_title: '',
     url: '',
     description: '',
-    content: {}
+    parent_id: null,
+    content: {
+      intro: '',
+      sections: [
+        {
+          title: '',
+          body: '',
+          slides: [
+            {
+              layout: '1-1-2',
+              images: [
+                { type: '', url: '', alt: '', video: '' },
+                { type: '', url: '', alt: '', video: '' },
+                { type: '', url: '', alt: '', video: '' },
+                { type: '', url: '', alt: '', video: '' }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   },
   pageVersions: {}
 })
