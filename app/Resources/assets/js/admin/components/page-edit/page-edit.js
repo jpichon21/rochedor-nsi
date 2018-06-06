@@ -50,7 +50,7 @@ export class PageEdit extends React.Component {
       }
       this.setState({locales: l})
     }
-    if (nextProps.status === 'Deleted successfully') {
+    if (nextProps.status === 'Deleted successfully' || nextProps.status === 'Page Updated') {
       this.props.dispatch(initStatus)
       this.props.history.push('/page-list')
     }

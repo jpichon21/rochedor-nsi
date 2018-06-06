@@ -276,7 +276,7 @@ export class PageForm extends React.Component {
     }
     if (nextProps.uploadStatus) {
       const fileUploading = this.state.fileUploading
-      const pathImage = nextProps.uploadStatus.path.replace('web/', '')
+      const pathImage = nextProps.uploadStatus.path
       const state = immutable.set(this.state, `page.content.sections.${fileUploading.indexSection}.slides.${fileUploading.indexSlide}.images.${fileUploading.indexImage}.url`, pathImage)
       this.setState(() => {
         return {
