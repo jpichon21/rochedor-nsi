@@ -18,7 +18,7 @@ import PrivateRoute from './components/private-route/private-route'
 import { doCheckLogin } from './actions'
 
 const RedirectPageList = () => {
-  // return <Redirect to='/page-list' />
+  return <Redirect to='/page-list' />
 }
 
 export class App extends React.Component {

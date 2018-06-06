@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getPages, initStatus } from '../../actions'
-import { Typography, Table, TableBody, TableCell, TableHead, TableRow, Button, CircularProgress, Paper } from '@material-ui/core'
+import { Table, TableBody, TableCell, TableHead, TableRow, Button, CircularProgress, Paper } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
@@ -18,7 +18,6 @@ export class PageList extends React.Component {
     this.state = {
       alertOpen: false
     }
-
     this.onLocaleChange = this.onLocaleChange.bind(this)
     this.handleClose = this.handleClose.bind(this)
   }
@@ -43,7 +42,6 @@ export class PageList extends React.Component {
   }
 
   render () {
-    console.log(this.props.pages)
     Moment.locale(this.props.locale)
     const { classes } = this.props
     const items = this.props.pages.map(page => {

@@ -91,9 +91,7 @@ export class PageForm extends React.Component {
   handleInitTabs () {
     const indexTabs = this.state.page.content.sections.map(() => { return 0 })
     const state = immutable.set(this.state, `indexTabs`, indexTabs)
-    this.setState(state, () => {
-      console.log(this.state)
-    })
+    this.setState(state)
   }
 
   handleVersion (event) {
@@ -106,6 +104,7 @@ export class PageForm extends React.Component {
     const parentKey = event.target.value
     this.setState((prevState) => {
       return {
+        ...prevState,
         page: {
           ...prevState.page,
           parent_id: this.props.parents[parentKey].id
@@ -258,9 +257,7 @@ export class PageForm extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.page) {
-      const state = immutable.update(this.state, 'page', () => {
-        return nextProps.page
-      })
+      const state = immutable.set(this.state, 'page', nextProps.page)
       this.setState(state)
     }
     if (nextProps.locale) {
