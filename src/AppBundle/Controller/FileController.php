@@ -24,14 +24,14 @@ class FileController extends Controller
         $media = new Media;
         $file = $request->files->get('file');
         if (empty($file)) {
-            return new JsonResponse("File not found", Response::HTTP_NOT_FOUND);
+            return new JsonResponse(['message' => 'File not found'], Response::HTTP_NOT_FOUND);
         }
         $path = $upload->assignName($file);
         $check = $this->getDoctrine()->getRepository('AppBundle:Media')->findByPath($path);
-        if ($this->getDoctrine()->getRepository('AppBundle:Media')->findByPath("../web/uploads/".$path) != null) {
-            return new JsonResponse("File Exists", Response::HTTP_FORBIDDEN);
+        if ($this->getDoctrine()->getRepository('AppBundle:Media')->findByPath('/uploads/'.$path)) {
+            return new JsonResponse(['message' => 'File Exists'], Response::HTTP_FORBIDDEN);
         }
-        $media->setPath('\/uploads/'.$path);
+        $media->setPath('/uploads/'.$path);
         $media->setCreatedAt(new \Datetime);
         $media->setUpdatedAt(new \Datetime);
         $em->persist($media);
