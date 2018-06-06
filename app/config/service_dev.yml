@@ -40,8 +40,10 @@ services:
     AppBundle\ServiceUpload:
         arguments: 
             $targetDir: '%files_directory%'
-    AppBundle\ServiceShowPage:
-        arguments:
-            $contentRepository: '@cmf_routing.content_repository'
-            $routeProvider: '@cmf_routing.route_provider'
     
+    app.event_listener.request_listener:
+        class: AppBundle\EventListener\RequestListener
+        arguments:
+            - '@doctrine'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
