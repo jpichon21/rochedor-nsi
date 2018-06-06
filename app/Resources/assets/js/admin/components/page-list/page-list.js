@@ -2,7 +2,7 @@ import React from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getPages, initStatus } from '../../actions'
+import { getPages, initStatus, setLocale } from '../../actions'
 import { Table, TableBody, TableCell, TableHead, TableRow, Button, CircularProgress, Paper } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
@@ -38,6 +38,7 @@ export class PageList extends React.Component {
   }
 
   onLocaleChange (locale) {
+    this.props.dispatch(setLocale(locale))
     this.props.dispatch(getPages(locale))
   }
 
@@ -56,7 +57,7 @@ export class PageList extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Liste des pages'} localeHandler={this.onLocaleChange} locales={locales} />
+        <AppMenu title={'Liste des pages'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
         <div className={classes.container}>
           <Paper className={classes.paper}>
             {
@@ -98,7 +99,8 @@ const mapStateToProps = state => {
     pages: state.pages,
     loading: state.loading,
     status: state.status,
-    error: state.error
+    error: state.error,
+    locale: state.locale
   }
 }
 

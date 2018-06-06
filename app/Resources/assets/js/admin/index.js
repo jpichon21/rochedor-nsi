@@ -10,6 +10,7 @@ const myMarge = 30
 
 const store = configureStore({
   pages: [],
+  locale: 'fr',
   status: '',
   page: {
     locale: 'fr',
