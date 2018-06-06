@@ -31,14 +31,13 @@ class FileController extends Controller
         if ($this->getDoctrine()->getRepository('AppBundle:Media')->findByPath("../web/uploads/".$path) != null) {
             return new JsonResponse("File Exists", Response::HTTP_FORBIDDEN);
         }
-        $media->setPath("../web/uploads/".$path);
+        $media->setPath('\/uploads/'.$path);
         $media->setCreatedAt(new \Datetime);
         $media->setUpdatedAt(new \Datetime);
         $em->persist($media);
         if ($upload->upload($file)) {
             $em->flush();
         }
-        // return $media;
         return $this->json($media);
         return new JsonResponse($media, Response::HTTP_OK);
     }
