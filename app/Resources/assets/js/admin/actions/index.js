@@ -1,5 +1,6 @@
 export * from './page'
 export * from './news'
 export * from './speaker'
+export * from './home'
 export * from './file'
 export * from './common'

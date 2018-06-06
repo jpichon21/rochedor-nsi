@@ -110,7 +110,7 @@ class AppMenu extends React.Component {
             <NavLink to='/page-list' className={classes.link}>
               <MenuItem onClick={this.handleCloseMenu}>Pages</MenuItem>
             </NavLink>
-            <NavLink to='' className={classes.link}>
+            <NavLink to='/home-edit' className={classes.link}>
               <MenuItem onClick={this.handleCloseMenu}>
                 Page d'accueil
               </MenuItem>

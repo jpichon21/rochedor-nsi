@@ -20,8 +20,11 @@ class ServiceShowPage
 
     public function getMyContent($route)
     {
-        $contentDocument =  $this->routeProvider->getRouteByName($route);
-        $id = $contentDocument->getDefaults();
+        $contentDocuments =  $this->routeProvider->getRoutesByNames([$route]);
+        if (!$contentDocuments) {
+            return null;
+        }
+        $id = $contentDocuments[0]->getDefaults();
         $page = $this->contentRepository->findById($id['_content_id']);
         return $page;
     }

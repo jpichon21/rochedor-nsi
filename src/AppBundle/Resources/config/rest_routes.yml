@@ -10,3 +10,7 @@ news:
     type: rest
     name_prefix: api_news_
     resource: AppBundle\Controller\NewsController
+home:
+    type: rest
+    name_prefix: api_home_
+    resource: AppBundle\Controller\HomeController
