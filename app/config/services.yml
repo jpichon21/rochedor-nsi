@@ -52,3 +52,7 @@ services:
             - '@doctrine'
         tags:
             - { name: kernel.event_listener, event: kernel.request }
+        arguments:
+            $contentRepository: '@cmf_routing.content_repository'
+            $routeProvider: '@cmf_routing.route_provider'
+    

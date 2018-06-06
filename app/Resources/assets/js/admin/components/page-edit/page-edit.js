@@ -9,46 +9,36 @@ import { locales } from '../../locales'
 import update from 'immutability-helper'
 
 export class PageEdit extends React.Component {
-  static defaultProps = {
-    page: {
-      id: null,
-      title: '',
-      sub_title: '',
-      url: '',
-      description: '',
-      locale: 'fr'
-    },
-    status: ''
-  }
   constructor (props) {
     super(props)
     this.state = {
       alertOpen: false,
       locales: locales
     }
-
     this.onSubmit = this.onSubmit.bind(this)
     this.onDelete = this.onDelete.bind(this)
     this.onVersionChange = this.onVersionChange.bind(this)
     this.onLocaleChange = this.onLocaleChange.bind(this)
     this.handleClose = this.handleClose.bind(this)
   }
+
   componentDidMount () {
     const { match: { params } } = this.props
     this.props.dispatch(getPage(params.pageId))
   }
+
   componentWillReceiveProps (nextProps) {
     this.props.dispatch(setTitle(`Modification de la page ${(nextProps.page) ? nextProps.page.title : ''}`))
     if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully') || nextProps.error) {
       this.setState({alertOpen: true})
     }
-    if(nextProps.page !== null && this.props.page !== null) {
-      if(nextProps.page.id !== this.props.page.id) {
+    if (nextProps.page !== null && this.props.page !== null) {
+      if (nextProps.page.id !== this.props.page.id) {
         console.log(nextProps.page.id)
         this.props.dispatch(getPageTranslations(nextProps.page.id))
       }
     }
-    if(nextProps.translations) {
+    if (nextProps.translations) {
       const ts = nextProps.translations
       let l = {'fr': 'Français'}
       for (let k in ts) {
@@ -60,45 +50,50 @@ export class PageEdit extends React.Component {
       }
       this.setState({locales: l})
     }
-    if(nextProps.status === 'Deleted successfully') {
+    if (nextProps.status === 'Deleted successfully' || nextProps.status === 'Page Updated') {
       this.props.dispatch(initStatus)
       this.props.history.push('/page-list')
     }
   }
+
   onSubmit (page) {
     this.props.dispatch(putPage(page))
   }
+
   onVersionChange (page, version) {
     this.props.dispatch(getPage(page.id, version))
   }
+
   onLocaleChange (locale) {
     if (locale === 'fr') {
       this.props.dispatch(getPage(this.props.page.parent.id))
       this.props.history.push(`/page-edit/${this.props.page.parent.id}`)
-    }else{
+    } else {
       const ts = this.props.translations
-      for(let k in ts) {
-        if(ts[k].locale === locale) {
+      for (let k in ts) {
+        if (ts[k].locale === locale) {
           this.props.dispatch(getPage(ts[k].id))
           this.props.history.push(`/page-edit/${ts[k].id}`)
         }
       }
     }
     this.props.dispatch(setLocale(locale))
-    
   }
+
   onDelete (page) {
     this.props.dispatch(deletePage(page))
   }
+
   handleClose () {
     this.props.dispatch(initStatus())
     this.setState({alertOpen: false})
   }
+
   render () {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu goBack='/page-list' title={`Modification de la page ${(this.props.page) ? this.props.page.title: ''}`} localeHandler={this.onLocaleChange} locales={this.state.locales} locale={this.props.page.locale} />
+        <AppMenu goBack='/page-list' title={`Modification de la page ${(this.props.page) ? this.props.page.title : ''}`} localeHandler={this.onLocaleChange} locales={this.state.locales} locale={this.props.page.locale} />
         <PageForm page={this.props.page} submitHandler={this.onSubmit} deleteHandler={this.onDelete} versionHandler={this.onVersionChange} edit translations={this.props.translations} />
       </div>
     )
@@ -112,6 +107,39 @@ const mapStateToProps = state => {
     status: state.status,
     error: state.error,
     translations: state.pageTranslations
+  }
+}
+
+PageEdit.defaultProps = {
+  parents: {},
+  parentKey: 0,
+  page: {
+    locale: 'fr',
+    title: '',
+    sub_title: '',
+    url: '',
+    description: '',
+    parent_id: null,
+    content: {
+      intro: '',
+      sections: [
+        {
+          title: '',
+          body: '',
+          slides: [
+            {
+              layout: '1-1-2',
+              images: [
+                { type: '', url: '', alt: '', video: '' },
+                { type: '', url: '', alt: '', video: '' },
+                { type: '', url: '', alt: '', video: '' },
+                { type: '', url: '', alt: '', video: '' }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 }
 

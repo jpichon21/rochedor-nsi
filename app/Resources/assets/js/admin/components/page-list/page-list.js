@@ -2,8 +2,8 @@ import React from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getPages, initStatus } from '../../actions'
-import { Typography, Table, TableBody, TableCell, TableHead, TableRow, Button, CircularProgress, Paper } from '@material-ui/core'
+import { getPages, initStatus, setLocale } from '../../actions'
+import { Table, TableBody, TableCell, TableHead, TableRow, Button, CircularProgress, Paper } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
@@ -18,7 +18,6 @@ export class PageList extends React.Component {
     this.state = {
       alertOpen: false
     }
-
     this.onLocaleChange = this.onLocaleChange.bind(this)
     this.handleClose = this.handleClose.bind(this)
   }
@@ -28,7 +27,7 @@ export class PageList extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully') || nextProps.error) {
+    if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully' && nextProps.status !== 'Page Updated') || nextProps.error) {
       this.setState({alertOpen: true})
     }
   }
@@ -39,18 +38,18 @@ export class PageList extends React.Component {
   }
 
   onLocaleChange (locale) {
+    this.props.dispatch(setLocale(locale))
     this.props.dispatch(getPages(locale))
   }
 
   render () {
-    console.log(this.props.pages)
     Moment.locale(this.props.locale)
     const { classes } = this.props
     const items = this.props.pages.map(page => {
       return (
         <TableRow key={page.id}>
           <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{`${page.title} ${page.sub_title}`}</NavLink></TableCell>
-          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{page.url}</NavLink></TableCell>
+          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{page.routes[0].static_prefix}</NavLink></TableCell>
           <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{Moment(page.updated).format('DD/MM/YY')}</NavLink></TableCell>
         </TableRow>
       )
@@ -58,7 +57,7 @@ export class PageList extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Liste des pages'} localeHandler={this.onLocaleChange} locales={locales} />
+        <AppMenu title={'Liste des pages'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
         <div className={classes.container}>
           <Paper className={classes.paper}>
             {
@@ -100,7 +99,8 @@ const mapStateToProps = state => {
     pages: state.pages,
     loading: state.loading,
     status: state.status,
-    error: state.error
+    error: state.error,
+    locale: state.locale
   }
 }
 

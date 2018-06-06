@@ -22,7 +22,9 @@ class ServiceUpload
 
     public function assignName(UploadedFile $file)
     {
-        $fileName = $this->slugify($file->getClientOriginalName()).'.'.$file->guessExtension();
+        $extension = '.' . $file->guessExtension();
+        $baseName = str_replace($extension, '', $file->getClientOriginalName());
+        $fileName = $baseName .time(). $extension;
         return $fileName;
     }
     

@@ -104,7 +104,7 @@ export default function pageReducer (state, action) {
     case PUT_PAGE_SUCCESS:
       return {
         ...state,
-        status: 'ok',
+        status: action.data.message,
         loading: false
       }
     case PUT_PAGE_FAILURE:
@@ -148,7 +148,6 @@ export default function pageReducer (state, action) {
     case GET_PAGE_FAILURE:
       return {
         ...state,
-        page: null,
         status: action.data.message,
         error: action.data.error,
         loading: false

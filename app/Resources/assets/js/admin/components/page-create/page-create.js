@@ -51,7 +51,7 @@ export class PageCreate extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu goBack='/page-list' title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} />
+        <AppMenu goBack='/page-list' title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
         <PageForm submitHandler={this.onSubmit} parents={this.props.parents} />
       </div>
     )
@@ -62,7 +62,8 @@ const mapStateToProps = state => {
   return {
     status: state.status,
     error: state.error,
-    parents: state.pages
+    parents: state.pages,
+    locale: state.locale
   }
 }
 
