@@ -148,7 +148,6 @@ export default function pageReducer (state, action) {
     case GET_PAGE_FAILURE:
       return {
         ...state,
-        page: null,
         status: action.data.message,
         error: action.data.error,
         loading: false

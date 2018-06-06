@@ -21,8 +21,7 @@ export default function commmonReducer (state, action) {
         ...state,
         status: '',
         error: null,
-        loading: false,
-        page: null
+        loading: false
       }
     case SET_MESSAGE:
       return {
