@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -41,8 +41,10 @@ import {
   DialogContentText,
   DialogTitle,
   FormControl,
-  InputLabel
+  InputLabel,
+  Icon
 } from '@material-ui/core'
+import moment from 'moment'
 
 export class PageForm extends React.Component {
   constructor (props) {
@@ -60,18 +62,21 @@ export class PageForm extends React.Component {
       indexTabs: [],
       fileUploading: {
         isUploading: false
-      }
+      },
+      anchorVersion: null
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleOpenPopover = this.handleOpenPopover.bind(this)
     this.handleClosePopover = this.handleClosePopover.bind(this)
+    this.handleCloseVersion = this.handleCloseVersion.bind(this)
     this.handleChangePopover = this.handleChangePopover.bind(this)
     this.handleOpenLayoutMenu = this.handleOpenLayoutMenu.bind(this)
     this.handleCloseLayoutMenu = this.handleCloseLayoutMenu.bind(this)
     this.handleChangeLayoutMenu = this.handleChangeLayoutMenu.bind(this)
     this.handleVersion = this.handleVersion.bind(this)
+    this.handleVersionOpen = this.handleVersionOpen.bind(this)
     this.handleParent = this.handleParent.bind(this)
     this.handleChangeTextArea = this.handleChangeTextArea.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
@@ -97,10 +102,14 @@ export class PageForm extends React.Component {
     this.setState(state)
   }
 
-  handleVersion (event) {
+  handleVersion (event, key) {
     event.preventDefault()
-    this.props.versionHandler(this.state.page, this.props.versions[event.target.value].version)
-    this.setState({ versionCount: event.target.value })
+    if (key === null) {
+      this.props.versionHandler(this.state.page, null)
+    } else {
+      this.props.versionHandler(this.state.page, this.props.versions[key].version)
+    }
+    this.setState({ versionCount: key, anchorVersion: null })
   }
 
   handleParent (event) {
@@ -153,6 +162,14 @@ export class PageForm extends React.Component {
       anchorPopover: null,
       popoverOpened: false
     })
+  }
+  
+  handleCloseVersion () {
+    this.setState({anchorVersion: null})
+  }
+  
+  handleVersionOpen (event) {
+    this.setState({anchorVersion: event.currentTarget})
   }
 
   handleChangePopover (event, indexSection, indexSlide, indexImage) {
@@ -292,13 +309,7 @@ export class PageForm extends React.Component {
   render () {
     const { classes } = this.props
     const { anchorMenuLayout } = this.state
-    const versions = (this.props.versions.length > 0)
-      ? this.props.versions.map((v, k) => {
-        return (
-          <MenuItem value={k} key={v.id}>{v.logged_at}</MenuItem>
-        )
-      })
-      : null
+    const versions = this.props.versions
     const parents = (this.props.parents.length > 0)
       ? this.props.parents.map((p, k) => {
         return (
@@ -308,19 +319,6 @@ export class PageForm extends React.Component {
       : null
     return (
       <div className={classes.container}>
-        {
-          this.props.edit &&
-            <Select
-              className={classes.option}
-              value={this.state.versionCount}
-              onChange={this.handleVersion}
-              inputProps={{
-                name: 'historique',
-                id: 'version'
-              }}>
-              {versions}
-            </Select>
-        }
         <Typography variant='display1' className={classes.title}>
           SEO
         </Typography>
@@ -550,6 +548,45 @@ export class PageForm extends React.Component {
           }
         </form>
         <div className={classes.buttons}>
+          {
+            this.props.edit &&
+            (
+              <Fragment>
+                <Button
+                  className={classes.button}
+                  variant='fab'
+                  color='primary'
+                  aria-label='More'
+                  aria-owns={this.state.anchorVersion ? 'long-menu' : null}
+                  aria-haspopup='true'
+                  onClick={this.handleVersionOpen}
+                >
+                  <Icon>history</Icon>
+                </Button>
+                <Menu
+                  id='long-menu'
+                  anchorEl={this.state.anchorVersion}
+                  open={Boolean(this.state.anchorVersion)}
+                  onClose={this.handleCloseVersion}
+                  PaperProps={{
+                    style: {
+                      maxHeight: 40 * 4.5,
+                      width: 200
+                    }
+                  }}
+                >
+                  <MenuItem key={null} selected={this.state.versionCount === null} onClick={event => this.handleVersion(event, null)}>Courante</MenuItem>
+                  {Object.keys(versions).map((key) => (
+                    <MenuItem key={key} selected={key === this.state.versionCount} onClick={event => this.handleVersion(event, key)}>
+                      {moment(versions[key].logged_at).format('DD/MM/YYYY HH:mm:ss')}
+                    </MenuItem>
+                  ))}
+                  }
+                </Menu>
+              </Fragment>
+
+            )
+          }
           <Button
             onClick={this.handleAddSection}
             className={classes.button}
@@ -659,6 +696,7 @@ PageForm.propTypes = {
 PageForm.defaultProps = {
   parents: {},
   parentKey: 0,
+  versions: [],
   page: {
     locale: 'fr',
     title: '',
