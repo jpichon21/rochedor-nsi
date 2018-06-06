@@ -13,7 +13,6 @@ export class PageCreate extends React.Component {
     this.state = {
       alertOpen: false
     }
-
     this.onSubmit = this.onSubmit.bind(this)
     this.onLocaleChange = this.onLocaleChange.bind(this)
     this.handleClose = this.handleClose.bind(this)
@@ -27,18 +26,22 @@ export class PageCreate extends React.Component {
     this.props.dispatch(initStatus())
     this.props.dispatch(getPages('fr'))
   }
+
   componentWillReceiveProps (nextProps) {
     if ((nextProps.status !== 'ok' && nextProps.status !== '') || nextProps.error) {
       this.setState({alertOpen: true})
     }
   }
+
   onLocaleChange (locale) {
     this.props.dispatch(setLocale(locale))
   }
+
   handleClose () {
     this.props.dispatch(initStatus())
     this.setState({alertOpen: false})
   }
+
   render () {
     if (this.props.status === 'ok') {
       this.props.dispatch(setMessage('Page créee'))
@@ -48,7 +51,7 @@ export class PageCreate extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} />
+        <AppMenu goBack='/page-list' title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} />
         <PageForm submitHandler={this.onSubmit} parents={this.props.parents} />
       </div>
     )

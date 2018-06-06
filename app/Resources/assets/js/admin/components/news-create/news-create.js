@@ -47,7 +47,7 @@ export class NewsCreate extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Ajout d\'une nouveauté'} localeHandler={this.onLocaleChange} locales={locales} />
+        <AppMenu goBack='/news-list' title={'Ajout d\'une nouveauté'} localeHandler={this.onLocaleChange} locales={locales} />
         <NewsForm submitHandler={this.onSubmit} parents={this.props.parents} />
       </div>
     )
