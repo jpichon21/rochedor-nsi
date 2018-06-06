@@ -9,6 +9,7 @@ use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Loggable\Entity\MappedSuperclass\AbstractLogEntry;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Page
@@ -86,13 +87,13 @@ class Page
 
     /**
      * @var AppBundle/Entity/Page
-     * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Page", inversedBy="children", cascade={"persist", "remove"})
      */
     private $parent;
 
     /**
      * @var AppBundle/Entity/Page
-     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent", cascade={"persist", "remove"})
      */
     private $children;
 
@@ -111,6 +112,18 @@ class Page
      * @ORM\Column(name="updated", type="datetime", nullable=true)
      */
     private $updated;
+
+    /**
+     * @var string
+     * @Type("string")
+     */
+    private $url;
+
+    /**
+     * @var int
+     * @Type("int")
+     */
+    private $parentId;
 
     public function __construct()
     {
@@ -401,5 +414,46 @@ class Page
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Get parentId
+     *
+     * @return int
+     */
+    public function getParentId()
+    {
+        return $this->parentId;
+    }
+
+    /**
+     * Get tempUrl
+     *
+     * @return string
+     */
+    public function getTempUrl()
+    {
+        return $this->url;
+    }
+    
+    /**
+     * Set tempUrl
+     *
+     * @return $this
+     */
+    public function setTempUrl($url)
+    {
+        $this->url = $url;
+        return $this;
     }
 }

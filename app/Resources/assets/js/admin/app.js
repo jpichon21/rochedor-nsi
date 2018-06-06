@@ -1,53 +1,61 @@
 import React, { Fragment } from 'react'
 import { hot } from 'react-hot-loader'
 import { HashRouter } from 'react-router-dom'
-import ReactDOM from 'react-dom'
-import { Route, Switch } from 'react-router'
-import { connect, Provider } from 'react-redux'
+import { Route, Switch, Redirect } from 'react-router'
+import { connect } from 'react-redux'
 import PageList from './components/page-list/page-list'
 import PageCreate from './components/page-create/page-create'
-import AppMenu from './components/app-menu/app-menu'
-import { configureStore } from './store'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import PageEdit from './components/page-edit/page-edit'
+import NewsList from './components/news-list/news-list'
+import NewsCreate from './components/news-create/news-create'
+import NewsEdit from './components/news-edit/news-edit'
+import SpeakerList from './components/speaker-list/speaker-list'
+import SpeakerEdit from './components/speaker-edit/speaker-edit'
+import SpeakerCreate from './components/speaker-create/speaker-create'
+import Login from './components/login/login'
+import Logout from './components/logout/logout'
+import PrivateRoute from './components/private-route/private-route'
+import { doCheckLogin } from './actions'
 
-const store = configureStore({ pages: [] })
+const RedirectPageList = () => {
+  // return <Redirect to='/page-list' />
+}
 
-class App extends React.Component {
+export class App extends React.Component {
   constructor () {
     super()
+
     this.state = {
-      title: 'Accueil'
+      locale: 'fr'
     }
-    this.updateTitle = this.updateTitle.bind(this)
+  }
+  componentWillMount () {
+    this.props.dispatch(doCheckLogin())
   }
   render () {
     return (
-      <div>
-        <CssBaseline>
-          <HashRouter>
-            <Fragment>
-              <AppMenu title={this.state.title} />
-              <Switch>
-                <Route path='/page-list' render={(props) => (<PageList title={this.updateTitle} />)} />
-                <Route path='/page-create' render={(props) => (<PageCreate title={this.updateTitle} />)} />
-              </Switch>
-            </Fragment>
-          </HashRouter>
-        </CssBaseline>
-      </div>
+      <Fragment>
+        <HashRouter>
+          <Fragment>
+            <Switch>
+              <Route path='/' exact render={RedirectPageList} />
+              <PrivateRoute path='/page-list' exact component={PageList} />
+              <PrivateRoute path='/page-create' exact component={PageCreate} />
+              <PrivateRoute path='/page-edit/:pageId' exact component={PageEdit} />
+              <PrivateRoute path='/news-list/' exact component={NewsList} />
+              <PrivateRoute path='/news-create/' exact component={NewsCreate} />
+              <PrivateRoute path='/news-edit/:newsId' exact component={NewsEdit} />
+              <PrivateRoute path='/speaker-list/' exact component={SpeakerList} />
+              <PrivateRoute path='/speaker-edit/:speakerId' exact component={SpeakerEdit} />
+              <PrivateRoute path='/speaker-create/' exact component={SpeakerCreate} />
+              <PrivateRoute path='/logout' exact component={Logout} />
+              <Route path='/login' exact component={Login} />
+            </Switch>
+          </Fragment>
+        </HashRouter>
+      </Fragment>
     )
-  }
-  updateTitle (title) {
-    console.log('title')
-    this.setState({title: title})
   }
 }
 
 export default connect()(hot(module)(App))
-
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('app')
-)

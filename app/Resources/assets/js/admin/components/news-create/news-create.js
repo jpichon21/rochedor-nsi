@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { postPage, initStatus, setMessage, setLocale, getPages } from '../../actions'
-import PageForm from '../page-form/page-form'
+import { postNews, initStatus, setMessage, setLocale } from '../../actions'
+import NewsForm from '../news-form/news-form'
 import AppMenu from '../app-menu/app-menu'
 import { locales } from '../../locales'
 import Alert from '../alert/alert'
 
-export class PageCreate extends React.Component {
+export class NewsCreate extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -19,13 +19,12 @@ export class PageCreate extends React.Component {
     this.handleClose = this.handleClose.bind(this)
   }
 
-  onSubmit (page) {
-    this.props.dispatch(postPage(page))
+  onSubmit (news) {
+    this.props.dispatch(postNews(news))
   }
 
   componentWillMount () {
     this.props.dispatch(initStatus())
-    this.props.dispatch(getPages('fr'))
   }
   componentWillReceiveProps (nextProps) {
     if ((nextProps.status !== 'ok' && nextProps.status !== '') || nextProps.error) {
@@ -41,15 +40,15 @@ export class PageCreate extends React.Component {
   }
   render () {
     if (this.props.status === 'ok') {
-      this.props.dispatch(setMessage('Page créee'))
+      this.props.dispatch(setMessage('Nouveauté créee'))
       this.props.dispatch(initStatus())
-      return <Redirect to='/page-list' />
+      return <Redirect to='/news-list' />
     }
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} />
-        <PageForm submitHandler={this.onSubmit} parents={this.props.parents} />
+        <AppMenu title={'Ajout d\'une nouveauté'} localeHandler={this.onLocaleChange} locales={locales} />
+        <NewsForm submitHandler={this.onSubmit} parents={this.props.parents} />
       </div>
     )
   }
@@ -58,9 +57,8 @@ export class PageCreate extends React.Component {
 const mapStateToProps = state => {
   return {
     status: state.status,
-    error: state.error,
-    parents: state.pages
+    error: state.error
   }
 }
 
-export default connect(mapStateToProps)(PageCreate)
+export default connect(mapStateToProps)(NewsCreate)

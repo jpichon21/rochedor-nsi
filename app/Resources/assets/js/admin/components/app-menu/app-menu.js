@@ -1,77 +1,133 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
+import { Menu, MenuItem, AppBar, Toolbar, Typography, IconButton, Button } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-import { Menu, MenuItem } from '@material-ui/core'
-import { NavLink } from 'react-router-dom'
-
-const styles = {
-  root: {
-    flexGrow: 1
-  },
-  flex: {
-    flex: 1
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  },
-  link: {
-    textDecoration: 'none',
-    outline: 'none'
-  }
-}
 
 class AppMenu extends React.Component {
+  static defaultProps = {
+    locales: { },
+    locale: 'fr'
+  }
   constructor (props) {
     super(props)
     this.state = {
-      anchorEl: null,
-      open: false,
-      auth: true
+      anchorMenu: null,
+      anchorLang: null,
+      menuOpen: false,
+      langOpen: false,
+      locale: 'fr'
     }
-    this.handleChange = this.handleChange.bind(this)
     this.handleMenu = this.handleMenu.bind(this)
-    this.handleMenu = this.handleMenu.bind(this)
-    this.handleClose = this.handleClose.bind(this)
-  }
-  handleChange (event, checked) {
-    this.setState({ auth: checked })
+    this.handleLang = this.handleLang.bind(this)
+    this.handleCloseMenu = this.handleCloseMenu.bind(this)
+    this.handleCloseLang = this.handleCloseLang.bind(this)
+    this.handleChangeLang = this.handleChangeLang.bind(this)
   }
 
   handleMenu (event) {
-    this.setState({ anchorEl: event.currentTarget })
+    this.setState({ anchorMenu: event.currentTarget })
   }
 
-  handleClose () {
-    this.setState({ anchorEl: null })
+  handleLang (event) {
+    this.setState({ anchorLang: event.currentTarget })
   }
 
+  handleCloseMenu () {
+    this.setState({ anchorMenu: null })
+  }
+
+  handleCloseLang (event) {
+    this.setState({ anchorLang: null })
+  }
+
+  handleChangeLang (event, locale) {
+    this.setState({ anchorLang: null, locale: locale })
+    this.props.localeHandler(locale)
+  }
   render () {
     const { classes } = this.props
-    const { anchorEl } = this.state
-    const open = Boolean(anchorEl)
+    const { anchorMenu, anchorLang } = this.state
+    const menuOpen = Boolean(anchorMenu)
+    const langOpen = Boolean(anchorLang)
     return (
       <AppBar position='static'>
         <Toolbar>
           <IconButton
-            aria-owns={open ? 'menu-appbar' : null}
+            className={classes.leftButton}
+            aria-owns={menuOpen ? 'menu-appbar' : null}
             aria-haspopup='true'
             onClick={this.handleMenu}
-            color='inherit'
-          >
+            color='inherit'>
             <MenuIcon />
           </IconButton>
           <Typography variant='title' color='inherit' className={classes.flex}>
             { this.props.title }
           </Typography>
+          <Button
+            className={classes.rightButton}
+            aria-owns={langOpen ? 'lang-appbar' : null}
+            aria-haspopup='true'
+            onClick={this.handleLang}
+            color='inherit'>
+            {this.props.locales[this.props.locale]}
+          </Button>
           <Menu
             id='menu-appbar'
-            anchorEl={anchorEl}
+            anchorEl={anchorMenu}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'left'
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'left'
+            }}
+            open={menuOpen}
+            onClose={this.handleCloseMenu}>
+            <NavLink to='/page-list' className={classes.link}>
+              <MenuItem onClick={this.handleCloseMenu}>Pages</MenuItem>
+            </NavLink>
+            <NavLink to='' className={classes.link}>
+              <MenuItem onClick={this.handleCloseMenu}>
+                Page d'accueil
+              </MenuItem>
+            </NavLink>
+            <NavLink to='/news-list' className={classes.link}>
+              <MenuItem onClick={this.handleCloseMenu}>
+                Nouveautés
+              </MenuItem>
+            </NavLink>
+            <NavLink to='/speaker-list' className={classes.link}>
+              <MenuItem onClick={this.handleCloseMenu}>
+                Intervenants
+              </MenuItem>
+            </NavLink>
+            {
+              !!this.props.username
+              ? (
+
+                <NavLink to='/logout' className={classes.link}>
+                  <MenuItem onClick={this.handleCloseMenu}>
+                    Déconnexion
+                  </MenuItem>
+                </NavLink>
+              )
+              : (
+                <NavLink to='/login' className={classes.link}>
+                  <MenuItem onClick={this.handleCloseMenu}>
+                    Connexion
+                  </MenuItem>
+                </NavLink>
+              )
+            }
+          </Menu>
+          <Menu
+            id='lang-appbar'
+            anchorEl={anchorLang}
             anchorOrigin={{
               vertical: 'top',
               horizontal: 'right'
@@ -80,27 +136,18 @@ class AppMenu extends React.Component {
               vertical: 'top',
               horizontal: 'right'
             }}
-            open={open}
-            onClose={this.handleClose}
-          >
-            <NavLink to='/page-list' className={classes.link}>
-              <MenuItem onClick={this.handleClose}>Pages</MenuItem>
-            </NavLink>
-            <NavLink to='' className={classes.link}>
-              <MenuItem onClick={this.handleClose}>
-                Page d'accueil
+            open={langOpen}
+            onClose={this.handleCloseLang}>
+            {Object.keys(this.props.locales).map((key) => (
+              <MenuItem
+                key={key}
+                disabled={key === 0}
+                selected={key === this.state.selectedIndex}
+                onClick={event => this.handleChangeLang(event, key)}
+              >
+                {this.props.locales[key]}
               </MenuItem>
-            </NavLink>
-            <NavLink to='' className={classes.link}>
-              <MenuItem onClick={this.handleClose}>
-              Nouveautés
-              </MenuItem>
-            </NavLink>
-            <NavLink to='' className={classes.link}>
-              <MenuItem onClick={this.handleClose}>
-              Intervenants
-              </MenuItem>
-            </NavLink>
+            ))}
           </Menu>
         </Toolbar>
       </AppBar>
@@ -108,8 +155,35 @@ class AppMenu extends React.Component {
   }
 }
 
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  flex: {
+    flex: 1
+  },
+  leftButton: {
+    marginLeft: -10,
+    marginRight: 20
+  },
+  rightButton: {
+    marginRight: -10,
+    marginLeft: 20
+  },
+  link: {
+    textDecoration: 'none',
+    outline: 'none'
+  }
+})
+
 AppMenu.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(AppMenu)
+const mapStateToProps = state => {
+  return {
+    username: state.username
+  }
+}
+
+export default compose(withStyles(styles), connect(mapStateToProps))(AppMenu)

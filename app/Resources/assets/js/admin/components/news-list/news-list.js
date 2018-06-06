@@ -2,7 +2,7 @@ import React from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getPages, initStatus } from '../../actions'
+import { getNews, getNewsSet, initStatus } from '../../actions'
 import { Table, TableBody, TableCell, TableHead, TableRow, Button, CircularProgress, Paper } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
@@ -12,7 +12,7 @@ import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
 import { locales } from '../../locales'
 
-export class PageList extends React.Component {
+export class NewsList extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -24,7 +24,7 @@ export class PageList extends React.Component {
   }
 
   componentWillMount () {
-    this.props.dispatch(getPages(this.props.locale))
+    this.props.dispatch(getNewsSet(this.props.locale))
   }
 
   componentWillReceiveProps (nextProps) {
@@ -39,24 +39,25 @@ export class PageList extends React.Component {
   }
 
   onLocaleChange (locale) {
-    this.props.dispatch(getPages(locale))
+    this.props.dispatch(getNews(locale))
   }
 
   render () {
     Moment.locale(this.props.locale)
     const { classes } = this.props
-    const items = this.props.pages.map(page => {
+    const items = this.props.newsSet.map(news => {
       return (
-        <TableRow key={page.id}>
-          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{page.title}</NavLink></TableCell>
-          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{Moment(page.updated).format('DD/MM/YY')}</NavLink></TableCell>
+        <TableRow key={news.id}>
+          <TableCell><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{news.intro}</NavLink></TableCell>
+          <TableCell><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{Moment(news.start).format('DD/MM/YY')}</NavLink></TableCell>
+          <TableCell><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{Moment(news.stop).format('DD/MM/YY')}</NavLink></TableCell>
         </TableRow>
       )
     })
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Liste des pages'} localeHandler={this.onLocaleChange} locales={locales} />
+        <AppMenu title={'Actualités de la page d\'accueil'} localeHandler={this.onLocaleChange} locales={locales} />
         <div className={classes.container}>
           <Paper className={classes.paper}>
             {
@@ -66,8 +67,9 @@ export class PageList extends React.Component {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell>Intitulé</TableCell>
-                        <TableCell>Dernière modification</TableCell>
+                        <TableCell>Introduction</TableCell>
+                        <TableCell>Début</TableCell>
+                        <TableCell>Fin</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -78,7 +80,7 @@ export class PageList extends React.Component {
             }
           </Paper>
           <div className={classes.buttons}>
-            <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/page-create'}>
+            <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/news-create'}>
               <AddIcon />
             </Button>
           </div>
@@ -94,15 +96,20 @@ const styles = theme => ({
 
 const mapStateToProps = state => {
   return {
-    pages: state.pages,
+    newsSet: state.newsSet,
     loading: state.loading,
     status: state.status,
     error: state.error
   }
 }
 
-PageList.propTypes = {
+NewsList.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default compose(withStyles(styles), connect(mapStateToProps))(PageList)
+NewsList.defaultProps = {
+  locale: 'fr',
+  newsSet: []
+}
+
+export default compose(withStyles(styles), connect(mapStateToProps))(NewsList)
