@@ -20,7 +20,7 @@ use Gedmo\Loggable;
 class SpeakerController extends Controller
 {
      /**
-     * @Rest\Post("/speakers")
+     * @Rest\Post("/speaker")
      * @Rest\View()
      * @ParamConverter("speaker", converter="fos_rest.request_body")
      */
@@ -35,17 +35,17 @@ class SpeakerController extends Controller
     }
 
     /**
-     * @Rest\Get("/speakers")
+     * @Rest\Get("/speaker")
      * @Rest\View()
      */
     public function listAction()
     {
-        $speakers = $this->getDoctrine()->getRepository('AppBundle:Speaker')->findAll();
+        $speakers = $this->getDoctrine()->getRepository('AppBundle:Speaker')->findAllOrderByPos();
         return $speakers;
     }
 
     /**
-     * @Rest\Get("/speakers/{id}/{version}", requirements={"version"="\d+"} , defaults={"version" = null})
+     * @Rest\Get("/speaker/{id}/{version}", requirements={"version"="\d+"} , defaults={"version" = null})
      * @Rest\View()
      */
     public function showAction($id, $version)
@@ -67,12 +67,13 @@ class SpeakerController extends Controller
                     $oldSpeaker = array_merge($diff, $logs[$i]->getData());
                 }
             }
+            $oldSpeaker['id'] = $id;
             return $oldSpeaker;
         }
     }
 
     /**
-     * @Rest\Delete("/speakers/{id}")
+     * @Rest\Delete("/speaker/{id}")
      * @Rest\View()
      */
     public function deleteAction($id)
@@ -90,7 +91,7 @@ class SpeakerController extends Controller
     }
 
     /**
-     * @Rest\Put("/speakers/{id}")
+     * @Rest\Put("/speaker/{id}")
      * @Rest\View()
      */
     public function putAction($id, Request $request)
@@ -120,7 +121,26 @@ class SpeakerController extends Controller
     }
 
     /**
-     * @Rest\Put("/speakers/{id}/{version}", requirements={"version"="\d+"})
+     * @Rest\Get("speaker/{id}/versions")
+     * @Rest\View()
+     *
+     * @param integer $id
+     * @return json
+     */
+    public function getVersionsAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
+        $speaker = $em->getRepository('AppBundle:Speaker')->findOneById($id);
+        if (empty($speaker)) {
+            return new JsonResponse(['message' => 'Speaker not found'], Response::HTTP_NOT_FOUND);
+        }
+        $logs = $repo->getLogEntries($speaker);
+        return $logs;
+    }
+
+    /**
+     * @Rest\Put("/speaker/{id}/{version}", requirements={"version"="\d+"})
      * @Rest\View()
      */
     public function revertAction($id, $version)
@@ -133,5 +153,21 @@ class SpeakerController extends Controller
         $em->persist($speaker);
         $em->flush();
         return $speaker;
+    }
+    
+    /**
+     * @Rest\Put("/speakers/position/{id}/{position}", requirements={"version"="\d+"})
+     * @Rest\View()
+     */
+    public function setPosAction($id, $position)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('AppBundle\Entity\Speaker');
+        $speaker = $em->getRepository('AppBundle:Speaker')->findOneById($id);
+        $speaker->setPosition($position);
+        $em->persist($speaker);
+        $em->flush();
+        $speakerOrdered = $em->getRepository('AppBundle:Speaker')->findAllOrderByPos();
+        return $speakerOrdered;
     }
 }

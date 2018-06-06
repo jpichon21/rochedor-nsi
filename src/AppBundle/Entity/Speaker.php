@@ -55,6 +55,11 @@ class Speaker
      */
     private $image;
 
+    /**
+     * @Gedmo\SortablePosition
+     * @ORM\Column(type="integer")
+     */
+    private $position;
 
     /**
      * Get id
@@ -160,5 +165,15 @@ class Speaker
     public function getImage()
     {
         return $this->image;
+    }
+
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    }
+
+    public function getPosition()
+    {
+        return $this->position;
     }
 }

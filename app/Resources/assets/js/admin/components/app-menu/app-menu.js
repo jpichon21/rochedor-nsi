@@ -101,7 +101,7 @@ class AppMenu extends React.Component {
                 Nouveautés
               </MenuItem>
             </NavLink>
-            <NavLink to='' className={classes.link}>
+            <NavLink to='/speaker-list' className={classes.link}>
               <MenuItem onClick={this.handleCloseMenu}>
                 Intervenants
               </MenuItem>
