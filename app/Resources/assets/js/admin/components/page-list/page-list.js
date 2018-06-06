@@ -48,7 +48,7 @@ export class PageList extends React.Component {
       return (
         <TableRow key={page.id}>
           <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{`${page.title} ${page.sub_title}`}</NavLink></TableCell>
-          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{page.url}</NavLink></TableCell>
+          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{page.routes[0].static_prefix}</NavLink></TableCell>
           <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{Moment(page.updated).format('DD/MM/YY')}</NavLink></TableCell>
         </TableRow>
       )
