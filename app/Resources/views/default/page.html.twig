@@ -6,7 +6,8 @@
 <div class="content">
     <div class="left">
         <div class="zone">
-            <h1><small>{{ page.title1 }} </small>{{ page.title2 }}</h1>
+            <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
+            {% if page.content['sections'] %}
             {% if page.content.intro %}
             <div class="intro">
                 {{ page.content.intro | raw }}
@@ -21,12 +22,13 @@
                 </div>
                 {% endfor %}
             </div>
+            {% endif %}
         </div>
     </div>
     <div class="hole">
     </div>
     <div class="right">
-        {% for section in page.content.sections %}
+        {% for section in page.content['sections'] %}
         <div class="carousel {% if loop.first %}active{% endif %}"
             data-carousel-element="{{ section.title|md5 }}">
             <div class="slides">

@@ -1,13 +1,12 @@
 <div class="header">
     <div class="languages">
+        {% for locale, url in availableLocales %}
         <ul class="available">
-            <li><a href="#">en</a></li>
-            <li><a href="#">es</a></li>
-            <li><a href="#">de</a></li>
-            <li><a href="#">it</a></li>
+            <li><a href={{url}}>{{locale}}</a></li>
         </ul>
+        {% endfor %}
         <ul class="current">
-            <li><a href="#">fr</a></li>
+            <li><a href={{page.routes.getValues[0].staticPrefix}}>{{page.locale}}</a></li>
         </ul>
     </div>
     <ul class="zoom">
