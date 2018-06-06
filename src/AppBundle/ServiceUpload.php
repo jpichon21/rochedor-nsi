@@ -11,14 +11,35 @@ class ServiceUpload
     {
         $this->targetDir = $targetDir;
     }
-
+    
+    
     public function upload(UploadedFile $file)
     {
-        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+        $filename = $this->assignName($file);
+        $file->move($this->getTargetDir(), $filename);
+        return $filename;
+    }
 
-        $file->move($this->getTargetDir(), $fileName);
-
+    public function assignName(UploadedFile $file)
+    {
+        $fileName = $this->slugify($file->getClientOriginalName()).'.'.$file->guessExtension();
         return $fileName;
+    }
+    
+    private function slugify($string, $replace = array(), $delimiter = '-')
+    {
+        if (!extension_loaded('iconv')) {
+            throw new Exception('iconv module not loaded');
+        }
+        $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
+        if (!empty($replace)) {
+            $clean = str_replace((array) $replace, ' ', $clean);
+        }
+        $clean = preg_replace("/[^a-zA-Z0-9_|+ -]/", '', $clean);
+        $clean = strtolower($clean);
+        $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
+        $clean = trim($clean, $delimiter);
+        return $clean;
     }
 
     public function getTargetDir()

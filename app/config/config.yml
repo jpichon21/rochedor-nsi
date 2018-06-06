@@ -69,6 +69,11 @@ doctrine:
                 dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
                 alias: GedmoLoggable
                 is_bundle: false
+stof_doctrine_extensions:
+    default_locale: en_US
+    orm:
+        default:
+            sortable: true
 
 # Swiftmailer Configuration
 swiftmailer:

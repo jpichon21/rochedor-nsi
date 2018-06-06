@@ -2,8 +2,9 @@ import React from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getPages, initStatus } from '../../actions'
-import { Table, TableBody, TableCell, TableHead, TableRow, Button, CircularProgress, Paper } from '@material-ui/core'
+import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc'
+import { getSpeaker, getSpeakers, setSpeakerPosition, initStatus } from '../../actions'
+import { Table, TableBody, TableCell, TableHead, TableRow, Button, CircularProgress, Paper, Icon } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
@@ -12,18 +13,20 @@ import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
 import { locales } from '../../locales'
 
-export class PageList extends React.Component {
+export class SpeakerList extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       alertOpen: false
     }
+
     this.onLocaleChange = this.onLocaleChange.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.onSortEnd = this.onSortEnd.bind(this)
   }
 
   componentWillMount () {
-    this.props.dispatch(getPages(this.props.locale))
+    this.props.dispatch(getSpeakers(this.props.locale))
   }
 
   componentWillReceiveProps (nextProps) {
@@ -38,25 +41,41 @@ export class PageList extends React.Component {
   }
 
   onLocaleChange (locale) {
-    this.props.dispatch(getPages(locale))
+    this.props.dispatch(getSpeaker(locale))
+  }
+
+  onSortEnd ({oldIndex, newIndex}) {
+    this.props.dispatch(setSpeakerPosition(this.props.speakers[oldIndex].id, newIndex))
   }
 
   render () {
     Moment.locale(this.props.locale)
     const { classes } = this.props
-    const items = this.props.pages.map(page => {
+    const DragHandle = SortableHandle(() => <Icon style={{'cursor': 'move'}}>sort</Icon>)
+    const SortableItem = SortableElement(({speaker}) =>
+      <TableRow>
+        <TableCell style={{'width': '50px'}}>
+          <DragHandle />
+        </TableCell>
+        <TableCell><NavLink className={classes.link} to={`/speaker-edit/${speaker.id}`}>{speaker.name}</NavLink></TableCell>
+      </TableRow>
+    )
+
+    const SortableList = SortableContainer(({speakers}) => {
       return (
-        <TableRow key={page.id}>
-          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{`${page.title} ${page.sub_title}`}</NavLink></TableCell>
-          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{page.url}</NavLink></TableCell>
-          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{Moment(page.updated).format('DD/MM/YY')}</NavLink></TableCell>
-        </TableRow>
+        <TableBody>
+          {speakers.map((speaker, index) => (
+            <SortableItem key={`item-${index}`} index={index} speaker={speaker} />
+          ))}
+        </TableBody>
       )
     })
+
+
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Liste des pages'} localeHandler={this.onLocaleChange} locales={locales} />
+        <AppMenu title={'Liste des intervenants'} localeHandler={this.onLocaleChange} locales={locales} />
         <div className={classes.container}>
           <Paper className={classes.paper}>
             {
@@ -66,20 +85,17 @@ export class PageList extends React.Component {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell>Titre</TableCell>
-                        <TableCell>URL</TableCell>
-                        <TableCell>Dernière modification</TableCell>
+                        <TableCell>Réordonner</TableCell>
+                        <TableCell>Nom</TableCell>
                       </TableRow>
                     </TableHead>
-                    <TableBody>
-                      {items}
-                    </TableBody>
+                    <SortableList speakers={this.props.speakers} onSortEnd={this.onSortEnd} useDragHandle />
                   </Table>
                 )
             }
           </Paper>
           <div className={classes.buttons}>
-            <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/page-create'}>
+            <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/speaker-create'}>
               <AddIcon />
             </Button>
           </div>
@@ -95,15 +111,20 @@ const styles = theme => ({
 
 const mapStateToProps = state => {
   return {
-    pages: state.pages,
+    speakers: state.speakers,
     loading: state.loading,
     status: state.status,
     error: state.error
   }
 }
 
-PageList.propTypes = {
+SpeakerList.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default compose(withStyles(styles), connect(mapStateToProps))(PageList)
+SpeakerList.defaultProps = {
+  locale: 'fr',
+  speakers: []
+}
+
+export default compose(withStyles(styles), connect(mapStateToProps))(SpeakerList)

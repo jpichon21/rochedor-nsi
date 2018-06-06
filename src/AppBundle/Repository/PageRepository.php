@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Page;
+
 /**
  * PageRepository
  *
@@ -10,4 +12,31 @@ namespace AppBundle\Repository;
  */
 class PageRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findGoodTranslation($id, $locale)
+    {
+        
+        $page = $this->find($id);
+        $parent = $page->getParent();
+        if ($locale === 'fr') {
+            return $parent;
+        }
+
+        if ($parent === null) {
+            return null;
+        }
+
+        $children = $parent->getChildren();
+        if ($children === null) {
+            return null;
+        }
+
+        $arrayOfChild = $children->getValues();
+        foreach ($arrayOfChild as $childPage) {
+            if ($childPage->getLocale() === $locale) {
+                return $childPage;
+            }
+        }
+
+        return null;
+    }
 }

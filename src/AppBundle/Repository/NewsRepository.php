@@ -18,4 +18,16 @@ class NewsRepository extends \Doctrine\ORM\EntityRepository
         ->setParameters(['locale' => $locale, 'now' => new \DateTime()])
         ->getResult();
     }
+    
+    public function findCurrent($locale)
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT n FROM AppBundle:News n
+            WHERE :now BETWEEN n.start AND n.stop
+            AND n.locale = :locale
+            ORDER BY n.start DESC'
+        )
+        ->setParameters(['locale' => $locale, 'now' => new \DateTime('now')])
+        ->getResult();
+    }
 }
