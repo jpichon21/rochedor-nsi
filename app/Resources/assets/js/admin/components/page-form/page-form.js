@@ -39,7 +39,10 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle } from '@material-ui/core'
+  DialogTitle,
+  FormControl,
+  InputLabel
+} from '@material-ui/core'
 
 export class PageForm extends React.Component {
   constructor (props) {
@@ -368,7 +371,10 @@ export class PageForm extends React.Component {
             !this.props.edit &&
             this.props.parents.length > 0 &&
             this.state.page.locale !== 'fr' &&
+            <FormControl style={{minWidth: 200}}>
+              <InputLabel htmlFor={'parent'} shrink>Page parente</InputLabel>
               <Select
+                id={'parent'}
                 placeholder={'Page parente'}
                 className={classes.option}
                 value={this.state.parentKey}
@@ -379,6 +385,7 @@ export class PageForm extends React.Component {
                 }}>
                 {parents}
               </Select>
+            </FormControl>
           }
         </form>
         <Typography variant='display1' className={classes.title}>
