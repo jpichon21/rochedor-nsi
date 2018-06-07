@@ -1,16 +1,14 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import update from 'immutability-helper'
-import { MenuItem, TextField, Button, Typography, Select, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
+import { Menu, MenuItem, TextField, Button, Typography, Select, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
 import MomentUtils from 'material-ui-pickers/utils/moment-utils'
 import moment from 'moment'
 import 'moment/locale/fr'
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider'
 import DateTimePicker from 'material-ui-pickers/DateTimePicker'
-import WrapTextIcon from '@material-ui/icons/WrapText'
 import SaveIcon from '@material-ui/icons/Save'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { withStyles } from '@material-ui/core/styles'
@@ -24,37 +22,38 @@ export class NewsForm extends React.Component {
       locale: this.props.lang,
       news: this.props.news,
       versionCount: 0,
-      showDeleteAlert: false
+      showDeleteAlert: false,
+      anchorVersion: null
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleStartChange = this.handleStartChange.bind(this)
     this.handleStopChange = this.handleStopChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleCloseVersion = this.handleCloseVersion.bind(this)
     this.handleVersion = this.handleVersion.bind(this)
-    this.handleParent = this.handleParent.bind(this)
+    this.handleVersionOpen = this.handleVersionOpen.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleDeleteClose = this.handleDeleteClose.bind(this)
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this)
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this)
   }
 
-  handleVersion (event) {
-    this.setState({ versionCount: event.target.value })
-    this.props.versionHandler(this.state.news, this.props.versions[event.target.value].version)
+  handleVersion (event, key) {
     event.preventDefault()
+    if (key === null) {
+      this.props.versionHandler(this.state.news, null)
+    } else {
+      this.props.versionHandler(this.state.news, this.props.versions[key].version)
+    }
+    this.setState({ versionCount: key, anchorVersion: null })
   }
 
-  handleParent (event) {
-    const parentKey = event.target.value
-    this.setState((prevState) => {
-      return {
-        news: {
-          ...prevState.news,
-          parent_id: this.props.parents[parentKey].id
-        },
-        parentKey: parentKey
-      }
-    })
+  handleCloseVersion () {
+    this.setState({anchorVersion: null})
+  }
+
+  handleVersionOpen (event) {
+    this.setState({anchorVersion: event.currentTarget})
   }
 
   handleInputChange (event) {
@@ -134,33 +133,9 @@ export class NewsForm extends React.Component {
   }
   render () {
     const { classes } = this.props
-    const versions = (this.props.versions.length > 0)
-      ? this.props.versions.map((v, k) => {
-        return (
-          <MenuItem value={k} key={v.id}>{moment(v.logged_at).format('DD/MM/YYYY HH:mm')}</MenuItem>
-        )
-      })
-      : null
+    const versions = this.props.versions
     return (
       <div className={classes.container}>
-        {
-          this.props.edit
-            ? (
-              <Select
-                className={classes.option}
-                value={this.state.versionCount}
-                onChange={this.handleVersion}
-                inputProps={{
-                  name: 'historique',
-                  id: 'version'
-                }}>
-                {versions}
-              </Select>
-            )
-            : (
-              ''
-            )
-        }
         <Typography variant='display1' className={classes.title}>
           Nouveauté
         </Typography>
@@ -218,46 +193,68 @@ export class NewsForm extends React.Component {
           </MuiPickersUtilsProvider>
         </form>
         <div className={classes.buttons}>
-          <Button component={Link} to={'/news-list'}
-            className={classes.button}
-            variant='fab'
-            color='primary'>
-            <WrapTextIcon />
-          </Button>
           {
-            (this.props.edit)
-              ? (
-                <div>
-                  <Button
-                    onClick={this.handleDelete}
-                    className={classes.button}
-                    variant='fab'
-                    color='secondary'>
-                    <DeleteIcon />
-                  </Button>
-                  <Dialog
-                    open={this.state.showDeleteAlert}
-                    onClose={this.handleDeleteClose}
-                    aria-labelledby='alert-dialog-title'
-                    aria-describedby='alert-dialog-description'>
-                    <DialogTitle id='alert-dialog-title'>
-                      {'Êtes-vous sure?'}
-                    </DialogTitle>
-                    <DialogContent>
-                      <DialogContentText id='alert-dialog-description'>
+            (this.props.edit) &&
+            (
+              <Fragment>
+                <Button
+                  className={classes.button}
+                  variant='fab'
+                  color='primary'
+                  aria-label='More'
+                  aria-owns={this.state.anchorVersion ? 'long-menu' : null}
+                  aria-haspopup='true'
+                  onClick={this.handleVersionOpen}
+                >
+                  <Icon>history</Icon>
+                </Button>
+                <Menu
+                  id='long-menu'
+                  anchorEl={this.state.anchorVersion}
+                  open={Boolean(this.state.anchorVersion)}
+                  onClose={this.handleCloseVersion}
+                  PaperProps={{
+                    style: {
+                      maxHeight: 40 * 4.5,
+                      width: 200
+                    }
+                  }}
+                >
+                  <MenuItem key={null} selected={this.state.versionCount === null} onClick={event => this.handleVersion(event, null)}>Courante</MenuItem>
+                  {Object.keys(versions).map((key) => (
+                    <MenuItem key={key} selected={key === this.state.versionCount} onClick={event => this.handleVersion(event, key)}>
+                      {moment(versions[key].logged_at).format('DD/MM/YYYY HH:mm:ss')}
+                    </MenuItem>
+                  ))}
+                }
+                </Menu>
+                <Button
+                  onClick={this.handleDelete}
+                  className={classes.button}
+                  variant='fab'
+                  color='secondary'>
+                  <DeleteIcon />
+                </Button>
+                <Dialog
+                  open={this.state.showDeleteAlert}
+                  onClose={this.handleDeleteClose}
+                  aria-labelledby='alert-dialog-title'
+                  aria-describedby='alert-dialog-description'>
+                  <DialogTitle id='alert-dialog-title'>
+                    {'Êtes-vous sure?'}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id='alert-dialog-description'>
                     Cette action est irréversible, souhaitez-vous continuer?
-                      </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={this.handleDeleteConfirm} color='secondary' autoFocus>Oui</Button>
-                      <Button onClick={this.handleDeleteClose} color='primary' autoFocus>Annuler</Button>
-                    </DialogActions>
-                  </Dialog>
-                </div>
-              )
-              : (
-                ''
-              )
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={this.handleDeleteConfirm} color='secondary' autoFocus>Oui</Button>
+                    <Button onClick={this.handleDeleteClose} color='primary' autoFocus>Annuler</Button>
+                  </DialogActions>
+                </Dialog>
+              </Fragment>
+            )
           }
           <Button
             disabled={!this.isSubmitEnabled()}
