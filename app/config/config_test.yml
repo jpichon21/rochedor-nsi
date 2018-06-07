@@ -15,4 +15,4 @@ web_profiler:
 swiftmailer:
     disable_delivery: true
 parameters:    
-    httpProtocol: https
+    httpprotocol: https

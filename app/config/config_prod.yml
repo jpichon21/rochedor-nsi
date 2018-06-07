@@ -14,4 +14,4 @@ monolog:
             type: console
             process_psr_3_messages: false
 parameters:
-    httpProtocol: https
+    httpprotocol: https

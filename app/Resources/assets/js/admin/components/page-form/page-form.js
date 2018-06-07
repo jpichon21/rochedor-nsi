@@ -2,7 +2,7 @@ import React, {Fragment} from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { CompositeDecorator, Entity, RichUtils, EditorState, convertToRaw } from 'draft-js'
+import { CompositeDecorator, Entity, RichUtils, EditorState, convertToRaw, convertFromHTML, ContentState, ContentBlock } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import immutable from 'object-path-immutable'
 import draftToHtml from 'draftjs-to-html'
@@ -135,16 +135,18 @@ export class PageForm extends React.Component {
   }
 
   handleChangeTextArea (editorState, indexSection) {
-    const rawContentState = convertToRaw(editorState.getCurrentContent())
-    const html = draftToHtml(rawContentState)
-    const stateStep1 = immutable.set(this.state, `page.content.sections.${indexSection}.body`, html)
-    const stateStep2 = immutable.set(stateStep1, `page.content.sections.${indexSection}.bodyRaw`, editorState)
-    this.setState(stateStep2)
+    this.setState(immutable.set(this.state, `page.content.sections.${indexSection}.body`, editorState))
   }
 
   handleSubmit (event) {
     event.preventDefault()
-    this.props.submitHandler(this.state.page)
+    let page = this.state.page
+    Object.keys(page.content.sections).map((key) => {
+      if (page.content.sections[key].body) {
+        page = immutable.set(page, `content.sections.${key}.body`, draftToHtml(convertToRaw(page.content.sections[key].body.getCurrentContent())))
+      }
+    })
+    this.props.submitHandler(page)
   }
 
   handleInputFilter (event) {
@@ -285,7 +287,7 @@ export class PageForm extends React.Component {
   }
 
   handleAddDocument (linkToDocument, indexSection) {
-    const oldEditorState = this.state.page.content.sections[indexSection].bodyRaw
+    const oldEditorState = this.state.page.content.sections[indexSection].body
     const oldEditorStateSelection = oldEditorState.getSelection()
     if (!oldEditorStateSelection.isCollapsed()) {
       const editorState = RichUtils.toggleLink(
@@ -293,7 +295,7 @@ export class PageForm extends React.Component {
         oldEditorStateSelection,
         Entity.create('LINK', 'MUTABLE', { url: linkToDocument })
       )
-      const state = immutable.set(this.state, `page.content.sections.${indexSection}.bodyRaw`, editorState)
+      const state = immutable.set(this.state, `page.content.sections.${indexSection}.body`, editorState)
       this.setState(state, () => {
         this.handleChangeTextArea(editorState, indexSection)
       })
@@ -302,14 +304,30 @@ export class PageForm extends React.Component {
     }
   }
 
+  convertToHTML (props) {
+    let page = props.page
+    Object.keys(page.content.sections).map((key) => {
+      if (typeof page.content.sections[key].body === 'string' && page.content.sections[key].body) {
+        const blocksFromHTML = convertFromHTML(page.content.sections[key].body)
+        const state = ContentState.createFromBlockArray(
+          blocksFromHTML.contentBlocks,
+          blocksFromHTML.entityMap
+        )
+        page = immutable.set(page, `content.sections.${key}.body`, EditorState.createWithContent(state))
+      }
+    })
+    const state = immutable.set(this.state, 'page', page)
+    this.setState(state)
+  }
+
   componentWillMount () {
     this.handleInitTabs()
+    this.convertToHTML(this.props)
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.page) {
-      const state = immutable.set(this.state, 'page', nextProps.page)
-      this.setState(state)
+      this.convertToHTML(nextProps)
     }
     if (nextProps.locale) {
       this.setState((prevState) => {
@@ -463,7 +481,7 @@ export class PageForm extends React.Component {
                         value={section.title}
                         onChange={this.handleInputChange} />
                       <Editor
-                        editorState={this.state.page.content.sections[indexSection].bodyRaw}
+                        editorState={this.state.page.content.sections[indexSection].body}
                         onEditorStateChange={editorState => this.handleChangeTextArea(editorState, indexSection)}
                         toolbarCustomButtons={[<CustomOption addDocument={event => { this.handleChangeDocumentUpload(event, indexSection) }} />]}
                         toolbar={{
@@ -795,8 +813,7 @@ PageForm.defaultProps = {
       sections: [
         {
           title: '',
-          bodyRaw: EditorState.createEmpty(decorator),
-          body: '',
+          body: EditorState.createEmpty(decorator),
           slides: [
             {
               layout: '1-1-2',
