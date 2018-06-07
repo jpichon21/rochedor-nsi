@@ -254,10 +254,7 @@ export class PageForm extends React.Component {
     if (p.title === '' || p.description === '' || p.url === '') {
       return false
     }
-    if (p.locale !== 'fr' && !p.parent_id) {
-      return false
-    }
-    if (p.locale === 'fr' && p.parent_id) {
+    if (!this.props.edit && ((p.locale !== 'fr' && !p.parent_id) || (p.locale === 'fr' && p.parent_id))) {
       return false
     }
     return true
