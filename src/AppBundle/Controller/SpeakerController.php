@@ -121,7 +121,7 @@ class SpeakerController extends Controller
     }
 
     /**
-     * @Rest\Get("speaker/{id}/versions")
+     * @Rest\Get("/speaker/{id}/versions")
      * @Rest\View()
      *
      * @param integer $id
@@ -156,10 +156,10 @@ class SpeakerController extends Controller
     }
     
     /**
-     * @Rest\Put("/speakers/position/{id}/{position}", requirements={"version"="\d+"})
+     * @Rest\Put("/speaker/{id}/position/{position}", requirements={"position"="\d+"})
      * @Rest\View()
      */
-    public function setPosAction($id, $position)
+    public function setPositionAction($id, $position)
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('AppBundle\Entity\Speaker');
