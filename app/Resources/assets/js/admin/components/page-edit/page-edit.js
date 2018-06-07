@@ -29,7 +29,7 @@ export class PageEdit extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     this.props.dispatch(setTitle(`Modification de la page ${(nextProps.page) ? nextProps.page.title : ''}`))
-    if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully') || nextProps.error) {
+    if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully'&& nextProps.status !== 'Page updated') || nextProps.error) {
       this.setState({alertOpen: true})
     }
     if (nextProps.page !== null && this.props.page !== null) {
@@ -50,7 +50,7 @@ export class PageEdit extends React.Component {
       }
       this.setState({locales: l})
     }
-    if (nextProps.status === 'Deleted successfully' || nextProps.status === 'Page Updated') {
+    if (nextProps.status === 'Deleted successfully' || nextProps.status === 'Page updated') {
       this.props.dispatch(initStatus)
       this.props.history.push('/page-list')
     }

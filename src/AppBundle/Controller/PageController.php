@@ -197,7 +197,7 @@ class PageController extends Controller
             $em->persist($page);
             $em->flush();
 
-            return $page;
+            return new JsonResponse(['message' => 'Page updated'], Response::HTTP_FORBIDDEN);
         }
     }
 
