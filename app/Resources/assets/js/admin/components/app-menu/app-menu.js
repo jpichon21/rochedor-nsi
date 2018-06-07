@@ -161,7 +161,7 @@ class AppMenu extends React.Component {
               <MenuItem
                 key={key}
                 disabled={key === 0}
-                selected={key === this.state.selectedIndex}
+                selected={key === this.props.locale}
                 onClick={event => this.handleChangeLang(event, key)}
               >
                 {this.props.locales[key]}
