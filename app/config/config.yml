@@ -7,6 +7,7 @@ parameters:
     locale: fr
     files_directory: '%kernel.root_dir%/../web/uploads'
     locales: fr|en|es|de|it
+    httpProtocol: http
 
 framework:
     secret: '%secret%'
