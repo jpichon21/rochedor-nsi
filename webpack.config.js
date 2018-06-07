@@ -13,7 +13,7 @@ Encore
   .addStyleEntry('css/main', './app/Resources/assets/sass/main.scss')
   .addEntry('js/admin/index', './app/Resources/assets/js/admin/index.js')
   .addStyleEntry('css/Draft/Draft', './app/Resources/assets/css/Draft.css')
-  .addStyleEntry('css/Draft/RichEditor', './app/Resources/assets/css/RichEditor.css')
+  .addStyleEntry('css/Draft/Editor', './app/Resources/assets/css/Editor.css')
   .enableSassLoader()
   .enableVersioning(Encore.isProduction())
   .enableReactPreset()

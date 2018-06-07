@@ -2,7 +2,8 @@ import React, {Fragment} from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { convertToRaw } from 'draft-js'
+import { CompositeDecorator, Entity, RichUtils, EditorState, convertToRaw } from 'draft-js'
+import { Editor } from 'react-draft-wysiwyg'
 import immutable from 'object-path-immutable'
 import draftToHtml from 'draftjs-to-html'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -12,8 +13,8 @@ import OnDemandVideoIcon from '@material-ui/icons/OndemandVideo'
 import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { withStyles } from '@material-ui/core/styles'
-import RichEditor from './RichEditor'
 import { tileData } from './tileData'
+import CustomOption from './CustomOption'
 import { uploadFile } from '../../actions'
 import {
   Tab,
@@ -88,7 +89,9 @@ export class PageForm extends React.Component {
     this.handleDeleteSection = this.handleDeleteSection.bind(this)
     this.handleAddSlide = this.handleAddSlide.bind(this)
     this.handleDeleteSlide = this.handleDeleteSlide.bind(this)
-    this.handleChangeFileUpload = this.handleChangeFileUpload.bind(this)
+    this.handleChangeImageUpload = this.handleChangeImageUpload.bind(this)
+    this.handleChangeDocumentUpload = this.handleChangeDocumentUpload.bind(this)
+    this.handleAddDocument = this.handleAddDocument.bind(this)
   }
 
   handleChangeTabs (indexTabs, indexSection) {
@@ -134,8 +137,9 @@ export class PageForm extends React.Component {
   handleChangeTextArea (editorState, indexSection) {
     const rawContentState = convertToRaw(editorState.getCurrentContent())
     const html = draftToHtml(rawContentState)
-    const state = immutable.set(this.state, `page.content.sections.${indexSection}.body`, html)
-    this.setState(state)
+    const stateStep1 = immutable.set(this.state, `page.content.sections.${indexSection}.body`, html)
+    const stateStep2 = immutable.set(stateStep1, `page.content.sections.${indexSection}.bodyRaw`, editorState)
+    this.setState(stateStep2)
   }
 
   handleSubmit (event) {
@@ -163,11 +167,11 @@ export class PageForm extends React.Component {
       popoverOpened: false
     })
   }
-  
+
   handleCloseVersion () {
     this.setState({anchorVersion: null})
   }
-  
+
   handleVersionOpen (event) {
     this.setState({anchorVersion: event.currentTarget})
   }
@@ -259,16 +263,46 @@ export class PageForm extends React.Component {
     return true
   }
 
-  handleChangeFileUpload (event, indexSection, indexSlide, indexImage) {
+  handleChangeImageUpload (event, indexSection, indexSlide, indexImage) {
     this.props.dispatch(uploadFile(event.target.files[0]))
     this.setState({
       fileUploading: {
         isUploading: true,
+        type: 'image',
         indexSection: indexSection,
         indexSlide: indexSlide,
         indexImage: indexImage
       }
     })
+  }
+
+  handleChangeDocumentUpload (event, indexSection) {
+    this.props.dispatch(uploadFile(event.target.files[0]))
+    this.setState({
+      fileUploading: {
+        isUploading: true,
+        type: 'document',
+        indexSection: indexSection
+      }
+    })
+  }
+
+  handleAddDocument (linkToDocument, indexSection) {
+    const oldEditorState = this.state.page.content.sections[indexSection].bodyRaw
+    const oldEditorStateSelection = oldEditorState.getSelection()
+    if (!oldEditorStateSelection.isCollapsed()) {
+      const editorState = RichUtils.toggleLink(
+        oldEditorState,
+        oldEditorStateSelection,
+        Entity.create('LINK', 'MUTABLE', { url: linkToDocument })
+      )
+      const state = immutable.set(this.state, `page.content.sections.${indexSection}.bodyRaw`, editorState)
+      this.setState(state, () => {
+        this.handleChangeTextArea(editorState, indexSection)
+      })
+    } else {
+      console.log('Vous devez sélectionnez du texte avant de lier un document')
+    }
   }
 
   componentWillMount () {
@@ -293,11 +327,16 @@ export class PageForm extends React.Component {
     }
     if (nextProps.uploadStatus) {
       const fileUploading = this.state.fileUploading
-      const pathImage = nextProps.uploadStatus.path
-      const state = immutable.set(this.state, `page.content.sections.${fileUploading.indexSection}.slides.${fileUploading.indexSlide}.images.${fileUploading.indexImage}.url`, pathImage)
-      this.setState(() => {
+      if (fileUploading.type === 'image') {
+        const state = immutable.set(this.state, `page.content.sections.${fileUploading.indexSection}.slides.${fileUploading.indexSlide}.images.${fileUploading.indexImage}.url`, nextProps.uploadStatus.path)
+        this.setState(state)
+      }
+      if (fileUploading.type === 'document') {
+        this.handleAddDocument(nextProps.uploadStatus.path, fileUploading.indexSection)
+      }
+      this.setState(prevState => {
         return {
-          ...state,
+          ...prevState,
           fileUploading: {
             isUploading: false
           }
@@ -326,7 +365,7 @@ export class PageForm extends React.Component {
           <TextField
             required
             autoComplete='off'
-            InputLabelProps={{ shrink: true }}
+            InputLabelProps={{shrink: true}}
             className={classes.textfield}
             fullWidth
             name='page.title'
@@ -336,7 +375,7 @@ export class PageForm extends React.Component {
           <TextField
             required
             autoComplete='off'
-            InputLabelProps={{ shrink: true }}
+            InputLabelProps={{shrink: true}}
             className={classes.textfield}
             fullWidth
             name='page.sub_title'
@@ -346,7 +385,7 @@ export class PageForm extends React.Component {
           <TextField
             required
             autoComplete='off'
-            InputLabelProps={{ shrink: true }}
+            InputLabelProps={{shrink: true}}
             className={classes.textfield}
             fullWidth
             name='page.url'
@@ -357,7 +396,7 @@ export class PageForm extends React.Component {
           <TextField
             required
             autoComplete='off'
-            InputLabelProps={{ shrink: true }}
+            InputLabelProps={{shrink: true}}
             className={classes.textfield}
             fullWidth
             multiline
@@ -392,7 +431,7 @@ export class PageForm extends React.Component {
         <form className={classes.form}>
           <TextField
             autoComplete='off'
-            InputLabelProps={{ shrink: true }}
+            InputLabelProps={{shrink: true}}
             className={classes.textfield}
             fullWidth
             multiline
@@ -418,7 +457,7 @@ export class PageForm extends React.Component {
                       <TextField
                         required
                         autoComplete='off'
-                        InputLabelProps={{ shrink: true }}
+                        InputLabelProps={{shrink: true}}
                         className={classes.textfield}
                         fullWidth
                         multiline
@@ -426,9 +465,29 @@ export class PageForm extends React.Component {
                         label='Titre'
                         value={section.title}
                         onChange={this.handleInputChange} />
-                      <RichEditor
-                        indexSection={indexSection}
-                        onChange={this.handleChangeTextArea} />
+                      <Editor
+                        editorState={this.state.page.content.sections[indexSection].bodyRaw}
+                        onEditorStateChange={editorState => this.handleChangeTextArea(editorState, indexSection)}
+                        toolbarCustomButtons={[<CustomOption addDocument={event => { this.handleChangeDocumentUpload(event, indexSection) }} />]}
+                        toolbar={{
+                          options: ['inline', 'blockType', 'textAlign', 'link'],
+                          inline: {
+                            inDropdown: true,
+                            options: ['bold', 'italic', 'underline']
+                          },
+                          blockType: {
+                            inDropdown: true,
+                            options: ['Normal', 'Blockquote']
+                          },
+                          textAlign: {
+                            inDropdown: true,
+                            options: ['left', 'center', 'right', 'justify']
+                          },
+                          link: {
+                            inDropdown: true,
+                            options: ['link', 'unlink']
+                          }
+                        }} />
                     </Grid>
                     <Grid item xs={6}>
                       <Tabs
@@ -455,6 +514,7 @@ export class PageForm extends React.Component {
                                       <div className={classes.tile} style={{backgroundImage: `url('${slide.images[tile.id].url}')`}}>
                                         {
                                           this.state.fileUploading.isUploading &&
+                                          this.state.fileUploading.type === 'image' &&
                                           this.state.fileUploading.indexSection === indexSection &&
                                           this.state.fileUploading.indexSlide === indexSlide &&
                                           this.state.fileUploading.indexImage === indexImage
@@ -467,7 +527,7 @@ export class PageForm extends React.Component {
                                                   <input
                                                     type='file'
                                                     className={classes.inputfile}
-                                                    onChange={event => { this.handleChangeFileUpload(event, indexSection, indexSlide, indexImage) }} />
+                                                    onChange={event => { this.handleChangeImageUpload(event, indexSection, indexSlide, indexImage) }} />
                                                 </IconButton>
                                                 <IconButton
                                                   color={slide.images[tile.id].video === '' ? 'primary' : 'secondary'}
@@ -481,7 +541,7 @@ export class PageForm extends React.Component {
                                                   <TextField
                                                     className={classes.popover}
                                                     autoComplete='off'
-                                                    InputLabelProps={{ shrink: true }}
+                                                    InputLabelProps={{shrink: true}}
                                                     name='page.title'
                                                     label='URL Vidéo'
                                                     value={this.state.page.content.sections[indexSection].slides[indexSlide].images[indexImage].video}
@@ -689,6 +749,35 @@ const mapStateToProps = state => {
   }
 }
 
+function findLinkEntities (contentBlock, callback) {
+  contentBlock.findEntityRanges(
+    (character) => {
+      const entityKey = character.getEntity()
+      return (
+        entityKey !== null &&
+        Entity.get(entityKey).getType() === 'LINK'
+      )
+    },
+    callback
+  )
+}
+
+const Link = (props) => {
+  const { url } = Entity.get(props.entityKey).getData()
+  return (
+    <a href={url} style={styles.link}>
+      {props.children}
+    </a>
+  )
+}
+
+const decorator = new CompositeDecorator([
+  {
+    strategy: findLinkEntities,
+    component: Link
+  }
+])
+
 PageForm.propTypes = {
   classes: PropTypes.object.isRequired
 }
@@ -709,6 +798,7 @@ PageForm.defaultProps = {
       sections: [
         {
           title: '',
+          bodyRaw: EditorState.createEmpty(decorator),
           body: '',
           slides: [
             {
