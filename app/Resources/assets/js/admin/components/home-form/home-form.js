@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { convertToRaw } from 'draft-js'
 import immutable from 'object-path-immutable'
 import draftToHtml from 'draftjs-to-html'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import SaveIcon from '@material-ui/icons/Save'
 import { withStyles } from '@material-ui/core/styles'
 import RichEditor from './RichEditor'
@@ -110,13 +109,7 @@ export class HomeForm extends React.Component {
 
   isSubmitEnabled () {
     const p = this.state.home
-    if (p.title === '' || p.description === '' || p.url === '') {
-      return false
-    }
-    if (p.locale !== 'fr' && !p.parent_id) {
-      return false
-    }
-    if (p.locale === 'fr' && p.parent_id) {
+    if (p.title === '' || p.description === '') {
       return false
     }
     return true
@@ -167,30 +160,9 @@ export class HomeForm extends React.Component {
             className={classes.textfield}
             fullWidth
             name='home.title'
-            label='Titre ligne 1'
+            label='Titre'
             value={this.state.home.title}
             onChange={this.handleInputChange} />
-          <TextField
-            required
-            autoComplete='off'
-            InputLabelProps={{ shrink: true }}
-            className={classes.textfield}
-            fullWidth
-            name='home.sub_title'
-            label='Titre ligne 2'
-            value={this.state.home.sub_title}
-            onChange={this.handleInputChange} />
-          <TextField
-            required
-            autoComplete='off'
-            InputLabelProps={{ shrink: true }}
-            className={classes.textfield}
-            fullWidth
-            name='home.url'
-            label='Url'
-            value={this.state.home.url}
-            onChange={this.handleInputChange}
-            onKeyPress={this.handleInputFilter} />
           <TextField
             required
             autoComplete='off'
@@ -220,7 +192,7 @@ export class HomeForm extends React.Component {
           {
             this.state.home.content.sections.map((section, indexSection) => (
               <ExpansionPanel key={indexSection} className={classes.expansion} expanded>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <ExpansionPanelSummary>
                   <Typography>
                     {
                       section.title === ''
@@ -242,6 +214,16 @@ export class HomeForm extends React.Component {
                         name={`home.content.sections.${indexSection}.title`}
                         label='Titre'
                         value={section.title}
+                        onChange={this.handleInputChange} />
+                      <TextField
+                        autoComplete='off'
+                        InputLabelProps={{ shrink: true }}
+                        className={classes.textfield}
+                        fullWidth
+                        multiline
+                        name={`home.content.sections.${indexSection}.sub_title`}
+                        label='Titre ligne 2'
+                        value={section.sub_title}
                         onChange={this.handleInputChange} />
                       <RichEditor
                         indexSection={indexSection}
@@ -367,7 +349,6 @@ HomeForm.defaultProps = {
     locale: 'fr',
     title: '',
     sub_title: '',
-    url: '',
     description: '',
     parent_id: null,
     content: {
@@ -375,6 +356,7 @@ HomeForm.defaultProps = {
       sections: [
         {
           title: '',
+          sub_title: '',
           body: ''
         }
       ]

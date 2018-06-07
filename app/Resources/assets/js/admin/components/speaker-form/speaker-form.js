@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import immutable from 'object-path-immutable'
 import moment from 'moment'
-import { MenuItem, TextField, Button, Typography, Select, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, InputLabel, FormControl, Icon, CircularProgress, IconButton } from '@material-ui/core'
+import { Menu, MenuItem, TextField, Button, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Icon, CircularProgress, IconButton } from '@material-ui/core'
 import SaveIcon from '@material-ui/icons/Save'
 import DeleteIcon from '@material-ui/icons/Delete'
 import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual'
@@ -28,23 +28,38 @@ export class SpeakerForm extends React.Component {
       fileUploading: false,
       versionCount: 0,
       showDeleteAlert: false,
-      versions: []
+      versions: [],
+      anchorVersion: null
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleCloseVersion = this.handleCloseVersion.bind(this)
     this.handleVersion = this.handleVersion.bind(this)
+    this.handleVersionOpen = this.handleVersionOpen.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleDeleteClose = this.handleDeleteClose.bind(this)
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this)
     this.handleChangeFileUpload = this.handleChangeFileUpload.bind(this)
   }
-
-  handleVersion (event) {
-    this.setState({ versionCount: event.target.value })
-    this.props.dispatch(getSpeaker(this.state.speaker.id, this.state.versions[event.target.value].version)).then((speaker) => {
+  handleVersion (event, key) {
+    event.preventDefault()
+    this.setState({ versionCount: key, anchorVersion: null })
+    this.props.dispatch(getSpeaker(this.state.speaker.id, this.state.versions[key].version)).then((speaker) => {
       this.setState({ speaker: {...speaker} })
     })
-    event.preventDefault()
+    if (key === null) {
+      this.props.versionHandler(null)
+    } else {
+      this.props.versionHandler(this.props.versions[key].version)
+    }
+  }
+
+  handleCloseVersion () {
+    this.setState({anchorVersion: null})
+  }
+
+  handleVersionOpen (event) {
+    this.setState({anchorVersion: event.currentTarget})
   }
 
   handleInputChange (event) {
@@ -197,29 +212,41 @@ export class SpeakerForm extends React.Component {
           {
             this.props.edit &&
             (
-              <FormControl>
-                <InputLabel htmlFor='history-select'>Historique</InputLabel>
-                <Select
-                  id={'history-select'}
-                  label={'historique'}
-                  className={classes.option}
-                  value={this.state.versionCount}
-                  onChange={this.handleVersion}
-                  inputProps={{
-                    name: 'historique',
-                    id: 'version'
-                  }}>
-                  {versions}
-                </Select>
-              </FormControl>
+              <Fragment>
+                <Button
+                  className={classes.button}
+                  variant='fab'
+                  color='primary'
+                  aria-label='More'
+                  aria-owns={this.state.anchorVersion ? 'long-menu' : null}
+                  aria-haspopup='true'
+                  onClick={this.handleVersionOpen}
+                >
+                  <Icon>history</Icon>
+                </Button>
+                <Menu
+                  id='long-menu'
+                  anchorEl={this.state.anchorVersion}
+                  open={Boolean(this.state.anchorVersion)}
+                  onClose={this.handleCloseVersion}
+                  PaperProps={{
+                    style: {
+                      maxHeight: 40 * 4.5,
+                      width: 200
+                    }
+                  }}
+                >
+                  <MenuItem key={null} selected={this.state.versionCount === null} onClick={event => this.handleVersion(event, null)}>Courante</MenuItem>
+                  {Object.keys(versions).map((key) => (
+                    <MenuItem key={key} selected={key === this.state.versionCount} onClick={event => this.handleVersion(event, key)}>
+                      {moment(versions[key].logged_at).format('DD/MM/YYYY HH:mm:ss')}
+                    </MenuItem>
+                  ))}
+                    }
+                </Menu>
+              </Fragment>
             )
           }
-          <Button component={Link} to={'/speaker-list'}
-            className={classes.button}
-            variant='fab'
-            color='primary'>
-            <Icon>arrow_left</Icon>
-          </Button>
           {
             (this.props.edit)
               ? (
