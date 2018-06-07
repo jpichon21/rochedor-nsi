@@ -46,6 +46,7 @@ export class HomeEdit extends React.Component {
     this.props.dispatch(getHome(this.props.locale, version))
   }
   onLocaleChange (locale) {
+    this.props.dispatch(setLocale(locale))
     this.props.dispatch(getHome(locale)).then((res) => {
       this.props.dispatch(getHomeVersions(res.id))
     })
@@ -58,7 +59,7 @@ export class HomeEdit extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={`Modification de la page d'accueil`} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.home.locale} />
+        <AppMenu title={`Modification de la page d'accueil`} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
         <HomeForm home={this.props.home} submitHandler={this.onSubmit} versionHandler={this.onVersionChange} />
       </div>
     )

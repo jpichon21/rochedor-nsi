@@ -43,7 +43,7 @@ export function getHomeVersions (locale) {
   return dispatch => {
     dispatch({ type: GET_HOME_VERSIONS, locale })
 
-    return window.fetch(`${API_URL}pages/${locale}/versions`, {
+    return window.fetch(`${API_URL}home/${locale}/versions`, {
       headers: { 'Content-Type': 'application/json' },
       method: 'GET',
       credentials: 'include'
@@ -71,7 +71,7 @@ export function putHome (home) {
   return dispatch => {
     dispatch({ type: PUT_HOME, home })
 
-    return window.fetch(`${API_URL}pages/${home.id}`, {
+    return window.fetch(`${API_URL}home/${home.id}`, {
       headers: { 'Content-Type': 'application/json' },
       method: 'PUT',
       credentials: 'include',

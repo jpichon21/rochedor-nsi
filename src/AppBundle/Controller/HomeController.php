@@ -60,7 +60,7 @@ class HomeController extends Controller
     
     
     /**
-    * @Rest\Put("/home/{id}/")
+    * @Rest\Put("/home/{id}", requirements={"id"="\d+"})
     * @Rest\View()
     */
     public function putAction($id, Request $request)
@@ -110,7 +110,7 @@ class HomeController extends Controller
             $em->persist($page);
             $em->flush();
             
-            return new JsonResponse(['message' => 'Page Updated'], Response::HTTP_OK);
+            return $page;
         }
     }
     
