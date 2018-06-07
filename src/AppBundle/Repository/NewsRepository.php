@@ -13,7 +13,7 @@ class NewsRepository extends \Doctrine\ORM\EntityRepository
     public function findNextByLocale($locale)
     {
         return $this->getEntityManager()->createQuery(
-            'SELECT n FROM AppBundle:News n WHERE n.locale = :locale AND n.start >= :now ORDER BY n.start DESC'
+            'SELECT n FROM AppBundle:News n WHERE n.locale = :locale AND n.stop >= :now ORDER BY n.start DESC'
         )
         ->setParameters(['locale' => $locale, 'now' => new \DateTime()])
         ->getResult();
