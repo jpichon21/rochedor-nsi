@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc'
-import { getSpeaker, getSpeakers, setSpeakerPosition, initStatus } from '../../actions'
+import { getSpeaker, getSpeakers, setSpeakerPosition, initStatus, setLocale } from '../../actions'
 import { Table, TableBody, TableCell, TableHead, TableRow, Button, CircularProgress, Paper, Icon } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
@@ -20,7 +20,6 @@ export class SpeakerList extends React.Component {
       alertOpen: false
     }
 
-    this.onLocaleChange = this.onLocaleChange.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.onSortEnd = this.onSortEnd.bind(this)
   }
@@ -38,10 +37,6 @@ export class SpeakerList extends React.Component {
   handleClose () {
     this.props.dispatch(initStatus())
     this.setState({alertOpen: false})
-  }
-
-  onLocaleChange (locale) {
-    this.props.dispatch(getSpeaker(locale))
   }
 
   onSortEnd ({oldIndex, newIndex}) {
@@ -71,11 +66,10 @@ export class SpeakerList extends React.Component {
       )
     })
 
-
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Liste des intervenants'} localeHandler={this.onLocaleChange} locales={locales} />
+        <AppMenu title={'Liste des intervenants'} />
         <div className={classes.container}>
           <Paper className={classes.paper}>
             {
