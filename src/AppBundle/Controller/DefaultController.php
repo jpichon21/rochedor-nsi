@@ -14,24 +14,20 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\PageController;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\News;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 class DefaultController extends Controller
 {
      /**
-     * @Route("/fr", name="homepage_fr")
-     * @Route("/en", name="homepage_en")
-     * @Route("/de", name="homepage_de")
-     * @Route("/it", name="homepage_it")
-     * @Route("/sp", name="homepage_sp")
+     * @Route("/", name="home", defaults={"_locale"="fr"}, requirements={"_locale" = "%locales%"})
+     * @Route("/{_locale}/", name="home_locale", requirements={"_locale" = "%locales%"})
      */
     public function indexAction(Request $request, ServiceShowPage $showPage)
     {
-        $path = $request->getPathInfo();
-        $name = substr($path, 1);
-        $contentDocument = $showPage->getMyContent($name);
-
+        $locale = $this->get('translator')->getLocale();
+        $contentDocument = $showPage->getMyContent($locale);
         $availableLocales = array();
-        if ($contentDocument->getLocale() === "fr") {
+        if ($locale === "fr") {
             $cm = $contentDocument->getChildren();
             $myChild = $cm->getValues();
         } else {
