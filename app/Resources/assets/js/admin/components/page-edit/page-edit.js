@@ -93,7 +93,7 @@ export class PageEdit extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu goBack='/page-list' title={`Modification de la page ${(this.props.page) ? this.props.page.title : ''}`} localeHandler={this.onLocaleChange} locales={this.state.locales} locale={this.props.page.locale} />
+        <AppMenu goBack='/page-list' title={'Modification de la page'} localeHandler={this.onLocaleChange} locales={this.state.locales} locale={this.props.page.locale} />
         <PageForm page={this.props.page} submitHandler={this.onSubmit} deleteHandler={this.onDelete} versionHandler={this.onVersionChange} edit translations={this.props.translations} />
       </div>
     )
