@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\PageController;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\News;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use AppBundle\Entity\Speaker;
 
 class DefaultController extends Controller
 {
@@ -53,7 +53,64 @@ class DefaultController extends Controller
             'lastNews' => $lastNews
         ));
     }
-    
+
+    /**
+     * @Route("/intervenants", name="intervenants")
+     * @Route("/speakers", name="speakers")
+     * @Route("/lautsprecher", name="lautsprecher")
+     * @Route("/altoparlanti", name="altoparlanti")
+     * @Route("/altavoces", name="altavoces")
+     */
+    public function showSpeakerAction(Request $request, ServiceShowPage $showPage)
+    {
+        
+        $path = $request->getPathInfo();
+        $name = substr($path, 1);
+        $contentDocument = $showPage->getMyContent($name);
+        
+        $availableLocales = array();
+        if ($contentDocument->getLocale() === "fr") {
+            $cm = $contentDocument->getChildren();
+            $myChild = $cm->getValues();
+        } else {
+            $cm = $contentDocument->getParent();
+            $mc = $cm->getChildren();
+            $myChild = $mc->getValues();
+            $tmpP = $cm->getRoutes()->getValues();
+            $availableLocales['fr'] = $tmpP[0]->getStaticPrefix();
+        }
+        foreach ($myChild as $childPage) {
+            if ($childPage->getLocale() != $contentDocument->getLocale()) {
+                $key = $childPage->getLocale();
+                $tmp = $childPage->getRoutes()->getValues();
+                $availableLocales[$key] = $tmp[0]->getStaticPrefix();
+            }
+        }
+
+        $curent = $contentDocument->getLocale();
+        $curentLocal[$curent] = $path;
+
+        $speakers = $this->getDoctrine()->getRepository('AppBundle:Speaker')->findAll();
+        foreach ($speakers as $speaker) {
+            $localSpeaker = new Speaker;
+            $localeTitle = $speaker->getTitle()[$contentDocument->getLocale()];
+            $localeDesc = $speaker->getDescription()[$contentDocument->getLocale()];
+            $localSpeaker->setName($speaker->getName());
+            $localSpeaker->setTitle($localeTitle);
+            $localSpeaker->setDescription($localeDesc);
+            $localSpeaker->setImage($speaker->getImage());
+            $localSpeaker->setPosition($speaker->getPosition());
+            $speakers[] = $localSpeaker;
+            unset($speakers[array_search($speaker, $speakers)]);
+        }
+        return $this->render('default/speaker.html.twig', array(
+            'page' => $contentDocument,
+            'availableLocales' => $availableLocales,
+            'current'=> $current,
+            'speakers'=> $speakers
+        ));
+    }
+
     /**
      * @Route("/admin", name="admin")
      */
