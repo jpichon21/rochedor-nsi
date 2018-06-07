@@ -39,7 +39,7 @@ export class NewsList extends React.Component {
   }
 
   onLocaleChange (locale) {
-    this.props.dispatch(getNews(locale))
+    this.props.dispatch(getNewsSet(locale))
   }
 
   render () {
