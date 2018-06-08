@@ -30,6 +30,7 @@ export class PageList extends React.Component {
     if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully' && nextProps.status !== 'Page updated') || nextProps.error) {
       this.setState({alertOpen: true})
     }
+    this.props.dispatch(initStatus())
   }
 
   handleClose () {
@@ -48,9 +49,9 @@ export class PageList extends React.Component {
     const items = this.props.pages.map(page => {
       return (
         <TableRow key={page.id}>
-          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{`${page.title} ${page.sub_title}`}</NavLink></TableCell>
-          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{page.routes[0].static_prefix}</NavLink></TableCell>
-          <TableCell><NavLink className={classes.link} to={`/page-edit/${page.id}`}>{Moment(page.updated).format('DD/MM/YY')}</NavLink></TableCell>
+          <TableCell>{`${page.title} ${page.sub_title}`}<NavLink className={classes.link} to={`/page-edit/${page.id}`}>Modifier</NavLink></TableCell>
+          <TableCell>{page.routes[0].static_prefix}<a className={classes.link} target='_blank' href={`${page.routes[0].static_prefix}`}>Ouvrir</a></TableCell>
+          <TableCell>{Moment(page.updated).format('DD/MM/YY')}</TableCell>
         </TableRow>
       )
     })
@@ -91,7 +92,12 @@ export class PageList extends React.Component {
 }
 
 const styles = theme => ({
-  ...theme
+  ...theme,
+  link: {
+    marginLeft: 10,
+    textDecoration: 'none',
+    color: theme.palette.secondary.main
+  }
 })
 
 const mapStateToProps = state => {

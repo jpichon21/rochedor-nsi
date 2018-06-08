@@ -1,14 +1,19 @@
-import React, {Fragment} from 'react'
+import React, { Fragment } from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { convertToRaw } from 'draft-js'
+import { Editor } from 'react-draft-wysiwyg'
 import immutable from 'object-path-immutable'
 import draftToHtml from 'draftjs-to-html'
 import SaveIcon from '@material-ui/icons/Save'
 import { withStyles } from '@material-ui/core/styles'
-import RichEditor from './RichEditor'
 import { uploadFile } from '../../actions'
+import moment from 'moment'
+import {
+  EditorState,
+  convertToRaw,
+  convertFromHTML,
+  ContentState } from 'draft-js'
 import {
   MenuItem,
   Menu,
@@ -21,7 +26,6 @@ import {
   ExpansionPanelSummary,
   Icon
 } from '@material-ui/core'
-import moment from 'moment'
 
 export class HomeForm extends React.Component {
   constructor (props) {
@@ -49,6 +53,33 @@ export class HomeForm extends React.Component {
     this.handleVersion = this.handleVersion.bind(this)
     this.handleVersionOpen = this.handleVersionOpen.bind(this)
     this.handleChangeTextArea = this.handleChangeTextArea.bind(this)
+    this.handleInit = this.handleInit.bind(this)
+    this.handleConvertFromHTML = this.handleConvertFromHTML.bind(this)
+  }
+
+  handleInit (props) {
+    const state = this.handleConvertFromHTML(props)
+    this.setState(state)
+  }
+
+  handleConvertFromHTML (state) {
+    let sections = state.home.content.sections.map((section) => {
+      if (typeof section.body === 'string') {
+        const blocksFromHTML = convertFromHTML(section.body)
+        let content
+        if (blocksFromHTML.contentBlocks) {
+          content = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+          )
+        } else {
+          content = ContentState.createFromText('')
+        }
+        section.body = EditorState.createWithContent(content)
+      }
+      return section
+    })
+    return immutable.set(state, 'home.content.sections', sections)
   }
 
   handleVersion (event, key) {
@@ -81,15 +112,18 @@ export class HomeForm extends React.Component {
   }
 
   handleChangeTextArea (editorState, indexSection) {
-    const rawContentState = convertToRaw(editorState.getCurrentContent())
-    const html = draftToHtml(rawContentState)
-    const state = immutable.set(this.state, `home.content.sections.${indexSection}.body`, html)
-    this.setState(state)
+    this.setState(immutable.set(this.state, `home.content.sections.${indexSection}.body`, editorState))
   }
 
   handleSubmit (event) {
     event.preventDefault()
-    this.props.submitHandler(this.state.home)
+    let home = this.state.home
+    Object.keys(home.content.sections).map((key) => {
+      if (home.content.sections[key].body) {
+        home = immutable.set(home, `content.sections.${key}.body`, draftToHtml(convertToRaw(home.content.sections[key].body.getCurrentContent())))
+      }
+    })
+    this.props.submitHandler(home)
   }
 
   handleInputFilter (event) {
@@ -127,9 +161,15 @@ export class HomeForm extends React.Component {
     })
   }
 
+  componentWillMount () {
+    this.handleInit(this.props)
+  }
+
   componentWillReceiveProps (nextProps) {
     if (nextProps.home) {
-      this.setState({home: nextProps.home})
+      if (JSON.stringify(nextProps.home) !== JSON.stringify(this.props.home)) {
+        this.handleInit(nextProps)
+      }
     }
     if (nextProps.locale) {
       this.setState((prevState) => {
@@ -179,16 +219,6 @@ export class HomeForm extends React.Component {
           Contenu
         </Typography>
         <form className={classes.form}>
-          <TextField
-            autoComplete='off'
-            InputLabelProps={{ shrink: true }}
-            className={classes.textfield}
-            fullWidth
-            multiline
-            name='home.content.intro'
-            label='Introduction'
-            value={this.state.home.content.intro}
-            onChange={this.handleInputChange} />
           {
             this.state.home.content.sections.map((section, indexSection) => (
               <ExpansionPanel key={indexSection} className={classes.expansion} expanded>
@@ -203,7 +233,7 @@ export class HomeForm extends React.Component {
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.details}>
                   <Grid container spacing={32}>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <TextField
                         required
                         autoComplete='off'
@@ -225,9 +255,28 @@ export class HomeForm extends React.Component {
                         label='Titre ligne 2'
                         value={section.sub_title}
                         onChange={this.handleInputChange} />
-                      <RichEditor
-                        indexSection={indexSection}
-                        onChange={this.handleChangeTextArea} />
+                      <Editor
+                        editorState={this.state.home.content.sections[indexSection].body}
+                        onEditorStateChange={editorState => this.handleChangeTextArea(editorState, indexSection)}
+                        toolbar={{
+                          options: ['inline', 'blockType', 'textAlign', 'link'],
+                          inline: {
+                            inDropdown: true,
+                            options: ['bold', 'italic', 'underline']
+                          },
+                          blockType: {
+                            inDropdown: true,
+                            options: ['Normal', 'Blockquote']
+                          },
+                          textAlign: {
+                            inDropdown: true,
+                            options: ['left', 'center', 'right', 'justify']
+                          },
+                          link: {
+                            inDropdown: true,
+                            options: ['link', 'unlink']
+                          }
+                        }} />
                     </Grid>
                   </Grid>
                 </ExpansionPanelDetails>
