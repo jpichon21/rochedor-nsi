@@ -104,20 +104,19 @@ class SpeakerController extends Controller
         $image = $request->get('image');
         $em = $this->getDoctrine()->getManager();
         $speaker = $em->find('AppBundle\Entity\Speaker', $id);
-        $gedmo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
-        $logs = $gedmo->getLogEntries($speaker);
         if (empty($speaker)) {
             return new JsonResponse(['message' => 'Speaker not found'], Response::HTTP_NOT_FOUND);
-        } else {
-            $speaker->setName($name);
-            $speaker->setTitle($title);
-            $speaker->setDescription($description);
-            $speaker->setImage($image);
-
-            $em->persist($speaker);
-            $em->flush();
-            return new JsonResponse(['message' => 'Speaker Updated'], Response::HTTP_OK);
         }
+        $gedmo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
+        $logs = $gedmo->getLogEntries($speaker);
+        $speaker->setName($name);
+        $speaker->setTitle($title);
+        $speaker->setDescription($description);
+        $speaker->setImage($image);
+
+        $em->persist($speaker);
+        $em->flush();
+        return new JsonResponse(['message' => 'Speaker Updated'], Response::HTTP_OK);
     }
 
     /**
