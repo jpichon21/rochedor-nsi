@@ -2,7 +2,7 @@ import React, {Fragment} from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { CompositeDecorator, Entity, RichUtils, EditorState, convertToRaw, convertFromHTML, ContentState, ContentBlock } from 'draft-js'
+import { CompositeDecorator, Entity, RichUtils, EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import immutable from 'object-path-immutable'
 import draftToHtml from 'draftjs-to-html'
@@ -52,7 +52,6 @@ export class PageForm extends React.Component {
     super(props)
     this.state = {
       locale: this.props.locale,
-      page: this.props.page,
       versionCount: 0,
       submitDisabled: true,
       anchorPopover: null,
@@ -64,7 +63,8 @@ export class PageForm extends React.Component {
       fileUploading: {
         isUploading: false
       },
-      anchorVersion: null
+      anchorVersion: null,
+      page: this.props.page
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
@@ -92,16 +92,45 @@ export class PageForm extends React.Component {
     this.handleChangeImageUpload = this.handleChangeImageUpload.bind(this)
     this.handleChangeDocumentUpload = this.handleChangeDocumentUpload.bind(this)
     this.handleAddDocument = this.handleAddDocument.bind(this)
+    this.handleInit = this.handleInit.bind(this)
+    this.handleConvertFromHTML = this.handleConvertFromHTML.bind(this)
+  }
+
+  handleInit (props) {
+    const state = this.handleConvertFromHTML(props)
+    const indexTabs = this.handleInitTabs(state)
+    this.setState({
+      ...state,
+      indexTabs
+    })
+  }
+
+  handleInitTabs (state) {
+    return state.page.content.sections.map(() => { return 0 })
+  }
+
+  handleConvertFromHTML (state) {
+    let sections = state.page.content.sections.map((section) => {
+      if (typeof section.body === 'string') {
+        const blocksFromHTML = convertFromHTML(section.body)
+        let content
+        if (blocksFromHTML.contentBlocks) {
+          content = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+          )
+        } else {
+          content = ContentState.createFromText('')
+        }
+        section.body = EditorState.createWithContent(content)
+      }
+      return section
+    })
+    return immutable.set(state, 'page.content.sections', sections)
   }
 
   handleChangeTabs (indexTabs, indexSection) {
     const state = immutable.set(this.state, `indexTabs.${indexSection}`, indexTabs)
-    this.setState(state)
-  }
-
-  handleInitTabs () {
-    const indexTabs = this.state.page.content.sections.map(() => { return 0 })
-    const state = immutable.set(this.state, `indexTabs`, indexTabs)
     this.setState(state)
   }
 
@@ -304,34 +333,15 @@ export class PageForm extends React.Component {
     }
   }
 
-  convertToHTML (props) {
-    let page = props.page
-    if (page.content.sections) {
-      Object.keys(page.content.sections).map((key) => {
-        if (typeof page.content.sections[key].body === 'string' && page.content.sections[key].body) {
-          const blocksFromHTML = convertFromHTML(page.content.sections[key].body)
-          const state = (blocksFromHTML.contentBlocks)
-            ? ContentState.createFromBlockArray(
-              blocksFromHTML.contentBlocks,
-              blocksFromHTML.entityMap
-            )
-            : ContentState.createFromText('')
-          page = immutable.set(page, `content.sections.${key}.body`, EditorState.createWithContent(state))
-        }
-      })
-    }
-    const state = immutable.set(this.state, 'page', page)
-    this.setState(state)
-  }
-
   componentWillMount () {
-    this.handleInitTabs()
-    this.convertToHTML(this.props)
+    this.handleInit(this.props)
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.page) {
-      this.convertToHTML(nextProps)
+      if (JSON.stringify(nextProps.page) !== JSON.stringify(this.props.page)) {
+        this.handleInit(nextProps)
+      }
     }
     if (nextProps.locale) {
       this.setState((prevState) => {
