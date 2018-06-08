@@ -1,0 +1,22 @@
+{% set sections = [] %}
+{% set bodyClass = "page" %}
+{% set bodyBackground = page.background %}
+{% extends 'base.html.twig' %}
+{% block content %}
+<div class="content">
+    <div class="left">
+        <div class="zone">
+            <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
+            {% for speaker in speakers %}
+                <h1>{{speaker.name}}</h1>
+                <h1>{{speaker.title}}</h1>
+                <h1>{{speaker.description}}<h1>
+                <img src="{{speaker.image}}" />
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset("assets/js/page.js") }}"></script>
+{% endblock %}
