@@ -128,11 +128,6 @@ export function getPageTranslations (pageId) {
           res.json().then(res => {
             dispatch({ type: GET_PAGE_TRANSLATIONS_FAILURE, ...{ data: res } })
           })
-        } else {
-          res.json().then(res => {
-            dispatch(getPageVersions(res.id))
-            dispatch({ type: GET_PAGE_TRANSLATIONS_SUCCESS, ...{ data: res } })
-          })
         }
       })
       .catch(error => dispatch({ type: GET_PAGE_TRANSLATIONS_FAILURE, ...{ data: error } }))

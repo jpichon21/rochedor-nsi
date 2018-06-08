@@ -317,7 +317,9 @@ export class PageForm extends React.Component {
 
   handleConvertFromRaw (sections) {
     return sections.map(section => {
-      section.body = draftToHtml(convertToRaw(section.bodyRaw.getCurrentContent()))
+      section.bodyRaw && (
+        section.body = draftToHtml(convertToRaw(section.bodyRaw.getCurrentContent()))
+      )
       return section
     })
   }
@@ -562,8 +564,6 @@ export class PageForm extends React.Component {
   }
 
   handleExpandSection (id, expanded) {
-    console.log(id)
-    console.log(expanded)
     this.setState((prevState) => {
       return {
         panels: {

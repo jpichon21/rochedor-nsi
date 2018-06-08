@@ -34,7 +34,6 @@ export class PageEdit extends React.Component {
     }
     if (nextProps.page !== null && this.props.page !== null) {
       if (nextProps.page.id !== this.props.page.id) {
-        console.log(nextProps.page.id)
         this.props.dispatch(getPageTranslations(nextProps.page.id))
       }
     }
