@@ -177,7 +177,6 @@ export class NewsForm extends React.Component {
               cancelLabel='Annuler'
               format={'DD/MM/YYYY HH:mm'}
               ampm={false}
-              disablePast
             />
           </MuiPickersUtilsProvider>
           <MuiPickersUtilsProvider utils={MomentUtils} moment={moment} locale='fr' label='Fin'>
@@ -188,7 +187,6 @@ export class NewsForm extends React.Component {
               format={'DD/MM/YYYY HH:mm'}
               cancelLabel='Annuler'
               ampm={false}
-              disablePast
             />
           </MuiPickersUtilsProvider>
         </form>
