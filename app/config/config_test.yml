@@ -15,4 +15,18 @@ web_profiler:
 swiftmailer:
     disable_delivery: true
 parameters:    
-    httpprotocol: https
+    httpprotocol: http
+doctrine:
+    dbal:
+        # driver: pdo_sqlite
+        # dbname: '%database_name%'
+        # password: '%database_password%'
+        # charset: UTF8
+        # path: '%kernel.project_dir%/var/data/data.sqlite'
+        driver: pdo_mysql
+        host: 192.168.10.10
+        port: null
+        dbname: test_lrdo
+        user: homestead
+        password: secret
+        charset: UTF8
