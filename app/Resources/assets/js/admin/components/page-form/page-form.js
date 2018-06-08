@@ -306,16 +306,20 @@ export class PageForm extends React.Component {
 
   convertToHTML (props) {
     let page = props.page
-    Object.keys(page.content.sections).map((key) => {
-      if (typeof page.content.sections[key].body === 'string' && page.content.sections[key].body) {
-        const blocksFromHTML = convertFromHTML(page.content.sections[key].body)
-        const state = ContentState.createFromBlockArray(
-          blocksFromHTML.contentBlocks,
-          blocksFromHTML.entityMap
-        )
-        page = immutable.set(page, `content.sections.${key}.body`, EditorState.createWithContent(state))
-      }
-    })
+    if (page.content.sections) {
+      Object.keys(page.content.sections).map((key) => {
+        if (typeof page.content.sections[key].body === 'string' && page.content.sections[key].body) {
+          const blocksFromHTML = convertFromHTML(page.content.sections[key].body)
+          const state = (blocksFromHTML.contentBlocks)
+            ? ContentState.createFromBlockArray(
+              blocksFromHTML.contentBlocks,
+              blocksFromHTML.entityMap
+            )
+            : ContentState.createFromText('')
+          page = immutable.set(page, `content.sections.${key}.body`, EditorState.createWithContent(state))
+        }
+      })
+    }
     const state = immutable.set(this.state, 'page', page)
     this.setState(state)
   }
