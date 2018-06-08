@@ -87,9 +87,6 @@ class DefaultController extends Controller
             }
         }
 
-        $curent = $contentDocument->getLocale();
-        $curentLocal[$curent] = $path;
-
         $speakers = $this->getDoctrine()->getRepository('AppBundle:Speaker')->findAll();
         foreach ($speakers as $speaker) {
             $localSpeaker = new Speaker;
@@ -106,7 +103,6 @@ class DefaultController extends Controller
         return $this->render('default/speaker.html.twig', array(
             'page' => $contentDocument,
             'availableLocales' => $availableLocales,
-            'current'=> $current,
             'speakers'=> $speakers
         ));
     }
