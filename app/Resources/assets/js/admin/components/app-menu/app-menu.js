@@ -4,7 +4,7 @@ import { compose } from 'redux'
 import { NavLink, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Menu, MenuItem, AppBar, Toolbar, Typography, IconButton, Button } from '@material-ui/core'
+import { Menu, MenuItem, AppBar, Toolbar, Typography, IconButton, Button, Divider } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
@@ -51,6 +51,7 @@ class AppMenu extends React.Component {
     this.setState({ anchorLang: null, locale: locale })
     this.props.localeHandler(locale)
   }
+
   render () {
     if (this.state.goBack) {
       return <Redirect to={this.props.goBack} />
@@ -59,6 +60,7 @@ class AppMenu extends React.Component {
     const { anchorMenu, anchorLang } = this.state
     const menuOpen = Boolean(anchorMenu)
     const langOpen = Boolean(anchorLang)
+    const isConnected = Boolean(this.props.username)
     return (
       <AppBar position='static'>
         <Toolbar>
@@ -112,7 +114,7 @@ class AppMenu extends React.Component {
             </NavLink>
             <NavLink to='/home-edit' className={classes.link}>
               <MenuItem onClick={this.handleCloseMenu}>
-                Page d'accueil
+                Accueil
               </MenuItem>
             </NavLink>
             <NavLink to='/news-list' className={classes.link}>
@@ -125,23 +127,28 @@ class AppMenu extends React.Component {
                 Intervenants
               </MenuItem>
             </NavLink>
+            <Divider className={classes.divider} />
+            <a href='/' target='_blank' className={classes.link}>
+              <MenuItem onClick={this.handleCloseMenu}>
+                Voir le site
+              </MenuItem>
+            </a>
             {
-              !!this.props.username
-              ? (
-
-                <NavLink to='/logout' className={classes.link}>
-                  <MenuItem onClick={this.handleCloseMenu}>
-                    Déconnexion
-                  </MenuItem>
-                </NavLink>
-              )
-              : (
-                <NavLink to='/login' className={classes.link}>
-                  <MenuItem onClick={this.handleCloseMenu}>
-                    Connexion
-                  </MenuItem>
-                </NavLink>
-              )
+              isConnected
+                ? (
+                  <NavLink to='/logout' className={classes.link}>
+                    <MenuItem onClick={this.handleCloseMenu}>
+                      Déconnexion
+                    </MenuItem>
+                  </NavLink>
+                )
+                : (
+                  <NavLink to='/login' className={classes.link}>
+                    <MenuItem onClick={this.handleCloseMenu}>
+                      Connexion
+                    </MenuItem>
+                  </NavLink>
+                )
             }
           </Menu>
           <Menu
@@ -192,6 +199,10 @@ const styles = theme => ({
   link: {
     textDecoration: 'none',
     outline: 'none'
+  },
+  divider: {
+    marginTop: 10,
+    marginBottom: 10
   }
 })
 

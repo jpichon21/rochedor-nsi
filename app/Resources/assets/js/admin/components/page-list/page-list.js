@@ -50,7 +50,7 @@ export class PageList extends React.Component {
       return (
         <TableRow key={page.id}>
           <TableCell>{`${page.title} ${page.sub_title}`}<NavLink className={classes.link} to={`/page-edit/${page.id}`}>Modifier</NavLink></TableCell>
-          <TableCell>{page.routes[0].static_prefix}<a className={classes.link} target='_blank' href={`http://localhost:8000${page.routes[0].static_prefix}`}>Ouvrir</a></TableCell>
+          <TableCell>{page.routes[0].static_prefix}<a className={classes.link} target='_blank' href={`${page.routes[0].static_prefix}`}>Ouvrir</a></TableCell>
           <TableCell>{Moment(page.updated).format('DD/MM/YY')}</TableCell>
         </TableRow>
       )
