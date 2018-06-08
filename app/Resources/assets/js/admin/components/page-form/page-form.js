@@ -81,7 +81,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
             value={section.title}
             onChange={context.handleInputChange} />
           <Editor
-            editorState={context.state.page.content.sections[indexSection].body}
+            editorState={context.state.page.content.sections[indexSection].bodyRaw}
             onEditorStateChange={editorState => context.handleChangeTextArea(editorState, indexSection)}
             toolbarCustomButtons={[<CustomOption addDocument={event => { context.handleChangeDocumentUpload(event, indexSection) }} />]}
             toolbar={{
@@ -129,10 +129,10 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                           <div className={classes.tile} style={{backgroundImage: `url('${slide.images[tile.id].url}')`}}>
                             {
                               context.state.fileUploading.isUploading &&
-                          context.state.fileUploading.type === 'image' &&
-                          context.state.fileUploading.indexSection === indexSection &&
-                          context.state.fileUploading.indexSlide === indexSlide &&
-                          context.state.fileUploading.indexImage === indexImage
+                              context.state.fileUploading.type === 'image' &&
+                              context.state.fileUploading.indexSection === indexSection &&
+                              context.state.fileUploading.indexSlide === indexSlide &&
+                              context.state.fileUploading.indexImage === indexImage
                                 ? <CircularProgress />
                                 : (
                                   <div>
@@ -276,48 +276,50 @@ export class PageForm extends React.Component {
     this.handleChangeImageUpload = this.handleChangeImageUpload.bind(this)
     this.handleChangeDocumentUpload = this.handleChangeDocumentUpload.bind(this)
     this.handleAddDocument = this.handleAddDocument.bind(this)
-    this.handleInit = this.handleInit.bind(this)
+    this.handleUpdateRaw = this.handleUpdateRaw.bind(this)
     this.handleConvertFromHTML = this.handleConvertFromHTML.bind(this)
     this.handleSortSections = this.handleSortSections.bind(this)
     this.handleExpandSection = this.handleExpandSection.bind(this)
   }
 
   handleSortSections ({ oldIndex, newIndex }) {
-    console.log(oldIndex, newIndex)
-    arrayMove(this.state.page.content.sections, oldIndex, newIndex)
+    const sections = arrayMove(this.state.page.content.sections, oldIndex, newIndex)
+    const state = immutable.set(this.state, 'page.content.sections', sections)
+    this.setState(state)
   }
 
-  handleInit (props) {
-    const state = this.handleConvertFromHTML(props)
-    const indexTabs = this.handleInitTabs(state)
-    this.setState({
-      ...state,
-      indexTabs
+  handleUpdateRaw (props) {
+    const sections = this.handleConvertFromHTML(props.page.content.sections)
+    const state = immutable.set(props, `page.content.sections`, sections)
+    this.setState(state, () => {
+      this.handleInitTabs()
     })
   }
 
-  handleInitTabs (state) {
-    return state.page.content.sections.map(() => { return 0 })
+  handleInitTabs () {
+    const indexTabs = this.state.page.content.sections.map(() => { return 0 })
+    this.setState({ indexTabs })
   }
 
-  handleConvertFromHTML (state) {
-    let sections = state.page.content.sections.map((section) => {
-      if (typeof section.body === 'string') {
-        const blocksFromHTML = convertFromHTML(section.body)
-        let content
-        if (blocksFromHTML.contentBlocks) {
-          content = ContentState.createFromBlockArray(
-            blocksFromHTML.contentBlocks,
-            blocksFromHTML.entityMap
-          )
-        } else {
-          content = ContentState.createFromText('')
-        }
-        section.body = EditorState.createWithContent(content)
-      }
+  handleConvertFromHTML (sections) {
+    return sections.map(section => {
+      const blocksFromHTML = convertFromHTML(section.body)
+      const content = blocksFromHTML.contentBlocks
+        ? ContentState.createFromBlockArray(
+          blocksFromHTML.contentBlocks,
+          blocksFromHTML.entityMap
+        )
+        : ContentState.createFromText('')
+      section.bodyRaw = EditorState.createWithContent(content)
       return section
     })
-    return immutable.set(state, 'page.content.sections', sections)
+  }
+
+  handleConvertFromRaw (sections) {
+    return sections.map(section => {
+      section.body = draftToHtml(convertToRaw(section.bodyRaw.getCurrentContent()))
+      return section
+    })
   }
 
   handleChangeTabs (indexTabs, indexSection) {
@@ -355,18 +357,17 @@ export class PageForm extends React.Component {
   }
 
   handleChangeTextArea (editorState, indexSection) {
-    this.setState(immutable.set(this.state, `page.content.sections.${indexSection}.body`, editorState))
+    const state = immutable.set(this.state, `page.content.sections.${indexSection}.bodyRaw`, editorState)
+    this.setState(state)
   }
 
   handleSubmit (event) {
     event.preventDefault()
-    let page = this.state.page
-    Object.keys(page.content.sections).map((key) => {
-      if (page.content.sections[key].body) {
-        page = immutable.set(page, `content.sections.${key}.body`, draftToHtml(convertToRaw(page.content.sections[key].body.getCurrentContent())))
-      }
+    const sections = this.handleConvertFromRaw(this.state.page.content.sections)
+    const state = immutable.set(this.state, 'page.content.sections', sections)
+    this.setState(state, () => {
+      this.props.submitHandler(this.state.page)
     })
-    this.props.submitHandler(page)
   }
 
   handleInputFilter (event) {
@@ -507,7 +508,7 @@ export class PageForm extends React.Component {
   }
 
   handleAddDocument (linkToDocument, indexSection) {
-    const oldEditorState = this.state.page.content.sections[indexSection].body
+    const oldEditorState = this.state.page.content.sections[indexSection].bodyRaw
     const oldEditorStateSelection = oldEditorState.getSelection()
     if (!oldEditorStateSelection.isCollapsed()) {
       const editorState = RichUtils.toggleLink(
@@ -515,23 +516,18 @@ export class PageForm extends React.Component {
         oldEditorStateSelection,
         Entity.create('LINK', 'MUTABLE', { url: linkToDocument })
       )
-      const state = immutable.set(this.state, `page.content.sections.${indexSection}.body`, editorState)
-      this.setState(state, () => {
-        this.handleChangeTextArea(editorState, indexSection)
-      })
-    } else {
-      console.log('Vous devez sélectionnez du texte avant de lier un document')
+      this.handleChangeTextArea(editorState, indexSection)
     }
   }
 
   componentWillMount () {
-    this.handleInit(this.props)
+    this.handleInitTabs()
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.page) {
       if (JSON.stringify(nextProps.page) !== JSON.stringify(this.props.page)) {
-        this.handleInit(nextProps)
+        this.handleUpdateRaw(nextProps)
       }
     }
     if (nextProps.locale) {
@@ -673,11 +669,6 @@ export class PageForm extends React.Component {
             value={this.state.page.content.intro}
             onChange={this.handleInputChange} />
           <SortableList distance={50} items={this.state.page.content.sections} onSortEnd={this.handleSortSections} context={this} classes={classes} state={this.state} />
-          {
-            // this.state.page.content.sections.map((section, indexSection) => (
-
-            // ))
-          }
         </form>
         <div className={classes.buttons}>
           {
@@ -870,7 +861,7 @@ PageForm.defaultProps = {
       sections: [
         {
           title: '',
-          body: EditorState.createEmpty(decorator),
+          body: '',
           slides: [
             {
               layout: '1-1-2',
