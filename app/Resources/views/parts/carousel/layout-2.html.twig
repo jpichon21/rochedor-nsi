@@ -1,1 +1,1 @@
-<a class="full {{ images[0].type }}" title="{{ images[0].alt }}" href="{% if (images[0].type == 'iframe') %}{{ asset(images[0].youtubeId) }}{% else %}{{ asset(images[0].url) }}{% endif %}" style="{{ asset(images[0].url)|background }}"></a>
+<a class="full {% if (images[0].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[0].alt }}" href="{% if (images[0].video != '') %}{{ asset(images[0].video) }}{% else %}{{ asset(images[0].url) }}{% endif %}" style="{{ asset(images[0].url)|background }}"></a>
