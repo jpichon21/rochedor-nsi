@@ -1,8 +1,7 @@
-import React, {Fragment} from 'react'
+import React, { Fragment } from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { CompositeDecorator, Entity, RichUtils, EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import immutable from 'object-path-immutable'
 import draftToHtml from 'draftjs-to-html'
@@ -16,6 +15,15 @@ import { withStyles } from '@material-ui/core/styles'
 import { tileData } from './tileData'
 import CustomOption from './CustomOption'
 import { uploadFile } from '../../actions'
+import moment from 'moment'
+import {
+  CompositeDecorator,
+  Entity,
+  RichUtils,
+  EditorState,
+  convertToRaw,
+  convertFromHTML,
+  ContentState } from 'draft-js'
 import {
   Tab,
   Tabs,
@@ -45,7 +53,6 @@ import {
   InputLabel,
   Icon
 } from '@material-ui/core'
-import moment from 'moment'
 
 export class PageForm extends React.Component {
   constructor (props) {
