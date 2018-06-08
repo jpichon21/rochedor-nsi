@@ -818,10 +818,10 @@ PageForm.defaultProps = {
             {
               layout: '1-1-2',
               images: [
-                { type: '', url: '', alt: '', video: '' },
-                { type: '', url: '', alt: '', video: '' },
-                { type: '', url: '', alt: '', video: '' },
-                { type: '', url: '', alt: '', video: '' }
+                { url: '', alt: '', video: '' },
+                { url: '', alt: '', video: '' },
+                { url: '', alt: '', video: '' },
+                { url: '', alt: '', video: '' }
               ]
             }
           ]

@@ -1,8 +1,8 @@
 <div class="top">
-    <a class="left {{ images[0].type }}" title="{{ images[0].alt }}" href="{% if (images[0].type == 'iframe') %}{{ asset(images[0].youtubeId) }}{% else %}{{ asset(images[0].url) }}{% endif %}" style="{{ asset(images[0].url)|background }}"></a>
-    <a class="right {{ images[1].type }}" title="{{ images[1].alt }}" href="{% if (images[1].type == 'iframe') %}{{ asset(images[1].youtubeId) }}{% else %}{{ asset(images[1].url) }}{% endif %}" style="{{ asset(images[1].url)|background }}"></a>
+    <a class="left {% if (images[0].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[0].alt }}" href="{% if (images[0].video != '') %}{{ asset(images[0].video) }}{% else %}{{ asset(images[0].url) }}{% endif %}" style="{{ asset(images[0].url)|background }}"></a>
+    <a class="right {% if (images[1].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[1].alt }}" href="{% if (images[1].video != '') %}{{ asset(images[1].video) }}{% else %}{{ asset(images[1].url) }}{% endif %}" style="{{ asset(images[1].url)|background }}"></a>
 </div>
 <div class="bottom">
-    <a class="left {{ images[2].type }}" title="{{ images[2].alt }}" href="{% if (images[2].type == 'iframe') %}{{ asset(images[2].youtubeId) }}{% else %}{{ asset(images[2].url) }}{% endif %}" style="{{ asset(images[2].url)|background }}"></a>
-    <a class="right {{ images[3].type }}" title="{{ images[3].alt }}" href="{% if (images[3].type == 'iframe') %}{{ asset(images[3].youtubeId) }}{% else %}{{ asset(images[3].url) }}{% endif %}" style="{{ asset(images[3].url)|background }}"></a>
+    <a class="left {% if (images[2].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[2].alt }}" href="{% if (images[2].video != '') %}{{ asset(images[2].video) }}{% else %}{{ asset(images[2].url) }}{% endif %}" style="{{ asset(images[2].url)|background }}"></a>
+    <a class="right {% if (images[3].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[3].alt }}" href="{% if (images[3].video != '') %}{{ asset(images[3].video) }}{% else %}{{ asset(images[3].url) }}{% endif %}" style="{{ asset(images[3].url)|background }}"></a>
 </div>
