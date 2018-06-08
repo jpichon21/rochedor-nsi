@@ -84,9 +84,9 @@ class PageController extends Controller
             $request->query->get('locale') :
             $this->container->getParameter('locale');
         $pages = $this->getDoctrine()->getRepository('AppBundle:Page')->findByLocale($locale);
-        foreach ($pages as $page) {
+        foreach ($pages as $key => $page) {
             if ($page->getRoutes()[0]->getName() === $page->getLocale()) {
-                unset($pages[array_search($page, $pages)]);
+                array_splice($pages, $key, 1);
             }
         }
         return $pages;
