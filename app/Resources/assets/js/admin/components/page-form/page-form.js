@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Editor } from 'react-draft-wysiwyg'
 import immutable from 'object-path-immutable'
 import draftToHtml from 'draftjs-to-html'
+import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import WrapTextIcon from '@material-ui/icons/WrapText'
 import SaveIcon from '@material-ui/icons/Save'
@@ -54,6 +55,182 @@ import {
   Icon
 } from '@material-ui/core'
 
+const SortableItem = SortableElement(({ section, indexSection, state, classes, context }) =>
+  <ExpansionPanel key={indexSection} className={classes.expansion}>
+    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+      <Typography>
+        {
+          section.title === ''
+            ? 'Volet ' + (indexSection + 1)
+            : section.title
+        }
+      </Typography>
+    </ExpansionPanelSummary>
+    <ExpansionPanelDetails className={classes.details}>
+      <Grid container spacing={32}>
+        <Grid item xs={6}>
+          <TextField
+            required
+            autoComplete='off'
+            InputLabelProps={{shrink: true}}
+            className={classes.textfield}
+            fullWidth
+            multiline
+            name={`page.content.sections.${indexSection}.title`}
+            label='Titre'
+            value={section.title}
+            onChange={context.handleInputChange} />
+          <Editor
+            editorState={context.state.page.content.sections[indexSection].body}
+            onEditorStateChange={editorState => context.handleChangeTextArea(editorState, indexSection)}
+            toolbarCustomButtons={[<CustomOption addDocument={event => { context.handleChangeDocumentUpload(event, indexSection) }} />]}
+            toolbar={{
+              options: ['inline', 'blockType', 'textAlign', 'link'],
+              inline: {
+                inDropdown: true,
+                options: ['bold', 'italic', 'underline']
+              },
+              blockType: {
+                inDropdown: true,
+                options: ['Normal', 'Blockquote']
+              },
+              textAlign: {
+                inDropdown: true,
+                options: ['left', 'center', 'right', 'justify']
+              },
+              link: {
+                inDropdown: true,
+                options: ['link', 'unlink']
+              }
+            }} />
+        </Grid>
+        <Grid item xs={6}>
+          <Tabs
+            value={context.state.indexTabs[indexSection]}
+            onChange={(event, value) => context.handleChangeTabs(value, indexSection)}
+            indicatorColor='primary'
+            textColor='primary'
+            centered>
+            {
+              section.slides.map((slide, indexSlide) => (
+                <Tab key={indexSlide} label={`Slide ${indexSlide + 1}`} />
+              ))
+            }
+          </Tabs>
+          {
+            section.slides.map((slide, indexSlide) => (
+              <div key={indexSlide}>
+                {
+                  context.state.indexTabs[indexSection] === indexSlide &&
+                  <GridList className={classes.gridList} cols={2} rows={2}>
+                    {
+                      tileData[slide.layout].map((tile, indexImage) => (
+                        <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
+                          <div className={classes.tile} style={{backgroundImage: `url('${slide.images[tile.id].url}')`}}>
+                            {
+                              context.state.fileUploading.isUploading &&
+                          context.state.fileUploading.type === 'image' &&
+                          context.state.fileUploading.indexSection === indexSection &&
+                          context.state.fileUploading.indexSlide === indexSlide &&
+                          context.state.fileUploading.indexImage === indexImage
+                                ? <CircularProgress />
+                                : (
+                                  <div>
+                                    <IconButton
+                                      color={slide.images[tile.id].url === '' ? 'primary' : 'secondary'}>
+                                      <PhotoSizeSelectActualIcon />
+                                      <input
+                                        type='file'
+                                        className={classes.inputfile}
+                                        onChange={event => { context.handleChangeImageUpload(event, indexSection, indexSlide, indexImage) }} />
+                                    </IconButton>
+                                    <IconButton
+                                      color={slide.images[tile.id].video === '' ? 'primary' : 'secondary'}
+                                      onClick={event => { context.handleOpenPopover(event, `${indexSection}-${indexSlide}-${indexImage}`) }}>
+                                      <OnDemandVideoIcon />
+                                    </IconButton>
+                                    <Popover
+                                      open={context.state.popoverOpened === `${indexSection}-${indexSlide}-${indexImage}`}
+                                      anchorEl={context.state.anchorPopover}
+                                      onClose={context.handleClosePopover}>
+                                      <TextField
+                                        className={classes.popover}
+                                        autoComplete='off'
+                                        InputLabelProps={{shrink: true}}
+                                        name='page.title'
+                                        label='URL Vidéo'
+                                        value={context.state.page.content.sections[indexSection].slides[indexSlide].images[indexImage].video}
+                                        onChange={(event) => { context.handleChangePopover(event, indexSection, indexSlide, indexImage) }} />
+                                    </Popover>
+                                  </div>
+                                )
+                            }
+                          </div>
+                        </GridListTile>
+                      ))
+                    }
+                  </GridList>
+                }
+              </div>
+            ))
+          }
+          <div className={classes.options}>
+            <Button
+              variant='outlined'
+              onClick={event => { context.handleOpenLayoutMenu(event, indexSection) }}
+              className={classes.option}>
+          Disposition
+            </Button>
+            <Button
+              variant='outlined'
+              onClick={() => { context.handleDeleteSlide(indexSection) }}
+              disabled={section.slides.length === 1}
+              className={classes.option}>
+          Supprimer
+            </Button>
+            <Button
+              variant='outlined'
+              onClick={() => { context.handleAddSlide(indexSection) }}
+              color='primary'
+              className={classes.option}>
+          Ajouter
+            </Button>
+          </div>
+          <Menu
+            anchorEl={context.state.anchorMenuLayout}
+            open={context.state.menuLayoutOpened === indexSection}
+            onClose={context.handleCloseLayoutMenu}>
+            <MenuItem onClick={() => { context.handleChangeLayoutMenu('2', indexSection) }}>1 Image</MenuItem>
+            <MenuItem onClick={() => { context.handleChangeLayoutMenu('2-2', indexSection) }}>2 Images horizontales</MenuItem>
+            <MenuItem onClick={() => { context.handleChangeLayoutMenu('1-1', indexSection) }}>2 Images verticales</MenuItem>
+            <MenuItem onClick={() => { context.handleChangeLayoutMenu('2-1-1', indexSection) }}>3 Images (Horizontale en haut)</MenuItem>
+            <MenuItem onClick={() => { context.handleChangeLayoutMenu('1-1-2', indexSection) }}>3 Images (Horizontale en bas)</MenuItem>
+            <MenuItem onClick={() => { context.handleChangeLayoutMenu('1-1-1-1', indexSection) }}>4 Images</MenuItem>
+          </Menu>
+        </Grid>
+      </Grid>
+    </ExpansionPanelDetails>
+    <Divider />
+    <ExpansionPanelActions>
+      <Button
+        onClick={() => { context.handleDeleteSection(indexSection) }}
+        disabled={context.state.page.content.sections.length === 1}>
+    Supprimer
+      </Button>
+    </ExpansionPanelActions>
+  </ExpansionPanel>
+)
+
+const SortableList = SortableContainer(({ items, state, classes, context }) => {
+  return (
+    <div>
+      {items.map((value, index) => (
+        <SortableItem key={`item-${index}`} index={index} value={value} indexSection={index} section={value} context={context} classes={classes} state={state} />
+      ))}
+    </div>
+  )
+})
+
 export class PageForm extends React.Component {
   constructor (props) {
     super(props)
@@ -101,6 +278,13 @@ export class PageForm extends React.Component {
     this.handleAddDocument = this.handleAddDocument.bind(this)
     this.handleInit = this.handleInit.bind(this)
     this.handleConvertFromHTML = this.handleConvertFromHTML.bind(this)
+    this.handleSortSections = this.handleSortSections.bind(this)
+    this.handleExpandSection = this.handleExpandSection.bind(this)
+  }
+
+  handleSortSections ({ oldIndex, newIndex }) {
+    console.log(oldIndex, newIndex)
+    arrayMove(this.state.page.content.sections, oldIndex, newIndex)
   }
 
   handleInit (props) {
@@ -381,6 +565,19 @@ export class PageForm extends React.Component {
     }
   }
 
+  handleExpandSection (id, expanded) {
+    console.log(id)
+    console.log(expanded)
+    this.setState((prevState) => {
+      return {
+        panels: {
+          ...prevState.panels,
+          [id]: expanded
+        }
+      }
+    })
+  }
+
   render () {
     const { classes } = this.props
     const { anchorMenuLayout } = this.state
@@ -475,172 +672,11 @@ export class PageForm extends React.Component {
             label='Introduction'
             value={this.state.page.content.intro}
             onChange={this.handleInputChange} />
+          <SortableList distance={50} items={this.state.page.content.sections} onSortEnd={this.handleSortSections} context={this} classes={classes} state={this.state} />
           {
-            this.state.page.content.sections.map((section, indexSection) => (
-              <ExpansionPanel key={indexSection} className={classes.expansion}>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography>
-                    {
-                      section.title === ''
-                        ? 'Volet ' + (indexSection + 1)
-                        : section.title
-                    }
-                  </Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails className={classes.details}>
-                  <Grid container spacing={32}>
-                    <Grid item xs={6}>
-                      <TextField
-                        required
-                        autoComplete='off'
-                        InputLabelProps={{shrink: true}}
-                        className={classes.textfield}
-                        fullWidth
-                        multiline
-                        name={`page.content.sections.${indexSection}.title`}
-                        label='Titre'
-                        value={section.title}
-                        onChange={this.handleInputChange} />
-                      <Editor
-                        editorState={this.state.page.content.sections[indexSection].body}
-                        onEditorStateChange={editorState => this.handleChangeTextArea(editorState, indexSection)}
-                        toolbarCustomButtons={[<CustomOption addDocument={event => { this.handleChangeDocumentUpload(event, indexSection) }} />]}
-                        toolbar={{
-                          options: ['inline', 'blockType', 'textAlign', 'link'],
-                          inline: {
-                            inDropdown: true,
-                            options: ['bold', 'italic', 'underline']
-                          },
-                          blockType: {
-                            inDropdown: true,
-                            options: ['Normal', 'Blockquote']
-                          },
-                          textAlign: {
-                            inDropdown: true,
-                            options: ['left', 'center', 'right', 'justify']
-                          },
-                          link: {
-                            inDropdown: true,
-                            options: ['link', 'unlink']
-                          }
-                        }} />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Tabs
-                        value={this.state.indexTabs[indexSection]}
-                        onChange={(event, value) => this.handleChangeTabs(value, indexSection)}
-                        indicatorColor='primary'
-                        textColor='primary'
-                        centered>
-                        {
-                          section.slides.map((slide, indexSlide) => (
-                            <Tab key={indexSlide} label={`Slide ${indexSlide + 1}`} />
-                          ))
-                        }
-                      </Tabs>
-                      {
-                        section.slides.map((slide, indexSlide) => (
-                          <div key={indexSlide}>
-                            {
-                              this.state.indexTabs[indexSection] === indexSlide &&
-                              <GridList className={classes.gridList} cols={2} rows={2}>
-                                {
-                                  tileData[slide.layout].map((tile, indexImage) => (
-                                    <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
-                                      <div className={classes.tile} style={{backgroundImage: `url('${slide.images[tile.id].url}')`}}>
-                                        {
-                                          this.state.fileUploading.isUploading &&
-                                          this.state.fileUploading.type === 'image' &&
-                                          this.state.fileUploading.indexSection === indexSection &&
-                                          this.state.fileUploading.indexSlide === indexSlide &&
-                                          this.state.fileUploading.indexImage === indexImage
-                                            ? <CircularProgress />
-                                            : (
-                                              <div>
-                                                <IconButton
-                                                  color={slide.images[tile.id].url === '' ? 'primary' : 'secondary'}>
-                                                  <PhotoSizeSelectActualIcon />
-                                                  <input
-                                                    type='file'
-                                                    className={classes.inputfile}
-                                                    onChange={event => { this.handleChangeImageUpload(event, indexSection, indexSlide, indexImage) }} />
-                                                </IconButton>
-                                                <IconButton
-                                                  color={slide.images[tile.id].video === '' ? 'primary' : 'secondary'}
-                                                  onClick={event => { this.handleOpenPopover(event, `${indexSection}-${indexSlide}-${indexImage}`) }}>
-                                                  <OnDemandVideoIcon />
-                                                </IconButton>
-                                                <Popover
-                                                  open={this.state.popoverOpened === `${indexSection}-${indexSlide}-${indexImage}`}
-                                                  anchorEl={this.state.anchorPopover}
-                                                  onClose={this.handleClosePopover}>
-                                                  <TextField
-                                                    className={classes.popover}
-                                                    autoComplete='off'
-                                                    InputLabelProps={{shrink: true}}
-                                                    name='page.title'
-                                                    label='URL Vidéo'
-                                                    value={this.state.page.content.sections[indexSection].slides[indexSlide].images[indexImage].video}
-                                                    onChange={(event) => { this.handleChangePopover(event, indexSection, indexSlide, indexImage) }} />
-                                                </Popover>
-                                              </div>
-                                            )
-                                        }
-                                      </div>
-                                    </GridListTile>
-                                  ))
-                                }
-                              </GridList>
-                            }
-                          </div>
-                        ))
-                      }
-                      <div className={classes.options}>
-                        <Button
-                          variant='outlined'
-                          onClick={event => { this.handleOpenLayoutMenu(event, indexSection) }}
-                          className={classes.option}>
-                          Disposition
-                        </Button>
-                        <Button
-                          variant='outlined'
-                          onClick={() => { this.handleDeleteSlide(indexSection) }}
-                          disabled={section.slides.length === 1}
-                          className={classes.option}>
-                          Supprimer
-                        </Button>
-                        <Button
-                          variant='outlined'
-                          onClick={() => { this.handleAddSlide(indexSection) }}
-                          color='primary'
-                          className={classes.option}>
-                          Ajouter
-                        </Button>
-                      </div>
-                      <Menu
-                        anchorEl={anchorMenuLayout}
-                        open={this.state.menuLayoutOpened === indexSection}
-                        onClose={this.handleCloseLayoutMenu}>
-                        <MenuItem onClick={() => { this.handleChangeLayoutMenu('2', indexSection) }}>1 Image</MenuItem>
-                        <MenuItem onClick={() => { this.handleChangeLayoutMenu('2-2', indexSection) }}>2 Images horizontales</MenuItem>
-                        <MenuItem onClick={() => { this.handleChangeLayoutMenu('1-1', indexSection) }}>2 Images verticales</MenuItem>
-                        <MenuItem onClick={() => { this.handleChangeLayoutMenu('2-1-1', indexSection) }}>3 Images (Horizontale en haut)</MenuItem>
-                        <MenuItem onClick={() => { this.handleChangeLayoutMenu('1-1-2', indexSection) }}>3 Images (Horizontale en bas)</MenuItem>
-                        <MenuItem onClick={() => { this.handleChangeLayoutMenu('1-1-1-1', indexSection) }}>4 Images</MenuItem>
-                      </Menu>
-                    </Grid>
-                  </Grid>
-                </ExpansionPanelDetails>
-                <Divider />
-                <ExpansionPanelActions>
-                  <Button
-                    onClick={() => { this.handleDeleteSection(indexSection) }}
-                    disabled={this.state.page.content.sections.length === 1}>
-                    Supprimer
-                  </Button>
-                </ExpansionPanelActions>
-              </ExpansionPanel>
-            ))
+            // this.state.page.content.sections.map((section, indexSection) => (
+
+            // ))
           }
         </form>
         <div className={classes.buttons}>
