@@ -30,6 +30,7 @@ export class PageList extends React.Component {
     if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully' && nextProps.status !== 'Page updated') || nextProps.error) {
       this.setState({alertOpen: true})
     }
+    this.props.dispatch(initStatus())
   }
 
   handleClose () {
