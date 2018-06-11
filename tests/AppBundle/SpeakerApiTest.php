@@ -238,6 +238,7 @@ class SpeakerApiTest extends WebTestCase
     {
         $client = self::createClient();
         $crawler = $client->request('GET', '/api/speaker/6');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
@@ -270,6 +271,7 @@ class SpeakerApiTest extends WebTestCase
     {
         $client = self::createClient();
         $crawler = $client->request('GET', '/api/speaker');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
@@ -365,6 +367,7 @@ class SpeakerApiTest extends WebTestCase
     {
         $client = self::createClient();
         $crawler = $client->request('GET', '/api/speaker/5/1');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
@@ -396,6 +399,7 @@ class SpeakerApiTest extends WebTestCase
     {
         $client = self::createClient();
         $crawler = $client->request('PUT', '/api/speaker/5/position/1');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
@@ -489,7 +493,8 @@ class SpeakerApiTest extends WebTestCase
     public function testReturnedJsonVersionLogSpeaker()
     {
         $client = self::createClient();
-        $crawler = $client->request('PUT', '/api/speaker/5/versions');
+        $crawler = $client->request('GET', '/api/speaker/5/versions');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);

@@ -212,6 +212,7 @@ class PageApiTest extends WebTestCase
     {
         $client = self::createClient();
         $crawler = $client->request('GET', '/api/pages/18');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
@@ -658,6 +659,7 @@ class PageApiTest extends WebTestCase
     {
         $client = self::createClient();
         $crawler = $client->request('GET', '/api/pages/18/1');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
@@ -706,6 +708,7 @@ class PageApiTest extends WebTestCase
     {
         $client = self::createClient();
         $crawler = $client->request('GET', '/api/pages/13/translation');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
@@ -1317,6 +1320,7 @@ class PageApiTest extends WebTestCase
     {
         $client = self::createClient();
         $crawler = $client->request('GET', '/api/pages/18/brother');
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
@@ -1332,6 +1336,7 @@ class PageApiTest extends WebTestCase
     {
         $client = self::createClient();
         $crawler = $client->request('GET', '/api/pages/19/brother');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
@@ -1361,7 +1366,8 @@ class PageApiTest extends WebTestCase
     public function testReturnedJsonVersionLogPage()
     {
         $client = self::createClient();
-        $crawler = $client->request('PUT', '/api/pages/18/versions');
+        $crawler = $client->request('GET', '/api/pages/18/versions');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
