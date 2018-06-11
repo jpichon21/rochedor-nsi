@@ -209,21 +209,7 @@ class SpeakerApiTest extends WebTestCase
     public function testReturnedVersionSpeaker()
     {
         $client = self::createClient();
-        $crawler = $client->request('GET', '/api/speaker/5/version');
-
-        $this->assertTrue(
-            $client->getResponse()->headers->contains(
-                'Content-Type',
-                'application/json'
-            ),
-            'the "Content-Type" header is "application/json"' // optional message shown on failure
-        );
-    }
-    
-    public function testReturnedReverseSpeaker()
-    {
-        $client = self::createClient();
-        $crawler = $client->request('PUT', '/api/speaker/5/1');
+        $crawler = $client->request('GET', '/api/speaker/5/versions');
 
         $this->assertTrue(
             $client->getResponse()->headers->contains(
@@ -503,7 +489,7 @@ class SpeakerApiTest extends WebTestCase
     public function testReturnedJsonVersionLogSpeaker()
     {
         $client = self::createClient();
-        $crawler = $client->request('PUT', '/api/speaker/5/version');
+        $crawler = $client->request('PUT', '/api/speaker/5/versions');
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);

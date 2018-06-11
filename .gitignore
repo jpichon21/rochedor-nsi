@@ -19,3 +19,4 @@
 /web/assets/*
 yarn-error.log
 /web/uploads/*
+/tests/reports/*
