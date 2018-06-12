@@ -31,7 +31,7 @@ class SpeakerApiTest extends WebTestCase
     public function testGetOneVersionSpeaker()
     {
         $client = self::createClient();
-        $crawler = $client->request('GET', '/api/speaker/5/1');
+        $crawler = $client->request('GET', '/api/speaker/147/1');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
@@ -39,15 +39,6 @@ class SpeakerApiTest extends WebTestCase
     {
         $client = self::createClient();
         $crawler = $client->request('GET', '/api/speaker/5/versions');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-    }
-
-    
-    // Test PUT
-    public function testReverseSpeaker()
-    {
-        $client = self::createClient();
-        $crawler = $client->request('PUT', '/api/speaker/5/1');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
     
@@ -257,24 +248,24 @@ class SpeakerApiTest extends WebTestCase
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
         $speakerTest = [
-            "id" => 6,
-            "name" => "Raoul Fernando",
-            "title" => [
-                "fr" => "Maître de conférence",
-                "en" => "Senior Lecturer",
-                "es" => "Conferenciante senior",
-                "de" => "Senior Lecturer",
-                "it" => "docente senior"
-            ],
-            "description" => [
-                "fr" => "Raoul Fernando est un maître de conférence",
-                "en" => "Raoul Fernando is a Senior Lecturer",
-                "es" => "Raoul Fernando es un conferenciante sénior",
-                "de" => "Raoul Fernando ist Senior Lecturer",
-                "it" => "Raoul Fernando è un docente senior"
-            ],
-            "image" => "/uploads/9-michel-free.jpg1528384158.jpeg",
-            "position" => 0
+        "id" => 6,
+        "name" => "Raoul Fernando",
+        "title" => [
+            "fr" => "Ma\u00eetre de conf\u00e9rence",
+            "en" => "Senior Lecturer",
+            "es" => "Conferenciante senior",
+            "de" => "Senior Lecturer",
+            "it" => "docente senior",
+        ],
+        "description" => [
+            "fr" => "Raoul Fernando est un ma\u00eetre de conf\u00e9rence",
+            "en" => "Raoul Fernando is a Senior Lecturer",
+            "es" => "Raoul Fernando es un conferenciante s\u00e9nior",
+            "de" => "Raoul Fernando ist Senior Lecturer",
+            "it" => "Raoul Fernando \u00e8 un docente senior",
+        ],
+        "image" => "/uploads/9-michel-free.jpg1528384158.jpeg",
+        "position" => 0,
         ];
         $this->assertTrue(
             $arrayResponse === $speakerTest
@@ -289,84 +280,83 @@ class SpeakerApiTest extends WebTestCase
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
-
         $speakerListTest = [
-            0 =>[
+            0 => [
                 "id" => 6,
                 "name" => "Raoul Fernando",
                 "title" => [
-                "fr" => "Maître de conférence",
+                "fr" => "Ma\u00eetre de conf\u00e9rence",
                 "en" => "Senior Lecturer",
                 "es" => "Conferenciante senior",
                 "de" => "Senior Lecturer",
                 "it" => "docente senior",
                 ],
                 "description" => [
-                "fr" => "Raoul Fernando est un maître de conférence",
+                "fr" => "Raoul Fernando est un ma\u00eetre de conf\u00e9rence",
                 "en" => "Raoul Fernando is a Senior Lecturer",
-                "es" => "Raoul Fernando es un conferenciante sénior",
+                "es" => "Raoul Fernando es un conferenciante s\u00e9nior",
                 "de" => "Raoul Fernando ist Senior Lecturer",
-                "it" => "Raoul Fernando è un docente senior"
+                "it" => "Raoul Fernando \u00e8 un docente senior",
                 ],
                 "image" => "/uploads/9-michel-free.jpg1528384158.jpeg",
-                "position" => 0
-                ],
+                "position" => 0,
+            ],
             1 => [
                 "id" => 5,
-                "name" => "Jean Gabin",
+                "name" => "Raoul Fernando",
                 "title" => [
-                "fr" => "Intervenant",
-                "en" => "",
-                "es" => "",
-                "de" => "",
-                "it" => ""
+                "fr" => "Ma\u00eetre de conf\u00e9rence",
+                "en" => "Senior Lecturer",
+                "es" => "Conferenciante senior",
+                "de" => "Senior Lecturer",
+                "it" => "docente senior",
                 ],
                 "description" => [
-                "fr" => "Jean Gabin est un Intervenant",
-                "en" => "",
-                "es" => "",
-                "de" => "",
-                "it" => ""
+                "fr" => "Raoul Fernando est un ma\u00eetre de conf\u00e9rence",
+                "en" => "Raoul Fernando is a Senior Lecturer",
+                "es" => "Raoul Fernando es un conferenciante s\u00e9nior",
+                "de" => "Raoul Fernando ist Senior Lecturer",
+                "it" => "Raoul Fernando \u00e8 un docente senior",
                 ],
-                "image" => "http://via.placeholder.com/340x200",
-                "position" => 1
-            ],
+                "image" => "/uploads/9-michel-free.jpg1528384158.jpeg",
+                "position" => 1,
+                ],
             2 => [
                 "id" => 7,
                 "name" => "Héléne Perchi",
                 "title" => [
                 "fr" => "Animatrice pour enfants",
                 "en" => "Children's facilitator",
-                "es" => "facilitadora de los niños",
+                "es" => "facilitadora de los ni\u00f1os",
                 "de" => "Kindervermittlerin",
                 "it" => "facilitatrice per bambini",
                 ],
                 "description" => [
-                "fr" => "Héléne Perchi est une animatrice pour enfants",
-                "en" => "Héléne Perchi is a children's facilitator",
-                "es" => "Héléne Perchi es una facilitadora de los niños",
-                "de" => "Héléne Perchi ist eine Kindervermittlerin",
-                "it" => "Héléne Perchi è una facilitatrice per bambini"
+                "fr" => "H\u00e9l\u00e9ne Perchi est une animatrice pour enfants",
+                "en" => "H\u00e9l\u00e9ne Perchi is a children's facilitator",
+                "es" => "H\u00e9l\u00e9ne Perchi es una facilitadora de los ni\u00f1os",
+                "de" => "H\u00e9l\u00e9ne Perchi ist eine Kindervermittlerin",
+                "it" => "H\u00e9l\u00e9ne Perchi \u00e8 una facilitatrice per bambini",
                 ],
                 "image" => "/uploads/images (3)1528384143.jpeg",
-                "position" => 2
-            ],
+                "position" => 2,
+                ],
             3 => [
                 "id" => 147,
                 "name" => "Testo Speaker",
-                "title" =>[
-                "fr" => "Maître de conférence",
+                "title" => [
+                "fr" => "Ma\u00eetre de conf\u00e9rence",
                 "en" => "Senior Lecturer",
                 "es" => "Conferenciante senior",
                 "de" => "Senior Lecturer",
-                "it" => "docente senior"
+                "it" => "docente senior",
                 ],
                 "description" => [
-                "fr" => "Raoul Fernando est un maître de conférence",
+                "fr" => "Raoul Fernando est un ma\u00eetre de conf\u00e9rence",
                 "en" => "Raoul Fernando is a Senior Lecturer",
-                "es" => "Raoul Fernando es un conferenciante sénior",
+                "es" => "Raoul Fernando es un conferenciante s\u00e9nior",
                 "de" => "Raoul Fernando ist Senior Lecturer",
-                "it" => "Raoul Fernando è un docente senior",
+                "it" => "Raoul Fernando \u00e8 un docente senior",
                 ],
                 "image" => "/uploads/9-michel-free.jpg1528384158.jpeg",
                 "position" => 3,
@@ -418,90 +408,88 @@ class SpeakerApiTest extends WebTestCase
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
-        dump($arrayResponse);
-        exit;
         $speakerVersionTest = [
-            0 =>[
-                "id" => 6,
-                "name" => "Raoul Fernando",
-                "title" => [
-                "fr" => "Maître de conférence",
-                "en" => "Senior Lecturer",
-                "es" => "Conferenciante senior",
-                "de" => "Senior Lecturer",
-                "it" => "docente senior",
+                0 => [
+                    "id" => 6,
+                    "name" => "Raoul Fernando",
+                    "title" => [
+                    "fr" => "Ma\u00eetre de conf\u00e9rence",
+                    "en" => "Senior Lecturer",
+                    "es" => "Conferenciante senior",
+                    "de" => "Senior Lecturer",
+                    "it" => "docente senior",
+                    ],
+                    "description" => [
+                    "fr" => "Raoul Fernando est un ma\u00eetre de conf\u00e9rence",
+                    "en" => "Raoul Fernando is a Senior Lecturer",
+                    "es" => "Raoul Fernando es un conferenciante s\u00e9nior",
+                    "de" => "Raoul Fernando ist Senior Lecturer",
+                    "it" => "Raoul Fernando \u00e8 un docente senior",
+                    ],
+                    "image" => "/uploads/9-michel-free.jpg1528384158.jpeg",
+                    "position" => 0,
                 ],
-                "description" => [
-                "fr" => "Raoul Fernando est un maître de conférence",
-                "en" => "Raoul Fernando is a Senior Lecturer",
-                "es" => "Raoul Fernando es un conferenciante sénior",
-                "de" => "Raoul Fernando ist Senior Lecturer",
-                "it" => "Raoul Fernando è un docente senior"
+                1 => [
+                    "id" => 5,
+                    "name" => "Raoul Fernando",
+                    "title" => [
+                    "fr" => "Ma\u00eetre de conf\u00e9rence",
+                    "en" => "Senior Lecturer",
+                    "es" => "Conferenciante senior",
+                    "de" => "Senior Lecturer",
+                    "it" => "docente senior",
+                    ],
+                    "description" => [
+                    "fr" => "Raoul Fernando est un ma\u00eetre de conf\u00e9rence",
+                    "en" => "Raoul Fernando is a Senior Lecturer",
+                    "es" => "Raoul Fernando es un conferenciante s\u00e9nior",
+                    "de" => "Raoul Fernando ist Senior Lecturer",
+                    "it" => "Raoul Fernando \u00e8 un docente senior",
+                    ],
+                    "image" => "/uploads/9-michel-free.jpg1528384158.jpeg",
+                    "position" => 1,
                 ],
-                "image" => "/uploads/9-michel-free.jpg1528384158.jpeg",
-                "position" => 0
+                2 => [
+                    "id" => 7,
+                    "name" => "Héléne Perchi",
+                    "title" => [
+                    "fr" => "Animatrice pour enfants",
+                    "en" => "Children's facilitator",
+                    "es" => "facilitadora de los ni\u00f1os",
+                    "de" => "Kindervermittlerin",
+                    "it" => "facilitatrice per bambini",
+                    ],
+                    "description" => [
+                    "fr" => "H\u00e9l\u00e9ne Perchi est une animatrice pour enfants",
+                    "en" => "H\u00e9l\u00e9ne Perchi is a children's facilitator",
+                    "es" => "H\u00e9l\u00e9ne Perchi es una facilitadora de los ni\u00f1os",
+                    "de" => "H\u00e9l\u00e9ne Perchi ist eine Kindervermittlerin",
+                    "it" => "H\u00e9l\u00e9ne Perchi \u00e8 una facilitatrice per bambini",
+                    ],
+                    "image" => "/uploads/images (3)1528384143.jpeg",
+                    "position" => 2,
                 ],
-            1 => [
-                "id" => 5,
-                "name" => "Jean Gabin",
-                "title" => [
-                "fr" => "Intervenant",
-                "en" => "",
-                "es" => "",
-                "de" => "",
-                "it" => ""
-                ],
-                "description" => [
-                "fr" => "Jean Gabin est un Intervenant",
-                "en" => "",
-                "es" => "",
-                "de" => "",
-                "it" => ""
-                ],
-                "image" => "http://via.placeholder.com/340x200",
-                "position" => 1
-            ],
-            2 => [
-                "id" => 7,
-                "name" => "Héléne Perchi",
-                "title" => [
-                "fr" => "Animatrice pour enfants",
-                "en" => "Children's facilitator",
-                "es" => "facilitadora de los niños",
-                "de" => "Kindervermittlerin",
-                "it" => "facilitatrice per bambini",
-                ],
-                "description" => [
-                "fr" => "Héléne Perchi est une animatrice pour enfants",
-                "en" => "Héléne Perchi is a children's facilitator",
-                "es" => "Héléne Perchi es una facilitadora de los niños",
-                "de" => "Héléne Perchi ist eine Kindervermittlerin",
-                "it" => "Héléne Perchi è una facilitatrice per bambini"
-                ],
-                "image" => "/uploads/images (3)1528384143.jpeg",
-                "position" => 2
-            ],
-            3 => [
-                "id" => 147,
-                "name" => "Testo Speaker",
-                "title" =>[
-                "fr" => "Maître de conférence",
-                "en" => "Senior Lecturer",
-                "es" => "Conferenciante senior",
-                "de" => "Senior Lecturer",
-                "it" => "docente senior"
-                ],
-                "description" => [
-                "fr" => "Raoul Fernando est un maître de conférence",
-                "en" => "Raoul Fernando is a Senior Lecturer",
-                "es" => "Raoul Fernando es un conferenciante sénior",
-                "de" => "Raoul Fernando ist Senior Lecturer",
-                "it" => "Raoul Fernando è un docente senior",
-                ],
-                "image" => "/uploads/9-michel-free.jpg1528384158.jpeg",
-                "position" => 3,
-            ]
-            ];
+                3 => [
+                    "id" => 147,
+                    "name" => "Testo Speaker",
+                    "title" => [
+                    "fr" => "Ma\u00eetre de conf\u00e9rence",
+                    "en" => "Senior Lecturer",
+                    "es" => "Conferenciante senior",
+                    "de" => "Senior Lecturer",
+                    "it" => "docente senior",
+                    ],
+                    "description" => [
+                    "fr" => "Raoul Fernando est un ma\u00eetre de conf\u00e9rence",
+                    "en" => "Raoul Fernando is a Senior Lecturer",
+                    "es" => "Raoul Fernando es un conferenciante s\u00e9nior",
+                    "de" => "Raoul Fernando ist Senior Lecturer",
+                    "it" => "Raoul Fernando \u00e8 un docente senior",
+                    ],
+                    "image" => "/uploads/9-michel-free.jpg1528384158.jpeg",
+                    "position" => 3,
+                    ]
+                    ];
         $this->assertTrue(
             $arrayResponse === $speakerVersionTest
         );
@@ -510,7 +498,7 @@ class SpeakerApiTest extends WebTestCase
     public function testReturnedJsonVersionLogSpeaker()
     {
         $client = self::createClient();
-        $crawler = $client->request('GET', '/api/speaker/5/versions');
+        $crawler = $client->request('GET', '/api/speaker/6/versions');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $response = $client->getResponse();
         $response = $response->getContent();
