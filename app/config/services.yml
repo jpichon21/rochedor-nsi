@@ -44,3 +44,5 @@ services:
         arguments:
             $contentRepository: '@cmf_routing.content_repository'
             $routeProvider: '@cmf_routing.route_provider'
+    AppBundle\Repository\:
+        resource: ../../src/AppBundle/Repository
