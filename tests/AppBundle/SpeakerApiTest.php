@@ -8,6 +8,11 @@ use AppBundle\Entity\Speaker;
 
 class SpeakerApiTest extends WebTestCase
 {
+    public function resetBDD()
+    {
+        copy(__DIR__.'/test_lrdo.sqlite', __DIR__.'/../../var/data/test_lrdo.sqlite');
+    }
+
     //test GET
     public function testGetAllSpeaker()
     {
@@ -114,6 +119,7 @@ class SpeakerApiTest extends WebTestCase
                 }'
         );
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->resetBDD();
     }
 
     // test not found
@@ -123,6 +129,14 @@ class SpeakerApiTest extends WebTestCase
         $client = self::createClient();
         $crawler = $client->request('DELETE', '/api/speaker/5000');
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
+
+    public function testDeleteSpeaker()
+    {
+        $client = self::createClient();
+        $crawler = $client->request('DELETE', '/api/speaker/1');
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+        $this->resetBDD();
     }
 
     public function testPutNotFoundSpeaker()
@@ -338,7 +352,7 @@ class SpeakerApiTest extends WebTestCase
                 "position" => 2
             ],
             3 => [
-                "id" => 8,
+                "id" => 147,
                 "name" => "Testo Speaker",
                 "title" =>[
                 "fr" => "Maître de conférence",
@@ -397,12 +411,15 @@ class SpeakerApiTest extends WebTestCase
 
     public function testReturnedJsonSetPosSpeaker()
     {
+        $this->resetBDD();
         $client = self::createClient();
         $crawler = $client->request('PUT', '/api/speaker/5/position/1');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
+        dump($arrayResponse);
+        exit;
         $speakerVersionTest = [
             0 =>[
                 "id" => 6,
@@ -465,7 +482,7 @@ class SpeakerApiTest extends WebTestCase
                 "position" => 2
             ],
             3 => [
-                "id" => 8,
+                "id" => 147,
                 "name" => "Testo Speaker",
                 "title" =>[
                 "fr" => "Maître de conférence",

@@ -1207,10 +1207,82 @@ class HomeApiTest extends WebTestCase
                 array(),
                 array(),
                 array('CONTENT_TYPE' => 'application/json'),
-                '{
-                "title": "Mon test"
-            }'
+                '{ 
+                        "title": "Page de Test", 
+                        "sub_title": "Une page pour tester", 
+                        "description": "meta", 
+                        "content": { 
+                        "intro": "Une page pour vérifier le module CMS", 
+                        "sections": [ 
+                        { 
+                        "title": "", 
+                        "body": "", 
+                        "slides": [ 
+                        { 
+                        "layout": "1-1-2", 
+                        "images": [ 
+                        { 
+                        "type": "", 
+                        "url": "", 
+                        "alt": "", 
+                        "video": "" 
+                        }, 
+                        { 
+                        "type": "", 
+                        "url": "", 
+                        "alt": "", 
+                        "video": "" 
+                        }, 
+                        { 
+                        "type": "", 
+                        "url": "", 
+                        "alt": "", 
+                        "video": "" 
+                        }, 
+                        { 
+                        "type": "", 
+                        "url": "", 
+                        "alt": "", 
+                        "video": "" 
+                        } 
+                        ] 
+                        } 
+                        ] 
+                        } 
+                        ] 
+                        }, 
+                        "background": null, 
+                        "locale": "fr", 
+                        "parent": null, 
+                        "children": [], 
+                        "routes": [ 
+                        { 
+                        "path": "/", 
+                        "host": "", 
+                        "schemes": [], 
+                        "methods": [], 
+                        "defaults": { 
+                        "_content_id": "AppBundle\\\\Entity\\\\Page:2" 
+                        }, 
+                        "requirements": [], 
+                        "options": [], 
+                        "condition": "", 
+                        "compiled": null, 
+                        "id": 8, 
+                        "content": null, 
+                        "static_prefix": "/fr", 
+                        "variable_pattern": null, 
+                        "need_recompile": false, 
+                        "name": "fr", 
+                        "position": 0 
+                        } 
+                        ], 
+                        "updated": "2018-06-08T18:18:01+08:00", 
+                        "url": "fr", 
+                        "parent_id": null 
+                        }'
             );
+
             $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
     
@@ -1224,7 +1296,14 @@ class HomeApiTest extends WebTestCase
                 array(),
                 array('CONTENT_TYPE' => 'application/json'),
                 '{
-                "title": "Mon test"
+                "title": "Mon testqsfdv",
+                "sub_title": "",
+                "description": "",
+                "content": [],
+                "background": null,
+                "locale": "de",
+                "parent": null,
+                "children": []
             }'
             );
             $this->assertEquals(404, $client->getResponse()->getStatusCode());

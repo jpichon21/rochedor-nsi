@@ -56,44 +56,115 @@ class PageApiTest extends WebTestCase
             );
             $this->assertEquals(400, $client->getResponse()->getStatusCode());
     }
-
-
-    // // status 200/201 test
+        
+        
+        // // status 200/201 test
     public function testGetAllPages()
     {
         $client = self::createClient();
         $crawler = $client->request('GET', '/api/pages');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
-
+        
     public function testGetOnePages()
     {
         $client = self::createClient();
         $crawler = $client->request('GET', '/api/pages/5');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
-
+        
     public function testGetChildPages()
     {
         $client = self::createClient();
         $crawler = $client->request('GET', '/api/pages/5');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
-
+        
     public function testPutPages()
     {
-            $client = self::createClient();
-            $crawler = $client->request(
-                'PUT',
-                '/api/pages/2',
-                array(),
-                array(),
-                array('CONTENT_TYPE' => 'application/json'),
-                '{
-                "title": "Mon test"
-            }'
-            );
-            $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $client = self::createClient();
+        $crawler = $client->request(
+            'PUT',
+            '/api/pages/2',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            '{ 
+                        "title": "Page de Test", 
+                        "sub_title": "Une page pour tester", 
+                        "description": "meta", 
+                        "content": { 
+                        "intro": "Une page pour vérifier le module CMS", 
+                        "sections": [ 
+                        { 
+                        "title": "", 
+                        "body": "", 
+                        "slides": [ 
+                        { 
+                        "layout": "1-1-2", 
+                        "images": [ 
+                        { 
+                        "type": "", 
+                        "url": "", 
+                        "alt": "", 
+                        "video": "" 
+                        }, 
+                        { 
+                        "type": "", 
+                        "url": "", 
+                        "alt": "", 
+                        "video": "" 
+                        }, 
+                        { 
+                        "type": "", 
+                        "url": "", 
+                        "alt": "", 
+                        "video": "" 
+                        }, 
+                        { 
+                        "type": "", 
+                        "url": "", 
+                        "alt": "", 
+                        "video": "" 
+                        } 
+                        ] 
+                        } 
+                        ] 
+                        } 
+                        ] 
+                        }, 
+                        "background": null, 
+                        "locale": "fr", 
+                        "parent": null, 
+                        "children": [], 
+                        "routes": [ 
+                        { 
+                        "path": "/", 
+                        "host": "", 
+                        "schemes": [], 
+                        "methods": [], 
+                        "defaults": { 
+                        "_content_id": "AppBundle\\\\Entity\\\\Page:2" 
+                        }, 
+                        "requirements": [], 
+                        "options": [], 
+                        "condition": "", 
+                        "compiled": null, 
+                        "id": 8, 
+                        "content": null, 
+                        "static_prefix": "/fr", 
+                        "variable_pattern": null, 
+                        "need_recompile": false, 
+                        "name": "fr", 
+                        "position": 0 
+                        } 
+                        ], 
+                        "updated": "2018-06-08T18:18:01+08:00", 
+                        "url": "fr", 
+                        "parent_id": null 
+                        }'
+        );
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
     public function testDeletePages()
