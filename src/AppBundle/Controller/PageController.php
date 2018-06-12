@@ -14,14 +14,66 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Gedmo\Loggable;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route as CmfRoute;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Swagger\Annotations as SWG;
 
+/**
+ *
+ * @SWG\Swagger(
+ *   schemes={"https"},
+ *   host="rochedor.fr",
+ *   basePath="/api"
+ * )
+ * @SWG\Info(
+ * title="Page API documentation",
+ * version="1.0.0"
+ * )
+ */
 class PageController extends Controller
 {
     /**
-     * @Rest\Post("/pages")
-     * @Rest\View()
-     * @ParamConverter("page", converter="fos_rest.request_body")
-     */
+    * @Rest\Post("/pages")
+    * @Rest\View()
+    * @ParamConverter("page", converter="fos_rest.request_body")
+    * @SWG\Post(
+    *   path="/pages",
+    *   summary="Add a new page",
+    *   @SWG\Parameter(
+    *          name="body",
+    *          in="body",
+    *          required=true,
+    *          @SWG\Schema(
+    *              @SWG\Property(
+    *                  property="title",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="sub_title",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="description",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="content",
+    *                  type="object"
+    *              ),
+    *              @SWG\Property(
+    *                  property="locale",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="url",
+    *                  type="string"
+    *              )
+    *          )
+    *     ),
+    *   @SWG\Response(
+    *     response=200,
+    *     description="The created page"
+    *   )
+    * )
+    */
     public function postAction(Page $page)
     {
         $em = $this->getDoctrine()->getManager();
@@ -95,6 +147,28 @@ class PageController extends Controller
     /**
      * @Rest\Get("/pages/{id}/{version}", requirements={"version"="\d+"} , defaults={"version" = null})
      * @Rest\View()
+     * @SWG\Get(
+     *  path="/pages/{id}/{version}",
+     *      summary="Get a page",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="The page ID",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="version",
+     *          in="path",
+     *          description="The page version",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested page"
+     *      )
+     *    )
      */
     public function showAction($id, $version)
     {

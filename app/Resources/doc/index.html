@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="main.css">
+    <meta charset="UTF-8">
+    <title>Page API documentation</title>
+                                                         </head>
+<body>
+<div class="container">
+    <h1>Page API documentation</h1>
+    <p class="sw-info">
+        Base URL: <span class="sw-info-basePath">/api</span>,
+        Version: <span class="sw-info-version">1.0.0</span>
+    </p>
+    <p></p>
+    
+    
+    <div id="sw-schemes" class="sw-default-value">
+        <span class="sw-default-value-header">Schemes:</span>
+        https
+    </div>
+    
+        <h2 id="swagger--summary-no-tags">Summary</h2>
+        <table class="table table-bordered table-condensed swagger--summary">
+            <thead>
+            <tr>
+                <th>Path</th>
+                <th>Operation</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                            <td class="swagger--summary-path" rowspan="1">
+                                <a href="#path--pages">/pages</a>
+                            </td>
+                        <td>
+                            <a href="#operation--pages-post">POST</a>
+                        </td>
+                        <td>
+                            <p>Add a new page</p>
+        
+                        </td>
+                    </tr>
+                    <tr>
+                            <td class="swagger--summary-path" rowspan="1">
+                                <a href="#path--pages--id---version-">/pages/{id}/{version}</a>
+                            </td>
+                        <td>
+                            <a href="#operation--pages--id---version--get">GET</a>
+                        </td>
+                        <td>
+                            <p>Get a page</p>
+        
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+    
+    
+    
+    <h2>Paths</h2>
+    
+        
+        <span id="path--pages"></span>
+            <div id="operation--pages-post" class="swagger--panel-operation-post panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">Add a new page</div>
+                    <h3 class="panel-title"><span class="operation-name">POST</span> <strong>/pages</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        
+                    </section>
+            
+                        
+                            <section class="sw-request-body">
+                                
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p></p>
+                                            </div>
+                                            <div class="col-md-6 sw-request-model">
+                            <div  class="panel panel-definition">
+                                <div class="panel-body">
+                                        
+                                            <section class="json-schema-properties">
+                                                <dl>
+                                                        <dt data-property-name="title">
+                                                            <span class="json-property-name">title:</span>
+                                                            
+                                                            <span class="json-property-type">string</span>
+                                                            <span class="json-property-range" title="Value limits"></span>
+                                                            
+                                                        </dt>
+                                                        <dd>
+                                                            
+                                                            <div class="json-inner-schema">
+                                                                
+                                                            </div>
+                                                        </dd>
+                                                        <dt data-property-name="sub_title">
+                                                            <span class="json-property-name">sub_title:</span>
+                                                            
+                                                            <span class="json-property-type">string</span>
+                                                            <span class="json-property-range" title="Value limits"></span>
+                                                            
+                                                        </dt>
+                                                        <dd>
+                                                            
+                                                            <div class="json-inner-schema">
+                                                                
+                                                            </div>
+                                                        </dd>
+                                                        <dt data-property-name="description">
+                                                            <span class="json-property-name">description:</span>
+                                                            
+                                                            <span class="json-property-type">string</span>
+                                                            <span class="json-property-range" title="Value limits"></span>
+                                                            
+                                                        </dt>
+                                                        <dd>
+                                                            
+                                                            <div class="json-inner-schema">
+                                                                
+                                                            </div>
+                                                        </dd>
+                                                        <dt data-property-name="content">
+                                                            <span class="json-property-name">content:</span>
+                                                            
+                                                            <span class="json-property-type">object</span>
+                                                            <span class="json-property-range" title="Value limits"></span>
+                                                            
+                                                        </dt>
+                                                        <dd>
+                                                            
+                                                            <div class="json-inner-schema">
+                                                                
+                                                            </div>
+                                                        </dd>
+                                                        <dt data-property-name="locale">
+                                                            <span class="json-property-name">locale:</span>
+                                                            
+                                                            <span class="json-property-type">string</span>
+                                                            <span class="json-property-range" title="Value limits"></span>
+                                                            
+                                                        </dt>
+                                                        <dd>
+                                                            
+                                                            <div class="json-inner-schema">
+                                                                
+                                                            </div>
+                                                        </dd>
+                                                        <dt data-property-name="url">
+                                                            <span class="json-property-name">url:</span>
+                                                            
+                                                            <span class="json-property-type">string</span>
+                                                            <span class="json-property-range" title="Value limits"></span>
+                                                            
+                                                        </dt>
+                                                        <dd>
+                                                            
+                                                            <div class="json-inner-schema">
+                                                                
+                                                            </div>
+                                                        </dd>
+                                                </dl>
+                                            </section>
+                                </div>
+                            </div></div>
+                                        </div>
+                            </section>        
+                    
+                        <section class="sw-responses">
+                    
+                            <dl>
+                                    <dt class="sw-response-200">
+                                        200 OK
+                                    
+                                    </dt>
+                                    <dd class="sw-response-200">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>The created page</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
+            </div>
+        
+        <span id="path--pages--id---version-"></span>
+            <div id="operation--pages--id---version--get" class="swagger--panel-operation-get panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">Get a page</div>
+                    <h3 class="panel-title"><span class="operation-name">GET</span> <strong>/pages/{id}/{version}</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        
+                    </section>
+            
+                    
+                        <section class="sw-request-params">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="sw-param-name"></th>
+                                    <th class="sw-param-description"></th>
+                                    <th class="sw-param-type"></th>
+                                    <th class="sw-param-data-type"></th>
+                                    <th class="sw-param-annotation"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                        <tr>
+                                            <td>
+                                                id
+                                            </td>
+                                            <td><p>The page ID</p>
+                                        </td>
+                                            <td>path</td>
+                                            <td>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                version
+                                            </td>
+                                            <td><p>The page version</p>
+                                        </td>
+                                            <td>path</td>
+                                            <td>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    
+                        <section class="sw-responses">
+                    
+                            <dl>
+                                    <dt class="sw-response-200">
+                                        200 OK
+                                    
+                                    </dt>
+                                    <dd class="sw-response-200">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>The requested page</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
+            </div>
+    
+     
+    
+                       
+        <h2>Schema definitions</h2>
+    
+    
+</div>
+<script src="bundle.js" type="application/javascript"></script>
+</body>
+</html>

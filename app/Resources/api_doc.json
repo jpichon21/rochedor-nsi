@@ -1,0 +1,80 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Page API documentation",
+        "version": "1.0.0"
+    },
+    "host": "rochedor.fr",
+    "basePath": "/api",
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/pages": {
+            "post": {
+                "summary": "Add a new page",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "title": {
+                                    "type": "string"
+                                },
+                                "sub_title": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "type": "object"
+                                },
+                                "locale": {
+                                    "type": "string"
+                                },
+                                "url": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The created page"
+                    }
+                }
+            }
+        },
+        "/pages/{id}/{version}": {
+            "get": {
+                "summary": "Get a page",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The page ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "version",
+                        "in": "path",
+                        "description": "The page version",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested page"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}

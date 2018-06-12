@@ -26,6 +26,9 @@ script/server [-p 8000]` Pour lancer un serveur et la surveillance des assets av
 - Les requêtes dans les repositories en [DQL](https://symfony.com/doc/current/doctrine.html#querying-for-objects-with-dql) dans la mesure du possible
 - Code (noms de variables et méthodes), commentaires en anglais
 
+## Génération de la doc swagger
+- `script/doc`
+
 ## GRUMPHP
 L'outil [grumphp](https://github.com/phpro/grumphp) surveille le code, si un commit ne passe pas, c'est que le code ne suit pas les conventions.
 Pour lancer les vérifications à la main:  
