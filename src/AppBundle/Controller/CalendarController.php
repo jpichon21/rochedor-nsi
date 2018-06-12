@@ -15,25 +15,14 @@ use AppBundle\Repository\CalendarRepository;
 class CalendarController extends Controller
 {
 
-
-  /**
-     * @var CalendarRepository
-     */
-    private $calendarRepo;
-
-    public function __construct(CalendarRepository $calendarRepo)
-    {
-        $this->calendarRepo = $calendarRepo;
-    }
-
     /**
      * @Route("/calendar", name="calendar")
      *
      * @return void
      */
-    public function showCalendarAction()
+    public function showCalendarAction(CalendarRepository $calendarRepo)
     {
-        $sites = $this->calendarRepo->findSites();
+        $sites = $calendarRepo->findSites();
         dump($sites);
         return new Response('test');
     }
