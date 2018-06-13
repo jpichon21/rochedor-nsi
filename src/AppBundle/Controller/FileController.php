@@ -27,7 +27,7 @@ class FileController extends Controller
      *          @SWG\Schema(
      *              @SWG\Property(
      *                  property="file",
-     *                  type="file"
+     *                  type="object"
      *              )
      *          )
      *     ),
