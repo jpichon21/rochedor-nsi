@@ -1,0 +1,52 @@
+{
+    "id": 137,
+    "title": "Mon test",
+    "sub_title": "",
+    "description": "",
+    "content": [],
+    "background": null,
+    "locale": "fr",
+    "parent": null,
+    "children": [
+        {
+            "id": 138,
+            "title": "Mon test 4",
+            "sub_title": "",
+            "description": "",
+            "content": [],
+            "background": null,
+            "locale": "en",
+            "parent": null,
+            "children": [],
+            "routes": [],
+            "updated": "2018-06-12T22:49:21+02:00",
+            "url": null,
+            "parent_id": null
+        }
+    ],
+    "routes": [
+        {
+            "path": "/",
+            "host": "",
+            "schemes": [],
+            "methods": [],
+            "defaults": {
+                "_content_id": "AppBundle\\Entity\\Page:137"
+            },
+            "requirements": [],
+            "options": [],
+            "condition": "",
+            "compiled": null,
+            "id": 26,
+            "content": null,
+            "static_prefix": "/mon-test",
+            "variable_pattern": null,
+            "need_recompile": false,
+            "name": "mon-test",
+            "position": 0
+        }
+    ],
+    "updated": "2018-06-12T22:48:36+02:00",
+    "url": "mon-test",
+    "parent_id": null
+}

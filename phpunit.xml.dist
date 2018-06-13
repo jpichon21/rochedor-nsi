@@ -10,6 +10,8 @@
     <php>
         <ini name="error_reporting" value="-1" />
         <server name="KERNEL_CLASS" value="AppKernel" />
+        <!-- the value is the Doctrine connection string in DSN format -->
+        <env name="DATABASE_URL" value="mysql://USERNAME:PASSWORD@127.0.0.1/DB_NAME" />
     </php>
 
     <testsuites>

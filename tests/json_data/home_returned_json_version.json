@@ -1,0 +1,356 @@
+{
+  "id": 2,
+  "title": "Page de Test",
+  "sub_title": "Une page pour tester",
+  "description": "meta",
+  "content": {
+    "intro": "Une page pour vérifier le module CMS",
+    "sections": [
+      {
+        "title": "",
+        "body": "",
+        "slides": [
+          {
+            "layout": "1-1-2",
+            "images": [
+              {
+                "type": "",
+                "url": "",
+                "alt": "",
+                "video": ""
+              },
+              {
+                "type": "",
+                "url": "",
+                "alt": "",
+                "video": ""
+              },
+              {
+                "type": "",
+                "url": "",
+                "alt": "",
+                "video": ""
+              },
+              {
+                "type": "",
+                "url": "",
+                "alt": "",
+                "video": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "background": null,
+  "locale": "fr",
+  "parent": null,
+  "children": [
+    {
+      "id": 4,
+      "title": "Página de inicio",
+      "sub_title": "Mi página de inicio",
+      "description": "Una meta descripción",
+      "content": {
+        "intro": "Una página para verificar el módulo CMS",
+        "sections": [
+          {
+            "title": "La comunidad",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote>Une citation</blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "Y sus casas"
+          },
+          {
+            "title": "La",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "Pensiones"
+          },
+          {
+            "title": "La",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "Calendario"
+          },
+          {
+            "title": "APOYANOS",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": ""
+          },
+          {
+            "title": "LAS EDICIONES",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "De la Roche D'or"
+          },
+          {
+            "title": "Informacion",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "y contactos"
+          }
+        ]
+      },
+      "background": null,
+      "locale": "es",
+      "parent": null,
+      "children": [],
+      "routes": [
+        {
+          "path": "/",
+          "host": "",
+          "schemes": [],
+          "methods": [],
+          "defaults": {
+            "_content_id": "AppBundle\\Entity\\Page:4"
+          },
+          "requirements": [],
+          "options": [],
+          "condition": "",
+          "compiled": null,
+          "id": 9,
+          "content": null,
+          "static_prefix": "/es",
+          "variable_pattern": null,
+          "need_recompile": false,
+          "name": "es",
+          "position": 0
+        }
+      ],
+      "updated": "2018-06-08T08:16:16+02:00",
+      "url": null,
+      "parent_id": null
+    },
+    {
+      "id": 5,
+      "title": "Startseite",
+      "sub_title": "Meine Startseite",
+      "description": "Eine Meta-Beschreibung",
+      "content": {
+        "intro": "Eine Seite für das Modul CMS",
+        "sections": [
+          {
+            "title": "Die Gemeinschaft",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote>Une citation</blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "UND SEINE HÄUSER"
+          },
+          {
+            "title": "Das",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "Pensionen"
+          },
+          {
+            "title": "Das",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "Kalender"
+          },
+          {
+            "title": "Unterstützen",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "Uns"
+          },
+          {
+            "title": "Die Ausgaben",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "Der Roche D'or"
+          },
+          {
+            "title": "Information",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "UND KONTAKTE"
+          }
+        ]
+      },
+      "background": null,
+      "locale": "de",
+      "parent": null,
+      "children": [],
+      "routes": [
+        {
+          "path": "/",
+          "host": "",
+          "schemes": [],
+          "methods": [],
+          "defaults": {
+            "_content_id": "AppBundle\\Entity\\Page:5"
+          },
+          "requirements": [],
+          "options": [],
+          "condition": "",
+          "compiled": null,
+          "id": 10,
+          "content": null,
+          "static_prefix": "/de",
+          "variable_pattern": null,
+          "need_recompile": false,
+          "name": "de",
+          "position": 0
+        }
+      ],
+      "updated": "2018-06-08T08:20:06+02:00",
+      "url": null,
+      "parent_id": null
+    },
+    {
+      "id": 6,
+      "title": "Pagina iniziale",
+      "sub_title": "a mia home page",
+      "description": "Una meta-descrizione",
+      "content": {
+        "intro": "Una pagina per controllare il modulo CMS",
+        "sections": [
+          {
+            "title": "La Communità",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote>Une citation</blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "E le sue case"
+          },
+          {
+            "title": "Le",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "Ritiri"
+          },
+          {
+            "title": "Il",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "Calendario"
+          },
+          {
+            "title": "No",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "Sostenerci"
+          },
+          {
+            "title": "Edizione",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "Del Roche d'Or"
+          },
+          {
+            "title": "Informazioni",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "E contatti"
+          }
+        ]
+      },
+      "background": null,
+      "locale": "it",
+      "parent": null,
+      "children": [],
+      "routes": [
+        {
+          "path": "/",
+          "host": "",
+          "schemes": [],
+          "methods": [],
+          "defaults": {
+            "_content_id": "AppBundle\\Entity\\Page:6"
+          },
+          "requirements": [],
+          "options": [],
+          "condition": "",
+          "compiled": null,
+          "id": 11,
+          "content": null,
+          "static_prefix": "/it",
+          "variable_pattern": null,
+          "need_recompile": false,
+          "name": "it",
+          "position": 0
+        }
+      ],
+      "updated": "2018-06-08T08:25:07+02:00",
+      "url": null,
+      "parent_id": null
+    },
+    {
+      "id": 7,
+      "title": "Homepage",
+      "sub_title": "My Homepage",
+      "description": "The homepage description",
+      "content": {
+        "intro": "A page to check the CMS module",
+        "sections": [
+          {
+            "title": "The Community",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote>Une citation</blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "And His House"
+          },
+          {
+            "title": "The",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "Pensions"
+          },
+          {
+            "title": "The",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "Calendar"
+          },
+          {
+            "title": "We",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "Support"
+          },
+          {
+            "title": "The Editions",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "Of The Roche D'or"
+          },
+          {
+            "title": "Information",
+            "body": "<h2>Un titre 2</h2>\n<h3>Un titre 3</h3>\n<h4>Un titre 4</h4>\n<h5>un titre 5</h5>\n<h6>un titre 6</h6>\n<blockquote><em>Une citation</em></blockquote>\n<ul>\n<li>Liste a puce 1</li>\n<li>Liste a puce 2</li>\n<li>Liste a puce 3</li>\n</ul>\n<p><strong>Texte en gras</strong></p>\n<p><em>Texte en Italique</em></p>\n<p>Texte Normal</p>\n",
+            "sub_title": "And Contact"
+          }
+        ]
+      },
+      "background": null,
+      "locale": "en",
+      "parent": null,
+      "children": [],
+      "routes": [
+        {
+          "path": "/",
+          "host": "",
+          "schemes": [],
+          "methods": [],
+          "defaults": {
+            "_content_id": "AppBundle\\Entity\\Page:7"
+          },
+          "requirements": [],
+          "options": [],
+          "condition": "",
+          "compiled": null,
+          "id": 12,
+          "content": null,
+          "static_prefix": "/en",
+          "variable_pattern": null,
+          "need_recompile": false,
+          "name": "en",
+          "position": 0
+        }
+      ],
+      "updated": "2018-06-08T08:06:19+02:00",
+      "url": null,
+      "parent_id": null
+    }
+  ],
+  "routes": [
+    {
+      "path": "/",
+      "host": "",
+      "schemes": [],
+      "methods": [],
+      "defaults": {
+        "_content_id": "AppBundle\\Entity\\Page:2"
+      },
+      "requirements": [],
+      "options": [],
+      "condition": "",
+      "compiled": null,
+      "id": 8,
+      "content": null,
+      "static_prefix": "/fr",
+      "variable_pattern": null,
+      "need_recompile": false,
+      "name": "fr",
+      "position": 0
+    }
+  ],
+  "updated": "2018-06-12T23:24:49+02:00",
+  "url": "fr",
+  "parent_id": null
+}

@@ -1,13 +1,13 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
-    schemes: [%httpprotocol%]
+    schemes: ['%httpprotocol%']
 rest_api:
     type: rest
     prefix: /api
     resource: '@AppBundle/Resources/config/rest_routes.yml'
-    schemes: [%httpprotocol%]
+    schemes: ['%httpprotocol%']
 file:
     resource: "@AppBundle/Controller/FileController.php"
     type:     annotation
-    schemes: [%httpprotocol%]
+    schemes: ['%httpprotocol%']

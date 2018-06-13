@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha  --reporter mochawesome --reporter-options reportDir=./tests/reports,reportFilename=report,takePassedScreenshot=true ./tests",
     "standard": "./node_modules/.bin/standard ./app/Resources/assets/"
   },
   "repository": {
@@ -29,6 +29,7 @@
     "bootprint": "^1.0.2",
     "bootprint-openapi": "^1.1.0",
     "clndr": "^1.4.7",
+    "chai": "^4.1.2",
     "copy-webpack-plugin": "^4.5.1",
     "date-fns": "^1.29.0",
     "draft-js": "^0.10.5",
@@ -44,6 +45,7 @@
     "jquery.easing": "^1.4.1",
     "magnific-popup": "^1.1.0",
     "material-ui-pickers": "^1.0.0-rc.9",
+    "mochawesome": "^3.0.2",
     "moment": "^2.22.1",
     "node-sass": "^4.9.0",
     "object-path-immutable": "^1.0.2",
@@ -74,6 +76,8 @@
   },
   "devDependencies": {
     "babel-preset-react": "^6.24.1",
+    "mocha": "^5.2.0",
+    "nightmare": "^3.0.1",
     "prop-types": "^15.6.1"
   }
 }
