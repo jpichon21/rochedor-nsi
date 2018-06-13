@@ -11,6 +11,23 @@
     ],
     "paths": {
         "/pages": {
+            "get": {
+                "summary": "Get a list of page who depends of the locale",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "The locale of the pages listed",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested pages"
+                    }
+                }
+            },
             "post": {
                 "summary": "Add a new page",
                 "parameters": [
@@ -71,6 +88,161 @@
                 "responses": {
                     "200": {
                         "description": "The requested page"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Take a page and a version and put the page at the selected version",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The page ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "version",
+                        "in": "path",
+                        "description": "The page version",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested page"
+                    }
+                }
+            }
+        },
+        "/pages/id": {
+            "put": {
+                "summary": "Edit an existent page",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "title": {
+                                    "type": "string"
+                                },
+                                "sub_title": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "type": "object"
+                                },
+                                "locale": {
+                                    "type": "string"
+                                },
+                                "url": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Json Message page updated"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete tthe selected page",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of the selected page",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The page is deleted"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    }
+                }
+            }
+        },
+        "/pages/{id}/translation": {
+            "get": {
+                "summary": "Return all translation available for the selected page",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "the page ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested list of pages"
+                    },
+                    "404": {
+                        "description": "Page selected not found"
+                    }
+                }
+            }
+        },
+        "/pages/{id}/versions": {
+            "get": {
+                "summary": "Return all log entries for the selected page",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "the page ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested logs of your selected page"
+                    },
+                    "404": {
+                        "description": "Page selected not found"
+                    }
+                }
+            }
+        },
+        "/pages/{id}/brother": {
+            "get": {
+                "summary": "Return the selected page and all other pages who depends of the same french locale pages",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "the page ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested list of brother pages"
+                    },
+                    "404": {
+                        "description": "Page selected not found"
+                    },
+                    "403": {
+                        "description": "Page selected has no parent"
                     }
                 }
             }

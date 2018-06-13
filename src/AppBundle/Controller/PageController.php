@@ -129,6 +129,21 @@ class PageController extends Controller
     /**
      * @Rest\Get("/pages")
      * @Rest\View()
+     * @SWG\Get(
+     *  path="/pages",
+     *      summary="Get a list of page who depends of the locale",
+     *      @SWG\Parameter(
+     *          name="locale",
+     *          in="query",
+     *          description="The locale of the pages listed",
+     *          required=true,
+     *          type="string"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested pages"
+     *      )
+     *    )
      */
     public function listAction(Request $request)
     {
@@ -209,6 +224,25 @@ class PageController extends Controller
     /**
      * @Rest\Delete("/pages/{id}")
      * @Rest\View()
+     * @SWG\Delete(
+     *  path="/pages/id",
+     *      summary="Delete tthe selected page",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="id of the selected page",
+     *          required=true,
+     *          type="string"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The page is deleted"
+     *      ),
+     *      @SWG\Response(
+     *        response=404,
+     *        description="Page not found"
+     *      )
+     *    )
      */
     public function deleteAction($id)
     {
@@ -227,6 +261,49 @@ class PageController extends Controller
     /**
      * @Rest\Put("/pages/{id}")
      * @Rest\View()
+     * @SWG\Put(
+     *   path="/pages/id",
+    *   summary="Edit an existent page",
+    *   @SWG\Parameter(
+    *          name="body",
+    *          in="body",
+    *          required=true,
+    *          @SWG\Schema(
+    *              @SWG\Property(
+    *                  property="title",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="sub_title",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="description",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="content",
+    *                  type="object"
+    *              ),
+    *              @SWG\Property(
+    *                  property="locale",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="url",
+    *                  type="string"
+    *              )
+    *          )
+    *     ),
+    *   @SWG\Response(
+    *     response=200,
+    *     description="Json Message page updated"
+    *   ),
+    *   @SWG\Response(
+    *     response=404,
+    *     description="Page not found"
+    *   )
+    * )
      */
     public function putAction($id, Request $request)
     {
@@ -283,6 +360,28 @@ class PageController extends Controller
     /**
      * @Rest\Put("/pages/{id}/{version}", requirements={"version"="\d+"})
      * @Rest\View()
+     * @SWG\Put(
+     *  path="/pages/{id}/{version}",
+     *      summary="Take a page and a version and put the page at the selected version",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="The page ID",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="version",
+     *          in="path",
+     *          description="The page version",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested page"
+     *      )
+     *    )
      */
     public function revertAction($id, $version)
     {
@@ -298,7 +397,25 @@ class PageController extends Controller
     /**
      * @Rest\Get("pages/{id}/translation")
      * @Rest\View()
-     *
+     * @SWG\Get(
+     *  path="/pages/{id}/translation",
+     *      summary="Return all translation available for the selected page",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="the page ID",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested list of pages"
+     *      ),
+     *      @SWG\Response(
+     *        response=404,
+     *        description="Page selected not found"
+     *      )
+     *    )
      * @param integer $id
      * @return json
      */
@@ -315,7 +432,25 @@ class PageController extends Controller
     /**
      * @Rest\Get("pages/{id}/versions")
      * @Rest\View()
-     *
+     * @SWG\Get(
+     *  path="/pages/{id}/versions",
+     *      summary="Return all log entries for the selected page",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="the page ID",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested logs of your selected page"
+     *      ),
+     *      @SWG\Response(
+     *        response=404,
+     *        description="Page selected not found"
+     *      )
+     *    )
      * @param integer $id
      * @return json
      */
@@ -334,7 +469,29 @@ class PageController extends Controller
     /**
      * @Rest\Get("pages/{id}/brother")
      * @Rest\View()
-     *
+     * @SWG\Get(
+     *  path="/pages/{id}/brother",
+     *      summary="Return the selected page and all other pages who depends of the same french locale pages",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="the page ID",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested list of brother pages"
+     *      ),
+     *      @SWG\Response(
+     *        response=404,
+     *        description="Page selected not found"
+     *      ),
+     *      @SWG\Response(
+     *        response=403,
+     *        description="Page selected has no parent"
+     *      ),
+     *    )
      * @param integer $id
      * @return json
      */
