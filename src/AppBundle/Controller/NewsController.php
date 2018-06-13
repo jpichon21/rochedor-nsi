@@ -24,7 +24,7 @@ class NewsController extends Controller
      * @ParamConverter("news", converter="fos_rest.request_body")
      * @SWG\Post(
      *   path="/news",
-     *   summary="Add a new news",
+     *   summary="Add a news",
      *   @SWG\Parameter(
      *          name="body",
      *          in="body",
@@ -77,7 +77,7 @@ class NewsController extends Controller
      * @Rest\View()
      * @SWG\Get(
      *  path="/news",
-     *      summary="Get requested locale news'list",
+     *      summary="Get requested locale news' list",
      *      @SWG\Parameter(
      *          name="locale",
      *          in="query",
@@ -105,7 +105,7 @@ class NewsController extends Controller
      * @Rest\View()
      * @SWG\Get(
      *  path="/news/{id}/{version}",
-     *      summary="Get a news",
+     *      summary="Get requested news",
      *      @SWG\Parameter(
      *          name="id",
      *          in="path",
@@ -173,7 +173,7 @@ class NewsController extends Controller
      *      ),
      *      @SWG\Response(
      *        response=200,
-     *        description="The news is deleted"
+     *        description=""
      *      ),
      *      @SWG\Response(
      *        response=404,
@@ -236,7 +236,7 @@ class NewsController extends Controller
      *      @SWG\Parameter(
      *          name="id",
      *          in="path",
-     *          description="id of the selected news",
+     *          description="The requested news' id",
      *          required=true,
      *          type="string"
      *      ),
@@ -282,17 +282,17 @@ class NewsController extends Controller
      * @Rest\View()
      * @SWG\Get(
      *  path="/news/{id}/versions",
-     *      summary="Return all log entries for the selected news",
+     *      summary="Get requested news' versionss",
      *      @SWG\Parameter(
      *          name="id",
      *          in="path",
-     *          description="the news ID",
+     *          description="The news'id",
      *          required=true,
      *          type="integer"
      *      ),
      *      @SWG\Response(
      *        response=200,
-     *        description="The requested logs of your selected news"
+     *        description="The requested news'versions"
      *      ),
      *      @SWG\Response(
      *        response=404,

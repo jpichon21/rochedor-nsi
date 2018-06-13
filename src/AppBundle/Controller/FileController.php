@@ -66,11 +66,11 @@ class FileController extends Controller
      * @Method({"GET"})
      * @SWG\Get(
      *  path="/file/{id}",
-     *      summary="Get a media",
+     *      summary="Get requested media",
      *      @SWG\Parameter(
      *          name="id",
      *          in="path",
-     *          description="the Media id",
+     *          description="The media id",
      *          required=true,
      *          type="integer"
      *      ),
@@ -96,7 +96,7 @@ class FileController extends Controller
      *      summary="Get list of media",
      *      @SWG\Response(
      *        response=200,
-     *        description="The requested list media"
+     *        description="The medias'list"
      *      )
      *    )
      */

@@ -25,7 +25,7 @@ class HomeController extends Controller
     *  path="/home/{locale}/{version}",
     *      summary="Get requested home",
     *      @SWG\Parameter(
-    *          name="id",
+    *          name="locale",
     *          in="path",
     *          description="Locale home",
     *          required=true,
@@ -125,7 +125,7 @@ class HomeController extends Controller
     *   @SWG\Parameter(
     *          name="id",
     *          in="path",
-    *          description="The home ID",
+    *          description="The home id",
     *          required=true,
     *          type="integer"
     *     ),
@@ -195,17 +195,17 @@ class HomeController extends Controller
     * @Rest\View()
     * @SWG\Get(
     *  path="/home/{id}/versions",
-    *      summary="Return all log entries for the selected home",
+    *      summary="Get requested home's versions",
     *      @SWG\Parameter(
     *          name="id",
     *          in="path",
-    *          description="the home id",
+    *          description="The home id",
     *          required=true,
     *          type="integer"
     *      ),
     *      @SWG\Response(
     *        response=200,
-    *        description="The requested logs of your selected home"
+    *        description="The requested home's versions"
     *      ),
     *      @SWG\Response(
     *        response=404,
