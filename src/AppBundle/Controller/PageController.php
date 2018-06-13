@@ -14,14 +14,66 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Gedmo\Loggable;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route as CmfRoute;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Swagger\Annotations as SWG;
 
+/**
+ *
+ * @SWG\Swagger(
+ *   schemes={"https"},
+ *   host="rochedor.fr",
+ *   basePath="/api"
+ * )
+ * @SWG\Info(
+ * title="Page API documentation",
+ * version="1.0.0"
+ * )
+ */
 class PageController extends Controller
 {
     /**
-     * @Rest\Post("/pages")
-     * @Rest\View()
-     * @ParamConverter("page", converter="fos_rest.request_body")
-     */
+    * @Rest\Post("/pages")
+    * @Rest\View()
+    * @ParamConverter("page", converter="fos_rest.request_body")
+    * @SWG\Post(
+    *   path="/pages",
+    *   summary="Add a new page",
+    *   @SWG\Parameter(
+    *          name="body",
+    *          in="body",
+    *          required=true,
+    *          @SWG\Schema(
+    *              @SWG\Property(
+    *                  property="title",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="sub_title",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="description",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="content",
+    *                  type="object"
+    *              ),
+    *              @SWG\Property(
+    *                  property="locale",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="url",
+    *                  type="string"
+    *              )
+    *          )
+    *     ),
+    *   @SWG\Response(
+    *     response=200,
+    *     description="The created page"
+    *   )
+    * )
+    */
     public function postAction(Page $page)
     {
         $em = $this->getDoctrine()->getManager();
@@ -77,6 +129,21 @@ class PageController extends Controller
     /**
      * @Rest\Get("/pages")
      * @Rest\View()
+     * @SWG\Get(
+     *  path="/pages",
+     *      summary="Get requested locale pages' list",
+     *      @SWG\Parameter(
+     *          name="locale",
+     *          in="query",
+     *          description="The requested locale",
+     *          required=true,
+     *          type="string"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested pages"
+     *      )
+     *    )
      */
     public function listAction(Request $request)
     {
@@ -95,6 +162,28 @@ class PageController extends Controller
     /**
      * @Rest\Get("/pages/{id}/{version}", requirements={"version"="\d+"} , defaults={"version" = null})
      * @Rest\View()
+     * @SWG\Get(
+     *  path="/pages/{id}/{version}",
+     *      summary="Get a page",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="The page ID",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="version",
+     *          in="path",
+     *          description="The page version",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested page"
+     *      )
+     *    )
      */
     public function showAction($id, $version)
     {
@@ -135,6 +224,25 @@ class PageController extends Controller
     /**
      * @Rest\Delete("/pages/{id}")
      * @Rest\View()
+     * @SWG\Delete(
+     *  path="/pages/id",
+     *      summary="Delete requested page",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="The page id",
+     *          required=true,
+     *          type="string"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The page is deleted"
+     *      ),
+     *      @SWG\Response(
+     *        response=404,
+     *        description="Page not found"
+     *      )
+     *    )
      */
     public function deleteAction($id)
     {
@@ -153,6 +261,55 @@ class PageController extends Controller
     /**
      * @Rest\Put("/pages/{id}")
      * @Rest\View()
+     * @SWG\Put(
+     *   path="/pages/id",
+     *   summary="Edit requested page",
+     *   @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          required=true,
+     *          @SWG\Schema(
+     *              @SWG\Property(
+     *                  property="title",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="sub_title",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="description",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="content",
+     *                  type="object"
+     *              ),
+     *              @SWG\Property(
+     *                  property="locale",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="url",
+     *                  type="string"
+     *              )
+     *          )
+     *     ),
+     *   @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="integer"
+     *     ),
+     *   @SWG\Response(
+     *     response=200,
+     *     description=""
+     *   ),
+     *   @SWG\Response(
+     *     response=404,
+     *     description="Page not found"
+     *   )
+     * )
      */
     public function putAction($id, Request $request)
     {
@@ -207,28 +364,31 @@ class PageController extends Controller
     }
 
     /**
-     * @Rest\Put("/pages/{id}/{version}", requirements={"version"="\d+"})
+     * @Rest\Get("pages/{id}/translations")
      * @Rest\View()
-     */
-    public function revertAction($id, $version)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
-        $page = $em->getRepository('AppBundle:Page')->findOneById($id);
-        $logs = $repo->getLogEntries($page);
-        $repo->revert($page, $version);
-        $em->persist($page);
-        $em->flush();
-    }
-
-    /**
-     * @Rest\Get("pages/{id}/translation")
-     * @Rest\View()
-     *
+     * @SWG\Get(
+     *  path="/pages/{id}/translations",
+     *      summary="Get requested page's translatations",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="the page id",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description=""
+     *      ),
+     *      @SWG\Response(
+     *        response=404,
+     *        description="Page not found"
+     *      )
+     *    )
      * @param integer $id
      * @return json
      */
-    public function getTranslationAction($id)
+    public function getTranslationsAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $page = $em->getRepository('AppBundle:Page')->findOneById($id);
@@ -241,7 +401,25 @@ class PageController extends Controller
     /**
      * @Rest\Get("pages/{id}/versions")
      * @Rest\View()
-     *
+     * @SWG\Get(
+     *  path="/pages/{id}/versions",
+     *      summary="Return all log entries for the selected page",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="the page ID",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested logs of your selected page"
+     *      ),
+     *      @SWG\Response(
+     *        response=404,
+     *        description="Page not found"
+     *      )
+     *    )
      * @param integer $id
      * @return json
      */
@@ -255,27 +433,6 @@ class PageController extends Controller
         }
         $logs = $repo->getLogEntries($page);
         return $logs;
-    }
-
-    /**
-     * @Rest\Get("pages/{id}/brother")
-     * @Rest\View()
-     *
-     * @param integer $id
-     * @return json
-     */
-    public function getBrotherAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $page = $em->getRepository('AppBundle:Page')->findOneById($id);
-        if (empty($page)) {
-            return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
-        }
-        $parent = $page->getParent();
-        if ($parent === null) {
-            return new JsonResponse(['message' => 'Page has no parent'], Response::HTTP_FORBIDDEN);
-        }
-        return $parent->getChildren();
     }
 
     /**

@@ -14,13 +14,53 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Gedmo\Loggable;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route as CmfRoute;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Swagger\Annotations as SWG;
 
 class NewsController extends Controller
 {
-     /**
+    /**
      * @Rest\Post("/news")
      * @Rest\View()
      * @ParamConverter("news", converter="fos_rest.request_body")
+     * @SWG\Post(
+     *   path="/news",
+     *   summary="Add a news",
+     *   @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          required=true,
+     *          @SWG\Schema(
+     *              @SWG\Property(
+     *                  property="intro",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="description",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="url",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="start",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="stop",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="locale",
+     *                  type="string"
+     *              )
+     *          )
+     *     ),
+     *   @SWG\Response(
+     *     response=200,
+     *     description="The created news"
+     *   )
+     * )
      */
     public function postAction(News $news)
     {
@@ -35,6 +75,21 @@ class NewsController extends Controller
     /**
      * @Rest\Get("/news")
      * @Rest\View()
+     * @SWG\Get(
+     *  path="/news",
+     *      summary="Get requested locale news' list",
+     *      @SWG\Parameter(
+     *          name="locale",
+     *          in="query",
+     *          description="The requested locale",
+     *          required=true,
+     *          type="string"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested news"
+     *      )
+     *    )
      */
     public function listAction(Request $request)
     {
@@ -48,6 +103,32 @@ class NewsController extends Controller
     /**
      * @Rest\Get("/news/{id}/{version}", requirements={"version"="\d+"} , defaults={"version" = null})
      * @Rest\View()
+     * @SWG\Get(
+     *  path="/news/{id}/{version}",
+     *      summary="Get requested news",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="The news id",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="version",
+     *          in="path",
+     *          description="The news version",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested news"
+     *      ),
+     *      @SWG\Response(
+     *        response=404,
+     *        description="News not found"
+     *      ),
+     *    )
      */
     public function showAction($id, $version)
     {
@@ -80,6 +161,25 @@ class NewsController extends Controller
     /**
      * @Rest\Delete("/news/{id}")
      * @Rest\View()
+     * @SWG\Delete(
+     *  path="/news/id",
+     *      summary="Delete requested news",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="news id",
+     *          required=true,
+     *          type="string"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description=""
+     *      ),
+     *      @SWG\Response(
+     *        response=404,
+     *        description="news not found"
+     *      )
+     *    )
      */
     public function deleteAction($id)
     {
@@ -99,6 +199,56 @@ class NewsController extends Controller
     /**
      * @Rest\Put("/news/{id}")
      * @Rest\View()
+     * @SWG\Put(
+     *   path="/news/{id}",
+     *   summary="Edit requested news",
+     *   @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          required=true,
+     *          @SWG\Schema(
+     *              @SWG\Property(
+     *                  property="intro",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="description",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="url",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="start",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="stop",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="locale",
+     *                  type="string"
+     *              )
+     *          )
+     *     ),
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="The requested news' id",
+     *          required=true,
+     *          type="string"
+     *      ),
+     *   @SWG\Response(
+     *     response=200,
+     *     description=""
+     *   ),
+     *   @SWG\Response(
+     *     response=404,
+     *     description="News not found"
+     *   )
+     * )
      */
     public function putAction($id, Request $request)
     {
@@ -130,7 +280,25 @@ class NewsController extends Controller
     /**
      * @Rest\Get("news/{id}/versions")
      * @Rest\View()
-     *
+     * @SWG\Get(
+     *  path="/news/{id}/versions",
+     *      summary="Get requested news' versionss",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="The news'id",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested news'versions"
+     *      ),
+     *      @SWG\Response(
+     *        response=404,
+     *        description="News not found"
+     *      )
+     *    )
      * @param integer $id
      * @return json
      */

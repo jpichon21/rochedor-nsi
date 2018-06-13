@@ -1,0 +1,751 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Page API documentation",
+        "version": "1.0.0"
+    },
+    "host": "rochedor.fr",
+    "basePath": "/api",
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/file/upload": {
+            "post": {
+                "summary": "Add a new media",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "file": {
+                                    "type": "file"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The created file"
+                    }
+                }
+            }
+        },
+        "/file/{id}": {
+            "get": {
+                "summary": "Get a media",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "the Media id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested media"
+                    }
+                }
+            }
+        },
+        "/file": {
+            "get": {
+                "summary": "Get list of media",
+                "responses": {
+                    "200": {
+                        "description": "The requested list media"
+                    }
+                }
+            }
+        },
+        "/home/{id}": {
+            "put": {
+                "summary": "Edit requested home",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "title": {
+                                    "type": "string"
+                                },
+                                "sub_title": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "type": "object"
+                                },
+                                "locale": {
+                                    "type": "string"
+                                },
+                                "url": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The home ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    }
+                }
+            }
+        },
+        "/home/{id}/versions": {
+            "get": {
+                "summary": "Return all log entries for the selected home",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "the home id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested logs of your selected home"
+                    },
+                    "404": {
+                        "description": "Home not found"
+                    }
+                }
+            }
+        },
+        "/news": {
+            "get": {
+                "summary": "Get requested locale news'list",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "The requested locale",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested news"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Add a new news",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "intro": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "url": {
+                                    "type": "string"
+                                },
+                                "start": {
+                                    "type": "string"
+                                },
+                                "stop": {
+                                    "type": "string"
+                                },
+                                "locale": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The created news"
+                    }
+                }
+            }
+        },
+        "/news/{id}/{version}": {
+            "get": {
+                "summary": "Get a news",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The news id",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "version",
+                        "in": "path",
+                        "description": "The news version",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested news"
+                    },
+                    "404": {
+                        "description": "News not found"
+                    }
+                }
+            }
+        },
+        "/news/id": {
+            "delete": {
+                "summary": "Delete requested news",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "news id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The news is deleted"
+                    },
+                    "404": {
+                        "description": "news not found"
+                    }
+                }
+            }
+        },
+        "/news/{id}": {
+            "put": {
+                "summary": "Edit requested news",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "intro": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "url": {
+                                    "type": "string"
+                                },
+                                "start": {
+                                    "type": "string"
+                                },
+                                "stop": {
+                                    "type": "string"
+                                },
+                                "locale": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of the selected news",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": "News not found"
+                    }
+                }
+            }
+        },
+        "/news/{id}/versions": {
+            "get": {
+                "summary": "Return all log entries for the selected news",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "the news ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested logs of your selected news"
+                    },
+                    "404": {
+                        "description": "News not found"
+                    }
+                }
+            }
+        },
+        "/pages": {
+            "get": {
+                "summary": "Get requested locale pages' list",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "The requested locale",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested pages"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Add a new page",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "title": {
+                                    "type": "string"
+                                },
+                                "sub_title": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "type": "object"
+                                },
+                                "locale": {
+                                    "type": "string"
+                                },
+                                "url": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The created page"
+                    }
+                }
+            }
+        },
+        "/pages/{id}/{version}": {
+            "get": {
+                "summary": "Get a page",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The page ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "version",
+                        "in": "path",
+                        "description": "The page version",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested page"
+                    }
+                }
+            }
+        },
+        "/pages/id": {
+            "put": {
+                "summary": "Edit requested page",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "title": {
+                                    "type": "string"
+                                },
+                                "sub_title": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "type": "object"
+                                },
+                                "locale": {
+                                    "type": "string"
+                                },
+                                "url": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete requested page",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The page id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The page is deleted"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    }
+                }
+            }
+        },
+        "/pages/{id}/translations": {
+            "get": {
+                "summary": "Get requested page's translatations",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "the page id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    }
+                }
+            }
+        },
+        "/pages/{id}/versions": {
+            "get": {
+                "summary": "Return all log entries for the selected page",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "the page ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested logs of your selected page"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "summary": "login",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "username": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "not logged in"
+                    }
+                }
+            }
+        },
+        "/speaker": {
+            "get": {
+                "summary": "Get requested speakers'list ordered by position",
+                "responses": {
+                    "200": {
+                        "description": "The requested speakers"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Add a new speaker",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "title": {
+                                    "type": "json_array"
+                                },
+                                "description": {
+                                    "type": "json_array"
+                                },
+                                "image": {
+                                    "type": "string"
+                                },
+                                "position": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The created speaker"
+                    }
+                }
+            }
+        },
+        "/speaker/{id}/{version}": {
+            "get": {
+                "summary": "Get a speaker",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The speaker id",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "version",
+                        "in": "path",
+                        "description": "The speaker version",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested speaker"
+                    },
+                    "404": {
+                        "description": "Speaker not found"
+                    }
+                }
+            }
+        },
+        "/speaker/id": {
+            "delete": {
+                "summary": "Delete requested speaker",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "speaker id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The speaker is deleted"
+                    },
+                    "404": {
+                        "description": "Speaker not found"
+                    }
+                }
+            }
+        },
+        "/speaker/{id}": {
+            "put": {
+                "summary": "Edit requester speaker",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "title": {
+                                    "type": "json_array"
+                                },
+                                "description": {
+                                    "type": "json_array"
+                                },
+                                "image": {
+                                    "type": "string"
+                                },
+                                "position": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "speaker id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": "Speaker not found"
+                    }
+                }
+            }
+        },
+        "/speaker/{id}/versions": {
+            "get": {
+                "summary": "Return all log entries for the selected speaker",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "the speaker ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested logs"
+                    },
+                    "404": {
+                        "description": "Speaker not found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Revert a speaker into the selected version",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "the speaker id",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "version",
+                        "in": "path",
+                        "description": "The speaker version",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested speaker at the selected version"
+                    }
+                }
+            }
+        },
+        "/speaker/{id}/position/{position}": {
+            "put": {
+                "summary": "Change the position of a speaker and return a list with the new scheduling",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "the speaker id",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "position",
+                        "in": "path",
+                        "description": "The speaker desired position",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of speaker with the new scheduling"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}

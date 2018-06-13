@@ -26,6 +26,8 @@
     "@symfony/webpack-encore": "^0.20.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
+    "bootprint": "^1.0.2",
+    "bootprint-openapi": "^1.1.0",
     "copy-webpack-plugin": "^4.5.1",
     "date-fns": "^1.29.0",
     "draft-js": "^0.10.5",

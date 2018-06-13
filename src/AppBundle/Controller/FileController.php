@@ -17,6 +17,25 @@ class FileController extends Controller
     /**
      * @Route("/api/file/upload")
      * @Method({"POST"})
+     * @SWG\Post(
+     *   path="/file/upload",
+     *   summary="Add a new media",
+     *   @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          required=true,
+     *          @SWG\Schema(
+     *              @SWG\Property(
+     *                  property="file",
+     *                  type="file"
+     *              )
+     *          )
+     *     ),
+     *   @SWG\Response(
+     *     response=200,
+     *     description="The created file"
+     *   )
+     * )
      */
     public function postAction(Request $request, ServiceUpload $upload)
     {
@@ -45,6 +64,21 @@ class FileController extends Controller
      /**
      * @Route("/api/file/{id}")
      * @Method({"GET"})
+     * @SWG\Get(
+     *  path="/file/{id}",
+     *      summary="Get requested media",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="The media id",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested media"
+     *      )
+     *    )
      */
     public function showAction($id)
     {
@@ -57,6 +91,14 @@ class FileController extends Controller
     /**
      * @Route("/api/file/")
      * @Method({"GET"})
+     * @SWG\Get(
+     *  path="/file",
+     *      summary="Get list of media",
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The medias'list"
+     *      )
+     *    )
      */
     public function listAction()
     {

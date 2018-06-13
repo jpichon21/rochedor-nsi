@@ -117,7 +117,7 @@ export function getPageVersions (pageId) {
 export function getPageTranslations (pageId) {
   return dispatch => {
     dispatch({ type: GET_PAGE_TRANSLATIONS, pageId })
-    const url = `${API_URL}pages/${pageId}/translation`
+    const url = `${API_URL}pages/${pageId}/translations`
     return window.fetch(url, {
       headers: { 'Content-Type': 'application/json' },
       method: 'GET',

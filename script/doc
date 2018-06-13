@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+cd "$(dirname $0)/.."
+
+./vendor/bin/swagger --output app/Resources/api_doc.json src/AppBundle && 
+./node_modules/.bin/bootprint openapi app/Resources/api_doc.json app/Resources/doc
