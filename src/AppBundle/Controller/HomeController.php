@@ -15,6 +15,7 @@ use Gedmo\Loggable;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route as CmfRoute;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use AppBundle\ServiceShowPage;
+use Swagger\Annotations as SWG;
 
 class HomeController extends Controller
 {
