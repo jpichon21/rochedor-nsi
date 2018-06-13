@@ -68,6 +68,24 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/calendrier-inscription", name="calendrier_inscription")
+     * @Route("/calendar-registration", name="calendar_registration")
+     * @Route("/kalender-registrierung", name="ralender_Registrierung")
+     * @Route("/calendario-registrazione", name="calendario_registrazione")
+     * @Route("/calendario-registro", name="calendario_registro")
+     */
+    public function calendarRegistrationAction(Request $request, ServiceShowPage $showPage)
+    {
+        $path = $request->getPathInfo();
+        $name = substr($path, 1);
+        $contentDocument = $showPage->getMyContent($name);
+        return $this->render('default/calendar-registration.html.twig', array(
+            'page' => $contentDocument,
+            'availableLocales' => $this->getAvailableLocales($contentDocument)
+        ));
+    }
+
+    /**
      * @Route("/admin", name="admin")
      */
     public function adminAction()

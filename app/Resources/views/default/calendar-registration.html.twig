@@ -1,0 +1,43 @@
+{% set bodyClass = "page calendar-registration" %}
+{% set bodyBackground = page.background %}
+{% extends 'base.html.twig' %}
+{% block content %}
+<div class="content">
+    <div class="left">
+        <div class="inner">
+            <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
+            {% if page.content.intro %}
+            <div class="intro">
+                {{ page.content.intro | raw }}
+            </div>
+            {% endif %}
+            <div class="dropdown">
+                <div class="item">
+                    <h2>{{ 'calendar.registration.one.title' | trans() | raw }}</h2>
+                    <p>Avez-vous déjà participé à une retraite à la Roche d'Or ou aux Fontanilles ?</p>
+                    <p>(nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</p>
+                </div>
+                <div class="item">
+                    <h2>{{ 'calendar.registration.two.title' | trans() | raw }}</h2>
+                </div>
+                <div class="item">
+                    <h2>{{ 'calendar.registration.three.title' | trans() | raw }}</h2>
+                    {{ 'calendar.registration.three.body' | trans({'%entry_number%': 'R18-00002'}) | raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hole">
+    </div>
+    <div class="right">
+        <div class="inner">
+            <h2>{{ 'calendar.registration.summary.title' | trans() | raw }}</h2>
+            <h3>{{ 'calendar.registration.summary.title.retreat' | trans() | raw }}</h3>
+            <h3>{{ 'calendar.registration.summary.title.participants' | trans() | raw }}</h3>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset("assets/js/calendar-registration.js") }}"></script>
+{% endblock %}
