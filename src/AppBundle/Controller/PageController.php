@@ -14,9 +14,19 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Gedmo\Loggable;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route as CmfRoute;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository;
+use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider;
 
 class PageController extends Controller
 {
+    private $contentRepository;
+    private $routeProvider;
+
+    public function __construct(ContentRepository $contentRepository, RouteProvider $routeProvider)
+    {
+        $this->contentRepository = $contentRepository;
+        $this->routeProvider = $routeProvider;
+    }
     /**
      * @Rest\Post("/pages")
      * @Rest\View()
@@ -48,8 +58,6 @@ class PageController extends Controller
             );
         }
         $em->flush();
-        $contentRepository = $this->container->get('cmf_routing.content_repository');
-        $routeProvider = $this->container->get('cmf_routing.route_provider');
         
         $route = new CmfRoute();
 
@@ -58,13 +66,13 @@ class PageController extends Controller
         } else {
             $routeName =  $this->slugify($page->getUrl());
         }
-        if ($routeProvider->getRoutesByNames([$routeName])) {
+        if ($this->routeProvider->getRoutesByNames([$routeName])) {
             return new JsonResponse(['message' => 'Route already exists'], Response::HTTP_FORBIDDEN);
         }
 
         $route->setName($routeName);
         $route->setStaticPrefix('/' . $route->getName());
-        $route->setDefault(RouteObjectInterface::CONTENT_ID, $contentRepository->getContentId($page));
+        $route->setDefault(RouteObjectInterface::CONTENT_ID, $this->contentRepository->getContentId($page));
         $route->setContent($page);
         $em->persist($route);
         $page->addRoute($route);
