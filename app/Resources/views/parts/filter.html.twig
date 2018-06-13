@@ -1,0 +1,33 @@
+<form class="filter">
+    <span class="title">
+        {{ title }}
+    </span>
+    <div class="select">
+        <div class="value">
+            <div class="default active">
+                {{ 'filter.inner.default' | trans() }}
+            </div>
+            <div class="singular">
+                <span class="count"></span>
+                {{ 'filter.inner.selection.singular' | trans() }}
+            </div>
+            <div class="plural">
+                <span class="count"></span>
+                {{ 'filter.inner.selection.plural' | trans() }}
+            </div>
+        </div>
+        <ul>
+            {% for item in items %}
+            <li>
+                <input id="{{ name ~ '_' ~ item.value }}" name="{{ name }}" value="{{ item.value }}" type="checkbox">
+                <label for="{{ name ~ '_' ~ item.value }}">
+                    {% if abbreviation %}
+                    <span class="abbr" style="color: {{ item.color }}">{{ item.abbr }}</span>
+                    {% endif %}
+                    <span title="{{ item.name }}" class="name">{{ item.name }}</span>
+                </label>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</form>

@@ -139,16 +139,136 @@
         <target><![CDATA[Faire<br> un don]]></target>
       </segment>
     </unit>
-    <unit id="3P24U.9" name="home.title">
+    <unit id="_xIh0pv" name="filter.title.site">
       <segment>
-        <source>home.title</source>
-        <target>home.title</target>
+        <source>filter.title.site</source>
+        <target>Sites</target>
       </segment>
     </unit>
-    <unit id="XneOvFD" name="admin.title">
+    <unit id="6EbXPX3" name="filter.title.type">
       <segment>
-        <source>admin.title</source>
-        <target>Roche d'Or - Panneau d'administration CMS</target>
+        <source>filter.title.type</source>
+        <target>Types</target>
+      </segment>
+    </unit>
+    <unit id="YBxvI.S" name="filter.title.intervenants">
+      <segment>
+        <source>filter.title.intervenants</source>
+        <target>Intervenants</target>
+      </segment>
+    </unit>
+    <unit id="4A1GNtj" name="filter.title.traductions">
+      <segment>
+        <source>filter.title.traductions</source>
+        <target>Traductions</target>
+      </segment>
+    </unit>
+    <unit id="ZsqTtfH" name="filter.inner.default">
+      <segment>
+        <source>filter.inner.default</source>
+        <target>Sélectionner</target>
+      </segment>
+    </unit>
+    <unit id="WJZTCIa" name="filter.inner.selection.singular">
+      <segment>
+        <source>filter.inner.selection.singular</source>
+        <target>sélection</target>
+      </segment>
+    </unit>
+    <unit id="TRhsePV" name="filter.inner.selection.plural">
+      <segment>
+        <source>filter.inner.selection.plural</source>
+        <target>sélections</target>
+      </segment>
+    </unit>
+    <unit id="FM0PXMD" name="filter.inner.date.in">
+      <segment>
+        <source>filter.inner.date.in</source>
+        <target>Du</target>
+      </segment>
+    </unit>
+    <unit id="gGyMDWm" name="filter.inner.date.out">
+      <segment>
+        <source>filter.inner.date.out</source>
+        <target>Au</target>
+      </segment>
+    </unit>
+    <unit id="pbylFh8" name="filter.inner.submit">
+      <segment>
+        <source>filter.inner.submit</source>
+        <target>Ok</target>
+      </segment>
+    </unit>
+    <unit id="wY2f8rr" name="filter.title.keyword">
+      <segment>
+        <source>filter.title.keyword</source>
+        <target>Retraites</target>
+      </segment>
+    </unit>
+    <unit id=".0VN0jX" name="filter.inner.keyword">
+      <segment>
+        <source>filter.inner.keyword</source>
+        <target>Mot clé</target>
+      </segment>
+    </unit>
+    <unit id="Q6jhgTg" name="retreats.table.head.dates">
+      <segment>
+        <source>retreats.table.head.dates</source>
+        <target>Dates</target>
+      </segment>
+    </unit>
+    <unit id="fxGgGMw" name="retreats.table.head.sites">
+      <segment>
+        <source>retreats.table.head.sites</source>
+        <target>Sites</target>
+      </segment>
+    </unit>
+    <unit id="2kGPPNK" name="retreats.table.head.events">
+      <segment>
+        <source>retreats.table.head.events</source>
+        <target>Evénements</target>
+      </segment>
+    </unit>
+    <unit id="z44_LRk" name="retreats.table.head.speakers">
+      <segment>
+        <source>retreats.table.head.speakers</source>
+        <target>Intervenants</target>
+      </segment>
+    </unit>
+    <unit id="gYOavAc" name="retreats.table.head.types">
+      <segment>
+        <source>retreats.table.head.types</source>
+        <target>Types</target>
+      </segment>
+    </unit>
+    <unit id="0j2BAw_" name="retreats.table.head.durations">
+      <segment>
+        <source>retreats.table.head.durations</source>
+        <target>Durées</target>
+      </segment>
+    </unit>
+    <unit id="33juit3" name="retreats.table.head.translations">
+      <segment>
+        <source>retreats.table.head.translations</source>
+        <target>Traductions</target>
+      </segment>
+    </unit>
+    <unit id="7tmJeqV" name="retreats.table.head.selections">
+      <segment>
+        <source>retreats.table.head.selections</source>
+        <target>Sélections</target>
+      </segment>
+    </unit>
+    <unit id="3_6XCKH" name="filter.title.speakers">
+      <segment>
+        <source>filter.title.speakers</source>
+        <target>Intervenants</target>
+      </segment>
+    </unit>
+    <unit id="JtjutUk" name="filter.title.translations">
+      <segment>
+        <source>filter.title.translations</source>
+        <target>Traductions</target>
       </segment>
     </unit>
   </file>

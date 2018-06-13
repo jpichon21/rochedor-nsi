@@ -1,0 +1,135 @@
+{% set bodyClass = "calendar" %}
+{% set bodyBackground = page.background %}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/calendar.css") }}">
+{% endblock %}
+{% block content %}
+<div class="content">
+    <h1><small>{{ page.title1 }} </small>{{ page.title2 }}</h1>
+    <div class="zone">
+        <div class="left">
+            <div class="filters">
+                {% include 'parts/filter.html.twig' with {
+                    'name': 'site',
+                    'items': sites,
+                    'title': 'filter.title.site' | trans(),
+                    'abbreviation': true } %}
+                {% include 'parts/filter.html.twig' with {
+                    'name': 'type',
+                    'items': types,
+                    'title': 'filter.title.type' | trans(),
+                    'abbreviation': true } %}
+                <form class="filter-dates">
+                    <span class="title">Dates</span>
+                    <div class="date-in">{{ 'filter.inner.date.in' | trans() }} <span></span></div>
+                    <input class="date-in-value" name="dateIn" type="hidden">
+                    <div class="calendar-in"></div>
+                    <div class="date-out">{{ 'filter.inner.date.out' | trans() }} <span></span></div>
+                    <input class="date-out-value" name="dateOut" type="hidden">
+                    <div class="calendar-out"></div>
+                </form>
+                {% include 'parts/filter.html.twig' with {
+                    'name': 'speaker',
+                    'items': speakers,
+                    'title': 'filter.title.speakers' | trans(),
+                    'abbreviation': false } %}
+                {% include 'parts/filter.html.twig' with {
+                    'name': 'translation',
+                    'items': translations,
+                    'title': 'filter.title.translations' | trans(),
+                    'abbreviation': false } %}
+                <form class="filter-keywords">
+                    <span class="title">{{ 'filter.title.keyword' | trans() }}</span>
+                    <input type="text" name="keywords" placeholder="{{ 'filter.inner.keyword' | trans() }}">
+                </form>
+            </div>
+        </div>
+        <div class="right">
+            <table class="retreats-table">
+                <thead>
+                    <tr>
+                        <th class="dates">{{ 'retreats.table.head.dates' | trans() }}</th>
+                        <th class="sites center">{{ 'retreats.table.head.sites' | trans() }}</th>
+                        <th class="events">{{ 'retreats.table.head.events' | trans() }}</th>
+                        <th class="speakers">{{ 'retreats.table.head.speakers' | trans() }}</th>
+                        <th class="types center">{{ 'retreats.table.head.types' | trans() }}</th>
+                        <th class="durations center">{{ 'retreats.table.head.durations' | trans() }}</th>
+                        <th class="translations center">{{ 'retreats.table.head.translations' | trans() }}</th>
+                        <th class="selections center">{{ 'retreats.table.head.selections' | trans() }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>    
+</div>
+{% endblock %}
+{% block javascripts %}
+<script type="text/template" class="calendar-template">
+    <div class="clndr-controls">
+        <div class="clndr-control-button">
+            <span class="clndr-previous-button">previous</span>
+        </div>
+        <div class="month"><%= month %> <%= year %></div>
+        <div class="clndr-control-button rightalign">
+            <span class="clndr-next-button">next</span>
+        </div>
+    </div>
+    <table class="clndr-table" border="0" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr class="header-days">
+            <% for(var i = 0; i < daysOfTheWeek.length; i++) { %>
+                <td class="header-day"><%= daysOfTheWeek[i] %></td>
+            <% } %>
+            </tr>
+        </thead>
+        <tbody>
+        <% for(var i = 0; i < numberOfRows; i++){ %>
+            <tr>
+            <% for(var j = 0; j < 7; j++){ %>
+            <% var d = j + i * 7; %>
+                <td class="<%= days[d].classes %>">
+                    <div class="day-contents"><%= ('0' + days[d].day).slice(-2) %></div>
+                </td>
+            <% } %>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+</script>
+<script type="text/template" class="retreats-template">
+<% var lastMonth = 0 %>
+<% for (var i = 0; i < retreats.length; i++) { %>
+    <% if (retreats[i].dateIn.format('M') !== lastMonth) { %>
+    <% var lastMonth = retreats[i].dateIn.format('M') %>
+    <tr class="month">
+        <td colspan="8">
+            <%= retreats[i].dateIn.format('MMMM YYYY') %>
+        </td>
+    </tr>
+    <% } %>
+    <% if (!retreats[i + 1] || retreats[i + 1].dateIn.format('M') !== lastMonth) { %>
+    <tr class="retreat last">
+    <% } else { %>
+    <tr class="retreat">
+    <% } %>
+        <td class="dates">
+            <span class="bullet"></span>
+            <span class="fadeline"></span>
+            <%= retreats[i].dateIn.format('Do MMM') %> - <%= retreats[i].dateOut.format('Do MMM') %>
+        </td>
+        <td class="site center" style="color: <%= retreats[i].site.color %>"><%= retreats[i].site.abbr %></td>
+        <td class="event"><%= retreats[i].event %></td>
+        <td class="speaker"><%= retreats[i].speaker.name %></td>
+        <td class="type center"><i style="color: <%= retreats[i].type.color %>"></i><%= retreats[i].type.abbr %></td>
+        <td class="duration center"><%= retreats[i].duration %></td>
+        <td class="translation center"><%= retreats[i].translation %></td>
+        <td class="selection center"><i>></i></td>
+    </tr>
+<% } %>
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+<script src="{{ asset("assets/js/calendar.js") }}"></script>
+{% endblock %}
