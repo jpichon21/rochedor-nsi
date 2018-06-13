@@ -261,20 +261,19 @@ class NewsController extends Controller
         $stop = $request->get('stop');
         $em = $this->getDoctrine()->getManager();
         $news = $em->find('AppBundle\Entity\News', $id);
-        $gedmo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
-        $logs = $gedmo->getLogEntries($news);
         if (empty($news)) {
             return new JsonResponse(['message' => 'News not found'], Response::HTTP_NOT_FOUND);
-        } else {
-            $news->setIntro($intro);
-            $news->setDescription($description);
-            $news->setUrl($url);
-            $news->setStart(new \DateTime($start));
-            $news->setStop(new \DateTime($stop));
-            $em->persist($news);
-            $em->flush();
-            return new JsonResponse(['message' => 'News Updated'], Response::HTTP_OK);
         }
+        $gedmo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
+        $logs = $gedmo->getLogEntries($news);
+        $news->setIntro($intro);
+        $news->setDescription($description);
+        $news->setUrl($url);
+        $news->setStart(new \DateTime($start));
+        $news->setStop(new \DateTime($stop));
+        $em->persist($news);
+        $em->flush();
+        return new JsonResponse(['message' => 'News Updated'], Response::HTTP_OK);
     }
 
     /**

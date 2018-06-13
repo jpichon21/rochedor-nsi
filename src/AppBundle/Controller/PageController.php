@@ -15,6 +15,8 @@ use Gedmo\Loggable;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route as CmfRoute;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Swagger\Annotations as SWG;
+use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository;
+use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider;
 
 /**
  *
@@ -30,6 +32,14 @@ use Swagger\Annotations as SWG;
  */
 class PageController extends Controller
 {
+    private $contentRepository;
+    private $routeProvider;
+
+    public function __construct(ContentRepository $contentRepository, RouteProvider $routeProvider)
+    {
+        $this->contentRepository = $contentRepository;
+        $this->routeProvider = $routeProvider;
+    }
     /**
     * @Rest\Post("/pages")
     * @Rest\View()
@@ -100,8 +110,6 @@ class PageController extends Controller
             );
         }
         $em->flush();
-        $contentRepository = $this->container->get('cmf_routing.content_repository');
-        $routeProvider = $this->container->get('cmf_routing.route_provider');
         
         $route = new CmfRoute();
 
@@ -110,13 +118,13 @@ class PageController extends Controller
         } else {
             $routeName =  $this->slugify($page->getUrl());
         }
-        if ($routeProvider->getRoutesByNames([$routeName])) {
+        if ($this->routeProvider->getRoutesByNames([$routeName])) {
             return new JsonResponse(['message' => 'Route already exists'], Response::HTTP_FORBIDDEN);
         }
 
         $route->setName($routeName);
         $route->setStaticPrefix('/' . $route->getName());
-        $route->setDefault(RouteObjectInterface::CONTENT_ID, $contentRepository->getContentId($page));
+        $route->setDefault(RouteObjectInterface::CONTENT_ID, $this->contentRepository->getContentId($page));
         $route->setContent($page);
         $em->persist($route);
         $page->addRoute($route);
@@ -324,8 +332,6 @@ class PageController extends Controller
         $locale = $request->get('locale');
         $em = $this->getDoctrine()->getManager();
         $page = $em->find('AppBundle\Entity\Page', $id);
-        $gedmo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
-        $logs = $gedmo->getLogEntries($page);
         if (empty($page)) {
             return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
         } else {
@@ -361,6 +367,16 @@ class PageController extends Controller
 
             return new JsonResponse(['message' => 'Page updated']);
         }
+        $gedmo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
+        $logs = $gedmo->getLogEntries($page);
+        $page->setTitle($title);
+        $page->setSubTitle($subTitle);
+        $page->setDescription($description);
+        $page->setContent($content);
+        $page->setBackground($bg);
+        $em->persist($page);
+        $em->flush();
+        return new JsonResponse(['message' => 'Page Updated'], Response::HTTP_OK);
     }
 
     /**

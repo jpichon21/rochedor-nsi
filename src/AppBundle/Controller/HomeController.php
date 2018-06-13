@@ -152,43 +152,42 @@ class HomeController extends Controller
         $locale = $request->get('locale');
         $em = $this->getDoctrine()->getManager();
         $page = $em->find('AppBundle\Entity\Page', $id);
-        $gedmo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
-        $logs = $gedmo->getLogEntries($page);
         if (empty($page)) {
             return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
-        } else {
-            $page->setTitle($title);
-            $page->setSubTitle($subTitle);
-            $page->setDescription($description);
-            $page->setContent($content);
-            $page->setBackground($bg);
-            $page->setLocale($locale);
-            
-            $oldUrl = null;
-            if ($page->getRoutes()) {
-                $oldUrl = $page->getRoutes()[0]->getName();
-            }
-            
-            if ($oldUrl !== $url) {
-                $routeProvider = $this->container->get('cmf_routing.route_provider');
-                if ($routeProvider->getRoutesByNames([$url])) {
-                    return new JsonResponse(['message' => 'Route already exists'], Response::HTTP_FORBIDDEN);
-                }
-                
-                $routes = $page->getRoutes();
-                foreach ($routes as $key => $route) {
-                    $route->setName($url);
-                    $route->setStaticPrefix('/' . $url);
-                    $routes[$key] = $route;
-                }
-            }
-            
-            
-            $em->persist($page);
-            $em->flush();
-            
-            return $page;
         }
+        $gedmo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
+        $logs = $gedmo->getLogEntries($page);
+        $page->setTitle($title);
+        $page->setSubTitle($subTitle);
+        $page->setDescription($description);
+        $page->setContent($content);
+        $page->setBackground($bg);
+        $page->setLocale($locale);
+        
+        $oldUrl = null;
+        if ($page->getRoutes()) {
+            $oldUrl = $page->getRoutes()[0]->getName();
+        }
+            
+        if ($oldUrl !== $url) {
+            $routeProvider = $this->container->get('cmf_routing.route_provider');
+            if ($routeProvider->getRoutesByNames([$url])) {
+                return new JsonResponse(['message' => 'Route already exists'], Response::HTTP_FORBIDDEN);
+            }
+                
+            $routes = $page->getRoutes();
+            foreach ($routes as $key => $route) {
+                $route->setName($url);
+                $route->setStaticPrefix('/' . $url);
+                $routes[$key] = $route;
+            }
+        }
+            
+            
+        $em->persist($page);
+        $em->flush();
+            
+        return $page;
     }
     
     /**
