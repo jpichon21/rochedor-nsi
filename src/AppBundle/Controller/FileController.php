@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\ServiceUpload;
 use AppBundle\Entity\Media;
+use Swagger\Annotations as SWG;
 
 class FileController extends Controller
 {
