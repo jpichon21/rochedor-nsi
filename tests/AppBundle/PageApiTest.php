@@ -9,37 +9,54 @@ use AppBundle\Entity\Page;
 class PageApiTest extends WebTestCase
 {
 
-    public function resetBDD()
+    const NEW_PAGE = 'page_new.json';
+    const NEW_PAGE_BAD = 'page_new_bad.json';
+    const PUT_PAGE = 'page_put.json';
+    const PUT_PAGE_ERROR = 'page_put_error.json';
+    const RETURNED_JSON_LIST = 'page_returned_json_list.json';
+    const RETURNED_JSON_VERSION = 'page_returned_json_version.json';
+    const RETURNED_JSON = 'page_returned_json.json';
+    const RETURNED_JSON_TRANSLATIONS = 'page_returned_json_translations.json';
+    const RETURNED_JSON_BROTHER = 'page_returned_json_brother.json';
+
+    private function loadJson($jsonFile, $toArray = false)
     {
-        copy(__DIR__.'/test_lrdo.sqlite', __DIR__.'/../../var/data/test_lrdo.sqlite');
+        $json = file_get_contents(__DIR__.'/../json_data/'.$jsonFile);
+        return ($toArray) ? json_decode($json, true) : $json;
     }
-    // test 200
-    // public function testCreateOnePages()
-    // {
-    //     $client = self::createClient();
-    //     $crawler = $client->request(
-    //         'POST',
-    //         '/api/pages',
-    //         array(),
-    //         array(),
-    //         array('CONTENT_TYPE' => 'application/json'),
-    //         '{
-    //             "title": "Mon test",
-    //             "sub_title": "",
-    //             "description": "",
-    //             "content": [],
-    //             "background": null,
-    //             "locale": "fr",
-    //             "parent": null,
-    //             "children": [],
-    //             "updated": "2018-05-31T10:06:35+08:00"
-    //         }'
-    //     );
-    //         $this->resetBDD();
-    //         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-    //     }
+
+    private function resetDB()
+    {
+        $client = static::createClient();
+
+        $container = $client->getKernel()->getContainer();
+        $database_user = $container->getParameter('database_user');
+        $database_password = $container->getParameter('database_password');
+        $database_name = $container->getParameter('database_name');
+        $database_host = $container->getParameter('database_host');
+        $database_host = $container->getParameter('database_host');
+        $database_port = $container->getParameter('database_port');
+        exec('export MYSQL_PWD='.$database_password);
+        exec("mysql -u ".$database_user." ".$database_name." -h '".$database_host."' < lrdo-test.sql");
+    }
+
+    public function testCreateOnePage()
+    {
+        $this->resetDB();
+        $client = self::createClient();
+        $crawler = $client->request(
+            'POST',
+            '/api/pages',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            $this->loadJson($this::NEW_PAGE)
+        );
+            $this->resetDB();
+            $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
         
-    public function testBadCreateOnePages()
+    public function testBadCreateOnePage()
     {
         $client = self::createClient();
         $crawler = $client->request(
@@ -48,19 +65,9 @@ class PageApiTest extends WebTestCase
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
-            '{
-                "title": "Mon test",
-                "sub_ti
-                "description": "",
-                "content": [],
-                "background": null,
-                "locale": "fr",
-                "parent": null,
-                "children": [],
-                "updated": "2018-05-31T10:06:35+08:00"
-            }'
+            $this->loadJson($this::NEW_PAGE_BAD)
         );
-            $this->assertEquals(400, $client->getResponse()->getStatusCode());
+            $this->assertEquals(403, $client->getResponse()->getStatusCode());
     }
         
         
@@ -92,7 +99,7 @@ class PageApiTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
         
-    public function testPutPages()
+    public function testPutPage()
     {
         $client = self::createClient();
         $crawler = $client->request(
@@ -101,103 +108,28 @@ class PageApiTest extends WebTestCase
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
-            '{ 
-                        "title": "Page de Test", 
-                        "sub_title": "Une page pour tester", 
-                        "description": "meta", 
-                        "content": { 
-                        "intro": "Une page pour vérifier le module CMS", 
-                        "sections": [ 
-                        { 
-                        "title": "", 
-                        "body": "", 
-                        "slides": [ 
-                        { 
-                        "layout": "1-1-2", 
-                        "images": [ 
-                        { 
-                        "type": "", 
-                        "url": "", 
-                        "alt": "", 
-                        "video": "" 
-                        }, 
-                        { 
-                        "type": "", 
-                        "url": "", 
-                        "alt": "", 
-                        "video": "" 
-                        }, 
-                        { 
-                        "type": "", 
-                        "url": "", 
-                        "alt": "", 
-                        "video": "" 
-                        }, 
-                        { 
-                        "type": "", 
-                        "url": "", 
-                        "alt": "", 
-                        "video": "" 
-                        } 
-                        ] 
-                        } 
-                        ] 
-                        } 
-                        ] 
-                        }, 
-                        "background": null, 
-                        "locale": "fr", 
-                        "parent": null, 
-                        "children": [], 
-                        "routes": [ 
-                        { 
-                        "path": "/", 
-                        "host": "", 
-                        "schemes": [], 
-                        "methods": [], 
-                        "defaults": { 
-                        "_content_id": "AppBundle\\\\Entity\\\\Page:2" 
-                        }, 
-                        "requirements": [], 
-                        "options": [], 
-                        "condition": "", 
-                        "compiled": null, 
-                        "id": 8, 
-                        "content": null, 
-                        "static_prefix": "/fr", 
-                        "variable_pattern": null, 
-                        "need_recompile": false, 
-                        "name": "fr", 
-                        "position": 0 
-                        } 
-                        ], 
-                        "updated": "2018-06-08T18:18:01+08:00", 
-                        "url": "fr", 
-                        "parent_id": null 
-                        }'
+            $this->loadJson($this::PUT_PAGE)
         );
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
-    // public function testDeletePages()
-    // {
-    //     $client = self::createClient();
-    //     $crawler = $client->request('DELETE', '/api/pages/2');
-    //     $this->resetBDD();
-    //     $this->assertEquals(200, $client->getResponse()->getStatusCode());
-    // }
+    public function testDeletePage()
+    {
+        $client = self::createClient();
+        $crawler = $client->request('DELETE', '/api/pages/2');
+        $this->resetDB();
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
 
 
-    // test error 404
-
-    public function testErrorDeletePages()
+    public function testErrorDeletePage()
     {
         $client = self::createClient();
         $crawler = $client->request('DELETE', '/api/pages/100000');
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
-    public function testErrorPutPages()
+    public function testErrorPutPage()
     {
             $client = self::createClient();
             $crawler = $client->request(
@@ -206,16 +138,7 @@ class PageApiTest extends WebTestCase
                 array(),
                 array(),
                 array('CONTENT_TYPE' => 'application/json'),
-                '{
-                "title": "Mon test",
-                "sub_title": "",
-                "description": "",
-                "content": [],
-                "background": null,
-                "locale": "fr",
-                "parent": null,
-                "children": []
-            }'
+                $this->loadJson($this::PUT_PAGE_ERROR)
             );
             $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
@@ -227,10 +150,10 @@ class PageApiTest extends WebTestCase
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
-    public function testErrorChildPages()
+    public function testErrorBrotherPages()
     {
         $client = self::createClient();
-        $crawler = $client->request('GET', '/api/pages/10000/children');
+        $crawler = $client->request('GET', '/api/pages/10000/brother');
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
@@ -284,10 +207,10 @@ class PageApiTest extends WebTestCase
         );
     }
 
-    public function testReturnedPagesOnShowChild()
+    public function testReturnedPagesOnShowBrother()
     {
         $client = self::createClient();
-        $crawler = $client->request('GET', '/api/pages/2/Children');
+        $crawler = $client->request('GET', '/api/pages/2/brother');
 
         $this->assertTrue(
             $client->getResponse()->headers->contains(
@@ -307,30 +230,14 @@ class PageApiTest extends WebTestCase
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
 
-        $speakerTest = [
-        "id" => 19,
-        "title" => "Mon test 2",
-        "sub_title" => "",
-        "description" => "",
-        "content" => [],
-        "background" => null,
-        "locale" => "fr",
-        "parent" => null,
-        "children" => [
-            0 => null,
-        ],
-        "routes" => [],
-        "updated" => "2018-06-08T18:26:24+08:00",
-        "url" => null,
-        "parent_id" => null,
-        ];
         $this->assertTrue(
-            $arrayResponse === $speakerTest
+            $arrayResponse === $this->loadJson($this::RETURNED_JSON, true)
         );
     }
 
     public function testReturnedJsonListPage()
     {
+        $this->resetDB();
         $client = self::createClient();
         $crawler = $client->request(
             "GET",
@@ -342,387 +249,8 @@ class PageApiTest extends WebTestCase
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
-        $speakerListTest = [
-        1 => [
-            "id" => 17,
-            "title" => "Altoparlanti",
-            "sub_title" => "elenco dei nostri relatori",
-            "description" => "Meta-desc",
-            "content" =>[
-            "intro" => "",
-            "sections" =>[
-                0 => [
-                "title" => "",
-                "body" => "<p></p>\n",
-                "slides" =>[
-                    0 => [
-                    "layout" => "1-1-2",
-                    "images" =>[
-                        0 =>[
-                        "type" => "",
-                        "url" => "",
-                        "alt" => "",
-                        "video" => "",
-                        ],
-                        1 => [
-                        "type" => "",
-                        "url" => "",
-                        "alt" => "",
-                        "video" => "",
-                        ],
-                        2 => [
-                        "type" => "",
-                        "url" => "",
-                        "alt" => "",
-                        "video" => "",
-                        ],
-                        3 => [
-                        "type" => "",
-                        "url" => "",
-                        "alt" => "",
-                        "video" => "",
-                        ]
-                    ]
-                    ]
-                ]
-                ]
-            ]
-                        ],
-            "background" => null,
-            "locale" => "it",
-            "parent" => [
-            "id" => 13,
-            "title" => "Intervenants",
-            "sub_title" => "Liste de nos intervenants",
-            "description" => "meta-descr",
-            "content" => [
-                "intro" => "",
-                "sections" => [
-                0 => [
-                    "title" => "",
-                    "body" => "<p></p>\n",
-                    "slides" => [
-                    0 => [
-                        "layout" => "1-1-2",
-                        "images" => [
-                        0 => [
-                            "type" => "",
-                            "url" => "",
-                            "alt" => "",
-                            "video" => "",
-                        ],
-                        1 => [
-                            "type" => "",
-                            "url" => "",
-                            "alt" => "",
-                            "video" => "",
-                        ],
-                        2 => [
-                            "type" => "",
-                            "url" => "",
-                            "alt" => "",
-                            "video" => "",
-                        ],
-                        3 => [
-                            "type" => "",
-                            "url" => "",
-                            "alt" => "",
-                            "video" => "",
-                        ]
-                        ]
-                    ]
-                    ]
-                ]
-                ]
-                        ],
-            "background" => null,
-            "locale" => "fr",
-            "parent" => null,
-            "children" => [
-                0 => [
-                "id" => 14,
-                "title" => "Speaker",
-                "sub_title" => "List of our speakers",
-                "description" => "meta-desc",
-                "content" => [
-                    "intro" => "",
-                    "sections" => [
-                    0 => [
-                        "title" => "",
-                        "body" => "<p></p>\n",
-                        "slides" => [
-                        0 => [
-                            "layout" => "1-1-2",
-                            "images" => [
-                            0 => [
-                                "type" => "",
-                                "url" => "",
-                                "alt" => "",
-                                "video" => "",
-                            ],
-                            1 => [
-                                "type" => "",
-                                "url" => "",
-                                "alt" => "",
-                                "video" => "",
-                            ],
-                            2 => [
-                                "type" => "",
-                                "url" => "",
-                                "alt" => "",
-                                "video" => "",
-                            ],
-                            3 => [
-                                "type" => "",
-                                "url" => "",
-                                "alt" => "",
-                                "video" => "",
-                            ]
-                            ]
-                        ]
-                        ]
-                    ]
-                    ]
-                            ],
-                "background" => null,
-                "locale" => "en",
-                "parent" => null,
-                "children" => [],
-                "routes" => [
-                    0 => [
-                    "path" => "/",
-                    "host" => "",
-                    "schemes" => [],
-                    "methods" => [],
-                    "defaults" => [
-                        "_content_id" => "AppBundle\Entity\Page:14"
-                    ],
-                    "requirements" => [],
-                    "options" => [],
-                    "condition" => "",
-                    "compiled" => null,
-                    "id" => 19,
-                    "content" => null,
-                    "static_prefix" => "/speakers",
-                    "variable_pattern" => null,
-                    "need_recompile" => false,
-                    "name" => "speakers",
-                    "position" => 0,
-                    ]
-                ],
-                "updated" => "2018-06-08T08:39:33+08:00",
-                "url" => null,
-                "parent_id" => null,
-                ],
-                1 => [
-                "id" => 15,
-                "title" => "Altavoces",
-                "sub_title" => "lista de nuestros altavoces",
-                "description" => "meta-desc",
-                "content" => [
-                    "intro" => "",
-                    "sections" => [
-                    0 => [
-                        "title" => "",
-                        "body" => "<p></p>\n",
-                        "slides" =>[
-                        0 => [
-                            "layout" => "1-1-2",
-                            "images" => [
-                            0 => [
-                                "type" => "",
-                                "url" => "",
-                                "alt" => "",
-                                "video" => "",
-                            ],
-                            1 => [
-                                "type" => "",
-                                "url" => "",
-                                "alt" => "",
-                                "video" => "",
-                            ],
-                            2 => [
-                                "type" => "",
-                                "url" => "",
-                                "alt" => "",
-                                "video" => "",
-                            ],
-                            3 => [
-                                "type" => "",
-                                "url" => "",
-                                "alt" => "",
-                                "video" => "",
-                            ]
-                            ]
-                        ]
-                        ]
-                    ]
-                    ]
-                            ],
-                "background" => null,
-                "locale" => "es",
-                "parent" => null,
-                "children" => [],
-                "routes" => [
-                    0 => [
-                    "path" => "/",
-                    "host" => "",
-                    "schemes" => [],
-                    "methods" => [],
-                    "defaults" => [
-                        "_content_id" => "AppBundle\Entity\Page:15"
-                    ],
-                    "requirements" => [],
-                    "options" => [],
-                    "condition" => "",
-                    "compiled" => null,
-                    "id" => 20,
-                    "content" => null,
-                    "static_prefix" => "/altavoces",
-                    "variable_pattern" => null,
-                    "need_recompile" => false,
-                    "name" => "altavoces",
-                    "position" => 0,
-                    ]
-                ],
-                "updated" => "2018-06-08T08:40:55+08:00",
-                "url" => null,
-                "parent_id" => null,
-                ],
-                2 => [
-                "id" => 16,
-                "title" => "Lautsprecher",
-                "sub_title" => "Liste unserer Referenten",
-                "description" => "meta-desc",
-                "content" => [
-                    "intro" => "",
-                    "sections" => [
-                    0 => [
-                        "title" => "",
-                        "body" => "<p></p>\n",
-                        "slides" => [
-                        0 =>  [
-                            "layout" => "1-1-2",
-                            "images" =>[
-                            0 => [
-                                "type" => "",
-                                "url" => "",
-                                "alt" => "",
-                                "video" => "",
-                            ],
-                            1 =>  [
-                                "type" => "",
-                                "url" => "",
-                                "alt" => "",
-                                "video" => "",
-                            ],
-                            2 => [
-                                "type" => "",
-                                "url" => "",
-                                "alt" => "",
-                                "video" => "",
-                            ],
-                            3 => [
-                                "type" => "",
-                                "url" => "",
-                                "alt" => "",
-                                "video" => "",
-                            ]
-                            ]
-                        ]
-                        ]
-                    ]
-                    ]
-                            ],
-                "background" => null,
-                "locale" => "de",
-                "parent" => null,
-                "children" => [],
-                "routes" => [
-                    0 => [
-                    "path" => "/",
-                    "host" => "",
-                    "schemes" => [],
-                    "methods" => [],
-                    "defaults" => [
-                        "_content_id" => "AppBundle\Entity\Page:16"
-                    ],
-                    "requirements" => [],
-                    "options" => [],
-                    "condition" => "",
-                    "compiled" => null,
-                    "id" => 21,
-                    "content" => null,
-                    "static_prefix" => "/lautsprecher",
-                    "variable_pattern" => null,
-                    "need_recompile" => false,
-                    "name" => "lautsprecher",
-                    "position" => 0,
-                    ],
-                ],
-                "updated" => "2018-06-08T08:42:02+08:00",
-                "url" => null,
-                "parent_id" => null,
-                ],
-                3 => null,
-            ],
-            "routes" =>  [
-                0 =>  [
-                "path" => "/",
-                "host" => "",
-                "schemes" => [],
-                "methods" => [],
-                "defaults" => [
-                    "_content_id" => "AppBundle\Entity\Page:13"
-                ],
-                "requirements" => [],
-                "options" => [],
-                "condition" => "",
-                "compiled" => null,
-                "id" => 18,
-                "content" => null,
-                "static_prefix" => "/intervenants",
-                "variable_pattern" => null,
-                "need_recompile" => false,
-                "name" => "intervenants",
-                "position" => 0,
-                ]
-            ],
-            "updated" => "2018-06-08T08:38:51+08:00",
-            "url" => null,
-            "parent_id" => null,
-            ],
-            "children" => [],
-            "routes" =>[
-            0 => [
-                "path" => "/",
-                "host" => "",
-                "schemes" => [],
-                "methods" => [],
-                "defaults" => [
-                "_content_id" => "AppBundle\Entity\Page:17"
-                ],
-                "requirements" => [],
-                "options" => [],
-                "condition" => "",
-                "compiled" => null,
-                "id" => 22,
-                "content" => null,
-                "static_prefix" => "/altoparlanti",
-                "variable_pattern" => null,
-                "need_recompile" => false,
-                "name" => "altoparlanti",
-                "position" => 0,
-            ]
-            ],
-            "updated" => "2018-06-08T08:42:48+08:00",
-            "url" => null,
-            "parent_id" => null,
-        ]
-        ];
-
         $this->assertTrue(
-            $arrayResponse === $speakerListTest
+            $arrayResponse === $this->loadJson($this::RETURNED_JSON_LIST, true)
         );
     }
 
@@ -734,64 +262,13 @@ class PageApiTest extends WebTestCase
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
-        $speakerVersionTest =  [
-            "id" => 137,
-            "title" => "Mon test",
-            "sub_title" => "",
-            "description" => "",
-            "content" => [],
-            "background" => null,
-            "locale" => "fr",
-            "parent" => null,
-            "children" =>[
-                0 => [
-                "id" => 138,
-                "title" => "Mon test 4",
-                "sub_title" => "",
-                "description" => "",
-                "content" => [],
-                "background" => null,
-                "locale" => "en",
-                "parent" => null,
-                "children" => [],
-                "routes" => [],
-                "updated" => "2018-06-12T22:49:21+08:00",
-                "url" => null,
-                "parent_id" => null
-                ]
-                ],
-            "routes" =>[
-                0 => [
-                "path" => "/",
-                "host" => "",
-                "schemes" => [],
-                "methods" => [],
-                "defaults" =>[
-                    "_content_id" => "AppBundle\Entity\Page:137"
-                ],
-                "requirements" => [],
-                "options" => [],
-                "condition" => "",
-                "compiled" => null,
-                "id" => 26,
-                "content" => null,
-                "static_prefix" => "/mon-test",
-                "variable_pattern" => null,
-                "need_recompile" => false,
-                "name" => "mon-test",
-                "position" => 0,
-                ]
-            ],
-            "updated" => "2018-06-12T22:48:36+08:00",
-            "url" => "mon-test",
-            "parent_id" => null,
-            ];
+        
         $this->assertTrue(
-            $arrayResponse === $speakerVersionTest
+            $arrayResponse === $this->loadJson($this::RETURNED_JSON_VERSION, true)
         );
     }
 
-    public function testReturnedJsonGetTranslationPage()
+    public function testReturnedJsonGetTranslationsPage()
     {
         $client = self::createClient();
         $crawler = $client->request('GET', '/api/pages/137/translation');
@@ -799,61 +276,8 @@ class PageApiTest extends WebTestCase
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
-        $speakerVersionTest = [
-            0 =>  [
-                "id" => 138,
-                "title" => "Mon test 4",
-                "sub_title" => "",
-                "description" => "",
-                "content" => [],
-                "background" => null,
-                "locale" => "en",
-                "parent" =>  [
-                "id" => 137,
-                "title" => "Mon test 3",
-                "sub_title" => "",
-                "description" => "",
-                "content" => [],
-                "background" => null,
-                "locale" => "fr",
-                "parent" => null,
-                "children" => null,
-                "routes" => [
-                    0 =>  [
-                    "path" => "/",
-                    "host" => "",
-                    "schemes" => [],
-                    "methods" => [],
-                    "defaults" => [
-                        "_content_id" => "AppBundle\Entity\Page:137"
-                    ],
-                    "requirements" => [],
-                    "options" => [],
-                    "condition" => "",
-                    "compiled" => null,
-                    "id" => 26,
-                    "content" => null,
-                    "static_prefix" => "/mon-test",
-                    "variable_pattern" => null,
-                    "need_recompile" => false,
-                    "name" => "mon-test",
-                    "position" => 0,
-                    ]
-                ],
-                "updated" => "2018-06-12T22:48:36+08:00",
-                "url" => null,
-                "parent_id" => null,
-                ],
-                "children" => [],
-                "routes" => [],
-                "updated" => "2018-06-12T22:49:21+08:00",
-                "url" => null,
-                "parent_id" => null,
-                ],
-            ];
-
         $this->assertTrue(
-            $arrayResponse === $speakerVersionTest
+            $arrayResponse === $this->loadJson($this::RETURNED_JSON_TRANSLATIONS, true)
         );
     }
 
@@ -865,11 +289,11 @@ class PageApiTest extends WebTestCase
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
-        $speakerVersionTest =  [
+        $expected =  [
             "message" => "Page has no parent"
         ];
         $this->assertTrue(
-            $arrayResponse === $speakerVersionTest
+            $arrayResponse === $expected
         );
     }
 
@@ -881,25 +305,8 @@ class PageApiTest extends WebTestCase
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
-        $speakerVersionTest = [
-            0 =>  [
-                "id" => 19,
-                "title" => "Mon test 2",
-                "sub_title" => "",
-                "description" => "",
-                "content" => [],
-                "background" => null,
-                "locale" => "fr",
-                "parent" => null,
-                "children" => null,
-                "routes" => [],
-                "updated" => "2018-06-08T18:26:24+08:00",
-                "url" => null,
-                "parent_id" => null,
-            ]
-        ];
         $this->assertTrue(
-            $arrayResponse === $speakerVersionTest
+            $arrayResponse === $this->loadJson($this::RETURNED_JSON_BROTHER, true)
         );
     }
 

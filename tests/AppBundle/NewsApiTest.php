@@ -118,7 +118,7 @@ class NewsApiTest extends WebTestCase
     public function testVersionNotFoundNews()
     {
         $client = self::createClient();
-        $crawler = $client->request('GET', '/api/news/5000/version');
+        $crawler = $client->request('GET', '/api/news/5000/versions');
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
@@ -168,7 +168,7 @@ class NewsApiTest extends WebTestCase
     public function testReturnedVersionNews()
     {
         $client = self::createClient();
-        $crawler = $client->request('GET', '/api/news/5/version');
+        $crawler = $client->request('GET', '/api/news/5/versions');
 
         $this->assertTrue(
             $client->getResponse()->headers->contains(
@@ -192,8 +192,8 @@ class NewsApiTest extends WebTestCase
             "intro" => "ikjubg",
             "description" => "hfvyu",
             "url" => "https://www.google.fr/",
-            "start" => "2018-06-07T13:17:23+08:00",
-            "stop" => "2018-06-07T13:17:23+08:00",
+            "start" => "2018-06-07T13:17:23+02:00",
+            "stop" => "2018-06-07T13:17:23+02:00",
             "locale" => "en",
         ];
 

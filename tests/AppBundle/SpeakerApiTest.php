@@ -164,7 +164,7 @@ class SpeakerApiTest extends WebTestCase
     public function testVersionNotFoundSpeaker()
     {
         $client = self::createClient();
-        $crawler = $client->request('GET', '/api/speaker/5000/version');
+        $crawler = $client->request('GET', '/api/speaker/5000/versions');
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 

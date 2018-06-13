@@ -1,0 +1,17 @@
+[
+  {
+      "id": 19,
+      "title": "Mon test 2",
+      "sub_title": "",
+      "description": "",
+      "content": [],
+      "background": null,
+      "locale": "fr",
+      "parent": null,
+      "children": null,
+      "routes": [],
+      "updated": "2018-06-08T18:26:24+02:00",
+      "url": null,
+      "parent_id": null
+  }
+]
