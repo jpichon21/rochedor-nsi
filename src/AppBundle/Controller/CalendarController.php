@@ -24,7 +24,8 @@ class CalendarController extends Controller
     {
         $sites = $calendarRepo->findSites();
         $typeRetraite =$calendarRepo->findTypesRetraites(19);
-        dump($typeRetraite);
+        $calendrier =$calendarRepo->findCalendrier('2018-06-09', 'RET', 'Roch', 'coAct');
+        dump($calendrier);
         exit;
         dump($sites);
         exit;

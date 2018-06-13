@@ -5,7 +5,7 @@ use AppBundle\Entity\Base;
 use AppBundle\Entity\Tables;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use AppBundle\Entity\contact;
+use AppBundle\Entity\Contact;
 
 class CalendarRepository
 {
@@ -44,10 +44,27 @@ class CalendarRepository
 
     public function findCalendrier($dateDeb, $divAct, $siteAct, $TypLcal)
     {
-        $query = $this->repository->createQueryBuilder('b')
-        ->join('AppBundle:BaseL', 'bl', 'WITH', 'b.cle = bl.cle')
-        ->where('bl.clp=111');
-        return $query->getQuery()->getResult();
+        $imbriquedQuery = $this->repositoryContact->createQueryBuilder('c')
+        ->join('AppBundle:CalL', 'cl', 'WITH', 'c.codco = cl.lcal')
+        ->where('cl.typlcal=:TypLcal')
+        ->setParameter(':TypLcal', $TypLcal);
+        
+        $mainQuery =$this->repositoryContact->createQueryBuilder('c')
+        // ->from(
+        //     $this->repositoryContact->createQueryBuilder('c')
+        //     ->join('AppBundle:CalL', 'cl', 'WITH', 'c.codco = cl.lcal')
+        //     ->where('cl.typlcal = :TypLcal')
+        //     ->setParameter(':TypLcal', $TypLcal)
+        //     )
+        ->join('AppBundle:Calendrier', 'ca', 'with', 'ca.codcal = cl.codcal')
+        ->join('AppBundle:Activite', 'a', 'with', 'a.codact = ca.codb')
+        ->where('datdeb >= :dateDeb')
+        ->andWhere('divact = :divAct')
+        ->andWhere('sitact = :siteAct')
+        ->orderBy('datdeb')
+        ->setParameter(':dateDeb', $dateDeb, ':divAct', $divAct, ':siteAct', $siteAct);
+
+        return $mainQuery->getQuery()->getResult();
     }
 
     public function insertContact(Contact $contact)
