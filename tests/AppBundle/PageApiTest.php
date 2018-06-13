@@ -17,7 +17,6 @@ class PageApiTest extends WebTestCase
     const RETURNED_JSON_VERSION = 'page_returned_json_version.json';
     const RETURNED_JSON = 'page_returned_json.json';
     const RETURNED_JSON_TRANSLATIONS = 'page_returned_json_translations.json';
-    const RETURNED_JSON_BROTHER = 'page_returned_json_brother.json';
 
     private function loadJson($jsonFile, $toArray = false)
     {
@@ -37,7 +36,7 @@ class PageApiTest extends WebTestCase
         $database_host = $container->getParameter('database_host');
         $database_port = $container->getParameter('database_port');
         exec('export MYSQL_PWD='.$database_password);
-        exec("mysql -u ".$database_user." ".$database_name." -h '".$database_host."' < lrdo-test.sql");
+        exec("mysql -u ".$database_user." ".$database_name." -h '".$database_host."' < ".__DIR__."/../lrdo-test.sql");
     }
 
     public function testCreateOnePage()
@@ -271,7 +270,7 @@ class PageApiTest extends WebTestCase
     public function testReturnedJsonGetTranslationsPage()
     {
         $client = self::createClient();
-        $crawler = $client->request('GET', '/api/pages/137/translation');
+        $crawler = $client->request('GET', '/api/pages/137/translations');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $response = $client->getResponse();
         $response = $response->getContent();
@@ -280,36 +279,6 @@ class PageApiTest extends WebTestCase
             $arrayResponse === $this->loadJson($this::RETURNED_JSON_TRANSLATIONS, true)
         );
     }
-
-    public function testForbidenBrotherPage()
-    {
-        $client = self::createClient();
-        $crawler = $client->request('GET', '/api/pages/13/brother');
-        $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        $response = $client->getResponse();
-        $response = $response->getContent();
-        $arrayResponse = json_decode($response, true);
-        $expected =  [
-            "message" => "Page has no parent"
-        ];
-        $this->assertTrue(
-            $arrayResponse === $expected
-        );
-    }
-
-    public function testReturnedJsonBrotherPage()
-    {
-        $client = self::createClient();
-        $crawler = $client->request('GET', '/api/pages/19/brother');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = $client->getResponse();
-        $response = $response->getContent();
-        $arrayResponse = json_decode($response, true);
-        $this->assertTrue(
-            $arrayResponse === $this->loadJson($this::RETURNED_JSON_BROTHER, true)
-        );
-    }
-
 
     public function testReturnedJsonVersionLogPage()
     {

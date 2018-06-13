@@ -32,11 +32,12 @@ class HomeApiTest extends WebTestCase
         $database_host = $container->getParameter('database_host');
         $database_port = $container->getParameter('database_port');
         exec('export MYSQL_PWD='.$database_password);
-        exec("mysql -u ".$database_user." ".$database_name." -h '".$database_host."' < lrdo-test.sql");
+        exec("mysql -u ".$database_user." ".$database_name." -h '".$database_host."' < ".__DIR__."/../lrdo-test.sql");
     }
 
     public function testGetOneHome()
     {
+        $this->resetDB();
         $client = self::createClient();
         $crawler = $client->request('GET', '/api/home/fr');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());

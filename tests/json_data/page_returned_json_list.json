@@ -1,5 +1,5 @@
-{
-    "1": {
+[
+    {
         "id": 17,
         "title": "Altoparlanti",
         "sub_title": "elenco dei nostri relatori",
@@ -354,4 +354,4 @@
         "url": null,
         "parent_id": null
     }
-}
+]

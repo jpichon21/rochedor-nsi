@@ -34,7 +34,7 @@ class SpeakerApiTest extends WebTestCase
         $database_host = $container->getParameter('database_host');
         $database_port = $container->getParameter('database_port');
         exec('export MYSQL_PWD='.$database_password);
-        exec("mysql -u ".$database_user." ".$database_name." -h '".$database_host."' < lrdo-test.sql");
+        exec("mysql -u ".$database_user." ".$database_name." -h '".$database_host."' < ".__DIR__."/../lrdo-test.sql");
     }
 
     //test GET
