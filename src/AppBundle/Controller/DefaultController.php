@@ -26,30 +26,11 @@ class DefaultController extends Controller
     {
         $locale = $this->get('translator')->getLocale();
         $contentDocument = $showPage->getMyContent($locale);
-        $availableLocales = array();
-        if ($locale === "fr") {
-            $cm = $contentDocument->getChildren();
-            $myChild = $cm->getValues();
-        } else {
-            $cm = $contentDocument->getParent();
-            $mc = $cm->getChildren();
-            $myChild = $mc->getValues();
-            $tmpP = $cm->getRoutes()->getValues();
-            $availableLocales['fr'] = $tmpP[0]->getStaticPrefix();
-        }
-        foreach ($myChild as $childPage) {
-            if ($childPage->getLocale() != $contentDocument->getLocale()) {
-                $key = $childPage->getLocale();
-                $tmp = $childPage->getRoutes()->getValues();
-                $availableLocales[$key] = $tmp[0]->getStaticPrefix();
-            }
-        }
-
         $news = $this->getDoctrine()->getRepository('AppBundle:News')->findCurrent($contentDocument->getLocale());
         $lastNews = array_shift($news);
         return $this->render('default/index.html.twig', array(
             'page' => $contentDocument,
-            'availableLocales' => $availableLocales,
+            'availableLocales' => $this->getAvailableLocales($contentDocument),
             'lastNews' => $lastNews
         ));
     }
@@ -63,30 +44,9 @@ class DefaultController extends Controller
      */
     public function showSpeakerAction(Request $request, ServiceShowPage $showPage)
     {
-        
         $path = $request->getPathInfo();
         $name = substr($path, 1);
         $contentDocument = $showPage->getMyContent($name);
-        
-        $availableLocales = array();
-        if ($contentDocument->getLocale() === "fr") {
-            $cm = $contentDocument->getChildren();
-            $myChild = $cm->getValues();
-        } else {
-            $cm = $contentDocument->getParent();
-            $mc = $cm->getChildren();
-            $myChild = $mc->getValues();
-            $tmpP = $cm->getRoutes()->getValues();
-            $availableLocales['fr'] = $tmpP[0]->getStaticPrefix();
-        }
-        foreach ($myChild as $childPage) {
-            if ($childPage->getLocale() != $contentDocument->getLocale()) {
-                $key = $childPage->getLocale();
-                $tmp = $childPage->getRoutes()->getValues();
-                $availableLocales[$key] = $tmp[0]->getStaticPrefix();
-            }
-        }
-
         $speakers = $this->getDoctrine()->getRepository('AppBundle:Speaker')->findAll();
         foreach ($speakers as $speaker) {
             $localSpeaker = new Speaker;
@@ -102,7 +62,7 @@ class DefaultController extends Controller
         }
         return $this->render('default/speaker.html.twig', array(
             'page' => $contentDocument,
-            'availableLocales' => $availableLocales,
+            'availableLocales' => $this->getAvailableLocales($contentDocument),
             'speakers'=> $speakers
         ));
     }
@@ -117,6 +77,14 @@ class DefaultController extends Controller
 
     public function showPageAction($contentDocument)
     {
+        return $this->render('default/page.html.twig', array(
+            'page' => $contentDocument,
+            'availableLocales' => $this->getAvailableLocales($contentDocument)
+        ));
+    }
+
+    public function getAvailableLocales($contentDocument)
+    {
         $availableLocales = array();
         if ($contentDocument->getLocale() === "fr") {
             $cm = $contentDocument->getChildren();
@@ -125,8 +93,8 @@ class DefaultController extends Controller
             $cm = $contentDocument->getParent();
             $mc = $cm->getChildren();
             $myChild = $mc->getValues();
-            $tmpRoute = $cm->getRoutes()->getValues();
-            $availableLocales['fr'] = $tmpRoute[0]->getStaticPrefix();
+            $tmpP = $cm->getRoutes()->getValues();
+            $availableLocales['fr'] = $tmpP[0]->getStaticPrefix();
         }
         foreach ($myChild as $childPage) {
             if ($childPage->getLocale() != $contentDocument->getLocale()) {
@@ -135,10 +103,6 @@ class DefaultController extends Controller
                 $availableLocales[$key] = $tmp[0]->getStaticPrefix();
             }
         }
-
-        return $this->render('default/page.html.twig', array(
-            'page' => $contentDocument,
-            'availableLocales' => $availableLocales
-        ));
+        return $availableLocales;
     }
 }
