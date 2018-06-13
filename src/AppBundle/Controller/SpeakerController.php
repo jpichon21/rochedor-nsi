@@ -37,11 +37,11 @@ class SpeakerController extends Controller
     *              ),
     *              @SWG\Property(
     *                  property="title",
-    *                  type="json_array"
+    *                  type="object"
     *              ),
     *              @SWG\Property(
     *                  property="description",
-    *                  type="json_array"
+    *                  type="object"
     *              ),
     *              @SWG\Property(
     *                  property="image",
@@ -195,11 +195,11 @@ class SpeakerController extends Controller
      *              ),
      *              @SWG\Property(
      *                  property="title",
-     *                  type="json_array"
+     *                  type="object"
      *              ),
      *              @SWG\Property(
      *                  property="description",
-     *                  type="json_array"
+     *                  type="object"
      *              ),
      *              @SWG\Property(
      *                  property="image",

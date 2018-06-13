@@ -21,7 +21,7 @@
                         "schema": {
                             "properties": {
                                 "file": {
-                                    "type": "file"
+                                    "type": "object"
                                 }
                             }
                         }
@@ -36,12 +36,12 @@
         },
         "/file/{id}": {
             "get": {
-                "summary": "Get a media",
+                "summary": "Get requested media",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "the Media id",
+                        "description": "The media id",
                         "required": true,
                         "type": "integer"
                     }
@@ -58,7 +58,7 @@
                 "summary": "Get list of media",
                 "responses": {
                     "200": {
-                        "description": "The requested list media"
+                        "description": "The medias'list"
                     }
                 }
             }
@@ -97,7 +97,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "The home ID",
+                        "description": "The home id",
                         "required": true,
                         "type": "integer"
                     }
@@ -114,19 +114,19 @@
         },
         "/home/{id}/versions": {
             "get": {
-                "summary": "Return all log entries for the selected home",
+                "summary": "Get requested home's versions",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "the home id",
+                        "description": "The home id",
                         "required": true,
                         "type": "integer"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "The requested logs of your selected home"
+                        "description": "The requested home's versions"
                     },
                     "404": {
                         "description": "Home not found"
@@ -136,7 +136,7 @@
         },
         "/news": {
             "get": {
-                "summary": "Get requested locale news'list",
+                "summary": "Get requested locale news' list",
                 "parameters": [
                     {
                         "name": "locale",
@@ -153,7 +153,7 @@
                 }
             },
             "post": {
-                "summary": "Add a new news",
+                "summary": "Add a news",
                 "parameters": [
                     {
                         "name": "body",
@@ -192,7 +192,7 @@
         },
         "/news/{id}/{version}": {
             "get": {
-                "summary": "Get a news",
+                "summary": "Get requested news",
                 "parameters": [
                     {
                         "name": "id",
@@ -233,7 +233,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The news is deleted"
+                        "description": ""
                     },
                     "404": {
                         "description": "news not found"
@@ -275,7 +275,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of the selected news",
+                        "description": "The requested news' id",
                         "required": true,
                         "type": "string"
                     }
@@ -292,19 +292,19 @@
         },
         "/news/{id}/versions": {
             "get": {
-                "summary": "Return all log entries for the selected news",
+                "summary": "Get requested news' versionss",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "the news ID",
+                        "description": "The news'id",
                         "required": true,
                         "type": "integer"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "The requested logs of your selected news"
+                        "description": "The requested news'versions"
                     },
                     "404": {
                         "description": "News not found"
@@ -555,10 +555,10 @@
                                     "type": "string"
                                 },
                                 "title": {
-                                    "type": "json_array"
+                                    "type": "object"
                                 },
                                 "description": {
-                                    "type": "json_array"
+                                    "type": "object"
                                 },
                                 "image": {
                                     "type": "string"
@@ -642,10 +642,10 @@
                                     "type": "string"
                                 },
                                 "title": {
-                                    "type": "json_array"
+                                    "type": "object"
                                 },
                                 "description": {
-                                    "type": "json_array"
+                                    "type": "object"
                                 },
                                 "image": {
                                     "type": "string"
@@ -681,7 +681,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "the speaker ID",
+                        "description": "The speaker ID",
                         "required": true,
                         "type": "integer"
                     }
@@ -701,7 +701,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "the speaker id",
+                        "description": "The speaker id",
                         "required": true,
                         "type": "integer"
                     },
@@ -727,7 +727,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "the speaker id",
+                        "description": "The speaker id",
                         "required": true,
                         "type": "integer"
                     },
@@ -741,7 +741,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "A list of speaker with the new scheduling"
+                        "description": "A speakers'list with the new scheduling"
                     }
                 }
             }
