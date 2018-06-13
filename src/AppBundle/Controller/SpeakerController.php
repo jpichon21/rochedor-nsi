@@ -262,7 +262,7 @@ class SpeakerController extends Controller
      *      @SWG\Parameter(
      *          name="id",
      *          in="path",
-     *          description="the speaker ID",
+     *          description="The speaker ID",
      *          required=true,
      *          type="integer"
      *      ),
@@ -299,7 +299,7 @@ class SpeakerController extends Controller
      *      @SWG\Parameter(
      *          name="id",
      *          in="path",
-     *          description="the speaker id",
+     *          description="The speaker id",
      *          required=true,
      *          type="integer"
      *      ),
@@ -337,7 +337,7 @@ class SpeakerController extends Controller
      *      @SWG\Parameter(
      *          name="id",
      *          in="path",
-     *          description="the speaker id",
+     *          description="The speaker id",
      *          required=true,
      *          type="integer"
      *      ),
@@ -350,7 +350,7 @@ class SpeakerController extends Controller
      *      ),
      *      @SWG\Response(
      *        response=200,
-     *        description="A list of speaker with the new scheduling"
+     *        description="A speakers'list with the new scheduling"
      *      ),
      *    )
      */
