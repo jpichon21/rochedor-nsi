@@ -8,6 +8,31 @@ use AppBundle\Entity\Page;
 
 class NewsApiTest extends WebTestCase
 {
+    const POST_NEWS = 'news_post.json';
+    const PUT_NEWS = 'news_put.json';
+    const RETURNED_JSON = 'news_returned_json.json';
+
+    private function loadJson($jsonFile, $toArray = false)
+    {
+        $json = file_get_contents(__DIR__.'/../json_data/'.$jsonFile);
+        return ($toArray) ? json_decode($json, true) : $json;
+    }
+
+    private function resetDB()
+    {
+        $client = static::createClient();
+
+        $container = $client->getKernel()->getContainer();
+        $database_user = $container->getParameter('database_user');
+        $database_password = $container->getParameter('database_password');
+        $database_name = $container->getParameter('database_name');
+        $database_host = $container->getParameter('database_host');
+        $database_host = $container->getParameter('database_host');
+        $database_port = $container->getParameter('database_port');
+        exec('export MYSQL_PWD='.$database_password);
+        exec("mysql -u ".$database_user." ".$database_name." -h '".$database_host."' < lrdo-test.sql");
+    }
+
     public function testGetAllNews()
     {
         $client = self::createClient();
@@ -52,14 +77,7 @@ class NewsApiTest extends WebTestCase
                 array(),
                 array(),
                 array('CONTENT_TYPE' => 'application/json'),
-                '{
-                "intro": "aea",
-                "description": "azezr",
-                "url": "lolilol.com",
-                "start": "2018-06-07T00:09:36+08:00",
-                "stop": "2018-06-07T00:47:36+08:00",
-                "locale": "fr"
-            }'
+                $this->loadJson($this::POST_NEWS)
             );
             $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
@@ -73,14 +91,7 @@ class NewsApiTest extends WebTestCase
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
-            '{
-                "intro": "aea",
-                "description": "azezr",
-                "url": "lolilol.com",
-                "start": "2018-06-07T00:09:36+08:00",
-                "stop": "2018-06-07T00:47:36+08:00",
-                "locale": "fr"
-            }'
+            $this->loadJson($this::PUT_NEWS)
         );
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
@@ -103,14 +114,7 @@ class NewsApiTest extends WebTestCase
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
-            '{
-                "intro": "aea",
-                "description": "azezr",
-                "url": "lolilol.com",
-                "start": "2018-06-07T00:09:36+08:00",
-                "stop": "2018-06-07T00:47:36+08:00",
-                "locale": "fr"
-            }'
+            $this->loadJson($this::PUT_NEWS)
         );
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
@@ -187,18 +191,9 @@ class NewsApiTest extends WebTestCase
         $response = $client->getResponse();
         $response = $response->getContent();
         $arrayResponse = json_decode($response, true);
-        $newsTest = [
-            "id" => 2,
-            "intro" => "ikjubg",
-            "description" => "hfvyu",
-            "url" => "https://www.google.fr/",
-            "start" => "2018-06-07T13:17:23+02:00",
-            "stop" => "2018-06-07T13:17:23+02:00",
-            "locale" => "en",
-        ];
 
         $this->assertTrue(
-            $arrayResponse === $newsTest
+            $arrayResponse === $this->loadJson($this::RETURNED_JSON, true)
         );
     }
 
