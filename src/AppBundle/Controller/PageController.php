@@ -131,11 +131,11 @@ class PageController extends Controller
      * @Rest\View()
      * @SWG\Get(
      *  path="/pages",
-     *      summary="Get a list of page who depends of the locale",
+     *      summary="Get requested locale pages' list",
      *      @SWG\Parameter(
      *          name="locale",
      *          in="query",
-     *          description="The locale of the pages listed",
+     *          description="The requested locale",
      *          required=true,
      *          type="string"
      *      ),
@@ -226,11 +226,11 @@ class PageController extends Controller
      * @Rest\View()
      * @SWG\Delete(
      *  path="/pages/id",
-     *      summary="Delete tthe selected page",
+     *      summary="Delete requested page",
      *      @SWG\Parameter(
      *          name="id",
      *          in="path",
-     *          description="id of the selected page",
+     *          description="The page id",
      *          required=true,
      *          type="string"
      *      ),
@@ -263,47 +263,53 @@ class PageController extends Controller
      * @Rest\View()
      * @SWG\Put(
      *   path="/pages/id",
-    *   summary="Edit an existent page",
-    *   @SWG\Parameter(
-    *          name="body",
-    *          in="body",
-    *          required=true,
-    *          @SWG\Schema(
-    *              @SWG\Property(
-    *                  property="title",
-    *                  type="string"
-    *              ),
-    *              @SWG\Property(
-    *                  property="sub_title",
-    *                  type="string"
-    *              ),
-    *              @SWG\Property(
-    *                  property="description",
-    *                  type="string"
-    *              ),
-    *              @SWG\Property(
-    *                  property="content",
-    *                  type="object"
-    *              ),
-    *              @SWG\Property(
-    *                  property="locale",
-    *                  type="string"
-    *              ),
-    *              @SWG\Property(
-    *                  property="url",
-    *                  type="string"
-    *              )
-    *          )
-    *     ),
-    *   @SWG\Response(
-    *     response=200,
-    *     description="Json Message page updated"
-    *   ),
-    *   @SWG\Response(
-    *     response=404,
-    *     description="Page not found"
-    *   )
-    * )
+     *   summary="Edit requested page",
+     *   @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          required=true,
+     *          @SWG\Schema(
+     *              @SWG\Property(
+     *                  property="title",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="sub_title",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="description",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="content",
+     *                  type="object"
+     *              ),
+     *              @SWG\Property(
+     *                  property="locale",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="url",
+     *                  type="string"
+     *              )
+     *          )
+     *     ),
+     *   @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="integer"
+     *     ),
+     *   @SWG\Response(
+     *     response=200,
+     *     description=""
+     *   ),
+     *   @SWG\Response(
+     *     response=404,
+     *     description="Page not found"
+     *   )
+     * )
      */
     public function putAction($id, Request $request)
     {
@@ -358,68 +364,31 @@ class PageController extends Controller
     }
 
     /**
-     * @Rest\Put("/pages/{id}/{version}", requirements={"version"="\d+"})
-     * @Rest\View()
-     * @SWG\Put(
-     *  path="/pages/{id}/{version}",
-     *      summary="Take a page and a version and put the page at the selected version",
-     *      @SWG\Parameter(
-     *          name="id",
-     *          in="path",
-     *          description="The page ID",
-     *          required=true,
-     *          type="integer"
-     *      ),
-     *      @SWG\Parameter(
-     *          name="version",
-     *          in="path",
-     *          description="The page version",
-     *          required=true,
-     *          type="integer"
-     *      ),
-     *      @SWG\Response(
-     *        response=200,
-     *        description="The requested page"
-     *      )
-     *    )
-     */
-    public function revertAction($id, $version)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
-        $page = $em->getRepository('AppBundle:Page')->findOneById($id);
-        $logs = $repo->getLogEntries($page);
-        $repo->revert($page, $version);
-        $em->persist($page);
-        $em->flush();
-    }
-
-    /**
-     * @Rest\Get("pages/{id}/translation")
+     * @Rest\Get("pages/{id}/translations")
      * @Rest\View()
      * @SWG\Get(
-     *  path="/pages/{id}/translation",
-     *      summary="Return all translation available for the selected page",
+     *  path="/pages/{id}/translations",
+     *      summary="Get requested page's translatations",
      *      @SWG\Parameter(
      *          name="id",
      *          in="path",
-     *          description="the page ID",
+     *          description="the page id",
      *          required=true,
      *          type="integer"
      *      ),
      *      @SWG\Response(
      *        response=200,
-     *        description="The requested list of pages"
+     *        description=""
      *      ),
      *      @SWG\Response(
      *        response=404,
-     *        description="Page selected not found"
+     *        description="Page not found"
      *      )
      *    )
      * @param integer $id
      * @return json
      */
-    public function getTranslationAction($id)
+    public function getTranslationsAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $page = $em->getRepository('AppBundle:Page')->findOneById($id);
@@ -448,7 +417,7 @@ class PageController extends Controller
      *      ),
      *      @SWG\Response(
      *        response=404,
-     *        description="Page selected not found"
+     *        description="Page not found"
      *      )
      *    )
      * @param integer $id
@@ -464,49 +433,6 @@ class PageController extends Controller
         }
         $logs = $repo->getLogEntries($page);
         return $logs;
-    }
-
-    /**
-     * @Rest\Get("pages/{id}/brother")
-     * @Rest\View()
-     * @SWG\Get(
-     *  path="/pages/{id}/brother",
-     *      summary="Return the selected page and all other pages who depends of the same french locale pages",
-     *      @SWG\Parameter(
-     *          name="id",
-     *          in="path",
-     *          description="the page ID",
-     *          required=true,
-     *          type="integer"
-     *      ),
-     *      @SWG\Response(
-     *        response=200,
-     *        description="The requested list of brother pages"
-     *      ),
-     *      @SWG\Response(
-     *        response=404,
-     *        description="Page selected not found"
-     *      ),
-     *      @SWG\Response(
-     *        response=403,
-     *        description="Page selected has no parent"
-     *      ),
-     *    )
-     * @param integer $id
-     * @return json
-     */
-    public function getBrotherAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $page = $em->getRepository('AppBundle:Page')->findOneById($id);
-        if (empty($page)) {
-            return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
-        }
-        $parent = $page->getParent();
-        if ($parent === null) {
-            return new JsonResponse(['message' => 'Page has no parent'], Response::HTTP_FORBIDDEN);
-        }
-        return $parent->getChildren();
     }
 
     /**

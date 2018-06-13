@@ -23,6 +23,41 @@ class SpeakerController extends Controller
      * @Rest\Post("/speaker")
      * @Rest\View()
      * @ParamConverter("speaker", converter="fos_rest.request_body")
+     * @SWG\Post(
+    *   path="/speaker",
+    *   summary="Add a new speaker",
+    *   @SWG\Parameter(
+    *          name="body",
+    *          in="body",
+    *          required=true,
+    *          @SWG\Schema(
+    *              @SWG\Property(
+    *                  property="name",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="title",
+    *                  type="json_array"
+    *              ),
+    *              @SWG\Property(
+    *                  property="description",
+    *                  type="json_array"
+    *              ),
+    *              @SWG\Property(
+    *                  property="image",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="position",
+    *                  type="integer"
+    *              ),
+    *          )
+    *     ),
+    *   @SWG\Response(
+    *     response=200,
+    *     description="The created speaker"
+    *   )
+    * )
      */
     public function postAction(Speaker $speaker)
     {
@@ -37,6 +72,14 @@ class SpeakerController extends Controller
     /**
      * @Rest\Get("/speaker")
      * @Rest\View()
+     * @SWG\Get(
+     *  path="/speaker",
+     *      summary="Get requested speakers'list ordered by position",
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested speakers"
+     *      )
+     *    )
      */
     public function listAction()
     {
@@ -47,6 +90,32 @@ class SpeakerController extends Controller
     /**
      * @Rest\Get("/speaker/{id}/{version}", requirements={"version"="\d+"} , defaults={"version" = null})
      * @Rest\View()
+     * @SWG\Get(
+     *  path="/speaker/{id}/{version}",
+     *      summary="Get a speaker",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="The speaker id",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="version",
+     *          in="path",
+     *          description="The speaker version",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested speaker"
+     *      ),
+     *      @SWG\Response(
+     *        response=404,
+     *        description="Speaker not found"
+     *      ),
+     *    )
      */
     public function showAction($id, $version)
     {
@@ -75,6 +144,25 @@ class SpeakerController extends Controller
     /**
      * @Rest\Delete("/speaker/{id}")
      * @Rest\View()
+     * @SWG\Delete(
+     *  path="/speaker/id",
+     *      summary="Delete requested speaker",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="speaker id",
+     *          required=true,
+     *          type="string"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The speaker is deleted"
+     *      ),
+     *      @SWG\Response(
+     *        response=404,
+     *        description="Speaker not found"
+     *      )
+     *    )
      */
     public function deleteAction($id)
     {
@@ -93,6 +181,52 @@ class SpeakerController extends Controller
     /**
      * @Rest\Put("/speaker/{id}")
      * @Rest\View()
+     * @SWG\Put(
+     *   path="/speaker/{id}",
+     *   summary="Edit requester speaker",
+     *   @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          required=true,
+     *          @SWG\Schema(
+     *              @SWG\Property(
+     *                  property="name",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="title",
+     *                  type="json_array"
+     *              ),
+     *              @SWG\Property(
+     *                  property="description",
+     *                  type="json_array"
+     *              ),
+     *              @SWG\Property(
+     *                  property="image",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="position",
+     *                  type="integer"
+     *              ),
+     *          )
+     *     ),
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="speaker id",
+     *          required=true,
+     *          type="string"
+     *      ),
+     *   @SWG\Response(
+     *     response=200,
+     *     description=""
+     *   ),
+     *   @SWG\Response(
+     *     response=404,
+     *     description="Speaker not found"
+     *   )
+     * )
      */
     public function putAction($id, Request $request)
     {
@@ -122,7 +256,25 @@ class SpeakerController extends Controller
     /**
      * @Rest\Get("/speaker/{id}/versions")
      * @Rest\View()
-     *
+     * @SWG\Get(
+     *  path="/speaker/{id}/versions",
+     *      summary="Return all log entries for the selected speaker",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="the speaker ID",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested logs"
+     *      ),
+     *      @SWG\Response(
+     *        response=404,
+     *        description="Speaker not found"
+     *      )
+     *    )
      * @param integer $id
      * @return json
      */
@@ -141,6 +293,28 @@ class SpeakerController extends Controller
     /**
      * @Rest\Put("/speaker/{id}/{version}", requirements={"version"="\d+"})
      * @Rest\View()
+     * @SWG\Put(
+     *  path="/speaker/{id}/versions",
+     *      summary="Revert a speaker into the selected version",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="the speaker id",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="version",
+     *          in="path",
+     *          description="The speaker version",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="The requested speaker at the selected version"
+     *      ),
+     *    )
      */
     public function revertAction($id, $version)
     {
@@ -157,6 +331,28 @@ class SpeakerController extends Controller
     /**
      * @Rest\Put("/speaker/{id}/position/{position}", requirements={"position"="\d+"})
      * @Rest\View()
+     * @SWG\Put(
+     *  path="/speaker/{id}/position/{position}",
+     *      summary="Change the position of a speaker and return a list with the new scheduling",
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="the speaker id",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="position",
+     *          in="path",
+     *          description="The speaker desired position",
+     *          required=true,
+     *          type="integer"
+     *      ),
+     *      @SWG\Response(
+     *        response=200,
+     *        description="A list of speaker with the new scheduling"
+     *      ),
+     *    )
      */
     public function setPositionAction($id, $position)
     {

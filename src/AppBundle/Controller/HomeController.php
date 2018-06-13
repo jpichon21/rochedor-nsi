@@ -21,6 +21,32 @@ class HomeController extends Controller
     
     /**
     * @Rest\Get("/home/{locale}/{version}", requirements={"version"="\d+"} , defaults={"version" = null})")
+    * @SWG\Get(
+    *  path="/home/{locale}/{version}",
+    *      summary="Get requested home",
+    *      @SWG\Parameter(
+    *          name="id",
+    *          in="path",
+    *          description="Locale home",
+    *          required=true,
+    *          type="string"
+    *      ),
+    *      @SWG\Parameter(
+    *          name="version",
+    *          in="path",
+    *          description="The home version",
+    *          required=true,
+    *          type="integer"
+    *      ),
+    *      @SWG\Response(
+    *        response=200,
+    *        description="The requested home"
+    *      ),
+    *      @SWG\Response(
+    *        response=404,
+    *        description="Home not found"
+    *      ),
+    *    )
     * @Rest\View()
     */
     public function showAction($locale, $version, ServiceShowPage $pageService)
@@ -62,6 +88,56 @@ class HomeController extends Controller
     /**
     * @Rest\Put("/home/{id}", requirements={"id"="\d+"})
     * @Rest\View()
+    * @SWG\Put(
+    *   path="/home/{id}",
+    *   summary="Edit requested home",
+    *   @SWG\Parameter(
+    *          name="body",
+    *          in="body",
+    *          required=true,
+    *          @SWG\Schema(
+    *              @SWG\Property(
+    *                  property="title",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="sub_title",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="description",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="content",
+    *                  type="object"
+    *              ),
+    *              @SWG\Property(
+    *                  property="locale",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="url",
+    *                  type="string"
+    *              )
+    *          )
+    *     ),
+    *   @SWG\Parameter(
+    *          name="id",
+    *          in="path",
+    *          description="The home ID",
+    *          required=true,
+    *          type="integer"
+    *     ),
+    *   @SWG\Response(
+    *     response=200,
+    *     description=""
+    *   ),
+    *   @SWG\Response(
+    *     response=404,
+    *     description="Page not found"
+    *   )
+    * )
     */
     public function putAction($id, Request $request)
     {
@@ -117,7 +193,25 @@ class HomeController extends Controller
     /**
     * @Rest\Get("home/{id}/versions")
     * @Rest\View()
-    *
+    * @SWG\Get(
+    *  path="/home/{id}/versions",
+    *      summary="Return all log entries for the selected home",
+    *      @SWG\Parameter(
+    *          name="id",
+    *          in="path",
+    *          description="the home id",
+    *          required=true,
+    *          type="integer"
+    *      ),
+    *      @SWG\Response(
+    *        response=200,
+    *        description="The requested logs of your selected home"
+    *      ),
+    *      @SWG\Response(
+    *        response=404,
+    *        description="Home not found"
+    *      )
+    *    )
     * @param integer $id
     * @return json
     */

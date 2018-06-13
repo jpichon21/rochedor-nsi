@@ -11,6 +11,29 @@ class SecurityController extends Controller
 {
     /**
     * @Route("/login", name="login", requirements={"methods": "POST"})
+    * @SWG\Post(
+    *   path="/login",
+    *   summary="login",
+    *   @SWG\Parameter(
+    *          name="body",
+    *          in="body",
+    *          required=true,
+    *          @SWG\Schema(
+    *              @SWG\Property(
+    *                  property="username",
+    *                  type="string"
+    *              ),
+    *              @SWG\Property(
+    *                  property="password",
+    *                  type="string"
+    *              ),
+    *          )
+    *     ),
+    *   @SWG\Response(
+    *     response=201,
+    *     description="not logged in"
+    *   )
+    * )
     */
     public function loginAction(Request $request)
     {
