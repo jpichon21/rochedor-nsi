@@ -26,9 +26,10 @@ class CalendarController extends Controller
      */
     public function showCalendarAction(CalendarRepository $calendarRepo)
     {
-        $sites = $calendarRepo->findSites();
-        $eventTypes =$calendarRepo->findEventTypes();
-        $events =$calendarRepo->findEvents();
+        $eventTypes = $calendarRepo->findEventTypes();
+        $events = $calendarRepo->findEvents();
+        $speakers = $calendarRepo->findSpeakers();
+        $translations = $calendarRepo->findTranslations();
         return new Response('test');
     }
 
