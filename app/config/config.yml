@@ -72,6 +72,11 @@ doctrine:
                 dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
                 alias: GedmoLoggable
                 is_bundle: false
+        dql:
+            string_functions:
+                group_concat: DoctrineExtensions\Query\Mysql\GroupConcat
+            datetime_functions:
+                date_format: DoctrineExtensions\Query\Mysql\DateFormat
 stof_doctrine_extensions:
     default_locale: en_US
     orm:
