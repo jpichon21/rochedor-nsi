@@ -11,6 +11,7 @@ Encore
   .addEntry('js/home', './app/Resources/assets/js/home.js')
   .addEntry('js/page', './app/Resources/assets/js/page.js')
   .addEntry('js/calendar', './app/Resources/assets/js/calendar.js')
+  .addEntry('js/calendar-registration', './app/Resources/assets/js/calendar-registration.js')
   .addStyleEntry('css/main', './app/Resources/assets/sass/main.scss')
   .addEntry('js/admin/index', './app/Resources/assets/js/admin/index.js')
   .addStyleEntry('css/Draft/Draft', './app/Resources/assets/css/Draft.css')

@@ -27,6 +27,5 @@ security:
                 invalidate_session: true
                 target: /login
 
-
     access_control:
         - { path: ^/api, role: ROLE_ADMIN}
