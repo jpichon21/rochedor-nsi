@@ -23,11 +23,8 @@ class CalendarController extends Controller
     public function showCalendarAction(CalendarRepository $calendarRepo)
     {
         $sites = $calendarRepo->findSites();
-        $typeRetraite =$calendarRepo->findTypesRetraites(19);
-        dump($typeRetraite);
-        exit;
-        dump($sites);
-        exit;
-        return new Response('test');
+        $typeRetraite =$calendarRepo->findEventTypes();
+        $events =$calendarRepo->findEvents();
+        return $this->render('default/index.html.twig');
     }
 }
