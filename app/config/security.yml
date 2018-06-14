@@ -18,9 +18,6 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        test:
-            pattern: ^/
-            security: false
 
         main:
             anonymous: ~
@@ -30,7 +27,6 @@ security:
                 path:   /logout
                 invalidate_session: true
                 target: /login
-
 
     access_control:
         - { path: ^/api, role: ROLE_ADMIN}

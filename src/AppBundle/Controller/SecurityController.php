@@ -45,7 +45,6 @@ class SecurityController extends Controller
                 'status' => 'not logged in'
             ], 201);
         }
-        
         return new JsonResponse([
             'username' => $user->getUsername(),
             'roles' => $user->getRoles()
