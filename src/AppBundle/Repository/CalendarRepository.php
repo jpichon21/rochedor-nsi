@@ -29,14 +29,33 @@ class CalendarRepository
         $this->entityManager = $entityManager;
     }
     
-
-    public function findSites()
+    public function findSpeakers()
     {
-        $query = $this->repositoryBase->createQueryBuilder('b')
-        ->select('b.ref as abbr', 'b.titre as name')
-        ->join('AppBundle:BaseL', 'bl', 'WITH', 'b.cle = bl.cle')
-        ->where('bl.clp=111');
-        return $query->getQuery()->getResult();
+        $query = $this->entityManager->createQuery(
+            'SELECT DISTINCT CONCAT(co.nom, \' \', co.prenom) AS speakerName 
+            FROM AppBundle\Entity\Contact co
+            INNER JOIN AppBundle\Entity\CalL cal WITH co.codco=cal.lcal AND cal.typlcal=:typlcal 
+            INNER JOIN AppBundle\Entity\Calendrier ca WITH ca.codcal=cal.codcal 
+            INNER JOIN AppBundle\Entity\Activite a WITH a.codact=ca.codb 
+            WHERE ca.datdeb>=:start AND a.divact=:divact 
+            ORDER BY speakerName'
+        );
+        $query->setParameters(['start' => new \DateTime(), 'divact' => 'RET', 'typlcal' => 'coAct']);
+        return $query->getResult();
+    }
+
+    public function findTranslations()
+    {
+        $query = $this->entityManager->createQuery(
+            'SELECT t.tref AS translationAbbr, t.tlib AS translationName
+            FROM AppBundle\Entity\Tables t
+            INNER JOIN AppBundle\Entity\Calendrier ca WITH ca.langue=t.tref 
+            INNER JOIN AppBundle\Entity\Activite a WITH a.codact=ca.codb 
+            WHERE ca.datdeb>=:start AND a.divact=:divact AND t.tlien=34
+            GROUP BY t.tref, t.tlib'
+        );
+        $query->setParameters(['start' => new \DateTime(), 'divact' => 'RET']);
+        return $query->getResult();
     }
 
     public function findEventTypes()
