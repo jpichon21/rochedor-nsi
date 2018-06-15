@@ -205,6 +205,38 @@
         <source>calendar.registration.three.body</source>
         <target><![CDATA[<p>Nous vous remercions d’avoir pris le temps de renseigner le formulaire et de l’attention que vous portez à la Roche d’Or.</p><p>Votre demande d’inscription est prise en compte sous le numéro :</p><p>%entry_number%</p><p>Vous recevrez prochainement une réponse de la Communauté par mail ou par courrier.</p><p>La Roche d’Or s'engage à être le seul destinataire des informations que vous venez de lui communiquer. Vous disposez d'un droit d'accès, de modification, de rectification et de suppression des données qui vous concernent (art. 34 de la loi "Informatiques et Libertés").</p><p>Pour l'exercer, adressez vous à secretariat@rochedor.fr</p>]]></target>
       </trans-unit>
+      <trans-unit id="wbVpZSG" resname="calendar.registration.one.title.connection">
+        <source>calendar.registration.one.title.connection</source>
+        <target>Connexion</target>
+      </trans-unit>
+      <trans-unit id="Hu7hGnb" resname="calendar.registration.one.title.registration">
+        <source>calendar.registration.one.title.registration</source>
+        <target>Inscription</target>
+      </trans-unit>
+      <trans-unit id="79GaqZh" resname="calendar.registration.summary.title">
+        <source>calendar.registration.summary.title</source>
+        <target>Récapitulatif</target>
+      </trans-unit>
+      <trans-unit id="hyo40Kt" resname="calendar.registration.summary.title.retreat">
+        <source>calendar.registration.summary.title.retreat</source>
+        <target>Retraite</target>
+      </trans-unit>
+      <trans-unit id="cf8D8wL" resname="calendar.registration.summary.title.participants">
+        <source>calendar.registration.summary.title.participants</source>
+        <target>Participants</target>
+      </trans-unit>
+      <trans-unit id="UuuHLxt" resname="calendar.registration.one.body">
+        <source>calendar.registration.one.body</source>
+        <target>Avez-vous déjà participé à une retraite à la Roche d'Or ou aux Fontanilles ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
+      </trans-unit>
+      <trans-unit id="rvJRHqu" resname="main.yes">
+        <source>main.yes</source>
+        <target>Oui</target>
+      </trans-unit>
+      <trans-unit id="AzlF5AX" resname="main.no">
+        <source>main.no</source>
+        <target>Non</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -6303,6 +6303,10 @@ punycode@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
 
+purecss@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/purecss/-/purecss-1.0.0.tgz#3dbcd9e2a7592448a69acb705cce16311bf4b785"
+
 q-deep@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/q-deep/-/q-deep-1.0.3.tgz#cd0703da2accbae6570e600c68a56de6610790cb"

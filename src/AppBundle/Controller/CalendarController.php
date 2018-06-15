@@ -18,11 +18,44 @@ use AppBundle\Entity\ContactL;
 use AppBundle\Entity\CalL;
 use AppBundle\ServiceShowPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use AppBundle\Entity\Page;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations as Rest;
 
 class CalendarController extends Controller
 {
     const YEARS_ADULT = 16;
     const RELATIONS = ['child' => 'enfan', 'spouse' => 'conjo'];
+    const SITES = [
+        [
+            "value" => "lrdo",
+            "name" => "La Roche d'Or",
+            "abbr" => "RO",
+            "color" => "#ff00ff"
+        ],
+        [
+            "value" => "font",
+            "name" => "Les Fontanilles",
+            "abbr" => "FT",
+            "color" => "#0000ff"
+        ]
+    ];
+
+    const COLORS = [
+        "F" => "#E10076",
+        "A" => "#55C055",
+        "W" => "#00B6E8",
+        "TP" => "#FFA500",
+        "B" => "#0D0479",
+        "RI" => "#008000",
+        "FA" => "#8833CC",
+        "P" => "#671C43",
+        "R" => "#31BF31",
+        "J" => "#F7F752",
+        "L" => "#AD58F2",
+        "RC" => "#AD58F2",
+        "Autre" => "#E10076"
+    ];
 
     /**
      * @var CalendarRepository
@@ -34,12 +67,12 @@ class CalendarController extends Controller
         $this->repository = $repository;
     }
 
-    /**
-     * @Route("/calendrier-inscription", name="calendrier_inscription")
-     * @Route("/calendar-registration", name="calendar_registration")
-     * @Route("/kalender-registrierung", name="ralender_Registrierung")
-     * @Route("/calendario-registrazione", name="calendario_registrazione")
-     * @Route("/calendario-registro", name="calendario_registro")
+     /**
+     * @Route("/inscription-retraite", name="inscription_retraite")
+     * @Route("/registration-retreat", name="registration_retreat")
+     * @Route("/anmeldung-ruhestand", name="anmeldung_ruhestand")
+     * @Route("/iscrizione-ritiro", name="iscrizione_ritiro")
+     * @Route("/registro-jubilado", name="registro_jubilado")
      */
     public function calendarRegistrationAction(Request $request, ServiceShowPage $showPage)
     {
@@ -47,8 +80,23 @@ class CalendarController extends Controller
         $name = substr($path, 1);
         $contentDocument = $showPage->getMyContent($name);
         return $this->render('default/calendar-registration.html.twig', array(
-            'page' => $contentDocument,
-            'availableLocales' => $this->getAvailableLocales($contentDocument)
+            'page' => array(
+                'locale' => 'fr',
+                'background' => 'http://localhost:8000/assets/images/background-flotype.cd2c708b.png',
+                'title' => 'Demande',
+                'subTitle' => 'd\'inscription',
+                'content' => array(
+                    'intro' => 'Introduction lorem ipsum'
+                ),
+                'routes' => array(
+                    'getValues' => array(
+                        array(
+                            'staticPrefix' => 'en'
+                        )
+                    )
+                )
+            ),
+            'availableLocales' => array()
         ));
     }
 
@@ -338,5 +386,141 @@ class CalendarController extends Controller
         $variable->setValeurn($variable->getValeurn()+1);
         $em->persist($variable);
         $em->flush();
+    }
+
+    public function getDataCalendarAction(CalendarRepository $calendarRepo)
+    {
+        $data = array();
+        
+        $eventTypes = $calendarRepo->findEventTypes();
+        $speakers = $calendarRepo->findSpeakers();
+        $translations = $calendarRepo->findTranslations();
+        
+        foreach ($eventTypes as $eventType) {
+            if ($eventType['color'] === "") {
+                $key = $eventType['abbr'];
+                if (isset($this::COLORS[$key])) {
+                    $eventType['color'] = $this::COLORS[$key];
+                } else {
+                    $eventType['color'] = $this::COLORS['Autre'];
+                }
+            }
+            $eventType['color'] = str_replace("Fond=", "", $eventType['color']);
+            $eventTypes[] = $eventType;
+        }
+
+        $eventTypes = array_filter($eventTypes, function ($k) {
+            return strlen($k['color']) == 7 ;
+        }, ARRAY_FILTER_USE_BOTH);
+
+        $data['sites'] = $this::SITES;
+        $data['types'] = $eventTypes;
+        $data['speakers']= $speakers;
+        $data['translations'] = $translations;
+
+        return $data;
+    }
+
+    public function getRetreatsData(CalendarRepository $calendarRepo)
+    {
+        $retreatData = array();
+        $events = $calendarRepo->findEvents();
+        
+        foreach ($events as $event) {
+            $dateIn = $event['dateIn'];
+            $dateInParse = $event['dateIn']->format('Ymd');
+            
+            $dateOut = $event['dateOut'];
+            $dateOutParse = $event['dateOut']->format('Ymd');
+            
+            $duration = date_diff($dateIn, $dateOut);
+            $duration = substr($duration->format('%R%d'), 1);
+            
+            $nameEvent = $event['event'];
+            
+            $speakers = array();
+            foreach (explode("|", $event['speakers']) as $speaker) {
+                $speakerParse = array();
+                $speaker = explode(" , ", $speaker);
+                $speakerParse['name'] = $speaker[0] ;
+                $speakerParse['value'] = $speaker[1]  ;
+                $speakers[] = $speakerParse;
+            }
+
+
+            $type = array();
+            $type['name'] = $event['typeName'];
+            $type['abbr'] = $event['typeAbbr'];
+            if ($event['typeColor'] === "") {
+                $key = $event['typeAbbr'];
+                if (isset($this::COLORS[$key])) {
+                    $type['color'] = $this::COLORS[$key];
+                } else {
+                    $type['color'] = $this::COLORS['Autre'];
+                }
+                $type['color'] = str_replace("Fond=", "", $type['color']);
+            }
+            $type['value'] = $event['typeValue'];
+            
+            
+            $site = array();
+            if ($event['site'] === "Roch") {
+                $site['abbr'] = $this::SITES[0]['abbr'];
+                $site['color'] = $this::SITES[0]['color'];
+            } else {
+                $site['abbr'] = $this::SITES[1]['abbr'];
+                $site['color'] = $this::SITES[1]['color'];
+            }
+            $translation = $event['translation'];
+            
+
+            $retreat['dateIn'] = $dateInParse;
+            $retreat['dateOut'] = $dateOutParse;
+            $retreat['site'] = $site;
+            $retreat['event'] = $nameEvent;
+            $retreat['type'] = $type;
+            $retreat['speaker'] = $speakers;
+            $retreat['translation'] = $translation;
+            $retreat['duration'] = $duration;
+            $retreatData[] = $retreat;
+        }
+        return $retreatData;
+    }
+
+    /**
+     * @Route("/liste-retraites", name="liste_retraites")
+     * @Route("/list-retreats", name="list_retreats")
+     * @Route("/liste-ruckzuge", name="liste_ruckzuge")
+     * @Route("/lista-ritiri", name="lista_ritiri")
+     * @Route("/lista-retiros", name="lista_retiros")
+     */
+    public function calendarAction(CalendarRepository $calendarRepo)
+    {
+        $filters = $this->getDataCalendarAction($calendarRepo);
+        $retreatsData = $this->getRetreatsData($calendarRepo);
+        return $this->render('default/calendar.html.twig', array(
+            'page' => array(
+                'locale' => 'fr',
+                'background' => 'http://localhost:8000/assets/images/background-flotype.cd2c708b.png',
+                'title' => 'Demande',
+                'subTitle' => 'd\'inscription',
+                'content' => array(
+                    'intro' => 'Introduction lorem ipsum'
+                ),
+                'routes' => array(
+                    'getValues' => array(
+                        array(
+                            'staticPrefix' => 'en'
+                        )
+                    )
+                )
+            ),
+            'sites' => $filters['sites'],
+            'types' => $filters['types'],
+            'speakers' => $filters['speakers'],
+            'translations' => $filters['translations'],
+            'retreatsData' => json_encode($retreatsData),
+            'availableLocales' => array()
+        ));
     }
 }

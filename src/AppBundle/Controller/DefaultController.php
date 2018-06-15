@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\ServiceShowPage;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\PageController;
+use AppBundle\Controller\CalendarController;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\News;
 use AppBundle\Entity\Speaker;
@@ -66,8 +67,6 @@ class DefaultController extends Controller
             'speakers'=> $speakers
         ));
     }
-
-
 
     /**
      * @Route("/admin", name="admin")

@@ -1,6 +1,11 @@
-{% set bodyClass = "page calendar-registration" %}
+{% set bodyClass = "page" %}
 {% set bodyBackground = page.background %}
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/calendar-registration.css") }}">
+<link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/pure-css-base.css") }}">
+<link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/pure-css-grids.css") }}">
+{% endblock %}
 {% block content %}
 <div class="content">
     <div class="left">
@@ -12,10 +17,78 @@
             </div>
             {% endif %}
             <div class="dropdown">
-                <div class="item">
+                <div class="item connection">
                     <h2>{{ 'calendar.registration.one.title' | trans() | raw }}</h2>
-                    <p>Avez-vous déjà participé à une retraite à la Roche d'Or ou aux Fontanilles ?</p>
-                    <p>(nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</p>
+                    <p>{{ 'calendar.registration.one.body' | trans() | raw }}</p>
+                    <div class="pure-g">
+                        <div class="pure-u-4-24">
+                            <a href="#connection" class="button">Oui</a>
+                        </div>
+                        <div class="pure-u-4-24">
+                            <a href="#registration" class="button">Non</a>
+                        </div>
+                    </div>
+                    <div class="panel connection">
+                        <h3>{{ 'calendar.registration.one.title.connection' | trans() | raw }}</h3>
+                        <form class="pure-g">
+                            <div class="pure-u-10-24">
+                                <input class="input" type="text" name="id" autocomplete="off" placeholder="{{ 'form.id' | trans() | raw }}">
+                            </div>
+                            <div class="pure-u-10-24">
+                                <input class="input" type="text" name="password" autocomplete="off" placeholder="form.password">
+                            </div>
+                            <div class="pure-u-4-24">
+                                <input class="button submit" type="submit" value="ok">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel registration">
+                        <h3>{{ 'calendar.registration.one.title.registration' | trans() | raw }}</h3>
+                        <form class="pure-g">
+                            <div class="pure-u-1-3">
+                                <select class="select">
+                                    <option selected>{{ 'form.civility.mr' | trans() | raw }}</option>
+                                    <option>{{ 'form.civility.mme' | trans() | raw }}</option>
+                                </select>
+                            </div>
+                            <div class="pure-u-1-3">
+                                <input class="input" type="text" name="surname" autocomplete="off" placeholder="form.surname">
+                            </div>
+                            <div class="pure-u-1-3">
+                                <input class="input" type="text" name="name" autocomplete="off" placeholder="form.name">
+                            </div>
+                            <div class="pure-u-1">
+                                <textarea class="textarea" type="text" name="address" autocomplete="off" placeholder="form.address"></textarea>
+                            </div>
+                            <div class="pure-u-1-3">
+                                <input class="input" type="text" name="zipcode" autocomplete="off" placeholder="form.zipcode">
+                            </div>
+                            <div class="pure-u-1-3">
+                                <input class="input" type="text" name="city" autocomplete="off" placeholder="form.city">
+                            </div>
+                            <div class="pure-u-1-3">
+                                <input class="input" type="text" name="country" autocomplete="off" placeholder="form.country">
+                            </div>
+                            <div class="pure-u-1-3">
+                                <input class="input" type="text" name="phone" autocomplete="off" placeholder="form.phone">
+                            </div>
+                            <div class="pure-u-1-3">
+                                <input class="input" type="text" name="mobile" autocomplete="off" placeholder="form.mobile">
+                            </div>
+                            <div class="pure-u-1-3">
+                                <input class="input" type="text" name="email" autocomplete="off" placeholder="form.email">
+                            </div>
+                            <div class="pure-u-1-2">
+                                <input class="input" type="text" name="birthday" autocomplete="off" placeholder="form.birthday">
+                            </div>
+                            <div class="pure-u-1-2">
+                                <input class="input" type="text" name="profession" autocomplete="off" placeholder="form.profession">
+                            </div>
+                            <div class="pure-u-1-2">
+                                <input class="button submit" type="submit" value="Valider l'inscription">
+                            </div>
+                        </form>                        
+                    </div>
                 </div>
                 <div class="item">
                     <h2>{{ 'calendar.registration.two.title' | trans() | raw }}</h2>

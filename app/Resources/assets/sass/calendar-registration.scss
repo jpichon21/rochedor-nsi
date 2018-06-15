@@ -1,0 +1,17 @@
+$roche-yellow: #faf28e;
+
+.dropdown {
+    .item {
+        h2 {
+            cursor: default;
+        }
+        &.connection {
+            .button {
+                &.active {
+                    background: $roche-yellow;
+                    color: #000000;
+                }
+            }
+        }
+    }
+}

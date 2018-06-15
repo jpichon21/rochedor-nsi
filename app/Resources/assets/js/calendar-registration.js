@@ -3,21 +3,33 @@ import $ from 'jquery'
 /* Dropdowns */
 
 function updateHeightDropdown () {
-  let elmt = $('.dropdown .active')[0]
-  elmt.style.maxHeight = elmt.scrollHeight + 'px'
+  const elmt = $('.dropdown .active')
+  elmt.css('maxHeight', elmt.prop('scrollHeight'))
 }
 
-$('.dropdown .item').on('click', function () {
+function changeItem (elmt) {
   $('.dropdown .item').each(function () {
-    this.style.maxHeight = null
-    this.classList.remove('active')
+    $(this).css('maxHeight', null)
+    $(this).removeClass('active')
   })
-  this.classList.add('active')
+  elmt.addClass('active')
   updateHeightDropdown()
-})
+}
 
 $(document).ready(function () {
   setTimeout(function () {
-    $('.dropdown .item:first').trigger('click')
+    changeItem($('.dropdown .item:first'))
   }, 500)
+})
+
+/* Interaction */
+
+$('.item.connection').on('click', 'a', function (event) {
+  event.preventDefault()
+  $('.item.connection a').removeClass('active')
+  $(this).addClass('active')
+  const which = $(this).attr('href').substring(1)
+  $('.item.connection .panel').hide()
+  $(`.item.connection .panel.${which}`).show()
+  updateHeightDropdown()
 })
