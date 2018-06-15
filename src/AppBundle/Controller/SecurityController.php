@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Swagger\Annotations as SWG;
+use AppBundle\Entity\Contact;
 
 class SecurityController extends Controller
 {
@@ -38,6 +39,9 @@ class SecurityController extends Controller
     */
     public function loginAction(Request $request)
     {
+        /**
+         * @var AppBundle\Entity\Contact
+         */
         $user = $this->getUser();
 
         if (!$user) {
@@ -47,7 +51,21 @@ class SecurityController extends Controller
         }
         return new JsonResponse([
             'username' => $user->getUsername(),
-            'roles' => $user->getRoles()
+            'roles' => $user->getRoles(),
+            'codco' => $user->getCodco(),
+            'ident' => $user->getIdent(),
+            'nom' => $user->getNom(),
+            'prenom' => $user->getPrenom(),
+            'adresse' => $user->getAdresse(),
+            'cp' => $user->getCp(),
+            'ville' => $user->getVille(),
+            'pays' => $user->getPays(),
+            'tel' => $user->getTel(),
+            'mobil' => $user->getMobil(),
+            'email' => $user->getEmail(),
+            'societe' => $user->getSociete(),
+            'profession' => $user->getProfession(),
+            'datnaiss' => $user->getDatnaiss()
         ]);
     }
 
