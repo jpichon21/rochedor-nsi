@@ -148,6 +148,7 @@ class CalendarRepository
             WHERE cal.lcal=:contactId AND cal.typlcal=\'coIns\'
             ORDER BY cal.enreglcal DESC'
         );
+        $query->setMaxResults(1);
         $query->setParameters(['contactId' => $contactId]);
         return $query->getResult();
     }
@@ -158,8 +159,8 @@ class CalendarRepository
             'SELECT DISTINCT co.nom, co.prenom, co.codco, co.ident, co.civil,
             co.civil2, co.adresse, co.cp, co.ville, co.pays, co.tel,
             co.mobil, co.email, co.profession, co.datnaiss, col.coltyp, col.colt
-            FROM AppBundle\Entity\ContactL col
-            JOIN AppBundle\Entity\Contact co WITH co.codco=col.col
+            FROM AppBundle\Entity\Contact co
+            LEFT JOIN AppBundle\Entity\ContactL col WITH co.codco=col.col
             JOIN AppBundle\Entity\CalL cal WITH co.codco=cal.lcal
             WHERE cal.reflcal IN (:registrationReferences)'
         );
