@@ -166,6 +166,20 @@ class CalendarController extends Controller
         return ['status' => 'ok', 'data' => $attendees];
     }
 
+    /**
+     * @Rest\Get("/calendar/{id}", name="get_calendar")
+     * @Rest\View()
+     */
+    public function xhrGetCalendarAction($id)
+    {
+        $calendar = $this->calendarRepository->findCalendar($id);
+
+        if (!$calendar) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'Calendar not found'], Response::HTTP_NOT_FOUND);
+        }
+        return ['status' => 'ok', 'data' => $calendar];
+    }
+
     private function registerAttendees($attendees, $activityId)
     {
         $em = $this->getDoctrine()->getManager();

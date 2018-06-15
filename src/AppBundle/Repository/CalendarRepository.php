@@ -29,6 +29,18 @@ class CalendarRepository
         $this->entityManager = $entityManager;
     }
     
+    public function findCalendar($calendarId)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT a.libact, a.sitact, c.datdeb, c.datfin
+        FROM AppBundle\Entity\Calendrier c 
+        JOIN AppBundle\Entity\Activite a WITH a.codact = c.codb
+        WHERE c.codcal=:calendarId');
+        $query->setParameter('calendarId', $calendarId);
+        return $query->getOneOrNullResult();
+    }
+
+    
     public function findRegistrationCount($site)
     {
         $query = $this->entityManager
