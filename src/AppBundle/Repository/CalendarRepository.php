@@ -173,7 +173,7 @@ class CalendarRepository
         return $query->getResult();
     }
     
-    public function findAttendees($registrationReferences)
+    public function findAttendees($registrationReferences, $contactId)
     {
         $query = $this->entityManager->createQuery(
             'SELECT DISTINCT co.nom, co.prenom, co.codco, co.ident, co.civil,
@@ -182,9 +182,9 @@ class CalendarRepository
             FROM AppBundle\Entity\Contact co
             LEFT JOIN AppBundle\Entity\ContactL col WITH co.codco=col.col
             JOIN AppBundle\Entity\CalL cal WITH co.codco=cal.lcal
-            WHERE cal.reflcal IN (:registrationReferences)'
+            WHERE cal.reflcal IN (:registrationReferences) AND cal.lcal<>:contactId'
         );
-        $query->setParameters(['registrationReferences' => $registrationReferences]);
+        $query->setParameters(['registrationReferences' => $registrationReferences, 'contactId' => $contactId]);
         return $query->getResult();
     }
     

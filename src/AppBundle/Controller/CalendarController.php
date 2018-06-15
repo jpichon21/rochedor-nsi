@@ -287,7 +287,7 @@ class CalendarController extends Controller
         if ($refs === null) {
             return null;
         }
-        return $this->calendarRepository->findAttendees(array_column($refs, 'reflcal'));
+        return $this->calendarRepository->findAttendees(array_column($refs, 'reflcal'), $contact->getCodco());
     }
 
     public function getAvailableLocales($contentDocument)
