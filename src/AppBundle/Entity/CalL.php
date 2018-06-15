@@ -139,6 +139,21 @@ class CalL
      */
     private $oldins;
 
+    public function __construct()
+    {
+        $this->setEnreglcal(new \DateTime())
+        ->setEtaplcal('attent')
+        ->setReplcal(new \DateTime('0000-00-00'))
+        ->setHeblcal(0)
+        ->setChlcal('')
+        ->setSaisielcal('')
+        ->setCreatlcal('')
+        ->setTrilcal(0)
+        ->setJslcal('')
+        ->setMemolcal('')
+        ->setOldIns('');
+    }
+
     /**
      * Get codcall.
      *

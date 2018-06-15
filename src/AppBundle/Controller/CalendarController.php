@@ -121,6 +121,7 @@ class CalendarController extends Controller
             return ['status' => 'ko', 'message' => 'You must provide attendees object and activityId'];
         }
         if (!$this->validAttendees($attendees)) {
+            exit();
             return ['status' => 'ko', 'message' => 'The relations between attendees is not auhtorized'];
         }
         if (!$this->registerAttendees($attendees, $activityId)) {
@@ -167,7 +168,7 @@ class CalendarController extends Controller
         $attendees = $this->getAttendees($this->getUser());
         return ['status' => 'ok', 'data' => $attendees];
     }
-
+    
     /**
      * @Rest\Get("/calendar/{id}", name="get_calendar")
      * @Rest\View()
@@ -187,31 +188,32 @@ class CalendarController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         foreach ($attendees as $a) {
-            if ($contact = $this->contactRepository->findContact($attendee['codco'])) {
-                $contact = $this->setContact($contact, $attendee);
+            if ($contact = $this->contactRepository->findContact($a['codco'])) {
+                $contact = $this->setContact($contact, $a);
                 $em->persist($contact);
 
-                if ($a['relation'] === 'enfan' || $a['relation'] === 'conjo') {
+                if ($a['coltyp'] === 'enfan' || $a['coltyp'] === 'conjo') {
                     if (!$contactl = $this->contactRepository->findContactL($contact->getCodco(), $a['colp'])) {
                         $contactl = new ContactL();
                         $contactl->setCol($a['codco']);
                     }
                     $contactl->setColp($a['colp'])
                     ->setColt('famil')
-                    ->setColtyp($a['relation']);
+                    ->setColtyp($a['coltyp']);
                     $em->persist($contactl);
                 }
-
-                $registrationCount = (int) $this->calendarRepository->findRegistrationCount()['valeurn'] + 1;
+                $site = $activity = $this->calendarRepository->findCalendar($activityId)['sitact'];
+                $registrationCount = (int) $this->calendarRepository->findRegistrationCount($site)['valeurn'] + 1;
                 $calL = new CalL();
                 $calL->setCodcal($activityId)
                 ->setLcal($contact->getCodco())
                 ->setTyplcal('coIns')
-                ->setReflcal($this->refCal($registrationCount));
+                ->setReflcal($this->refCal($registrationCount, $site));
                 $em->persist($calL);
             }
         }
         $em->flush();
+        return true;
     }
 
     private function setContact(Contact $contact, $attendee)
@@ -244,28 +246,27 @@ class CalendarController extends Controller
     {
         foreach ($attendees as $attendee) {
             if (!$this->isAdult($attendee['datnaiss'])) {
-                return false;
-            }
-            if (!$this->hasParent($attendee, $attendees)) {
-                return false;
+                if (!$this->hasParent($attendee, $attendees)) {
+                    return false;
+                }
             }
         }
         return true;
     }
-
+    
     private function hasParent($child, $attendees)
     {
-        if ($child['relation'] !== 'child') {
+        if ($child['coltyp'] !== 'enfan') {
             return false;
         }
         foreach ($attendees as $attendee) {
-            if ($attendee['codco'] === $attendee['colp'] && $this->isAdult($attendee['datnaiss'])) {
+            if ($attendee['codco'] === $child['colp'] && $this->isAdult($attendee['datnaiss'])) {
                 return true;
             }
         }
         return false;
     }
-
+    
     private function isAdult(string $datnaiss)
     {
         $datnaiss = new \DateTime($datnaiss);

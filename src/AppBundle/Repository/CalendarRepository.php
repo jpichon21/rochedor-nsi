@@ -28,7 +28,7 @@ class CalendarRepository
         $this->repositoryContact = $entityManager->getRepository(Contact::class);
         $this->entityManager = $entityManager;
     }
-    
+
     public function findCalendar($calendarId)
     {
         $query = $this->entityManager
@@ -45,7 +45,16 @@ class CalendarRepository
     {
         $query = $this->entityManager
         ->createQuery('SELECT v.valeurn FROM AppBundle\Entity\Variable v WHERE v.nom=:varName');
-        $query->setParameter('varNale', $this->insVariable($site));
+        $query->setParameter('varName', $this->insVariable($site));
+        return $query->getOneOrNullResult();
+    }
+
+
+    public function findRegistrationCounter($site, $value)
+    {
+        $query = $this->entityManager
+        ->createQuery('UPDATE AppBundle\Entity\Variable SET v.valeurn=:value WHERE v.nom=:varName');
+        $query->setParameters(['varName', $this->insVariable($site), 'value', $value]);
         return $query->getOneOrNullResult();
     }
     
@@ -131,7 +140,6 @@ class CalendarRepository
     {
         $query = $this->entityManager->createQuery(
             'SELECT a.libact as event,
-            
             a.codact AS actId,
             c.datdeb AS dateIn,
             c.datfin AS dateOut,
@@ -170,7 +178,7 @@ class CalendarRepository
         $query = $this->entityManager->createQuery(
             'SELECT DISTINCT co.nom, co.prenom, co.codco, co.ident, co.civil,
             co.civil2, co.adresse, co.cp, co.ville, co.pays, co.tel,
-            co.mobil, co.email, co.profession, co.datnaiss, col.coltyp, col.colt
+            co.mobil, co.email, co.profession, co.datnaiss, col.coltyp, col.colt, col.colp
             FROM AppBundle\Entity\Contact co
             LEFT JOIN AppBundle\Entity\ContactL col WITH co.codco=col.col
             JOIN AppBundle\Entity\CalL cal WITH co.codco=cal.lcal
