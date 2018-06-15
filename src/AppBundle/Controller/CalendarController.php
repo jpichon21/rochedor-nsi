@@ -21,6 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Page;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use AppBundle\Repository\ContactRepository;
 
 class CalendarController extends Controller
 {
@@ -59,11 +60,17 @@ class CalendarController extends Controller
     /**
      * @var CalendarRepository
      */
-    private $repository;
+    private $calendarRepository;
 
-    public function __construct(CalendarRepository $repository)
+    /**
+     * @var ContactRepository
+     */
+    private $contactRepository;
+
+    public function __construct(CalendarRepository $calendarRepository, ContactRepository $contactRepository)
     {
-        $this->repository = $repository;
+        $this->calendarRepository = $calendarRepository;
+        $this->contactRepository = $contactRepository;
     }
 
      /**
@@ -132,7 +139,7 @@ class CalendarController extends Controller
             return ['status' => 'ko', 'message' => 'You must provide attendee object'];
         }
         if (isset($attendee['id'])) {
-            if (!$contact = $this->repository->findContact($attendee['id'])) {
+            if (!$contact = $this->calendarRepository->findContact($attendee['id'])) {
                 $contact = new Contact();
             }
         } else {
@@ -163,12 +170,12 @@ class CalendarController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         foreach ($attendees as $a) {
-            if ($contact = $this->repository->findContact($attendee['codco'])) {
+            if ($contact = $this->contactRepository->findContact($attendee['codco'])) {
                 $contact = $this->setContact($contact, $attendee);
                 $em->persist($contact);
 
                 if ($a['relation'] === 'enfan' || $a['relation'] === 'conjo') {
-                    if (!$contactl = $this->repository->findContactL($contact->getCodco(), $a['colp'])) {
+                    if (!$contactl = $this->contactRepository->findContactL($contact->getCodco(), $a['colp'])) {
                         $contactl = new ContactL();
                         $contactl->setCol($a['codco']);
                     }
@@ -178,7 +185,7 @@ class CalendarController extends Controller
                     $em->persist($contactl);
                 }
 
-                $registrationCount = (int) $this->repository->findRegistrationCount()['valeurn'] + 1;
+                $registrationCount = (int) $this->calendarRepository->findRegistrationCount()['valeurn'] + 1;
                 $calL = new CalL();
                 $calL->setCodcal($activityId)
                 ->setLcal($contact->getCodco())
@@ -253,16 +260,16 @@ class CalendarController extends Controller
 
     private function getParents(Contact $contact)
     {
-        return $this->repository->findParents($contact->getCodco());
+        return $this->calendarRepository->findParents($contact->getCodco());
     }
 
     private function getAttendees(Contact $contact)
     {
-        $refs = $this->repository->findRegisteredRefs($contact->getCodco());
+        $refs = $this->calendarRepository->findRegisteredRefs($contact->getCodco());
         if ($refs === null) {
             return null;
         }
-        return $this->repository->findAttendees(array_column($refs, 'reflcal'));
+        return $this->calendarRepository->findAttendees(array_column($refs, 'reflcal'));
     }
 
     public function getAvailableLocales($contentDocument)
