@@ -1,242 +1,497 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
-    <header>
-      <tool tool-id="symfony" tool-name="Symfony"/>
-    </header>
-    <body>
-      <trans-unit id="XLjEtrS" resname="menu.one">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="fr">
+  <file id="messages.fr">
+    <unit id="XLjEtrS" name="menu.one">
+      <segment>
         <source>menu.one</source>
         <target>La communauté et les maisons</target>
-      </trans-unit>
-      <trans-unit id="td1g_X_" resname="menu.two">
+      </segment>
+    </unit>
+    <unit id="td1g_X_" name="menu.two">
+      <segment>
         <source>menu.two</source>
         <target>Les retraites</target>
-      </trans-unit>
-      <trans-unit id="_QTPx9b" resname="menu.three">
+      </segment>
+    </unit>
+    <unit id="_QTPx9b" name="menu.three">
+      <segment>
         <source>menu.three</source>
         <target>Le calendrier</target>
-      </trans-unit>
-      <trans-unit id="QokeGaI" resname="menu.one.one">
+      </segment>
+    </unit>
+    <unit id="QokeGaI" name="menu.one.one">
+      <segment>
         <source>menu.one.one</source>
         <target><![CDATA[La <br>communauté]]></target>
-      </trans-unit>
-      <trans-unit id="DY.PFaX" resname="menu.one.two">
+      </segment>
+    </unit>
+    <unit id="DY.PFaX" name="menu.one.two">
+      <segment>
         <source>menu.one.two</source>
         <target><![CDATA[Les <br>fondateurs]]></target>
-      </trans-unit>
-      <trans-unit id="ABGsIRc" resname="menu.one.three">
+      </segment>
+    </unit>
+    <unit id="ABGsIRc" name="menu.one.three">
+      <segment>
         <source>menu.one.three</source>
         <target><![CDATA[La <br>Roche d'Or]]></target>
-      </trans-unit>
-      <trans-unit id="5vJ0eNt" resname="menu.one.four">
+      </segment>
+    </unit>
+    <unit id="5vJ0eNt" name="menu.one.four">
+      <segment>
         <source>menu.one.four</source>
         <target><![CDATA[Les <br>Fontanilles]]></target>
-      </trans-unit>
-      <trans-unit id="TfDK6ic" resname="menu.two.one">
+      </segment>
+    </unit>
+    <unit id="TfDK6ic" name="menu.two.one">
+      <segment>
         <source>menu.two.one</source>
         <target><![CDATA[Venir <br>en retraite]]></target>
-      </trans-unit>
-      <trans-unit id="zFwSu3O" resname="menu.two.two">
+      </segment>
+    </unit>
+    <unit id="zFwSu3O" name="menu.two.two">
+      <segment>
         <source>menu.two.two</source>
         <target><![CDATA[Retraites <br>à la Roche d'Or]]></target>
-      </trans-unit>
-      <trans-unit id="OipSnvA" resname="menu.two.three">
+      </segment>
+    </unit>
+    <unit id="OipSnvA" name="menu.two.three">
+      <segment>
         <source>menu.two.three</source>
         <target><![CDATA[Retraites <br>aux Fontanilles]]></target>
-      </trans-unit>
-      <trans-unit id="NEzhIK_" resname="menu.two.four">
+      </segment>
+    </unit>
+    <unit id="NEzhIK_" name="menu.two.four">
+      <segment>
         <source>menu.two.four</source>
         <target><![CDATA[Les <br>intervenants]]></target>
-      </trans-unit>
-      <trans-unit id="d2ahr5A" resname="menu.four">
+      </segment>
+    </unit>
+    <unit id="d2ahr5A" name="menu.four">
+      <segment>
         <source>menu.four</source>
         <target>Informations pratiques</target>
-      </trans-unit>
-      <trans-unit id="yImul.f" resname="menu.five">
+      </segment>
+    </unit>
+    <unit id="yImul.f" name="menu.five">
+      <segment>
         <source>menu.five</source>
         <target>Les Éditions Roche d'Or</target>
-      </trans-unit>
-      <trans-unit id="Uu.vp07" resname="menu.six">
+      </segment>
+    </unit>
+    <unit id="Uu.vp07" name="menu.six">
+      <segment>
         <source>menu.six</source>
         <target>Nous soutenir</target>
-      </trans-unit>
-      <trans-unit id="Ne9wirQ" resname="menu.four.one">
+      </segment>
+    </unit>
+    <unit id="Ne9wirQ" name="menu.four.one">
+      <segment>
         <source>menu.four.one</source>
         <target><![CDATA[Infos pratiques<br> de la Roche d'Or]]></target>
-      </trans-unit>
-      <trans-unit id="t9xDnqi" resname="menu.four.two">
+      </segment>
+    </unit>
+    <unit id="t9xDnqi" name="menu.four.two">
+      <segment>
         <source>menu.four.two</source>
         <target><![CDATA[Infos pratiques<br> des Fontanilles]]></target>
-      </trans-unit>
-      <trans-unit id="xm3Wl2D" resname="menu.four.three">
+      </segment>
+    </unit>
+    <unit id="xm3Wl2D" name="menu.four.three">
+      <segment>
         <source>menu.four.three</source>
         <target><![CDATA[Accueil<br> des enfants]]></target>
-      </trans-unit>
-      <trans-unit id="ADfxTyP" resname="menu.four.four">
+      </segment>
+    </unit>
+    <unit id="ADfxTyP" name="menu.four.four">
+      <segment>
         <source>menu.four.four</source>
         <target><![CDATA[Liens<br> amis]]></target>
-      </trans-unit>
-      <trans-unit id="rehny29" resname="menu.five.one">
+      </segment>
+    </unit>
+    <unit id="rehny29" name="menu.five.one">
+      <segment>
         <source>menu.five.one</source>
         <target><![CDATA[Les Editions<br> Roche d'Or]]></target>
-      </trans-unit>
-      <trans-unit id="JQrk3we" resname="menu.five.two">
+      </segment>
+    </unit>
+    <unit id="JQrk3we" name="menu.five.two">
+      <segment>
         <source>menu.five.two</source>
         <target><![CDATA[Les<br> Nouveautés]]></target>
-      </trans-unit>
-      <trans-unit id="Vvb_xEv" resname="menu.five.three">
+      </segment>
+    </unit>
+    <unit id="Vvb_xEv" name="menu.five.three">
+      <segment>
         <source>menu.five.three</source>
         <target><![CDATA[Les<br> Collections]]></target>
-      </trans-unit>
-      <trans-unit id="aY4iGkg" resname="menu.six.one">
+      </segment>
+    </unit>
+    <unit id="aY4iGkg" name="menu.six.one">
+      <segment>
         <source>menu.six.one</source>
         <target><![CDATA[Donner<br> du temps]]></target>
-      </trans-unit>
-      <trans-unit id="nrz9.5B" resname="menu.six.two">
+      </segment>
+    </unit>
+    <unit id="nrz9.5B" name="menu.six.two">
+      <segment>
         <source>menu.six.two</source>
         <target><![CDATA[Faire<br> un don]]></target>
-      </trans-unit>
-      <trans-unit id="_xIh0pv" resname="filter.title.site">
+      </segment>
+    </unit>
+    <unit id="_xIh0pv" name="filter.title.site">
+      <segment>
         <source>filter.title.site</source>
         <target>Sites</target>
-      </trans-unit>
-      <trans-unit id="6EbXPX3" resname="filter.title.type">
+      </segment>
+    </unit>
+    <unit id="6EbXPX3" name="filter.title.type">
+      <segment>
         <source>filter.title.type</source>
         <target>Types</target>
-      </trans-unit>
-      <trans-unit id="YBxvI.S" resname="filter.title.intervenants">
+      </segment>
+    </unit>
+    <unit id="YBxvI.S" name="filter.title.intervenants">
+      <segment>
         <source>filter.title.intervenants</source>
         <target>Intervenants</target>
-      </trans-unit>
-      <trans-unit id="4A1GNtj" resname="filter.title.traductions">
+      </segment>
+    </unit>
+    <unit id="4A1GNtj" name="filter.title.traductions">
+      <segment>
         <source>filter.title.traductions</source>
         <target>Traductions</target>
-      </trans-unit>
-      <trans-unit id="ZsqTtfH" resname="filter.inner.default">
+      </segment>
+    </unit>
+    <unit id="ZsqTtfH" name="filter.inner.default">
+      <segment>
         <source>filter.inner.default</source>
         <target>Sélectionner</target>
-      </trans-unit>
-      <trans-unit id="WJZTCIa" resname="filter.inner.selection.singular">
+      </segment>
+    </unit>
+    <unit id="WJZTCIa" name="filter.inner.selection.singular">
+      <segment>
         <source>filter.inner.selection.singular</source>
         <target>sélection</target>
-      </trans-unit>
-      <trans-unit id="TRhsePV" resname="filter.inner.selection.plural">
+      </segment>
+    </unit>
+    <unit id="TRhsePV" name="filter.inner.selection.plural">
+      <segment>
         <source>filter.inner.selection.plural</source>
         <target>sélections</target>
-      </trans-unit>
-      <trans-unit id="FM0PXMD" resname="filter.inner.date.in">
+      </segment>
+    </unit>
+    <unit id="FM0PXMD" name="filter.inner.date.in">
+      <segment>
         <source>filter.inner.date.in</source>
         <target>Du</target>
-      </trans-unit>
-      <trans-unit id="gGyMDWm" resname="filter.inner.date.out">
+      </segment>
+    </unit>
+    <unit id="gGyMDWm" name="filter.inner.date.out">
+      <segment>
         <source>filter.inner.date.out</source>
         <target>Au</target>
-      </trans-unit>
-      <trans-unit id="pbylFh8" resname="filter.inner.submit">
+      </segment>
+    </unit>
+    <unit id="pbylFh8" name="filter.inner.submit">
+      <segment>
         <source>filter.inner.submit</source>
         <target>Ok</target>
-      </trans-unit>
-      <trans-unit id="wY2f8rr" resname="filter.title.keyword">
+      </segment>
+    </unit>
+    <unit id="wY2f8rr" name="filter.title.keyword">
+      <segment>
         <source>filter.title.keyword</source>
         <target>Retraites</target>
-      </trans-unit>
-      <trans-unit id=".0VN0jX" resname="filter.inner.keyword">
+      </segment>
+    </unit>
+    <unit id=".0VN0jX" name="filter.inner.keyword">
+      <segment>
         <source>filter.inner.keyword</source>
         <target>Mot clé</target>
-      </trans-unit>
-      <trans-unit id="Q6jhgTg" resname="retreats.table.head.dates">
+      </segment>
+    </unit>
+    <unit id="Q6jhgTg" name="retreats.table.head.dates">
+      <segment>
         <source>retreats.table.head.dates</source>
         <target>Dates</target>
-      </trans-unit>
-      <trans-unit id="fxGgGMw" resname="retreats.table.head.sites">
+      </segment>
+    </unit>
+    <unit id="fxGgGMw" name="retreats.table.head.sites">
+      <segment>
         <source>retreats.table.head.sites</source>
         <target>Sites</target>
-      </trans-unit>
-      <trans-unit id="2kGPPNK" resname="retreats.table.head.events">
+      </segment>
+    </unit>
+    <unit id="2kGPPNK" name="retreats.table.head.events">
+      <segment>
         <source>retreats.table.head.events</source>
         <target>Evénements</target>
-      </trans-unit>
-      <trans-unit id="z44_LRk" resname="retreats.table.head.speakers">
+      </segment>
+    </unit>
+    <unit id="z44_LRk" name="retreats.table.head.speakers">
+      <segment>
         <source>retreats.table.head.speakers</source>
         <target>Intervenants</target>
-      </trans-unit>
-      <trans-unit id="gYOavAc" resname="retreats.table.head.types">
+      </segment>
+    </unit>
+    <unit id="gYOavAc" name="retreats.table.head.types">
+      <segment>
         <source>retreats.table.head.types</source>
         <target>Types</target>
-      </trans-unit>
-      <trans-unit id="0j2BAw_" resname="retreats.table.head.durations">
+      </segment>
+    </unit>
+    <unit id="0j2BAw_" name="retreats.table.head.durations">
+      <segment>
         <source>retreats.table.head.durations</source>
         <target>Durées</target>
-      </trans-unit>
-      <trans-unit id="33juit3" resname="retreats.table.head.translations">
+      </segment>
+    </unit>
+    <unit id="33juit3" name="retreats.table.head.translations">
+      <segment>
         <source>retreats.table.head.translations</source>
         <target>Traductions</target>
-      </trans-unit>
-      <trans-unit id="7tmJeqV" resname="retreats.table.head.selections">
+      </segment>
+    </unit>
+    <unit id="7tmJeqV" name="retreats.table.head.selections">
+      <segment>
         <source>retreats.table.head.selections</source>
         <target>Sélections</target>
-      </trans-unit>
-      <trans-unit id="3_6XCKH" resname="filter.title.speakers">
+      </segment>
+    </unit>
+    <unit id="3_6XCKH" name="filter.title.speakers">
+      <segment>
         <source>filter.title.speakers</source>
         <target>Intervenants</target>
-      </trans-unit>
-      <trans-unit id="JtjutUk" resname="filter.title.translations">
+      </segment>
+    </unit>
+    <unit id="JtjutUk" name="filter.title.translations">
+      <segment>
         <source>filter.title.translations</source>
         <target>Traductions</target>
-      </trans-unit>
-      <trans-unit id="XneOvFD" resname="admin.title">
+      </segment>
+    </unit>
+    <unit id="XneOvFD" name="admin.title">
+      <segment>
         <source>admin.title</source>
         <target>Tableau de bord</target>
-      </trans-unit>
-      <trans-unit id="JUG1sw_" resname="calendar.registration.one.title">
+      </segment>
+    </unit>
+    <unit id="JUG1sw_" name="calendar.registration.one.title">
+      <segment>
         <source>calendar.registration.one.title</source>
         <target>Connexion/Inscription</target>
-      </trans-unit>
-      <trans-unit id="X6w.m5l" resname="calendar.registration.two.title">
+      </segment>
+    </unit>
+    <unit id="X6w.m5l" name="calendar.registration.two.title">
+      <segment>
         <source>calendar.registration.two.title</source>
         <target>Participants</target>
-      </trans-unit>
-      <trans-unit id="UzRFO5C" resname="calendar.registration.three.title">
+      </segment>
+    </unit>
+    <unit id="UzRFO5C" name="calendar.registration.three.title">
+      <segment>
         <source>calendar.registration.three.title</source>
         <target>Validation</target>
-      </trans-unit>
-      <trans-unit id="YR9sNBD" resname="calendar.registration.three.body">
+      </segment>
+    </unit>
+    <unit id="YR9sNBD" name="calendar.registration.three.body">
+      <segment>
         <source>calendar.registration.three.body</source>
         <target><![CDATA[<p>Nous vous remercions d’avoir pris le temps de renseigner le formulaire et de l’attention que vous portez à la Roche d’Or.</p><p>Votre demande d’inscription est prise en compte sous le numéro :</p><p>%entry_number%</p><p>Vous recevrez prochainement une réponse de la Communauté par mail ou par courrier.</p><p>La Roche d’Or s'engage à être le seul destinataire des informations que vous venez de lui communiquer. Vous disposez d'un droit d'accès, de modification, de rectification et de suppression des données qui vous concernent (art. 34 de la loi "Informatiques et Libertés").</p><p>Pour l'exercer, adressez vous à secretariat@rochedor.fr</p>]]></target>
-      </trans-unit>
-      <trans-unit id="wbVpZSG" resname="calendar.registration.one.title.connection">
+      </segment>
+    </unit>
+    <unit id="wbVpZSG" name="calendar.registration.one.title.connection">
+      <segment>
         <source>calendar.registration.one.title.connection</source>
         <target>Connexion</target>
-      </trans-unit>
-      <trans-unit id="Hu7hGnb" resname="calendar.registration.one.title.registration">
+      </segment>
+    </unit>
+    <unit id="Hu7hGnb" name="calendar.registration.one.title.registration">
+      <segment>
         <source>calendar.registration.one.title.registration</source>
         <target>Inscription</target>
-      </trans-unit>
-      <trans-unit id="79GaqZh" resname="calendar.registration.summary.title">
+      </segment>
+    </unit>
+    <unit id="79GaqZh" name="calendar.registration.summary.title">
+      <segment>
         <source>calendar.registration.summary.title</source>
         <target>Récapitulatif</target>
-      </trans-unit>
-      <trans-unit id="hyo40Kt" resname="calendar.registration.summary.title.retreat">
+      </segment>
+    </unit>
+    <unit id="hyo40Kt" name="calendar.registration.summary.title.retreat">
+      <segment>
         <source>calendar.registration.summary.title.retreat</source>
         <target>Retraite</target>
-      </trans-unit>
-      <trans-unit id="cf8D8wL" resname="calendar.registration.summary.title.participants">
+      </segment>
+    </unit>
+    <unit id="cf8D8wL" name="calendar.registration.summary.title.participants">
+      <segment>
         <source>calendar.registration.summary.title.participants</source>
         <target>Participants</target>
-      </trans-unit>
-      <trans-unit id="UuuHLxt" resname="calendar.registration.one.body">
+      </segment>
+    </unit>
+    <unit id="UuuHLxt" name="calendar.registration.one.body">
+      <segment>
         <source>calendar.registration.one.body</source>
         <target>Avez-vous déjà participé à une retraite à la Roche d'Or ou aux Fontanilles ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
-      </trans-unit>
-      <trans-unit id="rvJRHqu" resname="main.yes">
+      </segment>
+    </unit>
+    <unit id="rvJRHqu" name="main.yes">
+      <segment>
         <source>main.yes</source>
         <target>Oui</target>
-      </trans-unit>
-      <trans-unit id="AzlF5AX" resname="main.no">
+      </segment>
+    </unit>
+    <unit id="AzlF5AX" name="main.no">
+      <segment>
         <source>main.no</source>
         <target>Non</target>
-      </trans-unit>
-    </body>
+      </segment>
+    </unit>
+    <unit id="V8UBB12" name="form.id">
+      <segment>
+        <source>form.id</source>
+        <target>Utilisateur</target>
+      </segment>
+    </unit>
+    <unit id="yjqmSBK" name="form.password">
+      <segment>
+        <source>form.password</source>
+        <target>Mot de passe</target>
+      </segment>
+    </unit>
+    <unit id="3NTTDax" name="form.ok">
+      <segment>
+        <source>form.ok</source>
+        <target>Ok</target>
+      </segment>
+    </unit>
+    <unit id="JfsNCsD" name="form.civility.mr">
+      <segment>
+        <source>form.civility.mr</source>
+        <target>Mr</target>
+      </segment>
+    </unit>
+    <unit id="xsDsRUV" name="form.civility.mme">
+      <segment>
+        <source>form.civility.mme</source>
+        <target>Mme</target>
+      </segment>
+    </unit>
+    <unit id="drTwRMd" name="form.surname">
+      <segment>
+        <source>form.surname</source>
+        <target>Prénom</target>
+      </segment>
+    </unit>
+    <unit id="eqR0LZq" name="form.name">
+      <segment>
+        <source>form.name</source>
+        <target>Téléphone</target>
+      </segment>
+    </unit>
+    <unit id="DOAWeTf" name="form.address">
+      <segment>
+        <source>form.address</source>
+        <target>Adresse</target>
+      </segment>
+    </unit>
+    <unit id="ziUr.Qg" name="form.zipcode">
+      <segment>
+        <source>form.zipcode</source>
+        <target>Code postal</target>
+      </segment>
+    </unit>
+    <unit id="XUsHqAd" name="form.city">
+      <segment>
+        <source>form.city</source>
+        <target>Ville</target>
+      </segment>
+    </unit>
+    <unit id="f95h2nt" name="form.country">
+      <segment>
+        <source>form.country</source>
+        <target>Pays</target>
+      </segment>
+    </unit>
+    <unit id="vLNMGXN" name="form.phone">
+      <segment>
+        <source>form.phone</source>
+        <target>Téléphone</target>
+      </segment>
+    </unit>
+    <unit id="uD_aUux" name="form.mobile">
+      <segment>
+        <source>form.mobile</source>
+        <target>Mobile</target>
+      </segment>
+    </unit>
+    <unit id="3IGOm9D" name="form.email">
+      <segment>
+        <source>form.email</source>
+        <target>Email</target>
+      </segment>
+    </unit>
+    <unit id="2G58i_f" name="form.birthday">
+      <segment>
+        <source>form.birthday</source>
+        <target>Anniversaire</target>
+      </segment>
+    </unit>
+    <unit id="P7A68ag" name="form.profession">
+      <segment>
+        <source>form.profession</source>
+        <target>Profession</target>
+      </segment>
+    </unit>
+    <unit id="kohqA_C" name="form.submit">
+      <segment>
+        <source>form.submit</source>
+        <target>Ok</target>
+      </segment>
+    </unit>
+    <unit id="UN_T7Q7" name="calendar.registration.two.title.you">
+      <segment>
+        <source>calendar.registration.two.title.you</source>
+        <target>Vous</target>
+      </segment>
+    </unit>
+    <unit id="__z09IL" name="calendar.registration.two.title.registered">
+      <segment>
+        <source>calendar.registration.two.title.registered</source>
+        <target>Inscrits avec vous</target>
+      </segment>
+    </unit>
+    <unit id="mfItNzY" name="calendar.registration.two.add_participant">
+      <segment>
+        <source>calendar.registration.two.add_participant</source>
+        <target>Ajouter participant</target>
+      </segment>
+    </unit>
+    <unit id="mV4kdh." name="calendar.registration.two.validate_participants">
+      <segment>
+        <source>calendar.registration.two.validate_participants</source>
+        <target>Valider les participants</target>
+      </segment>
+    </unit>
+    <unit id="B0VCgO_" name="form.username">
+      <segment>
+        <source>form.username</source>
+        <target>__form.username</target>
+      </segment>
+    </unit>
+    <unit id="bThUzo_" name="form.modify">
+      <segment>
+        <source>form.modify</source>
+        <target>Modifier</target>
+      </segment>
+    </unit>
+    <unit id="kDOH2ki" name="form.participate">
+      <segment>
+        <source>form.participate</source>
+        <target>Participera</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
