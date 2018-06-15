@@ -67,4 +67,158 @@ class ContactL
      * @ORM\Column(name="JSCol", type="text", length=65535, nullable=false)
      */
     private $jscol;
+
+    /**
+     * Get codcol.
+     *
+     * @return int
+     */
+    public function getCodcol()
+    {
+        return $this->codcol;
+    }
+
+    /**
+     * Set col.
+     *
+     * @param int $col
+     *
+     * @return ContactL
+     */
+    public function setCol($col)
+    {
+        $this->col = $col;
+
+        return $this;
+    }
+
+    /**
+     * Get col.
+     *
+     * @return int
+     */
+    public function getCol()
+    {
+        return $this->col;
+    }
+
+    /**
+     * Set colp.
+     *
+     * @param int $colp
+     *
+     * @return ContactL
+     */
+    public function setColp($colp)
+    {
+        $this->colp = $colp;
+
+        return $this;
+    }
+
+    /**
+     * Get colp.
+     *
+     * @return int
+     */
+    public function getColp()
+    {
+        return $this->colp;
+    }
+
+    /**
+     * Set colt.
+     *
+     * @param string $colt
+     *
+     * @return ContactL
+     */
+    public function setColt($colt)
+    {
+        $this->colt = $colt;
+
+        return $this;
+    }
+
+    /**
+     * Get colt.
+     *
+     * @return string
+     */
+    public function getColt()
+    {
+        return $this->colt;
+    }
+
+    /**
+     * Set colrel.
+     *
+     * @param int $colrel
+     *
+     * @return ContactL
+     */
+    public function setColrel($colrel)
+    {
+        $this->colrel = $colrel;
+
+        return $this;
+    }
+
+    /**
+     * Get colrel.
+     *
+     * @return int
+     */
+    public function getColrel()
+    {
+        return $this->colrel;
+    }
+
+    /**
+     * Set coltyp.
+     *
+     * @param string $coltyp
+     *
+     * @return ContactL
+     */
+    public function setColtyp($coltyp)
+    {
+        $this->coltyp = $coltyp;
+
+        return $this;
+    }
+
+    /**
+     * Get coltyp.
+     *
+     * @return string
+     */
+    public function getColtyp()
+    {
+        return $this->coltyp;
+    }
+
+    /**
+     * Set jscol.
+     *
+     * @param string $jscol
+     *
+     * @return ContactL
+     */
+    public function setJscol($jscol)
+    {
+        $this->jscol = $jscol;
+
+        return $this;
+    }
+
+    /**
+     * Get jscol.
+     *
+     * @return string
+     */
+    public function getJscol()
+    {
+        return $this->jscol;
+    }
 }

@@ -291,7 +291,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=256, nullable=false)
+     * @ORM\Column(name="password", type="string", length=256, nullable=true)
      */
     private $password;
 
@@ -374,10 +374,18 @@ class Contact implements UserInterface, \Serializable
 
     /**
      * @var array
-     * 
+     *
      * @ORM\Column(name="roles", type="array", nullable=true)
      */
     private $roles;
+
+    public function __construct()
+    {
+        $this->letoca = false;
+        $this->letmail = false;
+        $this->letpaper = false;
+        $this->aut16 = false;
+    }
 
 
     public function getRoles()

@@ -6,27 +6,74 @@ use AppBundle\Entity\Tables;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Contact;
-use Doctrine\ORM\Query\ResultSetMapping;
+use AppBundle\Entity\ContactL;
 
 class CalendarRepository
 {
     
     /**
-     * @var EntityRepository
-     */
+    * @var EntityRepository
+    */
     private $repository;
-
+    
     /**
-     * @var EntityManagerInterface
-     */
+    * @var EntityManagerInterface
+    */
     private $entityManager;
-
+    
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->repositoryBase = $entityManager->getRepository(Base::class);
         $this->repositoryTable = $entityManager->getRepository(Tables::class);
         $this->repositoryContact = $entityManager->getRepository(Contact::class);
         $this->entityManager = $entityManager;
+    }
+    
+    public function findRegistrationCount($site)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT v.valeurn FROM AppBundle\Entity\Variable v WHERE v.nom=:varName');
+        $query->setParameter('varNale', $this->insVariable($site));
+        return $query->getOneOrNullResult();
+    }
+    
+    
+    private function insVariable($site)
+    {
+        $now = new \DateTime();
+        $varName = 'ins';
+        $varName .= strtoupper(substr($site, 0, 1));
+        $varName .= $now->format('y');
+        return $varName;
+    }
+    
+    /**
+    * Find Contact by its Id
+    *
+    * @param int $contactId
+    * @return Contact
+    */
+    public function findContact($contactId)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT c FROM AppBundle\Entity\Contact c WHERE c.codco=:contactId');
+        $query->setParameter('contactId', $contactId);
+        return $query->getOneOrNullResult();
+    }
+    
+    /**
+    * Find ContactL by contact and parent
+    *
+    * @param int $contactId
+    * @param int $parentId
+    * @return ContactL
+    */
+    public function findContactL($contactId, $parentId)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT c FROM AppBundle\Entity\ContactL c WHERE c.col=:contactId AND c.colp=:parentId');
+        $query->setParameters(['contactId' => $contactId, 'parentId' => $parentId]);
+        return $query->getOneOrNullResult();
     }
     
     public function findSpeakers()
@@ -43,7 +90,7 @@ class CalendarRepository
         $query->setParameters(['start' => new \DateTime(), 'divact' => 'RET', 'typlcal' => 'coAct']);
         return $query->getResult();
     }
-
+    
     public function findTranslations()
     {
         $query = $this->entityManager->createQuery(
@@ -57,7 +104,7 @@ class CalendarRepository
         $query->setParameters(['start' => new \DateTime(), 'divact' => 'RET']);
         return $query->getResult();
     }
-
+    
     public function findEventTypes()
     {
         $query = $this->repositoryTable->createQueryBuilder('t')
@@ -67,7 +114,7 @@ class CalendarRepository
         ->setParameter(':tlien', 19);
         return $query->getQuery()->getResult();
     }
-
+    
     public function findEvents()
     {
         $query = $this->entityManager->createQuery(
@@ -77,17 +124,58 @@ class CalendarRepository
             a.sitact as site,
             t.tref as typeAbbr, t.tlib as typeName, t.tmemo as typeColor, c.langue as translation, 
             (SELECT GROUP_CONCAT(CONCAT(co2.nom, \' \' ,co2.prenom) SEPARATOR \'|\') 
-                FROM AppBundle\Entity\Contact co2 
-                INNER JOIN AppBundle\Entity\CalL cal2 WITH co2.codco=cal2.lcal AND cal2.typlcal=:typlcal 
-                INNER JOIN AppBundle\Entity\Calendrier ca2 WITH ca2.codcal=cal2.codcal 
-                WHERE ca2.codcal=c.codcal) AS speakers 
-             FROM AppBundle\Entity\Activite a 
+            FROM AppBundle\Entity\Contact co2 
+            INNER JOIN AppBundle\Entity\CalL cal2 WITH co2.codco=cal2.lcal AND cal2.typlcal=:typlcal 
+            INNER JOIN AppBundle\Entity\Calendrier ca2 WITH ca2.codcal=cal2.codcal 
+            WHERE ca2.codcal=c.codcal) AS speakers 
+            FROM AppBundle\Entity\Activite a 
             INNER JOIN AppBundle\Entity\Calendrier c WITH a.codact=c.codb 
             INNER JOIN AppBundle\Entity\Tables t WITH t.tref=a.typact 
             WHERE c.datdeb>=:start AND a.divact=:divact 
             ORDER BY c.datdeb'
         );
         $query->setParameters(['start' => new \DateTime(), 'divact' => 'RET', 'typlcal' => 'coAct']);
+        return $query->getResult();
+    }
+    
+    public function findRegisteredRefs($contactId)
+    {
+        $query = $this->entityManager->createQuery(
+            'SELECT cal.reflcal
+            FROM AppBundle\Entity\CalL cal
+            WHERE cal.lcal=:contactId AND cal.typlcal=\'coIns\'
+            ORDER BY cal.enreglcal DESC'
+        );
+        $query->setParameters(['contactId' => $contactId]);
+        return $query->getResult();
+    }
+    
+    public function findAttendees($registrationReferences)
+    {
+        $query = $this->entityManager->createQuery(
+            'SELECT DISTINCT co.nom, co.prenom, co.codco, co.ident, co.civil,
+            co.civil2, co.adresse, co.cp, co.ville, co.pays, co.tel,
+            co.mobil, co.email, co.profession, co.datnaiss, col.coltyp, col.colt
+            FROM AppBundle\Entity\ContactL col
+            JOIN AppBundle\Entity\Contact co WITH co.codco=col.col
+            JOIN AppBundle\Entity\CalL cal WITH co.codco=cal.lcal
+            WHERE cal.reflcal IN (:registrationReferences)'
+        );
+        $query->setParameters(['registrationReferences' => $registrationReferences]);
+        return $query->getResult();
+    }
+    
+    public function findParents($contactId)
+    {
+        $query = $this->entityManager->createQuery(
+            'SELECT DISTINCT co.nom, co.prenom, co.codco, co.ident, co.civil,
+            co.civil2, co.adresse, co.cp, co.ville, co.pays, co.tel,
+            co.mobil, co.email, co.profession, co.datnaiss, col.coltyp, col.colt
+            FROM AppBundle\Entity\ContactL col
+            JOIN AppBundle\Entity\Contact co WITH co.codco=col.col
+            WHERE col.colp =:contactId'
+        );
+        $query->setParameters(['contactId' => $contactId]);
         return $query->getResult();
     }
 }

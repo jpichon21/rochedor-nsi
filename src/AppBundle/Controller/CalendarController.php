@@ -14,25 +14,234 @@ use AppBundle\Repository\CalendarRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\Contact;
+use AppBundle\Entity\ContactL;
 use AppBundle\Entity\CalL;
+use AppBundle\ServiceShowPage;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class CalendarController extends Controller
 {
+    const YEARS_ADULT = 16;
+    const RELATIONS = ['child' => 'enfan', 'spouse' => 'conjo'];
 
     /**
-     * @Route("/calendar", name="calendar")
-     *
-     * @return void
+     * @var CalendarRepository
      */
-    public function showCalendarAction(CalendarRepository $calendarRepo)
+    private $repository;
+
+    public function __construct(CalendarRepository $repository)
     {
-        $eventTypes = $calendarRepo->findEventTypes();
-        $events = $calendarRepo->findEvents();
-        $speakers = $calendarRepo->findSpeakers();
-        $translations = $calendarRepo->findTranslations();
-        return new Response('test');
+        $this->repository = $repository;
     }
 
+    /**
+     * @Route("/calendrier-inscription", name="calendrier_inscription")
+     * @Route("/calendar-registration", name="calendar_registration")
+     * @Route("/kalender-registrierung", name="ralender_Registrierung")
+     * @Route("/calendario-registrazione", name="calendario_registrazione")
+     * @Route("/calendario-registro", name="calendario_registro")
+     */
+    public function calendarRegistrationAction(Request $request, ServiceShowPage $showPage)
+    {
+        $path = $request->getPathInfo();
+        $name = substr($path, 1);
+        $contentDocument = $showPage->getMyContent($name);
+        return $this->render('default/calendar-registration.html.twig', array(
+            'page' => $contentDocument,
+            'availableLocales' => $this->getAvailableLocales($contentDocument)
+        ));
+    }
+
+    /**
+     * @Route("/xhr/calendar/attendees", name="xhr_calendar_post_attendees", methods="POST")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function xhrPostAttendeesAction(Request $request)
+    {
+        $attendees = $request->get('attendees');
+        $retirementId = $request->get('retirementId');
+        if (!$attendees || !$retirementId) {
+            return new JsonResponse(
+                ['status' => 'ko', 'message' => 'You must provide attendees object and retirementId']
+            );
+        }
+        if (!$this->validAttendees($attendees)) {
+            return new JsonResponse(
+                ['status' => 'ko', 'message' => 'The relations between attendees is not auhtorized']
+            );
+        }
+        if (!$this->registerAttendees($attendees, $retirementId)) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'The registration has failed']);
+        }
+        return new JsonResponse(['status' => 'ok', 'message' => 'Registration successful']);
+    }
+
+    /**
+     * @Route("/xhr/calendar/attendee", name="xhr_calendar_post_attendee", methods="POST")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function xhrPostAttendeeAction(Request $request)
+    {
+        $attendee = $request->get('attendee');
+        if (!$attendee) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'You must provide attendee object']);
+        }
+        if (isset($attendee['id'])) {
+            if (!$contact = $this->repository->findContact($attendee['id'])) {
+                $contact = new Contact();
+            }
+        } else {
+            $contact = new Contact();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $this->setContact($contact, $attendee);
+        $em->persist($contact);
+        $em->flush();
+        print_r(json_encode($contact));
+        // return new JsonResponse($contact);
+        // return new JsonResponse(['status' => 'ok', 'data' => $contact]);
+    }
+
+    private function registerAttendees($attendees, $retirementId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        foreach ($attendees as $a) {
+            if ($contact = $this->repository->findContact($attendee['codco'])) {
+                $contact = $this->setContact($contact, $attendee);
+                $em->persist($contact);
+
+                if ($a['relation'] === 'child' || $a['relation'] === 'spouse') {
+                    if (!$contactl = $this->repository->findContactL($contact->getCodco(), $a['colp'])) {
+                        $contactl = new ContactL();
+                        $contactl->setCol($a['codco']);
+                    }
+                    $contactl->setColp($a['colp'])
+                    ->setColt('famil')
+                    ->setColtyp($this::RELATIONS[$a['relation']]);
+                    $em->persist($contactl);
+                }
+
+                $registrationCount = (int) $this->repository->findRegistrationCount()['valeurn'] + 1;
+                $calL = new CalL();
+                $calL->setCodcal($retirementId)
+                ->setLcal($contact->getCodco())
+                ->setTyplcal('coIns')
+                ->setReflcal($this->refCal($registrationCount));
+                $em->persist($calL);
+            }
+        }
+        $em->flush();
+    }
+
+    private function setContact(Contact $contact, $attendee)
+    {
+        $contact->setNom($attendee['name'])
+        ->setPrenom($attendee['firstname'])
+        ->setCivil($attendee['gender'])
+        ->setAdresse($attendee['address'])
+        ->setCp($attendee['zipcode'])
+        ->setVille($attendee['city'])
+        ->setPays($attendee['country'])
+        ->setTel($attendee['tel'])
+        ->setMobil($attendee['mobile'])
+        ->setEmail($attendee['email'])
+        ->setUsername($attendee['email'])
+        ->setDatnaiss(new \DateTime($attendee['birthdate']))
+        ->setProfession($attendee['job']);
+        // print_r($contact);
+        // return $contact;
+    }
+
+    private function refCal($count, $site)
+    {
+        $now = new \DateTime();
+        $ref = strtoupper(substr($site, 0, 1));
+        $ref .= $now->format('y');
+        $ref .= '-'.str_pad($count, 5, '0', STR_PAD_LEFT);
+        return $ref;
+    }
+
+    private function validAttendees($attendees)
+    {
+        foreach ($attendees as $attendee) {
+            if (!$this->isAdult($attendee['birthdate'])) {
+                return false;
+            }
+            if (!$this->hasParent($attendee, $attendees)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private function hasParent($child, $attendees)
+    {
+        if ($child['relation'] !== 'child') {
+            return false;
+        }
+        foreach ($attendees as $attendee) {
+            if ($attendee['codco'] === $attendee['colp'] && $this->isAdult($attendee['birthdate'])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private function isAdult(string $birthdate)
+    {
+        $birthdate = new \DateTime($birthdate);
+        $now = new \DateTime();
+        $diff = $birthdate->diff($now);
+        return ($diff->y >= $this::YEARS_ADULT);
+    }
+
+    /**
+     * @Route("/xhr/calendar/attendees", name="xhr_calendar_get_attendees", methods="GET")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function xhrGetLastAttendeesAction()
+    {
+        $attendees = $this->getAttendees($this->getUser());
+        return new JsonResponse(['status' => 'ok', 'data' => $attendees]);
+    }
+
+    private function getParents(Contact $contact)
+    {
+        return $this->repository->findParents($contact->getCodco());
+    }
+
+    private function getAttendees(Contact $contact)
+    {
+        $refs = $this->repository->findRegisteredRefs($contact->getCodco());
+        if ($refs === null) {
+            return null;
+        }
+        return $this->repository->findAttendees(array_column($refs, 'reflcal'));
+    }
+
+    public function getAvailableLocales($contentDocument)
+    {
+        $availableLocales = array();
+        if ($contentDocument->getLocale() === "fr") {
+            $cm = $contentDocument->getChildren();
+            $myChild = $cm->getValues();
+        } else {
+            $cm = $contentDocument->getParent();
+            $mc = $cm->getChildren();
+            $myChild = $mc->getValues();
+            $tmpP = $cm->getRoutes()->getValues();
+            $availableLocales['fr'] = $tmpP[0]->getStaticPrefix();
+        }
+        foreach ($myChild as $childPage) {
+            if ($childPage->getLocale() != $contentDocument->getLocale()) {
+                $key = $childPage->getLocale();
+                $tmp = $childPage->getRoutes()->getValues();
+                $availableLocales[$key] = $tmp[0]->getStaticPrefix();
+            }
+        }
+        return $availableLocales;
+    }
     public function updateContact(Request $request)
     {
         
