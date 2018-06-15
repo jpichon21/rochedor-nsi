@@ -1,5 +1,8 @@
 import $ from 'jquery'
+import moment from 'moment'
 import { postLogin, getRegistered, getRetreat } from './calendar-api.js'
+
+moment.locale('fr')
 
 /* Dropdowns */
 
@@ -42,7 +45,7 @@ function updateRegisteredRender (data) {
 }
 
 function updateRetreatRender (data) {
-  $('.registered-render').html(retreatTemplate({ retreat: data }))
+  $('.retreat-render').html(retreatTemplate({ retreat: data }))
 }
 
 $('.item.connection').on('click', 'a', function (event) {
@@ -89,7 +92,13 @@ updateModifyForm({})
 
 // Right Column
 
-getRetreat(3176).then(retreat => {
-  console.log(retreat)
-  // updateRetreatRender(retreat)
-})
+const url = new URL(window.location.href)
+const id = url.searchParams.get('id')
+
+if (id > 0) {
+  getRetreat(id).then(retreat => {
+    retreat.datdeb = moment(retreat.datdeb).format('LL')
+    retreat.datfin = moment(retreat.datfin).format('LL')
+    updateRetreatRender(retreat)
+  })
+}

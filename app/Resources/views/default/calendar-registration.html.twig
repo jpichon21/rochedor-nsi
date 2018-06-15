@@ -124,8 +124,8 @@
 {% endblock %}
 {% block javascripts %}
 <script type="text/template" class="retreat-template">
-    <p>&laquo;<%= retreat.title %>&raquo;<br>
-    {{ 'filter.inner.date.in' | trans() | raw }} <%= retreat.date.in %> {{ 'filter.inner.date.out' | trans() | raw }} <%= retreat.date.in %> (<%= retreat.location %>)</p>
+    <p>&laquo;<%= retreat.libact %>&raquo;<br>
+    {{ 'filter.inner.date.in' | trans() | raw }} <%= retreat.datdeb %> {{ 'filter.inner.date.out' | trans() | lower | raw }} <%= retreat.datfin %> (<%= retreat.sitact %>)</p>
 </script>
 <script type="text/template" class="you-template">
     <p><%= you.prenom %> <%= you.nom %><br>
