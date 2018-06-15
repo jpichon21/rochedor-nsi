@@ -11,3 +11,8 @@ file:
     resource: "@AppBundle/Controller/FileController.php"
     type:     annotation
     schemes: ['%httpprotocol%']
+rest_api_public:
+    type: rest
+    prefix: /xhr
+    resource: '@AppBundle/Resources/config/rest_routes_public.yml'
+    schemes: ['%httpprotocol%']

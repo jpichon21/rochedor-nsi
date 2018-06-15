@@ -25,7 +25,6 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 class CalendarController extends Controller
 {
     const YEARS_ADULT = 16;
-    const RELATIONS = ['child' => 'enfan', 'spouse' => 'conjo'];
     const SITES = [
         [
             "value" => "lrdo",
@@ -101,38 +100,36 @@ class CalendarController extends Controller
     }
 
     /**
-     * @Route("/xhr/calendar/attendees", name="xhr_calendar_post_attendees", methods="POST")
+     * @Rest\Post("/calendar/attendees", name="post_attendees")
      * @Security("has_role('ROLE_USER')")
+     * @Rest\View()
      */
     public function xhrPostAttendeesAction(Request $request)
     {
         $attendees = $request->get('attendees');
         $retirementId = $request->get('retirementId');
         if (!$attendees || !$retirementId) {
-            return new JsonResponse(
-                ['status' => 'ko', 'message' => 'You must provide attendees object and retirementId']
-            );
+            return ['status' => 'ko', 'message' => 'You must provide attendees object and retirementId'];
         }
         if (!$this->validAttendees($attendees)) {
-            return new JsonResponse(
-                ['status' => 'ko', 'message' => 'The relations between attendees is not auhtorized']
-            );
+            return ['status' => 'ko', 'message' => 'The relations between attendees is not auhtorized'];
         }
         if (!$this->registerAttendees($attendees, $retirementId)) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'The registration has failed']);
+            return ['status' => 'ko', 'message' => 'The registration has failed'];
         }
-        return new JsonResponse(['status' => 'ok', 'message' => 'Registration successful']);
+        return ['status' => 'ok', 'message' => 'Registration successful'];
     }
 
     /**
-     * @Route("/xhr/calendar/attendee", name="xhr_calendar_post_attendee", methods="POST")
+     * @Rest\Post("/calendar/attendee", name="post_attendee")
      * @Security("has_role('ROLE_USER')")
+     * @Rest\View()
      */
     public function xhrPostAttendeeAction(Request $request)
     {
         $attendee = $request->get('attendee');
         if (!$attendee) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'You must provide attendee object']);
+            return ['status' => 'ko', 'message' => 'You must provide attendee object'];
         }
         if (isset($attendee['id'])) {
             if (!$contact = $this->repository->findContact($attendee['id'])) {
@@ -144,11 +141,10 @@ class CalendarController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $this->setContact($contact, $attendee);
+        $contact = $this->setContact($contact, $attendee);
         $em->persist($contact);
         $em->flush();
-        print_r(json_encode($contact));
-        // return new JsonResponse($contact);
-        // return new JsonResponse(['status' => 'ok', 'data' => $contact]);
+        return ['status' => 'ok', 'data' => $contact];
     }
 
     private function registerAttendees($attendees, $retirementId)
@@ -159,14 +155,14 @@ class CalendarController extends Controller
                 $contact = $this->setContact($contact, $attendee);
                 $em->persist($contact);
 
-                if ($a['relation'] === 'child' || $a['relation'] === 'spouse') {
+                if ($a['relation'] === 'enfan' || $a['relation'] === 'conjo') {
                     if (!$contactl = $this->repository->findContactL($contact->getCodco(), $a['colp'])) {
                         $contactl = new ContactL();
                         $contactl->setCol($a['codco']);
                     }
                     $contactl->setColp($a['colp'])
                     ->setColt('famil')
-                    ->setColtyp($this::RELATIONS[$a['relation']]);
+                    ->setColtyp($a['relation']);
                     $em->persist($contactl);
                 }
 
@@ -184,21 +180,19 @@ class CalendarController extends Controller
 
     private function setContact(Contact $contact, $attendee)
     {
-        $contact->setNom($attendee['name'])
-        ->setPrenom($attendee['firstname'])
-        ->setCivil($attendee['gender'])
-        ->setAdresse($attendee['address'])
-        ->setCp($attendee['zipcode'])
-        ->setVille($attendee['city'])
-        ->setPays($attendee['country'])
+        $contact->setNom($attendee['nom'])
+        ->setPrenom($attendee['prenom'])
+        ->setCivil($attendee['civil'])
+        ->setAdresse($attendee['adresse'])
+        ->setCp($attendee['cp'])
+        ->setVille($attendee['ville'])
+        ->setPays($attendee['pays'])
         ->setTel($attendee['tel'])
-        ->setMobil($attendee['mobile'])
+        ->setMobil($attendee['mobil'])
         ->setEmail($attendee['email'])
-        ->setUsername($attendee['email'])
-        ->setDatnaiss(new \DateTime($attendee['birthdate']))
-        ->setProfession($attendee['job']);
-        // print_r($contact);
-        // return $contact;
+        ->setDatnaiss(new \DateTime($attendee['datnaiss']))
+        ->setProfession($attendee['profession']);
+        return $contact;
     }
 
     private function refCal($count, $site)
@@ -213,7 +207,7 @@ class CalendarController extends Controller
     private function validAttendees($attendees)
     {
         foreach ($attendees as $attendee) {
-            if (!$this->isAdult($attendee['birthdate'])) {
+            if (!$this->isAdult($attendee['datnaiss'])) {
                 return false;
             }
             if (!$this->hasParent($attendee, $attendees)) {
@@ -229,18 +223,18 @@ class CalendarController extends Controller
             return false;
         }
         foreach ($attendees as $attendee) {
-            if ($attendee['codco'] === $attendee['colp'] && $this->isAdult($attendee['birthdate'])) {
+            if ($attendee['codco'] === $attendee['colp'] && $this->isAdult($attendee['datnaiss'])) {
                 return true;
             }
         }
         return false;
     }
 
-    private function isAdult(string $birthdate)
+    private function isAdult(string $datnaiss)
     {
-        $birthdate = new \DateTime($birthdate);
+        $datnaiss = new \DateTime($datnaiss);
         $now = new \DateTime();
-        $diff = $birthdate->diff($now);
+        $diff = $datnaiss->diff($now);
         return ($diff->y >= $this::YEARS_ADULT);
     }
 
@@ -289,103 +283,6 @@ class CalendarController extends Controller
             }
         }
         return $availableLocales;
-    }
-    public function updateContact(Request $request)
-    {
-        
-        $em = $this->getDoctrine()->getManager();
-        $codco = $request->get('codco');
-        $contact = $em->getRepository('AppBundle:Contact')->findOneById($codco);
-        $civil = $request->get('civil');
-        $civil2 = $request->get('civil2');
-        $nom = $request->get('nom');
-        $prenom = $request->get('prenom');
-        $adresse = $request->get('adresse');
-        $cp = $request->get('cp');
-        $ville = $request->get('ville');
-        $tel = $request->get('tel');
-        $mobil = $request->get('mobil');
-        $email = $request->get('email');
-        $profession = $request->get('profession');
-        $mpco = $request->get('mpco');
-        $datenaiss = $request->get('datnaiss');
-
-        $contact->setCivil($civil);
-        $contact->setCivil2($civil2);
-        $contact->setNom($nom);
-        $contact->setPrenom($prenom);
-        $contact->setAdresse($adresse);
-        $contact->setCp($cp);
-        $contact->setVille($ville);
-        $contact->setTel($tel);
-        $contact->setMobil($mobil);
-        $contact->setEmail($email);
-        $contact->setProfession($profession);
-        $contact->setMpco($mpco);
-        $contact->setDatenaiss($datenaiss);
-        $em->persist($contact);
-        $em->flush();
-    }
-
-    public function persistContact(Request $request)
-    {
-        
-        $contact = new Contact;
-        $em = $this->getDoctrine()->getManager();
-        $civil = $request->get('civil');
-        $civil2 = $request->get('civil2');
-        $nom = $request->get('nom');
-        $prenom = $request->get('prenom');
-        $adresse = $request->get('adresse');
-        $cp = $request->get('cp');
-        $ville = $request->get('ville');
-        $tel = $request->get('tel');
-        $mobil = $request->get('mobil');
-        $email = $request->get('email');
-        $profession = $request->get('profession');
-        $mpco = $request->get('mpco');
-        $datenaiss = $request->get('datnaiss');
-
-        $contact->setCivil($civil);
-        $contact->setCivil2($civil2);
-        $contact->setNom($nom);
-        $contact->setPrenom($prenom);
-        $contact->setAdresse($adresse);
-        $contact->setCp($cp);
-        $contact->setVille($ville);
-        $contact->setTel($tel);
-        $contact->setMobil($mobil);
-        $contact->setEmail($email);
-        $contact->setProfession($profession);
-        $contact->setMpco($mpco);
-        $contact->setDatenaiss($datenaiss);
-        $em->persist($contact);
-        $em->flush();
-    }
-
-    public function individualInscription(Request $request, Contact $contact, $Jsco, $CodCal)
-    {
-        $contact->setJsco($Jsco);
-        $this->incrementInscr($request->get('lieu'));
-        $calL= new CalL;
-        $calL->setCodcal($CodCal);
-        $calL->getLcal($request->get('lcal'));
-        $calL->getTyplcal($request->get('typlcal'));
-        $calL->getRefLcal($request->get('reflcal'));
-        $calL->getJslcal($request->get('jslcal'));
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($calL);
-        $em->flush();
-    }
-    
-    public function incrementInscr($lieu)
-    {
-        $year = date('Y');
-        $nom = "ins".$lieu.substr($year, -2);
-        $variable = $this->getDoctrine()->getRepository('AppBundle:Variable')->findByNom($nom);
-        $variable->setValeurn($variable->getValeurn()+1);
-        $em->persist($variable);
-        $em->flush();
     }
 
     public function getDataCalendarAction(CalendarRepository $calendarRepo)
