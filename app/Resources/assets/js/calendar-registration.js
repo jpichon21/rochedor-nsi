@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import { postLogin, getRegistered, getRetreat } from './calendar-api.js'
 
 /* Dropdowns */
 
@@ -17,9 +18,32 @@ $(document).ready(function () {
   }, 500)
 })
 
-/* Interaction */
+/* Button Radio */
+
+$('.registered-render').on('click', '.button.radio', function (event) {
+  event.preventDefault()
+  $(this).toggleClass('checked')
+})
+
+/* Tunnel */
 
 // Volet 1
+
+const youTemplate = _.template($('.you-template').html())
+const registeredTemplate = _.template($('.registered-template').html())
+const retreatTemplate = _.template($('.retreat-template').html())
+
+function updateYouRender (data) {
+  $('.you-render').html(youTemplate({ you: data }))
+}
+
+function updateRegisteredRender (data) {
+  $('.registered-render').html(registeredTemplate({ registered: data }))
+}
+
+function updateRetreatRender (data) {
+  $('.registered-render').html(retreatTemplate({ retreat: data }))
+}
 
 $('.item.connection').on('click', 'a', function (event) {
   event.preventDefault()
@@ -33,27 +57,16 @@ $('.item.connection').on('click', 'a', function (event) {
 
 $('form.connection').on('submit', function (event) {
   event.preventDefault()
-  const username = $('.username', this).val()
-  const password = $('.password', this).val()
-  window.fetch('/login', {
-    headers: { 'Content-Type': 'application/json' },
-    method: 'POST',
-    credentials: 'include',
-    body: JSON.stringify({ username: username, password: password })
+  postLogin({
+    username: $('.username', this).val(),
+    password: $('.password', this).val()
+  }).then(you => {
+    updateYouRender(you)
+    getRegistered().then(registered => {
+      updateRegisteredRender(registered)
+      changeItem($('.item.participants'))
+    })
   })
-    .then(res => {
-      if (!res.ok) {
-        res.json().then(res => {
-          throw new Error(res.error)
-        })
-      }
-      return res.json()
-    })
-    .then(res => {
-      console.log(res)
-    })
-    .catch(error => console.log(error))
-  changeItem($('.item.participants'))
 })
 
 $('form.registration').on('submit', function (event) {
@@ -73,3 +86,10 @@ function updateModifyForm (data) {
 }
 
 updateModifyForm({})
+
+// Right Column
+
+getRetreat(3176).then(retreat => {
+  console.log(retreat)
+  // updateRetreatRender(retreat)
+})

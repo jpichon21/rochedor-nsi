@@ -1,5 +1,14 @@
 $roche-yellow: #faf28e;
 
+body.page {
+    .content {
+        .right {
+            .inner {
+                padding-left: 0;
+            }
+        }
+    }
+}
 .dropdown {
     .item {
         h2 {
@@ -12,6 +21,28 @@ $roche-yellow: #faf28e;
                     color: #000000;
                 }
             }
+        }
+    }
+}
+.add-participant {
+    display: table;
+    font-size: 14px;
+}
+.validate-participants {
+    display: inline-block;
+    margin: 30px 0 10px;
+}
+.registered-render {
+    .him {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        p {
+            flex: 1;
+            margin: 0;
+        }
+        .button {
+            margin-left: 10px;
         }
     }
 }
