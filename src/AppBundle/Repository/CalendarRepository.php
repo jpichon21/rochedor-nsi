@@ -28,12 +28,33 @@ class CalendarRepository
         $this->repositoryContact = $entityManager->getRepository(Contact::class);
         $this->entityManager = $entityManager;
     }
+
+    public function findCalendar($calendarId)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT a.libact, a.sitact, c.datdeb, c.datfin
+        FROM AppBundle\Entity\Calendrier c 
+        JOIN AppBundle\Entity\Activite a WITH a.codact = c.codb
+        WHERE c.codcal=:calendarId');
+        $query->setParameter('calendarId', $calendarId);
+        return $query->getOneOrNullResult();
+    }
+
     
     public function findRegistrationCount($site)
     {
         $query = $this->entityManager
         ->createQuery('SELECT v.valeurn FROM AppBundle\Entity\Variable v WHERE v.nom=:varName');
-        $query->setParameter('varNale', $this->insVariable($site));
+        $query->setParameter('varName', $this->insVariable($site));
+        return $query->getOneOrNullResult();
+    }
+
+
+    public function findRegistrationCounter($site, $value)
+    {
+        $query = $this->entityManager
+        ->createQuery('UPDATE AppBundle\Entity\Variable SET v.valeurn=:value WHERE v.nom=:varName');
+        $query->setParameters(['varName', $this->insVariable($site), 'value', $value]);
         return $query->getOneOrNullResult();
     }
     
@@ -119,7 +140,6 @@ class CalendarRepository
     {
         $query = $this->entityManager->createQuery(
             'SELECT a.libact as event,
-            
             a.codact AS actId,
             c.datdeb AS dateIn,
             c.datfin AS dateOut,
@@ -148,22 +168,23 @@ class CalendarRepository
             WHERE cal.lcal=:contactId AND cal.typlcal=\'coIns\'
             ORDER BY cal.enreglcal DESC'
         );
+        $query->setMaxResults(1);
         $query->setParameters(['contactId' => $contactId]);
         return $query->getResult();
     }
     
-    public function findAttendees($registrationReferences)
+    public function findAttendees($registrationReferences, $contactId)
     {
         $query = $this->entityManager->createQuery(
             'SELECT DISTINCT co.nom, co.prenom, co.codco, co.ident, co.civil,
             co.civil2, co.adresse, co.cp, co.ville, co.pays, co.tel,
-            co.mobil, co.email, co.profession, co.datnaiss, col.coltyp, col.colt
-            FROM AppBundle\Entity\ContactL col
-            JOIN AppBundle\Entity\Contact co WITH co.codco=col.col
+            co.mobil, co.email, co.profession, co.datnaiss, col.coltyp, col.colt, col.colp
+            FROM AppBundle\Entity\Contact co
+            LEFT JOIN AppBundle\Entity\ContactL col WITH co.codco=col.col
             JOIN AppBundle\Entity\CalL cal WITH co.codco=cal.lcal
-            WHERE cal.reflcal IN (:registrationReferences)'
+            WHERE cal.reflcal IN (:registrationReferences) AND cal.lcal<>:contactId'
         );
-        $query->setParameters(['registrationReferences' => $registrationReferences]);
+        $query->setParameters(['registrationReferences' => $registrationReferences, 'contactId' => $contactId]);
         return $query->getResult();
     }
     
