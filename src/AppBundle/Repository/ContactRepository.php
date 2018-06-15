@@ -51,4 +51,18 @@ class ContactRepository
         $query->setParameters(['contactId' => $contactId, 'parentId' => $parentId]);
         return $query->getOneOrNullResult();
     }
+
+    /**
+    * Find Contact by its email
+    *
+    * @param string $email
+    * @return Contact
+    */
+    public function findContactByEmail($email)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT c FROM AppBundle\Entity\Contact c WHERE c.email=:email OR c.username=:email');
+        $query->setParameter('email', $email);
+        return $query->getOneOrNullResult();
+    }
 }
