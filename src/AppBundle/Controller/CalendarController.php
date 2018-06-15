@@ -107,14 +107,14 @@ class CalendarController extends Controller
     public function xhrPostAttendeesAction(Request $request)
     {
         $attendees = $request->get('attendees');
-        $retirementId = $request->get('retirementId');
-        if (!$attendees || !$retirementId) {
-            return ['status' => 'ko', 'message' => 'You must provide attendees object and retirementId'];
+        $activityId = $request->get('activityId');
+        if (!$attendees || !$activityId) {
+            return ['status' => 'ko', 'message' => 'You must provide attendees object and activityId'];
         }
         if (!$this->validAttendees($attendees)) {
             return ['status' => 'ko', 'message' => 'The relations between attendees is not auhtorized'];
         }
-        if (!$this->registerAttendees($attendees, $retirementId)) {
+        if (!$this->registerAttendees($attendees, $activityId)) {
             return ['status' => 'ko', 'message' => 'The registration has failed'];
         }
         return ['status' => 'ok', 'message' => 'Registration successful'];
@@ -147,7 +147,7 @@ class CalendarController extends Controller
         return ['status' => 'ok', 'data' => $contact];
     }
 
-    private function registerAttendees($attendees, $retirementId)
+    private function registerAttendees($attendees, $activityId)
     {
         $em = $this->getDoctrine()->getManager();
         foreach ($attendees as $a) {
@@ -168,7 +168,7 @@ class CalendarController extends Controller
 
                 $registrationCount = (int) $this->repository->findRegistrationCount()['valeurn'] + 1;
                 $calL = new CalL();
-                $calL->setCodcal($retirementId)
+                $calL->setCodcal($activityId)
                 ->setLcal($contact->getCodco())
                 ->setTyplcal('coIns')
                 ->setReflcal($this->refCal($registrationCount));
