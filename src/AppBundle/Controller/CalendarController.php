@@ -28,12 +28,14 @@ class CalendarController extends Controller
     const YEARS_ADULT = 16;
     const SITES = [
         [
+            "sitac" => "Roch",
             "value" => "lrdo",
             "name" => "La Roche d'Or",
             "abbr" => "RO",
             "color" => "#ff00ff"
         ],
         [
+            "sitac" => "Font",
             "value" => "font",
             "name" => "Les Fontanilles",
             "abbr" => "FT",
@@ -177,6 +179,7 @@ class CalendarController extends Controller
         if (!$calendar) {
             return new JsonResponse(['status' => 'ko', 'message' => 'Calendar not found'], Response::HTTP_NOT_FOUND);
         }
+        $calendar['sitact'] = $this::SITES[array_search($calendar['sitact'], $this::SITES)]['name'];
         return ['status' => 'ok', 'data' => $calendar];
     }
 
