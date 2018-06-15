@@ -519,6 +519,26 @@ body.page {
         color: #ffffff;
       }
     }
+    .right {
+      h2, h3 {
+        margin-bottom: 20px;
+        color: $roche-yellow;
+        font-size: 13px;
+        font-weight: 400;
+      }
+      h2 {
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      h3 {
+        text-decoration: underline;
+      }
+      p {
+        font-family: 'Lato', sans-serif;
+        font-size: 14px;
+        line-height: 18px;
+      }
+    }
   }
 }
 
@@ -606,11 +626,12 @@ body.page {
       cursor: pointer;
     }
     h3 {
-      font-size: 13px;
+      font-size: 12px;
+      font-weight: 700;
       margin-bottom: 20px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: $roche-yellow;
+      color: #faf28e;
     }
     p {
       font-family: 'Lato', sans-serif;
@@ -708,10 +729,24 @@ body.page {
       text-align: center;
       text-transform: uppercase;
       letter-spacing: 1.4px;
+      color: $roche-yellow;
       border: 1px #faf28e solid;
       background: none;
       box-sizing: border-box;
       outline: none;
+      cursor: pointer;
+      &.radio {
+        padding-right: 40px;
+        background-image: url('button-radio-unchecked.png');
+        background-position: calc(100% - 10px);
+        background-repeat: no-repeat;
+        background-size: 18px;
+        &.checked {
+          color: #ffffff;
+          border-color: #ffffff;
+          background-image: url('button-radio-checked.png');
+        }
+      }
     }
     .panel {
       display: none;

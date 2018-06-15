@@ -21,18 +21,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Page;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use AppBundle\Repository\ContactRepository;
 
 class CalendarController extends Controller
 {
     const YEARS_ADULT = 16;
     const SITES = [
         [
+            "sitac" => "Roch",
             "value" => "lrdo",
             "name" => "La Roche d'Or",
             "abbr" => "RO",
             "color" => "#ff00ff"
         ],
         [
+            "sitac" => "Font",
             "value" => "font",
             "name" => "Les Fontanilles",
             "abbr" => "FT",
@@ -59,11 +62,17 @@ class CalendarController extends Controller
     /**
      * @var CalendarRepository
      */
-    private $repository;
+    private $calendarRepository;
 
-    public function __construct(CalendarRepository $repository)
+    /**
+     * @var ContactRepository
+     */
+    private $contactRepository;
+
+    public function __construct(CalendarRepository $calendarRepository, ContactRepository $contactRepository)
     {
-        $this->repository = $repository;
+        $this->calendarRepository = $calendarRepository;
+        $this->contactRepository = $contactRepository;
     }
 
      /**
@@ -112,6 +121,7 @@ class CalendarController extends Controller
             return ['status' => 'ko', 'message' => 'You must provide attendees object and activityId'];
         }
         if (!$this->validAttendees($attendees)) {
+            exit();
             return ['status' => 'ko', 'message' => 'The relations between attendees is not auhtorized'];
         }
         if (!$this->registerAttendees($attendees, $activityId)) {
@@ -132,7 +142,7 @@ class CalendarController extends Controller
             return ['status' => 'ko', 'message' => 'You must provide attendee object'];
         }
         if (isset($attendee['id'])) {
-            if (!$contact = $this->repository->findContact($attendee['id'])) {
+            if (!$contact = $this->calendarRepository->findContact($attendee['id'])) {
                 $contact = new Contact();
             }
         } else {
@@ -158,36 +168,52 @@ class CalendarController extends Controller
         $attendees = $this->getAttendees($this->getUser());
         return ['status' => 'ok', 'data' => $attendees];
     }
+    
+    /**
+     * @Rest\Get("/calendar/{id}", name="get_calendar")
+     * @Rest\View()
+     */
+    public function xhrGetCalendarAction($id)
+    {
+        $calendar = $this->calendarRepository->findCalendar($id);
+
+        if (!$calendar) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'Calendar not found'], Response::HTTP_NOT_FOUND);
+        }
+        $calendar['sitact'] = $this::SITES[array_search($calendar['sitact'], $this::SITES)]['name'];
+        return ['status' => 'ok', 'data' => $calendar];
+    }
 
     private function registerAttendees($attendees, $activityId)
     {
         $em = $this->getDoctrine()->getManager();
         foreach ($attendees as $a) {
-            if ($contact = $this->repository->findContact($attendee['codco'])) {
-                $contact = $this->setContact($contact, $attendee);
+            if ($contact = $this->contactRepository->findContact($a['codco'])) {
+                $contact = $this->setContact($contact, $a);
                 $em->persist($contact);
 
-                if ($a['relation'] === 'enfan' || $a['relation'] === 'conjo') {
-                    if (!$contactl = $this->repository->findContactL($contact->getCodco(), $a['colp'])) {
+                if ($a['coltyp'] === 'enfan' || $a['coltyp'] === 'conjo') {
+                    if (!$contactl = $this->contactRepository->findContactL($contact->getCodco(), $a['colp'])) {
                         $contactl = new ContactL();
                         $contactl->setCol($a['codco']);
                     }
                     $contactl->setColp($a['colp'])
                     ->setColt('famil')
-                    ->setColtyp($a['relation']);
+                    ->setColtyp($a['coltyp']);
                     $em->persist($contactl);
                 }
-
-                $registrationCount = (int) $this->repository->findRegistrationCount()['valeurn'] + 1;
+                $site = $activity = $this->calendarRepository->findCalendar($activityId)['sitact'];
+                $registrationCount = (int) $this->calendarRepository->findRegistrationCount($site)['valeurn'] + 1;
                 $calL = new CalL();
                 $calL->setCodcal($activityId)
                 ->setLcal($contact->getCodco())
                 ->setTyplcal('coIns')
-                ->setReflcal($this->refCal($registrationCount));
+                ->setReflcal($this->refCal($registrationCount, $site));
                 $em->persist($calL);
             }
         }
         $em->flush();
+        return true;
     }
 
     private function setContact(Contact $contact, $attendee)
@@ -220,28 +246,27 @@ class CalendarController extends Controller
     {
         foreach ($attendees as $attendee) {
             if (!$this->isAdult($attendee['datnaiss'])) {
-                return false;
-            }
-            if (!$this->hasParent($attendee, $attendees)) {
-                return false;
+                if (!$this->hasParent($attendee, $attendees)) {
+                    return false;
+                }
             }
         }
         return true;
     }
-
+    
     private function hasParent($child, $attendees)
     {
-        if ($child['relation'] !== 'child') {
+        if ($child['coltyp'] !== 'enfan') {
             return false;
         }
         foreach ($attendees as $attendee) {
-            if ($attendee['codco'] === $attendee['colp'] && $this->isAdult($attendee['datnaiss'])) {
+            if ($attendee['codco'] === $child['colp'] && $this->isAdult($attendee['datnaiss'])) {
                 return true;
             }
         }
         return false;
     }
-
+    
     private function isAdult(string $datnaiss)
     {
         $datnaiss = new \DateTime($datnaiss);
@@ -253,16 +278,16 @@ class CalendarController extends Controller
 
     private function getParents(Contact $contact)
     {
-        return $this->repository->findParents($contact->getCodco());
+        return $this->calendarRepository->findParents($contact->getCodco());
     }
 
     private function getAttendees(Contact $contact)
     {
-        $refs = $this->repository->findRegisteredRefs($contact->getCodco());
+        $refs = $this->calendarRepository->findRegisteredRefs($contact->getCodco());
         if ($refs === null) {
             return null;
         }
-        return $this->repository->findAttendees(array_column($refs, 'reflcal'));
+        return $this->calendarRepository->findAttendees(array_column($refs, 'reflcal'), $contact->getCodco());
     }
 
     public function getAvailableLocales($contentDocument)

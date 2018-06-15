@@ -381,6 +381,7 @@ class Contact implements UserInterface, \Serializable
 
     public function __construct()
     {
+        $this->roles = ['ROLE_USER'];
         $this->letoca = false;
         $this->letmail = false;
         $this->letpaper = false;
