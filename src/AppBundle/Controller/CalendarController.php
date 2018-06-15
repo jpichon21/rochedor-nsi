@@ -147,6 +147,18 @@ class CalendarController extends Controller
         return ['status' => 'ok', 'data' => $contact];
     }
 
+
+    /**
+     * @Rest\Get("/calendar/attendees", name="get_attendees")
+     * @Security("has_role('ROLE_USER')")
+     * @Rest\View()
+     */
+    public function xhrGetLastAttendeesAction()
+    {
+        $attendees = $this->getAttendees($this->getUser());
+        return ['status' => 'ok', 'data' => $attendees];
+    }
+
     private function registerAttendees($attendees, $activityId)
     {
         $em = $this->getDoctrine()->getManager();
@@ -238,15 +250,6 @@ class CalendarController extends Controller
         return ($diff->y >= $this::YEARS_ADULT);
     }
 
-    /**
-     * @Route("/xhr/calendar/attendees", name="xhr_calendar_get_attendees", methods="GET")
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function xhrGetLastAttendeesAction()
-    {
-        $attendees = $this->getAttendees($this->getUser());
-        return new JsonResponse(['status' => 'ok', 'data' => $attendees]);
-    }
 
     private function getParents(Contact $contact)
     {
