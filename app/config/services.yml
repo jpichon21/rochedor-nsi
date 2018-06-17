@@ -48,3 +48,8 @@ services:
         resource: ../../src/AppBundle/Repository
     Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository: '@cmf_routing.orm_content_repository'
     Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider: '@cmf_routing.route_provider'
+    app.mailer:
+        class: AppBundle\Service\Mailer
+        arguments:
+            $mailer: '@mailer'
+        public: true
