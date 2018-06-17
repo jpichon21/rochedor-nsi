@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Repository\CalendarRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Translation\TranslatorInterface as Translator;
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\ContactL;
 use AppBundle\Entity\CalL;
@@ -22,6 +23,7 @@ use AppBundle\Entity\Page;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\ContactRepository;
+use AppBundle\Service\Mailer;
 
 class CalendarController extends Controller
 {
@@ -69,10 +71,26 @@ class CalendarController extends Controller
      */
     private $contactRepository;
 
-    public function __construct(CalendarRepository $calendarRepository, ContactRepository $contactRepository)
-    {
+    /**
+     * @var Mailer
+     */
+    private $mailer;
+
+    /**
+     * @var Translator
+     */
+    private $translator;
+
+    public function __construct(
+        CalendarRepository $calendarRepository,
+        ContactRepository $contactRepository,
+        Mailer $mailer,
+        Translator $translator
+    ) {
         $this->calendarRepository = $calendarRepository;
         $this->contactRepository = $contactRepository;
+        $this->mailer = $mailer;
+        $this->translator = $translator;
     }
 
      /**
@@ -121,13 +139,13 @@ class CalendarController extends Controller
             return ['status' => 'ko', 'message' => 'You must provide attendees object and activityId'];
         }
         if (!$this->validAttendees($attendees)) {
-            exit();
             return ['status' => 'ko', 'message' => 'The relations between attendees is not auhtorized'];
         }
-        if (!$this->registerAttendees($attendees, $activityId)) {
+        if (!$calL = $this->registerAttendees($attendees, $activityId)) {
             return ['status' => 'ko', 'message' => 'The registration has failed'];
         }
-        return ['status' => 'ok', 'message' => 'Registration successful'];
+
+        return ['status' => 'ok', 'message' => 'Registration successful', 'data' => $calL];
     }
 
     /**
@@ -202,18 +220,33 @@ class CalendarController extends Controller
                     ->setColtyp($a['coltyp']);
                     $em->persist($contactl);
                 }
-                $site = $activity = $this->calendarRepository->findCalendar($activityId)['sitact'];
+                $calendar = $this->calendarRepository->findCalendar($activityId);
+                $site = $calendar['sitact'];
                 $registrationCount = (int) $this->calendarRepository->findRegistrationCount($site)['valeurn'] + 1;
+                $refLcal = $this->refCal($registrationCount, $site);
                 $calL = new CalL();
                 $calL->setCodcal($activityId)
                 ->setLcal($contact->getCodco())
                 ->setTyplcal('coIns')
-                ->setReflcal($this->refCal($registrationCount, $site));
+                ->setReflcal($refLcal);
                 $em->persist($calL);
             }
         }
         $em->flush();
-        return true;
+
+        $this->notifyAttendees($attendees, $refLcal, $calendar);
+        return $refLcal;
+    }
+
+    private function notifyAttendees($attendees, $ref, $calendar)
+    {
+        $this->mailer->send(
+            $this->getUser()->getEmail(),
+            $this->translator->trans('calendar.notify.attendee.subject'),
+            $this->renderView('emails/calendar-notify-attendees.html.twig', [
+                'attendees' => $attendees, 'ref' => $ref, 'calendar' => $calendar
+                ])
+        );
     }
 
     private function setContact(Contact $contact, $attendee)

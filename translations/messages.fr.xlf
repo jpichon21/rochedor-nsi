@@ -493,5 +493,11 @@
         <target>Participera</target>
       </segment>
     </unit>
+    <unit id="calendar.notify.attendee.subject">
+      <segment>
+        <source>calendar.notify.attendee.subject</source>
+        <target>Demande d'inscription</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
