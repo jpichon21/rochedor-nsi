@@ -1,0 +1,4 @@
+{% extends 'emails/base.txt.twig' %}
+{% block body %}
+{{ body|striptags }}
+{% endblock %}
