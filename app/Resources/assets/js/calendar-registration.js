@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import moment from 'moment'
+import * as sample from './sample'
 import { postLogin, getRegistered, getRetreat } from './calendar-api.js'
 
 moment.locale('fr')
@@ -28,34 +29,59 @@ $('.registered-render').on('click', '.button.radio', function (event) {
   $(this).toggleClass('checked')
 })
 
-/* Tunnel */
+/* Variables */
 
-// Volet 1
+let _you
+let _registered
+let _participant
+let _participants
+let _retreat
+
+const itemConnection = $('.item.connection')
+const itemParticipants = $('.item.participants')
+const itemValidation = $('.item.validation')
+
+const urlWindow = new URL(window.location.href)
+const idRetreat = urlWindow.searchParams.get('id')
+
+/* Renders */
 
 const youTemplate = _.template($('.you-template').html())
 const registeredTemplate = _.template($('.registered-template').html())
+const participantsTemplate = _.template($('.participants-template').html())
 const retreatTemplate = _.template($('.retreat-template').html())
+const modifyTemplate = _.template($('.modify-template').html())
 
-function updateYouRender (data) {
-  $('.you-render').html(youTemplate({ you: data }))
+function updateYouRender () {
+  $('.you-render').html(youTemplate({ you: _you }))
 }
 
-function updateRegisteredRender (data) {
-  $('.registered-render').html(registeredTemplate({ registered: data }))
+function updateRegisteredRender () {
+  $('.registered-render').html(registeredTemplate({ registered: _registered }))
 }
 
-function updateRetreatRender (data) {
-  $('.retreat-render').html(retreatTemplate({ retreat: data }))
+function updateParticipantsRender () {
+  $('.participants-render').html(participantsTemplate({ participants: _participants }))
 }
 
-$('.item.connection').on('click', 'a', function (event) {
+function updateRetreatRender () {
+  $('.retreat-render').html(retreatTemplate({ retreat: _retreat }))
+}
+
+function updateModifyForm () {
+  $('.modify-render').html(modifyTemplate({ participant: _participant }))
+}
+
+/* Actions */
+
+itemConnection.on('click', 'a', function (event) {
   event.preventDefault()
   $('.item.connection a').removeClass('active')
   $(this).addClass('active')
   const which = $(this).attr('href').substring(1)
   $('.item.connection .panel').hide()
   $(`.item.connection .panel.${which}`).show()
-  changeItem($('.item.connection'))
+  changeItem(itemConnection)
 })
 
 $('form.connection').on('submit', function (event) {
@@ -64,41 +90,61 @@ $('form.connection').on('submit', function (event) {
     username: $('.username', this).val(),
     password: $('.password', this).val()
   }).then(you => {
-    updateYouRender(you)
+    _you = you
+    updateYouRender()
     getRegistered().then(registered => {
-      updateRegisteredRender(registered)
-      changeItem($('.item.participants'))
+      _registered = registered
+      updateParticipants()
+      updateRegisteredRender()
+      changeItem(itemParticipants)
     })
   })
 })
 
 $('form.registration').on('submit', function (event) {
   event.preventDefault()
-  changeItem($('.item.participants'))
-  updateModifyForm({})
+  changeItem(itemParticipants)
 })
 
-// Volet 2
-
-const modifyTemplate = _.template($('.modify-template').html())
-
-function updateModifyForm (data) {
-  $('.modify-render').html(modifyTemplate({
-    participant: data
-  }))
+function updateParticipants () {
+  let checked = []
+  $('.participate-him.checked').map((index, elmt) => {
+    checked.push(parseInt(elmt.getAttribute('data-id')))
+  })
+  _participants = _registered.filter((registered) => {
+    return checked.indexOf(registered.codco) >= 0
+  })
+  _participants.push(_you)
+  updateParticipantsRender()
 }
 
-updateModifyForm({})
+itemParticipants.on('click', '.participate-him', function (event) {
+  event.preventDefault()
+  updateParticipants()
+})
 
-// Right Column
+itemParticipants.on('click', '.modify-him', function (event) {
+  event.preventDefault()
+  const selected = $(this).getAttribute('data-id')
+  _participant = _registered.filter((registered) => {
+    return registered.codco === selected
+  })
+  updateModifyForm()
+  $('.item.participants .panel.registration').show()
+  changeItem(itemParticipants)
+})
 
-const url = new URL(window.location.href)
-const id = url.searchParams.get('id')
+itemParticipants.on('click', '.add-participant', function (event) {
+  event.preventDefault()
+  _participant = sample.participant
+  updateModifyForm()
+})
 
-if (id > 0) {
-  getRetreat(id).then(retreat => {
-    retreat.datdeb = moment(retreat.datdeb).format('LL')
-    retreat.datfin = moment(retreat.datfin).format('LL')
-    updateRetreatRender(retreat)
+if (idRetreat > 0) {
+  getRetreat(idRetreat).then(retreat => {
+    _retreat = retreat
+    _retreat.datdeb = moment(_retreat.datdeb).format('LL')
+    _retreat.datfin = moment(_retreat.datfin).format('LL')
+    updateRetreatRender()
   })
 }
