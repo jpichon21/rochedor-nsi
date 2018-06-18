@@ -146,8 +146,8 @@
         <div class="him">
             <p><%= him.prenom %> <%= him.nom %><br>
                 <%= him.adresse %> <%= him.cp %> <%= him.ville %> <%= him.pays %></p>
-            <a href="#" class="modifiy-him button">{{ 'form.modify' | trans() | raw }}</a>
-            <a href="#" class="participate-him button radio">{{ 'form.participate' | trans() | raw }}</a>
+            <a href="#" data-id="<%= him.codco %>" class="modifiy-him button">{{ 'form.modify' | trans() | raw }}</a>
+            <a href="#" data-id="<%= him.codco %>" class="participate-him button radio">{{ 'form.participate' | trans() | raw }}</a>
         </div>
     <% } %>
 </script>
