@@ -159,11 +159,16 @@ class CalendarController extends Controller
         if (!$attendee) {
             return ['status' => 'ko', 'message' => 'You must provide attendee object'];
         }
-        if (isset($attendee['id'])) {
-            if (!$contact = $this->calendarRepository->findContact($attendee['id'])) {
-                $contact = new Contact();
-            }
+        if (isset($attendee['codco'])) {
+            $contact = $this->calendarRepository->findContact($attendee['codco']);
         } else {
+            $contact = $this->calendarRepository->findContactByInfos(
+                $attendee['nom'],
+                $attendee['prenom'],
+                $attendee['datnaiss']
+            );
+        }
+        if ($contact === null) {
             $contact = new Contact();
         }
 
@@ -228,7 +233,8 @@ class CalendarController extends Controller
                 $calL->setCodcal($activityId)
                 ->setLcal($contact->getCodco())
                 ->setTyplcal('coIns')
-                ->setReflcal($refLcal);
+                ->setReflcal($refLcal)
+                ->setJslcal(json_encode(['Arriv' => ['Transport' => $a['transport'], 'Memo' => $a['memo']]]));
                 $em->persist($calL);
             }
         }
