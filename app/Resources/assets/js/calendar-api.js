@@ -3,16 +3,26 @@ export const postLogin = (data) => {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',
-    body: JSON.stringify({
-      username: data.username,
-      password: data.password
-    })
+    body: JSON.stringify(data)
   })
     .then(res => {
       if (!res.ok) { res.json().then(res => { throw res.error }) }
       return res.json()
     })
-    .catch(error => console.log(error))
+}
+
+export const postRegister = (data) => {
+  return window.fetch('/register', {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify(data)
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.message }
+      return res.data
+    })
 }
 
 export const postParticipant = (data) => {
@@ -26,10 +36,9 @@ export const postParticipant = (data) => {
   })
     .then(res => res.json())
     .then(res => {
-      if (res.status !== 'ok') { throw res.error }
+      if (res.status !== 'ok') { throw res.message }
       return res.data
     })
-    .catch(error => console.log(error))
 }
 
 export const getLogout = () => {
@@ -41,7 +50,6 @@ export const getLogout = () => {
     .then(() => {
       window.location.reload()
     })
-    .catch(error => console.log(error))
 }
 
 export const getLogin = () => {
@@ -50,10 +58,9 @@ export const getLogin = () => {
     credentials: 'include'
   })
     .then(res => {
-      if (!res.ok) { res.json().then(res => { throw res.error }) }
+      if (!res.ok) { res.json().then(res => { throw res.message }) }
       return res.json()
     })
-    .catch(error => console.log(error))
 }
 
 export const getRegistered = () => {
@@ -64,10 +71,9 @@ export const getRegistered = () => {
   })
     .then(res => res.json())
     .then(res => {
-      if (res.status !== 'ok') { throw res.error }
+      if (res.status !== 'ok') { throw res.message }
       return res.data
     })
-    .catch(error => console.log(error))
 }
 
 export const getRetreat = (id) => {
@@ -78,8 +84,7 @@ export const getRetreat = (id) => {
   })
     .then(res => res.json())
     .then(res => {
-      if (res.status !== 'ok') { throw res.error }
+      if (res.status !== 'ok') { throw res.message }
       return res.data
     })
-    .catch(error => console.log(error))
 }

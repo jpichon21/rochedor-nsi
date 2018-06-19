@@ -388,7 +388,7 @@
     <unit id="eqR0LZq" name="form.name">
       <segment>
         <source>form.name</source>
-        <target>Téléphone</target>
+        <target>Nom</target>
       </segment>
     </unit>
     <unit id="DOAWeTf" name="form.address">
@@ -436,7 +436,7 @@
     <unit id="2G58i_f" name="form.birthday">
       <segment>
         <source>form.birthday</source>
-        <target>Anniversaire</target>
+        <target>Anniversaire (JJ/MM/AAAA)</target>
       </segment>
     </unit>
     <unit id="P7A68ag" name="form.profession">
@@ -478,7 +478,7 @@
     <unit id="B0VCgO_" name="form.username">
       <segment>
         <source>form.username</source>
-        <target>__form.username</target>
+        <target>Email</target>
       </segment>
     </unit>
     <unit id="bThUzo_" name="form.modify">
@@ -545,6 +545,54 @@
       <segment>
         <source>form.disconnect</source>
         <target>Se déconnecter</target>
+      </segment>
+    </unit>
+    <unit id="wYBophx" name="calendar.registration.two.title.modify.you">
+      <segment>
+        <source>calendar.registration.two.title.modify.you</source>
+        <target>Modifier votre fiche</target>
+      </segment>
+    </unit>
+    <unit id="PtppaFL" name="calendar.registration.two.title.modify.him">
+      <segment>
+        <source>calendar.registration.two.title.modify.him</source>
+        <target>Modifier un participant</target>
+      </segment>
+    </unit>
+    <unit id="kswmam." name="form.transport">
+      <segment>
+        <source>form.transport</source>
+        <target>Transport</target>
+      </segment>
+    </unit>
+    <unit id="g8r0.vw" name="form.memo">
+      <segment>
+        <source>form.memo</source>
+        <target>Commentaire</target>
+      </segment>
+    </unit>
+    <unit id="qZI9mI2" name="form.transport.perso">
+      <segment>
+        <source>form.transport.perso</source>
+        <target>Viendra par ses propres moyens</target>
+      </segment>
+    </unit>
+    <unit id="qeUDh4t" name="form.transport.train">
+      <segment>
+        <source>form.transport.train</source>
+        <target>Viendra en train</target>
+      </segment>
+    </unit>
+    <unit id="tjBn22A" name="form.transport.avion">
+      <segment>
+        <source>form.transport.avion</source>
+        <target>Viendra en avion</target>
+      </segment>
+    </unit>
+    <unit id="l5g0cdb" name="form.transport.bus">
+      <segment>
+        <source>form.transport.bus</source>
+        <target>Viendra en bus</target>
       </segment>
     </unit>
   </file>
