@@ -10,8 +10,25 @@ monolog:
             type: stream
             path: '%kernel.logs_dir%/%kernel.environment%.log'
             level: debug
-        console:
-            type: console
-            process_psr_3_messages: false
+        debug_handler:
+            type: rotating_file
+            level: debug
+            path: '%kernel.logs_dir%/%kernel.environment%.debug.log'
+            max_files: 30
+        mail:
+            type: fingers_crossed
+            action_level: critical
+            handler: deduplicated
+        deduplicated:
+            type: deduplication
+            handler: swift
+        swift:
+            type: swift_mailer
+            from_email: 'production@logomotion.fr'
+            to_email: 'production@logomotion.fr'
+            subject: 'An error Occured! %%message%%'
+            level: debug
+            formatter: monolog.formatter.html
+            content_type: text/html
 parameters:
     httpprotocol: https
