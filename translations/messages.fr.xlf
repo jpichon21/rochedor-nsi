@@ -334,7 +334,7 @@
     <unit id="UuuHLxt" name="calendar.registration.one.body">
       <segment>
         <source>calendar.registration.one.body</source>
-        <target>Avez-vous déjà participé à une retraite à la Roche d'Or ou aux Fontanilles ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
+        <target>Vous êtes connecté en tant que %name%, voulez-vous continuer ?</target>
       </segment>
     </unit>
     <unit id="rvJRHqu" name="main.yes">
@@ -466,7 +466,7 @@
     <unit id="mfItNzY" name="calendar.registration.two.add_participant">
       <segment>
         <source>calendar.registration.two.add_participant</source>
-        <target>Ajouter participant</target>
+        <target>+ Ajouter un participant</target>
       </segment>
     </unit>
     <unit id="mV4kdh." name="calendar.registration.two.validate_participants">
@@ -493,10 +493,58 @@
         <target>Participera</target>
       </segment>
     </unit>
-    <unit id="calendar.notify.attendee.subject">
+    <unit id="YWzPHVB" name="calendar.notify.attendee.subject">
       <segment>
         <source>calendar.notify.attendee.subject</source>
         <target>Demande d'inscription</target>
+      </segment>
+    </unit>
+    <unit id="EHnUJsc" name="calendar.registration.two.title.modify">
+      <segment>
+        <source>calendar.registration.two.title.modify</source>
+        <target>Modifier un participant</target>
+      </segment>
+    </unit>
+    <unit id="g5egomQ" name="calendar.registration.two.title.registration">
+      <segment>
+        <source>calendar.registration.two.title.registration</source>
+        <target>Ajouter un participant</target>
+      </segment>
+    </unit>
+    <unit id="s5pfV6x" name="calendar.registration.one.body.connected">
+      <segment>
+        <source>calendar.registration.one.body.connected</source>
+        <target><![CDATA[Vous êtes connecté en tant que <b>%name%</b>, voulez-vous continuer ?]]></target>
+      </segment>
+    </unit>
+    <unit id="L5.6B.Q" name="form.yes">
+      <segment>
+        <source>form.yes</source>
+        <target>Oui</target>
+      </segment>
+    </unit>
+    <unit id="dS5kpgF" name="form.no">
+      <segment>
+        <source>form.no</source>
+        <target>Non</target>
+      </segment>
+    </unit>
+    <unit id="UfVO5kV" name="calendar.registration.one.body.disconnected">
+      <segment>
+        <source>calendar.registration.one.body.disconnected</source>
+        <target>Avez-vous déjà participé à une retraite à la Roche d'Or ou aux Fontanilles ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
+      </segment>
+    </unit>
+    <unit id="Hp62ZON" name="form.continue">
+      <segment>
+        <source>form.continue</source>
+        <target>Continuer</target>
+      </segment>
+    </unit>
+    <unit id="9iZriSj" name="form.disconnect">
+      <segment>
+        <source>form.disconnect</source>
+        <target>Se déconnecter</target>
       </segment>
     </unit>
   </file>

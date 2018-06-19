@@ -702,6 +702,7 @@ body.page {
       margin-bottom: 20px;
       padding: 5px 20px;
       line-height: 20px;
+      color: #ffffff;
       font-size: 14px;
       border: 1px solid $roche-yellow;
       border-radius: 0;
@@ -721,7 +722,10 @@ body.page {
       -webkit-appearance: none;
     }
     .textarea {
+      min-width: 100%;
+      max-width: 100%;
       min-height: 80px;
+      max-height: 80px;
     }
     .button {
       padding: 5px 20px;
@@ -736,6 +740,10 @@ body.page {
       box-sizing: border-box;
       outline: none;
       cursor: pointer;
+      &.submit {
+        color: #ffffff;
+        border-color: #ffffff;
+      }
       &.radio {
         padding-right: 40px;
         background-image: url('button-radio-unchecked.png');

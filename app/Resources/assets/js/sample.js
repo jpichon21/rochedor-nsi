@@ -1,10 +1,10 @@
 export const participant = {
-  username: '',
-  roles: [],
-  codco: null,
-  ident: null,
   nom: '',
   prenom: '',
+  codco: null,
+  ident: null,
+  civil: '',
+  civil2: null,
   adresse: '',
   cp: '',
   ville: '',
@@ -12,11 +12,11 @@ export const participant = {
   tel: '',
   mobil: '',
   email: '',
-  societe: '',
   profession: '',
-  datnaiss: {
-    date: '',
-    timezone_type: null,
-    timezone: ''
-  }
+  datnaiss: '',
+  coltyp: '',
+  colt: '',
+  colp: null,
+  transport: '',
+  memo: ''
 }

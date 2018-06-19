@@ -18,13 +18,24 @@
             <div class="dropdown">
                 <div class="item connection">
                     <h2>{{ 'calendar.registration.one.title' | trans() | raw }}</h2>
-                    <p>{{ 'calendar.registration.one.body' | trans() | raw }}</p>
+                    {% if app.user %}
+                    <p>{{ 'calendar.registration.one.body.connected' | trans({ '%name%': app.user.prenom ~ ' ' ~ app.user.nom }) | raw }}</p>
+                    <div class="pure-g">
+                        <div class="pure-u-1-3">
+                            <a href="#continue" class="button continue">{{ 'form.continue' | trans() | raw }}</a>
+                        </div>
+                        <div class="pure-u-1-3">
+                            <a href="#disconnect" class="button disconnect">{{ 'form.disconnect' | trans() | raw }}</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p>{{ 'calendar.registration.one.body.disconnected' | trans() | raw }}</p>
                     <div class="pure-g">
                         <div class="pure-u-4-24">
-                            <a href="#connection" class="button yes">Oui</a>
+                            <a href="#connection" class="button yes">{{ 'form.yes' | trans() | raw }}</a>
                         </div>
                         <div class="pure-u-4-24">
-                            <a href="#registration" class="button no">Non</a>
+                            <a href="#registration" class="button no">{{ 'form.no' | trans() | raw }}</a>
                         </div>
                     </div>
                     <div class="panel connection">
@@ -88,6 +99,7 @@
                             </div>
                         </form>
                     </div>
+                    {% endif %}
                 </div>
                 <div class="item participants">
                     <h2>{{ 'calendar.registration.two.title' | trans() | raw }}</h2>
@@ -96,15 +108,19 @@
                     <h3>{{ 'calendar.registration.two.title.registered' | trans() | raw }}</h3>
                     <div class="registered-render"></div>
                     <a href="#" class="add-participant">{{ 'calendar.registration.two.add_participant' | trans() | raw }}</a>
-                    <a href="#" class="validate-participants button submit">{{ 'calendar.registration.two.validate_participants' | trans() | raw }}</a>
-                    <div class="panel registration">
-                        <h3>{{ 'calendar.registration.one.title.registration' | trans() | raw }}</h3>
-                        <div class="modify-render"></div>
+                    <a href="#" class="validate-participants button">{{ 'calendar.registration.two.validate_participants' | trans() | raw }}</a>
+                    <div class="panel add">
+                        <h3>{{ 'calendar.registration.two.title.registration' | trans() | raw }}</h3>
+                        <form class="pure-g add add-render"></form>
+                    </div>
+                    <div class="panel modify">
+                        <h3>{{ 'calendar.registration.two.title.modify' | trans() | raw }}</h3>
+                        <form class="pure-g modify modify-render"></form>
                     </div>
                 </div>
                 <div class="item validation">
                     <h2>{{ 'calendar.registration.three.title' | trans() | raw }}</h2>
-                    {{ 'calendar.registration.three.body' | trans({'%entry_number%': 'R18-00002'}) | raw }}
+                    {{ 'calendar.registration.three.body' | trans({ '%entry_number%': 'R18-00002' }) | raw }}
                 </div>
             </div>
         </div>
@@ -128,8 +144,12 @@
     {{ 'filter.inner.date.in' | trans() | raw }} <%= retreat.datdeb %> {{ 'filter.inner.date.out' | trans() | lower | raw }} <%= retreat.datfin %> (<%= retreat.sitact %>)</p>
 </script>
 <script type="text/template" class="you-template">
-    <p><%= you.prenom %> <%= you.nom %><br>
-        <%= you.adresse %> <%= you.cp %> <%= you.ville %> <%= you.pays %></p>
+    <div class="you">
+        <p><%= you.prenom %> <%= you.nom %><br>
+            <%= you.adresse %> <%= you.cp %> <%= you.ville %> <%= you.pays %></p>
+        <a href="#" data-id="<%= you.codco %>" class="modify-you button">{{ 'form.modify' | trans() | raw }}</a>
+        <a href="#" class="button radio hidden">{{ 'form.participate' | trans() | raw }}</a>
+    </div>
 </script>
 <script type="text/template" class="participants-template">
     <% for (var i = 0; i < participants.length; i++) { %>
@@ -146,56 +166,59 @@
         <div class="him">
             <p><%= him.prenom %> <%= him.nom %><br>
                 <%= him.adresse %> <%= him.cp %> <%= him.ville %> <%= him.pays %></p>
-            <a href="#" data-id="<%= him.codco %>" class="modifiy-him button">{{ 'form.modify' | trans() | raw }}</a>
+            <a href="#" data-id="<%= him.codco %>" class="modify-him button">{{ 'form.modify' | trans() | raw }}</a>
             <a href="#" data-id="<%= him.codco %>" class="participate-him button radio">{{ 'form.participate' | trans() | raw }}</a>
         </div>
     <% } %>
 </script>
 <script type="text/template" class="modify-template">
-    <form class="pure-g modify">
-        <div class="pure-u-1-3">
-            <select class="select civility">
-                <option selected>{{ 'form.civility.mr' | trans() | raw }}</option>
-                <option>{{ 'form.civility.mme' | trans() | raw }}</option>
-            </select>
-        </div>
-        <div class="pure-u-1-3">
-            <input class="input surname" type="text" value="<%= participant.surname %>" name="surname" placeholder="{{ 'form.surname' | trans() | raw }}">
-        </div>
-        <div class="pure-u-1-3">
-            <input class="input name" type="text" value="<%= participant.name %>" name="name" placeholder="{{ 'form.name' | trans() | raw }}">
-        </div>
-        <div class="pure-u-1">
-            <textarea class="textarea address" type="text" value="<%= participant.address %>" name="address" placeholder="{{ 'form.address' | trans() | raw }}"></textarea>
-        </div>
-        <div class="pure-u-1-3">
-            <input class="input zipcode" type="text" value="<%= participant.zipcode %>" name="zipcode" placeholder="{{ 'form.zipcode' | trans() | raw }}">
-        </div>
-        <div class="pure-u-1-3">
-            <input class="input city" type="text" value="<%= participant.city %>" name="city" placeholder="{{ 'form.city' | trans() | raw }}">
-        </div>
-        <div class="pure-u-1-3">
-            <input class="input country" type="text" value="<%= participant.country %>" name="country" placeholder="{{ 'form.country' | trans() | raw }}">
-        </div>
-        <div class="pure-u-1-3">
-            <input class="input phone" type="text" value="<%= participant.phone %>" name="phone" placeholder="{{ 'form.phone' | trans() | raw }}">
-        </div>
-        <div class="pure-u-1-3">
-            <input class="input mobile" type="text" value="<%= participant.mobile %>" name="mobile" placeholder="{{ 'form.mobile' | trans() | raw }}">
-        </div>
-        <div class="pure-u-1-3">
-            <input class="input email" type="text" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans() | raw }}">
-        </div>
-        <div class="pure-u-1-2">
-            <input class="input birthday" type="text" value="<%= participant.birthday %>" name="birthday" placeholder="{{ 'form.birthday' | trans() | raw }}">
-        </div>
-        <div class="pure-u-1-2">
-            <input class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans() | raw }}">
-        </div>
-        <div class="pure-u-1-4">
-            <input class="input button submit" type="submit" value="{{ 'form.submit' | trans() | raw }}">
-        </div>
-    </form>
+    <input class="input" type="hidden" value="<%= participant.codco %>" name="codco">
+    <div class="pure-u-1-3">
+        <select class="select civility">
+            <option>Frère</option>
+            <option>M.</option>
+            <option>Mlle</option>
+            <option>Mme</option>
+            <option>Père</option>
+            <option>Soeur</option>
+        </select>
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input prenom" type="text" value="<%= participant.prenom %>" name="prenom" placeholder="{{ 'form.surname' | trans() | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input nom" type="text" value="<%= participant.nom %>" name="nom" placeholder="{{ 'form.name' | trans() | raw }}">
+    </div>
+    <div class="pure-u-1">
+        <textarea class="textarea adresse" type="text" name="adresse" placeholder="{{ 'form.address' | trans() | raw }}"><%= participant.adresse %></textarea>
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input cp" type="text" value="<%= participant.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans() | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input ville" type="text" value="<%= participant.ville %>" name="ville" placeholder="{{ 'form.city' | trans() | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input pays" type="text" value="<%= participant.pays %>" name="pays" placeholder="{{ 'form.country' | trans() | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input tel" type="text" value="<%= participant.tel %>" name="tel" placeholder="{{ 'form.phone' | trans() | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input mobil" type="text" value="<%= participant.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans() | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input email" type="text" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans() | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input class="input datnaiss" type="text" value="<%= participant.datnaiss %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans() | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans() | raw }}">
+    </div>
+    <div class="pure-u-4-24">
+        <input class="input button submit" type="submit" value="{{ 'form.submit' | trans() | raw }}">
+    </div>
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
 <script src="{{ asset("assets/js/calendar-registration.js") }}"></script>
