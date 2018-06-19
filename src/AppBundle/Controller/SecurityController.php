@@ -67,7 +67,7 @@ class SecurityController extends Controller
             'email' => $user->getEmail(),
             'societe' => $user->getSociete(),
             'profession' => $user->getProfession(),
-            'datnaiss' => $user->getDatnaiss()
+            'datnaiss' => $user->getDatnaiss()->format(\DateTime::ISO8601)
         ]);
     }
 
