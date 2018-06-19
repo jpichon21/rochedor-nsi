@@ -74,6 +74,7 @@
     "sinon": "^6.0.0",
     "slick-carousel": "^1.8.1",
     "standard": "^11.0.1",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "velocityjs": "^1.0.1",
     "zepto": "^1.2.0",
     "zepto-webpack": "^1.2.1"

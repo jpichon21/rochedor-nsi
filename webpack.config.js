@@ -3,6 +3,7 @@ var Encore = require('@symfony/webpack-encore')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const webpack = require('webpack')
 const path = require('path')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 Encore
   .setOutputPath('web/assets/')
@@ -34,14 +35,15 @@ Encore
     to: 'img'
   }]))
 
-if (Encore.isProduction()) {
-  Encore.addPlugin(new webpack.optimize.UglifyJsPlugin({
-    parallel: true
-  }))
-}
-
 const config = Encore.getWebpackConfig()
-
+if (Encore.isProduction()) {
+  // Remove old uglify version
+  config.plugins = config.plugins.filter(
+    plugin => !(plugin instanceof webpack.optimize.UglifyJsPlugin)
+  )
+  // Add the new one
+  config.plugins.push(new UglifyJsPlugin()) 
+}
 config.resolve.alias = {
   'TweenMax': path.resolve('node_modules', 'gsap/src/uncompressed/TweenMax.js'),
   'TimelineMax': path.resolve('node_modules', 'gsap/src/uncompressed/TimelineMax.js'),
