@@ -1,0 +1,12 @@
+<p>Nous vous remercions d’avoir pris le temps de renseigner le formulaire et de l’attention que vous portez à la Roche d’Or.</p>
+<p>Votre demande d’inscription est prise en compte sous le numéro :</p>
+<p style="text-align: center;"><b>{{ ref }}</b><br><br>«&nbsp;<b>" Apprenez de moi que je suis doux et humble de cœur. " (Mt 11,29)</b>&nbsp;»
+  <br> du <b>{{ calendar.datdeb|date('d/m/Y') }}</b> au <b>{{ calendar.datfin|date('d/m/Y') }}</b><br><br><p>Liste des participants :</p>
+  <table class=Liste width=100%> 
+    <tr><th width=26></th> <th>Participant</th> <th>Mode de transport</th> <th>Arrivée à</th> <th>Horaire</th> </tr>  
+    {% for attendee in attendees %}
+      <tr ValCle=36092 ColP=''><td width=26>&nbsp;</td><td xwidth=260 style='text-align:left'>{{ attendee.civil }} {{ attendee.nom }} {{ attendee.prenom }}</td><td>{{ attendee.transport }}</td><td></td><td></td></tr>
+    {% endfor %}
+  </table></p>
+<p>Vous recevrez prochainement une réponse de la Communauté par mail ou par courrier.</p>
+<p> La Roche d’Or s'engage à être le seul destinataire des informations que vous venez de lui communiquer. Vous disposez d'un droit d'accès, de modification, de rectification et de suppression des données qui vous concernent (art. 34 de la loi 'Informatiques et Libertés'). Pour l'exercer, adressez vous à <a href="mailto:secretariat@rochedor.fr">secretariat@rochedor.fr</a></p>

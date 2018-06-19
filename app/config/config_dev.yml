@@ -29,10 +29,10 @@ monolog:
             host: 127.0.0.1:9911
 swiftmailer:
     transport: smtp
-    host: 2525
+    host: 127.0.0.1
+    port: 2525
     username: user
     password: password
-    spool: { type: memory }
 translation:
     symfony_profiler:
         enabled: true

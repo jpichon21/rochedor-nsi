@@ -4,28 +4,34 @@ security:
             memory:
                 users:
                     admin:
-                        password: admin
-                        roles: 'ROLE_ADMIN'
+                        password: '%admin_password%'
+                        roles: 'ROLE_SUPER_ADMIN'
 
-        # our_db_provider:
-        #     entity:
-        #         class: AppBundle:User
-
+        legacy_db_provider:
+            entity:
+                class: AppBundle:Contact
+                property: username
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        AppBundle\Entity\Contact: bcrypt
+        Symfony\Component\Security\Core\User\User: bcrypt
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            pattern: ^/
+            provider: legacy_db_provider
             anonymous: ~
             json_login:
                 check_path: /login
             logout:
                 path:   /logout
                 invalidate_session: true
-                target: /login
+                target: /
 
     access_control:
         - { path: ^/api, role: ROLE_ADMIN}

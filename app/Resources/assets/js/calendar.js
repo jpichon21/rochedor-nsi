@@ -1,7 +1,6 @@
 import $ from 'jquery'
 import moment from 'moment'
 import 'clndr'
-import { retreatsData } from './sample'
 
 /* Filters */
 
@@ -92,6 +91,11 @@ function updateRetreats (data) {
   }))
 }
 
+const retreatsData = JSON.parse($('.retreats-data').html())
+retreatsData.map(retreat => {
+  retreat.dateIn = moment(retreat.dateIn)
+  retreat.dateOut = moment(retreat.dateOut)
+})
 updateRetreats(retreatsData)
 
 function applyFilters (filters) {

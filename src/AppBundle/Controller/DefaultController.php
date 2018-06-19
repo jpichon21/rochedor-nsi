@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\ServiceShowPage;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\PageController;
+use AppBundle\Controller\CalendarController;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\News;
 use AppBundle\Entity\Speaker;
@@ -64,24 +65,6 @@ class DefaultController extends Controller
             'page' => $contentDocument,
             'availableLocales' => $this->getAvailableLocales($contentDocument),
             'speakers'=> $speakers
-        ));
-    }
-
-    /**
-     * @Route("/calendrier-inscription", name="calendrier_inscription")
-     * @Route("/calendar-registration", name="calendar_registration")
-     * @Route("/kalender-registrierung", name="ralender_Registrierung")
-     * @Route("/calendario-registrazione", name="calendario_registrazione")
-     * @Route("/calendario-registro", name="calendario_registro")
-     */
-    public function calendarRegistrationAction(Request $request, ServiceShowPage $showPage)
-    {
-        $path = $request->getPathInfo();
-        $name = substr($path, 1);
-        $contentDocument = $showPage->getMyContent($name);
-        return $this->render('default/calendar-registration.html.twig', array(
-            'page' => $contentDocument,
-            'availableLocales' => $this->getAvailableLocales($contentDocument)
         ));
     }
 

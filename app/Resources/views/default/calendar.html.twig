@@ -6,7 +6,7 @@
 {% endblock %}
 {% block content %}
 <div class="content">
-    <h1><small>{{ page.title1 }} </small>{{ page.title2 }}</h1>
+    <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
     <div class="zone">
         <div class="left">
             <div class="filters">
@@ -131,5 +131,6 @@
 <% } %>
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+<script type="text/json" class="retreats-data">{{ retreatsData | raw }}</script>
 <script src="{{ asset("assets/js/calendar.js") }}"></script>
 {% endblock %}

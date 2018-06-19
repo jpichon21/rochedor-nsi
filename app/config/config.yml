@@ -33,6 +33,8 @@ framework:
         paths: ['%kernel.project_dir%/translations']
     serializer:
         enabled: true
+    templating:
+        engines: ['twig']
 
 translation:
     locales: ['fr', 'en', 'es', 'de', 'it']
@@ -105,6 +107,7 @@ fos_rest:
         rules:
         - { path: '^/api/file', priorities: [ 'text/html', '*/*'], fallback_format: html, prefer_extension: true }
         - { path: '^/api', priorities: ['json'], fallback_format: 'json' }
+        - { path: '^/xhr', priorities: ['json'], fallback_format: 'json' }
         - { path: '^/', priorities: [ 'html', '*/*'], fallback_format: ~, prefer_extension: true }
 cmf_routing:
     chain:

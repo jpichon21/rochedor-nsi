@@ -138,4 +138,413 @@ class CalL
      * @ORM\Column(name="OldIns", type="integer", nullable=false)
      */
     private $oldins;
+
+    public function __construct()
+    {
+        $this->setEnreglcal(new \DateTime())
+        ->setEtaplcal('attent')
+        ->setReplcal(new \DateTime('0000-00-00'))
+        ->setHeblcal(0)
+        ->setChlcal('')
+        ->setSaisielcal('')
+        ->setCreatlcal('')
+        ->setTrilcal(0)
+        ->setJslcal('')
+        ->setMemolcal('')
+        ->setOldIns('');
+    }
+
+    /**
+     * Get codcall.
+     *
+     * @return int
+     */
+    public function getCodcall()
+    {
+        return $this->codcall;
+    }
+
+    /**
+     * Set codcal.
+     *
+     * @param int $codcal
+     *
+     * @return CalL
+     */
+    public function setCodcal($codcal)
+    {
+        $this->codcal = $codcal;
+
+        return $this;
+    }
+
+    /**
+     * Get codcal.
+     *
+     * @return int
+     */
+    public function getCodcal()
+    {
+        return $this->codcal;
+    }
+
+    /**
+     * Set lcal.
+     *
+     * @param int $lcal
+     *
+     * @return CalL
+     */
+    public function setLcal($lcal)
+    {
+        $this->lcal = $lcal;
+
+        return $this;
+    }
+
+    /**
+     * Get lcal.
+     *
+     * @return int
+     */
+    public function getLcal()
+    {
+        return $this->lcal;
+    }
+
+    /**
+     * Set typlcal.
+     *
+     * @param string $typlcal
+     *
+     * @return CalL
+     */
+    public function setTyplcal($typlcal)
+    {
+        $this->typlcal = $typlcal;
+
+        return $this;
+    }
+
+    /**
+     * Get typlcal.
+     *
+     * @return string
+     */
+    public function getTyplcal()
+    {
+        return $this->typlcal;
+    }
+
+    /**
+     * Set reflcal.
+     *
+     * @param string $reflcal
+     *
+     * @return CalL
+     */
+    public function setReflcal($reflcal)
+    {
+        $this->reflcal = $reflcal;
+
+        return $this;
+    }
+
+    /**
+     * Get reflcal.
+     *
+     * @return string
+     */
+    public function getReflcal()
+    {
+        return $this->reflcal;
+    }
+
+    /**
+     * Set etaplcal.
+     *
+     * @param string $etaplcal
+     *
+     * @return CalL
+     */
+    public function setEtaplcal($etaplcal)
+    {
+        $this->etaplcal = $etaplcal;
+
+        return $this;
+    }
+
+    /**
+     * Get etaplcal.
+     *
+     * @return string
+     */
+    public function getEtaplcal()
+    {
+        return $this->etaplcal;
+    }
+
+    /**
+     * Set replcal.
+     *
+     * @param \DateTime $replcal
+     *
+     * @return CalL
+     */
+    public function setReplcal($replcal)
+    {
+        $this->replcal = $replcal;
+
+        return $this;
+    }
+
+    /**
+     * Get replcal.
+     *
+     * @return \DateTime
+     */
+    public function getReplcal()
+    {
+        return $this->replcal;
+    }
+
+    /**
+     * Set heblcal.
+     *
+     * @param int $heblcal
+     *
+     * @return CalL
+     */
+    public function setHeblcal($heblcal)
+    {
+        $this->heblcal = $heblcal;
+
+        return $this;
+    }
+
+    /**
+     * Get heblcal.
+     *
+     * @return int
+     */
+    public function getHeblcal()
+    {
+        return $this->heblcal;
+    }
+
+    /**
+     * Set chlcal.
+     *
+     * @param string $chlcal
+     *
+     * @return CalL
+     */
+    public function setChlcal($chlcal)
+    {
+        $this->chlcal = $chlcal;
+
+        return $this;
+    }
+
+    /**
+     * Get chlcal.
+     *
+     * @return string
+     */
+    public function getChlcal()
+    {
+        return $this->chlcal;
+    }
+
+    /**
+     * Set saisielcal.
+     *
+     * @param bool $saisielcal
+     *
+     * @return CalL
+     */
+    public function setSaisielcal($saisielcal)
+    {
+        $this->saisielcal = $saisielcal;
+
+        return $this;
+    }
+
+    /**
+     * Get saisielcal.
+     *
+     * @return bool
+     */
+    public function getSaisielcal()
+    {
+        return $this->saisielcal;
+    }
+
+    /**
+     * Set creatlcal.
+     *
+     * @param string $creatlcal
+     *
+     * @return CalL
+     */
+    public function setCreatlcal($creatlcal)
+    {
+        $this->creatlcal = $creatlcal;
+
+        return $this;
+    }
+
+    /**
+     * Get creatlcal.
+     *
+     * @return string
+     */
+    public function getCreatlcal()
+    {
+        return $this->creatlcal;
+    }
+
+    /**
+     * Set trilcal.
+     *
+     * @param int $trilcal
+     *
+     * @return CalL
+     */
+    public function setTrilcal($trilcal)
+    {
+        $this->trilcal = $trilcal;
+
+        return $this;
+    }
+
+    /**
+     * Get trilcal.
+     *
+     * @return int
+     */
+    public function getTrilcal()
+    {
+        return $this->trilcal;
+    }
+
+    /**
+     * Set sellcal.
+     *
+     * @param bool $sellcal
+     *
+     * @return CalL
+     */
+    public function setSellcal($sellcal)
+    {
+        $this->sellcal = $sellcal;
+
+        return $this;
+    }
+
+    /**
+     * Get sellcal.
+     *
+     * @return bool
+     */
+    public function getSellcal()
+    {
+        return $this->sellcal;
+    }
+
+    /**
+     * Set jslcal.
+     *
+     * @param string $jslcal
+     *
+     * @return CalL
+     */
+    public function setJslcal($jslcal)
+    {
+        $this->jslcal = $jslcal;
+
+        return $this;
+    }
+
+    /**
+     * Get jslcal.
+     *
+     * @return string
+     */
+    public function getJslcal()
+    {
+        return $this->jslcal;
+    }
+
+    /**
+     * Set memolcal.
+     *
+     * @param string $memolcal
+     *
+     * @return CalL
+     */
+    public function setMemolcal($memolcal)
+    {
+        $this->memolcal = $memolcal;
+
+        return $this;
+    }
+
+    /**
+     * Get memolcal.
+     *
+     * @return string
+     */
+    public function getMemolcal()
+    {
+        return $this->memolcal;
+    }
+
+    /**
+     * Set enreglcal.
+     *
+     * @param \DateTime $enreglcal
+     *
+     * @return CalL
+     */
+    public function setEnreglcal($enreglcal)
+    {
+        $this->enreglcal = $enreglcal;
+
+        return $this;
+    }
+
+    /**
+     * Get enreglcal.
+     *
+     * @return \DateTime
+     */
+    public function getEnreglcal()
+    {
+        return $this->enreglcal;
+    }
+
+    /**
+     * Set oldins.
+     *
+     * @param int $oldins
+     *
+     * @return CalL
+     */
+    public function setOldins($oldins)
+    {
+        $this->oldins = $oldins;
+
+        return $this;
+    }
+
+    /**
+     * Get oldins.
+     *
+     * @return int
+     */
+    public function getOldins()
+    {
+        return $this->oldins;
+    }
 }
