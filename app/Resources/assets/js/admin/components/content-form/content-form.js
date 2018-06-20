@@ -23,7 +23,8 @@ import {
   EditorState,
   convertToRaw,
   convertFromHTML,
-  ContentState } from 'draft-js'
+  ContentState
+} from 'draft-js'
 import {
   Tab,
   Tabs,
@@ -43,14 +44,11 @@ import {
   Popover,
   IconButton,
   CircularProgress,
-  Select,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormControl,
-  InputLabel,
   Tooltip,
   Icon
 } from '@material-ui/core'
@@ -87,7 +85,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
             <TextField
               required
               autoComplete='off'
-              InputLabelProps={{shrink: true}}
+              InputLabelProps={{ shrink: true }}
               className={classes.textfield}
               fullWidth
               multiline
@@ -146,13 +144,13 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                     {
                       tileData[slide.layout].map((tile, indexImage) => (
                         <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
-                          <div className={classes.tile} style={{backgroundImage: `url('${slide.images[tile.id].url}')`}}>
+                          <div className={classes.tile} style={{ backgroundImage: `url('${slide.images[tile.id].url}')` }}>
                             {
                               context.state.fileUploading.isUploading &&
-                              context.state.fileUploading.type === 'image' &&
-                              context.state.fileUploading.indexSection === indexSection &&
-                              context.state.fileUploading.indexSlide === indexSlide &&
-                              context.state.fileUploading.indexImage === indexImage
+                                context.state.fileUploading.type === 'image' &&
+                                context.state.fileUploading.indexSection === indexSection &&
+                                context.state.fileUploading.indexSlide === indexSlide &&
+                                context.state.fileUploading.indexImage === indexImage
                                 ? <CircularProgress />
                                 : (
                                   <div>
@@ -199,7 +197,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                                         <TextField
                                           className={classes.popover}
                                           autoComplete='off'
-                                          InputLabelProps={{shrink: true}}
+                                          InputLabelProps={{ shrink: true }}
                                           name='page.title'
                                           label='URL Vidéo'
                                           value={context.state.page.content.sections[indexSection].slides[indexSlide].images[indexImage].video}
@@ -260,7 +258,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                 onClick={() => { context.handleAddSlide(indexSection) }}
                 color='primary'
                 className={classes.option}>
-          Ajouter
+                Ajouter
               </Button>
             </Tooltip>
           </div>
@@ -307,8 +305,8 @@ const SortableList = SortableContainer(({ items, state, classes, context }) => {
   )
 })
 
-export class PageForm extends React.Component {
-  constructor (props) {
+export class ContentForm extends React.Component {
+  constructor(props) {
     super(props)
     this.state = {
       locale: this.props.locale,
@@ -358,13 +356,13 @@ export class PageForm extends React.Component {
     this.handleExpandSection = this.handleExpandSection.bind(this)
   }
 
-  handleSortSections ({ oldIndex, newIndex }) {
+  handleSortSections({ oldIndex, newIndex }) {
     const sections = arrayMove(this.state.page.content.sections, oldIndex, newIndex)
     const state = immutable.set(this.state, 'page.content.sections', sections)
     this.setState(state)
   }
 
-  handleUpdateRaw (props) {
+  handleUpdateRaw(props) {
     const sections = this.handleConvertFromHTML(props.page.content.sections)
     const state = immutable.set(props, `page.content.sections`, sections)
     this.setState(state, () => {
@@ -372,12 +370,12 @@ export class PageForm extends React.Component {
     })
   }
 
-  handleInitTabs () {
+  handleInitTabs() {
     const indexTabs = this.state.page.content.sections.map(() => { return 0 })
     this.setState({ indexTabs })
   }
 
-  handleConvertFromHTML (sections) {
+  handleConvertFromHTML(sections) {
     return sections.map(section => {
       const blocksFromHTML = convertFromHTML(section.body)
       const content = blocksFromHTML.contentBlocks
@@ -391,7 +389,7 @@ export class PageForm extends React.Component {
     })
   }
 
-  handleConvertFromRaw (sections) {
+  handleConvertFromRaw(sections) {
     return sections.map(section => {
       section.bodyRaw && (
         section.body = draftToHtml(convertToRaw(section.bodyRaw.getCurrentContent()))
@@ -400,12 +398,12 @@ export class PageForm extends React.Component {
     })
   }
 
-  handleChangeTabs (indexTabs, indexSection) {
+  handleChangeTabs(indexTabs, indexSection) {
     const state = immutable.set(this.state, `indexTabs.${indexSection}`, indexTabs)
     this.setState(state)
   }
 
-  handleVersion (event, key) {
+  handleVersion(event, key) {
     event.preventDefault()
     if (key === null) {
       this.props.versionHandler(this.state.page, null)
@@ -415,7 +413,7 @@ export class PageForm extends React.Component {
     this.setState({ versionCount: key, anchorVersion: null })
   }
 
-  handleParent (event) {
+  handleParent(event) {
     const parentKey = event.target.value
     this.setState((prevState) => {
       return {
@@ -429,17 +427,17 @@ export class PageForm extends React.Component {
     })
   }
 
-  handleInputChange (event) {
+  handleInputChange(event) {
     const state = immutable.set(this.state, event.target.name, event.target.value)
     this.setState(state)
   }
 
-  handleChangeTextArea (editorState, indexSection) {
+  handleChangeTextArea(editorState, indexSection) {
     const state = immutable.set(this.state, `page.content.sections.${indexSection}.bodyRaw`, editorState)
     this.setState(state)
   }
 
-  handleSubmit (event) {
+  handleSubmit(event) {
     event.preventDefault()
     const sections = this.handleConvertFromRaw(this.state.page.content.sections)
     const state = immutable.set(this.state, 'page.content.sections', sections)
@@ -448,55 +446,55 @@ export class PageForm extends React.Component {
     })
   }
 
-  handleInputFilter (event) {
+  handleInputFilter(event) {
     const re = /[0-9A-Za-z-]+/g
     if (!re.test(event.key)) {
       event.preventDefault()
     }
   }
 
-  handleOpenPopover (event, indexPopover) {
+  handleOpenPopover(event, indexPopover) {
     this.setState({
       anchorPopover: event.currentTarget,
       popoverOpened: indexPopover
     })
   }
 
-  handleClosePopover () {
+  handleClosePopover() {
     this.setState({
       anchorPopover: null,
       popoverOpened: false
     })
   }
 
-  handleCloseVersion () {
-    this.setState({anchorVersion: null})
+  handleCloseVersion() {
+    this.setState({ anchorVersion: null })
   }
 
-  handleVersionOpen (event) {
-    this.setState({anchorVersion: event.currentTarget})
+  handleVersionOpen(event) {
+    this.setState({ anchorVersion: event.currentTarget })
   }
 
-  handleChangePopover (event, indexSection, indexSlide, indexImage) {
+  handleChangePopover(event, indexSection, indexSlide, indexImage) {
     const state = immutable.set(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}.images.${indexImage}.video`, event.target.value)
     this.setState(state)
   }
 
-  handleOpenLayoutMenu (event, indexSection) {
+  handleOpenLayoutMenu(event, indexSection) {
     this.setState({
       anchorMenuLayout: event.currentTarget,
       menuLayoutOpened: indexSection
     })
   }
 
-  handleCloseLayoutMenu () {
+  handleCloseLayoutMenu() {
     this.setState({
       anchorMenuLayout: null,
       menuLayoutOpened: false
     })
   }
 
-  handleChangeLayoutMenu (layout, indexSection) {
+  handleChangeLayoutMenu(layout, indexSection) {
     const indexSlide = this.state.indexTabs[indexSection]
     const state = immutable.set(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}.layout`, layout)
     this.setState(state, () => {
@@ -504,21 +502,21 @@ export class PageForm extends React.Component {
     })
   }
 
-  handleDelete () {
+  handleDelete() {
     this.setState({ showDeleteAlert: true })
   }
 
-  handleDeleteClose () {
+  handleDeleteClose() {
     this.setState({ showDeleteAlert: false })
   }
 
-  handleDeleteConfirm () {
+  handleDeleteConfirm() {
     this.props.deleteHandler(this.state.page)
     this.setState({ showDeleteAlert: false })
   }
 
-  handleAddSection () {
-    const emptySection = PageForm.defaultProps.page.content.sections[0]
+  handleAddSection() {
+    const emptySection = ContentForm.defaultProps.page.content.sections[0]
     const position = this.state.page.content.sections.length
     const state = immutable.insert(this.state, `page.content.sections`, emptySection, position)
     this.setState(state, () => {
@@ -526,15 +524,15 @@ export class PageForm extends React.Component {
     })
   }
 
-  handleDeleteSection (indexSection) {
+  handleDeleteSection(indexSection) {
     const state = immutable.del(this.state, `page.content.sections.${indexSection}`)
     this.setState(state, () => {
       this.handleInitTabs()
     })
   }
 
-  handleAddSlide (indexSection) {
-    const emptySlide = PageForm.defaultProps.page.content.sections[0].slides[0]
+  handleAddSlide(indexSection) {
+    const emptySlide = ContentForm.defaultProps.page.content.sections[0].slides[0]
     const position = this.state.page.content.sections[indexSection].slides.length
     const state = immutable.insert(this.state, `page.content.sections.${indexSection}.slides`, emptySlide, position)
     this.setState(state, () => {
@@ -542,7 +540,7 @@ export class PageForm extends React.Component {
     })
   }
 
-  handleDeleteSlide (indexSection) {
+  handleDeleteSlide(indexSection) {
     const indexSlide = this.state.indexTabs[indexSection]
     const state = immutable.del(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}`)
     this.setState(state, () => {
@@ -550,7 +548,7 @@ export class PageForm extends React.Component {
     })
   }
 
-  isSubmitEnabled () {
+  isSubmitEnabled() {
     const p = this.state.page
     if (p.title === '' || p.description === '' || p.url === '') {
       return false
@@ -561,7 +559,7 @@ export class PageForm extends React.Component {
     return true
   }
 
-  handleChangeImageUpload (event, indexSection, indexSlide, indexImage) {
+  handleChangeImageUpload(event, indexSection, indexSlide, indexImage) {
     this.props.dispatch(uploadFile(event.target.files[0]))
     this.setState({
       fileUploading: {
@@ -574,7 +572,7 @@ export class PageForm extends React.Component {
     })
   }
 
-  handleChangeDocumentUpload (event, indexSection) {
+  handleChangeDocumentUpload(event, indexSection) {
     this.props.dispatch(uploadFile(event.target.files[0]))
     this.setState({
       fileUploading: {
@@ -585,7 +583,7 @@ export class PageForm extends React.Component {
     })
   }
 
-  handleAddDocument (linkToDocument, indexSection) {
+  handleAddDocument(linkToDocument, indexSection) {
     const oldEditorState = this.state.page.content.sections[indexSection].bodyRaw
     const oldEditorStateSelection = oldEditorState.getSelection()
     if (!oldEditorStateSelection.isCollapsed()) {
@@ -598,11 +596,11 @@ export class PageForm extends React.Component {
     }
   }
 
-  componentWillMount () {
+  componentWillMount() {
     this.handleInitTabs()
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.page) {
       if (JSON.stringify(nextProps.page) !== JSON.stringify(this.props.page)) {
         this.handleUpdateRaw(nextProps)
@@ -639,7 +637,7 @@ export class PageForm extends React.Component {
     }
   }
 
-  handleExpandSection (id, expanded) {
+  handleExpandSection(id, expanded) {
     this.setState((prevState) => {
       return {
         panels: {
@@ -650,7 +648,7 @@ export class PageForm extends React.Component {
     })
   }
 
-  render () {
+  render() {
     const { classes } = this.props
     const { anchorMenuLayout } = this.state
     const versions = this.props.versions
@@ -663,117 +661,6 @@ export class PageForm extends React.Component {
       : null
     return (
       <div className={classes.container}>
-        <Typography variant='display1' className={classes.title}>
-          SEO
-        </Typography>
-        <form className={classes.form}>
-          <Tooltip
-            enterDelay={300}
-            id='tooltip-controlled'
-            leaveDelay={100}
-            onClose={this.handleTooltipClose}
-            onOpen={this.handleTooltipOpen}
-            open={this.state.open}
-            placement='bottom'
-            title='Renseigner le Titre 1 de la page'
-          >
-            <TextField
-              required
-              autoComplete='off'
-              InputLabelProps={{shrink: true}}
-              className={classes.textfield}
-              fullWidth
-              name='page.title'
-              label='Titre ligne 1'
-              value={this.state.page.title}
-              onChange={this.handleInputChange} />
-          </Tooltip>
-          <Tooltip
-            enterDelay={300}
-            id='tooltip-controlled'
-            leaveDelay={100}
-            onClose={this.handleTooltipClose}
-            onOpen={this.handleTooltipOpen}
-            open={this.state.open}
-            placement='bottom'
-            title='Renseigner le Titre 2 de la page'
-          >
-            <TextField
-              required
-              autoComplete='off'
-              InputLabelProps={{shrink: true}}
-              className={classes.textfield}
-              fullWidth
-              name='page.sub_title'
-              label='Titre ligne 2'
-              value={this.state.page.sub_title}
-              onChange={this.handleInputChange} />
-          </Tooltip>
-          <Tooltip
-            enterDelay={300}
-            id='tooltip-controlled'
-            leaveDelay={100}
-            onClose={this.handleTooltipClose}
-            onOpen={this.handleTooltipOpen}
-            open={this.state.open}
-            placement='bottom'
-            title="Renseigner l'url de la page"
-          >
-            <TextField
-              required
-              autoComplete='off'
-              InputLabelProps={{shrink: true}}
-              className={classes.textfield}
-              fullWidth
-              name='page.url'
-              label='Url'
-              value={this.state.page.url}
-              onChange={this.handleInputChange}
-              onKeyPress={this.handleInputFilter} />
-          </Tooltip>
-          <Tooltip
-            enterDelay={300}
-            id='tooltip-controlled'
-            leaveDelay={100}
-            onClose={this.handleTooltipClose}
-            onOpen={this.handleTooltipOpen}
-            open={this.state.open}
-            placement='bottom'
-            title='Renseigner les méta-description de votre page'
-          >
-            <TextField
-              required
-              autoComplete='off'
-              InputLabelProps={{shrink: true}}
-              className={classes.textfield}
-              fullWidth
-              multiline
-              name='page.description'
-              label='Meta-description'
-              value={this.state.page.description}
-              onChange={this.handleInputChange} />
-          </Tooltip>
-          {
-            !this.props.edit &&
-            this.props.parents.length > 0 &&
-            this.state.page.locale !== 'fr' &&
-            <FormControl style={{ minWidth: 200 }}>
-              <InputLabel htmlFor={'parent'} shrink>Page parente</InputLabel>
-              <Select
-                id={'parent'}
-                placeholder={'Page parente'}
-                className={classes.option}
-                value={this.state.parentKey}
-                onChange={this.handleParent}
-                inputProps={{
-                  name: 'parent_key',
-                  id: 'parent_key'
-                }}>
-                {parents}
-              </Select>
-            </FormControl>
-          }
-        </form>
         <Typography variant='display1' className={classes.title}>
           Contenu
         </Typography>
@@ -790,7 +677,7 @@ export class PageForm extends React.Component {
           >
             <TextField
               autoComplete='off'
-              InputLabelProps={{shrink: true}}
+              InputLabelProps={{ shrink: true }}
               className={classes.textfield}
               fullWidth
               multiline
@@ -870,47 +757,6 @@ export class PageForm extends React.Component {
               <Icon>playlist_add</Icon>
             </Button>
           </Tooltip>
-          {
-            this.props.edit &&
-            <div>
-              <Tooltip
-                enterDelay={300}
-                id='tooltip-controlled'
-                leaveDelay={300}
-                onClose={this.handleTooltipClose}
-                onOpen={this.handleTooltipOpen}
-                open={this.state.open}
-                placement='bottom'
-                title='Supprimer la page'
-              >
-                <Button
-                  onClick={this.handleDelete}
-                  className={classes.button}
-                  variant='fab'
-                  color='secondary'>
-                  <DeleteIcon />
-                </Button>
-              </Tooltip>
-              <Dialog
-                open={this.state.showDeleteAlert}
-                onClose={this.handleDeleteClose}
-                aria-labelledby='alert-dialog-title'
-                aria-describedby='alert-dialog-description'>
-                <DialogTitle id='alert-dialog-title'>
-                  {'Êtes-vous sure?'}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText id='alert-dialog-description'>
-                      Cette action est irréversible, souhaitez-vous continuer?
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={this.handleDeleteConfirm} color='secondary' autoFocus>Oui</Button>
-                  <Button onClick={this.handleDeleteClose} color='primary' autoFocus>Annuler</Button>
-                </DialogActions>
-              </Dialog>
-            </div>
-          }
           <Tooltip
             enterDelay={300}
             id='tooltip-controlled'
@@ -997,7 +843,7 @@ const mapStateToProps = state => {
   }
 }
 
-function findLinkEntities (contentBlock, callback) {
+function findLinkEntities(contentBlock, callback) {
   contentBlock.findEntityRanges(
     (character) => {
       const entityKey = character.getEntity()
@@ -1026,11 +872,11 @@ const decorator = new CompositeDecorator([
   }
 ])
 
-PageForm.propTypes = {
+ContentForm.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-PageForm.defaultProps = {
+ContentForm.defaultProps = {
   parents: {},
   parentKey: 0,
   versions: [],
@@ -1064,4 +910,4 @@ PageForm.defaultProps = {
   }
 }
 
-export default compose(withStyles(styles), connect(mapStateToProps))(PageForm)
+export default compose(withStyles(styles), connect(mapStateToProps))(ContentForm)
