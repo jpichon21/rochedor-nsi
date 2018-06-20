@@ -92,7 +92,7 @@
         <div class="inner">
             <h2>{{ 'calendar.registration.summary.title' | trans() | raw }}</h2>
             <h3>{{ 'calendar.registration.summary.title.retreat' | trans() | raw }}</h3>
-            <div class="retreat-render"></div>
+            <p>&laquo;{{ activity.libact }}&raquo;<br>{{ 'filter.inner.date.in' | trans() | raw }} {{ activity.datdeb | localizeddate('medium', 'none', app.request.locale ) }} {{ 'filter.inner.date.out' | trans() | lower | raw }} {{ activity.datfin | localizeddate('medium', 'none', app.request.locale ) }} ({{ activity.sitact }})</p>
             <h3>{{ 'calendar.registration.summary.title.participants' | trans() | raw }}</h3>
             <div class="participants-render"></div>
         </div>
@@ -112,10 +112,6 @@
             "bus": "{{ 'form.transport.bus'|trans }}"
         }
     }
-</script>
-<script type="text/template" class="retreat-template">
-    <p>&laquo;<%= retreat.libact %>&raquo;<br>
-    {{ 'filter.inner.date.in' | trans() | raw }} <%= retreat.datdeb %> {{ 'filter.inner.date.out' | trans() | lower | raw }} <%= retreat.datfin %> (<%= retreat.sitact %>)</p>
 </script>
 <script type="text/template" class="you-template">
     <div class="you">

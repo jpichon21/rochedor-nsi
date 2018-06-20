@@ -7,8 +7,7 @@ import {
   getLogout,
   postLogin,
   getRegistered,
-  postRegister,
-  getRetreat } from './calendar-api.js'
+  postRegister } from './calendar-api.js'
 
 /* Translations */
 
@@ -46,21 +45,16 @@ let _you
 let _registered
 let _participant
 let _participants
-let _retreat
 
 const itemConnection = $('.item.connection')
 const itemParticipants = $('.item.participants')
 const itemValidation = $('.item.validation')
-
-const urlWindow = new URL(window.location.href)
-const idRetreat = urlWindow.searchParams.get('id')
 
 /* Renders */
 
 const youTemplate = _.template($('.you-template').html())
 const registeredTemplate = _.template($('.registered-template').html())
 const participantsTemplate = _.template($('.participants-template').html())
-const retreatTemplate = _.template($('.retreat-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
 const himFormTemplate = _.template($('.him-form-template').html())
 
@@ -74,10 +68,6 @@ function updateRegisteredRender () {
 
 function updateParticipantsRender () {
   $('.participants-render').html(participantsTemplate({ participants: _participants, translations: _translations }))
-}
-
-function updateRetreatRender () {
-  $('.retreat-render').html(retreatTemplate({ retreat: _retreat }))
 }
 
 function updateYouFormRender () {
@@ -279,12 +269,3 @@ itemParticipants.on('click', '.add-participant', function (event) {
   updateHimFormRender()
   changeItem(itemParticipants)
 })
-
-if (idRetreat > 0) {
-  getRetreat(idRetreat).then(retreat => {
-    _retreat = retreat
-    _retreat.datdeb = moment(_retreat.datdeb).format('LL')
-    _retreat.datfin = moment(_retreat.datfin).format('LL')
-    updateRetreatRender()
-  })
-}
