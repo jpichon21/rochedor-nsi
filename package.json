@@ -36,6 +36,7 @@
     "draftjs-to-html": "^0.8.4",
     "gsap": "^1.20.4",
     "html-to-draftjs": "^1.4.0",
+    "imask": "^3.4.0",
     "immutability-helper": "^2.7.0",
     "immutable": "^3.8.2",
     "include-media": "^1.4.9",
@@ -73,6 +74,7 @@
     "sinon": "^6.0.0",
     "slick-carousel": "^1.8.1",
     "standard": "^11.0.1",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "velocityjs": "^1.0.1",
     "zepto": "^1.2.0",
     "zepto-webpack": "^1.2.1"

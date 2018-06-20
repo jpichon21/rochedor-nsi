@@ -1,9 +1,20 @@
 import $ from 'jquery'
 import moment from 'moment'
 import * as sample from './sample'
-import { postLogin, getRegistered, getRetreat } from './calendar-api.js'
+import {
+  postParticipant,
+  getLogin,
+  getLogout,
+  postLogin,
+  getRegistered,
+  postRegister,
+  getRetreat } from './calendar-api.js'
 
-moment.locale('fr')
+/* Translations */
+
+const _translations = JSON.parse($('.translations-json').html())
+
+moment.locale(_translations.locale)
 
 /* Dropdowns */
 
@@ -50,7 +61,8 @@ const youTemplate = _.template($('.you-template').html())
 const registeredTemplate = _.template($('.registered-template').html())
 const participantsTemplate = _.template($('.participants-template').html())
 const retreatTemplate = _.template($('.retreat-template').html())
-const modifyTemplate = _.template($('.modify-template').html())
+const youFormTemplate = _.template($('.you-form-template').html())
+const himFormTemplate = _.template($('.him-form-template').html())
 
 function updateYouRender () {
   $('.you-render').html(youTemplate({ you: _you }))
@@ -61,57 +73,138 @@ function updateRegisteredRender () {
 }
 
 function updateParticipantsRender () {
-  $('.participants-render').html(participantsTemplate({ participants: _participants }))
+  $('.participants-render').html(participantsTemplate({ participants: _participants, translations: _translations }))
 }
 
 function updateRetreatRender () {
   $('.retreat-render').html(retreatTemplate({ retreat: _retreat }))
 }
 
-function updateModifyForm () {
-  $('.modify-render').html(modifyTemplate({ participant: _participant }))
+function updateYouFormRender () {
+  $('.you-form-render').html(youFormTemplate({ participant: _participant }))
+}
+
+function updateHimFormRender () {
+  $('.him-form-render').html(himFormTemplate({ participant: _participant, registered: _registered, you: _you }))
 }
 
 /* Actions */
 
-itemConnection.on('click', 'a', function (event) {
-  event.preventDefault()
-  $('.item.connection a').removeClass('active')
-  $(this).addClass('active')
-  const which = $(this).attr('href').substring(1)
-  $('.item.connection .panel').hide()
-  $(`.item.connection .panel.${which}`).show()
-  changeItem(itemConnection)
-})
+function afterLogin (user) {
+  _you = user
+  _participants = [_you]
+  updateYouRender()
+  getRegistered().then(registered => {
+    _registered = registered
+    updateRegisteredRender()
+    updateParticipantsRender()
+    changeItem(itemParticipants)
+  })
+}
 
-$('form.connection').on('submit', function (event) {
+function formatParticipant (data) {
+  let participant = sample.participant
+  data.map((obj) => {
+    participant[obj.name] = obj.value
+  })
+  participant.codco = parseInt(participant.codco)
+  participant.datnaiss = moment(participant.datnaiss).format('L')
+  return participant
+}
+
+itemConnection.on('submit', '.panel.connection form', function (event) {
   event.preventDefault()
   postLogin({
     username: $('.username', this).val(),
     password: $('.password', this).val()
-  }).then(you => {
-    _you = you
-    updateYouRender()
-    getRegistered().then(registered => {
-      _registered = registered
-      updateParticipants()
-      updateRegisteredRender()
-      changeItem(itemParticipants)
+  }).then(user => {
+    afterLogin(user)
+  })
+})
+
+itemConnection.on('submit', '.panel.registration form', function (event) {
+  event.preventDefault()
+  const data = $(this).serializeArray()
+  const user = formatParticipant(data)
+  postRegister({
+    contact: user
+  }).then(user => {
+    postLogin({
+      username: user.username,
+      password: user.password
+    }).then(user => {
+      afterLogin(user)
+    })
+  }).catch(error => {
+    $('.catch-message', itemConnection).html(error)
+  })
+})
+
+function callbackSubmit (event, context, action, callback) {
+  event.preventDefault()
+  const data = context.serializeArray()
+  const participant = formatParticipant(data)
+  postParticipant(participant).then(res => {
+    res.transport = participant.transport
+    res.memo = participant.memo
+    callback(res)
+    updateRegisteredRender()
+    updateParticipants()
+    $(`.panel.${action}`).hide()
+    changeItem(itemParticipants)
+  })
+}
+
+itemParticipants.on('submit', '.panel.modify form', function (event) {
+  callbackSubmit(event, $(this), 'modify', function (res) {
+    _registered.map(obj => {
+      if (obj.codco === res.codco) { return res }
+      return obj
     })
   })
 })
 
-$('form.registration').on('submit', function (event) {
+itemParticipants.on('submit', '.panel.you form', function (event) {
+  callbackSubmit(event, $(this), 'you', function (res) {
+    _you = res
+  })
+})
+
+itemParticipants.on('submit', '.panel.add form', function (event) {
+  callbackSubmit(event, $(this), 'add', function (res) {
+    _registered.push(res)
+  })
+})
+
+itemConnection.on('click', 'a', function (event) {
   event.preventDefault()
-  changeItem(itemParticipants)
+  $('a', itemConnection).removeClass('active')
+  $(this).addClass('active')
+  const which = $(this).attr('href').substring(1)
+  switch (which) {
+    case 'connection':
+    case 'registration':
+      $('.panel', itemConnection).hide()
+      $(`.panel.${which}`, itemConnection).show()
+      _participant = sample.participant
+      updateYouFormRender()
+      break
+    case 'continue':
+      getLogin().then(user => afterLogin(user))
+      break
+    case 'disconnect':
+      getLogout()
+      break
+  }
+  changeItem(itemConnection)
 })
 
 function updateParticipants () {
   let checked = []
-  $('.participate-him.checked').map((index, elmt) => {
-    checked.push(parseInt(elmt.getAttribute('data-id')))
+  $('.participate-him.checked', itemParticipants).each(function () {
+    checked.push(parseInt($(this).attr('data-id')))
   })
-  _participants = _registered.filter((registered) => {
+  _participants = _registered.filter(registered => {
     return checked.indexOf(registered.codco) >= 0
   })
   _participants.push(_you)
@@ -123,21 +216,35 @@ itemParticipants.on('click', '.participate-him', function (event) {
   updateParticipants()
 })
 
+itemParticipants.on('click', '.modify-you', function (event) {
+  event.preventDefault()
+  console.log(_you)
+  _participant = _you
+  $('.panel', itemParticipants).hide()
+  $(`.panel.you`, itemParticipants).show()
+  updateYouFormRender()
+  changeItem(itemParticipants)
+})
+
 itemParticipants.on('click', '.modify-him', function (event) {
   event.preventDefault()
-  const selected = $(this).getAttribute('data-id')
-  _participant = _registered.filter((registered) => {
+  const selected = parseInt($(this).attr('data-id'))
+  const participants = _registered.filter(registered => {
     return registered.codco === selected
   })
-  updateModifyForm()
-  $('.item.participants .panel.registration').show()
+  _participant = participants.shift()
+  $('.panel', itemParticipants).hide()
+  $(`.panel.modify`, itemParticipants).show()
+  updateHimFormRender()
   changeItem(itemParticipants)
 })
 
 itemParticipants.on('click', '.add-participant', function (event) {
   event.preventDefault()
-  _participant = sample.participant
-  updateModifyForm()
+  $('.panel', itemParticipants).hide()
+  $(`.panel.add`, itemParticipants).show()
+  updateHimFormRender()
+  changeItem(itemParticipants)
 })
 
 if (idRetreat > 0) {
