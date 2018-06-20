@@ -102,25 +102,52 @@ class CalendarController extends Controller
      */
     public function calendarRegistrationAction(Request $request, ServiceShowPage $showPage)
     {
-        $path = $request->getPathInfo();
-        $name = substr($path, 1);
-        $contentDocument = $showPage->getMyContent($name);
-        return $this->render('default/calendar-registration.html.twig', array(
+        $id = $request->query->get('id');
+
+        if ($id) {
+            $activity = $this->getCalendarAction($id);
+            if ($activity) {
+                $datenow = new \DateTime();
+                $datefin = $activity['datfin'];
+                if ($datenow < $datefin) {
+                    return $this->render('default/calendar-registration.html.twig', array(
+                        'page' => array(
+                            'locale' => 'fr',
+                            'background' => 'http://localhost:8000/assets/images/background-flotype.cd2c708b.png',
+                            'title' => 'Demande',
+                            'subTitle' => 'd\'inscription',
+                            'content' => array('intro' => 'Introduction lorem ipsum'),
+                            'routes' => array('getValues' => array(array('staticPrefix' => 'en')))
+                        ),
+                        'activity' => $activity,
+                        'availableLocales' => array()
+                    ));
+                }
+                return $this->render('default/calendar-registration-error.html.twig', array(
+                    'page' => array(
+                        'locale' => 'fr',
+                        'background' => 'http://localhost:8000/assets/images/background-flotype.cd2c708b.png',
+                        'title' => 'Activité',
+                        'subTitle' => 'terminée',
+                        'content' => array(
+                            'intro' => 'Il semblerait que cette activité ne soit plus disponible. 
+                            Veuillez sélectionner une autre activité depuis le Calendrier.'),
+                        'routes' => array('getValues' => array(array('staticPrefix' => 'en')))
+                    ),
+                    'availableLocales' => array()
+                ));
+            }
+        }
+        return $this->render('default/calendar-registration-error.html.twig', array(
             'page' => array(
                 'locale' => 'fr',
                 'background' => 'http://localhost:8000/assets/images/background-flotype.cd2c708b.png',
-                'title' => 'Demande',
-                'subTitle' => 'd\'inscription',
+                'title' => 'Activité',
+                'subTitle' => 'non trouvée',
                 'content' => array(
-                    'intro' => 'Introduction lorem ipsum'
-                ),
-                'routes' => array(
-                    'getValues' => array(
-                        array(
-                            'staticPrefix' => 'en'
-                        )
-                    )
-                )
+                    'intro' => 'Il semblerait que cette activité n\'existe plus ou n\'a jamais existée. 
+                    Veuillez sélectionner une activité depuis le Calendrier.'),
+                'routes' => array('getValues' => array(array('staticPrefix' => 'en')))
             ),
             'availableLocales' => array()
         ));
@@ -191,20 +218,16 @@ class CalendarController extends Controller
         $attendees = $this->getAttendees($this->getUser());
         return ['status' => 'ok', 'data' => $attendees];
     }
-    
-    /**
-     * @Rest\Get("/calendar/{id}", name="get_calendar")
-     * @Rest\View()
-     */
-    public function xhrGetCalendarAction($id)
+
+    public function getCalendarAction($id)
     {
         $calendar = $this->calendarRepository->findCalendar($id);
 
         if (!$calendar) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'Calendar not found'], Response::HTTP_NOT_FOUND);
+            return false;
         }
         $calendar['sitact'] = $this::SITES[array_search($calendar['sitact'], $this::SITES)]['name'];
-        return ['status' => 'ok', 'data' => $calendar];
+        return $calendar;
     }
 
     private function registerAttendees($attendees, $activityId)

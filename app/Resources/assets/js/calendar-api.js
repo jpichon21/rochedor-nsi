@@ -75,16 +75,3 @@ export const getRegistered = () => {
       return res.data
     })
 }
-
-export const getRetreat = (id) => {
-  return window.fetch(`/xhr/calendar/${id}`, {
-    headers: { 'Content-Type': 'application/json' },
-    method: 'GET',
-    credentials: 'include'
-  })
-    .then(res => res.json())
-    .then(res => {
-      if (res.status !== 'ok') { throw res.message }
-      return res.data
-    })
-}

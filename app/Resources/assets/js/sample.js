@@ -1,4 +1,4 @@
-export const participant = {
+const participant = {
   nom: '',
   prenom: '',
   codco: null,
@@ -19,4 +19,13 @@ export const participant = {
   colp: null,
   transport: '',
   memo: ''
+}
+
+const clone = (obj) => {
+  var tmp = JSON.stringify(obj)
+  return JSON.parse(tmp)
+}
+
+export const getParticipant = () => {
+  return clone(participant)
 }

@@ -1,14 +1,13 @@
 import $ from 'jquery'
 import moment from 'moment'
-import * as sample from './sample'
+import { getParticipant } from './sample'
 import {
   postParticipant,
   getLogin,
   getLogout,
   postLogin,
   getRegistered,
-  postRegister,
-  getRetreat } from './calendar-api.js'
+  postRegister } from './calendar-api.js'
 
 /* Translations */
 
@@ -46,21 +45,16 @@ let _you
 let _registered
 let _participant
 let _participants
-let _retreat
 
 const itemConnection = $('.item.connection')
 const itemParticipants = $('.item.participants')
 const itemValidation = $('.item.validation')
-
-const urlWindow = new URL(window.location.href)
-const idRetreat = urlWindow.searchParams.get('id')
 
 /* Renders */
 
 const youTemplate = _.template($('.you-template').html())
 const registeredTemplate = _.template($('.registered-template').html())
 const participantsTemplate = _.template($('.participants-template').html())
-const retreatTemplate = _.template($('.retreat-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
 const himFormTemplate = _.template($('.him-form-template').html())
 
@@ -74,10 +68,6 @@ function updateRegisteredRender () {
 
 function updateParticipantsRender () {
   $('.participants-render').html(participantsTemplate({ participants: _participants, translations: _translations }))
-}
-
-function updateRetreatRender () {
-  $('.retreat-render').html(retreatTemplate({ retreat: _retreat }))
 }
 
 function updateYouFormRender () {
@@ -103,12 +93,12 @@ function afterLogin (user) {
 }
 
 function formatParticipant (data) {
-  let participant = sample.participant
+  let participant = getParticipant()
   data.map((obj) => {
     participant[obj.name] = obj.value
   })
   participant.codco = parseInt(participant.codco)
-  participant.datnaiss = moment(participant.datnaiss).format('L')
+  participant.datnaiss = moment(participant.datnaiss, 'DD/MM/YYYY').format()
   return participant
 }
 
@@ -140,42 +130,6 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
   })
 })
 
-function callbackSubmit (event, context, action, callback) {
-  event.preventDefault()
-  const data = context.serializeArray()
-  const participant = formatParticipant(data)
-  postParticipant(participant).then(res => {
-    res.transport = participant.transport
-    res.memo = participant.memo
-    callback(res)
-    updateRegisteredRender()
-    updateParticipants()
-    $(`.panel.${action}`).hide()
-    changeItem(itemParticipants)
-  })
-}
-
-itemParticipants.on('submit', '.panel.modify form', function (event) {
-  callbackSubmit(event, $(this), 'modify', function (res) {
-    _registered.map(obj => {
-      if (obj.codco === res.codco) { return res }
-      return obj
-    })
-  })
-})
-
-itemParticipants.on('submit', '.panel.you form', function (event) {
-  callbackSubmit(event, $(this), 'you', function (res) {
-    _you = res
-  })
-})
-
-itemParticipants.on('submit', '.panel.add form', function (event) {
-  callbackSubmit(event, $(this), 'add', function (res) {
-    _registered.push(res)
-  })
-})
-
 itemConnection.on('click', 'a', function (event) {
   event.preventDefault()
   $('a', itemConnection).removeClass('active')
@@ -186,7 +140,7 @@ itemConnection.on('click', 'a', function (event) {
     case 'registration':
       $('.panel', itemConnection).hide()
       $(`.panel.${which}`, itemConnection).show()
-      _participant = sample.participant
+      _participant = getParticipant()
       updateYouFormRender()
       break
     case 'continue':
@@ -197,6 +151,75 @@ itemConnection.on('click', 'a', function (event) {
       break
   }
   changeItem(itemConnection)
+})
+
+function validateParticipant (participant) {
+  if (moment(participant.datnaiss).isValid()) {
+    if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
+      return { success: true }
+    } else {
+      if (participant.colt === 'enfan') {
+        const people = [..._registered, _you]
+        const filtered = people.filter(person => {
+          return person.codco === parseInt(participant.colp)
+        })
+        const parent = filtered.shift()
+        if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
+          return { success: true }
+        } else {
+          return { error: 'Must be linked with a person who have more of 18 years.' }
+        }
+      } else {
+        return { error: 'Must be considered as child.' }
+      }
+    }
+  } else {
+    return { error: 'Invalid date.' }
+  }
+}
+
+function callbackSubmit (event, context, action, callback) {
+  event.preventDefault()
+  const data = context.serializeArray()
+  const participant = formatParticipant(data)
+  const validate = validateParticipant(participant)
+  if (validate.success) {
+    postParticipant(participant).then(res => {
+      res.transport = participant.transport
+      res.memo = participant.memo
+      callback(res)
+      updateYouRender()
+      updateRegisteredRender()
+      updateParticipants()
+      $(`.panel.${action}`).slideUp(800, function () {
+        $(this).hide()
+        changeItem(itemParticipants)
+      })
+    })
+  } else {
+    $('.catch-message', itemParticipants).html(validate.error)
+  }
+}
+
+itemParticipants.on('submit', '.panel.you form', function (event) {
+  callbackSubmit(event, $(this), 'you', function (res) {
+    _you = res
+  })
+})
+
+itemParticipants.on('submit', '.panel.modify form', function (event) {
+  callbackSubmit(event, $(this), 'modify', function (res) {
+    _registered = _registered.map(obj => {
+      if (obj.codco === res.codco) { return res }
+      return obj
+    })
+  })
+})
+
+itemParticipants.on('submit', '.panel.add form', function (event) {
+  callbackSubmit(event, $(this), 'add', function (res) {
+    _registered.push(res)
+  })
 })
 
 function updateParticipants () {
@@ -218,7 +241,6 @@ itemParticipants.on('click', '.participate-him', function (event) {
 
 itemParticipants.on('click', '.modify-you', function (event) {
   event.preventDefault()
-  console.log(_you)
   _participant = _you
   $('.panel', itemParticipants).hide()
   $(`.panel.you`, itemParticipants).show()
@@ -241,17 +263,9 @@ itemParticipants.on('click', '.modify-him', function (event) {
 
 itemParticipants.on('click', '.add-participant', function (event) {
   event.preventDefault()
+  _participant = getParticipant()
   $('.panel', itemParticipants).hide()
   $(`.panel.add`, itemParticipants).show()
   updateHimFormRender()
   changeItem(itemParticipants)
 })
-
-if (idRetreat > 0) {
-  getRetreat(idRetreat).then(retreat => {
-    _retreat = retreat
-    _retreat.datdeb = moment(_retreat.datdeb).format('LL')
-    _retreat.datfin = moment(_retreat.datfin).format('LL')
-    updateRetreatRender()
-  })
-}
