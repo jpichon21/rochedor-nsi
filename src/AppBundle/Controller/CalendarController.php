@@ -162,7 +162,7 @@ class CalendarController extends Controller
         if (isset($attendee['codco'])) {
             $contact = $this->calendarRepository->findContact($attendee['codco']);
         } else {
-            $contact = $this->calendarRepository->findContactByInfos(
+            $contact = $this->contactRepository->findContactByInfos(
                 $attendee['nom'],
                 $attendee['prenom'],
                 $attendee['datnaiss']

@@ -702,6 +702,7 @@ body.page {
       margin-bottom: 20px;
       padding: 5px 20px;
       line-height: 20px;
+      color: #ffffff;
       font-size: 14px;
       border: 1px solid $roche-yellow;
       border-radius: 0;
@@ -717,11 +718,18 @@ body.page {
       }
     }
     .select {
-      color: $roche-yellow;
+      color: #ffffff;
+      font-family: 'Lato', sans-serif;
+      background-image: url('../img/arrow-select.png');
+      background-position: calc(100% - 20px) center;
+      background-repeat: no-repeat;
       -webkit-appearance: none;
     }
     .textarea {
+      min-width: 100%;
+      max-width: 100%;
       min-height: 80px;
+      max-height: 80px;
     }
     .button {
       padding: 5px 20px;
@@ -736,6 +744,10 @@ body.page {
       box-sizing: border-box;
       outline: none;
       cursor: pointer;
+      &.submit {
+        color: #ffffff;
+        border-color: #ffffff;
+      }
       &.radio {
         padding-right: 40px;
         background-image: url('button-radio-unchecked.png');
@@ -757,6 +769,11 @@ body.page {
       &.active {
         display: block;
       }
+      &.registration {
+        .notAtThisMoment {
+          display: none;
+        }
+      }
       &:before {
         content: '';
         position: absolute;
@@ -768,6 +785,11 @@ body.page {
         opacity: 0.5;
         z-index: -99999;
       }
+    }
+    .catch-message {
+      color: red;
+      line-height: 50px;
+      font-size: 14px;
     }
     [class*=pure-g] {
       padding: 10px 0;
