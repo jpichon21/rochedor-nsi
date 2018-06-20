@@ -201,8 +201,10 @@ function callbackSubmit (event, context, action, callback) {
       updateYouRender()
       updateRegisteredRender()
       updateParticipants()
-      $(`.panel.${action}`).hide()
-      changeItem(itemParticipants)
+      $(`.panel.${action}`).slideUp(800, function () {
+        $(this).hide()
+        changeItem(itemParticipants)
+      })
     })
   } else {
     $('.catch-message', itemParticipants).html(validate.error)
