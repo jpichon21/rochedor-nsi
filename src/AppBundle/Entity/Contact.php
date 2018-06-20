@@ -4,12 +4,15 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Contact
  *
  * @ORM\Table(name="contact", indexes={@ORM\Index(name="CodB", columns={"CodB"})})
  * @ORM\Entity
+ * @UniqueEntity("email", message="validation.email.already_used")
  */
 class Contact implements UserInterface, \Serializable
 {
@@ -292,6 +295,10 @@ class Contact implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=256, nullable=true)
+     * @Assert\Length(
+     *      min = 8,
+     *      minMessage = "validation.password.length"
+     * )
      */
     private $password;
 
@@ -378,6 +385,20 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="roles", type="array", nullable=true)
      */
     private $roles;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reset_token", type="string", nullable=true)
+     */
+    private $resetToken;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="reset_token_expires_at", type="datetime", nullable=true)
+     */
+    private $resetTokenExpiresAt;
 
     public function __construct()
     {
@@ -1631,5 +1652,53 @@ class Contact implements UserInterface, \Serializable
     public function getDataut16()
     {
         return $this->dataut16;
+    }
+
+    /**
+     * Set resetToken.
+     *
+     * @param string|null $resetToken
+     *
+     * @return Contact
+     */
+    public function setResetToken($resetToken = null)
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    /**
+     * Get resetToken.
+     *
+     * @return string|null
+     */
+    public function getResetToken()
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * Set resetTokenExpiresAt.
+     *
+     * @param \DateTime|null $resetTokenExpiresAt
+     *
+     * @return Contact
+     */
+    public function setResetTokenExpiresAt($resetTokenExpiresAt = null)
+    {
+        $this->resetTokenExpiresAt = $resetTokenExpiresAt;
+
+        return $this;
+    }
+
+    /**
+     * Get resetTokenExpiresAt.
+     *
+     * @return \DateTime|null
+     */
+    public function getResetTokenExpiresAt()
+    {
+        return $this->resetTokenExpiresAt;
     }
 }
