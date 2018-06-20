@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="de">
+  <file id="validators.de">
+    <unit id="F2EPJsR" name="Email already taken">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>Email already taken</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="E4bQcD." name="Username already taken">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>Username already taken</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="1ySLv3C" name="validation.password.length">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Entity/Contact.php:0</note>
+      </notes>
+      <segment>
+        <source>validation.password.length</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="nqTz9ya" name="form.message.passwords_mismatch">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:46</note>
+      </notes>
+      <segment>
+        <source>form.message.passwords_mismatch</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="P1lh0pR" name="validation.email.already_used">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Entity/Contact.php:0</note>
+      </notes>
+      <segment>
+        <source>validation.email.already_used</source>
+        <target></target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

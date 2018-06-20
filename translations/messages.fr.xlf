@@ -2,501 +2,1001 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="fr">
   <file id="messages.fr">
     <unit id="XLjEtrS" name="menu.one">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:20</note>
+      </notes>
       <segment>
         <source>menu.one</source>
         <target>La communauté et les maisons</target>
       </segment>
     </unit>
     <unit id="td1g_X_" name="menu.two">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:21</note>
+      </notes>
       <segment>
         <source>menu.two</source>
         <target>Les retraites</target>
       </segment>
     </unit>
     <unit id="_QTPx9b" name="menu.three">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:22</note>
+      </notes>
       <segment>
         <source>menu.three</source>
         <target>Le calendrier</target>
       </segment>
     </unit>
     <unit id="QokeGaI" name="menu.one.one">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:25</note>
+      </notes>
       <segment>
         <source>menu.one.one</source>
         <target><![CDATA[La <br>communauté]]></target>
       </segment>
     </unit>
     <unit id="DY.PFaX" name="menu.one.two">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:26</note>
+      </notes>
       <segment>
         <source>menu.one.two</source>
         <target><![CDATA[Les <br>fondateurs]]></target>
       </segment>
     </unit>
     <unit id="ABGsIRc" name="menu.one.three">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:27</note>
+      </notes>
       <segment>
         <source>menu.one.three</source>
         <target><![CDATA[La <br>Roche d'Or]]></target>
       </segment>
     </unit>
     <unit id="5vJ0eNt" name="menu.one.four">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:28</note>
+      </notes>
       <segment>
         <source>menu.one.four</source>
         <target><![CDATA[Les <br>Fontanilles]]></target>
       </segment>
     </unit>
     <unit id="TfDK6ic" name="menu.two.one">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:31</note>
+      </notes>
       <segment>
         <source>menu.two.one</source>
         <target><![CDATA[Venir <br>en retraite]]></target>
       </segment>
     </unit>
     <unit id="zFwSu3O" name="menu.two.two">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:32</note>
+      </notes>
       <segment>
         <source>menu.two.two</source>
         <target><![CDATA[Retraites <br>à la Roche d'Or]]></target>
       </segment>
     </unit>
     <unit id="OipSnvA" name="menu.two.three">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:33</note>
+      </notes>
       <segment>
         <source>menu.two.three</source>
         <target><![CDATA[Retraites <br>aux Fontanilles]]></target>
       </segment>
     </unit>
     <unit id="NEzhIK_" name="menu.two.four">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:34</note>
+      </notes>
       <segment>
         <source>menu.two.four</source>
         <target><![CDATA[Les <br>intervenants]]></target>
       </segment>
     </unit>
     <unit id="d2ahr5A" name="menu.four">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:42</note>
+      </notes>
       <segment>
         <source>menu.four</source>
         <target>Informations pratiques</target>
       </segment>
     </unit>
     <unit id="yImul.f" name="menu.five">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:43</note>
+      </notes>
       <segment>
         <source>menu.five</source>
         <target>Les Éditions Roche d'Or</target>
       </segment>
     </unit>
     <unit id="Uu.vp07" name="menu.six">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:44</note>
+      </notes>
       <segment>
         <source>menu.six</source>
         <target>Nous soutenir</target>
       </segment>
     </unit>
     <unit id="Ne9wirQ" name="menu.four.one">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:47</note>
+      </notes>
       <segment>
         <source>menu.four.one</source>
         <target><![CDATA[Infos pratiques<br> de la Roche d'Or]]></target>
       </segment>
     </unit>
     <unit id="t9xDnqi" name="menu.four.two">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:48</note>
+      </notes>
       <segment>
         <source>menu.four.two</source>
         <target><![CDATA[Infos pratiques<br> des Fontanilles]]></target>
       </segment>
     </unit>
     <unit id="xm3Wl2D" name="menu.four.three">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:49</note>
+      </notes>
       <segment>
         <source>menu.four.three</source>
         <target><![CDATA[Accueil<br> des enfants]]></target>
       </segment>
     </unit>
     <unit id="ADfxTyP" name="menu.four.four">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:50</note>
+      </notes>
       <segment>
         <source>menu.four.four</source>
         <target><![CDATA[Liens<br> amis]]></target>
       </segment>
     </unit>
     <unit id="rehny29" name="menu.five.one">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:55</note>
+      </notes>
       <segment>
         <source>menu.five.one</source>
         <target><![CDATA[Les Editions<br> Roche d'Or]]></target>
       </segment>
     </unit>
     <unit id="JQrk3we" name="menu.five.two">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:56</note>
+      </notes>
       <segment>
         <source>menu.five.two</source>
         <target><![CDATA[Les<br> Nouveautés]]></target>
       </segment>
     </unit>
     <unit id="Vvb_xEv" name="menu.five.three">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:57</note>
+      </notes>
       <segment>
         <source>menu.five.three</source>
         <target><![CDATA[Les<br> Collections]]></target>
       </segment>
     </unit>
     <unit id="aY4iGkg" name="menu.six.one">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:65</note>
+      </notes>
       <segment>
         <source>menu.six.one</source>
         <target><![CDATA[Donner<br> du temps]]></target>
       </segment>
     </unit>
     <unit id="nrz9.5B" name="menu.six.two">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:66</note>
+      </notes>
       <segment>
         <source>menu.six.two</source>
         <target><![CDATA[Faire<br> un don]]></target>
       </segment>
     </unit>
     <unit id="_xIh0pv" name="filter.title.site">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:16</note>
+      </notes>
       <segment>
         <source>filter.title.site</source>
         <target>Sites</target>
       </segment>
     </unit>
     <unit id="6EbXPX3" name="filter.title.type">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:21</note>
+      </notes>
       <segment>
         <source>filter.title.type</source>
         <target>Types</target>
       </segment>
     </unit>
     <unit id="YBxvI.S" name="filter.title.intervenants">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>filter.title.intervenants</source>
         <target>Intervenants</target>
       </segment>
     </unit>
     <unit id="4A1GNtj" name="filter.title.traductions">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>filter.title.traductions</source>
         <target>Traductions</target>
       </segment>
     </unit>
     <unit id="ZsqTtfH" name="filter.inner.default">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/filter.html.twig:8</note>
+      </notes>
       <segment>
         <source>filter.inner.default</source>
         <target>Sélectionner</target>
       </segment>
     </unit>
     <unit id="WJZTCIa" name="filter.inner.selection.singular">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/filter.html.twig:12</note>
+      </notes>
       <segment>
         <source>filter.inner.selection.singular</source>
         <target>sélection</target>
       </segment>
     </unit>
     <unit id="TRhsePV" name="filter.inner.selection.plural">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/parts/filter.html.twig:16</note>
+      </notes>
       <segment>
         <source>filter.inner.selection.plural</source>
         <target>sélections</target>
       </segment>
     </unit>
     <unit id="FM0PXMD" name="filter.inner.date.in">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:25</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:128</note>
+      </notes>
       <segment>
         <source>filter.inner.date.in</source>
         <target>Du</target>
       </segment>
     </unit>
     <unit id="gGyMDWm" name="filter.inner.date.out">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:28</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:128</note>
+      </notes>
       <segment>
         <source>filter.inner.date.out</source>
         <target>Au</target>
       </segment>
     </unit>
     <unit id="pbylFh8" name="filter.inner.submit">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>filter.inner.submit</source>
         <target>Ok</target>
       </segment>
     </unit>
     <unit id="wY2f8rr" name="filter.title.keyword">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:43</note>
+      </notes>
       <segment>
         <source>filter.title.keyword</source>
         <target>Retraites</target>
       </segment>
     </unit>
     <unit id=".0VN0jX" name="filter.inner.keyword">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:44</note>
+      </notes>
       <segment>
         <source>filter.inner.keyword</source>
         <target>Mot clé</target>
       </segment>
     </unit>
     <unit id="Q6jhgTg" name="retreats.table.head.dates">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:52</note>
+      </notes>
       <segment>
         <source>retreats.table.head.dates</source>
         <target>Dates</target>
       </segment>
     </unit>
     <unit id="fxGgGMw" name="retreats.table.head.sites">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:53</note>
+      </notes>
       <segment>
         <source>retreats.table.head.sites</source>
         <target>Sites</target>
       </segment>
     </unit>
     <unit id="2kGPPNK" name="retreats.table.head.events">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:54</note>
+      </notes>
       <segment>
         <source>retreats.table.head.events</source>
         <target>Evénements</target>
       </segment>
     </unit>
     <unit id="z44_LRk" name="retreats.table.head.speakers">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:55</note>
+      </notes>
       <segment>
         <source>retreats.table.head.speakers</source>
         <target>Intervenants</target>
       </segment>
     </unit>
     <unit id="gYOavAc" name="retreats.table.head.types">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:56</note>
+      </notes>
       <segment>
         <source>retreats.table.head.types</source>
         <target>Types</target>
       </segment>
     </unit>
     <unit id="0j2BAw_" name="retreats.table.head.durations">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:57</note>
+      </notes>
       <segment>
         <source>retreats.table.head.durations</source>
         <target>Durées</target>
       </segment>
     </unit>
     <unit id="33juit3" name="retreats.table.head.translations">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:58</note>
+      </notes>
       <segment>
         <source>retreats.table.head.translations</source>
         <target>Traductions</target>
       </segment>
     </unit>
     <unit id="7tmJeqV" name="retreats.table.head.selections">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:59</note>
+      </notes>
       <segment>
         <source>retreats.table.head.selections</source>
         <target>Sélections</target>
       </segment>
     </unit>
     <unit id="3_6XCKH" name="filter.title.speakers">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:35</note>
+      </notes>
       <segment>
         <source>filter.title.speakers</source>
         <target>Intervenants</target>
       </segment>
     </unit>
     <unit id="JtjutUk" name="filter.title.translations">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:40</note>
+      </notes>
       <segment>
         <source>filter.title.translations</source>
         <target>Traductions</target>
       </segment>
     </unit>
     <unit id="XneOvFD" name="admin.title">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/admin/index.html.twig:6</note>
+      </notes>
       <segment>
         <source>admin.title</source>
         <target>Tableau de bord</target>
       </segment>
     </unit>
     <unit id="JUG1sw_" name="calendar.registration.one.title">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:20</note>
+      </notes>
       <segment>
         <source>calendar.registration.one.title</source>
         <target>Connexion/Inscription</target>
       </segment>
     </unit>
     <unit id="X6w.m5l" name="calendar.registration.two.title">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:93</note>
+      </notes>
       <segment>
         <source>calendar.registration.two.title</source>
         <target>Participants</target>
       </segment>
     </unit>
     <unit id="UzRFO5C" name="calendar.registration.three.title">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:106</note>
+      </notes>
       <segment>
         <source>calendar.registration.three.title</source>
         <target>Validation</target>
       </segment>
     </unit>
     <unit id="YR9sNBD" name="calendar.registration.three.body">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:107</note>
+      </notes>
       <segment>
         <source>calendar.registration.three.body</source>
         <target><![CDATA[<p>Nous vous remercions d’avoir pris le temps de renseigner le formulaire et de l’attention que vous portez à la Roche d’Or.</p><p>Votre demande d’inscription est prise en compte sous le numéro :</p><p>%entry_number%</p><p>Vous recevrez prochainement une réponse de la Communauté par mail ou par courrier.</p><p>La Roche d’Or s'engage à être le seul destinataire des informations que vous venez de lui communiquer. Vous disposez d'un droit d'accès, de modification, de rectification et de suppression des données qui vous concernent (art. 34 de la loi "Informatiques et Libertés").</p><p>Pour l'exercer, adressez vous à secretariat@rochedor.fr</p>]]></target>
       </segment>
     </unit>
     <unit id="wbVpZSG" name="calendar.registration.one.title.connection">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:31</note>
+      </notes>
       <segment>
         <source>calendar.registration.one.title.connection</source>
         <target>Connexion</target>
       </segment>
     </unit>
     <unit id="Hu7hGnb" name="calendar.registration.one.title.registration">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:45</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:101</note>
+      </notes>
       <segment>
         <source>calendar.registration.one.title.registration</source>
         <target>Inscription</target>
       </segment>
     </unit>
     <unit id="79GaqZh" name="calendar.registration.summary.title">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:116</note>
+      </notes>
       <segment>
         <source>calendar.registration.summary.title</source>
         <target>Récapitulatif</target>
       </segment>
     </unit>
     <unit id="hyo40Kt" name="calendar.registration.summary.title.retreat">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:117</note>
+      </notes>
       <segment>
         <source>calendar.registration.summary.title.retreat</source>
         <target>Retraite</target>
       </segment>
     </unit>
     <unit id="cf8D8wL" name="calendar.registration.summary.title.participants">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:119</note>
+      </notes>
       <segment>
         <source>calendar.registration.summary.title.participants</source>
         <target>Participants</target>
       </segment>
     </unit>
     <unit id="UuuHLxt" name="calendar.registration.one.body">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:21</note>
+      </notes>
       <segment>
         <source>calendar.registration.one.body</source>
         <target>Avez-vous déjà participé à une retraite à la Roche d'Or ou aux Fontanilles ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
       </segment>
     </unit>
     <unit id="rvJRHqu" name="main.yes">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>main.yes</source>
         <target>Oui</target>
       </segment>
     </unit>
     <unit id="AzlF5AX" name="main.no">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>main.no</source>
         <target>Non</target>
       </segment>
     </unit>
     <unit id="V8UBB12" name="form.id">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>form.id</source>
         <target>Utilisateur</target>
       </segment>
     </unit>
     <unit id="yjqmSBK" name="form.password">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:37</note>
+      </notes>
       <segment>
         <source>form.password</source>
         <target>Mot de passe</target>
       </segment>
     </unit>
     <unit id="3NTTDax" name="form.ok">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:40</note>
+      </notes>
       <segment>
         <source>form.ok</source>
         <target>Ok</target>
       </segment>
     </unit>
     <unit id="JfsNCsD" name="form.civility.mr">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:49</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:158</note>
+      </notes>
       <segment>
         <source>form.civility.mr</source>
         <target>Mr</target>
       </segment>
     </unit>
     <unit id="xsDsRUV" name="form.civility.mme">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:50</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:159</note>
+      </notes>
       <segment>
         <source>form.civility.mme</source>
         <target>Mme</target>
       </segment>
     </unit>
     <unit id="drTwRMd" name="form.surname">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:54</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:163</note>
+      </notes>
       <segment>
         <source>form.surname</source>
         <target>Prénom</target>
       </segment>
     </unit>
     <unit id="eqR0LZq" name="form.name">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:57</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:166</note>
+      </notes>
       <segment>
         <source>form.name</source>
         <target>Téléphone</target>
       </segment>
     </unit>
     <unit id="DOAWeTf" name="form.address">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:60</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:169</note>
+      </notes>
       <segment>
         <source>form.address</source>
         <target>Adresse</target>
       </segment>
     </unit>
     <unit id="ziUr.Qg" name="form.zipcode">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:63</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:172</note>
+      </notes>
       <segment>
         <source>form.zipcode</source>
         <target>Code postal</target>
       </segment>
     </unit>
     <unit id="XUsHqAd" name="form.city">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:66</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:175</note>
+      </notes>
       <segment>
         <source>form.city</source>
         <target>Ville</target>
       </segment>
     </unit>
     <unit id="f95h2nt" name="form.country">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:69</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:178</note>
+      </notes>
       <segment>
         <source>form.country</source>
         <target>Pays</target>
       </segment>
     </unit>
     <unit id="vLNMGXN" name="form.phone">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:72</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:181</note>
+      </notes>
       <segment>
         <source>form.phone</source>
         <target>Téléphone</target>
       </segment>
     </unit>
     <unit id="uD_aUux" name="form.mobile">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:75</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:184</note>
+      </notes>
       <segment>
         <source>form.mobile</source>
         <target>Mobile</target>
       </segment>
     </unit>
     <unit id="3IGOm9D" name="form.email">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:78</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:187</note>
+      </notes>
       <segment>
         <source>form.email</source>
         <target>Email</target>
       </segment>
     </unit>
     <unit id="2G58i_f" name="form.birthday">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:81</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:190</note>
+      </notes>
       <segment>
         <source>form.birthday</source>
         <target>Anniversaire</target>
       </segment>
     </unit>
     <unit id="P7A68ag" name="form.profession">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:84</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:193</note>
+      </notes>
       <segment>
         <source>form.profession</source>
         <target>Profession</target>
       </segment>
     </unit>
     <unit id="kohqA_C" name="form.submit">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:87</note>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:196</note>
+      </notes>
       <segment>
         <source>form.submit</source>
         <target>Ok</target>
       </segment>
     </unit>
     <unit id="UN_T7Q7" name="calendar.registration.two.title.you">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:94</note>
+      </notes>
       <segment>
         <source>calendar.registration.two.title.you</source>
         <target>Vous</target>
       </segment>
     </unit>
     <unit id="__z09IL" name="calendar.registration.two.title.registered">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:96</note>
+      </notes>
       <segment>
         <source>calendar.registration.two.title.registered</source>
         <target>Inscrits avec vous</target>
       </segment>
     </unit>
     <unit id="mfItNzY" name="calendar.registration.two.add_participant">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:98</note>
+      </notes>
       <segment>
         <source>calendar.registration.two.add_participant</source>
         <target>Ajouter participant</target>
       </segment>
     </unit>
     <unit id="mV4kdh." name="calendar.registration.two.validate_participants">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:99</note>
+      </notes>
       <segment>
         <source>calendar.registration.two.validate_participants</source>
         <target>Valider les participants</target>
       </segment>
     </unit>
     <unit id="B0VCgO_" name="form.username">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:34</note>
+      </notes>
       <segment>
         <source>form.username</source>
         <target>__form.username</target>
       </segment>
     </unit>
     <unit id="bThUzo_" name="form.modify">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:149</note>
+      </notes>
       <segment>
         <source>form.modify</source>
         <target>Modifier</target>
       </segment>
     </unit>
     <unit id="kDOH2ki" name="form.participate">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:150</note>
+      </notes>
       <segment>
         <source>form.participate</source>
         <target>Participera</target>
       </segment>
     </unit>
-    <unit id="calendar.notify.attendee.subject">
+    <unit id="YWzPHVB" name="calendar.notify.attendee.subject">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Controller/CalendarController.php:251</note>
+      </notes>
       <segment>
         <source>calendar.notify.attendee.subject</source>
         <target>Demande d'inscription</target>
+      </segment>
+    </unit>
+    <unit id="RmsDr53" name="form.label.password">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/security/login.html.twig:15</note>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:51</note>
+      </notes>
+      <segment>
+        <source>form.label.password</source>
+        <target>Mot de passe</target>
+      </segment>
+    </unit>
+    <unit id="LJQqtt5" name="security.reset_password_request.subject">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Controller/SecurityController.php:225</note>
+      </notes>
+      <segment>
+        <source>security.reset_password_request.subject</source>
+        <target>Réinitialisation de mot de passe</target>
+      </segment>
+    </unit>
+    <unit id="Y4ieqkz" name="form.label.password_repeat">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:52</note>
+      </notes>
+      <segment>
+        <source>form.label.password_repeat</source>
+        <target>Répeter</target>
+      </segment>
+    </unit>
+    <unit id="I.9xUE5" name="security.reset.token_not_found">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/security/register.html.twig:14</note>
+        <note category="file-source" priority="1">app/Resources/views/security/password-reset.html.twig:14</note>
+      </notes>
+      <segment>
+        <source>security.reset.token_not_found</source>
+        <target>Cette demande de réinitialisation n'est plus valide on n'existe pas.</target>
+      </segment>
+    </unit>
+    <unit id="cUuO.r4" name="security.password_reset_success_message">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/security/password-reset-success.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>security.password_reset_success_message</source>
+        <target>Votre nouveau mot de passe a été enregistré, vous pouvez désormais vous connecter avec votre nouveau mot de passe.</target>
+      </segment>
+    </unit>
+    <unit id="OF6XF6p" name="form.label.email">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/security/login.html.twig:13</note>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:40</note>
+      </notes>
+      <segment>
+        <source>form.label.email</source>
+        <target>Adresse email</target>
+      </segment>
+    </unit>
+    <unit id="otIm1Q." name="form.label.connection">
+      <notes>
+        <note category="file-source" priority="1">app/Resources/views/security/login.html.twig:17</note>
+      </notes>
+      <segment>
+        <source>form.label.connection</source>
+        <target>Connexion</target>
+      </segment>
+    </unit>
+    <unit id="_zkUWKW" name="form.label.lastname">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:22</note>
+      </notes>
+      <segment>
+        <source>form.label.lastname</source>
+        <target>Nom</target>
+      </segment>
+    </unit>
+    <unit id="Bnb8Fxq" name="form.label.firstname">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:23</note>
+      </notes>
+      <segment>
+        <source>form.label.firstname</source>
+        <target>Prénom</target>
+      </segment>
+    </unit>
+    <unit id="nWzdT1I" name="form.label.gender">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:24</note>
+      </notes>
+      <segment>
+        <source>form.label.gender</source>
+        <target>Civilité</target>
+      </segment>
+    </unit>
+    <unit id="lJ9kDJr" name="form.label.male">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:26</note>
+      </notes>
+      <segment>
+        <source>form.label.male</source>
+        <target>M.</target>
+      </segment>
+    </unit>
+    <unit id="xvipkdQ" name="form.label.female">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:26</note>
+      </notes>
+      <segment>
+        <source>form.label.female</source>
+        <target>Mme</target>
+      </segment>
+    </unit>
+    <unit id="yeuJugN" name="form.label.miss">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:26</note>
+      </notes>
+      <segment>
+        <source>form.label.miss</source>
+        <target>Mlle</target>
+      </segment>
+    </unit>
+    <unit id="UOJWY3C" name="form.label.father">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:26</note>
+      </notes>
+      <segment>
+        <source>form.label.father</source>
+        <target>Père</target>
+      </segment>
+    </unit>
+    <unit id="NDJSbka" name="form.label.sister">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:26</note>
+      </notes>
+      <segment>
+        <source>form.label.sister</source>
+        <target>Soeur</target>
+      </segment>
+    </unit>
+    <unit id="cX.x2TJ" name="form.label.brother">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:26</note>
+      </notes>
+      <segment>
+        <source>form.label.brother</source>
+        <target>Frère</target>
+      </segment>
+    </unit>
+    <unit id="fpwiOEp" name="form.label.address">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:34</note>
+      </notes>
+      <segment>
+        <source>form.label.address</source>
+        <target>Adresse</target>
+      </segment>
+    </unit>
+    <unit id="YCgup4i" name="form.label.zipcode">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:35</note>
+      </notes>
+      <segment>
+        <source>form.label.zipcode</source>
+        <target>Code postal</target>
+      </segment>
+    </unit>
+    <unit id="uHJcphH" name="form.label.city">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:36</note>
+      </notes>
+      <segment>
+        <source>form.label.city</source>
+        <target>Ville</target>
+      </segment>
+    </unit>
+    <unit id="FgNmpx1" name="form.label.country">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:37</note>
+      </notes>
+      <segment>
+        <source>form.label.country</source>
+        <target>Pays</target>
+      </segment>
+    </unit>
+    <unit id="WfF5F2." name="form.label.phone">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:38</note>
+      </notes>
+      <segment>
+        <source>form.label.phone</source>
+        <target>Téléphone</target>
+      </segment>
+    </unit>
+    <unit id="Ovness." name="form.label.mobile">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:39</note>
+      </notes>
+      <segment>
+        <source>form.label.mobile</source>
+        <target>Mobile</target>
+      </segment>
+    </unit>
+    <unit id="CiLuyEH" name="form.label.birthday">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:41</note>
+      </notes>
+      <segment>
+        <source>form.label.birthday</source>
+        <target>Date de naissance</target>
+      </segment>
+    </unit>
+    <unit id="1GEr2LD" name="form.label.job">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:54</note>
+      </notes>
+      <segment>
+        <source>form.label.job</source>
+        <target>Profession</target>
+      </segment>
+    </unit>
+    <unit id="XohImNo" name="password">
+      <notes>
+        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:21</note>
+      </notes>
+      <segment>
+        <source>password</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="1cJDMNG" name="security.register">
+      <segment>
+        <source>security.register</source>
+        <target>Inscription</target>
       </segment>
     </unit>
   </file>

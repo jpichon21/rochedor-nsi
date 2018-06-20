@@ -82,4 +82,19 @@ class ContactRepository
         $query->setParameter('email', $email);
         return $query->getOneOrNullResult();
     }
+
+    /**
+    * Find Contact by reset_token
+    *
+    * @param string $token
+    * @return Contact
+    */
+    public function findContactByToken($token)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT c FROM AppBundle\Entity\Contact c 
+        WHERE c.resetToken=:token AND c.resetTokenExpiresAt>:now');
+        $query->setParameters(['token' => $token, 'now' => new \DateTime()]);
+        return $query->getOneOrNullResult();
+    }
 }
