@@ -150,6 +150,7 @@
     <input class="input" type="hidden" value="<%= participant.codco %>" name="codco">
     <div class="pure-u-1-3">
         <select class="select civil" required name="civil" value="<%= participant.civil %>">
+            <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">Civilité</option>
             <option <%= (participant.civil == 'M') ? 'selected' : '' %> value="M">M.</option>
             <option <%= (participant.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
             <option <%= (participant.civil == 'Mlle') ? 'selected' : '' %> value="Mlle">Mlle</option>
@@ -216,7 +217,7 @@
     <input class="input" type="hidden" value="<%= participant.codco %>" name="codco">
     <div class="pure-u-1-2">
         <select class="select colt" required name="colt">
-            <option disabled>Relation</option>
+            <option <%= (participant.colt == '') ? 'selected' : '' %> disabled value="">{{ 'form.relation' | trans() | raw }}</option>
             <option <%= (participant.colt == 'accom') ? 'selected' : '' %> value="accom">Vient avec</option>
             <option <%= (participant.colt == 'conjo') ? 'selected' : '' %> value="conjo">Conjoint</option>
             <option <%= (participant.colt == 'enfan') ? 'selected' : '' %> value="enfan">Enfant de</option>
@@ -224,16 +225,17 @@
     </div>
     <div class="pure-u-1-2">
         <select class="select colp" required name="colp">
-            <option disabled>Organisateur</option>
-            <option <%= (you.codco == participant.colp) ? 'selected' : '' %> value="<%= you.codco %>"><%= you.prenom + ' ' + you.nom %></option>
+            <option <%= (participant.colp == '') ? 'selected' : '' %> disabled value="">{{ 'form.colp' | trans() | raw }}</option>
+            <option <%= (participant.colp == you.codco) ? 'selected' : '' %> value="<%= you.codco %>"><%= you.prenom + ' ' + you.nom %></option>
             <% for (var i = 0; i < registered.length; i++) { %>
             <% var him = registered[i] %>
-            <option <%= (him.codco == participant.colp) ? 'selected' : '' %> value="<%= him.codco %>"><%= him.prenom + ' ' + him.nom %></option>
+            <option <%= (participant.colp == him.codco) ? 'selected' : '' %> value="<%= him.codco %>"><%= him.prenom + ' ' + him.nom %></option>
             <% } %>
         </select>
     </div>
     <div class="pure-u-1-3">
         <select class="select civil" required name="civil">
+            <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans() | raw }}</option>
             <option <%= (participant.civil == 'M') ? 'selected' : '' %> value="M">M.</option>
             <option <%= (participant.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
             <option <%= (participant.civil == 'Mlle') ? 'selected' : '' %> value="Mlle">Mlle</option>
@@ -277,6 +279,7 @@
     </div>
     <div class="pure-u-1">
         <select class="select transport" required name="transport" value="<%= participant.transport %>">
+            <option <%= (participant.transport == '') ? 'selected' : '' %> disabled value="">{{ 'form.transport' | trans() | raw }}</option>
             <option <%= (participant.transport == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans() | raw }}</option>
             <option <%= (participant.transport == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans() | raw }}</option>
             <option <%= (participant.transport == 'avion') ? 'selected' : '' %> value="avion">{{ 'form.transport.avion' | trans() | raw }}</option>
