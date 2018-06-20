@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc'
 import { getSpeaker, getSpeakers, setSpeakerPosition, initStatus, setLocale } from '../../actions'
-import { Table, TableBody, TableCell, TableHead, TableRow, Button, CircularProgress, Paper, Icon } from '@material-ui/core'
+import { Table, TableBody, TableCell, TableHead, TableRow, Tooltip, Button, CircularProgress, Paper, Icon } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
@@ -49,9 +49,20 @@ export class SpeakerList extends React.Component {
     const DragHandle = SortableHandle(() => <Icon style={{'cursor': 'move'}}>sort</Icon>)
     const SortableItem = SortableElement(({speaker}) =>
       <TableRow>
-        <TableCell style={{'width': '50px'}}>
-          <DragHandle />
-        </TableCell>
+        <Tooltip
+          enterDelay={300}
+          id='tooltip-controlled'
+          leaveDelay={100}
+          onClose={this.handleTooltipClose}
+          onOpen={this.handleTooltipOpen}
+          open={this.state.open}
+          placement='bottom'
+          title='Réordoner par glisser déposer'
+        >
+          <TableCell style={{ 'width': '50px' }}>
+            <DragHandle />
+          </TableCell>
+        </Tooltip>
         <TableCell><NavLink className={classes.link} to={`/speaker-edit/${speaker.id}`}>{speaker.name}</NavLink></TableCell>
       </TableRow>
     )
@@ -89,9 +100,20 @@ export class SpeakerList extends React.Component {
             }
           </Paper>
           <div className={classes.buttons}>
-            <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/speaker-create'}>
-              <AddIcon />
-            </Button>
+            <Tooltip
+              enterDelay={300}
+              id='tooltip-controlled'
+              leaveDelay={100}
+              onClose={this.handleTooltipClose}
+              onOpen={this.handleTooltipOpen}
+              open={this.state.open}
+              placement='bottom'
+              title='Ajouter un intervenant'
+            >
+              <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/speaker-create'}>
+                <AddIcon />
+              </Button>
+            </Tooltip>
           </div>
         </div>
       </div>

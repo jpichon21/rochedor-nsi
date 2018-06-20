@@ -119,6 +119,7 @@ cmf_routing:
         persistence:
             orm:
                 enabled: true
+        locales: ['fr', 'en', 'de', 'it','es']
         generic_controller: AppBundle:Default:showPage
 
 nelmio_cors:

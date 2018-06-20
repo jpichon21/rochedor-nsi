@@ -163,26 +163,6 @@ class HomeController extends Controller
         $page->setContent($content);
         $page->setBackground($bg);
         $page->setLocale($locale);
-        
-        $oldUrl = null;
-        if ($page->getRoutes()) {
-            $oldUrl = $page->getRoutes()[0]->getName();
-        }
-            
-        if ($oldUrl !== $url) {
-            $routeProvider = $this->container->get('cmf_routing.route_provider');
-            if ($routeProvider->getRoutesByNames([$url])) {
-                return new JsonResponse(['message' => 'Route already exists'], Response::HTTP_FORBIDDEN);
-            }
-                
-            $routes = $page->getRoutes();
-            foreach ($routes as $key => $route) {
-                $route->setName($url);
-                $route->setStaticPrefix('/' . $url);
-                $routes[$key] = $route;
-            }
-        }
-            
             
         $em->persist($page);
         $em->flush();

@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import update from 'immutability-helper'
-import { Menu, MenuItem, TextField, Button, Typography, Select, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
+import { Menu, MenuItem, TextField, Button, Tooltip, Typography, Select, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
 import MomentUtils from 'material-ui-pickers/utils/moment-utils'
 import moment from 'moment'
 import 'moment/locale/fr'
@@ -140,54 +140,109 @@ export class NewsForm extends React.Component {
           Nouveauté
         </Typography>
         <form className={classes.form}>
-          <TextField
-            required
-            autoComplete='off'
-            InputLabelProps={{ shrink: true }}
-            className={classes.textfield}
-            fullWidth
-            name='intro'
-            label='Introduction'
-            value={this.state.news.intro}
-            onChange={this.handleInputChange} />
-          <TextField
-            autoComplete='off'
-            InputLabelProps={{ shrink: true }}
-            className={classes.textfield}
-            fullWidth
-            name='description'
-            label='Description'
-            value={this.state.news.description}
-            onChange={this.handleInputChange} />
-          <TextField
-            autoComplete='off'
-            InputLabelProps={{ shrink: true }}
-            className={classes.textfield}
-            fullWidth
-            name='url'
-            label='Lien'
-            value={this.state.news.url}
-            onChange={this.handleInputChange}
-            onKeyPress={this.handleInputFilter} />
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={100}
+            onClose={this.handleTooltipClose}
+            onOpen={this.handleTooltipOpen}
+            open={this.state.open}
+            placement='bottom'
+            title="Renseigner le texte d'introduction de la nouveauté"
+          >
+            <TextField
+              required
+              autoComplete='off'
+              InputLabelProps={{ shrink: true }}
+              className={classes.textfield}
+              fullWidth
+              name='intro'
+              label='Introduction'
+              value={this.state.news.intro}
+              onChange={this.handleInputChange} />
+          </Tooltip>
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={100}
+            onClose={this.handleTooltipClose}
+            onOpen={this.handleTooltipOpen}
+            open={this.state.open}
+            placement='bottom'
+            title='Renseigner la description de la nouveauté'
+          >
+            <TextField
+              autoComplete='off'
+              InputLabelProps={{ shrink: true }}
+              className={classes.textfield}
+              fullWidth
+              name='description'
+              label='Description'
+              value={this.state.news.description}
+              onChange={this.handleInputChange} />
+          </Tooltip>
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={100}
+            onClose={this.handleTooltipClose}
+            onOpen={this.handleTooltipOpen}
+            open={this.state.open}
+            placement='bottom'
+            title='Renseigner le lien de la nouveauté'
+          >
+            <TextField
+              autoComplete='off'
+              InputLabelProps={{ shrink: true }}
+              className={classes.textfield}
+              fullWidth
+              name='url'
+              label='Lien'
+              value={this.state.news.url}
+              onChange={this.handleInputChange}
+              onKeyPress={this.handleInputFilter} />
+          </Tooltip>
           <MuiPickersUtilsProvider utils={MomentUtils} moment={moment} locale='fr' label='Début'>
-            <DateTimePicker
-              name='start'
-              value={this.state.news.start}
-              onChange={this.handleStartChange}
-              cancelLabel='Annuler'
-              format={'DD/MM/YYYY HH:mm'}
-              ampm={false}
-            />
+            <Tooltip
+              enterDelay={300}
+              id='tooltip-controlled'
+              leaveDelay={100}
+              onClose={this.handleTooltipClose}
+              onOpen={this.handleTooltipOpen}
+              open={this.state.open}
+              placement='bottom'
+              title="Date de début d'affichage"
+            >
+              <DateTimePicker
+                name='start'
+                value={this.state.news.start}
+                onChange={this.handleStartChange}
+                cancelLabel='Annuler'
+                format={'DD/MM/YYYY HH:mm'}
+                ampm={false}
+              />
+            </Tooltip>
           </MuiPickersUtilsProvider>
           <MuiPickersUtilsProvider utils={MomentUtils} moment={moment} locale='fr' label='Fin'>
-            <DateTimePicker
-              name='stop'
-              value={this.state.news.stop}
-              onChange={this.handleStopChange}
-              format={'DD/MM/YYYY HH:mm'}
-              cancelLabel='Annuler'
-              ampm={false}
-            />
+            <Tooltip
+              enterDelay={300}
+              id='tooltip-controlled'
+              leaveDelay={100}
+              onClose={this.handleTooltipClose}
+              onOpen={this.handleTooltipOpen}
+              open={this.state.open}
+              placement='bottom'
+              title="Date de fin d'affichage"
+            >
+              <DateTimePicker
+                name='stop'
+                value={this.state.news.stop}
+                onChange={this.handleStopChange}
+                format={'DD/MM/YYYY HH:mm'}
+                cancelLabel='Annuler'
+                ampm={false}
+              />
+            </Tooltip>
           </MuiPickersUtilsProvider>
         </form>
         <div className={classes.buttons}>
@@ -195,17 +250,28 @@ export class NewsForm extends React.Component {
             (this.props.edit) &&
             (
               <Fragment>
-                <Button
-                  className={classes.button}
-                  variant='fab'
-                  color='primary'
-                  aria-label='More'
-                  aria-owns={this.state.anchorVersion ? 'long-menu' : null}
-                  aria-haspopup='true'
-                  onClick={this.handleVersionOpen}
+                <Tooltip
+                  enterDelay={300}
+                  id='tooltip-controlled'
+                  leaveDelay={300}
+                  onClose={this.handleTooltipClose}
+                  onOpen={this.handleTooltipOpen}
+                  open={this.state.open}
+                  placement='bottom'
+                  title='Historique'
                 >
-                  <Icon>history</Icon>
-                </Button>
+                  <Button
+                    className={classes.button}
+                    variant='fab'
+                    color='primary'
+                    aria-label='More'
+                    aria-owns={this.state.anchorVersion ? 'long-menu' : null}
+                    aria-haspopup='true'
+                    onClick={this.handleVersionOpen}
+                  >
+                    <Icon>history</Icon>
+                  </Button>
+                </Tooltip>
                 <Menu
                   id='long-menu'
                   anchorEl={this.state.anchorVersion}
@@ -226,13 +292,24 @@ export class NewsForm extends React.Component {
                   ))}
                 }
                 </Menu>
-                <Button
-                  onClick={this.handleDelete}
-                  className={classes.button}
-                  variant='fab'
-                  color='secondary'>
-                  <DeleteIcon />
-                </Button>
+                <Tooltip
+                  enterDelay={300}
+                  id='tooltip-controlled'
+                  leaveDelay={300}
+                  onClose={this.handleTooltipClose}
+                  onOpen={this.handleTooltipOpen}
+                  open={this.state.open}
+                  placement='bottom'
+                  title='Supprimer'
+                >
+                  <Button
+                    onClick={this.handleDelete}
+                    className={classes.button}
+                    variant='fab'
+                    color='secondary'>
+                    <DeleteIcon />
+                  </Button>
+                </Tooltip>
                 <Dialog
                   open={this.state.showDeleteAlert}
                   onClose={this.handleDeleteClose}
@@ -254,14 +331,25 @@ export class NewsForm extends React.Component {
               </Fragment>
             )
           }
-          <Button
-            disabled={!this.isSubmitEnabled()}
-            onClick={this.handleSubmit}
-            className={classes.button}
-            variant='fab'
-            color='secondary'>
-            <SaveIcon />
-          </Button>
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={300}
+            onClose={this.handleTooltipClose}
+            onOpen={this.handleTooltipOpen}
+            open={this.state.open}
+            placement='bottom'
+            title='Sauvegarder'
+          >
+            <Button
+              disabled={!this.isSubmitEnabled()}
+              onClick={this.handleSubmit}
+              className={classes.button}
+              variant='fab'
+              color='primary'>
+              <SaveIcon />
+            </Button>
+          </Tooltip>
         </div>
       </div>
     )
