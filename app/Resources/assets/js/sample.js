@@ -17,7 +17,8 @@ const participant = {
   coltyp: '',
   colp: '',
   transport: '',
-  memo: ''
+  memo: '',
+  check: false
 }
 
 const clone = (obj) => {

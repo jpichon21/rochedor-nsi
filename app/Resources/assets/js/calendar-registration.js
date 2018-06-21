@@ -242,12 +242,10 @@ itemParticipants.on('submit', '.panel.add form', function (event) {
 })
 
 function updateParticipants () {
-  let checked = []
-  $('.participate-him.checked', itemParticipants).each(function () {
-    checked.push(parseInt($(this).attr('data-id')))
-  })
-  _participants = _registered.filter(registered => {
-    return checked.indexOf(registered.codco) >= 0
+  console.log(_registered)
+  _participants = _registered.filter(participant => {
+    console.log(participant)
+    return participant.check
   })
   _participants.push(_you)
   updateParticipantsRender()
@@ -255,6 +253,13 @@ function updateParticipants () {
 
 itemParticipants.on('click', '.participate-him', function (event) {
   event.preventDefault()
+  const id = parseInt($(this).attr('data-id'))
+  _registered = _registered.map(participant => {
+    if (participant.codco === id) {
+      participant.check = !participant.check
+    }
+    return participant
+  })
   updateParticipants()
 })
 
