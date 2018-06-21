@@ -6,6 +6,7 @@ use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Cmf\Bundle\RoutingBundle\Controller;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider;
+use Symfony\Component\HttpFoundation\Request;
 
 class PageService
 {
@@ -31,6 +32,9 @@ class PageService
 
     public function getAvailableLocales($contentDocument)
     {
+        if (!$contentDocument) {
+            return null;
+        }
         $availableLocales = array();
         if ($contentDocument->getLocale() === "fr") {
             $cm = $contentDocument->getChildren();
@@ -50,5 +54,17 @@ class PageService
             }
         }
         return $availableLocales;
+    }
+
+    public function getContentFromRequest(Request $request)
+    {
+        $route = $this->guessRouteName($request->getPathInfo());
+        return $this->getContent($route);
+    }
+
+    private function guessRouteName($path)
+    {
+        $pieces = explode('/', $path);
+        return end($pieces);
     }
 }

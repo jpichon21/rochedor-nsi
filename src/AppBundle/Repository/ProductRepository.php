@@ -43,11 +43,12 @@ class ProductRepository
     * @param int $rubId
     * @return Array
     */
-    public function findProducts($rubId)
+    public function findProducts($rubId, $limit = 99)
     {
         $query = $this->entityManager
         ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.codrub=:rubId');
         $query->setParameter('rubId', $rubId);
+        $query->setMaxResults($limit);
         return $query->getResult();
     }
 

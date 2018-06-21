@@ -21,6 +21,9 @@ use AppBundle\Repository\ProductRepository;
 use AppBundle\Entity\Produit;
 use AppBundle\Service\PageService;
 
+/**
+ * @Route("/{_locale}")
+ */
 class ProductController extends Controller
 {
 
@@ -46,6 +49,7 @@ class ProductController extends Controller
     ) {
         $this->productRepository = $productRepository;
         $this->translator = $translator;
+        $this->pageService = $pageService;
     }
 
     /**
@@ -69,30 +73,55 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/edition/nouveautes", name="product-news-fr")
-     * @Route("/book/news", name="product-news-en")
-     * @Route("/buch/neu", name="product-news-de")
-     * @Route("/libros/nuevo", name="product-news-es")
-     * @Route("/libri/nuovo", name="product-news-it")
+     * @Route("/editions-nouveautes", name="product-news-fr")
+     * @Route("/books-news", name="product-news-en")
+     * @Route("/buchs-neu", name="product-news-de")
+     * @Route("/libros-nuevo", name="product-news-es")
+     * @Route("/libri-nuovo", name="product-news-it")
      */
     public function showNewProductsAction(Request $request)
     {
+        $contentDocument = $this->pageService->getContentFromRequest($request);
+        $avaiableLocales = $this->pageService->getAvailableLocales($contentDocument);
         $products = $this->productRepository->findNewProducts();
-        return $this->render('product/news.html.twig', ['products' => $products]);
+        return $this->render(
+            'product/news.html.twig',
+            ['products' => $products, 'avaiableLocales' => $avaiableLocales, 'page' => $contentDocument]
+        );
     }
     
     /**
-     * @Route("/edition/collections")
+     * @Route("/editions-collections", name="product-series-fr")
+     * @Route("/books-sammlungen", name="product-series-en")
+     * @Route("/buchs-reihe", name="product-series-de")
+     * @Route("/libros-colecciones", name="product-series-es")
+     * @Route("/libri-collezioni", name="product-series-it")
      */
     public function showCollections(Request $request)
     {
         $locale = $request->getLocale();
         $collections = $this->productRepository->findCollections($locale);
-        dump($collections);
         $themes = $this->productRepository->findThemes();
-        dump($themes);
-        $products = $this->productRepository->findByTheme('theme2');
-        dump($products);
-        return $this->render('test.html.twig');
+
+        $products = [];
+        foreach ($collections as $collection) {
+            $products[] = [
+                'title' => $collection->getRubrique(),
+                'products' => $this->productRepository->findProducts($collection->getCodrub(), 2)
+            ];
+        }
+        $contentDocument = $this->pageService->getContentFromRequest($request);
+        $avaiableLocales = $this->pageService->getAvailableLocales($contentDocument);
+
+        return $this->render(
+            'product/list.html.twig',
+            [
+                'avaiableLocales' => $avaiableLocales,
+                'page' => $contentDocument,
+                'collections' => $collections,
+                'themes' => $themes,
+                'products' => $products
+            ]
+        );
     }
 }

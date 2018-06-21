@@ -26,7 +26,7 @@ class DefaultController extends Controller
 
     public function __construct(PageService $pageService)
     {
-        $this->$pageService = $pageService;
+        $this->pageService = $pageService;
     }
      /**
      * @Route("/", name="home", defaults={"_locale"="fr"}, requirements={"_locale" = "%locales%"})
