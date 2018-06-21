@@ -101,13 +101,14 @@ updateRetreats(retreatsData)
 function applyFilters (filters) {
   const retreats = retreatsData.filter((retreat) => {
     if (filters['site'].length === 0) { return true }
-    return filters['site'].indexOf(retreat.site.abbr) >= 0
+    return filters['site'].indexOf(retreat.site.value) >= 0
   }).filter((retreat) => {
     if (filters['type'].length === 0) { return true }
-    return filters['type'].indexOf(retreat.type.value) >= 0
+    return filters['type'].indexOf(retreat.type.value.toString()) >= 0
   }).filter((retreat) => {
     if (filters['speaker'].length === 0) { return true }
-    return filters['speaker'].indexOf(retreat.speaker.value) >= 0
+    const speakers = retreat.speaker.filter(speaker => filters['speaker'].indexOf(speaker.value) >= 0)
+    return speakers.length > 0
   }).filter((retreat) => {
     if (filters['translation'].length === 0) { return true }
     return filters['translation'].indexOf(retreat.translation) >= 0

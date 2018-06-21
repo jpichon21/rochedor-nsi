@@ -1146,5 +1146,11 @@
         <target>Organisateur</target>
       </segment>
     </unit>
+    <unit id="edrUzMC" name="calendar.days">
+      <segment>
+        <source>calendar.days</source>
+        <target>jours</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

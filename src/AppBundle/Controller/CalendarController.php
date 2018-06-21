@@ -472,9 +472,11 @@ class CalendarController extends Controller
             if ($event['site'] === "Roch") {
                 $site['abbr'] = $this::SITES[0]['abbr'];
                 $site['color'] = $this::SITES[0]['color'];
+                $site['value'] = $this::SITES[0]['value'];
             } else {
                 $site['abbr'] = $this::SITES[1]['abbr'];
                 $site['color'] = $this::SITES[1]['color'];
+                $site['value'] = $this::SITES[1]['value'];
             }
             $translation = $event['translation'];
             
