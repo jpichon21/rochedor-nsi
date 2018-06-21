@@ -95,6 +95,7 @@
             <p>&laquo;{{ activity.libact }}&raquo;<br>{{ 'filter.inner.date.in' | trans() | raw }} {{ activity.datdeb | localizeddate('medium', 'none', app.request.locale ) }} {{ 'filter.inner.date.out' | trans() | lower | raw }} {{ activity.datfin | localizeddate('medium', 'none', app.request.locale ) }} ({{ activity.sitact }})</p>
             <h3>{{ 'calendar.registration.summary.title.participants' | trans() | raw }}</h3>
             <div class="participants-render"></div>
+            <div class="catch-message"></div>
         </div>
     </div>
 </div>
@@ -110,6 +111,9 @@
             "train": "{{ 'form.transport.train'|trans }}",
             "avion": "{{ 'form.transport.avion'|trans }}",
             "bus": "{{ 'form.transport.bus'|trans }}"
+        },
+        "message": {
+            "verify_transport": "{{ 'form.message.verify_transport'|trans }}"
         }
     }
 </script>
@@ -186,7 +190,7 @@
         <input class="input password" type="password" name="password" placeholder="{{ 'form.password' | trans() | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input datnaiss" required type="text" value="<%= moment(participant.datnaiss).format('DD/MM/YYYY') %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans() | raw }}">
+        <input class="input datnaiss" required type="text" value="<%= (participant.datnaiss !== '') ? moment(participant.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans() | raw }}">
     </div>
     <div class="pure-u-1-2">
         <input class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans() | raw }}">
@@ -268,7 +272,7 @@
         <input class="input email" type="email" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans() | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input datnaiss" required type="text" value="<%= moment(participant.datnaiss).format('DD/MM/YYYY') %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans() | raw }}">
+        <input class="input datnaiss" required type="text" value="<%= (participant.datnaiss !== '') ? moment(participant.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans() | raw }}">
     </div>
     <div class="pure-u-1-2">
         <input class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans() | raw }}">

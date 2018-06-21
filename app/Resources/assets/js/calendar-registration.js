@@ -81,11 +81,14 @@ function updateHimFormRender () {
 /* Actions */
 
 function afterLogin (user) {
-  _you = user
+  const participant = getParticipant()
+  _you = { ...participant, ...user }
   _participants = [_you]
   updateYouRender()
   getRegistered().then(registered => {
-    _registered = registered
+    _registered = registered.map(obj => {
+      return { ...participant, ...obj }
+    })
     updateRegisteredRender()
     updateParticipantsRender()
     changeItem(itemParticipants)
@@ -94,7 +97,7 @@ function afterLogin (user) {
 
 function formatParticipant (data) {
   let participant = getParticipant()
-  data.map((obj) => {
+  data.map(obj => {
     participant[obj.name] = obj.value
   })
   participant.codco = parseInt(participant.codco)
@@ -268,4 +271,20 @@ itemParticipants.on('click', '.add-participant', function (event) {
   $(`.panel.add`, itemParticipants).show()
   updateHimFormRender()
   changeItem(itemParticipants)
+})
+
+function validateTransports () {
+  let validate = true
+  _participants.map(participant => {
+    if (participant.transport === '') { validate = false }
+  })
+  return validate
+}
+
+itemParticipants.on('click', '.validate-participants', function (event) {
+  event.preventDefault()
+  const validate = validateTransports()
+  if (!validate) {
+    $('.right .catch-message').html(_translations.message.verify_transport)
+  }
 })
