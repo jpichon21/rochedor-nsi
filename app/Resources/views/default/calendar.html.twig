@@ -56,7 +56,6 @@
                         <th class="types center">{{ 'retreats.table.head.types' | trans() }}</th>
                         <th class="durations center">{{ 'retreats.table.head.durations' | trans() }}</th>
                         <th class="translations center">{{ 'retreats.table.head.translations' | trans() }}</th>
-                        <th class="selections center">{{ 'retreats.table.head.selections' | trans() }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -118,15 +117,14 @@
         <td class="dates">
             <span class="bullet"></span>
             <span class="fadeline"></span>
-            <%= retreats[i].dateIn.format('Do MMM') %> - <%= retreats[i].dateOut.format('Do MMM') %>
+            <a href="{{ url('register_calendar' ~ '-' ~ app.request.locale) }}?id=<%= retreats[i].id %>"><%= retreats[i].dateIn.format('Do MMM') %> - <%= retreats[i].dateOut.format('Do MMM') %></a>
         </td>
         <td class="site center" style="color: <%= retreats[i].site.color %>"><%= retreats[i].site.abbr %></td>
-        <td class="event"><%= retreats[i].event %></td>
+        <td class="event"><a href="{{ url('register_calendar' ~ '-' ~ app.request.locale) }}?id=<%= retreats[i].id %>"><%= retreats[i].event %></a></td>
         <td class="speaker"><%= retreats[i].speaker.name %></td>
         <td class="type center"><i style="color: <%= retreats[i].type.color %>"></i><%= retreats[i].type.abbr %></td>
         <td class="duration center"><%= retreats[i].duration %></td>
         <td class="translation center"><%= retreats[i].translation %></td>
-        <td class="selection center"><i>></i></td>
     </tr>
 <% } %>
 </script>

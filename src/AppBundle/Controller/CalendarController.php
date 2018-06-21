@@ -94,11 +94,11 @@ class CalendarController extends Controller
     }
 
      /**
-     * @Route("/inscription-retraite", name="inscription_retraite")
-     * @Route("/registration-retreat", name="registration_retreat")
-     * @Route("/anmeldung-ruhestand", name="anmeldung_ruhestand")
-     * @Route("/iscrizione-ritiro", name="iscrizione_ritiro")
-     * @Route("/registro-jubilado", name="registro_jubilado")
+     * @Route("/inscription-retraite", name="register_calendar-fr")
+     * @Route("/registration-retreat", name="register_calendar-en")
+     * @Route("/anmeldung-ruhestand", name="register_calendar-de")
+     * @Route("/iscrizione-ritiro", name="register_calendar-it")
+     * @Route("/registro-jubilado", name="register_calendar-es")
      */
     public function calendarRegistrationAction(Request $request, ServiceShowPage $showPage)
     {
@@ -415,6 +415,8 @@ class CalendarController extends Controller
         $events = $calendarRepo->findEvents();
         
         foreach ($events as $event) {
+            $id = $event['actId'];
+
             $dateIn = $event['dateIn'];
             $dateInParse = $event['dateIn']->format('Ymd');
             
@@ -462,6 +464,7 @@ class CalendarController extends Controller
             $translation = $event['translation'];
             
 
+            $retreat['id'] = $id;
             $retreat['dateIn'] = $dateInParse;
             $retreat['dateOut'] = $dateOutParse;
             $retreat['site'] = $site;
@@ -476,11 +479,11 @@ class CalendarController extends Controller
     }
 
     /**
-     * @Route("/liste-retraites", name="liste_retraites")
-     * @Route("/list-retreats", name="list_retreats")
-     * @Route("/liste-ruckzuge", name="liste_ruckzuge")
-     * @Route("/lista-ritiri", name="lista_ritiri")
-     * @Route("/lista-retiros", name="lista_retiros")
+     * @Route("/liste-retraites", name="calendar-fr")
+     * @Route("/list-retreats", name="calendar-en")
+     * @Route("/liste-ruckzuge", name="calendar-de")
+     * @Route("/lista-ritiri", name="calendar-it")
+     * @Route("/lista-retiros", name="calendar-es")
      */
     public function calendarAction(CalendarRepository $calendarRepo)
     {
