@@ -51,7 +51,7 @@ class ContactRepository
         ->createQuery('SELECT c FROM AppBundle\Entity\Contact c 
         WHERE UPPER(c.nom)=UPPER(:lastname) AND UPPER(c.prenom)=UPPER(:firstname) AND c.datnaiss=:birthdate');
         $query->setParameters(['lastname' => $lastname, 'firstname' => $firstname, 'birthdate' => $birthdate]);
-        return $query->getOneOrNullResult();
+        return $query->getResult();
     }
     
     /**
@@ -80,7 +80,7 @@ class ContactRepository
         $query = $this->entityManager
         ->createQuery('SELECT c FROM AppBundle\Entity\Contact c WHERE c.email=:email OR c.username=:email');
         $query->setParameter('email', $email);
-        return $query->getOneOrNullResult();
+        return $query->getResult();
     }
 
     /**
