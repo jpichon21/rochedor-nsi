@@ -104,6 +104,7 @@ class CalendarController extends Controller
     public function calendarRegistrationAction(Request $request, ServiceShowPage $showPage)
     {
         $id = $request->query->get('id');
+        $calendarURL = $this->generateUrl('calendar-'.$request->getLocale());
 
         if ($id) {
             $activity = $this->getCalendarAction($id);
@@ -112,7 +113,6 @@ class CalendarController extends Controller
                 $datefin = $activity['datfin'];
                 if ($datenow < $datefin) {
                     $activity['idact'] = intval($id);
-                    $calendarURL = $this->generateUrl('calendar-'.$request->getLocale());
                     return $this->render('default/calendar-registration.html.twig', array(
                         'page' => array(
                             'locale' => 'fr',
@@ -136,7 +136,8 @@ class CalendarController extends Controller
                         'subTitle' => 'terminée',
                         'content' => array(
                             'intro' => 'Il semblerait que cette activité ne soit plus disponible. 
-                            Veuillez sélectionner une autre activité depuis le Calendrier.'),
+                            Veuillez sélectionner une autre activité depuis 
+                            <a href="'.$calendarURL.'">le calendrier</a>.'),
                         'routes' => array('getValues' => array(array('staticPrefix' => 'en')))
                     ),
                     'availableLocales' => array()
@@ -151,7 +152,8 @@ class CalendarController extends Controller
                 'subTitle' => 'non trouvée',
                 'content' => array(
                     'intro' => 'Il semblerait que cette activité n\'existe plus ou n\'a jamais existée. 
-                    Veuillez sélectionner une activité depuis le Calendrier.'),
+                    Veuillez sélectionner une activité depuis 
+                    <a href="'.$calendarURL.'">le calendrier</a>.'),
                 'routes' => array('getValues' => array(array('staticPrefix' => 'en')))
             ),
             'availableLocales' => array()
