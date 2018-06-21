@@ -35,14 +35,14 @@ class CalendarController extends Controller
             "value" => "lrdo",
             "name" => "La Roche d'Or",
             "abbr" => "RO",
-            "color" => "#ff00ff"
+            "color" => "#55C055"
         ],
         [
             "sitac" => "Font",
             "value" => "font",
             "name" => "Les Fontanilles",
             "abbr" => "FT",
-            "color" => "#0000ff"
+            "color" => "#FFA500"
         ]
     ];
 
