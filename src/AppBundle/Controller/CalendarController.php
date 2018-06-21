@@ -111,13 +111,16 @@ class CalendarController extends Controller
                 $datefin = $activity['datfin'];
                 if ($datenow < $datefin) {
                     $activity['idact'] = intval($id);
+                    $calendarURL = $this->generateUrl('calendar-'.$request->getLocale());
                     return $this->render('default/calendar-registration.html.twig', array(
                         'page' => array(
                             'locale' => 'fr',
                             'background' => 'http://localhost:8000/assets/images/background-flotype.cd2c708b.png',
                             'title' => 'Demande',
                             'subTitle' => 'd\'inscription',
-                            'content' => array('intro' => 'Introduction lorem ipsum'),
+                            'content' => array('intro' => 'Vous êtes sur le point de vous inscrire à une retraite. 
+                                Complétez les informations suivantes si vous souahitez continuer, 
+                                sinon retourner <a href="'.$calendarURL.'">au calendrier</a>.'),
                             'routes' => array('getValues' => array(array('staticPrefix' => 'en')))
                         ),
                         'activity' => $activity,

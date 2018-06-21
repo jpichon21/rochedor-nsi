@@ -42,10 +42,10 @@
                         <h3>{{ 'calendar.registration.one.title.connection' | trans | raw }}</h3>
                         <form class="pure-g connection">
                             <div class="pure-u-10-24">
-                                <input class="input username" type="text" name="username" placeholder="{{ 'form.username' | trans | raw }}">
+                                <input class="input username" required type="text" name="username" placeholder="{{ 'form.username' | trans | raw }}">
                             </div>
                             <div class="pure-u-10-24">
-                                <input class="input password" type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
+                                <input class="input password" required type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
                             </div>
                             <div class="pure-u-4-24">
                                 <input class="button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
@@ -201,10 +201,10 @@
         <input class="input mobil" type="text" value="<%= participant.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input email" type="email" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
+        <input class="input email" required type="email" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input password" type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
+        <input class="input password" required type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
         <input class="input datnaiss" required type="text" value="<%= (participant.datnaiss !== '') ? moment(participant.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }}">

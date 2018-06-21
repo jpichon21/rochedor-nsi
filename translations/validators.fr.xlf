@@ -3,7 +3,7 @@
   <file id="validators.fr">
     <unit id="1ySLv3C" name="validation.password.length">
       <notes>
-        <note category="file-source" priority="1">src/AppBundle/Entity/Contact.php:0</note>
+        <note priority="1">src/AppBundle/Entity/Contact.php:0</note>
       </notes>
       <segment>
         <source>validation.password.length</source>
@@ -12,7 +12,7 @@
     </unit>
     <unit id="P1lh0pR" name="validation.email.already_used">
       <notes>
-        <note category="file-source" priority="1">src/AppBundle/Entity/Contact.php:0</note>
+        <note priority="1">src/AppBundle/Entity/Contact.php:0</note>
       </notes>
       <segment>
         <source>validation.email.already_used</source>
@@ -21,7 +21,7 @@
     </unit>
     <unit id="nqTz9ya" name="form.message.passwords_mismatch">
       <notes>
-        <note category="file-source" priority="1">src/AppBundle/Form/RegisterType.php:46</note>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:46</note>
       </notes>
       <segment>
         <source>form.message.passwords_mismatch</source>
