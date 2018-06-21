@@ -252,8 +252,14 @@ class SecurityController extends Controller
             'invalid_message' => 'form.message.passwords_mismatch',
             'options' => array('attr' => array('class' => 'password-field')),
             'required' => true,
-            'first_options'  => array('label' => 'form.label.password'),
-            'second_options' => array('label' => 'form.label.password_repeat')
+            'first_options'  => array('attr' => [
+            'class'=> 'input password',
+            'placeholder' => 'form.label.password']
+            ),
+            'second_options' => array('attr' => [
+            'class'=> 'input password',
+            'placeholder' => 'form.label.password_repeat']
+            )
         ))
         ->getForm();
         

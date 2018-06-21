@@ -47,9 +47,15 @@ class RegisterType extends AbstractType
             'invalid_message' => 'form.message.passwords_mismatch',
             'options' => array('attr' => array('class' => 'password-field')),
             'required' => true,
-            'first_options'  => array('label'=>'Mot de passe','attr' => ['class'=>'input' , 'placeholder'=>'password']),
-            'second_options' => array('label'=>'Repeter', 'attr'=> ['class'=>'input' , 'placeholder'=>'password'])
-        ])
+            'first_options'  => array('label'=>'Mot de passe','attr' => [
+                'class'=>'input password',
+                'placeholder'=>'Mot de passe']
+                ),
+            'second_options' => array('label'=>'Répéter le mot de passe', 'attr'=> [
+                'class'=>'input password',
+                'placeholder'=>'Répéter le mot de passe']
+                )
+            ])
         ->add('profession', TextType::class, ['required' => false, 'attr' => [
             'class'=>'input',
             'placeholder'=>'Profession']
