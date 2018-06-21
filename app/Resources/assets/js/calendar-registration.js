@@ -46,10 +46,10 @@ $('.registered-render').on('click', '.button.radio', function (event) {
 
 /* Variables */
 
-let _you
-let _registered
-let _participant
-let _participants
+let _you = {}
+let _registered = []
+let _participant = {}
+let _participants = []
 
 const itemConnection = $('.item.connection')
 const itemParticipants = $('.item.participants')
@@ -82,6 +82,8 @@ function updateYouFormRender () {
 function updateHimFormRender () {
   $('.him-form-render').html(himFormTemplate({ participant: _participant, registered: _registered, you: _you }))
 }
+
+updateParticipantsRender()
 
 /* Actions */
 

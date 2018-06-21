@@ -134,32 +134,40 @@
     </div>
 </script>
 <script type="text/template" class="participants-template">
-    <% for (var i = 0; i < participants.length; i++) { %>
-    <% var him = participants[i] %>
-        <div class="him">
-            <p><%= him.prenom %> <%= him.nom %><br>
-                <%= him.adresse %> <%= him.cp %> <%= him.ville %> <%= him.pays %><br>
-                <%= translations.transport[him.transport] %></p>
-        </div>
+    <% if (participants.length) { %>
+        <% for (var i = 0; i < participants.length; i++) { %>
+        <% var him = participants[i] %>
+            <div class="him">
+                <p><%= him.prenom %> <%= him.nom %><br>
+                    <%= him.adresse %> <%= him.cp %> <%= him.ville %> <%= him.pays %><br>
+                    <%= translations.transport[him.transport] %></p>
+            </div>
+        <% } %>
+    <% } else { %>
+        <p>{{ 'form.no_participants' | trans }}</p>
     <% } %>
 </script>
 <script type="text/template" class="registered-template">
-    <% for (var i = 0; i < registered.length; i++) { %>
-    <% var him = registered[i] %>
-        <div class="him">
-            <p><%= him.prenom %> <%= him.nom %><br>
-                <%= him.adresse %> <%= him.cp %> <%= him.ville %> <%= him.pays %></p>
-            <a href="#" data-id="<%= him.codco %>" class="modify-him button">{{ 'form.modify' | trans | raw }}</a>
-            <a href="#" data-id="<%= him.codco %>" class="participate-him button radio">{{ 'form.participate' | trans | raw }}</a>
-        </div>
+    <% if (registered.length) { %>
+        <% for (var i = 0; i < registered.length; i++) { %>
+        <% var him = registered[i] %>
+            <div class="him">
+                <p><%= him.prenom %> <%= him.nom %><br>
+                    <%= him.adresse %> <%= him.cp %> <%= him.ville %> <%= him.pays %></p>
+                <a href="#" data-id="<%= him.codco %>" class="modify-him button">{{ 'form.modify' | trans | raw }}</a>
+                <a href="#" data-id="<%= him.codco %>" class="participate-him button radio">{{ 'form.participate' | trans | raw }}</a>
+            </div>
+        <% } %>
+    <% } else { %>
+        <p>{{ 'form.no_participants' | trans }}</p>
     <% } %>
 </script>
 <script type="text/template" class="you-form-template">
     <input class="input" type="hidden" value="<%= participant.codco %>" name="codco">
     <div class="pure-u-1-3">
-        <select class="select civil" required name="civil" value="<%= participant.civil %>">
-            <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">Civilité</option>
-            <option <%= (participant.civil == 'M') ? 'selected' : '' %> value="M">M.</option>
+        <select class="select civil" required name="civil">
+            <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
+            <option <%= (participant.civil == 'M.') ? 'selected' : '' %> value="M.">M.</option>
             <option <%= (participant.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
             <option <%= (participant.civil == 'Mlle') ? 'selected' : '' %> value="Mlle">Mlle</option>
             <option <%= (participant.civil == 'Père') ? 'selected' : '' %> value="Père">Père</option>
@@ -247,7 +255,7 @@
     <div class="pure-u-1-3">
         <select class="select civil" required name="civil">
             <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
-            <option <%= (participant.civil == 'M') ? 'selected' : '' %> value="M">M.</option>
+            <option <%= (participant.civil == 'M.') ? 'selected' : '' %> value="M.">M.</option>
             <option <%= (participant.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
             <option <%= (participant.civil == 'Mlle') ? 'selected' : '' %> value="Mlle">Mlle</option>
             <option <%= (participant.civil == 'Père') ? 'selected' : '' %> value="Père">Père</option>
