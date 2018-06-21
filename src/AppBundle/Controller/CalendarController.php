@@ -27,7 +27,8 @@ use AppBundle\Service\Mailer;
 
 class CalendarController extends Controller
 {
-    const YEARS_ADULT = 16;
+    const YEARS_ADULT = 18;
+    const YEARS_CHILD = 16;
     const SITES = [
         [
             "sitac" => "Roch",
@@ -245,9 +246,9 @@ class CalendarController extends Controller
                 if ($a['coltyp'] === 'enfan' || $a['coltyp'] === 'conjo') {
                     if (!$contactl = $this->contactRepository->findContactL($contact->getCodco(), $a['colp'])) {
                         $contactl = new ContactL();
-                        $contactl->setCol($a['codco']);
+                        $contactl->setCol((int) $a['codco']);
                     }
-                    $contactl->setColp($a['colp'])
+                    $contactl->setColp((int) $a['colp'])
                     ->setColt('famil')
                     ->setColtyp($a['coltyp']);
                     $em->persist($contactl);
@@ -311,7 +312,7 @@ class CalendarController extends Controller
     private function validAttendees($attendees)
     {
         foreach ($attendees as $attendee) {
-            if (!$this->isAdult($attendee['datnaiss'])) {
+            if ($this->isChild($attendee['datnaiss'])) {
                 if (!$this->hasParent($attendee, $attendees)) {
                     return false;
                 }
@@ -326,11 +327,20 @@ class CalendarController extends Controller
             return false;
         }
         foreach ($attendees as $attendee) {
-            if ($attendee['codco'] === $child['colp'] && $this->isAdult($attendee['datnaiss'])) {
+            $adult = $this->isAdult($attendee['datnaiss']);
+            if ((int) $attendee['codco'] === (int) $child['colp'] && $adult) {
                 return true;
             }
         }
         return false;
+    }
+
+    private function isChild(string $datnaiss)
+    {
+        $datnaiss = new \DateTime($datnaiss);
+        $now = new \DateTime();
+        $diff = $datnaiss->diff($now);
+        return ($diff->y <= $this::YEARS_CHILD);
     }
     
     private function isAdult(string $datnaiss)
