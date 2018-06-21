@@ -99,6 +99,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
           <Editor
             stripPastedStyles
             spellCheck
+            localization={{locale: 'fr'}}
             editorState={context.state.page.content.sections[indexSection].bodyRaw}
             onEditorStateChange={editorState => context.handleChangeTextArea(editorState, indexSection)}
             toolbarCustomButtons={[<CustomOption addDocument={event => { context.handleChangeDocumentUpload(event, indexSection) }} />]}
@@ -129,8 +130,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
             scrollable
             scrollButtons='auto'
             indicatorColor='primary'
-            textColor='primary'
-            centered>
+            textColor='primary'>
             {
               section.slides.map((slide, indexSlide) => (
                 <Tab key={indexSlide} label={`Assemblage ${indexSlide + 1}`} />
@@ -161,7 +161,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                                       id='tooltip-controlled'
                                       leaveDelay={300}
                                       placement='bottom'
-                                      title='Séléctionner une image'
+                                      title='Sélectionner une image'
                                     >
                                       <IconButton
                                         color={slide.images[tile.id].url === '' ? 'primary' : 'secondary'}>
@@ -177,7 +177,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                                       id='tooltip-controlled'
                                       leaveDelay={300}
                                       placement='bottom'
-                                      title='Séléctionner une video'
+                                      title='Sélectionner une vidéo'
                                     >
                                       <IconButton
                                         color={slide.images[tile.id].video === '' ? 'primary' : 'secondary'}
@@ -657,7 +657,7 @@ export class PageForm extends React.Component {
     const parents = (this.props.parents.length > 0)
       ? this.props.parents.map((p, k) => {
         return (
-          <MenuItem value={k} key={k}>{p.title}</MenuItem>
+          <MenuItem value={k} key={k}>{p.title} {p.sub_title}</MenuItem>
         )
       })
       : null
@@ -814,7 +814,7 @@ export class PageForm extends React.Component {
                   onOpen={this.handleTooltipOpen}
                   open={this.state.open}
                   placement='bottom'
-                  title='Hitorique des versions'
+                  title='Historique des versions'
                 >
                   <Button
                     className={classes.button}

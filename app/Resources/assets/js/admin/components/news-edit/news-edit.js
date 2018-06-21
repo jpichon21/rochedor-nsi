@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { getNews, putNews, deleteNews, setTitle, setLocale, initStatus } from '../../actions'
+import { getNews, putNews, deleteNews, setTitle, setLocale, initStatus, setMessage } from '../../actions'
 import NewsForm from '../news-form/news-form'
 import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
@@ -31,7 +31,7 @@ export class NewsEdit extends React.Component {
       this.setState({alertOpen: true})
     }
 
-    if (nextProps.status === 'Deleted successfully') {
+    if (nextProps.status === 'Deleted successfully' || nextProps.status === 'News Updated') {
       this.props.dispatch(initStatus)
       this.props.history.push('/news-list')
     }
