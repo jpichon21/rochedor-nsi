@@ -19,8 +19,8 @@ class RegisterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('nom', TextType::class, ['label' => 'form.label.lastname'])
-        ->add('prenom', TextType::class, ['label' => 'form.label.firstname'])
+        ->add('nom', TextType::class, ['attr' => ['class'=>'input','placeholder'=>'Nom']])
+        ->add('prenom', TextType::class, ['attr' => ['class'=>'input','placeholder'=>'Prénom']])
         ->add('civil', ChoiceType::class, [
             'label' => 'form.label.gender',
             'choices' => [
@@ -29,28 +29,37 @@ class RegisterType extends AbstractType
                 'form.label.miss' => 'Mlle',
                 'form.label.father' => 'Père',
                 'form.label.sister' =>'Soeur',
-                'form.label.brother' =>'Frère']
-            ])
-        ->add('adresse', TextType::class, ['label' => 'form.label.address', 'required' => false])
-        ->add('cp', NumberType::class, ['label' => 'form.label.zipcode', 'required' => false])
-        ->add('ville', TextType::class, ['label' => 'form.label.city', 'required' => false])
-        ->add('pays', TextType::class, ['label' => 'form.label.country', 'required' => false])
-        ->add('tel', NumberType::class, ['label' => 'form.label.phone', 'required' => false])
-        ->add('mobil', NumberType::class, ['label' => 'form.label.mobile', 'required' => false])
-        ->add('email', EmailType::class, ['label' => 'form.label.email'])
+                'form.label.brother' =>'Frère'],
+                'attr' => ['class'=>'select']])
+        ->add('adresse', TextType::class, [ 'required' => false ,'attr' => ['class'=>'input','placeholder'=>'Adresse']])
+        ->add('cp', NumberType::class, [ 'required' => false,'attr' => ['class'=>'input','placeholder'=>'Code Postal']])
+        ->add('ville', TextType::class, [ 'required' => false,'attr' => ['class'=>'input','placeholder'=>'Ville']])
+        ->add('pays', TextType::class, [ 'required' => false,'attr' => ['class'=>'input','placeholder'=>'Pays']])
+        ->add('tel', NumberType::class, [ 'required' => false,'attr' => ['class'=>'input','placeholder'=>'Téléphone']])
+        ->add('mobil', NumberType::class, [ 'required' => false,'attr' => ['class'=>'input','placeholder'=>'Mobile']])
+        ->add('email', EmailType::class, [ 'attr' => ['class'=>'input','placeholder'=>'Email']])
         ->add('datnaiss', DateType::class, [
-            'label' => 'form.label.birthday',
             'format' => 'dd/MM/yyyy',
-            'widget' => 'single_text'])
+            'widget' => 'single_text',
+            'attr' => ['class'=>'input','placeholder'=>'Date de naissance']])
         ->add('password', RepeatedType::class, [
             'type' => PasswordType::class,
             'invalid_message' => 'form.message.passwords_mismatch',
             'options' => array('attr' => array('class' => 'password-field')),
             'required' => true,
-            'first_options'  => array('label' => 'form.label.password'),
-            'second_options' => array('label' => 'form.label.password_repeat')
+            'first_options'  => array('label'=>'Mot de passe','attr' => [
+                'class'=>'input password',
+                'placeholder'=>'Mot de passe']
+                ),
+            'second_options' => array('label'=>'Répéter le mot de passe', 'attr'=> [
+                'class'=>'input password',
+                'placeholder'=>'Répéter le mot de passe']
+                )
+            ])
+        ->add('profession', TextType::class, ['required' => false, 'attr' => [
+            'class'=>'input',
+            'placeholder'=>'Profession']
         ])
-        ->add('profession', TextType::class, ['label' => 'form.label.job', 'required' => false])
         ;
     }
     public function configureOptions(OptionsResolver $resolver)

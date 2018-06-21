@@ -1,15 +1,54 @@
-<html>
-<body>
-  {% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-  {% endif %}
-  <form action="{{ path('login-form') }}" method="post">
-      <label for="username">{{ 'form.label.email'|trans }}</label>
-      <input type="text" id="username" name="_username" value="{{ last_username }}" />
-      <label for="password">{{ 'form.label.password'|trans }}</label>
-      <input type="password" id="password" name="_password" />
-      <button type="submit">{{ 'form.label.connection'|trans }}</button>
-  </form>
-  <a href="{{ path('register-form') }}"}>{{ 'security.register'|trans }}</a>
-</body>
-</html>
+{% set sections = [] %}
+{% set bodyClass = "page" %}
+{% set bodyBackground = 1 %}
+{% extends './alternative-parts/register-header.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/pure-css-grids.css") }}">
+{% endblock %}
+{% block content %}
+  <div class="content">
+      <div class="left">
+          <div class="inner">
+              <h1><small>Formulaire</small>D'inscription</h1>
+              <div class="dropdown single">
+                  <div class="item">
+                    <h2>Formulaire</h2>
+                    <div class="panel active">
+                        <div class="pure-g">
+                          {% if error %}
+                            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                          {% endif %}
+                          <form action="{{ path('login-form') }}" method="post">
+                            <div class="pure-u-1-2">
+                              <input type="text" id="username" placeholder ="Identifiant" name="_username" value="{{ last_username }}" class="input"/>
+                            </div>
+                            <div class="pure-u-1-2"> 
+                              <input type="password" id="password" placeholder ="Mot de passe" name="_password" class="input password" />
+                            </div>
+                            <div class="pure-u-1-1"> 
+                              <button type="submit" class="input button">{{ 'form.label.connection'|trans }}</button>
+                            </div>
+                          </form>
+                        </div>
+                        <a href="{{ path('register-form') }}"}>{{ 'security.register'|trans }}</a>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="hole">
+      </div>
+      <div class="right">
+          <div class="carousel">
+              <div class="slides">
+                  <div class="slide active">
+
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset("assets/js/page.js") }}"></script>
+{% endblock %}
