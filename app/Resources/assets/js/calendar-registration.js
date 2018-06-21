@@ -123,19 +123,24 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
 itemConnection.on('submit', '.panel.registration form', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
-  const user = formatParticipant(data)
-  postRegister({
-    contact: user
-  }).then(user => {
-    postLogin({
-      username: user.username,
-      password: user.password
+  const participant = formatParticipant(data)
+  const validate = validateDate(participant.datnaiss)
+  if (validate) {
+    postRegister({
+      contact: participant
     }).then(user => {
-      afterLogin(user)
+      postLogin({
+        username: user.username,
+        password: participant.password
+      }).then(user => {
+        afterLogin(user)
+      })
+    }).catch(error => {
+      $('.catch-message', itemConnection).html(error)
     })
-  }).catch(error => {
-    $('.catch-message', itemConnection).html(error)
-  })
+  } else {
+    $('.catch-message', itemConnection).html(_translations.message.date_invalid)
+  }
 })
 
 itemConnection.on('click', 'a', function (event) {
@@ -161,8 +166,12 @@ itemConnection.on('click', 'a', function (event) {
   changeItem(itemConnection)
 })
 
+function validateDate (date) {
+  return moment(date).isValid()
+}
+
 function validateParticipant (participant) {
-  if (moment(participant.datnaiss).isValid()) {
+  if (validateDate(participant.datnaiss)) {
     if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
       return { success: true }
     } else {

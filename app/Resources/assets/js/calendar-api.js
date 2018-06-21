@@ -18,10 +18,9 @@ export const postRegister = (data) => {
     credentials: 'include',
     body: JSON.stringify(data)
   })
-    .then(res => res.json())
     .then(res => {
-      if (res.status !== 'ok') { throw res.message }
-      return res.data
+      if (!res.ok) { res.json().then(res => { throw res.error }) }
+      return res.json()
     })
 }
 

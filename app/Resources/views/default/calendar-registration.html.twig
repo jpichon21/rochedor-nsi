@@ -204,7 +204,8 @@
         <input class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
     </div>
     <div class="pure-u-1 notAtThisMoment">
-        <select class="select transport" required name="transport">
+        <select class="select transport" name="transport">
+            <option <%= (participant.transport == '') ? 'selected' : '' %> disabled value="">{{ 'form.transport' | trans | raw }}</option>
             <option <%= (participant.transport == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
             <option <%= (participant.transport == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
             <option <%= (participant.transport == 'avion') ? 'selected' : '' %> value="avion">{{ 'form.transport.avion' | trans | raw }}</option>
@@ -288,11 +289,12 @@
         <input class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
     </div>
     <div class="pure-u-1">
-        <select class="select transport" required name="transport" value="<%= participant.transport %>">
+        <select class="select transport" required name="transport" "<%= participant.transport %>">
             <option <%= (participant.transport == '') ? 'selected' : '' %> disabled value="">{{ 'form.transport' | trans | raw }}</option>
             <option <%= (participant.transport == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
             <option <%= (participant.transport == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
             <option <%= (participant.transport == 'avion') ? 'selected' : '' %> value="avion">{{ 'form.transport.avion' | trans | raw }}</option>
+            <option <%= (participant.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
             <option <%= (participant.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
         </select>
     </div>
