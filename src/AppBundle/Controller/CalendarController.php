@@ -430,7 +430,7 @@ class CalendarController extends Controller
         $events = $calendarRepo->findEvents();
         
         foreach ($events as $event) {
-            $id = $event['actId'];
+            $id = $event['codcal'];
 
             $dateIn = $event['dateIn'];
             $dateInParse = $event['dateIn']->format('Ymd');

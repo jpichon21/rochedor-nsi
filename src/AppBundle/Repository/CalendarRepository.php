@@ -140,6 +140,7 @@ class CalendarRepository
     {
         $query = $this->entityManager->createQuery(
             'SELECT a.libact as event,
+            c.codcal,
             a.codact AS actId,
             c.datdeb AS dateIn,
             c.datfin AS dateOut,
