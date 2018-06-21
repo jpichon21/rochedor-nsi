@@ -79,4 +79,19 @@ class ProductController extends Controller
         dump($products);
         return $this->render('test.html.twig');
     }
+    
+    /**
+     * @Route("/edition/collections")
+     */
+    public function showCollections(Request $request)
+    {
+        $locale = $request->getLocale();
+        $collections = $this->productRepository->findCollections($locale);
+        dump($collections);
+        $themes = $this->productRepository->findThemes();
+        dump($themes);
+        $products = $this->productRepository->findByTheme('theme2');
+        dump($products);
+        return $this->render('test.html.twig');
+    }
 }

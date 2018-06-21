@@ -40,7 +40,7 @@ class ProductRepository
     /**
     * Find Collection of Produit by Prodrub
     *
-    * @param int Prodrub ud
+    * @param int $rubId
     * @return Array
     */
     public function findProducts($rubId)
@@ -48,6 +48,20 @@ class ProductRepository
         $query = $this->entityManager
         ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.codrub=:rubId');
         $query->setParameter('rubId', $rubId);
+        return $query->getResult();
+    }
+
+    /**
+    * Find Collection of Produit by theme
+    *
+    * @param string $theme
+    * @return Array
+    */
+    public function findByTheme($theme)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.themes LIKE :theme');
+        $query->setParameter('theme', '%'.$theme.'%');
         return $query->getResult();
     }
 
@@ -61,6 +75,33 @@ class ProductRepository
         $query = $this->entityManager
         ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.nouveaute=true ORDER BY p.maj DESC');
         $query->setMaxResults(4);
+        return $query->getResult();
+    }
+
+    /**
+    * Find collections
+    *
+    * @return Array
+    */
+    public function findCollections($locale)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT r FROM AppBundle\Entity\Prodrub r
+        WHERE r.rubhide=0 AND r.langrub=:locale ORDER BY r.rubrique ASC');
+        $query->setParameter('locale', strtoupper($locale));
+        return $query->getResult();
+    }
+
+    /**
+    * Find themes
+    *
+    * @return Array
+    */
+    public function findThemes()
+    {
+        $query = $this->entityManager
+        ->createQuery("SELECT DISTINCT SUBSTRING_INDEX(p.themes, ',', 1) AS theme
+        FROM AppBundle\Entity\Produit p WHERE p.themes <> ''");
         return $query->getResult();
     }
 }
