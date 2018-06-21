@@ -110,6 +110,7 @@ class CalendarController extends Controller
                 $datenow = new \DateTime();
                 $datefin = $activity['datfin'];
                 if ($datenow < $datefin) {
+                    $activity['idact'] = intval($id);
                     return $this->render('default/calendar-registration.html.twig', array(
                         'page' => array(
                             'locale' => 'fr',

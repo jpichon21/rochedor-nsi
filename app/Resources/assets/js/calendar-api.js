@@ -75,3 +75,20 @@ export const getRegistered = () => {
       return res.data
     })
 }
+
+export const postRegistered = (data, id) => {
+  return window.fetch('/xhr/calendar/attendees', {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify({
+      attendees: data,
+      activityId: id
+    })
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.message }
+      return res.data
+    })
+}

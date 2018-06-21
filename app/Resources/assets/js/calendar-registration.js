@@ -7,7 +7,12 @@ import {
   getLogout,
   postLogin,
   getRegistered,
+  postRegistered,
   postRegister } from './calendar-api.js'
+
+/* Infos */
+
+const _infos = JSON.parse($('.infos-json').html())
 
 /* Translations */
 
@@ -170,14 +175,14 @@ function validateParticipant (participant) {
         if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
           return { success: true }
         } else {
-          return { error: 'Must be linked with a person who have more of 18 years.' }
+          return { error: _translations.message.parent_must_be_adult }
         }
       } else {
-        return { error: 'Must be considered as child.' }
+        return { error: _translations.message.must_be_a_child }
       }
     }
   } else {
-    return { error: 'Invalid date.' }
+    return { error: _translations.message.date_invalid }
   }
 }
 
@@ -188,12 +193,12 @@ function callbackSubmit (event, context, action, callback) {
   const validate = validateParticipant(participant)
   if (validate.success) {
     postParticipant(participant).then(res => {
-      res.transport = participant.transport
-      res.memo = participant.memo
-      callback(res)
+      const participantUpdated = { ...participant, ...res }
+      callback(participantUpdated)
       updateYouRender()
       updateRegisteredRender()
       updateParticipants()
+      $('.right .catch-message').html('')
       $(`.panel.${action}`).slideUp(800, function () {
         $(this).hide()
         changeItem(itemParticipants)
@@ -284,7 +289,16 @@ function validateTransports () {
 itemParticipants.on('click', '.validate-participants', function (event) {
   event.preventDefault()
   const validate = validateTransports()
-  if (!validate) {
+  if (validate) {
+    postRegistered(_participants, _infos.idact).then(res => {
+      let result = $('.result', itemValidation).html()
+      result = result.replace('%entry_number%', res)
+      $('.result', itemValidation).html(result)
+      changeItem(itemValidation)
+    }).catch(error => {
+      $('.right .catch-message').html(error)
+    })
+  } else {
     $('.right .catch-message').html(_translations.message.verify_transport)
   }
 })
