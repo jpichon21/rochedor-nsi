@@ -17,7 +17,6 @@ import CustomOption from './CustomOption'
 import { uploadFile } from '../../actions'
 import moment from 'moment'
 import {
-  CompositeDecorator,
   Entity,
   RichUtils,
   EditorState,
@@ -652,7 +651,6 @@ export class PageForm extends React.Component {
 
   render () {
     const { classes } = this.props
-    const { anchorMenuLayout } = this.state
     const versions = this.props.versions
     const parents = (this.props.parents.length > 0)
       ? this.props.parents.map((p, k) => {
@@ -996,35 +994,6 @@ const mapStateToProps = state => {
     uploadStatus: state.uploadStatus
   }
 }
-
-function findLinkEntities (contentBlock, callback) {
-  contentBlock.findEntityRanges(
-    (character) => {
-      const entityKey = character.getEntity()
-      return (
-        entityKey !== null &&
-        Entity.get(entityKey).getType() === 'LINK'
-      )
-    },
-    callback
-  )
-}
-
-const Link = (props) => {
-  const { url } = Entity.get(props.entityKey).getData()
-  return (
-    <a href={url} style={styles.link}>
-      {props.children}
-    </a>
-  )
-}
-
-const decorator = new CompositeDecorator([
-  {
-    strategy: findLinkEntities,
-    component: Link
-  }
-])
 
 PageForm.propTypes = {
   classes: PropTypes.object.isRequired

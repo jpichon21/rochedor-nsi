@@ -10,14 +10,12 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import SaveIcon from '@material-ui/icons/Save'
 import OnDemandVideoIcon from '@material-ui/icons/OndemandVideo'
 import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual'
-import DeleteIcon from '@material-ui/icons/Delete'
 import { withStyles } from '@material-ui/core/styles'
 import { tileData } from './tileData'
 import CustomOption from './CustomOption'
 import { uploadFile } from '../../actions'
 import moment from 'moment'
 import {
-  CompositeDecorator,
   Entity,
   RichUtils,
   EditorState,
@@ -44,11 +42,6 @@ import {
   Popover,
   IconButton,
   CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   Tooltip,
   Icon
 } from '@material-ui/core'
@@ -306,7 +299,7 @@ const SortableList = SortableContainer(({ items, state, classes, context }) => {
 })
 
 export class ContentForm extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       locale: this.props.locale,
@@ -356,13 +349,13 @@ export class ContentForm extends React.Component {
     this.handleExpandSection = this.handleExpandSection.bind(this)
   }
 
-  handleSortSections({ oldIndex, newIndex }) {
+  handleSortSections ({ oldIndex, newIndex }) {
     const sections = arrayMove(this.state.page.content.sections, oldIndex, newIndex)
     const state = immutable.set(this.state, 'page.content.sections', sections)
     this.setState(state)
   }
 
-  handleUpdateRaw(props) {
+  handleUpdateRaw (props) {
     const sections = this.handleConvertFromHTML(props.page.content.sections)
     const state = immutable.set(props, `page.content.sections`, sections)
     this.setState(state, () => {
@@ -370,12 +363,12 @@ export class ContentForm extends React.Component {
     })
   }
 
-  handleInitTabs() {
+  handleInitTabs () {
     const indexTabs = this.state.page.content.sections.map(() => { return 0 })
     this.setState({ indexTabs })
   }
 
-  handleConvertFromHTML(sections) {
+  handleConvertFromHTML (sections) {
     return sections.map(section => {
       const blocksFromHTML = convertFromHTML(section.body)
       const content = blocksFromHTML.contentBlocks
@@ -389,7 +382,7 @@ export class ContentForm extends React.Component {
     })
   }
 
-  handleConvertFromRaw(sections) {
+  handleConvertFromRaw (sections) {
     return sections.map(section => {
       section.bodyRaw && (
         section.body = draftToHtml(convertToRaw(section.bodyRaw.getCurrentContent()))
@@ -398,12 +391,12 @@ export class ContentForm extends React.Component {
     })
   }
 
-  handleChangeTabs(indexTabs, indexSection) {
+  handleChangeTabs (indexTabs, indexSection) {
     const state = immutable.set(this.state, `indexTabs.${indexSection}`, indexTabs)
     this.setState(state)
   }
 
-  handleVersion(event, key) {
+  handleVersion (event, key) {
     event.preventDefault()
     if (key === null) {
       this.props.versionHandler(this.state.page, null)
@@ -413,7 +406,7 @@ export class ContentForm extends React.Component {
     this.setState({ versionCount: key, anchorVersion: null })
   }
 
-  handleParent(event) {
+  handleParent (event) {
     const parentKey = event.target.value
     this.setState((prevState) => {
       return {
@@ -427,17 +420,17 @@ export class ContentForm extends React.Component {
     })
   }
 
-  handleInputChange(event) {
+  handleInputChange (event) {
     const state = immutable.set(this.state, event.target.name, event.target.value)
     this.setState(state)
   }
 
-  handleChangeTextArea(editorState, indexSection) {
+  handleChangeTextArea (editorState, indexSection) {
     const state = immutable.set(this.state, `page.content.sections.${indexSection}.bodyRaw`, editorState)
     this.setState(state)
   }
 
-  handleSubmit(event) {
+  handleSubmit (event) {
     event.preventDefault()
     const sections = this.handleConvertFromRaw(this.state.page.content.sections)
     const state = immutable.set(this.state, 'page.content.sections', sections)
@@ -446,55 +439,55 @@ export class ContentForm extends React.Component {
     })
   }
 
-  handleInputFilter(event) {
+  handleInputFilter (event) {
     const re = /[0-9A-Za-z-]+/g
     if (!re.test(event.key)) {
       event.preventDefault()
     }
   }
 
-  handleOpenPopover(event, indexPopover) {
+  handleOpenPopover (event, indexPopover) {
     this.setState({
       anchorPopover: event.currentTarget,
       popoverOpened: indexPopover
     })
   }
 
-  handleClosePopover() {
+  handleClosePopover () {
     this.setState({
       anchorPopover: null,
       popoverOpened: false
     })
   }
 
-  handleCloseVersion() {
+  handleCloseVersion () {
     this.setState({ anchorVersion: null })
   }
 
-  handleVersionOpen(event) {
+  handleVersionOpen (event) {
     this.setState({ anchorVersion: event.currentTarget })
   }
 
-  handleChangePopover(event, indexSection, indexSlide, indexImage) {
+  handleChangePopover (event, indexSection, indexSlide, indexImage) {
     const state = immutable.set(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}.images.${indexImage}.video`, event.target.value)
     this.setState(state)
   }
 
-  handleOpenLayoutMenu(event, indexSection) {
+  handleOpenLayoutMenu (event, indexSection) {
     this.setState({
       anchorMenuLayout: event.currentTarget,
       menuLayoutOpened: indexSection
     })
   }
 
-  handleCloseLayoutMenu() {
+  handleCloseLayoutMenu () {
     this.setState({
       anchorMenuLayout: null,
       menuLayoutOpened: false
     })
   }
 
-  handleChangeLayoutMenu(layout, indexSection) {
+  handleChangeLayoutMenu (layout, indexSection) {
     const indexSlide = this.state.indexTabs[indexSection]
     const state = immutable.set(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}.layout`, layout)
     this.setState(state, () => {
@@ -502,20 +495,20 @@ export class ContentForm extends React.Component {
     })
   }
 
-  handleDelete() {
+  handleDelete () {
     this.setState({ showDeleteAlert: true })
   }
 
-  handleDeleteClose() {
+  handleDeleteClose () {
     this.setState({ showDeleteAlert: false })
   }
 
-  handleDeleteConfirm() {
+  handleDeleteConfirm () {
     this.props.deleteHandler(this.state.page)
     this.setState({ showDeleteAlert: false })
   }
 
-  handleAddSection() {
+  handleAddSection () {
     const emptySection = ContentForm.defaultProps.page.content.sections[0]
     const position = this.state.page.content.sections.length
     const state = immutable.insert(this.state, `page.content.sections`, emptySection, position)
@@ -524,23 +517,22 @@ export class ContentForm extends React.Component {
     })
   }
 
-  handleDeleteSection(indexSection) {
+  handleDeleteSection (indexSection) {
     const state = immutable.del(this.state, `page.content.sections.${indexSection}`)
     this.setState(state, () => {
       this.handleInitTabs()
     })
   }
 
-  handleAddSlide(indexSection) {
+  handleAddSlide (indexSection) {
     const emptySlide = ContentForm.defaultProps.page.content.sections[0].slides[0]
     const position = this.state.page.content.sections[indexSection].slides.length
-    const state = immutable.insert(this.state, `page.content.sections.${indexSection}.slides`, emptySlide, position)
-    this.setState(state, () => {
-      this.handleInitTabs()
-    })
+    let state = immutable.insert(this.state, `page.content.sections.${indexSection}.slides`, emptySlide, position)
+    // ontext.state.indexTabs[indexSection]
+    this.setState(immutable.set(state, `indexTabs.${indexSection}`, position))
   }
 
-  handleDeleteSlide(indexSection) {
+  handleDeleteSlide (indexSection) {
     const indexSlide = this.state.indexTabs[indexSection]
     const state = immutable.del(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}`)
     this.setState(state, () => {
@@ -548,7 +540,7 @@ export class ContentForm extends React.Component {
     })
   }
 
-  isSubmitEnabled() {
+  isSubmitEnabled () {
     const p = this.state.page
     if (p.title === '' || p.description === '' || p.url === '') {
       return false
@@ -559,7 +551,7 @@ export class ContentForm extends React.Component {
     return true
   }
 
-  handleChangeImageUpload(event, indexSection, indexSlide, indexImage) {
+  handleChangeImageUpload (event, indexSection, indexSlide, indexImage) {
     this.props.dispatch(uploadFile(event.target.files[0]))
     this.setState({
       fileUploading: {
@@ -572,7 +564,7 @@ export class ContentForm extends React.Component {
     })
   }
 
-  handleChangeDocumentUpload(event, indexSection) {
+  handleChangeDocumentUpload (event, indexSection) {
     this.props.dispatch(uploadFile(event.target.files[0]))
     this.setState({
       fileUploading: {
@@ -583,7 +575,7 @@ export class ContentForm extends React.Component {
     })
   }
 
-  handleAddDocument(linkToDocument, indexSection) {
+  handleAddDocument (linkToDocument, indexSection) {
     const oldEditorState = this.state.page.content.sections[indexSection].bodyRaw
     const oldEditorStateSelection = oldEditorState.getSelection()
     if (!oldEditorStateSelection.isCollapsed()) {
@@ -596,11 +588,11 @@ export class ContentForm extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentWillMount () {
     this.handleInitTabs()
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (nextProps.page) {
       if (JSON.stringify(nextProps.page) !== JSON.stringify(this.props.page)) {
         this.handleUpdateRaw(nextProps)
@@ -637,7 +629,7 @@ export class ContentForm extends React.Component {
     }
   }
 
-  handleExpandSection(id, expanded) {
+  handleExpandSection (id, expanded) {
     this.setState((prevState) => {
       return {
         panels: {
@@ -648,17 +640,9 @@ export class ContentForm extends React.Component {
     })
   }
 
-  render() {
+  render () {
     const { classes } = this.props
-    const { anchorMenuLayout } = this.state
     const versions = this.props.versions
-    const parents = (this.props.parents.length > 0)
-      ? this.props.parents.map((p, k) => {
-        return (
-          <MenuItem value={k} key={k}>{p.title}</MenuItem>
-        )
-      })
-      : null
     return (
       <div className={classes.container}>
         <Typography variant='display1' className={classes.title}>
@@ -842,35 +826,6 @@ const mapStateToProps = state => {
     uploadStatus: state.uploadStatus
   }
 }
-
-function findLinkEntities(contentBlock, callback) {
-  contentBlock.findEntityRanges(
-    (character) => {
-      const entityKey = character.getEntity()
-      return (
-        entityKey !== null &&
-        Entity.get(entityKey).getType() === 'LINK'
-      )
-    },
-    callback
-  )
-}
-
-const Link = (props) => {
-  const { url } = Entity.get(props.entityKey).getData()
-  return (
-    <a href={url} style={styles.link}>
-      {props.children}
-    </a>
-  )
-}
-
-const decorator = new CompositeDecorator([
-  {
-    strategy: findLinkEntities,
-    component: Link
-  }
-])
 
 ContentForm.propTypes = {
   classes: PropTypes.object.isRequired

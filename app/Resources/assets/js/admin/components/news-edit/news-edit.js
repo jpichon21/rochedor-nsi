@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { getNews, putNews, deleteNews, setTitle, setLocale, initStatus, setMessage } from '../../actions'
+import { getNews, putNews, deleteNews, setTitle, setLocale, initStatus } from '../../actions'
 import NewsForm from '../news-form/news-form'
 import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
