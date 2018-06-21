@@ -236,8 +236,10 @@
             <option <%= (participant.colp == '') ? 'selected' : '' %> disabled value="">{{ 'form.colp' | trans | raw }}</option>
             <option <%= (participant.colp == you.codco) ? 'selected' : '' %> value="<%= you.codco %>"><%= you.prenom + ' ' + you.nom %></option>
             <% for (var i = 0; i < registered.length; i++) { %>
-            <% var him = registered[i] %>
-            <option <%= (participant.colp == him.codco) ? 'selected' : '' %> value="<%= him.codco %>"><%= him.prenom + ' ' + him.nom %></option>
+                <% var him = registered[i] %>
+                <% if (participant.codco != him.codco) { %>
+                <option <%= (participant.colp == him.codco) ? 'selected' : '' %> value="<%= him.codco %>"><%= him.prenom + ' ' + him.nom %></option>
+                <% } %>
             <% } %>
         </select>
     </div>
