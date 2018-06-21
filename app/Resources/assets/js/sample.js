@@ -1,10 +1,10 @@
 const participant = {
   nom: '',
   prenom: '',
-  codco: null,
-  ident: null,
+  codco: '',
+  ident: '',
   civil: '',
-  civil2: null,
+  civil2: '',
   adresse: '',
   cp: '',
   ville: '',
@@ -15,8 +15,7 @@ const participant = {
   profession: '',
   datnaiss: '',
   coltyp: '',
-  colt: '',
-  colp: null,
+  colp: '',
   transport: '',
   memo: ''
 }

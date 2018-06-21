@@ -216,11 +216,11 @@
 <script type="text/template" class="him-form-template">
     <input class="input" type="hidden" value="<%= participant.codco %>" name="codco">
     <div class="pure-u-1-2">
-        <select class="select colt" required name="colt">
-            <option <%= (participant.colt == '') ? 'selected' : '' %> disabled value="">{{ 'form.relation' | trans() | raw }}</option>
-            <option <%= (participant.colt == 'accom') ? 'selected' : '' %> value="accom">Vient avec</option>
-            <option <%= (participant.colt == 'conjo') ? 'selected' : '' %> value="conjo">Conjoint</option>
-            <option <%= (participant.colt == 'enfan') ? 'selected' : '' %> value="enfan">Enfant de</option>
+        <select class="select coltyp" required name="coltyp">
+            <option <%= (participant.coltyp == '') ? 'selected' : '' %> disabled value="">{{ 'form.relation' | trans() | raw }}</option>
+            <option <%= (participant.coltyp == 'accom') ? 'selected' : '' %> value="accom">Vient avec</option>
+            <option <%= (participant.coltyp == 'conjo') ? 'selected' : '' %> value="conjo">Conjoint</option>
+            <option <%= (participant.coltyp == 'enfan') ? 'selected' : '' %> value="enfan">Enfant de</option>
         </select>
     </div>
     <div class="pure-u-1-2">

@@ -161,7 +161,7 @@ function validateParticipant (participant) {
     if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
       return { success: true }
     } else {
-      if (participant.colt === 'enfan') {
+      if (participant.coltyp === 'enfan') {
         const people = [..._registered, _you]
         const filtered = people.filter(person => {
           return person.codco === parseInt(participant.colp)
