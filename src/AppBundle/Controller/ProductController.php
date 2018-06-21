@@ -18,9 +18,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\ProductRepository;
-use AppBundle\Service\Mailer;
 use AppBundle\Entity\Produit;
-use AppBundle\ServiceShowPage;
+use AppBundle\Service\PageService;
 
 class ProductController extends Controller
 {
@@ -31,22 +30,21 @@ class ProductController extends Controller
     private $productRepository;
 
     /**
-     * @var Mailer
-     */
-    private $mailer;
-
-    /**
      * @var Translator
      */
     private $translator;
 
+    /**
+     * @var PageService
+     */
+    private $pageService;
+
     public function __construct(
         ProductRepository $productRepository,
-        Mailer $mailer,
-        Translator $translator
+        Translator $translator,
+        PageService $pageService
     ) {
         $this->productRepository = $productRepository;
-        $this->mailer = $mailer;
         $this->translator = $translator;
     }
 
@@ -71,13 +69,16 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/edition/nouveautes")
+     * @Route("/edition/nouveautes", name="product-news-fr")
+     * @Route("/book/news", name="product-news-en")
+     * @Route("/buch/neu", name="product-news-de")
+     * @Route("/libros/nuevo", name="product-news-es")
+     * @Route("/libri/nuovo", name="product-news-it")
      */
     public function showNewProductsAction(Request $request)
     {
         $products = $this->productRepository->findNewProducts();
-        dump($products);
-        return $this->render('test.html.twig');
+        return $this->render('product/news.html.twig', ['products' => $products]);
     }
     
     /**
