@@ -91,16 +91,16 @@ class ProductController extends Controller
     }
     
     /**
-     * @Route("/editions-collections", name="product-series-fr")
-     * @Route("/books-sammlungen", name="product-series-en")
-     * @Route("/buchs-reihe", name="product-series-de")
-     * @Route("/libros-colecciones", name="product-series-es")
-     * @Route("/libri-collezioni", name="product-series-it")
+     * @Route("/editions-collections", name="product-collections-fr")
+     * @Route("/books-sammlungen", name="product-collections-en")
+     * @Route("/buchs-reihe", name="product-collections-de")
+     * @Route("/libros-colecciones", name="product-collections-es")
+     * @Route("/libri-collezioni", name="product-collections-it")
      */
     public function showCollections(Request $request)
     {
         $locale = $request->getLocale();
-        $series = $this->productRepository->findCollections($locale);
+        $collections = $this->productRepository->findCollections($locale);
         $themes = $this->productRepository->findThemes();
 
         $products = null;
@@ -110,18 +110,18 @@ class ProductController extends Controller
             $products = $this->productRepository->findByThemes($reqThemes);
         }
 
-        $serie = $request->get('serie');
-        if ($serie) {
-            $products = $this->productRepository->findProducts($serie);
+        $collection = $request->get('collection');
+        if ($collection) {
+            $products = $this->productRepository->findProducts($collection);
         }
 
         $productsCategorized = null;
         if (!$products) {
             $productsCategorized = [];
-            foreach ($series as $serie) {
+            foreach ($collections as $collection) {
                 $productsCategorized[] = [
-                    'title' => $serie->getRubrique(),
-                    'products' => $this->productRepository->findProducts($serie->getCodrub(), 2)
+                    'title' => $collection->getRubrique(),
+                    'products' => $this->productRepository->findProducts($collection->getCodrub(), 2)
                 ];
             }
         }
@@ -133,7 +133,7 @@ class ProductController extends Controller
             [
                 'avaiableLocales' => $avaiableLocales,
                 'page' => $contentDocument,
-                'series' => $series,
+                'collections' => $collections,
                 'themes' => $themes,
                 'productsCategorized' => $productsCategorized,
                 'products' => $products,
