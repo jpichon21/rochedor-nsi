@@ -4,7 +4,7 @@ import { compose } from 'redux'
 import { NavLink, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Menu, MenuItem, AppBar, Toolbar, Typography, IconButton, Button, Divider } from '@material-ui/core'
+import { Menu, MenuItem, AppBar, Toolbar, Typography, IconButton, Tooltip, Button, Divider } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
@@ -67,35 +67,68 @@ class AppMenu extends React.Component {
           {
             this.props.goBack
               ? (
-                <IconButton
-                  className={classes.leftButton}
-                  onClick={this.handleGoBack}
-                  color='inherit'>
-                  <ArrowBackIcon />
-                </IconButton>
+                <Tooltip
+                  enterDelay={300}
+                  id='tooltip-controlled'
+                  leaveDelay={300}
+                  onClose={this.handleTooltipClose}
+                  onOpen={this.handleTooltipOpen}
+                  open={this.state.open}
+                  placement='bottom'
+                  title='Retourner à la page précédente'
+                >
+                  <IconButton
+                    className={classes.leftButton}
+                    onClick={this.handleGoBack}
+                    color='inherit'>
+                    <ArrowBackIcon />
+                  </IconButton>
+                </Tooltip>
               )
               : (
-                <IconButton
-                  className={classes.leftButton}
-                  aria-owns={menuOpen ? 'menu-appbar' : null}
-                  aria-haspopup='true'
-                  onClick={this.handleMenu}
-                  color='inherit'>
-                  <MenuIcon />
-                </IconButton>
+                <Tooltip
+                  enterDelay={300}
+                  id='tooltip-controlled'
+                  leaveDelay={100}
+                  onClose={this.handleTooltipClose}
+                  onOpen={this.handleTooltipOpen}
+                  open={this.state.open}
+                  placement='bottom'
+                  title='Menu'
+                >
+                  <IconButton
+                    className={classes.leftButton}
+                    aria-owns={menuOpen ? 'menu-appbar' : null}
+                    aria-haspopup='true'
+                    onClick={this.handleMenu}
+                    color='inherit'>
+                    <MenuIcon />
+                  </IconButton>
+                </Tooltip>
               )
           }
           <Typography variant='title' color='inherit' className={classes.flex}>
             { this.props.title }
           </Typography>
-          <Button
-            className={classes.rightButton}
-            aria-owns={langOpen ? 'lang-appbar' : null}
-            aria-haspopup='true'
-            onClick={this.handleLang}
-            color='inherit'>
-            {this.props.locales[this.props.locale]}
-          </Button>
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={100}
+            onClose={this.handleTooltipClose}
+            onOpen={this.handleTooltipOpen}
+            open={this.state.open}
+            placement='bottom'
+            title='Choisir une langue'
+          >
+            <Button
+              className={classes.rightButton}
+              aria-owns={langOpen ? 'lang-appbar' : null}
+              aria-haspopup='true'
+              onClick={this.handleLang}
+              color='inherit'>
+              {this.props.locales[this.props.locale]}
+            </Button>
+          </Tooltip>
           <Menu
             id='menu-appbar'
             anchorEl={anchorMenu}
@@ -109,22 +142,30 @@ class AppMenu extends React.Component {
             }}
             open={menuOpen}
             onClose={this.handleCloseMenu}>
-            <NavLink to='/page-list' className={classes.link}>
-              <MenuItem onClick={this.handleCloseMenu}>Pages</MenuItem>
-            </NavLink>
             <NavLink to='/home-edit' className={classes.link}>
               <MenuItem onClick={this.handleCloseMenu}>
-                Accueil
+                Page d'accueil
               </MenuItem>
             </NavLink>
+            <NavLink to='/content-list' className={classes.link}>
+              <MenuItem onClick={this.handleCloseMenu}>
+                Pages de contenus
+              </MenuItem>
+            </NavLink>
+            <Divider className={classes.divider} />
             <NavLink to='/news-list' className={classes.link}>
               <MenuItem onClick={this.handleCloseMenu}>
-                Nouveautés
+                Nouveautés accueil
+              </MenuItem>
+            </NavLink>
+            <NavLink to='/page-list' className={classes.link}>
+              <MenuItem onClick={this.handleCloseMenu}>
+                Données référencement
               </MenuItem>
             </NavLink>
             <NavLink to='/speaker-list' className={classes.link}>
               <MenuItem onClick={this.handleCloseMenu}>
-                Intervenants
+                Listes des intervenants
               </MenuItem>
             </NavLink>
             <Divider className={classes.divider} />

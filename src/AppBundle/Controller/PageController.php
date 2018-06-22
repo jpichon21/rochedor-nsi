@@ -92,6 +92,13 @@ class PageController extends Controller
             $id = $page->getParentId();
             $parent = $this->getDoctrine()->getRepository('AppBundle:Page')->find($id);
             $page->setParent($parent);
+            $page->setImmutableid($this->slugify($parent->getImmutableid()));
+        } else {
+            if ($this->checkImmutability($this->slugify($page->getTitle().'-'.$page->getSubTitle()))) {
+                return new JsonResponse(['message' => 'immutable already-exist'], Response::HTTP_FORBIDDEN);
+            } else {
+                $page->setImmutableid($this->slugify($page->getTitle().'-'.$page->getSubTitle()));
+            }
         }
         $em->persist($page);
 
@@ -114,7 +121,7 @@ class PageController extends Controller
         $route = new CmfRoute();
 
         if (!$page->getUrl()) {
-            $routeName = $this->slugify($page->getTitle());
+            $routeName = $this->slugify($page->getTitle().'-'.$page->getSubTitle());
         } else {
             $routeName =  $this->slugify($page->getUrl());
         }
@@ -124,7 +131,9 @@ class PageController extends Controller
 
         $route->setName($routeName);
         $route->setStaticPrefix('/' . $route->getName());
+        
         $route->setDefault(RouteObjectInterface::CONTENT_ID, $this->contentRepository->getContentId($page));
+        $route->setDefault('_locale', $page->getLocale());
         $route->setContent($page);
         $em->persist($route);
         $page->addRoute($route);
@@ -134,6 +143,13 @@ class PageController extends Controller
         return $page;
     }
     
+    private function checkImmutability($immutableid)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if ($em->getRepository('AppBundle:Page')->findOneByImmutableid($immutableid)) {
+            return true;
+        }
+    }
     /**
      * @Rest\Get("/pages")
      * @Rest\View()
@@ -262,6 +278,7 @@ class PageController extends Controller
         if (empty($page)) {
             return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
         } else {
+            $page->setParent(null);
             $em->remove($page);
             $em->flush();
         }

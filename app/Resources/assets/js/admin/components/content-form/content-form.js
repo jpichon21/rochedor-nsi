@@ -10,7 +10,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import SaveIcon from '@material-ui/icons/Save'
 import OnDemandVideoIcon from '@material-ui/icons/OndemandVideo'
 import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual'
-import DeleteIcon from '@material-ui/icons/Delete'
 import { withStyles } from '@material-ui/core/styles'
 import { tileData } from './tileData'
 import CustomOption from './CustomOption'
@@ -22,7 +21,8 @@ import {
   EditorState,
   convertToRaw,
   convertFromHTML,
-  ContentState } from 'draft-js'
+  ContentState
+} from 'draft-js'
 import {
   Tab,
   Tabs,
@@ -42,14 +42,6 @@ import {
   Popover,
   IconButton,
   CircularProgress,
-  Select,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  FormControl,
-  InputLabel,
   Tooltip,
   Icon
 } from '@material-ui/core'
@@ -86,7 +78,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
             <TextField
               required
               autoComplete='off'
-              InputLabelProps={{shrink: true}}
+              InputLabelProps={{ shrink: true }}
               className={classes.textfield}
               fullWidth
               multiline
@@ -145,13 +137,13 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                     {
                       tileData[slide.layout].map((tile, indexImage) => (
                         <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
-                          <div className={classes.tile} style={{backgroundImage: `url('${slide.images[tile.id].url}')`}}>
+                          <div className={classes.tile} style={{ backgroundImage: `url('${slide.images[tile.id].url}')` }}>
                             {
                               context.state.fileUploading.isUploading &&
-                              context.state.fileUploading.type === 'image' &&
-                              context.state.fileUploading.indexSection === indexSection &&
-                              context.state.fileUploading.indexSlide === indexSlide &&
-                              context.state.fileUploading.indexImage === indexImage
+                                context.state.fileUploading.type === 'image' &&
+                                context.state.fileUploading.indexSection === indexSection &&
+                                context.state.fileUploading.indexSlide === indexSlide &&
+                                context.state.fileUploading.indexImage === indexImage
                                 ? <CircularProgress />
                                 : (
                                   <div>
@@ -198,7 +190,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                                         <TextField
                                           className={classes.popover}
                                           autoComplete='off'
-                                          InputLabelProps={{shrink: true}}
+                                          InputLabelProps={{ shrink: true }}
                                           name='page.title'
                                           label='URL Vidéo'
                                           value={context.state.page.content.sections[indexSection].slides[indexSlide].images[indexImage].video}
@@ -259,7 +251,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                 onClick={() => { context.handleAddSlide(indexSection) }}
                 color='primary'
                 className={classes.option}>
-          Ajouter
+                Ajouter
               </Button>
             </Tooltip>
           </div>
@@ -306,7 +298,7 @@ const SortableList = SortableContainer(({ items, state, classes, context }) => {
   )
 })
 
-export class PageForm extends React.Component {
+export class ContentForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -469,11 +461,11 @@ export class PageForm extends React.Component {
   }
 
   handleCloseVersion () {
-    this.setState({anchorVersion: null})
+    this.setState({ anchorVersion: null })
   }
 
   handleVersionOpen (event) {
-    this.setState({anchorVersion: event.currentTarget})
+    this.setState({ anchorVersion: event.currentTarget })
   }
 
   handleChangePopover (event, indexSection, indexSlide, indexImage) {
@@ -517,7 +509,7 @@ export class PageForm extends React.Component {
   }
 
   handleAddSection () {
-    const emptySection = PageForm.defaultProps.page.content.sections[0]
+    const emptySection = ContentForm.defaultProps.page.content.sections[0]
     const position = this.state.page.content.sections.length
     const state = immutable.insert(this.state, `page.content.sections`, emptySection, position)
     this.setState(state, () => {
@@ -533,12 +525,11 @@ export class PageForm extends React.Component {
   }
 
   handleAddSlide (indexSection) {
-    const emptySlide = PageForm.defaultProps.page.content.sections[0].slides[0]
+    const emptySlide = ContentForm.defaultProps.page.content.sections[0].slides[0]
     const position = this.state.page.content.sections[indexSection].slides.length
-    const state = immutable.insert(this.state, `page.content.sections.${indexSection}.slides`, emptySlide, position)
-    this.setState(state, () => {
-      this.handleInitTabs()
-    })
+    let state = immutable.insert(this.state, `page.content.sections.${indexSection}.slides`, emptySlide, position)
+    // ontext.state.indexTabs[indexSection]
+    this.setState(immutable.set(state, `indexTabs.${indexSection}`, position))
   }
 
   handleDeleteSlide (indexSection) {
@@ -652,126 +643,8 @@ export class PageForm extends React.Component {
   render () {
     const { classes } = this.props
     const versions = this.props.versions
-    const parents = (this.props.parents.length > 0)
-      ? this.props.parents.map((p, k) => {
-        return (
-          <MenuItem value={k} key={k}>{p.title} {p.sub_title}</MenuItem>
-        )
-      })
-      : null
     return (
       <div className={classes.container}>
-        <Typography variant='display1' className={classes.title}>
-          SEO
-        </Typography>
-        <form className={classes.form}>
-          <Tooltip
-            enterDelay={300}
-            id='tooltip-controlled'
-            leaveDelay={100}
-            onClose={this.handleTooltipClose}
-            onOpen={this.handleTooltipOpen}
-            open={this.state.open}
-            placement='bottom'
-            title='Renseigner le Titre 1 de la page'
-          >
-            <TextField
-              required
-              autoComplete='off'
-              InputLabelProps={{shrink: true}}
-              className={classes.textfield}
-              fullWidth
-              name='page.title'
-              label='Titre ligne 1'
-              value={this.state.page.title}
-              onChange={this.handleInputChange} />
-          </Tooltip>
-          <Tooltip
-            enterDelay={300}
-            id='tooltip-controlled'
-            leaveDelay={100}
-            onClose={this.handleTooltipClose}
-            onOpen={this.handleTooltipOpen}
-            open={this.state.open}
-            placement='bottom'
-            title='Renseigner le Titre 2 de la page'
-          >
-            <TextField
-              required
-              autoComplete='off'
-              InputLabelProps={{shrink: true}}
-              className={classes.textfield}
-              fullWidth
-              name='page.sub_title'
-              label='Titre ligne 2'
-              value={this.state.page.sub_title}
-              onChange={this.handleInputChange} />
-          </Tooltip>
-          <Tooltip
-            enterDelay={300}
-            id='tooltip-controlled'
-            leaveDelay={100}
-            onClose={this.handleTooltipClose}
-            onOpen={this.handleTooltipOpen}
-            open={this.state.open}
-            placement='bottom'
-            title="Renseigner l'url de la page"
-          >
-            <TextField
-              required
-              autoComplete='off'
-              InputLabelProps={{shrink: true}}
-              className={classes.textfield}
-              fullWidth
-              name='page.url'
-              label='Url'
-              value={this.state.page.url}
-              onChange={this.handleInputChange}
-              onKeyPress={this.handleInputFilter} />
-          </Tooltip>
-          <Tooltip
-            enterDelay={300}
-            id='tooltip-controlled'
-            leaveDelay={100}
-            onClose={this.handleTooltipClose}
-            onOpen={this.handleTooltipOpen}
-            open={this.state.open}
-            placement='bottom'
-            title='Renseigner les méta-description de votre page'
-          >
-            <TextField
-              required
-              autoComplete='off'
-              InputLabelProps={{shrink: true}}
-              className={classes.textfield}
-              fullWidth
-              multiline
-              name='page.description'
-              label='Meta-description'
-              value={this.state.page.description}
-              onChange={this.handleInputChange} />
-          </Tooltip>
-          {
-            !this.props.edit &&
-            this.props.parents.length > 0 &&
-            this.state.page.locale !== 'fr' &&
-            <FormControl style={{ minWidth: 200 }}>
-              <InputLabel htmlFor={'parent'} shrink>Page parente</InputLabel>
-              <Select
-                id={'parent'}
-                placeholder={'Page parente'}
-                className={classes.option}
-                value={this.state.parentKey}
-                onChange={this.handleParent}
-                inputProps={{
-                  name: 'parent_key',
-                  id: 'parent_key'
-                }}>
-                {parents}
-              </Select>
-            </FormControl>
-          }
-        </form>
         <Typography variant='display1' className={classes.title}>
           Contenu
         </Typography>
@@ -788,7 +661,7 @@ export class PageForm extends React.Component {
           >
             <TextField
               autoComplete='off'
-              InputLabelProps={{shrink: true}}
+              InputLabelProps={{ shrink: true }}
               className={classes.textfield}
               fullWidth
               multiline
@@ -868,47 +741,6 @@ export class PageForm extends React.Component {
               <Icon>playlist_add</Icon>
             </Button>
           </Tooltip>
-          {
-            this.props.edit &&
-            <div>
-              <Tooltip
-                enterDelay={300}
-                id='tooltip-controlled'
-                leaveDelay={300}
-                onClose={this.handleTooltipClose}
-                onOpen={this.handleTooltipOpen}
-                open={this.state.open}
-                placement='bottom'
-                title='Supprimer la page'
-              >
-                <Button
-                  onClick={this.handleDelete}
-                  className={classes.button}
-                  variant='fab'
-                  color='secondary'>
-                  <DeleteIcon />
-                </Button>
-              </Tooltip>
-              <Dialog
-                open={this.state.showDeleteAlert}
-                onClose={this.handleDeleteClose}
-                aria-labelledby='alert-dialog-title'
-                aria-describedby='alert-dialog-description'>
-                <DialogTitle id='alert-dialog-title'>
-                  {'Êtes-vous sure?'}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText id='alert-dialog-description'>
-                      Cette action est irréversible, souhaitez-vous continuer?
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={this.handleDeleteConfirm} color='secondary' autoFocus>Oui</Button>
-                  <Button onClick={this.handleDeleteClose} color='primary' autoFocus>Annuler</Button>
-                </DialogActions>
-              </Dialog>
-            </div>
-          }
           <Tooltip
             enterDelay={300}
             id='tooltip-controlled'
@@ -995,11 +827,11 @@ const mapStateToProps = state => {
   }
 }
 
-PageForm.propTypes = {
+ContentForm.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-PageForm.defaultProps = {
+ContentForm.defaultProps = {
   parents: {},
   parentKey: 0,
   versions: [],
@@ -1033,4 +865,4 @@ PageForm.defaultProps = {
   }
 }
 
-export default compose(withStyles(styles), connect(mapStateToProps))(PageForm)
+export default compose(withStyles(styles), connect(mapStateToProps))(ContentForm)

@@ -2,13 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { getPage, putPage, deletePage, setTitle, setLocale, initStatus, getPageTranslations } from '../../actions'
-import PageForm from '../page-form/page-form'
+import ContentForm from '../content-form/content-form'
 import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
 import { locales } from '../../locales'
 import update from 'immutability-helper'
 
-export class PageEdit extends React.Component {
+export class ContentEdit extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -52,7 +52,7 @@ export class PageEdit extends React.Component {
     }
     if (nextProps.status === 'Deleted successfully' || nextProps.status === 'Page updated') {
       this.props.dispatch(initStatus)
-      this.props.history.push('/page-list')
+      this.props.history.push('/content-list')
     }
   }
 
@@ -67,13 +67,13 @@ export class PageEdit extends React.Component {
   onLocaleChange (locale) {
     if (locale === 'fr') {
       this.props.dispatch(getPage(this.props.page.parent.id))
-      this.props.history.push(`/page-edit/${this.props.page.parent.id}`)
+      this.props.history.push(`/content-edit/${this.props.page.parent.id}`)
     } else {
       const ts = this.props.translations
       for (let k in ts) {
         if (ts[k].locale === locale) {
           this.props.dispatch(getPage(ts[k].id))
-          this.props.history.push(`/page-edit/${ts[k].id}`)
+          this.props.history.push(`/content-edit/${ts[k].id}`)
         }
       }
     }
@@ -93,8 +93,8 @@ export class PageEdit extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu goBack='/page-list' title={'Modification de la page'} localeHandler={this.onLocaleChange} locales={this.state.locales} locale={this.props.page.locale} />
-        <PageForm page={this.props.page} submitHandler={this.onSubmit} deleteHandler={this.onDelete} versionHandler={this.onVersionChange} edit translations={this.props.translations} />
+        <AppMenu goBack='/content-list' title={'Modification de la page'} localeHandler={this.onLocaleChange} locales={this.state.locales} locale={this.props.page.locale} />
+        <ContentForm page={this.props.page} submitHandler={this.onSubmit} deleteHandler={this.onDelete} versionHandler={this.onVersionChange} edit translations={this.props.translations} />
       </div>
     )
   }
@@ -110,7 +110,7 @@ const mapStateToProps = state => {
   }
 }
 
-PageEdit.defaultProps = {
+ContentEdit.defaultProps = {
   parents: {},
   parentKey: 0,
   page: {
@@ -143,4 +143,4 @@ PageEdit.defaultProps = {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(PageEdit))
+export default withRouter(connect(mapStateToProps)(ContentEdit))

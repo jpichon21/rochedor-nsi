@@ -1,7 +1,7 @@
 import React from 'react'
 
 class CustomOption extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         <label className='rdw-option-wrapper' htmlFor='file'>
@@ -10,7 +10,7 @@ class CustomOption extends React.Component {
         <input
           id='file'
           type='file'
-          style={{display: 'none'}}
+          style={{ display: 'none' }}
           onChange={event => { this.props.addDocument(event) }} />
       </div>
     )

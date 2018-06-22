@@ -120,6 +120,12 @@ class Page
     private $url;
 
     /**
+     * @var string
+     * @ORM\Column(name="immutableid", type="string", length=255)
+     */
+    private $immutableid;
+
+    /**
      * @var int
      * @Type("int")
      */
@@ -454,6 +460,27 @@ class Page
     public function setTempUrl($url)
     {
         $this->url = $url;
+        return $this;
+    }
+
+    /**
+     * Get immutableid
+     *
+     * @return string
+     */
+    public function getImmutableid()
+    {
+        return $this->immutableid;
+    }
+    
+    /**
+     * Set immutableid
+     *
+     * @return $this
+     */
+    public function setImmutableid($immutableid)
+    {
+        $this->immutableid = $immutableid;
         return $this;
     }
 }

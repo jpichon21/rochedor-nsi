@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getPages, initStatus, setLocale } from '../../actions'
-import { Table, TableBody, TableCell, TableHead, TableRow, Button, CircularProgress, Paper } from '@material-ui/core'
+import { Table, TableBody, TableCell, TableHead, TableRow, Tooltip, Button, CircularProgress, Paper } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
@@ -46,15 +46,24 @@ export class PageList extends React.Component {
   render () {
     Moment.locale(this.props.locale)
     const { classes } = this.props
-    const items = this.props.pages.map(page => {
-      return (
-        <TableRow key={page.id}>
-          <TableCell>{`${page.title} ${page.sub_title}`}<NavLink className={classes.link} to={`/page-edit/${page.id}`}>Modifier</NavLink></TableCell>
-          <TableCell>{page.routes[0].static_prefix}<a className={classes.link} target='_blank' href={`${page.routes[0].static_prefix}`}>Ouvrir</a></TableCell>
-          <TableCell>{Moment(page.updated).format('DD/MM/YY')}</TableCell>
-        </TableRow>
-      )
-    })
+    const items = this.props.pages
+      .sort((a, b) => (a['title'] < b['title'] ? -1 : 1))
+      .map(page => {
+        return (
+          <TableRow key={page.id}>
+            <TableCell>
+              {`${page.title} ${page.sub_title}`}
+              <NavLink
+                className={classes.link}
+                to={`/page-edit/${page.id}`}>
+                Modifier
+              </NavLink>
+            </TableCell>
+            <TableCell>{page.routes[0].static_prefix}<a className={classes.link} target='_blank' href={`${page.routes[0].static_prefix}`}>Aperçu</a></TableCell>
+            <TableCell>{Moment(page.updated).format('DD/MM/YY')}</TableCell>
+          </TableRow>
+        )
+      })
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
@@ -81,9 +90,20 @@ export class PageList extends React.Component {
             }
           </Paper>
           <div className={classes.buttons}>
-            <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/page-create'}>
-              <AddIcon />
-            </Button>
+            <Tooltip
+              enterDelay={300}
+              id='tooltip-controlled'
+              leaveDelay={100}
+              onClose={this.handleTooltipClose}
+              onOpen={this.handleTooltipOpen}
+              open={this.state.open}
+              placement='bottom'
+              title='Ajouter une page'
+            >
+              <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/page-create'}>
+                <AddIcon />
+              </Button>
+            </Tooltip>
           </div>
         </div>
       </div>

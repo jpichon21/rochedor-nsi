@@ -104,7 +104,7 @@ export default function newsReducer (state, action) {
     case PUT_NEWS_SUCCESS:
       return {
         ...state,
-        status: 'ok',
+        status: action.data.message,
         loading: false
       }
     case PUT_NEWS_FAILURE:
