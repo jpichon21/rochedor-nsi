@@ -55,4 +55,14 @@ class Prodrub
      * @ORM\Column(name="MemoRub", type="text", length=65535, nullable=false)
      */
     private $memorub;
+
+    public function getCodrub()
+    {
+        return $this->codrub;
+    }
+
+    public function getRubrique()
+    {
+        return $this->rubrique;
+    }
 }
