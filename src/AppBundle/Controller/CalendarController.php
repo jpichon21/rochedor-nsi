@@ -25,6 +25,9 @@ use AppBundle\Repository\ContactRepository;
 use AppBundle\Service\Mailer;
 use AppBundle\Service\PageService;
 
+/**
+ * @Route("/{_locale}")
+ */
 class CalendarController extends Controller
 {
     const YEARS_ADULT = 18;
@@ -110,23 +113,35 @@ class CalendarController extends Controller
      */
     public function calendarRegistrationAction(Request $request)
     {
-        $path = $request->getPathInfo();
-        $name = substr($path, 1);
-        $contentDocument = $this->pageService->getContent($name);
-        return $this->render('default/calendar-registration.html.twig', array(
-            'page' => array(
-                'locale' => 'fr',
-                'background' => 'http://localhost:8000/assets/images/background-flotype.cd2c708b.png',
-                'title' => 'Activité',
-                'subTitle' => 'non trouvée',
-                'content' => array(
-                    'intro' => 'Il semblerait que cette activité n\'existe plus ou n\'a jamais existée. 
-                    Veuillez sélectionner une activité depuis 
-                    <a href="'.$calendarURL.'">le calendrier</a>.'),
-                'routes' => array('getValues' => array(array('staticPrefix' => 'en')))
-            ),
-            'availableLocales' => array()
-        ));
+        $id = $request->query->get('id');
+        $calendarURL = $this->generateUrl('calendar-'.$request->getLocale());
+
+        $page = $this->pageService->getContentFromRequest($request);
+        $availableLocales = $this->pageService->getAvailableLocales($page);
+
+        if ($id) {
+            $activity = $this->getCalendarAction($id);
+            if ($activity) {
+                $datenow = new \DateTime();
+                $datefin = $activity['datfin'];
+                if ($datenow < $datefin) {
+                    $activity['idact'] = intval($id);
+                    return $this->render('default/calendar-registration.html.twig', [
+                        'page' => $page,
+                        'activity' => $activity,
+                        'availableLocales' => $availableLocales
+                    ]);
+                }
+                return $this->render('default/calendar-registration-error.html.twig', [
+                    'page' => $page,
+                    'availableLocales' => $availableLocales
+                ]);
+            }
+        }
+        return $this->render('default/calendar-registration-error.html.twig', [
+            'page' => $page,
+            'availableLocales' => $availableLocales
+        ]);
     }
 
     /**
@@ -448,33 +463,21 @@ class CalendarController extends Controller
      * @Route("/lista-ritiri", name="calendar-it")
      * @Route("/lista-retiros", name="calendar-es")
      */
-    public function calendarAction(CalendarRepository $calendarRepo)
+    public function calendarAction(CalendarRepository $calendarRepo, Request $request)
     {
         $filters = $this->getDataCalendarAction($calendarRepo);
         $retreatsData = $this->getRetreatsData($calendarRepo);
-        return $this->render('default/calendar.html.twig', array(
-            'page' => array(
-                'locale' => 'fr',
-                'background' => 'http://localhost:8000/assets/images/background-flotype.cd2c708b.png',
-                'title' => 'Demande',
-                'subTitle' => 'd\'inscription',
-                'content' => array(
-                    'intro' => 'Introduction lorem ipsum'
-                ),
-                'routes' => array(
-                    'getValues' => array(
-                        array(
-                            'staticPrefix' => 'en'
-                        )
-                    )
-                )
-            ),
-            'sites' => $filters['sites'],
-            'types' => $filters['types'],
-            'speakers' => $filters['speakers'],
-            'translations' => $filters['translations'],
-            'retreatsData' => json_encode($retreatsData),
-            'availableLocales' => array()
-        ));
+
+        $page = $this->pageService->getContentFromRequest($request);
+        $availableLocales = $this->pageService->getAvailableLocales($page);
+        return $this->render('default/calendar.html.twig', [
+                'page' => $page,
+                'sites' => $filters['sites'],
+                'types' => $filters['types'],
+                'speakers' => $filters['speakers'],
+                'translations' => $filters['translations'],
+                'retreatsData' => json_encode($retreatsData),
+                'availableLocales' => array()
+            ]);
     }
 }
