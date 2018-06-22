@@ -104,17 +104,26 @@ class ProductController extends Controller
         $themes = $this->productRepository->findThemes();
 
         $products = null;
+        
         $reqThemes = $request->get('themes');
         if ($reqThemes) {
             $products = $this->productRepository->findByThemes($reqThemes);
         }
-        
-        $productsCategorized = [];
-        foreach ($series as $serie) {
-            $productsCategorized[] = [
-                'title' => $serie->getRubrique(),
-                'products' => $this->productRepository->findProducts($serie->getCodrub(), 2)
-            ];
+
+        $serie = $request->get('serie');
+        if ($serie) {
+            $products = $this->productRepository->findProducts($serie);
+        }
+
+        $productsCategorized = null;
+        if (!$products) {
+            $productsCategorized = [];
+            foreach ($series as $serie) {
+                $productsCategorized[] = [
+                    'title' => $serie->getRubrique(),
+                    'products' => $this->productRepository->findProducts($serie->getCodrub(), 2)
+                ];
+            }
         }
         $contentDocument = $this->pageService->getContentFromRequest($request);
         $avaiableLocales = $this->pageService->getAvailableLocales($contentDocument);
