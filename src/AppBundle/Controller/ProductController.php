@@ -53,31 +53,29 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/edition/{id}", requirements={"id"="\d+"})
+     * @Route("/edition/{id}", requirements={"id"="\d+"}, name="collection-fr")
+     * @Route("/publication/{id}", requirements={"id"="\d+"}, name="collection-en")
+     * @Route("/veroffentlichung/{id}", requirements={"id"="\d+"}, name="collection-de")
+     * @Route("/publicacion/{id}", requirements={"id"="\d+"}, name="collection-es")
+     * @Route("/pubblicazione/{id}", requirements={"id"="\d+"}, name="collection-it")
      */
     public function showProductAction($id, Request $request)
     {
+        $contentDocument = $this->pageService->getContentFromRequest($request);
+        $avaiableLocales = $this->pageService->getAvailableLocales($contentDocument);
         $product = $this->productRepository->findProduct($id);
-        dump($product);
-        return $this->render('test.html.twig');
+        return $this->render(
+            'product/details.html.twig',
+            ['product' => $product, 'avaiableLocales' => $avaiableLocales, 'page' => $contentDocument]
+        );
     }
 
     /**
-     * @Route("/edition/rubrique/{id}", requirements={"id"="\d+"})
-     */
-    public function showProductsAction($id, Request $request)
-    {
-        $products = $this->productRepository->findProducts($id);
-        dump($products);
-        return $this->render('test.html.twig');
-    }
-
-    /**
-     * @Route("/editions-nouveautes", name="product-news-fr")
-     * @Route("/books-news", name="product-news-en")
-     * @Route("/buchs-neu", name="product-news-de")
-     * @Route("/libros-nuevo", name="product-news-es")
-     * @Route("/libri-nuovo", name="product-news-it")
+     * @Route("/editions-nouveautes", name="collections-news-fr")
+     * @Route("/publications-news", name="collections-news-en")
+     * @Route("/publikationen-neu", name="collections-news-de")
+     * @Route("/publicaciones-nuevo", name="collections-news-es")
+     * @Route("/pubblicazioni-nuovo", name="collections-news-it")
      */
     public function showNewProductsAction(Request $request)
     {
@@ -91,11 +89,11 @@ class ProductController extends Controller
     }
     
     /**
-     * @Route("/editions-collections", name="product-collections-fr")
-     * @Route("/books-sammlungen", name="product-collections-en")
-     * @Route("/buchs-reihe", name="product-collections-de")
-     * @Route("/libros-colecciones", name="product-collections-es")
-     * @Route("/libri-collezioni", name="product-collections-it")
+     * @Route("/editions", name="collections-fr")
+     * @Route("/collections", name="collections-en")
+     * @Route("/publikationen", name="collections-de")
+     * @Route("/publicaciones", name="collections-es")
+     * @Route("/pubblicazioni", name="collections-it")
      */
     public function showCollections(Request $request)
     {
