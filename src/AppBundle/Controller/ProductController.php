@@ -100,14 +100,20 @@ class ProductController extends Controller
     public function showCollections(Request $request)
     {
         $locale = $request->getLocale();
-        $collections = $this->productRepository->findCollections($locale);
+        $series = $this->productRepository->findCollections($locale);
         $themes = $this->productRepository->findThemes();
 
-        $products = [];
-        foreach ($collections as $collection) {
-            $products[] = [
-                'title' => $collection->getRubrique(),
-                'products' => $this->productRepository->findProducts($collection->getCodrub(), 2)
+        $products = null;
+        $reqThemes = $request->get('themes');
+        if ($reqThemes) {
+            $products = $this->productRepository->findByThemes($reqThemes);
+        }
+        
+        $productsCategorized = [];
+        foreach ($series as $serie) {
+            $productsCategorized[] = [
+                'title' => $serie->getRubrique(),
+                'products' => $this->productRepository->findProducts($serie->getCodrub(), 2)
             ];
         }
         $contentDocument = $this->pageService->getContentFromRequest($request);
@@ -118,9 +124,10 @@ class ProductController extends Controller
             [
                 'avaiableLocales' => $avaiableLocales,
                 'page' => $contentDocument,
-                'collections' => $collections,
+                'series' => $series,
                 'themes' => $themes,
-                'products' => $products
+                'productsCategorized' => $productsCategorized,
+                'products' => $products,
             ]
         );
     }

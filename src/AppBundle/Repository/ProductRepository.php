@@ -55,14 +55,14 @@ class ProductRepository
     /**
     * Find Collection of Produit by theme
     *
-    * @param string $theme
+    * @param array $themes
     * @return Array
     */
-    public function findByTheme($theme)
+    public function findByThemes($themes)
     {
         $query = $this->entityManager
-        ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.themes LIKE :theme');
-        $query->setParameter('theme', '%'.$theme.'%');
+        ->createQuery("SELECT p FROM AppBundle\Entity\Produit p WHERE REGEXP(p.themes, :themes) = 1");
+        $query->setParameter('themes', $themes);
         return $query->getResult();
     }
 
