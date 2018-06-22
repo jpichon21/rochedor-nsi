@@ -21,6 +21,7 @@ use AppBundle\ServiceShowPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\Commande;
+use AppBundle\Entity\Comprd;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\ContactRepository;
@@ -73,6 +74,21 @@ class OrderController extends Controller
         $command->setDatlic($datliv);
         $command->setPaysip($paysip);
         $command->setDatenreg($Dateenreg);
+    
+        $em->persist($command);
+        $em->flush();
+
+        $comprd = new Comprd;
+        
+        foreach ($panier["produits"] as $produit) {
+            $codcom = $command->getCodcom();
+            $codprd = $produit["cleprod"];
+            $quant = $panier->getQuant();
+            $prix = $panier->getPrixHT();
+            $remise = $panier->getRemise();
+        }
+        
+        return $command;
     }
 
     private function generateId()

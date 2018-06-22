@@ -13,12 +13,13 @@ class CommandeRepository extends \Doctrine\ORM\EntityRepository
     public function generateId()
     {
         $query = $this->getEntityManager()->createQuery(
-            'SELECT c.CodCom FROM AppBundle:Commande c ORDER BY DESC'
+            'SELECT c.codcom FROM AppBundle:Commande c ORDER BY DESC'
         )
         ->setParameters(['locale' => $locale, 'now' => new \DateTime()])
-        ->getResult();
+        ->setMaxResults(1)
+        ->getOneOrNullResult();
 
-        $id = $query[0] + 1;
+        $id = $query['codcom'] + 1;
         return $id;
     }
 }
