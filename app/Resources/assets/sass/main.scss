@@ -39,6 +39,10 @@ p {
   margin-bottom: 20px;
 }
 
+i {
+  font-style: italic;
+}
+
 .mfp-title {
   padding-top: 10px;
   font-size: 14px;
@@ -527,7 +531,7 @@ body.page {
       h2, h3 {
         margin-bottom: 20px;
         color: $roche-yellow;
-        font-size: 13px;
+        font-size: 16px;
         font-weight: 400;
       }
       h2 {
@@ -717,6 +721,7 @@ body.page {
       box-sizing: border-box;
       background: none;
       outline: none;
+      resize: none;
       &::placeholder {
         color: $roche-yellow;
         opacity: 1;
@@ -732,6 +737,9 @@ body.page {
       background-position: calc(100% - 20px) center;
       background-repeat: no-repeat;
       -webkit-appearance: none;
+    }
+    option {
+      background: #0f0f0f;
     }
     .textarea {
       min-width: 100%;

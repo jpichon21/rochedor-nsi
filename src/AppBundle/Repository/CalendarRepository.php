@@ -146,7 +146,7 @@ class CalendarRepository
             c.datfin AS dateOut,
             a.sitact as site,
             t.tref as typeAbbr, t.tlib as typeName, t.tmemo as typeColor, t.idt AS typeValue, c.langue as translation, 
-            (SELECT GROUP_CONCAT(CONCAT(co2.nom, \' \' ,co2.prenom, \' , \', co2.codco) SEPARATOR \'|\')
+            (SELECT GROUP_CONCAT(CONCAT(co2.prenom, \' \' ,co2.nom, \' , \', co2.codco) SEPARATOR \'|\')
                 FROM AppBundle\Entity\Contact co2 
                 INNER JOIN AppBundle\Entity\CalL cal2 WITH co2.codco=cal2.lcal AND cal2.typlcal=:typlcal 
                 INNER JOIN AppBundle\Entity\Calendrier ca2 WITH ca2.codcal=cal2.codcal 

@@ -327,22 +327,22 @@
         <target>__retreats.table.head.dates</target>
       </segment>
     </unit>
-    <unit id="fxGgGMw" name="retreats.table.head.sites">
+    <unit id="fxGgGMw" name="retreats.table.head.site">
       <notes>
         <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:53</note>
       </notes>
       <segment>
-        <source>retreats.table.head.sites</source>
-        <target>__retreats.table.head.sites</target>
+        <source>retreats.table.head.site</source>
+        <target>__retreats.table.head.site</target>
       </segment>
     </unit>
-    <unit id="2kGPPNK" name="retreats.table.head.events">
+    <unit id="2kGPPNK" name="retreats.table.head.event">
       <notes>
         <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:54</note>
       </notes>
       <segment>
-        <source>retreats.table.head.events</source>
-        <target>__retreats.table.head.events</target>
+        <source>retreats.table.head.event</source>
+        <target>__retreats.table.head.event</target>
       </segment>
     </unit>
     <unit id="z44_LRk" name="retreats.table.head.speakers">
@@ -354,22 +354,22 @@
         <target>__retreats.table.head.speakers</target>
       </segment>
     </unit>
-    <unit id="gYOavAc" name="retreats.table.head.types">
+    <unit id="gYOavAc" name="retreats.table.head.type">
       <notes>
         <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:56</note>
       </notes>
       <segment>
-        <source>retreats.table.head.types</source>
-        <target>__retreats.table.head.types</target>
+        <source>retreats.table.head.type</source>
+        <target>__retreats.table.head.type</target>
       </segment>
     </unit>
-    <unit id="0j2BAw_" name="retreats.table.head.durations">
+    <unit id="0j2BAw_" name="retreats.table.head.duration">
       <notes>
         <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:57</note>
       </notes>
       <segment>
-        <source>retreats.table.head.durations</source>
-        <target>__retreats.table.head.durations</target>
+        <source>retreats.table.head.duration</source>
+        <target>__retreats.table.head.duration</target>
       </segment>
     </unit>
     <unit id="33juit3" name="retreats.table.head.translations">

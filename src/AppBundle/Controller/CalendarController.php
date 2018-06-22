@@ -120,7 +120,7 @@ class CalendarController extends Controller
                             'title' => 'Demande',
                             'subTitle' => 'd\'inscription',
                             'content' => array('intro' => 'Vous êtes sur le point de vous inscrire à une retraite. 
-                                Complétez les informations suivantes si vous souahitez continuer, 
+                                Complétez les informations suivantes si vous souhaitez continuer, 
                                 sinon retourner <a href="'.$calendarURL.'">au calendrier</a>.'),
                             'routes' => array('getValues' => array(array('staticPrefix' => 'en')))
                         ),
