@@ -17,13 +17,13 @@ use Symfony\Component\Translation\TranslatorInterface as Translator;
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\ContactL;
 use AppBundle\Entity\CalL;
-use AppBundle\ServiceShowPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Page;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\ContactRepository;
 use AppBundle\Service\Mailer;
+use AppBundle\Service\PageService;
 
 class CalendarController extends Controller
 {
@@ -81,16 +81,23 @@ class CalendarController extends Controller
      */
     private $translator;
 
+    /**
+     * @var PageService
+     */
+    private $pageService;
+
     public function __construct(
         CalendarRepository $calendarRepository,
         ContactRepository $contactRepository,
         Mailer $mailer,
-        Translator $translator
+        Translator $translator,
+        PageService $pageService
     ) {
         $this->calendarRepository = $calendarRepository;
         $this->contactRepository = $contactRepository;
         $this->mailer = $mailer;
         $this->translator = $translator;
+        $this->pageService = $pageService;
     }
 
      /**
@@ -100,11 +107,11 @@ class CalendarController extends Controller
      * @Route("/iscrizione-ritiro", name="iscrizione_ritiro")
      * @Route("/registro-jubilado", name="registro_jubilado")
      */
-    public function calendarRegistrationAction(Request $request, ServiceShowPage $showPage)
+    public function calendarRegistrationAction(Request $request)
     {
         $path = $request->getPathInfo();
         $name = substr($path, 1);
-        $contentDocument = $showPage->getMyContent($name);
+        $contentDocument = $this->pageService->getContent($name);
         return $this->render('default/calendar-registration.html.twig', array(
             'page' => array(
                 'locale' => 'fr',
@@ -327,29 +334,6 @@ class CalendarController extends Controller
             return null;
         }
         return $this->calendarRepository->findAttendees(array_column($refs, 'reflcal'), $contact->getCodco());
-    }
-
-    public function getAvailableLocales($contentDocument)
-    {
-        $availableLocales = array();
-        if ($contentDocument->getLocale() === "fr") {
-            $cm = $contentDocument->getChildren();
-            $myChild = $cm->getValues();
-        } else {
-            $cm = $contentDocument->getParent();
-            $mc = $cm->getChildren();
-            $myChild = $mc->getValues();
-            $tmpP = $cm->getRoutes()->getValues();
-            $availableLocales['fr'] = $tmpP[0]->getStaticPrefix();
-        }
-        foreach ($myChild as $childPage) {
-            if ($childPage->getLocale() != $contentDocument->getLocale()) {
-                $key = $childPage->getLocale();
-                $tmp = $childPage->getRoutes()->getValues();
-                $availableLocales[$key] = $tmp[0]->getStaticPrefix();
-            }
-        }
-        return $availableLocales;
     }
 
     public function getDataCalendarAction(CalendarRepository $calendarRepo)

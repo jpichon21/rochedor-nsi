@@ -31,6 +31,7 @@ class Cartline
     /**
     * @var AppBundle\Entity\Produit
     * @ORM\ManyToOne(targetEntity="Produit")
+    * @ORM\JoinColumn(name="CodPrd", referencedColumnName="CodPrd")
     */
     private $product;
 

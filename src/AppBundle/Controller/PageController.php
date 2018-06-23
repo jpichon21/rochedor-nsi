@@ -94,10 +94,10 @@ class PageController extends Controller
             $page->setParent($parent);
             $page->setImmutableid($this->slugify($parent->getImmutableid()));
         } else {
-            if ($this->checkImmutability($this->slugify($page->getTitle() . $page->getSubTitle()))) {
+            if ($this->checkImmutability($this->slugify($page->getTitle().'-'.$page->getSubTitle()))) {
                 return new JsonResponse(['message' => 'immutable already-exist'], Response::HTTP_FORBIDDEN);
             } else {
-                $page->setImmutableid($this->slugify($page->getTitle() . $page->getSubTitle()));
+                $page->setImmutableid($this->slugify($page->getTitle().'-'.$page->getSubTitle()));
             }
         }
         $em->persist($page);
@@ -121,7 +121,7 @@ class PageController extends Controller
         $route = new CmfRoute();
 
         if (!$page->getUrl()) {
-            $routeName = $this->slugify($page->getTitle() . $page->getSubTitle());
+            $routeName = $this->slugify($page->getTitle().'-'.$page->getSubTitle());
         } else {
             $routeName =  $this->slugify($page->getUrl());
         }
@@ -278,6 +278,7 @@ class PageController extends Controller
         if (empty($page)) {
             return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
         } else {
+            $page->setParent(null);
             $em->remove($page);
             $em->flush();
         }

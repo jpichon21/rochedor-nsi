@@ -224,4 +224,11 @@ class Produit
      * @ORM\Column(name="Nouveaute", type="boolean", nullable=true)
      */
     private $nouveaute;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Themes", type="text", nullable=false)
+     */
+    private $themes;
 }
