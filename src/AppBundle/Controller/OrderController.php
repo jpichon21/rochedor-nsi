@@ -115,6 +115,7 @@ class OrderController extends Controller
     */
     public function xhrPostCartAction(Request $request)
     {
+
         $cart = $request->get('cart');
         if (!$cart) {
             return ['status' => 'ko', 'message' => 'You must provide cart object'];
@@ -122,20 +123,29 @@ class OrderController extends Controller
         if (!isset($cart['id'])) {
             $cart['id'] = $this->setNewCart($cart);
         }
+        $this->resetCart($cart);
         
         foreach ($cart['cartlines'] as $cartline) {
             if ($this->validateCartLine($cartline)) {
-                $this->setNewCartline($cartline, $cart);
+                $cartlineFlushed = $cartline;
+                $cartlineFlushed['id'] = $this->setNewCartline($cartline, $cart);
+                $cart['cartlinesFlushed'][] = $cartlineFlushed;
             } else {
                 $errors[] = $cartline;
+                $cart['errors'] = $errors;
             }
         }
 
-        if (isset($errors)) {
-            $rollbackCartlines = array_diff($cart['cartlines'], $errors[]);
-            dump($rollbackCartlines);
-            exit;
-            $this->rollBackCartlines();
+
+        if (isset($cart['errors'])) {
+            foreach ($cart['cartlinesFlushed'] as $cartlineFlushed) {
+                $em = $this->getDoctrine()->getManager();
+                $cartlineToDelete = $this
+                ->getDoctrine()->getRepository('AppBundle:Cartline')
+                ->find($cartlineFlushed['id']);
+                $em->remove($cartlineToDelete);
+                $em->flush();
+            }
             return ['status' => 'ko', 'message' => 'this cartline are not good' , 'data' => $errors ];
         }
 
@@ -148,9 +158,30 @@ class OrderController extends Controller
         return ['status' => 'ok', 'data' => $cart];
     }
     
+    private function resetCart($cart)
+    {
+        $cartlines = $this->getDoctrine()->getRepository('AppBundle:Cartline')->findByCart($cart['id']);
+        $em = $this->getDoctrine()->getManager();
+        foreach ($cartlines as $cartline) {
+            $em->remove($cartline);
+            $em->flush();
+        }
+    }
+
     private function validateCartLine($cartline)
     {
-        if (!isset($cartline['quantity']) || !isset($cartline['codprd'])) {
+        if (!isset($cartline['codprd'])) {
+            $product = null;
+        } else {
+            $product = $this->getDoctrine()->getRepository('AppBundle:Produit')->find($cartline['codprd']);
+        }
+        if (!isset($cartline['quantity'])) {
+            $quantity = null;
+        } else {
+            $quantity = $cartline['quantity'];
+        }
+        if ($quantity  === null ||$quantity <= 0 || $product === null) {
+            dump('jepassela');
             return false;
         }
         return true;
@@ -192,8 +223,21 @@ class OrderController extends Controller
         
         $em->persist($cart);
         $em->flush();
+        return $cart->getId();
     }
+    
+    /**
+     * @Rest\Get("/order/cart", name="get_cart")
 
+     * @Rest\View()
+    */
+    public function xhrGetCartAction(Request $request)
+    {
+        $cartId = $request->get('cartId');
+        $em = $this->getDoctrine()->getManager();
+        $cart = $em->getRepository('AppBundle:Cart')->find($cartId);
+        return $cart;
+    }
     /**
      * @Rest\Post("/order/paiement", name="post_paiement")
 
