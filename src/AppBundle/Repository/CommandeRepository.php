@@ -10,16 +10,47 @@ namespace AppBundle\Repository;
  */
 class CommandeRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function generateId()
+    // /**
+    // * @var EntityRepository
+    // */
+    // private $repository;
+    
+    // /**
+    // * @var EntityManagerInterface
+    // */
+    // private $entityManager;
+    
+    // public function __construct(EntityManagerInterface $entityManager)
+    // {
+    //     $this->entityManager = $entityManager;
+    // }
+
+    public function generateRefCom()
     {
         $query = $this->getEntityManager()->createQuery(
-            'SELECT c.codcom FROM AppBundle:Commande c ORDER BY DESC'
+            'SELECT c.refcom FROM AppBundle:Commande c ORDER BY c.refcom DESC'
         )
-        ->setParameters(['locale' => $locale, 'now' => new \DateTime()])
-        ->setMaxResults(1)
-        ->getOneOrNullResult();
+        ->getResult();
+        
+        $queryFilter = array_filter($query, function ($k) {
+            $currentYear = new \Datetime('now');
+            return substr($k['refcom'], 0, -6) == $currentYear->format('y') ;
+        }, ARRAY_FILTER_USE_BOTH);
+        rsort($queryFilter);
 
-        $id = $query['codcom'] + 1;
-        return $id;
+        $currentYear = new \Datetime('now');
+        $lastRef = str_replace($currentYear->format('y')."-", "", $queryFilter[0]['refcom']);
+        $lastRef = intval($lastRef);
+        
+        $newRef = $lastRef + 1;
+        
+        $newRefString = strval($newRef);
+        while (strlen($newRefString) < 5) {
+            $newRefString = "0".$newRefString;
+        }
+
+        $newRefString = $currentYear->format('y')."-".$newRefString;
+        
+        return $newRefString;
     }
 }
