@@ -4,6 +4,7 @@ namespace AppBundle\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Produit;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class ProductRepository
 {
@@ -55,14 +56,14 @@ class ProductRepository
     /**
     * Find Collection of Produit by theme
     *
-    * @param string $theme
+    * @param array $themes
     * @return Array
     */
-    public function findByTheme($theme)
+    public function findByThemes($themes)
     {
         $query = $this->entityManager
-        ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.themes LIKE :theme');
-        $query->setParameter('theme', '%'.$theme.'%');
+        ->createQuery("SELECT p FROM AppBundle\Entity\Produit p WHERE REGEXP(p.themes, :themes) = 1");
+        $query->setParameter('themes', $themes);
         return $query->getResult();
     }
 
@@ -100,9 +101,16 @@ class ProductRepository
     */
     public function findThemes()
     {
-        $query = $this->entityManager
-        ->createQuery("SELECT DISTINCT SUBSTRING_INDEX(p.themes, ',', 1) AS theme
-        FROM AppBundle\Entity\Produit p WHERE p.themes <> ''");
-        return $query->getResult();
+        $query = $this->entityManager->getConnection()->prepare("SELECT DISTINCT      
+        SUBSTRING_INDEX(SUBSTRING_INDEX(p.themes, ',', t.n), ' ', -1) theme
+        FROM (SELECT 1 n UNION ALL SELECT 2
+        UNION ALL SELECT 3 UNION ALL SELECT 4
+        ) t INNER JOIN produit p
+        ON CHAR_LENGTH(p.themes)-CHAR_LENGTH(REPLACE(p.themes, ' ', ''))>=t.n-1
+        WHERE themes <> ''
+        ORDER BY
+        theme");
+        $query->execute();
+        return $query->fetchAll();
     }
 }
