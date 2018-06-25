@@ -133,7 +133,7 @@ class OrderController extends Controller
         $datpaie = new \DateTime();
         $validpaie = $delivery['validpaie'];
         $destliv = $delivery['destliv'];
-        $adliv = $this->getAdLiv($delivery['adliv'],$user);
+        $adliv = $this->getAdLiv($delivery['adliv'], $user);
         $paysliv = $delivery['paysliv'];
 
         $ttc = $this->getTTCPrice($amountHT);
@@ -231,8 +231,9 @@ class OrderController extends Controller
         return $TVA;
     }
 
-    private function getAdLiv($adliv, $user){
-        $parsedAdliv = 
+    private function getAdLiv($adliv, $user)
+    {
+        $parsedAdliv =
                     $user[0]->getCivil().
                     " ".
                     $user[0]->getNom().
