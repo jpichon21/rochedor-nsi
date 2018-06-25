@@ -53,10 +53,11 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/edition/{id}", requirements={"id"="\d+"})
+     * @Route("/edition/{id}", name="product-show", requirements={"id"="\d+"})
      */
     public function showProductAction($id, Request $request)
     {
+        dump($request->cookies->get('cart'));
         $product = $this->productRepository->findProduct($id);
         dump($product);
         return $this->render('test.html.twig');
