@@ -39,6 +39,10 @@ p {
   margin-bottom: 20px;
 }
 
+i {
+  font-style: italic;
+}
+
 .mfp-title {
   padding-top: 10px;
   font-size: 14px;
@@ -518,12 +522,17 @@ body.page {
       b {
         color: #ffffff;
       }
+      a {
+        color: #ffffff;
+        text-decoration: none;
+        border-bottom: 1px #fff solid;
+      }
     }
     .right {
       h2, h3 {
         margin-bottom: 20px;
         color: $roche-yellow;
-        font-size: 13px;
+        font-size: 16px;
         font-weight: 400;
       }
       h2 {
@@ -538,6 +547,10 @@ body.page {
         font-size: 14px;
         line-height: 18px;
         color: #ffffff;
+      }
+      .catch-message {
+        color: red;
+        font-size: 14px;
       }
     }
   }
@@ -702,12 +715,15 @@ body.page {
       margin-bottom: 20px;
       padding: 5px 20px;
       line-height: 20px;
+      color: #ffffff;
+      font-family: 'Lato', sans-serif;
       font-size: 14px;
       border: 1px solid $roche-yellow;
       border-radius: 0;
       box-sizing: border-box;
       background: none;
       outline: none;
+      resize: none;
       &::placeholder {
         color: $roche-yellow;
         opacity: 1;
@@ -717,11 +733,21 @@ body.page {
       }
     }
     .select {
-      color: $roche-yellow;
+      color: #ffffff;
+      font-family: 'Lato', sans-serif;
+      background-image: url('../img/arrow-select.png');
+      background-position: calc(100% - 20px) center;
+      background-repeat: no-repeat;
       -webkit-appearance: none;
     }
+    option {
+      background: #0f0f0f;
+    }
     .textarea {
+      min-width: 100%;
+      max-width: 100%;
       min-height: 80px;
+      max-height: 80px;
     }
     .button {
       padding: 5px 20px;
@@ -736,6 +762,10 @@ body.page {
       box-sizing: border-box;
       outline: none;
       cursor: pointer;
+      &.submit {
+        color: #ffffff;
+        border-color: #ffffff;
+      }
       &.radio {
         padding-right: 40px;
         background-image: url('button-radio-unchecked.png');
@@ -757,6 +787,11 @@ body.page {
       &.active {
         display: block;
       }
+      &.registration {
+        .notAtThisMoment {
+          display: none;
+        }
+      }
       &:before {
         content: '';
         position: absolute;
@@ -768,6 +803,11 @@ body.page {
         opacity: 0.5;
         z-index: -99999;
       }
+    }
+    .catch-message {
+      color: red;
+      line-height: 50px;
+      font-size: 14px;
     }
     [class*=pure-g] {
       padding: 10px 0;

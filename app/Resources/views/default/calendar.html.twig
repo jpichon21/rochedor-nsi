@@ -1,5 +1,5 @@
 {% set bodyClass = "calendar" %}
-{% set bodyBackground = page.background %}
+{% set bodyBackground = constant('AppBundle\\Entity\\Page::BACKGROUNDS')[page.background] %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
 <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/calendar.css") }}">
@@ -13,50 +13,50 @@
                 {% include 'parts/filter.html.twig' with {
                     'name': 'site',
                     'items': sites,
-                    'title': 'filter.title.site' | trans(),
+                    'title': 'filter.title.site' | trans,
                     'abbreviation': true } %}
                 {% include 'parts/filter.html.twig' with {
                     'name': 'type',
                     'items': types,
-                    'title': 'filter.title.type' | trans(),
+                    'title': 'filter.title.type' | trans,
                     'abbreviation': true } %}
                 <form class="filter-dates">
                     <span class="title">Dates</span>
-                    <div class="date-in">{{ 'filter.inner.date.in' | trans() }} <span></span></div>
+                    <div class="date-in">{{ 'filter.inner.date.in' | trans }} <span></span></div>
                     <input class="date-in-value" name="dateIn" type="hidden">
                     <div class="calendar-in"></div>
-                    <div class="date-out">{{ 'filter.inner.date.out' | trans() }} <span></span></div>
+                    <div class="date-out">{{ 'filter.inner.date.out' | trans }} <span></span></div>
                     <input class="date-out-value" name="dateOut" type="hidden">
                     <div class="calendar-out"></div>
                 </form>
                 {% include 'parts/filter.html.twig' with {
                     'name': 'speaker',
                     'items': speakers,
-                    'title': 'filter.title.speakers' | trans(),
+                    'title': 'filter.title.speakers' | trans,
                     'abbreviation': false } %}
                 {% include 'parts/filter.html.twig' with {
                     'name': 'translation',
                     'items': translations,
-                    'title': 'filter.title.translations' | trans(),
+                    'title': 'filter.title.translations' | trans,
                     'abbreviation': false } %}
                 <form class="filter-keywords">
-                    <span class="title">{{ 'filter.title.keyword' | trans() }}</span>
-                    <input type="text" name="keywords" placeholder="{{ 'filter.inner.keyword' | trans() }}">
+                    <span class="title">{{ 'filter.title.keyword' | trans }}</span>
+                    <input type="text" name="keywords" placeholder="{{ 'filter.inner.keyword' | trans }}">
                 </form>
+                <a class="filter-raz" href="#reset">{{ 'filter.raz.button' | trans }}</a>
             </div>
         </div>
         <div class="right">
             <table class="retreats-table">
                 <thead>
                     <tr>
-                        <th class="dates">{{ 'retreats.table.head.dates' | trans() }}</th>
-                        <th class="sites center">{{ 'retreats.table.head.sites' | trans() }}</th>
-                        <th class="events">{{ 'retreats.table.head.events' | trans() }}</th>
-                        <th class="speakers">{{ 'retreats.table.head.speakers' | trans() }}</th>
-                        <th class="types center">{{ 'retreats.table.head.types' | trans() }}</th>
-                        <th class="durations center">{{ 'retreats.table.head.durations' | trans() }}</th>
-                        <th class="translations center">{{ 'retreats.table.head.translations' | trans() }}</th>
-                        <th class="selections center">{{ 'retreats.table.head.selections' | trans() }}</th>
+                        <th class="dates">{{ 'retreats.table.head.dates' | trans }}</th>
+                        <th class="sites center">{{ 'retreats.table.head.site' | trans }}</th>
+                        <th class="events">{{ 'retreats.table.head.event' | trans }}</th>
+                        <th class="speakers">{{ 'retreats.table.head.speakers' | trans }}</th>
+                        <th class="types center">{{ 'retreats.table.head.type' | trans }}</th>
+                        <th class="durations center">{{ 'retreats.table.head.duration' | trans }}</th>
+                        <th class="translations center">{{ 'retreats.table.head.translations' | trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,11 +110,9 @@
         </td>
     </tr>
     <% } %>
-    <% if (!retreats[i + 1] || retreats[i + 1].dateIn.format('M') !== lastMonth) { %>
-    <tr class="retreat last">
-    <% } else { %>
-    <tr class="retreat">
-    <% } %>
+    <tr 
+        class="retreat <%= (!retreats[i + 1] || retreats[i + 1].dateIn.format('M') !== lastMonth) ? 'last' : '' %>"
+        onclick="window.location.href = '{{ url('register_calendar' ~ '-' ~ app.request.locale) }}?id=<%= retreats[i].id %>'">
         <td class="dates">
             <span class="bullet"></span>
             <span class="fadeline"></span>
@@ -122,11 +120,10 @@
         </td>
         <td class="site center" style="color: <%= retreats[i].site.color %>"><%= retreats[i].site.abbr %></td>
         <td class="event"><%= retreats[i].event %></td>
-        <td class="speaker"><%= retreats[i].speaker.name %></td>
+        <td class="speaker"><%= _.pluck(retreats[i].speaker, 'name').join(', ') %></td>
         <td class="type center"><i style="color: <%= retreats[i].type.color %>"></i><%= retreats[i].type.abbr %></td>
-        <td class="duration center"><%= retreats[i].duration %></td>
+        <td class="duration center"><%= retreats[i].duration %> {{ 'calendar.days' | trans }}</td>
         <td class="translation center"><%= retreats[i].translation %></td>
-        <td class="selection center"><i>></i></td>
     </tr>
 <% } %>
 </script>

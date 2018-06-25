@@ -4,12 +4,18 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * Contact
  *
  * @ORM\Table(name="contact", indexes={@ORM\Index(name="CodB", columns={"CodB"})})
  * @ORM\Entity
+ * @UniqueEntity("email", message="validation.email.already_used")
+ * @ExclusionPolicy("all")
  */
 class Contact implements UserInterface, \Serializable
 {
@@ -19,6 +25,7 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="CodCo", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Expose
      */
     private $codco;
 
@@ -26,6 +33,7 @@ class Contact implements UserInterface, \Serializable
      * @var int|null
      *
      * @ORM\Column(name="CodB", type="integer", nullable=true)
+     * @Expose
      */
     private $codb;
 
@@ -61,6 +69,7 @@ class Contact implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="Civil", type="string", length=6, nullable=true)
+     * @Expose
      */
     private $civil;
 
@@ -68,6 +77,7 @@ class Contact implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="Civil2", type="string", length=9, nullable=true)
+     * @Expose
      */
     private $civil2;
 
@@ -75,6 +85,7 @@ class Contact implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="Nom", type="string", length=30, nullable=true)
+     * @Expose
      */
     private $nom;
 
@@ -82,6 +93,7 @@ class Contact implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="Prenom", type="string", length=25, nullable=true)
+     * @Expose
      */
     private $prenom;
 
@@ -89,6 +101,7 @@ class Contact implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="Adresse", type="text", length=65535, nullable=true)
+     * @Expose
      */
     private $adresse;
 
@@ -96,6 +109,7 @@ class Contact implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="CP", type="string", length=8, nullable=true)
+     * @Expose
      */
     private $cp;
 
@@ -103,6 +117,7 @@ class Contact implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="Ville", type="string", length=35, nullable=true)
+     * @Expose
      */
     private $ville;
 
@@ -110,6 +125,7 @@ class Contact implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="Pays", type="string", length=20, nullable=true)
+     * @Expose
      */
     private $pays;
 
@@ -117,6 +133,7 @@ class Contact implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="Tel", type="string", length=20, nullable=true)
+     * @Expose
      */
     private $tel;
 
@@ -124,6 +141,7 @@ class Contact implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="Mobil", type="string", length=20, nullable=true)
+     * @Expose
      */
     private $mobil;
 
@@ -131,6 +149,7 @@ class Contact implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="eMail", type="string", length=50, nullable=true)
+     * @Expose
      */
     private $email;
 
@@ -145,6 +164,7 @@ class Contact implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="Profession", type="text", length=65535, nullable=true)
+     * @Expose
      */
     private $profession;
 
@@ -159,6 +179,7 @@ class Contact implements UserInterface, \Serializable
      * @var \DateTime|null
      *
      * @ORM\Column(name="DatNaiss", type="date", nullable=true)
+     * @Expose
      */
     private $datnaiss;
 
@@ -292,6 +313,10 @@ class Contact implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=256, nullable=true)
+     * @Assert\Length(
+     *      min = 8,
+     *      minMessage = "validation.password.length"
+     * )
      */
     private $password;
 
@@ -313,6 +338,7 @@ class Contact implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255, nullable=true)
+     * @Expose
      */
     private $username;
 
@@ -378,6 +404,20 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="roles", type="array", nullable=true)
      */
     private $roles;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reset_token", type="string", nullable=true)
+     */
+    private $resetToken;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="reset_token_expires_at", type="datetime", nullable=true)
+     */
+    private $resetTokenExpiresAt;
 
     public function __construct()
     {
@@ -1631,5 +1671,53 @@ class Contact implements UserInterface, \Serializable
     public function getDataut16()
     {
         return $this->dataut16;
+    }
+
+    /**
+     * Set resetToken.
+     *
+     * @param string|null $resetToken
+     *
+     * @return Contact
+     */
+    public function setResetToken($resetToken = null)
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    /**
+     * Get resetToken.
+     *
+     * @return string|null
+     */
+    public function getResetToken()
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * Set resetTokenExpiresAt.
+     *
+     * @param \DateTime|null $resetTokenExpiresAt
+     *
+     * @return Contact
+     */
+    public function setResetTokenExpiresAt($resetTokenExpiresAt = null)
+    {
+        $this->resetTokenExpiresAt = $resetTokenExpiresAt;
+
+        return $this;
+    }
+
+    /**
+     * Get resetTokenExpiresAt.
+     *
+     * @return \DateTime|null
+     */
+    public function getResetTokenExpiresAt()
+    {
+        return $this->resetTokenExpiresAt;
     }
 }

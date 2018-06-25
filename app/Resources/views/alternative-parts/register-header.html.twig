@@ -1,12 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LRDO</title>
+    <link rel="stylesheet" href="https://use.typekit.net/ozm6rkb.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/main.css") }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body class="{{ bodyClass }}" style="{{ asset(bodyBackground)|background }}">
 <div class="header">
     <div class="languages">
-        {% for locale, url in availableLocales %}
         <ul class="available">
-            <li><a href={{url}}>{{locale}}</a></li>
+
         </ul>
-        {% endfor %}
         <ul class="current">
-            <li><a href={{page.routes.getValues[0].staticPrefix}}>{{page.locale}}</a></li>
         </ul>
     </div>
     <ul class="zoom">
@@ -17,7 +27,7 @@
         <ul class="menu">
             <li data-menu="vgbhnj">{{ 'menu.one' | trans() | raw }}</li>
             <li data-menu="gyhuji">{{ 'menu.two' | trans() | raw }}</li>
-            <li><a href="{{ path('calendar-' ~ app.request.locale) }}">{{ 'menu.three' | trans() | raw }}</a></li>
+            <li><a href="#">{{ 'menu.three' | trans() | raw }}</a></li>
         </ul>
         <ul class="sub-menu" data-menu="vgbhnj">
             <li><a href="#">{{ 'menu.one.one' | trans() | raw }}</a></li>
@@ -65,3 +75,9 @@
         </ul>
     </div>
 </div>
+{% block content %}{% endblock %}
+{% include 'parts/footer.html.twig' %}
+<script src="{{ asset('assets/js/main.js') }}"></script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>
