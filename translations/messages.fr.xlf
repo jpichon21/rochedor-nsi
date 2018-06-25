@@ -327,7 +327,7 @@
         <target>Dates</target>
       </segment>
     </unit>
-    <unit id="fxGgGMw" name="retreats.table.head.site">
+    <unit id="DLoeleR" name="retreats.table.head.site">
       <notes>
         <note priority="1">app/Resources/views/default/calendar.html.twig:53</note>
       </notes>
@@ -336,7 +336,7 @@
         <target>Site</target>
       </segment>
     </unit>
-    <unit id="2kGPPNK" name="retreats.table.head.event">
+    <unit id="udKCrOO" name="retreats.table.head.event">
       <notes>
         <note priority="1">app/Resources/views/default/calendar.html.twig:54</note>
       </notes>
@@ -354,7 +354,7 @@
         <target>Intervenants</target>
       </segment>
     </unit>
-    <unit id="gYOavAc" name="retreats.table.head.type">
+    <unit id="fdtdIAj" name="retreats.table.head.type">
       <notes>
         <note priority="1">app/Resources/views/default/calendar.html.twig:56</note>
       </notes>
@@ -363,7 +363,7 @@
         <target>Type</target>
       </segment>
     </unit>
-    <unit id="0j2BAw_" name="retreats.table.head.duration">
+    <unit id="MUpvFuZ" name="retreats.table.head.duration">
       <notes>
         <note priority="1">app/Resources/views/default/calendar.html.twig:57</note>
       </notes>
@@ -996,7 +996,7 @@
         <target>Inscription</target>
       </segment>
     </unit>
-    <unit id="EHnqsJsc" name="calendar.registration.intro">
+    <unit id="N_ACgte" name="calendar.registration.intro">
       <segment>
         <source>calendar.registration.intro</source>
         <target><![CDATA[Vous êtes sur le point de vous inscrire à une retraite. Complétez les informations suivantes si vous souahitez continuer, sinon retourner au <a href="%link%">calendrier</a>.]]></target>
@@ -1156,6 +1156,12 @@
       <segment>
         <source>calendar.days</source>
         <target>jours</target>
+      </segment>
+    </unit>
+    <unit id="A9HWtXN" name="filter.raz.button">
+      <segment>
+        <source>filter.raz.button</source>
+        <target>Effacer les filtres</target>
       </segment>
     </unit>
   </file>
