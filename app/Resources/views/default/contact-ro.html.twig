@@ -1,8 +1,10 @@
 {% set sections = [] %}
 {% set bodyClass = "page" %}
-{% set bodyBackground = 1 %}
+{% set bodyBackground = constant('AppBundle\\Entity\\Page::BACKGROUNDS')[1] %}
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/pure-css-grids.css") }}">
+{% endblock %}
 {% block content %}
 <div class="content">
     <div class="left">
@@ -13,9 +15,40 @@
                 {{ page.content.intro | raw }}
             </div>
             {% endif %}
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            {{ form_end(form) }}
+            <div class="dropdown single">
+                <div class="item">
+                    <h2>Formulaire de contact de la Roche d'Or</h2>
+                    <div class="panel active">
+                        <div class="pure-g">
+                            {{ form_start(form) }}
+                            <div class="pure-u-1-2">
+                                {{ form_widget(form.name) }}
+                            </div>
+                            <div class="pure-u-1-2">
+                                {{ form_widget(form.surname) }}
+                            </div>
+                            <div class="pure-u-1-2">
+                                {{ form_widget(form.adress) }}
+                            </div>
+                            <div class="pure-u-1-2">
+                                {{ form_widget(form.city) }}
+                            </div>
+                            <div class="pure-u-1-2">
+                                {{ form_widget(form.zipcode) }}
+                            </div>
+                            <div class="pure-u-1-2">
+                                {{ form_widget(form.mail) }}
+                            </div>
+                            <div class="pure-u-1-1">
+                                {{ form_widget(form.body) }}
+                            </div>
+                            <div class="pure-u-1-1">
+                                {{ form_widget(form.save) }}
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

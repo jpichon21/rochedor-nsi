@@ -9,7 +9,6 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\ServiceShowPage;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\PageController;
 use AppBundle\Service\Mailer;
@@ -18,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\Service\PageService;
 use AppBundle\Form\ContactType;
 
 class ContactController extends Controller
@@ -34,10 +34,12 @@ class ContactController extends Controller
 
     public function __construct(
         Mailer $mailer,
-        Translator $translator
+        Translator $translator,
+        PageService $pageService
     ) {
         $this->mailer = $mailer;
         $this->translator = $translator;
+        $this->pageService = $pageService;
     }
 
     /**
@@ -47,7 +49,7 @@ class ContactController extends Controller
     * @Route("/contact-us-ro", name="contact-us-ro")
     * @Route("/contáctenos-ro", name="contáctenos-ro")
     */
-    public function showContactRo(Request $request, ServiceShowPage $showPage)
+    public function showContactRo(Request $request)
     {
         $data = [];
         $form = $this->createForm(ContactType::class, $data);
@@ -76,11 +78,11 @@ class ContactController extends Controller
 
         $path = $request->getPathInfo();
         $name = substr($path, 1);
-        $contentDocument = $showPage->getMyContent($name);
+        $contentDocument = $this->pageService->getContent($name);
         return $this->render('default/contact-ro.html.twig', array(
             'form' => $form->createView(),
             'page' => $contentDocument,
-            'availableLocales' => $this->getAvailableLocales($contentDocument)
+            'availableLocales' => $this->pageService->getAvailableLocales($contentDocument)
         ));
     }
 
@@ -91,7 +93,7 @@ class ContactController extends Controller
     * @Route("/contact-us-font", name="contact-us-font")
     * @Route("/contáctenos-font", name="contáctenos-font")
     */
-    public function showContactFont(Request $request, ServiceShowPage $showPage)
+    public function showContactFont(Request $request)
     {
         
         $data = [];
@@ -121,34 +123,11 @@ class ContactController extends Controller
 
         $path = $request->getPathInfo();
         $name = substr($path, 1);
-        $contentDocument = $showPage->getMyContent($name);
+        $contentDocument = $this->pageService->getContent($name);
         return $this->render('default/contact-font.html.twig', array(
             'form' => $form->createView(),
             'page' => $contentDocument,
-            'availableLocales' => $this->getAvailableLocales($contentDocument)
+            'availableLocales' => $this->pageService->getAvailableLocales($contentDocument)
         ));
-    }
-
-    public function getAvailableLocales($contentDocument)
-    {
-        $availableLocales = array();
-        if ($contentDocument->getLocale() === "fr") {
-            $cm = $contentDocument->getChildren();
-            $myChild = $cm->getValues();
-        } else {
-            $cm = $contentDocument->getParent();
-            $mc = $cm->getChildren();
-            $myChild = $mc->getValues();
-            $tmpP = $cm->getRoutes()->getValues();
-            $availableLocales['fr'] = $tmpP[0]->getStaticPrefix();
-        }
-        foreach ($myChild as $childPage) {
-            if ($childPage->getLocale() != $contentDocument->getLocale()) {
-                $key = $childPage->getLocale();
-                $tmp = $childPage->getRoutes()->getValues();
-                $availableLocales[$key] = $tmp[0]->getStaticPrefix();
-            }
-        }
-        return $availableLocales;
     }
 }
