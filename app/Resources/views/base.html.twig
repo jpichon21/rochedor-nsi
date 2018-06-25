@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/main.css") }}">
     {% block stylesheets %}{% endblock %}
 </head>
-<body class="{{ bodyClass }}" style="{{ asset(bodyBackground)|background }}">
+<body class="{{ bodyClass }}" style="{{ bodyBackground|constantBackground }}">
     {% include 'parts/header.html.twig' %}
     {% block content %}{% endblock %}
     {% include 'parts/footer.html.twig' %}

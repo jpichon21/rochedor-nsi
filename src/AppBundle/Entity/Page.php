@@ -22,13 +22,14 @@ use JMS\Serializer\Annotation\Type;
 class Page
 {
     const BACKGROUNDS = [
-        0 => 'web/assets/img/bg-fallback.jpg',
-        1 => 'web/assets/img/bg-1.jpg',
-        2 => 'web/assets/img/bg-2.jpg',
-        3 => 'web/assets/img/bg-3.jpg',
-        4 => 'web/assets/img/bg-4.jpg',
-        5 => 'web/assets/img/bg-5.jpg',
-        6 => 'web/assets/img/bg-6.jpg'
+        0 => '/assets/img/bg-fallback.jpg',
+        1 => '/assets/img/bg-1.jpg',
+        2 => '/assets/img/bg-2.jpg',
+        3 => '/assets/img/bg-3.jpg',
+        4 => '/assets/img/bg-4.jpg',
+        5 => '/assets/img/bg-5.jpg',
+        6 => '/assets/img/bg-6.jpg',
+        7 => '/assets/img/bg-7.jpg'
     ];
     /**
      * @var int
