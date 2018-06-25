@@ -245,8 +245,6 @@ class OrderController extends Controller
                     $adliv['zipcode'].
                     " ".
                     $adliv['city'];
-        dump($parsedAdliv);
-        exit;
         return $parsedAdliv;
     }
 
