@@ -248,7 +248,10 @@ class OrderController extends Controller
     private function notifyClient($order, $locale, $user)
     {
         $this->mailer->send(
-            $user[0]->getEmail(),
+            [
+                $user[0]->getEmail(),
+                $this->getParameter('email_from_address')
+            ],
             $this->translator->trans('order.notify.client.subject'),
             $this->renderView('emails/order-notify-order-'.$locale.'.html.twig', [
                 'order' => $order,
@@ -256,10 +259,11 @@ class OrderController extends Controller
         );
 
         $this->mailer->send(
-            "secretariat@rochedor.fr",
+            $this->getParameter('email_from_address'),
             $this->translator->trans('order.notify.client.subject'),
-            $this->renderView('emails/order-notify-order-fr.html.twig', [
+            $this->renderView('emails/order-notify-order-ro.html.twig', [
                 'order' => $order,
+                'user' => $user,
                 ])
         );
     }
