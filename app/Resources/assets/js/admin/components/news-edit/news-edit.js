@@ -31,7 +31,7 @@ export class NewsEdit extends React.Component {
       this.setState({alertOpen: true})
     }
 
-    if (nextProps.status === 'Deleted successfully') {
+    if (nextProps.status === 'Deleted successfully' || nextProps.status === 'News Updated') {
       this.props.dispatch(initStatus)
       this.props.history.push('/news-list')
     }

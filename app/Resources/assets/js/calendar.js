@@ -8,13 +8,15 @@ $('.filter')
 
   .on('click', function () {
     if ($(this).hasClass('active')) {
-      if (!$(this).hasClass('dates')) {
-        $(this).removeClass('active')
-      }
+      $(this).removeClass('active')
     } else {
       $('.filter').removeClass('active')
       $(this).addClass('active')
     }
+  })
+
+  .on('mouseleave', function () {
+    $(this).removeClass('active')
   })
 
   .on('change', function () {
@@ -50,7 +52,7 @@ $('.calendar-in').clndr({
   template: $('.calendar-template').html(),
   clickEvents: {
     click: function (target) {
-      $('.date-in').text('Du ' + moment(target.date._i).format('LL')).addClass('active')
+      $('.date-in').addClass('active').find('span').text(moment(target.date._i).format('LL'))
       $('.date-in-value').val(moment(target.date._i).format('YYYYMMDD'))
       $('.calendar-in').removeClass('active')
       $('.calendar-out').addClass('active')
@@ -63,7 +65,7 @@ $('.calendar-out').clndr({
   template: $('.calendar-template').html(),
   clickEvents: {
     click: function (target) {
-      $('.date-out').text('Au ' + moment(target.date._i).format('LL')).addClass('active')
+      $('.date-out').addClass('active').find('span').text(moment(target.date._i).format('LL'))
       $('.date-out-value').val(moment(target.date._i).format('YYYYMMDD'))
       $('.calendar-out').removeClass('active')
       $('.filter.dates').removeClass('active')
@@ -101,13 +103,14 @@ updateRetreats(retreatsData)
 function applyFilters (filters) {
   const retreats = retreatsData.filter((retreat) => {
     if (filters['site'].length === 0) { return true }
-    return filters['site'].indexOf(retreat.site.abbr) >= 0
+    return filters['site'].indexOf(retreat.site.value) >= 0
   }).filter((retreat) => {
     if (filters['type'].length === 0) { return true }
-    return filters['type'].indexOf(retreat.type.value) >= 0
+    return filters['type'].indexOf(retreat.type.value.toString()) >= 0
   }).filter((retreat) => {
     if (filters['speaker'].length === 0) { return true }
-    return filters['speaker'].indexOf(retreat.speaker.value) >= 0
+    const speakers = retreat.speaker.filter(speaker => filters['speaker'].indexOf(speaker.value) >= 0)
+    return speakers.length > 0
   }).filter((retreat) => {
     if (filters['translation'].length === 0) { return true }
     return filters['translation'].indexOf(retreat.translation) >= 0
@@ -155,4 +158,32 @@ function updateFilters () {
 
 $('.filter-keywords').on('keyup', 'input', function () {
   updateFilters()
+})
+
+/* RAZ */
+
+$('.filter-raz').on('click', function (event) {
+  event.preventDefault()
+  $('.filter')
+    .find('input:checked')
+    .each(function () {
+      $(this).prop('checked', false)
+    })
+    .trigger('change')
+  $('.filter-dates')
+    .find('input')
+    .each(function () {
+      $(this).val('')
+    })
+  $('.date-in')
+    .removeClass('active')
+    .find('span')
+    .text(dateToday)
+  $('.date-out')
+    .removeClass('active')
+    .find('span')
+    .text(dateOneYear)
+  $('.filter-keywords').find('input')
+    .val('')
+    .trigger('keyup')
 })

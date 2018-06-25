@@ -6,5 +6,6 @@
     {{ dump(avaiableLocales) }}
     Product
     {{ dump(product) }}
+    <a href="{{ path('cart-add', {'productId': product.codprd}) }}">Ajouter produit</a>
   </body>
 </html>

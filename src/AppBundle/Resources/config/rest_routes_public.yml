@@ -2,3 +2,7 @@ calendar:
     type: rest
     name_prefix: api_calendar_
     resource: AppBundle\Controller\CalendarController
+order:
+    type: rest
+    name_prefix: api_order_
+    resource: AppBundle\Controller\OrderController
