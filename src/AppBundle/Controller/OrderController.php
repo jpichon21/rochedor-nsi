@@ -133,7 +133,7 @@ class OrderController extends Controller
         $datpaie = new \DateTime();
         $validpaie = $delivery['validpaie'];
         $destliv = $delivery['destliv'];
-        $adliv = $delivery['adliv'];
+        $adliv = $this->getAdLiv($delivery['adliv'],$user);
         $paysliv = $delivery['paysliv'];
 
         $ttc = $this->getTTCPrice($amountHT);
@@ -231,17 +231,32 @@ class OrderController extends Controller
         return $TVA;
     }
 
+    private function getAdLiv($adliv, $user){
+        $parsedAdliv = 
+                    $user[0]->getCivil().
+                    " ".
+                    $user[0]->getNom().
+                    " ".
+                    $user[0]->getPrenom().
+                    " ".
+                    $adliv['adresse'].
+                    " ".
+                    $adliv['zipcode'].
+                    " ".
+                    $adliv['city'];
+        dump($parsedAdliv);
+        exit;
+        return $parsedAdliv;
+    }
+
     private function notifyClient($order, $user)
     {
-        $country = $this->translator->trans('order.country.list', [$order->getPaysliv()]);
         $this->mailer->send(
             // $this->getUser()->getEmail(),
             "mail@mail.com",
             $this->translator->trans('order.notify.client.subject'),
             $this->renderView('emails/order-notify-order.html.twig', [
                 'order' => $order,
-                'country' => $country,
-                'user' => $user
                 ])
         );
 
@@ -250,8 +265,6 @@ class OrderController extends Controller
             $this->translator->trans('order.notify.client.subject'),
             $this->renderView('emails/order-notify-order.html.twig', [
                 'order' => $order,
-                'country' => $country,
-                'user' => $user
                 ])
         );
     }

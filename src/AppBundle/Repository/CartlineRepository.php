@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class CartlineRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllByCart($cartId)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT cl
+        FROM AppBundle\Entity\Cartline cl 
+        WHERE c.cart=:cartId');
+        $query->setParameter('cartId', $cartId);
+        return $query->getResult();
+    }
 }
