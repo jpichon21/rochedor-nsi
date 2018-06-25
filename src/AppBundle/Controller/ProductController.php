@@ -13,11 +13,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Repository\CalendarRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\ProductRepository;
+use AppBundle\Repository\CartRepository;
 use AppBundle\Entity\Produit;
 use AppBundle\Service\PageService;
 
@@ -33,6 +35,11 @@ class ProductController extends Controller
     private $productRepository;
 
     /**
+     * @var CartRepository
+     */
+    private $cartRepository;
+
+    /**
      * @var Translator
      */
     private $translator;
@@ -44,10 +51,12 @@ class ProductController extends Controller
 
     public function __construct(
         ProductRepository $productRepository,
+        CartRepository $cartRepository,
         Translator $translator,
         PageService $pageService
     ) {
         $this->productRepository = $productRepository;
+        $this->cartRepository = $cartRepository;
         $this->translator = $translator;
         $this->pageService = $pageService;
     }
@@ -66,7 +75,12 @@ class ProductController extends Controller
         $product = $this->productRepository->findProduct($id);
         return $this->render(
             'product/details.html.twig',
-            ['product' => $product, 'avaiableLocales' => $avaiableLocales, 'page' => $contentDocument]
+            [
+                'product' => $product,
+                'avaiableLocales' => $avaiableLocales,
+                'page' => $contentDocument,
+                'cartCount' => $this->getCartCount()
+            ]
         );
     }
 
@@ -84,7 +98,12 @@ class ProductController extends Controller
         $products = $this->productRepository->findNewProducts();
         return $this->render(
             'product/news.html.twig',
-            ['products' => $products, 'avaiableLocales' => $avaiableLocales, 'page' => $contentDocument]
+            [
+                'products' => $products,
+                'avaiableLocales' => $avaiableLocales,
+                'page' => $contentDocument,
+                'cartCount' => $this->getCartCount()
+            ]
         );
     }
     
@@ -135,7 +154,20 @@ class ProductController extends Controller
                 'themes' => $themes,
                 'productsCategorized' => $productsCategorized,
                 'products' => $products,
+                'cartCount' => $this->getCartCount()
             ]
         );
+    }
+
+    private function getCartCount()
+    {
+        $session = new Session();
+        $cartId = $session->get('cart');
+        $cart = $this->cartRepository->find($cartId);
+        $count = 0;
+        foreach ($cart->getCartlines() as $line) {
+            $count += $line->getQuantity();
+        }
+        return $count;
     }
 }
