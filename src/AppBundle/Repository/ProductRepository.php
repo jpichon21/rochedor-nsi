@@ -76,8 +76,8 @@ class ProductRepository
     {
         $query = $this->entityManager
         ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.nouveaute=true ORDER BY p.maj DESC');
-        $query->setMaxResults(4);
-        return $query->getResult();
+        $query->setMaxResults(5);
+        return $query->getArrayResult();
     }
 
     /**
