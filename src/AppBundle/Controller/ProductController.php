@@ -62,11 +62,11 @@ class ProductController extends Controller
     public function showProductAction($id, Request $request)
     {
         $contentDocument = $this->pageService->getContentFromRequest($request);
-        $avaiableLocales = $this->pageService->getAvailableLocales($contentDocument);
+        $availableLocales = $this->pageService->getAvailableLocales($contentDocument);
         $product = $this->productRepository->findProduct($id);
         return $this->render(
             'product/details.html.twig',
-            ['product' => $product, 'avaiableLocales' => $avaiableLocales, 'page' => $contentDocument]
+            ['product' => $product, 'availableLocales' => $availableLocales, 'page' => $contentDocument]
         );
     }
 
@@ -80,11 +80,11 @@ class ProductController extends Controller
     public function showNewProductsAction(Request $request)
     {
         $contentDocument = $this->pageService->getContentFromRequest($request);
-        $avaiableLocales = $this->pageService->getAvailableLocales($contentDocument);
+        $availableLocales = $this->pageService->getAvailableLocales($contentDocument);
         $products = $this->productRepository->findNewProducts();
         return $this->render(
             'product/news.html.twig',
-            ['products' => $products, 'avaiableLocales' => $avaiableLocales, 'page' => $contentDocument]
+            ['products' => $products, 'availableLocales' => $availableLocales, 'page' => $contentDocument]
         );
     }
     
@@ -124,12 +124,12 @@ class ProductController extends Controller
             }
         }
         $contentDocument = $this->pageService->getContentFromRequest($request);
-        $avaiableLocales = $this->pageService->getAvailableLocales($contentDocument);
+        $availableLocales = $this->pageService->getAvailableLocales($contentDocument);
 
         return $this->render(
             'product/list.html.twig',
             [
-                'avaiableLocales' => $avaiableLocales,
+                'availableLocales' => $availableLocales,
                 'page' => $contentDocument,
                 'collections' => $collections,
                 'themes' => $themes,

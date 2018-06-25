@@ -493,10 +493,22 @@
         <target>Participera</target>
       </segment>
     </unit>
-    <unit id="calendar.notify.attendee.subject">
+    <unit id="YWzPHVB" name="calendar.notify.attendee.subject">
       <segment>
         <source>calendar.notify.attendee.subject</source>
         <target>Demande d'inscription</target>
+      </segment>
+    </unit>
+    <unit id="jbjkLYq" name="news.title">
+      <segment>
+        <source>news.title</source>
+        <target>Nouveauté</target>
+      </segment>
+    </unit>
+    <unit id="Qx5vJC1" name="news.button.discover">
+      <segment>
+        <source>news.button.discover</source>
+        <target>Découvrir le produit</target>
       </segment>
     </unit>
   </file>

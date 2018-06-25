@@ -206,6 +206,9 @@ p {
   .logo {
     position: relative;
     width: 170px;
+    &.editions {
+      display: none;
+    }
     img {
       position: absolute;
       left: 50%;
