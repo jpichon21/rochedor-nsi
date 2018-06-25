@@ -37,23 +37,16 @@ class CommandeRepository
         $query->setParameter('ref', $currentYear->format('y') . '-%');
         $result = $query->getOneOrNullResult();
 
-        dump($result);
         if ($result === null) {
-            $newRefString = $currentYear->format('y')."-00001";
-            return $newRefString;
-        } else {
-            $lastRef = str_replace($currentYear->format('y')."-", "", $result['ref']);
-            $lastRef = intval($lastRef);
-        
-            $newRef = $lastRef + 1;
-            $newRefString = strval($newRef);
-            while (strlen($newRefString) < 5) {
-                $newRefString = "0".$newRefString;
-            }
-    
-            $newRefString = $currentYear->format('y')."-".$newRefString;
-            
-            return $newRefString;
+            return $currentYear->format('y')."-00001";
         }
+        $lastRef = intval(str_replace($currentYear->format('y')."-", "", $result['ref']));
+        
+        $newRef = strval($lastRef + 1);
+        $newRefString = strval($newRef);
+        $newRefString = str_pad($newRefString, 5, "0", STR_PAD_LEFT);
+      
+        return $currentYear->format('y')."-".$newRefString;
+        ;
     }
 }

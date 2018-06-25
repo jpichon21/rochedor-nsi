@@ -10,15 +10,10 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\Repository\CalendarRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
-use AppBundle\Entity\Contact;
-use AppBundle\Entity\ContactL;
-use AppBundle\Entity\CalL;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use AppBundle\Entity\Page;
 use AppBundle\Entity\Cart;
 use AppBundle\Entity\Cartline;
 use AppBundle\Entity\Commande;
@@ -73,6 +68,8 @@ class OrderController extends Controller
     {
         $cookies = $request->cookies;
         $cartId = $cookies->get('cart');
+        $locale = $request->getLocale();
+
         $delivery = $request->get('delivery');
         if (!$delivery) {
             return ['status' => 'ko', 'message' => 'You must provide delivery object'];
@@ -107,13 +104,13 @@ class OrderController extends Controller
         if (!isset($delivery['cartId'])) {
             return ['status' => 'ko', 'message' => 'You must provide a client with a delivery cartid'];
         }
-        if ($this->registerOrder($delivery, $cartId)) {
+        if ($this->registerOrder($delivery, $cartId, $locale)) {
             return ['status' => 'ok'];
         }
         return ['status' => 'ko', 'message' => 'an error as occured'];
     }
 
-    private function registerOrder($delivery, $cartId)
+    private function registerOrder($delivery, $cartId, $locale)
     {
         // $codcli = $user['codco'];
         $codcli = 37898;
@@ -124,8 +121,8 @@ class OrderController extends Controller
         
 
         // $cart = $this->getCart($cartId);
-        $cart = $this->getCart($delivery['cartId']);
-    
+        $cart = $this->cartRepository->findCart($delivery['cartId']);
+
         $datCom = new \DateTime();
         $amountHT = $this->getTotalPrice($cart);
         $modpaie = $delivery['modpaie'];
@@ -136,8 +133,8 @@ class OrderController extends Controller
         $adliv = $this->getAdLiv($delivery['adliv'], $user);
         $paysliv = $delivery['paysliv'];
 
-        $ttc = $this->getTTCPrice($amountHT);
-        $tva = $this->getTVACost($ttc, $amountHT);
+        $priceit = $this->getPriceIT($amountHT);
+        $vat = $this->getVATCost($priceit, $amountHT);
         $poids = $this->getTotalWeight($cart);
         $port = 3;
         $promo = 0;
@@ -149,7 +146,7 @@ class OrderController extends Controller
         $em = $this->getDoctrine()->getManager();
         $order = new Commande;
         
-        $order->setRefcom($this->generateRefCom());
+        $order->setRefcom($this->commandeRepository->generateRefCom());
         $order->setCodcli($codcli);
         $order->setDatcom($datCom);
         $order->setMontant($amountHT);
@@ -160,8 +157,8 @@ class OrderController extends Controller
         $order->setDestliv($destliv);
         $order->setAdLiv($adliv);
         $order->setPaysliv($paysliv);
-        $order->setTtc($ttc);
-        $order->setTva($tva);
+        $order->setTtc($priceit);
+        $order->setTva($vat);
         $order->setPoids($poids);
         $order->setPort($port);
         $order->setPromo($promo);
@@ -191,7 +188,7 @@ class OrderController extends Controller
             $em->persist($comprd);
             $em->flush();
         }
-        $this->notifyClient($order, $user);
+        $this->notifyClient($order, $locale, $user);
         return $order;
     }
     
@@ -219,16 +216,16 @@ class OrderController extends Controller
         return $totalPrice;
     }
 
-    private function getTTCPrice($totalPrice)
+    private function getPriceIT($totalPrice)
     {
-        $prixTTC = $totalPrice*(1+($this::TVA/100));
-        return $prixTTC;
+        $priceit = $totalPrice*(1+($this::TVA/100));
+        return $priceit;
     }
     
-    private function getTVACost($TTCprice, $HTprice)
+    private function getVATCost($priceit, $HTprice)
     {
-        $TVA = $TTCprice - $HTprice;
-        return $TVA;
+        $vat = $priceit - $HTprice;
+        return $vat;
     }
 
     private function getAdLiv($adliv, $user)
@@ -248,13 +245,12 @@ class OrderController extends Controller
         return $parsedAdliv;
     }
 
-    private function notifyClient($order, $user)
+    private function notifyClient($order, $locale, $user)
     {
         $this->mailer->send(
-            // $this->getUser()->getEmail(),
-            "mail@mail.com",
+            $user[0]->getEmail(),
             $this->translator->trans('order.notify.client.subject'),
-            $this->renderView('emails/order-notify-order.html.twig', [
+            $this->renderView('emails/order-notify-order-'.$locale.'.html.twig', [
                 'order' => $order,
                 ])
         );
@@ -262,15 +258,9 @@ class OrderController extends Controller
         $this->mailer->send(
             "secretariat@rochedor.fr",
             $this->translator->trans('order.notify.client.subject'),
-            $this->renderView('emails/order-notify-order.html.twig', [
+            $this->renderView('emails/order-notify-order-fr.html.twig', [
                 'order' => $order,
                 ])
         );
-    }
-
-    private function generateRefCom()
-    {
-        $refcom = $this->commandeRepository->generateRefCom();
-        return $refcom;
     }
 }
