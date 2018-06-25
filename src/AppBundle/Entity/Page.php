@@ -28,7 +28,8 @@ class Page
         3 => '/assets/img/bg-3.jpg',
         4 => '/assets/img/bg-4.jpg',
         5 => '/assets/img/bg-5.jpg',
-        6 => '/assets/img/bg-6.jpg'
+        6 => '/assets/img/bg-6.jpg',
+        7 => '/assets/img/bg-7.jpg'
     ];
     /**
      * @var int
