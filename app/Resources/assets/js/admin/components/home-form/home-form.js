@@ -21,6 +21,7 @@ import {
   Button,
   Typography,
   Grid,
+  Tooltip,
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
@@ -193,27 +194,43 @@ export class HomeForm extends React.Component {
           SEO
         </Typography>
         <form className={classes.form}>
-          <TextField
-            required
-            autoComplete='off'
-            InputLabelProps={{ shrink: true }}
-            className={classes.textfield}
-            fullWidth
-            name='home.title'
-            label='Titre'
-            value={this.state.home.title}
-            onChange={this.handleInputChange} />
-          <TextField
-            required
-            autoComplete='off'
-            InputLabelProps={{ shrink: true }}
-            className={classes.textfield}
-            fullWidth
-            multiline
-            name='home.description'
-            label='Meta-description'
-            value={this.state.home.description}
-            onChange={this.handleInputChange} />
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={300}
+            placement='bottom'
+            title="Renseigner le titre 1 de la page d'accueil"
+          >
+            <TextField
+              required
+              autoComplete='off'
+              InputLabelProps={{ shrink: true }}
+              className={classes.textfield}
+              fullWidth
+              name='home.title'
+              label='Titre'
+              value={this.state.home.title}
+              onChange={this.handleInputChange} />
+          </Tooltip>
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={300}
+            placement='bottom'
+            title="Renseigner le titre 2 de la page d'accueil"
+          >
+            <TextField
+              required
+              autoComplete='off'
+              InputLabelProps={{ shrink: true }}
+              className={classes.textfield}
+              fullWidth
+              multiline
+              name='home.description'
+              label='Meta-description'
+              value={this.state.home.description}
+              onChange={this.handleInputChange} />
+          </Tooltip>
         </form>
         <Typography variant='display1' className={classes.title}>
           Contenu
@@ -234,28 +251,46 @@ export class HomeForm extends React.Component {
                 <ExpansionPanelDetails className={classes.details}>
                   <Grid container spacing={32}>
                     <Grid item xs={12}>
-                      <TextField
-                        required
-                        autoComplete='off'
-                        InputLabelProps={{ shrink: true }}
-                        className={classes.textfield}
-                        fullWidth
-                        multiline
-                        name={`home.content.sections.${indexSection}.title`}
-                        label='Titre'
-                        value={section.title}
-                        onChange={this.handleInputChange} />
-                      <TextField
-                        autoComplete='off'
-                        InputLabelProps={{ shrink: true }}
-                        className={classes.textfield}
-                        fullWidth
-                        multiline
-                        name={`home.content.sections.${indexSection}.sub_title`}
-                        label='Titre ligne 2'
-                        value={section.sub_title}
-                        onChange={this.handleInputChange} />
+                      <Tooltip
+                        enterDelay={300}
+                        id='tooltip-controlled'
+                        leaveDelay={300}
+                        placement='bottom'
+                        title='Renseigner le titre 1 du volet'
+                      >
+                        <TextField
+                          required
+                          autoComplete='off'
+                          InputLabelProps={{ shrink: true }}
+                          className={classes.textfield}
+                          fullWidth
+                          multiline
+                          name={`home.content.sections.${indexSection}.title`}
+                          label='Titre'
+                          value={section.title}
+                          onChange={this.handleInputChange} />
+                      </Tooltip>
+                      <Tooltip
+                        enterDelay={300}
+                        id='tooltip-controlled'
+                        leaveDelay={300}
+                        placement='bottom'
+                        title='Renseigner le titre 2 du volet'
+                      >
+                        <TextField
+                          autoComplete='off'
+                          InputLabelProps={{ shrink: true }}
+                          className={classes.textfield}
+                          fullWidth
+                          multiline
+                          name={`home.content.sections.${indexSection}.sub_title`}
+                          label='Titre ligne 2'
+                          value={section.sub_title}
+                          onChange={this.handleInputChange} />
+                      </Tooltip>
                       <Editor
+                        stripPastedStyles
+                        spellCheck
                         editorState={this.state.home.content.sections[indexSection].body}
                         onEditorStateChange={editorState => this.handleChangeTextArea(editorState, indexSection)}
                         toolbar={{
@@ -287,17 +322,28 @@ export class HomeForm extends React.Component {
         <div className={classes.buttons}>
           {
             <Fragment>
-              <Button
-                className={classes.button}
-                variant='fab'
-                color='primary'
-                aria-label='More'
-                aria-owns={this.state.anchorVersion ? 'long-menu' : null}
-                aria-haspopup='true'
-                onClick={this.handleVersionOpen}
+              <Tooltip
+                enterDelay={300}
+                id='tooltip-controlled'
+                leaveDelay={300}
+                onClose={this.handleTooltipClose}
+                onOpen={this.handleTooltipOpen}
+                open={this.state.open}
+                placement='bottom'
+                title='Historique'
               >
-                <Icon>history</Icon>
-              </Button>
+                <Button
+                  className={classes.button}
+                  variant='fab'
+                  color='primary'
+                  aria-label='More'
+                  aria-owns={this.state.anchorVersion ? 'long-menu' : null}
+                  aria-haspopup='true'
+                  onClick={this.handleVersionOpen}
+                >
+                  <Icon>history</Icon>
+                </Button>
+              </Tooltip>
               <Menu
                 id='long-menu'
                 anchorEl={this.state.anchorVersion}
@@ -321,14 +367,26 @@ export class HomeForm extends React.Component {
             </Fragment>
 
           }
-          <Button
-            disabled={!this.isSubmitEnabled()}
-            onClick={this.handleSubmit}
-            className={classes.button}
-            variant='fab'
-            color='secondary'>
-            <SaveIcon />
-          </Button>
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={300}
+            onClose={this.handleTooltipClose}
+            onOpen={this.handleTooltipOpen}
+            open={this.state.open}
+            placement='bottom'
+            title='Sauvegarder'
+          >
+            <Button
+              disabled={!this.isSubmitEnabled()}
+              onClick={this.handleSubmit}
+              className={classes.button}
+              variant='fab'
+              text='Sauvegarder'
+              color='primary'>
+              <SaveIcon />
+            </Button>
+          </Tooltip>
         </div>
       </div>
     )

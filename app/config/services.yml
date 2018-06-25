@@ -40,7 +40,7 @@ services:
     AppBundle\ServiceUpload:
         arguments: 
             $targetDir: '%files_directory%'
-    AppBundle\ServiceShowPage:
+    AppBundle\Service\PageService:
         arguments:
             $contentRepository: '@cmf_routing.content_repository'
             $routeProvider: '@cmf_routing.route_provider'
@@ -53,3 +53,7 @@ services:
         arguments:
             $mailer: '@mailer'
         public: true
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }

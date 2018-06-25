@@ -25,6 +25,7 @@ export class PageEdit extends React.Component {
   componentDidMount () {
     const { match: { params } } = this.props
     this.props.dispatch(getPage(params.pageId))
+    this.props.dispatch(getPageTranslations(params.pageId))
   }
 
   componentWillReceiveProps (nextProps) {

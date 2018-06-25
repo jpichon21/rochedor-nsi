@@ -9,28 +9,38 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\ServiceShowPage;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\PageController;
+use AppBundle\Controller\CalendarController;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\News;
 use AppBundle\Entity\Speaker;
+use AppBundle\Service\PageService;
 
 class DefaultController extends Controller
 {
+    /**
+     * @var PageService
+     */
+    private $pageService;
+
+    public function __construct(PageService $pageService)
+    {
+        $this->pageService = $pageService;
+    }
      /**
      * @Route("/", name="home", defaults={"_locale"="fr"}, requirements={"_locale" = "%locales%"})
      * @Route("/{_locale}/", name="home_locale", requirements={"_locale" = "%locales%"})
      */
-    public function indexAction(Request $request, ServiceShowPage $showPage)
+    public function indexAction(Request $request)
     {
         $locale = $this->get('translator')->getLocale();
-        $contentDocument = $showPage->getMyContent($locale);
+        $contentDocument = $this->pageService->getContent($locale);
         $news = $this->getDoctrine()->getRepository('AppBundle:News')->findCurrent($contentDocument->getLocale());
         $lastNews = array_shift($news);
         return $this->render('default/index.html.twig', array(
             'page' => $contentDocument,
-            'availableLocales' => $this->getAvailableLocales($contentDocument),
+            'availableLocales' => $this->pageService->getAvailableLocales($contentDocument),
             'lastNews' => $lastNews
         ));
     }
@@ -42,11 +52,11 @@ class DefaultController extends Controller
      * @Route("/altoparlanti", name="altoparlanti")
      * @Route("/altavoces", name="altavoces")
      */
-    public function showSpeakerAction(Request $request, ServiceShowPage $showPage)
+    public function showSpeakerAction(Request $request)
     {
         $path = $request->getPathInfo();
         $name = substr($path, 1);
-        $contentDocument = $showPage->getMyContent($name);
+        $contentDocument = $this->pageService->getContent($name);
         $speakers = $this->getDoctrine()->getRepository('AppBundle:Speaker')->findAll();
         foreach ($speakers as $speaker) {
             $localSpeaker = new Speaker;
@@ -62,26 +72,8 @@ class DefaultController extends Controller
         }
         return $this->render('default/speaker.html.twig', array(
             'page' => $contentDocument,
-            'availableLocales' => $this->getAvailableLocales($contentDocument),
+            'availableLocales' => $this->pageService->getAvailableLocales($contentDocument),
             'speakers'=> $speakers
-        ));
-    }
-
-    /**
-     * @Route("/calendrier-inscription", name="calendrier_inscription")
-     * @Route("/calendar-registration", name="calendar_registration")
-     * @Route("/kalender-registrierung", name="ralender_Registrierung")
-     * @Route("/calendario-registrazione", name="calendario_registrazione")
-     * @Route("/calendario-registro", name="calendario_registro")
-     */
-    public function calendarRegistrationAction(Request $request, ServiceShowPage $showPage)
-    {
-        $path = $request->getPathInfo();
-        $name = substr($path, 1);
-        $contentDocument = $showPage->getMyContent($name);
-        return $this->render('default/calendar-registration.html.twig', array(
-            'page' => $contentDocument,
-            'availableLocales' => $this->getAvailableLocales($contentDocument)
         ));
     }
 
@@ -97,30 +89,7 @@ class DefaultController extends Controller
     {
         return $this->render('default/page.html.twig', array(
             'page' => $contentDocument,
-            'availableLocales' => $this->getAvailableLocales($contentDocument)
+            'availableLocales' => $this->pageService->getAvailableLocales($contentDocument)
         ));
-    }
-
-    public function getAvailableLocales($contentDocument)
-    {
-        $availableLocales = array();
-        if ($contentDocument->getLocale() === "fr") {
-            $cm = $contentDocument->getChildren();
-            $myChild = $cm->getValues();
-        } else {
-            $cm = $contentDocument->getParent();
-            $mc = $cm->getChildren();
-            $myChild = $mc->getValues();
-            $tmpP = $cm->getRoutes()->getValues();
-            $availableLocales['fr'] = $tmpP[0]->getStaticPrefix();
-        }
-        foreach ($myChild as $childPage) {
-            if ($childPage->getLocale() != $contentDocument->getLocale()) {
-                $key = $childPage->getLocale();
-                $tmp = $childPage->getRoutes()->getValues();
-                $availableLocales[$key] = $tmp[0]->getStaticPrefix();
-            }
-        }
-        return $availableLocales;
     }
 }

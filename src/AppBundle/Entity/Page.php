@@ -22,13 +22,13 @@ use JMS\Serializer\Annotation\Type;
 class Page
 {
     const BACKGROUNDS = [
-        0 => 'web/assets/img/bg-fallback.jpg',
-        1 => 'web/assets/img/bg-1.jpg',
-        2 => 'web/assets/img/bg-2.jpg',
-        3 => 'web/assets/img/bg-3.jpg',
-        4 => 'web/assets/img/bg-4.jpg',
-        5 => 'web/assets/img/bg-5.jpg',
-        6 => 'web/assets/img/bg-6.jpg'
+        0 => '/assets/img/bg-fallback.jpg',
+        1 => '/assets/img/bg-1.jpg',
+        2 => '/assets/img/bg-2.jpg',
+        3 => '/assets/img/bg-3.jpg',
+        4 => '/assets/img/bg-4.jpg',
+        5 => '/assets/img/bg-5.jpg',
+        6 => '/assets/img/bg-6.jpg'
     ];
     /**
      * @var int
@@ -118,6 +118,12 @@ class Page
      * @Type("string")
      */
     private $url;
+
+    /**
+     * @var string
+     * @ORM\Column(name="immutableid", type="string", length=255)
+     */
+    private $immutableid;
 
     /**
      * @var int
@@ -454,6 +460,27 @@ class Page
     public function setTempUrl($url)
     {
         $this->url = $url;
+        return $this;
+    }
+
+    /**
+     * Get immutableid
+     *
+     * @return string
+     */
+    public function getImmutableid()
+    {
+        return $this->immutableid;
+    }
+    
+    /**
+     * Set immutableid
+     *
+     * @return $this
+     */
+    public function setImmutableid($immutableid)
+    {
+        $this->immutableid = $immutableid;
         return $this;
     }
 }

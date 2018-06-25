@@ -48,7 +48,7 @@ export class Login extends React.Component {
     return (
       <div>
         <div className={classes.container}>
-          {this.props.isLoggedIn && <Redirect to={'/page-list'} />}
+          {this.props.isLoggedIn && <Redirect to={'/content-list'} />}
           <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
           <div className={classes.container}>
             <Typography variant='display1' className={classes.title}>
@@ -62,7 +62,8 @@ export class Login extends React.Component {
                 className={classes.textfield}
                 fullWidth
                 name='username'
-                label='Identifiant'
+                label='Entrer votre Identifiant'
+                placeholder='Identifiant'
                 value={this.state.username}
                 onChange={this.handleInputChange} />
               <TextField
@@ -72,7 +73,8 @@ export class Login extends React.Component {
                 className={classes.textfield}
                 fullWidth
                 name='password'
-                label='Mot de passe'
+                label='Entrer votre mot de passe'
+                placeholder='Mot de passe'
                 value={this.state.password}
                 onChange={this.handleInputChange} />
               <Button type={'submit'} color='primary'>Connexion</Button>

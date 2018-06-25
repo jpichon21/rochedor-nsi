@@ -1,6 +1,10 @@
-{% set bodyClass = "page calendar-registration" %}
-{% set bodyBackground = page.background %}
+{% set bodyClass = "page" %}
+{% set bodyBackground = constant('AppBundle\\Entity\\Page::BACKGROUNDS')[page.background] %}
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/calendar-registration.css") }}">
+<link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/pure-css-grids.css") }}">
+{% endblock %}
 {% block content %}
 <div class="content">
     <div class="left">
@@ -8,21 +12,78 @@
             <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
             {% if page.content.intro %}
             <div class="intro">
-                {{ page.content.intro | raw }}
+                {{ 'calendar.registration.intro'|trans({'%link%': path('calendar-' ~ app.request.locale)}) | raw }}
             </div>
             {% endif %}
             <div class="dropdown">
-                <div class="item">
-                    <h2>{{ 'calendar.registration.one.title' | trans() | raw }}</h2>
-                    <p>Avez-vous déjà participé à une retraite à la Roche d'Or ou aux Fontanilles ?</p>
-                    <p>(nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</p>
+                <div class="item connection">
+                    <h2>{{ 'calendar.registration.one.title' | trans | raw }}</h2>
+                    {% if app.user %}
+                    <p>{{ 'calendar.registration.one.body.connected' | trans({ '%name%': app.user.prenom ~ ' ' ~ app.user.nom }) | raw }}</p>
+                    <div class="pure-g">
+                        <div class="pure-u-1-3">
+                            <a href="#continue" class="button continue">{{ 'form.continue' | trans | raw }}</a>
+                        </div>
+                        <div class="pure-u-1-3">
+                            <a href="#disconnect" class="button disconnect">{{ 'form.disconnect' | trans | raw }}</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p>{{ 'calendar.registration.one.body.disconnected' | trans | raw }}</p>
+                    <div class="pure-g">
+                        <div class="pure-u-4-24">
+                            <a href="#connection" class="button yes">{{ 'form.yes' | trans | raw }}</a>
+                        </div>
+                        <div class="pure-u-4-24">
+                            <a href="#registration" class="button no">{{ 'form.no' | trans | raw }}</a>
+                        </div>
+                    </div>
+                    <div class="panel connection">
+                        <h3>{{ 'calendar.registration.one.title.connection' | trans | raw }}</h3>
+                        <form class="pure-g connection">
+                            <div class="pure-u-10-24">
+                                <input autocomplete="off" class="input username" required type="text" name="username" placeholder="{{ 'form.username' | trans | raw }}">
+                            </div>
+                            <div class="pure-u-10-24">
+                                <input class="input password" required type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
+                            </div>
+                            <div class="pure-u-4-24">
+                                <input class="button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel registration">
+                        <h3>{{ 'calendar.registration.one.title.registration' | trans | raw }}</h3>
+                        <form class="pure-g you-form-render"></form>
+                    </div>
+                    {% endif %}
                 </div>
-                <div class="item">
-                    <h2>{{ 'calendar.registration.two.title' | trans() | raw }}</h2>
+                <div class="item participants">
+                    <h2>{{ 'calendar.registration.two.title' | trans | raw }}</h2>
+                    <h3>{{ 'calendar.registration.two.title.you' | trans | raw }}</h3>
+                    <div class="you-render"></div>
+                    <h3>{{ 'calendar.registration.two.title.registered' | trans | raw }}</h3>
+                    <div class="registered-render"></div>
+                    <a href="#" class="add-participant">{{ 'calendar.registration.two.add_participant' | trans | raw }}</a>
+                    <a href="#" class="validate-participants button">{{ 'calendar.registration.two.validate_participants' | trans | raw }}</a>
+                    <div class="panel you">
+                        <h3>{{ 'calendar.registration.two.title.modify.you' | trans | raw }}</h3>
+                        <form class="pure-g you-form-render"></form>
+                    </div>
+                    <div class="panel add">
+                        <h3>{{ 'calendar.registration.two.title.registration' | trans | raw }}</h3>
+                        <form class="pure-g him-form-render"></form>
+                    </div>
+                    <div class="panel modify">
+                        <h3>{{ 'calendar.registration.two.title.modify.him' | trans | raw }}</h3>
+                        <form class="pure-g him-form-render"></form>
+                    </div>
                 </div>
-                <div class="item">
-                    <h2>{{ 'calendar.registration.three.title' | trans() | raw }}</h2>
-                    {{ 'calendar.registration.three.body' | trans({'%entry_number%': 'R18-00002'}) | raw }}
+                <div class="item validation">
+                    <h2>{{ 'calendar.registration.three.title' | trans | raw }}</h2>
+                    <div class="result">
+                        {{ 'calendar.registration.three.body' | trans | raw }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -31,13 +92,231 @@
     </div>
     <div class="right">
         <div class="inner">
-            <h2>{{ 'calendar.registration.summary.title' | trans() | raw }}</h2>
-            <h3>{{ 'calendar.registration.summary.title.retreat' | trans() | raw }}</h3>
-            <h3>{{ 'calendar.registration.summary.title.participants' | trans() | raw }}</h3>
+            <h2>{{ 'calendar.registration.summary.title' | trans | raw }}</h2>
+            <h3>{{ 'calendar.registration.summary.title.retreat' | trans | raw }}</h3>
+            <p>&laquo;{{ activity.libact }}&raquo;<br>{{ 'filter.inner.date.in' | trans | raw }} {{ activity.datdeb | localizeddate('medium', 'none', app.request.locale ) }} {{ 'filter.inner.date.out' | trans | lower | raw }} {{ activity.datfin | localizeddate('medium', 'none', app.request.locale ) }} ({{ activity.sitact }})</p>
+            <h3>{{ 'calendar.registration.summary.title.participants' | trans | raw }}</h3>
+            <div class="participants-render"></div>
+            <div class="catch-message"></div>
         </div>
     </div>
 </div>
 {% endblock %}
 {% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+<script type="text/json" class="infos-json">
+    {{ activity | json_encode() | raw }}
+</script>
+<script type="text/json" class="translations-json">
+    {
+        "locale": "{{ app.request.locale }}",
+        "transport": {
+            "perso": "{{ 'form.transport.perso' | trans }}",
+            "train": "{{ 'form.transport.train' | trans }}",
+            "avion": "{{ 'form.transport.avion' | trans }}",
+            "bus": "{{ 'form.transport.bus' | trans }}"
+        },
+        "message": {
+            "verify_transport": "{{ 'form.message.verify_transport' | trans }}",
+            "parent_must_be_adult": "{{ 'form.message.parent_must_be_adult' | trans }}",
+            "must_be_a_child": "{{ 'form.message.must_be_a_child' | trans }}",
+            "date_invalid": "{{ 'form.message.date_invalid' | trans }}"
+        }
+    }
+</script>
+<script type="text/template" class="you-template">
+    <div class="you">
+        <p><%= you.prenom %> <%= you.nom %><br>
+            <%= you.adresse %> <%= you.cp %> <%= you.ville %> <%= you.pays %></p>
+        <a href="#" data-id="<%= you.codco %>" class="modify-you button">{{ 'form.modify' | trans | raw }}</a>
+        <a href="#" class="button radio hidden <%= (you.check) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
+    </div>
+</script>
+<script type="text/template" class="participants-template">
+    <% if (participants.length) { %>
+        <% for (var i = 0; i < participants.length; i++) { %>
+        <% var him = participants[i] %>
+            <div class="him">
+                <p><%= him.prenom %> <%= him.nom %><br>
+                    <%= him.adresse %> <%= him.cp %> <%= him.ville %> <%= him.pays %><br>
+                    <%= translations.transport[him.transport] %></p>
+            </div>
+        <% } %>
+    <% } else { %>
+        <p>{{ 'form.no_participants' | trans }}</p>
+    <% } %>
+</script>
+<script type="text/template" class="registered-template">
+    <% if (registered.length) { %>
+        <% for (var i = 0; i < registered.length; i++) { %>
+        <% var him = registered[i] %>
+            <div class="him">
+                <p><%= him.prenom %> <%= him.nom %><br>
+                    <%= him.adresse %> <%= him.cp %> <%= him.ville %> <%= him.pays %></p>
+                <a href="#" data-id="<%= him.codco %>" class="modify-him button">{{ 'form.modify' | trans | raw }}</a>
+                <a href="#" data-id="<%= him.codco %>" class="participate-him button radio <%= (him.check) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
+            </div>
+        <% } %>
+    <% } else { %>
+        <p>{{ 'form.no_participants' | trans }}</p>
+    <% } %>
+</script>
+<script type="text/template" class="you-form-template">
+    <input type="hidden" value="<%= participant.codco %>" name="codco">
+    <input type="hidden" value=<%= participant.check %> name="check">
+    <div class="pure-u-1-3">
+        <select class="select civil" required name="civil">
+            <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
+            <option <%= (participant.civil == 'M.') ? 'selected' : '' %> value="M.">M.</option>
+            <option <%= (participant.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
+            <option <%= (participant.civil == 'Mlle') ? 'selected' : '' %> value="Mlle">Mlle</option>
+            <option <%= (participant.civil == 'Père') ? 'selected' : '' %> value="Père">Père</option>
+            <option <%= (participant.civil == 'Frère') ? 'selected' : '' %> value="Frère">Frère</option>
+            <option <%= (participant.civil == 'Soeur') ? 'selected' : '' %> value="Soeur">Soeur</option>
+        </select>
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input prenom" required type="text" value="<%= participant.prenom %>" name="prenom" placeholder="{{ 'form.surname' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input nom" required type="text" value="<%= participant.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
+    </div>
+    <div class="pure-u-1">
+        <textarea class="textarea adresse" required name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= participant.adresse %></textarea>
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input cp" required type="text" value="<%= participant.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input ville" required type="text" value="<%= participant.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input pays" type="text" value="<%= participant.pays %>" name="pays" placeholder="{{ 'form.country' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input class="input tel" type="text" value="<%= participant.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input class="input mobil" type="text" value="<%= participant.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input autocomplete="off" class="input email" required type="email" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input class="input password" required type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input class="input datnaiss" required type="text" value="<%= (participant.datnaiss !== '') ? moment(participant.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
+    </div>
+    <div class="pure-u-1 notAtThisMoment">
+        <select class="select transport" name="transport">
+            <option <%= (participant.transport == '') ? 'selected' : '' %> disabled value="">{{ 'form.transport' | trans | raw }}</option>
+            <option <%= (participant.transport == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
+            <option <%= (participant.transport == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
+            <option <%= (participant.transport == 'avion') ? 'selected' : '' %> value="avion">{{ 'form.transport.avion' | trans | raw }}</option>
+            <option <%= (participant.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
+        </select>
+    </div>
+    <div class="pure-u-1 notAtThisMoment">
+        <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= participant.memo %></textarea>
+    </div>
+    <div class="pure-u-4-24">
+        <input class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
+    </div>
+    <div class="pure-u-20-24">
+        <div class="catch-message"></div>
+    </div>
+</script>
+<script type="text/template" class="him-form-template">
+    <input type="hidden" value="<%= participant.codco %>" name="codco">
+    <input type="hidden" value=<%= participant.check %> name="check">
+    <div class="pure-u-1-2">
+        <select class="select coltyp" required name="coltyp">
+            <option <%= (participant.coltyp == '') ? 'selected' : '' %> disabled value="">{{ 'form.relation' | trans | raw }}</option>
+            <option <%= (participant.coltyp == 'accom') ? 'selected' : '' %> value="accom">Vient avec</option>
+            <option <%= (participant.coltyp == 'conjo') ? 'selected' : '' %> value="conjo">Conjoint</option>
+            <option <%= (participant.coltyp == 'enfan') ? 'selected' : '' %> value="enfan">Enfant de</option>
+        </select>
+    </div>
+    <div class="pure-u-1-2">
+        <select class="select colp" required name="colp">
+            <option <%= (participant.colp == '') ? 'selected' : '' %> disabled value="">{{ 'form.colp' | trans | raw }}</option>
+            <option <%= (participant.colp == you.codco) ? 'selected' : '' %> value="<%= you.codco %>"><%= you.prenom + ' ' + you.nom %></option>
+            <% for (var i = 0; i < registered.length; i++) { %>
+                <% var him = registered[i] %>
+                <% if (participant.codco != him.codco) { %>
+                <option <%= (participant.colp == him.codco) ? 'selected' : '' %> value="<%= him.codco %>"><%= him.prenom + ' ' + him.nom %></option>
+                <% } %>
+            <% } %>
+        </select>
+    </div>
+    <div class="pure-u-1-3">
+        <select class="select civil" required name="civil">
+            <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
+            <option <%= (participant.civil == 'M.') ? 'selected' : '' %> value="M.">M.</option>
+            <option <%= (participant.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
+            <option <%= (participant.civil == 'Mlle') ? 'selected' : '' %> value="Mlle">Mlle</option>
+            <option <%= (participant.civil == 'Père') ? 'selected' : '' %> value="Père">Père</option>
+            <option <%= (participant.civil == 'Frère') ? 'selected' : '' %> value="Frère">Frère</option>
+            <option <%= (participant.civil == 'Soeur') ? 'selected' : '' %> value="Soeur">Soeur</option>
+        </select>
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input prenom" required type="text" value="<%= participant.prenom %>" name="prenom" placeholder="{{ 'form.surname' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input nom" required type="text" value="<%= participant.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
+    </div>
+    <div class="pure-u-1">
+        <textarea class="textarea adresse" required name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= participant.adresse %></textarea>
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input cp" required type="text" value="<%= participant.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input ville" required type="text" value="<%= participant.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input pays" type="text" value="<%= participant.pays %>" name="pays" placeholder="{{ 'form.country' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input tel" type="text" value="<%= participant.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input mobil" type="text" value="<%= participant.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input autocomplete="off" class="input email" type="email" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input class="input datnaiss" required type="text" value="<%= (participant.datnaiss !== '') ? moment(participant.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
+    </div>
+    <div class="pure-u-1">
+        <select class="select transport" required name="transport" "<%= participant.transport %>">
+            <option <%= (participant.transport == '') ? 'selected' : '' %> disabled value="">{{ 'form.transport' | trans | raw }}</option>
+            <option <%= (participant.transport == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
+            <option <%= (participant.transport == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
+            <option <%= (participant.transport == 'avion') ? 'selected' : '' %> value="avion">{{ 'form.transport.avion' | trans | raw }}</option>
+            <option <%= (participant.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
+            <option <%= (participant.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
+        </select>
+    </div>
+    <div class="pure-u-1">
+        <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= participant.memo %></textarea>
+    </div>
+    <div class="pure-u-4-24">
+        <input class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
+    </div>
+    <div class="pure-u-20-24">
+        <div class="catch-message"></div>
+    </div>
+</script>
 <script src="{{ asset("assets/js/calendar-registration.js") }}"></script>
 {% endblock %}

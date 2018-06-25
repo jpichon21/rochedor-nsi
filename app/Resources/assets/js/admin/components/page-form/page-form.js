@@ -5,9 +5,8 @@ import { connect } from 'react-redux'
 import { Editor } from 'react-draft-wysiwyg'
 import immutable from 'object-path-immutable'
 import draftToHtml from 'draftjs-to-html'
-import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
+import { SortableContainer, SortableElement, arrayMove, SortableHandle } from 'react-sortable-hoc'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import WrapTextIcon from '@material-ui/icons/WrapText'
 import SaveIcon from '@material-ui/icons/Save'
 import OnDemandVideoIcon from '@material-ui/icons/OndemandVideo'
 import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual'
@@ -18,7 +17,6 @@ import CustomOption from './CustomOption'
 import { uploadFile } from '../../actions'
 import moment from 'moment'
 import {
-  CompositeDecorator,
   Entity,
   RichUtils,
   EditorState,
@@ -52,16 +50,25 @@ import {
   DialogTitle,
   FormControl,
   InputLabel,
+  Tooltip,
   Icon
 } from '@material-ui/core'
 
+const DragHandle = SortableHandle(() => <Icon style={{ 'cursor': 'move' }}>sort</Icon>)
 const SortableItem = SortableElement(({ section, indexSection, state, classes, context }) =>
   <ExpansionPanel key={indexSection} className={classes.expansion}>
     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-      <Typography>
+      <DragHandle />
+      &nbsp; &nbsp; &nbsp;
+      <Typography className={classes.heading}>
+        {
+          'Volet n°' + (indexSection + 1)
+        }
+      </Typography>
+      <Typography className={classes.secondaryHeading}>
         {
           section.title === ''
-            ? 'Volet ' + (indexSection + 1)
+            ? 'Sans titre'
             : section.title
         }
       </Typography>
@@ -69,18 +76,29 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
     <ExpansionPanelDetails className={classes.details}>
       <Grid container spacing={32}>
         <Grid item xs={6}>
-          <TextField
-            required
-            autoComplete='off'
-            InputLabelProps={{shrink: true}}
-            className={classes.textfield}
-            fullWidth
-            multiline
-            name={`page.content.sections.${indexSection}.title`}
-            label='Titre'
-            value={section.title}
-            onChange={context.handleInputChange} />
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={300}
+            placement='bottom'
+            title='Renseigner le titre du volet'
+          >
+            <TextField
+              required
+              autoComplete='off'
+              InputLabelProps={{shrink: true}}
+              className={classes.textfield}
+              fullWidth
+              multiline
+              name={`page.content.sections.${indexSection}.title`}
+              label='Titre'
+              value={section.title}
+              onChange={context.handleInputChange} />
+          </Tooltip>
           <Editor
+            stripPastedStyles
+            spellCheck
+            localization={{locale: 'fr'}}
             editorState={context.state.page.content.sections[indexSection].bodyRaw}
             onEditorStateChange={editorState => context.handleChangeTextArea(editorState, indexSection)}
             toolbarCustomButtons={[<CustomOption addDocument={event => { context.handleChangeDocumentUpload(event, indexSection) }} />]}
@@ -108,12 +126,13 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
           <Tabs
             value={context.state.indexTabs[indexSection]}
             onChange={(event, value) => context.handleChangeTabs(value, indexSection)}
+            scrollable
+            scrollButtons='auto'
             indicatorColor='primary'
-            textColor='primary'
-            centered>
+            textColor='primary'>
             {
               section.slides.map((slide, indexSlide) => (
-                <Tab key={indexSlide} label={`Slide ${indexSlide + 1}`} />
+                <Tab key={indexSlide} label={`Assemblage ${indexSlide + 1}`} />
               ))
             }
           </Tabs>
@@ -136,31 +155,55 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                                 ? <CircularProgress />
                                 : (
                                   <div>
-                                    <IconButton
-                                      color={slide.images[tile.id].url === '' ? 'primary' : 'secondary'}>
-                                      <PhotoSizeSelectActualIcon />
-                                      <input
-                                        type='file'
-                                        className={classes.inputfile}
-                                        onChange={event => { context.handleChangeImageUpload(event, indexSection, indexSlide, indexImage) }} />
-                                    </IconButton>
-                                    <IconButton
-                                      color={slide.images[tile.id].video === '' ? 'primary' : 'secondary'}
-                                      onClick={event => { context.handleOpenPopover(event, `${indexSection}-${indexSlide}-${indexImage}`) }}>
-                                      <OnDemandVideoIcon />
-                                    </IconButton>
+                                    <Tooltip
+                                      enterDelay={300}
+                                      id='tooltip-controlled'
+                                      leaveDelay={300}
+                                      placement='bottom'
+                                      title='Sélectionner une image'
+                                    >
+                                      <IconButton
+                                        color={slide.images[tile.id].url === '' ? 'primary' : 'secondary'}>
+                                        <PhotoSizeSelectActualIcon />
+                                        <input
+                                          type='file'
+                                          className={classes.inputfile}
+                                          onChange={event => { context.handleChangeImageUpload(event, indexSection, indexSlide, indexImage) }} />
+                                      </IconButton>
+                                    </Tooltip>
+                                    <Tooltip
+                                      enterDelay={300}
+                                      id='tooltip-controlled'
+                                      leaveDelay={300}
+                                      placement='bottom'
+                                      title='Sélectionner une vidéo'
+                                    >
+                                      <IconButton
+                                        color={slide.images[tile.id].video === '' ? 'primary' : 'secondary'}
+                                        onClick={event => { context.handleOpenPopover(event, `${indexSection}-${indexSlide}-${indexImage}`) }}>
+                                        <OnDemandVideoIcon />
+                                      </IconButton>
+                                    </Tooltip>
                                     <Popover
                                       open={context.state.popoverOpened === `${indexSection}-${indexSlide}-${indexImage}`}
                                       anchorEl={context.state.anchorPopover}
                                       onClose={context.handleClosePopover}>
-                                      <TextField
-                                        className={classes.popover}
-                                        autoComplete='off'
-                                        InputLabelProps={{shrink: true}}
-                                        name='page.title'
-                                        label='URL Vidéo'
-                                        value={context.state.page.content.sections[indexSection].slides[indexSlide].images[indexImage].video}
-                                        onChange={(event) => { context.handleChangePopover(event, indexSection, indexSlide, indexImage) }} />
+                                      <Tooltip
+                                        enterDelay={300}
+                                        id='tooltip-controlled'
+                                        leaveDelay={300}
+                                        placement='bottom'
+                                        title="Renseigner l'url de la vidéo choisie"
+                                      >
+                                        <TextField
+                                          className={classes.popover}
+                                          autoComplete='off'
+                                          InputLabelProps={{shrink: true}}
+                                          name='page.title'
+                                          label='URL Vidéo'
+                                          value={context.state.page.content.sections[indexSection].slides[indexSlide].images[indexImage].video}
+                                          onChange={(event) => { context.handleChangePopover(event, indexSection, indexSlide, indexImage) }} />
+                                      </Tooltip>
                                     </Popover>
                                   </div>
                                 )
@@ -175,26 +218,50 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
             ))
           }
           <div className={classes.options}>
-            <Button
-              variant='outlined'
-              onClick={event => { context.handleOpenLayoutMenu(event, indexSection) }}
-              className={classes.option}>
-          Disposition
-            </Button>
-            <Button
-              variant='outlined'
-              onClick={() => { context.handleDeleteSlide(indexSection) }}
-              disabled={section.slides.length === 1}
-              className={classes.option}>
-          Supprimer
-            </Button>
-            <Button
-              variant='outlined'
-              onClick={() => { context.handleAddSlide(indexSection) }}
-              color='primary'
-              className={classes.option}>
+            <Tooltip
+              enterDelay={300}
+              id='tooltip-controlled'
+              leaveDelay={300}
+              placement='bottom'
+              title="Choisir la disposition de l'assemblage d'images"
+            >
+              <Button
+                variant='outlined'
+                onClick={event => { context.handleOpenLayoutMenu(event, indexSection) }}
+                className={classes.option}>
+                Disposition
+              </Button>
+            </Tooltip>
+            <Tooltip
+              enterDelay={300}
+              id='tooltip-controlled'
+              leaveDelay={300}
+              placement='bottom'
+              title="Suprimer l'assemblage d'images séléctionné"
+            >
+              <Button
+                variant='outlined'
+                onClick={() => { context.handleDeleteSlide(indexSection) }}
+                disabled={section.slides.length === 1}
+                className={classes.option}>
+                Supprimer
+              </Button>
+            </Tooltip>
+            <Tooltip
+              enterDelay={300}
+              id='tooltip-controlled'
+              leaveDelay={300}
+              placement='bottom'
+              title="Ajouter un assemblage d'images"
+            >
+              <Button
+                variant='outlined'
+                onClick={() => { context.handleAddSlide(indexSection) }}
+                color='primary'
+                className={classes.option}>
           Ajouter
-            </Button>
+              </Button>
+            </Tooltip>
           </div>
           <Menu
             anchorEl={context.state.anchorMenuLayout}
@@ -212,11 +279,19 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
     </ExpansionPanelDetails>
     <Divider />
     <ExpansionPanelActions>
-      <Button
-        onClick={() => { context.handleDeleteSection(indexSection) }}
-        disabled={context.state.page.content.sections.length === 1}>
-    Supprimer
-      </Button>
+      <Tooltip
+        enterDelay={300}
+        id='tooltip-controlled'
+        leaveDelay={300}
+        placement='bottom'
+        title='Supprimer le volet'
+      >
+        <Button
+          onClick={() => { context.handleDeleteSection(indexSection) }}
+          disabled={context.state.page.content.sections.length === 1}>
+          Supprimer
+        </Button>
+      </Tooltip>
     </ExpansionPanelActions>
   </ExpansionPanel>
 )
@@ -576,12 +651,11 @@ export class PageForm extends React.Component {
 
   render () {
     const { classes } = this.props
-    const { anchorMenuLayout } = this.state
     const versions = this.props.versions
     const parents = (this.props.parents.length > 0)
       ? this.props.parents.map((p, k) => {
         return (
-          <MenuItem value={k} key={k}>{p.title}</MenuItem>
+          <MenuItem value={k} key={k}>{p.title} {p.sub_title}</MenuItem>
         )
       })
       : null
@@ -591,53 +665,97 @@ export class PageForm extends React.Component {
           SEO
         </Typography>
         <form className={classes.form}>
-          <TextField
-            required
-            autoComplete='off'
-            InputLabelProps={{shrink: true}}
-            className={classes.textfield}
-            fullWidth
-            name='page.title'
-            label='Titre ligne 1'
-            value={this.state.page.title}
-            onChange={this.handleInputChange} />
-          <TextField
-            required
-            autoComplete='off'
-            InputLabelProps={{shrink: true}}
-            className={classes.textfield}
-            fullWidth
-            name='page.sub_title'
-            label='Titre ligne 2'
-            value={this.state.page.sub_title}
-            onChange={this.handleInputChange} />
-          <TextField
-            required
-            autoComplete='off'
-            InputLabelProps={{shrink: true}}
-            className={classes.textfield}
-            fullWidth
-            name='page.url'
-            label='Url'
-            value={this.state.page.url}
-            onChange={this.handleInputChange}
-            onKeyPress={this.handleInputFilter} />
-          <TextField
-            required
-            autoComplete='off'
-            InputLabelProps={{shrink: true}}
-            className={classes.textfield}
-            fullWidth
-            multiline
-            name='page.description'
-            label='Meta-description'
-            value={this.state.page.description}
-            onChange={this.handleInputChange} />
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={100}
+            onClose={this.handleTooltipClose}
+            onOpen={this.handleTooltipOpen}
+            open={this.state.open}
+            placement='bottom'
+            title='Renseigner le Titre 1 de la page'
+          >
+            <TextField
+              required
+              autoComplete='off'
+              InputLabelProps={{shrink: true}}
+              className={classes.textfield}
+              fullWidth
+              name='page.title'
+              label='Titre ligne 1'
+              value={this.state.page.title}
+              onChange={this.handleInputChange} />
+          </Tooltip>
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={100}
+            onClose={this.handleTooltipClose}
+            onOpen={this.handleTooltipOpen}
+            open={this.state.open}
+            placement='bottom'
+            title='Renseigner le Titre 2 de la page'
+          >
+            <TextField
+              required
+              autoComplete='off'
+              InputLabelProps={{shrink: true}}
+              className={classes.textfield}
+              fullWidth
+              name='page.sub_title'
+              label='Titre ligne 2'
+              value={this.state.page.sub_title}
+              onChange={this.handleInputChange} />
+          </Tooltip>
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={100}
+            onClose={this.handleTooltipClose}
+            onOpen={this.handleTooltipOpen}
+            open={this.state.open}
+            placement='bottom'
+            title="Renseigner l'url de la page"
+          >
+            <TextField
+              required
+              autoComplete='off'
+              InputLabelProps={{shrink: true}}
+              className={classes.textfield}
+              fullWidth
+              name='page.url'
+              label='Url'
+              value={this.state.page.url}
+              onChange={this.handleInputChange}
+              onKeyPress={this.handleInputFilter} />
+          </Tooltip>
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={100}
+            onClose={this.handleTooltipClose}
+            onOpen={this.handleTooltipOpen}
+            open={this.state.open}
+            placement='bottom'
+            title='Renseigner les méta-description de votre page'
+          >
+            <TextField
+              required
+              autoComplete='off'
+              InputLabelProps={{shrink: true}}
+              className={classes.textfield}
+              fullWidth
+              multiline
+              name='page.description'
+              label='Meta-description'
+              value={this.state.page.description}
+              onChange={this.handleInputChange} />
+          </Tooltip>
           {
             !this.props.edit &&
             this.props.parents.length > 0 &&
             this.state.page.locale !== 'fr' &&
-            <FormControl style={{minWidth: 200}}>
+            <FormControl style={{ minWidth: 200 }}>
               <InputLabel htmlFor={'parent'} shrink>Page parente</InputLabel>
               <Select
                 id={'parent'}
@@ -658,34 +776,56 @@ export class PageForm extends React.Component {
           Contenu
         </Typography>
         <form className={classes.form}>
-          <TextField
-            autoComplete='off'
-            InputLabelProps={{shrink: true}}
-            className={classes.textfield}
-            fullWidth
-            multiline
-            name='page.content.intro'
-            label='Introduction'
-            value={this.state.page.content.intro}
-            onChange={this.handleInputChange} />
-          <SortableList distance={50} items={this.state.page.content.sections} onSortEnd={this.handleSortSections} context={this} classes={classes} state={this.state} />
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={100}
+            onClose={this.handleTooltipClose}
+            onOpen={this.handleTooltipOpen}
+            open={this.state.open}
+            placement='bottom'
+            title="Renseigner l'introduction de votre page"
+          >
+            <TextField
+              autoComplete='off'
+              InputLabelProps={{shrink: true}}
+              className={classes.textfield}
+              fullWidth
+              multiline
+              name='page.content.intro'
+              label='Introduction'
+              value={this.state.page.content.intro}
+              onChange={this.handleInputChange} />
+          </Tooltip>
+          <SortableList distance={50} items={this.state.page.content.sections} onSortEnd={this.handleSortSections} context={this} classes={classes} state={this.state} useDragHandle />
         </form>
         <div className={classes.buttons}>
           {
             this.props.edit &&
             (
               <Fragment>
-                <Button
-                  className={classes.button}
-                  variant='fab'
-                  color='primary'
-                  aria-label='More'
-                  aria-owns={this.state.anchorVersion ? 'long-menu' : null}
-                  aria-haspopup='true'
-                  onClick={this.handleVersionOpen}
+                <Tooltip
+                  enterDelay={300}
+                  id='tooltip-controlled'
+                  leaveDelay={300}
+                  onClose={this.handleTooltipClose}
+                  onOpen={this.handleTooltipOpen}
+                  open={this.state.open}
+                  placement='bottom'
+                  title='Historique des versions'
                 >
-                  <Icon>history</Icon>
-                </Button>
+                  <Button
+                    className={classes.button}
+                    variant='fab'
+                    color='primary'
+                    aria-label='More'
+                    aria-owns={this.state.anchorVersion ? 'long-menu' : null}
+                    aria-haspopup='true'
+                    onClick={this.handleVersionOpen}
+                  >
+                    <Icon>history</Icon>
+                  </Button>
+                </Tooltip>
                 <Menu
                   id='long-menu'
                   anchorEl={this.state.anchorVersion}
@@ -710,16 +850,37 @@ export class PageForm extends React.Component {
 
             )
           }
-          <Button
-            onClick={this.handleAddSection}
-            className={classes.button}
-            variant='fab'
-            color='primary'>
-            <WrapTextIcon />
-          </Button>
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={300}
+            onClose={this.handleTooltipClose}
+            onOpen={this.handleTooltipOpen}
+            open={this.state.open}
+            placement='bottom'
+            title='Ajouter un volet'
+          >
+            <Button
+              onClick={this.handleAddSection}
+              className={classes.button}
+              variant='fab'
+              color='primary'>
+              <Icon>playlist_add</Icon>
+            </Button>
+          </Tooltip>
           {
             this.props.edit &&
-              <div>
+            <div>
+              <Tooltip
+                enterDelay={300}
+                id='tooltip-controlled'
+                leaveDelay={300}
+                onClose={this.handleTooltipClose}
+                onOpen={this.handleTooltipOpen}
+                open={this.state.open}
+                placement='bottom'
+                title='Supprimer la page'
+              >
                 <Button
                   onClick={this.handleDelete}
                   className={classes.button}
@@ -727,34 +888,46 @@ export class PageForm extends React.Component {
                   color='secondary'>
                   <DeleteIcon />
                 </Button>
-                <Dialog
-                  open={this.state.showDeleteAlert}
-                  onClose={this.handleDeleteClose}
-                  aria-labelledby='alert-dialog-title'
-                  aria-describedby='alert-dialog-description'>
-                  <DialogTitle id='alert-dialog-title'>
-                    {'Êtes-vous sure?'}
-                  </DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id='alert-dialog-description'>
+              </Tooltip>
+              <Dialog
+                open={this.state.showDeleteAlert}
+                onClose={this.handleDeleteClose}
+                aria-labelledby='alert-dialog-title'
+                aria-describedby='alert-dialog-description'>
+                <DialogTitle id='alert-dialog-title'>
+                  {'Êtes-vous sure?'}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id='alert-dialog-description'>
                       Cette action est irréversible, souhaitez-vous continuer?
-                    </DialogContentText>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={this.handleDeleteConfirm} color='secondary' autoFocus>Oui</Button>
-                    <Button onClick={this.handleDeleteClose} color='primary' autoFocus>Annuler</Button>
-                  </DialogActions>
-                </Dialog>
-              </div>
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={this.handleDeleteConfirm} color='secondary' autoFocus>Oui</Button>
+                  <Button onClick={this.handleDeleteClose} color='primary' autoFocus>Annuler</Button>
+                </DialogActions>
+              </Dialog>
+            </div>
           }
-          <Button
-            disabled={!this.isSubmitEnabled()}
-            onClick={this.handleSubmit}
-            className={classes.button}
-            variant='fab'
-            color='secondary'>
-            <SaveIcon />
-          </Button>
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={300}
+            onClose={this.handleTooltipClose}
+            onOpen={this.handleTooltipOpen}
+            open={this.state.open}
+            placement='bottom'
+            title='Sauvegarder'
+          >
+            <Button
+              disabled={!this.isSubmitEnabled()}
+              onClick={this.handleSubmit}
+              className={classes.button}
+              variant='fab'
+              color='primary'>
+              <SaveIcon />
+            </Button>
+          </Tooltip>
         </div>
       </div>
     )
@@ -799,6 +972,16 @@ const styles = theme => ({
   },
   popover: {
     margin: theme.myMarge
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(12),
+    fontStyle: 'italic',
+    color: theme.palette.text.secondary,
+    flexBasis: '75px'
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexShrink: 0
   }
 })
 
@@ -811,35 +994,6 @@ const mapStateToProps = state => {
     uploadStatus: state.uploadStatus
   }
 }
-
-function findLinkEntities (contentBlock, callback) {
-  contentBlock.findEntityRanges(
-    (character) => {
-      const entityKey = character.getEntity()
-      return (
-        entityKey !== null &&
-        Entity.get(entityKey).getType() === 'LINK'
-      )
-    },
-    callback
-  )
-}
-
-const Link = (props) => {
-  const { url } = Entity.get(props.entityKey).getData()
-  return (
-    <a href={url} style={styles.link}>
-      {props.children}
-    </a>
-  )
-}
-
-const decorator = new CompositeDecorator([
-  {
-    strategy: findLinkEntities,
-    component: Link
-  }
-])
 
 PageForm.propTypes = {
   classes: PropTypes.object.isRequired

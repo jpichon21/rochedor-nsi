@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import immutable from 'object-path-immutable'
 import moment from 'moment'
-import { Menu, MenuItem, TextField, Button, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Icon, CircularProgress, IconButton } from '@material-ui/core'
+import { Menu, MenuItem, TextField, Button, Tooltip, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Icon, CircularProgress, IconButton } from '@material-ui/core'
 import SaveIcon from '@material-ui/icons/Save'
 import DeleteIcon from '@material-ui/icons/Delete'
 import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual'
@@ -153,37 +153,70 @@ export class SpeakerForm extends React.Component {
         <form className={classes.form}>
           <Grid container spacing={32}>
             <Grid item xs={6}>
-              <TextField
-                required
-                autoComplete='off'
-                InputLabelProps={{ shrink: true }}
-                className={classes.textfield}
-                fullWidth
-                name='speaker.name'
-                label='Nom'
-                value={this.state.speaker.name}
-                onChange={this.handleInputChange} />
-              <TextField
-                autoComplete='off'
-                InputLabelProps={{ shrink: true }}
-                className={classes.textfield}
-                fullWidth
-                name={`speaker.title.${this.props.locale}`}
-                label='Titre'
-                value={this.state.speaker.title[this.props.locale]}
-                onChange={this.handleInputChange} />
-              <TextField
-                autoComplete='off'
-                InputLabelProps={{ shrink: true }}
-                className={classes.textfield}
-                fullWidth
-                multiline
-                rows='4'
-                name={`speaker.description.${this.props.locale}`}
-                label='Description'
-                value={this.state.speaker.description[this.props.locale]}
-                onChange={this.handleInputChange}
-                onKeyPress={this.handleInputFilter} />
+              <Tooltip
+                enterDelay={300}
+                id='tooltip-controlled'
+                leaveDelay={100}
+                onClose={this.handleTooltipClose}
+                onOpen={this.handleTooltipOpen}
+                open={this.state.open}
+                placement='bottom'
+                title="Renseigner le nom de l'intervenant"
+              >
+                <TextField
+                  required
+                  autoComplete='off'
+                  InputLabelProps={{ shrink: true }}
+                  className={classes.textfield}
+                  fullWidth
+                  name='speaker.name'
+                  label='Nom'
+                  value={this.state.speaker.name}
+                  onChange={this.handleInputChange} />
+              </Tooltip>
+              <Tooltip
+                enterDelay={300}
+                id='tooltip-controlled'
+                leaveDelay={100}
+                onClose={this.handleTooltipClose}
+                onOpen={this.handleTooltipOpen}
+                open={this.state.open}
+                placement='bottom'
+                title="Renseigner le titre de l'intervenant"
+              >
+                <TextField
+                  autoComplete='off'
+                  InputLabelProps={{ shrink: true }}
+                  className={classes.textfield}
+                  fullWidth
+                  name={`speaker.title.${this.props.locale}`}
+                  label='Titre'
+                  value={this.state.speaker.title[this.props.locale]}
+                  onChange={this.handleInputChange} />
+              </Tooltip>
+              <Tooltip
+                enterDelay={300}
+                id='tooltip-controlled'
+                leaveDelay={100}
+                onClose={this.handleTooltipClose}
+                onOpen={this.handleTooltipOpen}
+                open={this.state.open}
+                placement='bottom'
+                title="Renseigner la description de l'intervenant"
+              >
+                <TextField
+                  autoComplete='off'
+                  InputLabelProps={{ shrink: true }}
+                  className={classes.textfield}
+                  fullWidth
+                  multiline
+                  rows='4'
+                  name={`speaker.description.${this.props.locale}`}
+                  label='Description'
+                  value={this.state.speaker.description[this.props.locale]}
+                  onChange={this.handleInputChange}
+                  onKeyPress={this.handleInputFilter} />
+              </Tooltip>
             </Grid>
             <Grid item xs={6}>
               <div className={classes.tile} style={{backgroundImage: `url('${this.state.speaker.image}')`}}>
@@ -195,10 +228,21 @@ export class SpeakerForm extends React.Component {
                         <IconButton
                           color='primary'>
                           <PhotoSizeSelectActualIcon />
-                          <input
-                            type='file'
-                            className={classes.inputfile}
-                            onChange={this.handleChangeFileUpload} />
+                          <Tooltip
+                            enterDelay={300}
+                            id='tooltip-controlled'
+                            leaveDelay={100}
+                            onClose={this.handleTooltipClose}
+                            onOpen={this.handleTooltipOpen}
+                            open={this.state.open}
+                            placement='bottom'
+                            title='Assigner une image'
+                          >
+                            <input
+                              type='file'
+                              className={classes.inputfile}
+                              onChange={this.handleChangeFileUpload} />
+                          </Tooltip>
                         </IconButton>
                       </div>
                     )
@@ -213,17 +257,28 @@ export class SpeakerForm extends React.Component {
             this.props.edit &&
             (
               <Fragment>
-                <Button
-                  className={classes.button}
-                  variant='fab'
-                  color='primary'
-                  aria-label='More'
-                  aria-owns={this.state.anchorVersion ? 'long-menu' : null}
-                  aria-haspopup='true'
-                  onClick={this.handleVersionOpen}
+                <Tooltip
+                  enterDelay={300}
+                  id='tooltip-controlled'
+                  leaveDelay={300}
+                  onClose={this.handleTooltipClose}
+                  onOpen={this.handleTooltipOpen}
+                  open={this.state.open}
+                  placement='bottom'
+                  title='Historique'
                 >
-                  <Icon>history</Icon>
-                </Button>
+                  <Button
+                    className={classes.button}
+                    variant='fab'
+                    color='primary'
+                    aria-label='More'
+                    aria-owns={this.state.anchorVersion ? 'long-menu' : null}
+                    aria-haspopup='true'
+                    onClick={this.handleVersionOpen}
+                  >
+                    <Icon>history</Icon>
+                  </Button>
+                </Tooltip>
                 <Menu
                   id='long-menu'
                   anchorEl={this.state.anchorVersion}
@@ -251,13 +306,24 @@ export class SpeakerForm extends React.Component {
             (this.props.edit)
               ? (
                 <div>
-                  <Button
-                    onClick={this.handleDelete}
-                    className={classes.button}
-                    variant='fab'
-                    color='secondary'>
-                    <DeleteIcon />
-                  </Button>
+                  <Tooltip
+                    enterDelay={300}
+                    id='tooltip-controlled'
+                    leaveDelay={300}
+                    onClose={this.handleTooltipClose}
+                    onOpen={this.handleTooltipOpen}
+                    open={this.state.open}
+                    placement='bottom'
+                    title='Supprimer'
+                  >
+                    <Button
+                      onClick={this.handleDelete}
+                      className={classes.button}
+                      variant='fab'
+                      color='secondary'>
+                      <DeleteIcon />
+                    </Button>
+                  </Tooltip>
                   <Dialog
                     open={this.state.showDeleteAlert}
                     onClose={this.handleDeleteClose}
@@ -282,15 +348,25 @@ export class SpeakerForm extends React.Component {
                 ''
               )
           }
-
-          <Button
-            disabled={!this.isSubmitEnabled()}
-            onClick={this.handleSubmit}
-            className={classes.button}
-            variant='fab'
-            color='secondary'>
-            <SaveIcon />
-          </Button>
+          <Tooltip
+            enterDelay={300}
+            id='tooltip-controlled'
+            leaveDelay={300}
+            onClose={this.handleTooltipClose}
+            onOpen={this.handleTooltipOpen}
+            open={this.state.open}
+            placement='bottom'
+            title='Sauvegarder'
+          >
+            <Button
+              disabled={!this.isSubmitEnabled()}
+              onClick={this.handleSubmit}
+              className={classes.button}
+              variant='fab'
+              color='primary'>
+              <SaveIcon />
+            </Button>
+          </Tooltip>
         </div>
         <Alert open={this.state.alertOpen} content={this.state.status} onClose={this.handleClose} />
       </div>
@@ -334,7 +410,7 @@ const styles = theme => ({
     height: '100%',
     cursor: 'pointer',
     opacity: 0
-  },
+  }
 
 })
 
