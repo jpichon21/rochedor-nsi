@@ -23,7 +23,7 @@ use AppBundle\Repository\ProductRepository;
 use AppBundle\Entity\Cartline;
 
 /**
- * @Route("{_locale}/cart")
+ * @Route("{_locale}")
  */
 class CartController extends Controller
 {
@@ -60,7 +60,7 @@ class CartController extends Controller
     }
 
     /**
-     * @Route("/add/{productId}", name="cart-add", methods={"GET"}, requirements={"productId"="\d+"})
+     * @Route("/cart/add/{productId}", name="cart-add", methods={"GET"}, requirements={"productId"="\d+"})
      */
     public function addAction($productId, Request $request)
     {
@@ -82,6 +82,34 @@ class CartController extends Controller
         $session->set('cart', $cart->getId());
         $session->getFlashBag()->add('info', 'cart.product.added');
         return $this->redirectToRoute('collection-fr', ['id' => $productId]);
+    }
+
+    /**
+     * @Route("/cart/remove/{cartLine}", name="cart-remove", methods={"GET"}, requirements={"cartline"="\d+"})
+     */
+    public function removeAction(CartLine $cartLine, Request $request)
+    {
+        $cartLine->setCart(null);
+        $this->em->persist($cartLine);
+        $this->em->flush();
+        $session = new Session();
+        $session->getFlashBag()->add('info', 'cart.product.removed');
+        return $this->redirectToRoute('cart-'.$request->getLocale());
+    }
+
+    /**
+     * @Route("/panier", name="cart-fr")
+     * @Route("/cart", name="cart-en")
+     * @Route("/wagen", name="cart-de")
+     * @Route("/carro", name="cart-es")
+     * @Route("/carello", name="cart-it")
+     */
+    public function showAction(Request $request)
+    {
+        $session = new Session();
+        $cartId = $session->get('cart');
+        $cart = $this->cartRepository->find($cartId);
+        return $this->render('cart/show.html.twig', ['cart' => $cart]);
     }
 
     /**
