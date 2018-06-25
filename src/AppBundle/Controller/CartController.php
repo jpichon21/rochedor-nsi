@@ -80,9 +80,10 @@ class CartController extends Controller
         $this->em->persist($cartLine);
         $this->em->flush();
         $session->set('cart', $cart->getId());
+        $session->getFlashBag()->add('info', 'cart.product.added');
         return $this->redirectToRoute('collection-fr', ['id' => $productId]);
     }
-    
+
     /**
      * Add a product to the Cart
      *
