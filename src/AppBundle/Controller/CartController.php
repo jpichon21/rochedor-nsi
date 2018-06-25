@@ -80,7 +80,7 @@ class CartController extends Controller
         $this->em->persist($cartLine);
         $this->em->flush();
         $session->set('cart', $cart->getId());
-        return $this->redirectToRoute('product-show', ['id' => $productId]);
+        return $this->redirectToRoute('collection-fr', ['id' => $productId]);
     }
 
     /**
