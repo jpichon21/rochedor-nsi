@@ -42,7 +42,7 @@ if (Encore.isProduction()) {
     plugin => !(plugin instanceof webpack.optimize.UglifyJsPlugin)
   )
   // Add the new one
-  config.plugins.push(new UglifyJsPlugin()) 
+  config.plugins.push(new UglifyJsPlugin())
 }
 config.resolve.alias = {
   'TweenMax': path.resolve('node_modules', 'gsap/src/uncompressed/TweenMax.js'),
