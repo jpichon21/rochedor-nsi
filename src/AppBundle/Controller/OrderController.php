@@ -26,64 +26,43 @@ use AppBundle\Entity\Comprd;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\CommandeRepository;
+use AppBundle\Repository\CartRepository;
 use AppBundle\Service\Mailer;
 
 class OrderController extends Controller
 {
-
-    // /**
-    //  * @var Mailer
-    //  */
-    // private $mailer;
-
-    // /**
-    //  * @var Translator
-    //  */
-    // private $translator;
-
-    // /**
-    //  * @var CommandeRepository
-    //  */
-    // private $commandeRepository;
-
-
-    // public function __construct(
-    //     CommandeRepository $commandeRepository,
-    //     Mailer $mailer,
-    //     Translator $translator
-    // ) {
-    //     $this->commandeRepository = $commandeRepository;
-    //     $this->mailer = $mailer;
-    //     $this->translator = $translator;
-    // }
-  
-
+    const TVA = 5.5;
     /**
-     * @Route("/test", requirements={"id"="\d+"})
+     * @var Mailer
      */
-    public function test()
-    {
-        dump($this->generateRefCom());
-        exit;
-    }
+    private $mailer;
 
     /**
-     * @Rest\Post("/order/client", name="post_client")
+     * @var Translator
+     */
+    private $translator;
 
-     * @Rest\View()
-    */
-    public function xhrPostCliAction(Request $request)
-    {
-        $client = $request->get('client');
-        if (!$client) {
-            return ['status' => 'ko', 'message' => 'You must provide client object'];
-        }
-        if (!isset($client['codco'])) {
-            return ['status' => 'ko', 'message' => 'You must provide a client with a codco'];
-        }
-        return ['status' => 'ok', 'data' => $this->getCli($client)];
+    /**
+     * @var CommandeRepository
+     */
+    private $commandeRepository;
+
+        /**
+     * @var CartRepository
+     */
+    private $cartRepository;
+
+    public function __construct(
+        CommandeRepository $commandeRepository,
+        CartRepository $cartRepository,
+        Mailer $mailer,
+        Translator $translator
+    ) {
+        $this->commandeRepository = $commandeRepository;
+        $this->cartRepository = $cartRepository;
+        $this->mailer = $mailer;
+        $this->translator = $translator;
     }
-
 
     /**
      * @Rest\Post("/order/delivery", name="post_delivery")
@@ -92,6 +71,8 @@ class OrderController extends Controller
     */
     public function xhrPostAddrDeliveryAction(Request $request)
     {
+        $cookies = $request->cookies;
+        $cartId = $cookies->get('cart');
         $delivery = $request->get('delivery');
         if (!$delivery) {
             return ['status' => 'ko', 'message' => 'You must provide delivery object'];
@@ -103,250 +84,181 @@ class OrderController extends Controller
             return ['status' => 'ko', 'message' => 'You must provide a client with a delivery destination'];
         }
         if (!isset($delivery['paysliv'])) {
-            return ['status' => 'ko', 'message' => 'You must provide a client with a delivery contry'];
+            return ['status' => 'ko', 'message' => 'You must provide a client with a delivery country'];
         }
-        return ['status' => 'ok', 'data' => $delivery];
+        if (!isset($delivery['modpaie'])) {
+            return ['status' => 'ko', 'message' => 'You must provide a client with a delivery mode paiement'];
+        }
+        if (!isset($delivery['modliv'])) {
+            return ['status' => 'ko', 'message' => 'You must provide a client with a delivery mode livraison'];
+        }
+        if (!isset($delivery['validpaie'])) {
+            return ['status' => 'ko', 'message' => 'You must provide a client with a delivery validpaie'];
+        }
+        if (!isset($delivery['datliv'])) {
+            return ['status' => 'ko', 'message' => 'You must provide a client with a delivery datliv'];
+        }
+        if (!isset($delivery['paysip'])) {
+            return ['status' => 'ko', 'message' => 'You must provide a client with a delivery paysip'];
+        }
+        if (!isset($delivery['dateenreg'])) {
+            return ['status' => 'ko', 'message' => 'You must provide a client with a delivery dateenreg'];
+        }
+        if (!isset($delivery['cartId'])) {
+            return ['status' => 'ko', 'message' => 'You must provide a client with a delivery cartid'];
+        }
+        if ($this->registerOrder($delivery, $cartId)) {
+            return ['status' => 'ok'];
+        }
+        return ['status' => 'ko', 'message' => 'an error as occured'];
     }
-    
-    /**
-     * @Rest\Post("/order/cart", name="post_cart")
 
-     * @Rest\View()
-    */
-    public function xhrPostCartAction(Request $request)
+    private function registerOrder($delivery, $cartId)
     {
-
-        $cart = $request->get('cart');
-        if (!$cart) {
-            return ['status' => 'ko', 'message' => 'You must provide cart object'];
-        }
-        if (!isset($cart['id'])) {
-            $cart['id'] = $this->setNewCart($cart);
-        }
-        $this->resetCart($cart);
+        // $codcli = $user['codco'];
+        $codcli = 37898;
         
-        foreach ($cart['cartlines'] as $cartline) {
-            if ($this->validateCartLine($cartline)) {
-                $cartlineFlushed = $cartline;
-                $cartlineFlushed['id'] = $this->setNewCartline($cartline, $cart);
-                $cart['cartlinesFlushed'][] = $cartlineFlushed;
-            } else {
-                $errors[] = $cartline;
-                $cart['errors'] = $errors;
-            }
-        }
+        // $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getDoctrine()->getRepository('AppBundle:Contact')->findByCodco($codcli);
+        
 
+        // $cart = $this->getCart($cartId);
+        $cart = $this->getCart($delivery['cartId']);
+    
+        $datCom = new \DateTime();
+        $amountHT = $this->getTotalPrice($cart);
+        $modpaie = $delivery['modpaie'];
+        $modliv = $delivery['modliv'];
+        $datpaie = new \DateTime();
+        $validpaie = $delivery['validpaie'];
+        $destliv = $delivery['destliv'];
+        $adliv = $delivery['adliv'];
+        $paysliv = $delivery['paysliv'];
 
-        if (isset($cart['errors'])) {
-            foreach ($cart['cartlinesFlushed'] as $cartlineFlushed) {
-                $em = $this->getDoctrine()->getManager();
-                $cartlineToDelete = $this
-                ->getDoctrine()->getRepository('AppBundle:Cartline')
-                ->find($cartlineFlushed['id']);
-                $em->remove($cartlineToDelete);
-                $em->flush();
-            }
-            return ['status' => 'ko', 'message' => 'this cartline are not good' , 'data' => $errors ];
-        }
+        $ttc = $this->getTTCPrice($amountHT);
+        $tva = $this->getTVACost($ttc, $amountHT);
+        $poids = $this->getTotalWeight($cart);
+        $port = 3;
+        $promo = 0;
+
+        $datliv = new \Datetime($delivery['datliv']);
+        $paysip = $delivery['paysip'];
+        $dateenreg = new \Datetime($delivery['dateenreg']);
 
         $em = $this->getDoctrine()->getManager();
-        $cartUpdated = $em->getRepository('AppBundle:Cart')->find($cart['id']);
-        $cartUpdated->setUpdated(new \Datetime('now'));
-        $em->persist($cartUpdated);
+        $order = new Commande;
+        
+        $order->setRefcom($this->generateRefCom());
+        $order->setCodcli($codcli);
+        $order->setDatcom($datCom);
+        $order->setMontant($amountHT);
+        $order->setModpaie($modpaie);
+        $order->setModliv($modliv);
+        $order->setDatpaie($datpaie);
+        $order->setValidpaie($validpaie);
+        $order->setDestliv($destliv);
+        $order->setAdLiv($adliv);
+        $order->setPaysliv($paysliv);
+        $order->setTtc($ttc);
+        $order->setTva($tva);
+        $order->setPoids($poids);
+        $order->setPort($port);
+        $order->setPromo($promo);
+        $order->setDatliv($datliv);
+        $order->setPaysip($paysip);
+        $order->setDatenreg($dateenreg);
+    
+        $em->persist($order);
         $em->flush();
+
         
-        return ['status' => 'ok', 'data' => $cart];
-    }
-    
-    private function resetCart($cart)
-    {
-        $cartlines = $this->getDoctrine()->getRepository('AppBundle:Cartline')->findByCart($cart['id']);
-        $em = $this->getDoctrine()->getManager();
-        foreach ($cartlines as $cartline) {
-            $em->remove($cartline);
+        foreach ($cart->getCartlines() as $cartline) {
+            $comprd = new Comprd;
+
+            $codcom = $order->getCodcom();
+            $codprd = $cartline->getProduct()->getCodprd();
+            $quantity = $cartline->getQuantity();
+            $prix = $cartline->getProduct()->getCodprd();
+            $remise = 0;
+
+            $comprd->setCodcom($codcom);
+            $comprd->setCodprd($codprd);
+            $comprd->setQuant($quantity);
+            $comprd->setPrix($prix);
+            $comprd->setRemise($remise);
+
+            $em->persist($comprd);
             $em->flush();
         }
-    }
-
-    private function validateCartLine($cartline)
-    {
-        if (!isset($cartline['codprd'])) {
-            $product = null;
-        } else {
-            $product = $this->getDoctrine()->getRepository('AppBundle:Produit')->find($cartline['codprd']);
-        }
-        if (!isset($cartline['quantity'])) {
-            $quantity = null;
-        } else {
-            $quantity = $cartline['quantity'];
-        }
-        if ($quantity  === null ||$quantity <= 0 || $product === null) {
-            dump('jepassela');
-            return false;
-        }
-        return true;
-    }
-
-    private function setNewCartline($cartline, $cart)
-    {
-        $quantity = $cartline['quantity'];
-        
-        $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository('AppBundle:Produit')->find($cartline['codprd']);
-        $em = $this->getDoctrine()->getManager();
-        $cart = $em->getRepository('AppBundle:Cart')->find($cart['id']);
-
-        $cartline = new Cartline;
-        $cartline->setCart($cart);
-        $cartline->setQuantity($quantity);
-        $cartline->setProduct($product);
-        
-        $em->persist($cartline);
-        $em->flush();
-        return $cartline->getId();
-    }
-
-    private function setNewCart($cart)
-    {
-        $updated = new \Datetime('now');
-        $created = new \Datetime('now');
-        if (!isset($cart['notes'])) {
-            $cart['notes'] = "";
-        }
-        $notes = $cart['notes'];
-
-        $em = $this->getDoctrine()->getManager();
-        $cart = new Cart;
-        $cart->setUpdated($updated);
-        $cart->setCreated($created);
-        $cart->setNotes($notes);
-        
-        $em->persist($cart);
-        $em->flush();
-        return $cart->getId();
+        $this->notifyClient($order, $user);
+        return $order;
     }
     
-    /**
-     * @Rest\Get("/order/cart", name="get_cart")
-
-     * @Rest\View()
-    */
-    public function xhrGetCartAction(Request $request)
+    private function getCart($id)
     {
-        $cartId = $request->get('cartId');
-        $em = $this->getDoctrine()->getManager();
-        $cart = $em->getRepository('AppBundle:Cart')->find($cartId);
+        $cart = $this->cartRepository->findCart($id);
         return $cart;
     }
-    /**
-     * @Rest\Post("/order/paiement", name="post_paiement")
 
-     * @Rest\View()
-    */
-    public function xhrPostPaimentAction(Request $request)
+    private function getTotalWeight($cart)
     {
-        $paiement = $request->get('paiement');
-        if (!$paiement) {
-            return ['status' => 'ko', 'message' => 'You must provide a paiment object'];
+        $totalWeight = 0;
+        foreach ($cart->getCartlines() as $cartline) {
+            $totalWeight = $totalWeight + $cartline->getProduct()->getPoids();
         }
-        if ($this->validateCartLine($cart['cartlines'])) {
-            return ['status' => 'ko', 'message' => 'You must provide a client with a cart valid'];
-        }
-        return ['status' => 'ok', 'data' => $cart];
+        return $totalWeight;
     }
 
-
-    private function getCli($client)
+    private function getTotalPrice($cart)
     {
-        $codcli = $client["codco"];
-        return $codcli;
+        $totalPrice = 0;
+        foreach ($cart->getCartlines() as $cartline) {
+            $totalPrice = $totalPrice + $cartline->getProduct()->getPrix() * $cartline->getQuantity();
+        }
+        return $totalPrice;
     }
 
-
-
-    // public function xhrPostOrderAction(Request $request){
-    //     $order = $request->get('order');
-    //     if (!$order) {
-    //         return ['status' => 'ko', 'message' => 'You must provide order object'];
-    //     }
-    //     if (!$this->validAttendees($order)) {
-    //         return ['status' => 'ko', 'message' => 'The order not contains required elements'];
-    //     }
-    // }
-
-    // private function validateOrder($order){
-    //     if (!$order[''], ){
-
-    //     }
-    // }
-
-    private function registerOrder(Request $request, $codcli, Panier $panier, Paiement $paiement)
+    private function getTTCPrice($totalPrice)
     {
-        $codcli = $request->get('CodCli');
-        $datCom = new \DateTime();
-        $amountHT = $request->get('AmountHT');
-        $modpaie = $request->get('ModPaie');
-        $modliv = $request->get('ModLiv');
-        $datpaie = new \DateTime();
-        $validpaie = $request->get('');
-        $destliv = $request->get('destLiv');
-        $adliv = $request->get('AdLiv');
-        $paysliv = $request->get('PaysLiv');
-
-        $ttc = $panier->getTtc();
-        $tva = $panier->getTva();
-        $poids = $this->getOrderWeight() ;
-        $port = $panier->getPort();
-        $promo = $panier->getPromo();
-
-        $datliv = $paiement->getDatLiv();
-        $paysip = $paiement->getPaysIP();
-        $Dateenreg = $paiement->getDatEnreg();
-
-        $em = $this->getDoctrine()->getManager();
-        $command = new Commande;
-        
-        $command->setRefcom($this->generateRefCom());
-        $command->setCodcli($codcli);
-        $command->setDatcom($datCom);
-        $command->setMontant($amountHT);
-        $command->setModpaie($modpaie);
-        $command->setModliv($modliv);
-        $command->setDatpaie($datPaie);
-        $command->setValidpaie($validpaie);
-        $command->setDesliv($destliv);
-        $command->setAdLiv($adliv);
-        $command->setPaysliv($paysliv);
-        $command->setTtc($ttc);
-        $command->setTva($tva);
-        $command->setPoids($poids);
-        $command->setPort($port);
-        $command->setPromo($promo);
-        $command->setDatlic($datliv);
-        $command->setPaysip($paysip);
-        $command->setDatenreg($Dateenreg);
+        $prixTTC = $totalPrice*(1+($this::TVA/100));
+        return $prixTTC;
+    }
     
-        $em->persist($command);
-        $em->flush();
+    private function getTVACost($TTCprice, $HTprice)
+    {
+        $TVA = $TTCprice - $HTprice;
+        return $TVA;
+    }
 
-        $comprd = new Comprd;
-        
-        foreach ($panier["produits"] as $produit) {
-            $codcom = $command->getCodcom();
-            $codprd = $produit["cleprod"];
-            $quant = $panier->getQuant();
-            $prix = $panier->getPrixHT();
-            $remise = $panier->getRemise();
-        }
-        
-        return $command;
+    private function notifyClient($order, $user)
+    {
+        $country = $this->translator->trans('order.country.list', [$order->getPaysliv()]);
+        $this->mailer->send(
+            // $this->getUser()->getEmail(),
+            "mail@mail.com",
+            $this->translator->trans('order.notify.client.subject'),
+            $this->renderView('emails/order-notify-order.html.twig', [
+                'order' => $order,
+                'country' => $country,
+                'user' => $user
+                ])
+        );
+
+        $this->mailer->send(
+            "secretariat@rochedor.fr",
+            $this->translator->trans('order.notify.client.subject'),
+            $this->renderView('emails/order-notify-order.html.twig', [
+                'order' => $order,
+                'country' => $country,
+                'user' => $user
+                ])
+        );
     }
 
     private function generateRefCom()
     {
-        $em = $this->getDoctrine()->getManager();
-        $refcom = $em->getRepository('AppBundle:Commande')->generateRefCom();
-        // $refcom = $this->commandeRepository->generateRefCom();
+        $refcom = $this->commandeRepository->generateRefCom();
         return $refcom;
     }
 }

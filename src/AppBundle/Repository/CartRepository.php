@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\EntityManagerInterface;
+
 /**
  * CartRepository
  *
@@ -10,4 +12,26 @@ namespace AppBundle\Repository;
  */
 class CartRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+    * @var EntityRepository
+    */
+    private $repository;
+    
+    /**
+    * @var EntityManagerInterface
+    */
+    private $entityManager;
+    
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    public function findCart($cartId)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT c FROM AppBundle\Entity\Cart c WHERE c.id=:cartId');
+        $query->setParameter('cartId', $cartId);
+        return $query->getOneOrNullResult();
+    }
 }
