@@ -18,6 +18,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use AppBundle\Service\Mailer;
 use AppBundle\Entity\Contact;
 use AppBundle\Form\RegisterType;
+use AppBundle\Service\PageService;
 
 class SecurityController extends Controller
 {
@@ -32,12 +33,19 @@ class SecurityController extends Controller
      */
     private $translator;
 
+    /**
+     * @var PageService
+     */
+    private $pageService;
+
     public function __construct(
         Mailer $mailer,
-        Translator $translator
+        Translator $translator,
+        PageService $pageService
     ) {
         $this->mailer = $mailer;
         $this->translator = $translator;
+        $this->pageService = $pageService;
     }
 
     /**
@@ -100,7 +108,20 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/login-form/{_locale}", name="login-form", requirements={"methods": "{GET, POST}"})
+     * @Route("/_locale/login-form", name="login-form")
+     */
+    public function preLoginFormAction(Request $request)
+    {
+        $locale = $request->getLocale();
+        return $this->redirectToRoute("login-form-$locale");
+    }
+
+    /**
+     * @Route("/fr/login-form", name="login-form-fr", requirements={"methods": "{GET, POST}"})
+     * @Route("/en/login-form", name="login-form-en", requirements={"methods": "{GET, POST}"})
+     * @Route("/de/login-form", name="login-form-de", requirements={"methods": "{GET, POST}"})
+     * @Route("/it/login-form", name="login-form-it", requirements={"methods": "{GET, POST}"})
+     * @Route("/es/login-form", name="login-form-es", requirements={"methods": "{GET, POST}"})
      */
     public function loginFormAction(Request $request, AuthenticationUtils $authenticationUtils)
     {
@@ -109,7 +130,8 @@ class SecurityController extends Controller
     
         return $this->render('security/login.html.twig', array(
             'last_username' => $lastUsername,
-            'error'         => $error,
+            'error' => $error,
+            'availableLocales' => $this->pageService->getAvailableLocales('login-form')
         ));
     }
 
@@ -173,7 +195,11 @@ class SecurityController extends Controller
     }
 
     /**
-    * @Route("/register-form/{_locale}", name="register-form", requirements={"methods": "{GET, POST}"})
+    * @Route("/fr/register-form", name="register-form-fr", requirements={"methods": "{GET, POST}"})
+    * @Route("/en/register-form", name="register-form-en", requirements={"methods": "{GET, POST}"})
+    * @Route("/de/register-form", name="register-form-de", requirements={"methods": "{GET, POST}"})
+    * @Route("/it/register-form", name="register-form-it", requirements={"methods": "{GET, POST}"})
+    * @Route("/es/register-form", name="register-form-es", requirements={"methods": "{GET, POST}"})
     */
     public function registerFormAction(
         Request $request,
@@ -197,7 +223,10 @@ class SecurityController extends Controller
             $em->flush();
             return $this->redirectToRoute('password_register_success');
         }
-        return $this->render('security/register.html.twig', ['form' => $form->createView()]);
+        return $this->render('security/register.html.twig', array(
+            'form' => $form->createView(),
+            'availableLocales' => $this->pageService->getAvailableLocales('register-form')
+        ));
     }
 
     /**
@@ -234,7 +263,11 @@ class SecurityController extends Controller
         return new JsonResponse(['status' => 'ok', 'message' => 'The email has been sent']);
     }
     /**
-    * @Route("/password-reset/{_locale}/{token}", name="password-reset", requirements={"methods": "{GET, POST}"})
+    * @Route("/fr/password-reset/{token}", name="password-reset-fr", requirements={"methods": "{GET, POST}"})
+    * @Route("/en/password-reset/{token}", name="password-reset-en", requirements={"methods": "{GET, POST}"})
+    * @Route("/de/password-reset/{token}", name="password-reset-de", requirements={"methods": "{GET, POST}"})
+    * @Route("/it/password-reset/{token}", name="password-reset-it", requirements={"methods": "{GET, POST}"})
+    * @Route("/es/password-reset/{token}", name="password-reset-es", requirements={"methods": "{GET, POST}"})
     */
     public function passwordResetAction(
         Request $request,
@@ -276,16 +309,25 @@ class SecurityController extends Controller
             $em->flush();
             return $this->redirectToRoute('password_reset_success');
         }
-        return $this->render('security/password-reset.html.twig', ['form' => $form->createView()]);
+        return $this->render('security/password-reset.html.twig', array(
+            'form' => $form->createView(),
+            'availableLocales' => $this->pageService->getAvailableLocales('password-reset')
+        ));
     }
 
     /**
-    * @Route("/password-reset-success/{_locale}", name="password_reset_success",
-    * requirements={"methods": "{GET, POST}"})
+    * @Route("/fr/password-reset-success", name="password-reset-success-fr", requirements={"methods": "{GET, POST}"})
+    * @Route("/en/password-reset-success", name="password-reset-success-en", requirements={"methods": "{GET, POST}"})
+    * @Route("/de/password-reset-success", name="password-reset-success-de", requirements={"methods": "{GET, POST}"})
+    * @Route("/it/password-reset-success", name="password-reset-success-it", requirements={"methods": "{GET, POST}"})
+    * @Route("/es/password-reset-success", name="password-reset-success-es", requirements={"methods": "{GET, POST}"})
     */
     public function passwordResetSuccessAction(Request $request)
     {
-        return $this->render('security/password-reset-success.html.twig', ['contact' => null]);
+        return $this->render('security/password-reset-success.html.twig', array(
+            'contact' => null,
+            'availableLocales' => $this->pageService->getAvailableLocales('password-reset-success')
+        ));
     }
 
     /**

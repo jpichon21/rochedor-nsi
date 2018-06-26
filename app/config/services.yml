@@ -44,6 +44,7 @@ services:
         arguments:
             $contentRepository: '@cmf_routing.content_repository'
             $routeProvider: '@cmf_routing.route_provider'
+            $locales: '%locales%'
     AppBundle\Repository\:
         resource: ../../src/AppBundle/Repository
     Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository: '@cmf_routing.orm_content_repository'
