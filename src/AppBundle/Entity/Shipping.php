@@ -45,7 +45,7 @@ class Shipping
     /**
      * @var string
      *
-     * @ORM\Column(name="price", type="string", length=255)
+     * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=false)
      */
     private $price;
 
