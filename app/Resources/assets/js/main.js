@@ -43,3 +43,11 @@ $('[data-menu]').on('mouseover mouseout', function (event) {
     ? element.addClass('active')
     : element.removeClass('active')
 })
+
+/* Selects */
+
+$('form').on('change', '.select', function () {
+  if ($(this).val() !== '') {
+    $(this).addClass('white')
+  }
+})

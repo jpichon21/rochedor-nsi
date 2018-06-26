@@ -1,7 +1,5 @@
-{% set sections = [] %}
 {% set bodyClass = "page" %}
-{% set bodyBackground = 1 %}
-{% extends './alternative-parts/register-header.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block stylesheets %}
 <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/pure-css-grids.css") }}">
 {% endblock %}
@@ -18,7 +16,7 @@
                           {% if error %}
                             <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                           {% endif %}
-                          <form action="{{ path('login-form') }}" method="post">
+                          <form action="{{ path('login-form-' ~ currentLocale) }}" method="post">
                             <div class="pure-u-1-2">
                               <input type="text" id="username" placeholder ="Identifiant" name="_username" value="{{ last_username }}" class="input"/>
                             </div>
@@ -30,7 +28,7 @@
                             </div>
                           </form>
                         </div>
-                        <a href="{{ path('register-form') }}"}>{{ 'security.register'|trans }}</a>
+                        <a href="{{ path('register-form-' ~ currentLocale) }}"}>{{ 'security.register'|trans }}</a>
                     </div>
                   </div>
               </div>

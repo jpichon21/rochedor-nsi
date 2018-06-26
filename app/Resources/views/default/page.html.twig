@@ -1,6 +1,5 @@
-{% set sections = [] %}
 {% set bodyClass = "page" %}
-{% set bodyBackground = constant('AppBundle\\Entity\\Page::BACKGROUNDS')[page.background] %}
+{% set bodyBackground = page.background %}
 {% extends 'base.html.twig' %}
 {% block content %}
 <div class="content">
