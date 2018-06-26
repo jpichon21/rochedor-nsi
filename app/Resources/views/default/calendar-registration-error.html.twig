@@ -1,0 +1,21 @@
+{% set bodyClass = "page" %}
+{% set bodyBackground = page.background %}
+{% extends 'base.html.twig' %}
+{% block content %}
+<div class="content">
+    <div class="left">
+        <div class="inner">
+            <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
+            {% if page.content.intro %}
+            <div class="intro">
+                {{ page.content.intro | raw }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="hole">
+    </div>
+    <div class="right">
+    </div>
+</div>
+{% endblock %}

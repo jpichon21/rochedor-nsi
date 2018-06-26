@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LRDO</title>
+    <link rel="stylesheet" href="https://use.typekit.net/ozm6rkb.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/main.css") }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body class="{{ bodyClass }}" style="{{ asset(bodyBackground)|background }}">
+<div class="header">
+    <div class="languages">
+        <ul class="available">
+
+        </ul>
+        <ul class="current">
+        </ul>
+    </div>
+    <ul class="zoom">
+        <li class="minus">A -</li>
+        <li class="plus">A +</li>
+    </ul>
+    <div class="left">
+        <ul class="menu">
+            <li data-menu="vgbhnj">{{ 'menu.one' | trans() | raw }}</li>
+            <li data-menu="gyhuji">{{ 'menu.two' | trans() | raw }}</li>
+            <li><a href="#">{{ 'menu.three' | trans() | raw }}</a></li>
+        </ul>
+        <ul class="sub-menu" data-menu="vgbhnj">
+            <li><a href="#">{{ 'menu.one.one' | trans() | raw }}</a></li>
+            <li><a href="#">{{ 'menu.one.two' | trans() | raw }}</a></li>
+            <li><a href="#">{{ 'menu.one.three' | trans() | raw }}</a></li>
+            <li><a href="#">{{ 'menu.one.four' | trans() | raw }}</a></li>
+        </ul>
+        <ul class="sub-menu" data-menu="gyhuji">
+            <li><a href="#">{{ 'menu.two.one' | trans() | raw }}</a></li>
+            <li><a href="#">{{ 'menu.two.two' | trans() | raw }}</a></li>
+            <li><a href="#">{{ 'menu.two.three' | trans() | raw }}</a></li>
+            <li><a href="{{ path('intervenants') }}">{{ 'menu.two.four' | trans() | raw }}</a></li>
+        </ul>
+    </div>
+    <div class="logo">
+        <a class="normal" href="/"><img src="{{ asset('assets/img/logo.png') }}" alt="La Roche d'Or"></a>
+    </div>
+    <div class="right">
+        <ul class="menu">
+            <li data-menu="hbgvfc">{{ 'menu.four' | trans() | raw }}</li>
+            <li data-menu="qzsedr">{{ 'menu.five' | trans() | raw }}</li>
+            <li data-menu="defrgt">{{ 'menu.six' | trans() | raw }}</li>
+        </ul>
+        <ul class="sub-menu" data-menu="hbgvfc">
+            <li><a href="#">{{ 'menu.four.one' | trans() | raw }}</a></li>
+            <li><a href="#">{{ 'menu.four.two' | trans() | raw }}</a></li>
+            <li><a href="#">{{ 'menu.four.three' | trans() | raw }}</a></li>
+            <li><a href="#">{{ 'menu.four.four' | trans() | raw }}</a></li>
+        </ul>
+        <ul class="sub-menu editions" data-menu="qzsedr">
+            <div class="blank"></div>
+            <div class="blank"></div>
+            <li><a href="#">{{ 'menu.five.one' | trans() | raw }}</a></li>
+            <li><a href="#">{{ 'menu.five.two' | trans() | raw }}</a></li>
+            <li><a href="#">{{ 'menu.five.three' | trans() | raw }}</a></li>
+        </ul>
+        <ul class="sub-menu" data-menu="defrgt">
+            <div class="blank"></div>
+            <div class="blank"></div>
+            <div class="blank"></div>
+            <div class="blank"></div>
+            <div class="blank"></div>
+            <li><a href="#">{{ 'menu.six.one' | trans() | raw }}</a></li>
+            <li><a href="#">{{ 'menu.six.two' | trans() | raw }}</a></li>
+        </ul>
+    </div>
+</div>
+{% block content %}{% endblock %}
+{% include 'parts/footer.html.twig' %}
+<script src="{{ asset('assets/js/main.js') }}"></script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

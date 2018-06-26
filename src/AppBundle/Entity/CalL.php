@@ -143,15 +143,15 @@ class CalL
     {
         $this->setEnreglcal(new \DateTime())
         ->setEtaplcal('attent')
-        ->setReplcal(new \DateTime('0000-00-00'))
+        ->setReplcal(new \DateTime())
         ->setHeblcal(0)
         ->setChlcal('')
-        ->setSaisielcal('')
+        ->setSaisielcal(1)
         ->setCreatlcal('')
         ->setTrilcal(0)
         ->setJslcal('')
         ->setMemolcal('')
-        ->setOldIns('');
+        ->setOldIns(0);
     }
 
     /**

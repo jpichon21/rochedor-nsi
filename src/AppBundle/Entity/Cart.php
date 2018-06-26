@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="cart")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CartRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Cart
 {
@@ -46,6 +47,23 @@ class Cart
     * @ORM\OneToMany(targetEntity="Cartline", mappedBy="cart")
     */
     private $cartlines;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cartlines = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->created = new \DateTime();
+    }
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function setUpdatedValue()
+    {
+        $this->updated = new \DateTime();
+    }
 
 
     /**
@@ -129,13 +147,7 @@ class Cart
     {
         return $this->notes;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->cartlines = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    
 
     /**
      * Add cartline.

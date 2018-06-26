@@ -78,6 +78,7 @@ doctrine:
             string_functions:
                 group_concat: DoctrineExtensions\Query\Mysql\GroupConcat
                 substring_index: DoctrineExtensions\Query\Mysql\SubstringIndex
+                regexp: DoctrineExtensions\Query\Mysql\Regexp
             datetime_functions:
                 date_format: DoctrineExtensions\Query\Mysql\DateFormat
 stof_doctrine_extensions:
