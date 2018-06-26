@@ -5,9 +5,17 @@
       <div>
         {{ line.product.produit }} - {{ line.product.prix }} - {{ line.quantity }} - <a href="{{ path('cart-remove', {'cartLine': line.id}) }}">{{ 'cart.remove'|trans }}</a>
       </div>
-    {% endfor %}
+      {% endfor %}
+      <a href="" class="paybox">PAYBOX</a>
+      <a href="" class="paypal">PAYPAL</a>
     {% else %}
     {{ 'cart.empty'|trans }}
     {% endif %}
   </body>
 </html>
+<script>
+  const itemName = '{{ 'order.payment.item_name'|trans }}'
+  const locale = '{{ app.request.locale }}'
+  const email = '{{ app.user.email }}'
+</script>
+<script src="{{ asset("assets/js/cart.js") }}"></script>

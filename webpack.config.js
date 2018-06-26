@@ -15,6 +15,7 @@ Encore
   .addEntry('js/calendar', './app/Resources/assets/js/calendar.js')
   .addEntry('js/calendar-api', './app/Resources/assets/js/calendar-api.js')
   .addEntry('js/calendar-registration', './app/Resources/assets/js/calendar-registration.js')
+  .addEntry('js/cart', './app/Resources/assets/js/cart.js')
   .addStyleEntry('css/main', './app/Resources/assets/sass/main.scss')
   .addStyleEntry('css/calendar', './app/Resources/assets/sass/calendar.scss')
   .addStyleEntry('css/calendar-registration', './app/Resources/assets/sass/calendar-registration.scss')
@@ -34,6 +35,7 @@ Encore
     from: './app/Resources/assets/img',
     to: 'img'
   }]))
+  .addPlugin(new webpack.EnvironmentPlugin({'NODE_ENV': ((Encore.isProduction) ? 'prod' : 'dev')}))
 
 const config = Encore.getWebpackConfig()
 if (Encore.isProduction()) {

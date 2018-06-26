@@ -35,8 +35,7 @@ class CommandeRepository
             'SELECT MAX(c.refcom) AS ref FROM AppBundle:Commande c WHERE c.refcom LIKE :ref'
         );
         $query->setParameter('ref', $currentYear->format('y') . '-%');
-        $result = $query->getOneOrNullResult();
-
+        
         if ($result === null) {
             return $currentYear->format('y')."-00001";
         }
@@ -45,8 +44,17 @@ class CommandeRepository
         $newRef = strval($lastRef + 1);
         $newRefString = strval($newRef);
         $newRefString = str_pad($newRefString, 5, "0", STR_PAD_LEFT);
-      
+        
         return $currentYear->format('y')."-".$newRefString;
-        ;
+    }
+    
+    public function findByRef($ref)
+    {
+        $query = $this->entityManager->createQuery(
+            'SELECT c FROM AppBundle:Commande c WHERE c.refcom LIKE :ref'
+        );
+        $query->setMaxResults(1);
+        $query->setParameter('ref', $ref);
+        return $query->getOneOrNullResult();
     }
 }
