@@ -793,11 +793,6 @@ body.page {
       &.active {
         display: block;
       }
-      &.registration {
-        .notAtThisMoment {
-          display: none;
-        }
-      }
       &:before {
         content: '';
         position: absolute;
