@@ -1,5 +1,5 @@
 {% set bodyClass = "page" %}
-{% set bodyBackground = constant('AppBundle\\Entity\\Page::BACKGROUNDS')[page.background] %}
+{% set bodyBackground = page.background %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
 <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/calendar-registration.css") }}">
