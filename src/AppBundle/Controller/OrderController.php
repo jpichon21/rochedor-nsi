@@ -22,6 +22,7 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\CommandeRepository;
 use AppBundle\Repository\CartRepository;
+use AppBundle\Repository\ShippingRepository;
 use AppBundle\Service\Mailer;
 use Psr\Log\LoggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -43,6 +44,7 @@ class OrderController extends Controller
         '194.2.122.190',
         '195.25.67.22'
     ];
+    const TVASHIPMENT = 20;
     /**
      * @var Mailer
      */
@@ -64,6 +66,11 @@ class OrderController extends Controller
     private $logger;
 
     /**
+     * @var ShippingRepository
+     */
+    private $shippingRepository;
+
+        /**
      * @var CartRepository
      */
     private $cartRepository;
@@ -76,6 +83,7 @@ class OrderController extends Controller
     public function __construct(
         CommandeRepository $commandeRepository,
         CartRepository $cartRepository,
+        ShippingRepository $shippingRepository,
         Mailer $mailer,
         Translator $translator,
         LoggerInterface $logger,
@@ -83,6 +91,7 @@ class OrderController extends Controller
     ) {
         $this->commandeRepository = $commandeRepository;
         $this->cartRepository = $cartRepository;
+        $this->shippingRepository = $shippingRepository;
         $this->mailer = $mailer;
         $this->translator = $translator;
         $this->logger = $logger;
@@ -198,23 +207,43 @@ class OrderController extends Controller
         
 
         // $cart = $this->getCart($cartId);
-        $cart = $this->cartRepository->findCart($delivery['cartId']);
+        $cart = $this->cartRepository->find($delivery['cartId']);
 
         $datCom = new \DateTime();
-        $amountHT = $this->getTotalPrice($cart);
         $modpaie = $delivery['modpaie'];
         $modliv = $delivery['modliv'];
         $datpaie = new \DateTime();
         $validpaie = $delivery['validpaie'];
         $destliv = $delivery['destliv'];
-        $adliv = $this->getAdLiv($delivery['adliv'], $user);
+        if ($destliv === "Other") {
+            $adliv = $this->getAdLiv($delivery['adliv'], $user);
+        } else {
+            $adliv = $user[0]->getCivil().
+                    " ".
+                    $user[0]->getNom().
+                    " ".
+                    $user[0]->getPrenom().
+                    " ".
+                    $user[0]->getAdresse().
+                    " ".
+                    $user[0]->getCp().
+                    " ".
+                    $user[0]->getVille();
+        }
         $paysliv = $delivery['paysliv'];
+        
+        if (!isset($delivery['memocmd'])) {
+            $memoCmd = "";
+        } else {
+            $memoCmd = $delivery['memocmd'];
+        }
 
-        $priceit = $this->getPriceIT($amountHT);
-        $vat = $this->getVATCost($priceit, $amountHT);
-        $poids = $this->getTotalWeight($cart);
-        $port = 3;
+        $weight = $this->getTotalWeight($cart);
+        $portPrice = $this->shippingRepository->findGoodPort($weight, $paysliv, $destliv);
+        $amountHT = $this->getTotalPrice($cart, $portPrice);
         $promo = 0;
+        $priceit = $this->getPriceIT($cart, $portPrice);
+        $vat = $this->getVATCost($priceit, $amountHT);
 
         $datliv = new \Datetime($delivery['datliv']);
         $paysip = $delivery['paysip'];
@@ -236,12 +265,13 @@ class OrderController extends Controller
         $order->setPaysliv($paysliv);
         $order->setTtc($priceit);
         $order->setTva($vat);
-        $order->setPoids($poids);
-        $order->setPort($port);
+        $order->setPoids($weight);
+        $order->setPort($portPrice);
         $order->setPromo($promo);
         $order->setDatliv($datliv);
         $order->setPaysip($paysip);
         $order->setDatenreg($dateenreg);
+        $order->setMemocmd($memoCmd);
     
         $em->persist($order);
         $em->flush();
@@ -284,19 +314,24 @@ class OrderController extends Controller
         return $totalWeight;
     }
 
-    private function getTotalPrice($cart)
+    private function getTotalPrice($cart, $portPrice)
     {
         $totalPrice = 0;
         foreach ($cart->getCartlines() as $cartline) {
             $totalPrice = $totalPrice + $cartline->getProduct()->getPrix() * $cartline->getQuantity();
         }
+        $totalPrice = ($totalPrice/(1 + ($this::TVA/100))) + ($portPrice/(1 + ($this::TVASHIPMENT/100)));
+
         return $totalPrice;
     }
 
-    private function getPriceIT($totalPrice)
+    private function getPriceIT($cart, $portPrice)
     {
-        $priceit = $totalPrice*(1+($this::TVA/100));
-        return $priceit;
+        $priceit = 0;
+        foreach ($cart->getCartlines() as $cartline) {
+            $priceit = $priceit + $cartline->getProduct()->getPrix() * $cartline->getQuantity();
+        }
+        return $priceit + $portPrice;
     }
     
     private function getVATCost($priceit, $HTprice)
