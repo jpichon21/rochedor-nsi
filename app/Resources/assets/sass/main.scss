@@ -734,14 +734,19 @@ body.page {
       }
     }
     .select {
-      color: #ffffff;
+      color: $roche-yellow;
       font-family: 'Lato', sans-serif;
-      background-image: url('../img/arrow-select.png');
+      background-image: url('../img/arrow-select-yellow.png');
       background-position: calc(100% - 20px) center;
       background-repeat: no-repeat;
       -webkit-appearance: none;
+      &.white {
+        color: #ffffff;
+        background-image: url('../img/arrow-select-white.png');
+      }
     }
     option {
+      color: #ffffff;
       background: #0f0f0f;
     }
     .textarea {

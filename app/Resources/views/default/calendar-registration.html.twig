@@ -168,7 +168,7 @@
     <input type="hidden" value="<%= participant.codco %>" name="codco">
     <input type="hidden" value=<%= participant.check %> name="check">
     <div class="pure-u-1-3">
-        <select class="select civil" required name="civil">
+        <select class="select civil <%= (participant.civil != '') ? 'white' : '' %>" required name="civil">
             <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
             <option <%= (participant.civil == 'M.') ? 'selected' : '' %> value="M.">M.</option>
             <option <%= (participant.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
@@ -206,7 +206,7 @@
         <input autocomplete="off" class="input email" required type="email" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input password" required type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
+        <input class="input password" type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
         <input class="input datnaiss" required type="text" value="<%= (participant.datnaiss !== '') ? moment(participant.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }}">
@@ -215,7 +215,7 @@
         <input class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
     </div>
     <div class="pure-u-1 notAtThisMoment">
-        <select class="select transport" name="transport">
+        <select class="select transport <%= (participant.transport != '') ? 'white' : '' %>" name="transport">
             <option <%= (participant.transport == '') ? 'selected' : '' %> disabled value="">{{ 'form.transport' | trans | raw }}</option>
             <option <%= (participant.transport == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
             <option <%= (participant.transport == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
@@ -237,7 +237,7 @@
     <input type="hidden" value="<%= participant.codco %>" name="codco">
     <input type="hidden" value=<%= participant.check %> name="check">
     <div class="pure-u-1-2">
-        <select class="select coltyp" required name="coltyp">
+        <select class="select coltyp <%= (participant.coltyp != '') ? 'white' : '' %>" required name="coltyp">
             <option <%= (participant.coltyp == '') ? 'selected' : '' %> disabled value="">{{ 'form.relation' | trans | raw }}</option>
             <option <%= (participant.coltyp == 'accom') ? 'selected' : '' %> value="accom">Vient avec</option>
             <option <%= (participant.coltyp == 'conjo') ? 'selected' : '' %> value="conjo">Conjoint</option>
@@ -245,7 +245,7 @@
         </select>
     </div>
     <div class="pure-u-1-2">
-        <select class="select colp" required name="colp">
+        <select class="select colp <%= (participant.colp != '') ? 'white' : '' %>" required name="colp">
             <option <%= (participant.colp == '') ? 'selected' : '' %> disabled value="">{{ 'form.colp' | trans | raw }}</option>
             <option <%= (participant.colp == you.codco) ? 'selected' : '' %> value="<%= you.codco %>"><%= you.prenom + ' ' + you.nom %></option>
             <% for (var i = 0; i < registered.length; i++) { %>
@@ -257,7 +257,7 @@
         </select>
     </div>
     <div class="pure-u-1-3">
-        <select class="select civil" required name="civil">
+        <select class="select civil <%= (participant.civil != '') ? 'white' : '' %>" required name="civil">
             <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
             <option <%= (participant.civil == 'M.') ? 'selected' : '' %> value="M.">M.</option>
             <option <%= (participant.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
@@ -301,7 +301,7 @@
         <input class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
     </div>
     <div class="pure-u-1">
-        <select class="select transport" required name="transport" "<%= participant.transport %>">
+        <select class="select transport <%= (participant.transport != '') ? 'white' : '' %>" required name="transport" "<%= participant.transport %>">
             <option <%= (participant.transport == '') ? 'selected' : '' %> disabled value="">{{ 'form.transport' | trans | raw }}</option>
             <option <%= (participant.transport == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
             <option <%= (participant.transport == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
