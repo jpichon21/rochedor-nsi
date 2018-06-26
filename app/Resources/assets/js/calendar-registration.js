@@ -310,17 +310,27 @@ itemParticipants.on('click', '.add-participant', function (event) {
 })
 
 function validateTransports () {
-  let validate = true
-  _participants.map(participant => {
-    if (participant.transport === '') { validate = false }
+  const whoAreWeWaiting = _participants.map(participant => {
+    if (participant.transport === '') { return participant }
   })
-  return validate
+  if (whoAreWeWaiting.length) {
+    return {
+      whoAreWeWaiting: () => {
+        let html = ''
+        whoAreWeWaiting.map(who => {
+          html += '<li>' + who.prenom + ' ' + who.nom + '</li>'
+        })
+        return html
+      }
+    }
+  }
+  return { success: true }
 }
 
 itemParticipants.on('click', '.validate-participants', function (event) {
   event.preventDefault()
   const validate = validateTransports()
-  if (validate) {
+  if (validate.success) {
     postRegistered(_participants, _infos.idact).then(res => {
       let result = $('.result', itemValidation).html()
       result = result.replace('%entry_number%', res)
@@ -330,6 +340,9 @@ itemParticipants.on('click', '.validate-participants', function (event) {
       $('.right .catch-message').html(error)
     })
   } else {
-    $('.right .catch-message').html(_translations.message.verify_transport)
+    $('.right .catch-message').html(
+      _translations.message.verify_transport +
+      '<ul>' + validate.whoAreWeWaiting() + '</ul>'
+    )
   }
 })

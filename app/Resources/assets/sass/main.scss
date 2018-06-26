@@ -552,6 +552,10 @@ body.page {
       .catch-message {
         color: red;
         font-size: 14px;
+        ul {
+          padding: 10px 20px;
+          list-style: disc;
+        }
       }
     }
   }
