@@ -999,7 +999,7 @@
       </notes>
       <segment>
         <source>password</source>
-        <target></target>
+        <target>Mot de passe</target>
       </segment>
     </unit>
     <unit id="1cJDMNG" name="security.register">
