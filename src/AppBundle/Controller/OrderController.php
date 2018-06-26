@@ -28,6 +28,7 @@ use AppBundle\Service\Mailer;
 class OrderController extends Controller
 {
     const TVA = 5.5;
+    const TVASHIPMENT = 20;
     /**
      * @var Mailer
      */
@@ -129,10 +130,9 @@ class OrderController extends Controller
         
 
         // $cart = $this->getCart($cartId);
-        $cart = $this->cartRepository->findCart($delivery['cartId']);
+        $cart = $this->cartRepository->find($delivery['cartId']);
 
         $datCom = new \DateTime();
-        $amountHT = $this->getTotalPrice($cart);
         $modpaie = $delivery['modpaie'];
         $modliv = $delivery['modliv'];
         $datpaie = new \DateTime();
@@ -163,8 +163,9 @@ class OrderController extends Controller
 
         $weight = $this->getTotalWeight($cart);
         $portPrice = $this->shippingRepository->findGoodPort($weight, $paysliv, $destliv);
+        $amountHT = $this->getTotalPrice($cart, $portPrice);
         $promo = 0;
-        $priceit = $this->getPriceIT($amountHT, $portPrice);
+        $priceit = $this->getPriceIT($cart, $portPrice);
         $vat = $this->getVATCost($priceit, $amountHT);
 
         $datliv = new \Datetime($delivery['datliv']);
@@ -236,19 +237,24 @@ class OrderController extends Controller
         return $totalWeight;
     }
 
-    private function getTotalPrice($cart)
+    private function getTotalPrice($cart, $portPrice)
     {
         $totalPrice = 0;
         foreach ($cart->getCartlines() as $cartline) {
             $totalPrice = $totalPrice + $cartline->getProduct()->getPrix() * $cartline->getQuantity();
         }
+        $totalPrice = ($totalPrice/(1 + ($this::TVA/100))) + ($portPrice/(1 + ($this::TVASHIPMENT/100)));
+
         return $totalPrice;
     }
 
-    private function getPriceIT($totalPrice, $portPrice)
+    private function getPriceIT($cart, $portPrice)
     {
-        $priceit = ($totalPrice + $portPrice)*(1+($this::TVA/100));
-        return $priceit;
+        $priceit = 0;
+        foreach ($cart->getCartlines() as $cartline) {
+            $priceit = $priceit + $cartline->getProduct()->getPrix() * $cartline->getQuantity();
+        }
+        return $priceit + $portPrice;
     }
     
     private function getVATCost($priceit, $HTprice)
