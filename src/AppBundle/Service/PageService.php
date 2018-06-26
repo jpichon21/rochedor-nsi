@@ -39,35 +39,28 @@ class PageService
         return $page;
     }
 
-    public function getAvailableLocales($param)
+    public function getAvailableLocales($contentDocument)
     {
-        if (!$param) {
+        if (!$contentDocument) {
             return null;
         }
         $availableLocales = array();
-        if (is_string($param)) {
-            $routeName = $param;
-            foreach ($this->locales as $locale) {
-                $availableLocales[$locale] = $this->urlGenerator->generate($routeName.'-'.$locale);
-            }
+        $contentDocument = $contentDocument;
+        if ($contentDocument->getLocale() === "fr") {
+            $cm = $contentDocument->getChildren();
+            $myChild = $cm->getValues();
         } else {
-            $contentDocument = $param;
-            if ($contentDocument->getLocale() === "fr") {
-                $cm = $contentDocument->getChildren();
-                $myChild = $cm->getValues();
-            } else {
-                $cm = $contentDocument->getParent();
-                $mc = $cm->getChildren();
-                $myChild = $mc->getValues();
-                $tmpP = $cm->getRoutes()->getValues();
-                $availableLocales['fr'] = $tmpP[0]->getStaticPrefix();
-            }
-            foreach ($myChild as $childPage) {
-                if ($childPage->getLocale() != $contentDocument->getLocale()) {
-                    $key = $childPage->getLocale();
-                    $tmp = $childPage->getRoutes()->getValues();
-                    $availableLocales[$key] = $tmp[0]->getStaticPrefix();
-                }
+            $cm = $contentDocument->getParent();
+            $mc = $cm->getChildren();
+            $myChild = $mc->getValues();
+            $tmpP = $cm->getRoutes()->getValues();
+            $availableLocales['fr'] = $tmpP[0]->getStaticPrefix();
+        }
+        foreach ($myChild as $childPage) {
+            if ($childPage->getLocale() != $contentDocument->getLocale()) {
+                $key = $childPage->getLocale();
+                $tmp = $childPage->getRoutes()->getValues();
+                $availableLocales[$key] = $tmp[0]->getStaticPrefix();
             }
         }
         return $availableLocales;
