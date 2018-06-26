@@ -142,25 +142,25 @@ class AppMenu extends React.Component {
             }}
             open={menuOpen}
             onClose={this.handleCloseMenu}>
-            <NavLink to='/content-list' className={classes.link}>
-              <MenuItem onClick={this.handleCloseMenu}>
-                Pages de contenus
-              </MenuItem>
-            </NavLink>
             <NavLink to='/home-edit' className={classes.link}>
               <MenuItem onClick={this.handleCloseMenu}>
                 Page d'accueil
               </MenuItem>
             </NavLink>
-            <Divider className={classes.divider} />
-            <NavLink to='/page-list' className={classes.link}>
+            <NavLink to='/content-list' className={classes.link}>
               <MenuItem onClick={this.handleCloseMenu}>
-                Données référencement
+                Pages de contenus
               </MenuItem>
             </NavLink>
+            <Divider className={classes.divider} />
             <NavLink to='/news-list' className={classes.link}>
               <MenuItem onClick={this.handleCloseMenu}>
                 Nouveautés accueil
+              </MenuItem>
+            </NavLink>
+            <NavLink to='/page-list' className={classes.link}>
+              <MenuItem onClick={this.handleCloseMenu}>
+                Données référencement
               </MenuItem>
             </NavLink>
             <NavLink to='/speaker-list' className={classes.link}>

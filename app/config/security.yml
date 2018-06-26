@@ -28,6 +28,9 @@ security:
             anonymous: ~
             json_login:
                 check_path: /login
+            form_login:
+                login_path: login-form
+                check_path: login-form
             logout:
                 path:   /logout
                 invalidate_session: true

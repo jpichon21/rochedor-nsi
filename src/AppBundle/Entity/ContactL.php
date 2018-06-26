@@ -68,6 +68,15 @@ class ContactL
      */
     private $jscol;
 
+    public function __construct()
+    {
+        $this->col = '';
+        $this->colt = '';
+        $this->colrel = '';
+        $this->coltyp = '';
+        $this->jscol = '';
+    }
+
     /**
      * Get codcol.
      *

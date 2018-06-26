@@ -1,0 +1,13 @@
+<html>
+  <body>
+    {% if cart %}
+    {% for line in cart.cartLines %}
+      <div>
+        {{ line.product.produit }} - {{ line.product.prix }} - {{ line.quantity }} - <a href="{{ path('cart-remove', {'cartLine': line.id}) }}">{{ 'cart.remove'|trans }}</a>
+      </div>
+    {% endfor %}
+    {% else %}
+    {{ 'cart.empty'|trans }}
+    {% endif %}
+  </body>
+</html>

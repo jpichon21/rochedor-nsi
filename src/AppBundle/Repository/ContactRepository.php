@@ -51,21 +51,23 @@ class ContactRepository
         ->createQuery('SELECT c FROM AppBundle\Entity\Contact c 
         WHERE UPPER(c.nom)=UPPER(:lastname) AND UPPER(c.prenom)=UPPER(:firstname) AND c.datnaiss=:birthdate');
         $query->setParameters(['lastname' => $lastname, 'firstname' => $firstname, 'birthdate' => $birthdate]);
+        $query->setMaxResults(1);
         return $query->getOneOrNullResult();
     }
     
     /**
-    * Find ContactL by contact and parent
-    *
-    * @param int $contactId
-    * @param int $parentId
-    * @return ContactL
-    */
+     * Find ContactL by contact and parent
+     *
+     * @param int $contactId
+     * @param int $parentId
+     * @return ContactL
+     */
     public function findContactL($contactId, $parentId)
     {
         $query = $this->entityManager
         ->createQuery('SELECT c FROM AppBundle\Entity\ContactL c WHERE c.col=:contactId AND c.colp=:parentId');
         $query->setParameters(['contactId' => $contactId, 'parentId' => $parentId]);
+        $query->setMaxResults(1);
         return $query->getOneOrNullResult();
     }
 
@@ -80,6 +82,22 @@ class ContactRepository
         $query = $this->entityManager
         ->createQuery('SELECT c FROM AppBundle\Entity\Contact c WHERE c.email=:email OR c.username=:email');
         $query->setParameter('email', $email);
+        $query->setMaxResults(1);
+        return $query->getOneOrNullResult();
+    }
+
+    /**
+    * Find Contact by reset_token
+    *
+    * @param string $token
+    * @return Contact
+    */
+    public function findContactByToken($token)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT c FROM AppBundle\Entity\Contact c 
+        WHERE c.resetToken=:token AND c.resetTokenExpiresAt>:now');
+        $query->setParameters(['token' => $token, 'now' => new \DateTime()]);
         return $query->getOneOrNullResult();
     }
 }

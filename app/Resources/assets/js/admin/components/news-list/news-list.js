@@ -28,7 +28,7 @@ export class NewsList extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully') || nextProps.error) {
+    if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully' && nextProps.status !== 'News Updated') || nextProps.error) {
       this.setState({alertOpen: true})
     }
   }

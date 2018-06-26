@@ -1,10 +1,10 @@
-export const participant = {
-  username: '',
-  roles: [],
-  codco: null,
-  ident: null,
+const participant = {
   nom: '',
   prenom: '',
+  codco: '',
+  ident: '',
+  civil: '',
+  civil2: '',
   adresse: '',
   cp: '',
   ville: '',
@@ -12,11 +12,20 @@ export const participant = {
   tel: '',
   mobil: '',
   email: '',
-  societe: '',
   profession: '',
-  datnaiss: {
-    date: '',
-    timezone_type: null,
-    timezone: ''
-  }
+  datnaiss: '',
+  coltyp: '',
+  colp: '',
+  transport: '',
+  memo: '',
+  check: false
+}
+
+const clone = (obj) => {
+  var tmp = JSON.stringify(obj)
+  return JSON.parse(tmp)
+}
+
+export const getParticipant = () => {
+  return clone(participant)
 }
