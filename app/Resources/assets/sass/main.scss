@@ -714,8 +714,8 @@ body.page {
     .textarea {
       width: 100%;
       margin-bottom: 20px;
-      padding: 5px 20px;
-      line-height: 20px;
+      padding: 0 20px;
+      line-height: 30px;
       color: #ffffff;
       font-family: 'Lato', sans-serif;
       font-size: 14px;
@@ -752,7 +752,7 @@ body.page {
     }
     .button {
       padding: 0 20px;
-      font-size: 12px;
+      font-size: 10px;
       line-height: 30px;
       text-align: center;
       text-transform: uppercase;
