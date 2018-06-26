@@ -1,5 +1,5 @@
 <div class="footer">
-    <div class="hover" {% if bodyClass != 'home' %}style="{{ bodyBackground|constantBackground }}"{% endif %}>
+    <div class="hover" {% if bodyClass != 'home' %}style="{{ bodyBackground|default(0)|constantBackground }}"{% endif %}>
         <div class="top">
             <span>Informations pratiques</span>
             <span>Conditions d'utilisation</span>
