@@ -11,6 +11,8 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body class="{{ bodyClass }}" style="{{ bodyBackground|constantBackground }}">
+    {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+    {% set currentLocale = app.request.locale %}
     {% include 'parts/header.html.twig' %}
     {% block content %}{% endblock %}
     {% include 'parts/footer.html.twig' %}
