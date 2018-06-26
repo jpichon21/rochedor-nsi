@@ -119,6 +119,8 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
     password: $('.password', this).val()
   }).then(user => {
     afterLogin(user)
+  }).catch(error => {
+    $('.catch-message', itemConnection).html(error)
   })
 })
 

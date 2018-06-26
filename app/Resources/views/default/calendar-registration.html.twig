@@ -40,14 +40,17 @@
                     <div class="panel connection">
                         <h3>{{ 'calendar.registration.one.title.connection' | trans | raw }}</h3>
                         <form class="pure-g connection">
-                            <div class="pure-u-10-24">
+                            <div class="pure-u-1-2">
                                 <input autocomplete="off" class="input username" required type="text" name="username" placeholder="{{ 'form.username' | trans | raw }}">
                             </div>
-                            <div class="pure-u-10-24">
+                            <div class="pure-u-1-2">
                                 <input class="input password" required type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
                             </div>
                             <div class="pure-u-4-24">
-                                <input class="button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                                <input class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                            </div>
+                            <div class="pure-u-20-24">
+                                <div class="catch-message"></div>
                             </div>
                         </form>
                     </div>
