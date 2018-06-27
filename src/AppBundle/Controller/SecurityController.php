@@ -117,11 +117,7 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/fr/login-form", name="login-form-fr", requirements={"methods": "{GET, POST}"})
-     * @Route("/en/login-form", name="login-form-en", requirements={"methods": "{GET, POST}"})
-     * @Route("/de/login-form", name="login-form-de", requirements={"methods": "{GET, POST}"})
-     * @Route("/it/login-form", name="login-form-it", requirements={"methods": "{GET, POST}"})
-     * @Route("/es/login-form", name="login-form-es", requirements={"methods": "{GET, POST}"})
+     * @Route("/{_locale}/login-form", name="login-form", requirements={"methods": "{GET, POST}"})
      */
     public function loginFormAction(Request $request, AuthenticationUtils $authenticationUtils)
     {
@@ -130,8 +126,7 @@ class SecurityController extends Controller
     
         return $this->render('security/login.html.twig', array(
             'last_username' => $lastUsername,
-            'error' => $error,
-            'availableLocales' => $this->pageService->getAvailableLocales('login-form')
+            'error' => $error
         ));
     }
 
@@ -195,11 +190,7 @@ class SecurityController extends Controller
     }
 
     /**
-    * @Route("/fr/register-form", name="register-form-fr", requirements={"methods": "{GET, POST}"})
-    * @Route("/en/register-form", name="register-form-en", requirements={"methods": "{GET, POST}"})
-    * @Route("/de/register-form", name="register-form-de", requirements={"methods": "{GET, POST}"})
-    * @Route("/it/register-form", name="register-form-it", requirements={"methods": "{GET, POST}"})
-    * @Route("/es/register-form", name="register-form-es", requirements={"methods": "{GET, POST}"})
+    * @Route("/{_locale}/register-form", name="register-form", requirements={"methods": "{GET, POST}"})
     */
     public function registerFormAction(
         Request $request,
@@ -263,11 +254,7 @@ class SecurityController extends Controller
         return new JsonResponse(['status' => 'ok', 'message' => 'The email has been sent']);
     }
     /**
-    * @Route("/fr/password-reset/{token}", name="password-reset-fr", requirements={"methods": "{GET, POST}"})
-    * @Route("/en/password-reset/{token}", name="password-reset-en", requirements={"methods": "{GET, POST}"})
-    * @Route("/de/password-reset/{token}", name="password-reset-de", requirements={"methods": "{GET, POST}"})
-    * @Route("/it/password-reset/{token}", name="password-reset-it", requirements={"methods": "{GET, POST}"})
-    * @Route("/es/password-reset/{token}", name="password-reset-es", requirements={"methods": "{GET, POST}"})
+    * @Route("/{_locale}/password-reset/{token}", name="password-reset", requirements={"methods": "{GET, POST}"})
     */
     public function passwordResetAction(
         Request $request,
@@ -316,11 +303,8 @@ class SecurityController extends Controller
     }
 
     /**
-    * @Route("/fr/password-reset-success", name="password-reset-success-fr", requirements={"methods": "{GET, POST}"})
-    * @Route("/en/password-reset-success", name="password-reset-success-en", requirements={"methods": "{GET, POST}"})
-    * @Route("/de/password-reset-success", name="password-reset-success-de", requirements={"methods": "{GET, POST}"})
-    * @Route("/it/password-reset-success", name="password-reset-success-it", requirements={"methods": "{GET, POST}"})
-    * @Route("/es/password-reset-success", name="password-reset-success-es", requirements={"methods": "{GET, POST}"})
+    * @Route("/{_locale}/password-reset-success",
+    * name="password-reset-success", requirements={"methods": "{GET, POST}"})
     */
     public function passwordResetSuccessAction(Request $request)
     {
