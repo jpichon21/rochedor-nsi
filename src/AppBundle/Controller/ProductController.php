@@ -165,6 +165,9 @@ class ProductController extends Controller
         $cartId = $session->get('cart');
         $cart = $this->cartRepository->find($cartId);
         $count = 0;
+        if ($cart === null) {
+            return null;
+        }
         foreach ($cart->getCartlines() as $line) {
             $count += $line->getQuantity();
         }
