@@ -22,9 +22,9 @@ export class SpeakerForm extends React.Component {
         title: {fr: '', en: '', es: '', de: '', it: ''},
         description: { fr: '', en: '', es: '', de: '', it: '' },
         image: 'http://via.placeholder.com/340x200',
-        alertOpen: false,
-        status: ''
       },
+      alertOpen: false,
+      status: '',
       fileUploading: false,
       versionCount: 0,
       showDeleteAlert: false,
@@ -41,6 +41,7 @@ export class SpeakerForm extends React.Component {
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this)
     this.handleChangeFileUpload = this.handleChangeFileUpload.bind(this)
     this.handleCloseSnack = this.handleCloseSnack.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
   handleVersion (event, key) {
     event.preventDefault()
@@ -116,6 +117,11 @@ export class SpeakerForm extends React.Component {
     this.setState({snackbarOpen: false, snackbarContent: ''})
   }
 
+  handleClose () {
+    this.setState({status: '', alertOpen: false})
+  }
+
+
   handleChangeFileUpload (event) {
     this.setState({
       fileUploading: true
@@ -123,6 +129,7 @@ export class SpeakerForm extends React.Component {
     this.props.dispatch(uploadFile(event.target.files[0])).then((res) => {
       this.setState((prevState) => {
         return {
+          fileUploading: false,
           speaker: {
             ...prevState.speaker,
             image: res.path
@@ -143,6 +150,14 @@ export class SpeakerForm extends React.Component {
           this.setState({ versions: { ...versions } })
         })
       })
+    }
+  }
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.uploadStatus) {
+      if (nextProps.uploadStatus === 'File too big') {
+        console.log('too big')
+        this.setState({status: nextProps.uploadStatus, alertOpen: true})
+      }
     }
   }
 
@@ -434,7 +449,8 @@ const styles = theme => ({
 const mapStateToProps = state => {
   return {
     status: state.postSpeakerStatus,
-    locale: state.locale
+    locale: state.locale,
+    uploadStatus: state.status
   }
 }
 

@@ -561,7 +561,6 @@ export class PageForm extends React.Component {
   }
 
   handleChangeImageUpload (event, indexSection, indexSlide, indexImage) {
-    this.props.dispatch(uploadFile(event.target.files[0]))
     this.setState({
       fileUploading: {
         isUploading: true,
@@ -571,16 +570,29 @@ export class PageForm extends React.Component {
         indexImage: indexImage
       }
     })
+    this.props.dispatch(uploadFile(event.target.files[0])).then((res) => {
+      this.setState({
+        fileUploading: {
+          isUploading: false
+        }
+      })
+    })
   }
 
   handleChangeDocumentUpload (event, indexSection) {
-    this.props.dispatch(uploadFile(event.target.files[0]))
     this.setState({
       fileUploading: {
         isUploading: true,
         type: 'document',
         indexSection: indexSection
       }
+    })
+    this.props.dispatch(uploadFile(event.target.files[0])).then((res) => {
+      this.setState({
+        fileUploading: {
+          isUploading: false
+        }
+      })
     })
   }
 

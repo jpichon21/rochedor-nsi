@@ -32,7 +32,7 @@ export class App extends React.Component {
       locale: 'fr'
     }
   }
-  componentWillUpdate () {
+  componentWillMount () {
     this.props.dispatch(doCheckLogin())
   }
   render () {

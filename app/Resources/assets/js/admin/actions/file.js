@@ -95,6 +95,6 @@ export function uploadFile (file) {
         dispatch({ type: UPLOAD_FILE_SUCCESS, data: res })
         return res
       })
-      .catch(error => dispatch({ type: UPLOAD_FILE_FAILURE, error }))
+      .catch(error => dispatch({ type: UPLOAD_FILE_FAILURE, data: error }))
   }
 }

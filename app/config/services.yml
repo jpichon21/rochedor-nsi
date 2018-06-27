@@ -37,7 +37,7 @@ services:
         class: Gedmo\Loggable\LoggableListener
         tags:
             - { name: doctrine.event_subscriber, connection: default }
-    AppBundle\ServiceUpload:
+    AppBundle\Service\UploadService:
         arguments: 
             $targetDir: '%files_directory%'
     AppBundle\Service\PageService:

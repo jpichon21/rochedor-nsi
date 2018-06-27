@@ -151,7 +151,6 @@ export class HomeForm extends React.Component {
   }
 
   handleChangeFileUpload (event, indexSection, indexSlide, indexImage) {
-    this.props.dispatch(uploadFile(event.target.files[0]))
     this.setState({
       fileUploading: {
         isUploading: true,
@@ -159,6 +158,13 @@ export class HomeForm extends React.Component {
         indexSlide: indexSlide,
         indexImage: indexImage
       }
+    })
+    this.props.dispatch(uploadFile(event.target.files[0])).then((res) => {
+      this.setState({
+        fileUploading: {
+          isUploading: false
+        }
+      })
     })
   }
 

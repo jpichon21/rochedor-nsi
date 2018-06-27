@@ -6,7 +6,8 @@ I18n.setTranslations({
     'Route already exists': 'Ce nom ou cette adresse est déjà utilisé, veuillez utiliser autre chose.',
     'News not found': 'Cette nouveauté n\'existe pas',
     'File Exists': 'Le fichier existe déjà',
-    'Invalid credentials': 'Identifiants incorrects'
+    'Invalid credentials': 'Identifiants incorrects',
+    'File too big': 'Ce fichier est trop volumineux (2Mo max)'
   }
 })
 
