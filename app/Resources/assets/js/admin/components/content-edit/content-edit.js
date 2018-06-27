@@ -7,13 +7,16 @@ import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
 import { locales } from '../../locales'
 import update from 'immutability-helper'
+import { Snackbar, Button } from '@material-ui/core'
 
 export class ContentEdit extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       alertOpen: false,
-      locales: locales
+      locales: locales,
+      snackbarOpen: false,
+      snackbarContent: ''
     }
     this.onSubmit = this.onSubmit.bind(this)
     this.onDelete = this.onDelete.bind(this)
@@ -50,14 +53,13 @@ export class ContentEdit extends React.Component {
       }
       this.setState({locales: l})
     }
-    if (nextProps.status === 'Deleted successfully' || nextProps.status === 'Page updated') {
-      this.props.dispatch(initStatus)
-      this.props.history.push('/content-list')
-    }
   }
 
   onSubmit (page) {
-    this.props.dispatch(putPage(page))
+    this.props.dispatch(putPage(page)).then((res) => {
+      this.setState({snackbarContent: 'Page enregistrée et publiée', snackbarOpen: true})
+      this.props.dispatch(getPage(page.id))
+    })
   }
 
   onVersionChange (page, version) {
@@ -89,11 +91,29 @@ export class ContentEdit extends React.Component {
     this.setState({alertOpen: false})
   }
 
+  handleCloseSnack () {
+    this.setState({snackbarOpen: false, snackbarContent: ''})
+  }
+
   render () {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
         <AppMenu goBack='/content-list' title={'Modification de la page'} localeHandler={this.onLocaleChange} locales={this.state.locales} locale={this.props.page.locale} />
+        <Snackbar
+          open={this.state.snackbarOpen}
+          autoHideDuration={4000}
+          onClose={this.handleCloseSnack}
+          ContentProps={{
+            'aria-describedby': 'snackbar-fab-message-id'
+          }}
+          message={<span id='snackbar-fab-message-id'>{this.state.snackbarContent}</span>}
+          action={
+            <Button color='inherit' size='small' onClick={this.handleCloseSnack}>
+              Ok
+            </Button>
+          }
+        />
         <ContentForm page={this.props.page} submitHandler={this.onSubmit} deleteHandler={this.onDelete} versionHandler={this.onVersionChange} edit translations={this.props.translations} />
       </div>
     )

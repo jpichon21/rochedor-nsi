@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import immutable from 'object-path-immutable'
 import moment from 'moment'
-import { Menu, MenuItem, TextField, Button, Tooltip, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Icon, CircularProgress, IconButton } from '@material-ui/core'
+import { Snackbar, Menu, MenuItem, TextField, Button, Tooltip, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Icon, CircularProgress, IconButton } from '@material-ui/core'
 import SaveIcon from '@material-ui/icons/Save'
 import DeleteIcon from '@material-ui/icons/Delete'
 import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual'
@@ -40,6 +40,7 @@ export class SpeakerForm extends React.Component {
     this.handleDeleteClose = this.handleDeleteClose.bind(this)
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this)
     this.handleChangeFileUpload = this.handleChangeFileUpload.bind(this)
+    this.handleCloseSnack = this.handleCloseSnack.bind(this)
   }
   handleVersion (event, key) {
     event.preventDefault()
@@ -72,7 +73,10 @@ export class SpeakerForm extends React.Component {
     if (this.props.edit) {
       this.props.dispatch(putSpeaker(this.state.speaker)).then((res) => {
         if (res.message === 'Speaker Updated') {
-          this.props.history.push('/speaker-list')
+          this.setState({snackbarContent: 'Intervenant enregistré et publié', snackbarOpen: true})
+          this.props.dispatch(getSpeakerVersions(this.props.speakerId)).then((versions) => {
+            this.setState({ versions: { ...versions } })
+          })
         } else {
           this.setState({
             status: res.message,
@@ -83,7 +87,7 @@ export class SpeakerForm extends React.Component {
     } else {
       this.props.dispatch(postSpeaker(this.state.speaker)).then((res) => {
         if (res.id) {
-          this.props.history.push('/speaker-list')
+          this.props.history.push(`/speaker-edit/${res.id}`)
         } else {
           this.setState({
             status: res.message,
@@ -106,6 +110,10 @@ export class SpeakerForm extends React.Component {
     this.props.dispatch(deleteSpeaker(this.state.speaker.id)).then((res) => {
       this.props.history.push('/speaker-list')
     })
+  }
+
+  handleCloseSnack () {
+    this.setState({snackbarOpen: false, snackbarContent: ''})
   }
 
   handleChangeFileUpload (event) {
@@ -140,16 +148,25 @@ export class SpeakerForm extends React.Component {
 
   render () {
     const { classes } = this.props
-    const versions = Object.keys(this.state.versions).map((k) => {
-      return (
-        <MenuItem value={k} key={this.state.versions[k].id}>{moment(this.state.versions[k].logged_at).format('DD/MM/YYYY HH:mm')}</MenuItem>
-      )
-    })
     return (
       <div className={classes.container}>
         <Typography variant='display1' className={classes.title}>
           Intervenant
         </Typography>
+        <Snackbar
+          open={this.state.snackbarOpen}
+          autoHideDuration={4000}
+          onClose={this.handleCloseSnack}
+          ContentProps={{
+            'aria-describedby': 'snackbar-fab-message-id'
+          }}
+          message={<span id='snackbar-fab-message-id'>{this.state.snackbarContent}</span>}
+          action={
+            <Button color='inherit' size='small' onClick={this.handleCloseSnack}>
+              Ok
+            </Button>
+          }
+        />
         <form className={classes.form}>
           <Grid container spacing={32}>
             <Grid item xs={6}>
@@ -292,9 +309,9 @@ export class SpeakerForm extends React.Component {
                   }}
                 >
                   <MenuItem key={null} selected={this.state.versionCount === null} onClick={event => this.handleVersion(event, null)}>Courante</MenuItem>
-                  {Object.keys(versions).map((key) => (
+                  {Object.keys(this.state.versions).map((key) => (
                     <MenuItem key={key} selected={key === this.state.versionCount} onClick={event => this.handleVersion(event, key)}>
-                      {moment(versions[key].logged_at).format('DD/MM/YYYY HH:mm:ss')}
+                      {moment(this.state.versions[key].logged_at).format('DD/MM/YYYY HH:mm:ss')}
                     </MenuItem>
                   ))}
                     }
