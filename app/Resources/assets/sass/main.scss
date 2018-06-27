@@ -724,7 +724,7 @@ body.page {
       border: 1px solid $roche-yellow;
       border-radius: 0;
       box-sizing: border-box;
-      background: none;
+      background-color: transparent;
       outline: none;
       resize: none;
       &::placeholder {
@@ -736,6 +736,7 @@ body.page {
       }
     }
     .select {
+      padding: 5px 40px 5px 20px;
       color: #ffffff;
       font-family: 'Lato', sans-serif;
       background-image: url('../img/arrow-select.png');

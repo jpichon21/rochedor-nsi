@@ -1176,5 +1176,53 @@
         <target>Effacer les filtres</target>
       </segment>
     </unit>
+    <unit id="hmTi4mf" name="news.last_posts.title">
+      <segment>
+        <source>news.last_posts.title</source>
+        <target>__news.last_posts.title</target>
+      </segment>
+    </unit>
+    <unit id="Rmhs3fL" name="editions.seeallproducts">
+      <segment>
+        <source>editions.seeallproducts</source>
+        <target>Voir toute la collection</target>
+      </segment>
+    </unit>
+    <unit id="PR.7mhC" name="editions.filters.title">
+      <segment>
+        <source>editions.filters.title</source>
+        <target>Affiner votre recherche</target>
+      </segment>
+    </unit>
+    <unit id="bYGmESp" name="editions.filter.collections.title">
+      <segment>
+        <source>editions.filter.collections.title</source>
+        <target>Par collections</target>
+      </segment>
+    </unit>
+    <unit id="JDutJpY" name="editions.filter.collections.choose">
+      <segment>
+        <source>editions.filter.collections.choose</source>
+        <target>Choisir une collection</target>
+      </segment>
+    </unit>
+    <unit id="aoxcH.V" name="editions.filter.themes.title">
+      <segment>
+        <source>editions.filter.themes.title</source>
+        <target>Par thèmes</target>
+      </segment>
+    </unit>
+    <unit id="yskUgvU" name="cart.remove">
+      <segment>
+        <source>cart.remove</source>
+        <target>__cart.remove</target>
+      </segment>
+    </unit>
+    <unit id="RoCT1_f" name="cart.empty">
+      <segment>
+        <source>cart.empty</source>
+        <target>__cart.empty</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

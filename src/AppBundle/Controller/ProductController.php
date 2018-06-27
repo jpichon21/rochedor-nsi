@@ -119,6 +119,9 @@ class ProductController extends Controller
         $locale = $request->getLocale();
         $collections = $this->productRepository->findCollections($locale);
         $themes = $this->productRepository->findThemes();
+        $themes = array_filter($themes, function ($theme) {
+            return $theme['theme'] != '';
+        });
 
         $products = null;
         
@@ -137,6 +140,7 @@ class ProductController extends Controller
             $productsCategorized = [];
             foreach ($collections as $collection) {
                 $productsCategorized[] = [
+                    'id' => $collection->getCodrub(),
                     'title' => $collection->getRubrique(),
                     'products' => $this->productRepository->findProducts($collection->getCodrub(), 2)
                 ];

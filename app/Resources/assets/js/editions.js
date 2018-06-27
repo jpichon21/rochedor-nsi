@@ -1,25 +1,14 @@
-// import $ from 'jquery'
+document.querySelector('.filter.themes form').onchange = event => {
+  const themes = document.querySelectorAll('.filter.themes input:checked')
+  const input = document.querySelector('.filter.themes input.value')
+  let values = []
+  themes.forEach(function (element) {
+    values.push(element.value)
+  })
+  input.value = values.join('|')
+  event.currentTarget.submit()
+}
 
-/* Nouveautés */
-
-// var slickNouveautes = $('.editions-nouveautes .slick').slick({
-//   slidesToShow: 1,
-//   arrows: false
-// })
-
-// function changeSlickNouveautes (direction) {
-//   slickNouveautes.slick(direction)
-// }
-
-/* Details */
-
-// $('.pictures .carrousel').zoom()
-
-// var slickDetails = $('.editions-details .slick').slick({
-//   slidesToShow: 1,
-//   arrows: false
-// })
-
-// function changeSlickDetails (direction) {
-//   slickDetails.slick(direction)
-// }
+document.querySelector('.filters form').onchange = event => {
+  event.currentTarget.submit()
+}

@@ -1,5 +1,10 @@
 $roche-yellow: #faf28e;
 $roche-orange: #ef7d1d;
+$roche-brown: #3a2e23;
+
+body {
+  background-color: #ffffff;
+}
 
 h1 {
   color: #000000;
@@ -12,6 +17,13 @@ h2 {
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #000000;
+  small {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
 }
 
 .header {
@@ -197,10 +209,11 @@ h2 {
 .products {
   position: relative;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  margin-bottom: 40px;
   .product {
     position: relative;
+    margin-bottom: 40px;
     width: 24%;
     height: 360px;
     overflow: hidden;
@@ -301,5 +314,112 @@ h2 {
         transition: 0.5s;
       }
     }
+  }
+}
+
+.filters {
+  margin-bottom: 50px;
+  .title {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+  }
+  .box {
+    display: flex;
+    position: relative;
+    padding: 20px 0;
+    border-top: 1px rgba(0, 0, 0, 0.1) solid;
+    border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
+    align-items: flex-end;
+    .filter {
+      margin-right: 50px;
+      &.disabled {
+        opacity: 0.2;
+      }
+      &.themes {
+        &.disabled {
+          label {
+            cursor: default;
+          }
+        }
+        label {
+          margin-right: 10px;
+          padding: 5px 40px 5px 20px;
+          line-height: 20px;
+          color: $roche-brown;
+          font-size: 12px;
+          text-transform: uppercase;
+          border: 1px $roche-brown solid;
+          background-image: url('../img/tags-brown.png');
+          background-position: calc(100% - 20px) center;
+          background-repeat: no-repeat;
+          box-sizing: border-box;
+          cursor: pointer;
+        }
+        input {
+          display: none;
+          &:checked + label {
+            color: $roche-orange;
+            border-color: $roche-orange;
+            background-image: url('../img/tags-crossed-orange.png');
+          }
+        }
+      }
+      form {
+        display: flex;
+      }
+      .select {
+        width: 100%;
+        padding: 5px 40px 5px 20px;
+        line-height: 20px;
+        font-family: 'Lato', sans-serif;
+        font-size: 12px;
+        text-transform: uppercase;
+        border: 1px $roche-brown solid;
+        border-radius: 0;
+        box-sizing: border-box;
+        background-image: url('../img/arrow-select-brown.png');
+        background-position: calc(100% - 20px) center;
+        background-repeat: no-repeat;
+        background-color: transparent;
+        -webkit-appearance: none;
+        outline: none;
+        option {
+          background: #0f0f0f;
+        }
+      }
+      .label {
+        display: block;
+        margin-bottom: 10px;
+        color: $roche-brown;
+        font-size: 12px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1.4px;
+      }
+    }
+    .raz {
+      color: #ffffff;
+      background-color: $roche-brown;
+    }
+  }
+}
+
+.category {
+  float: left;
+  width: 50%;
+  margin-bottom: 50px;
+  .products {
+    flex-wrap: nowrap;
+    .product {
+      width: 50%;
+      margin-right: 20px;
+    }
+  }
+  .button {
+    margin-right: 20px;
   }
 }
