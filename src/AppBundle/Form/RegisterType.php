@@ -37,7 +37,7 @@ class RegisterType extends AbstractType
         ->add('pays', TextType::class, [ 'required' => false,'attr' => ['class'=>'input','placeholder'=>'Pays']])
         ->add('tel', NumberType::class, [ 'required' => false,'attr' => ['class'=>'input','placeholder'=>'Téléphone']])
         ->add('mobil', NumberType::class, [ 'required' => false,'attr' => ['class'=>'input','placeholder'=>'Mobile']])
-        ->add('email', EmailType::class, [ 'attr' => ['class'=>'input','placeholder'=>'Email']])
+        ->add('email', EmailType::class, ['attr' => ['class'=>'input','placeholder'=>'Email']])
         ->add('datnaiss', DateType::class, [
             'format' => 'dd/MM/yyyy',
             'widget' => 'single_text',
