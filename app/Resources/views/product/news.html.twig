@@ -5,31 +5,62 @@
 <link rel="stylesheet" href="{{ asset('assets/css/editions.css') }}">
 {% endblock %}
 {% block content %}
+{% set featured = products|first %}
+{% set others = products|slice(1) %}
+{% set slides = [featured.adimg, featured.adimg2, featured.adimg3] %}
+{% set slidesCount = 0 %}
 <div class="content">
     <div class="zone">
       <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
-      <div class="highlighted">
+      <div class="featured">
         <div class="left">
           <h2>{{ 'news.title' | trans }}</h2>
-          <p>{{ products[0].memoprd | raw }}</p>
-          <a class="button right-arrow" href="{{ url('collection-' ~ app.request.locale, { id: products[0].codprd }) }}">{{ 'news.button.discover' | trans }}</a>
+          <p>{{ featured.memoprd | raw }}</p>
+          <a class="button right-arrow" href="{{ url('collection-' ~ app.request.locale, { id: featured.codprd }) }}">{{ 'news.button.discover' | trans }}</a>
         </div>
         <div class="right">
           <div class="carousel active">
             <div class="slides">
-              <div class="slide active">
+              {% for slide in slides %}
+              {% if slide != '' %}
+              {% set slidesCount = slidesCount + 1 %}
+              <div class="slide {% if loop.first %}active{% endif %}">
                 <a class="image"
-                  title="{{ products[0].produit }}"
-                  href="{{ url('collection-' ~ app.request.locale, { id: products[0].codprd }) }}"
-                  style="{{ asset('http://rochedor.fr/site/' ~ products[0].adimg)|background }}">
+                  title="{{ featured.produit }}"
+                  href="{{ url('collection-' ~ app.request.locale, { id: featured.codprd }) }}"
+                  style="{{ asset('http://rochedor.fr/site/' ~ slide) | background }}">
                 </a>
               </div>
+              {% endif %}
+              {% endfor %}
             </div>
+            {% if slidesCount > 1 %}
             <div class="prev"></div>
             <div class="next"></div>
+            {% endif %}
           </div>
         </div>
       </div>
+      <h2>{{ 'news.last_posts.title' | trans }}</h2>
+      <div class="products">
+      {% for product in others %}
+        <div class="product">
+          <div class="illustration" style="{{ asset('http://rochedor.fr/site/' ~ product.adimg) | background }}"></div>
+          <div class="description">
+            <h3>{{ product.produit }}</h3>
+            <p>{{ product.pageprd | truncate(100, true) }}</p>
+            <div class="price">{{ product.prix }}<small>€</small></div>
+            <a href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">
+              <img class="cart" src="{{ asset('assets/img/cart.png') }}" alt="Panier">
+            </a>
+            <div class="more">
+              <p>{{ product.pageprd }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+      <a href="{{ url('collections-' ~ app.request.locale) }}" class="button right-arrow">{{ 'editions.seeallproducts' | trans }}</a>
     </div>
 </div>
 {% endblock %}
