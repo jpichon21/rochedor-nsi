@@ -36,8 +36,14 @@ $('.carousel .prev, .carousel .next').on('click', function () {
   changeSlide(direction)
 })
 
-$('.carousel .slide .image').magnificPopup({'type': 'image'})
-$('.carousel .slide .iframe').magnificPopup({'type': 'iframe'})
+const $images = $('.carousel .slide .image')
+if ($images.length > 0) {
+  $images.magnificPopup({'type': 'image'})
+}
+const $iframes = $('.carousel .slide .iframe')
+if ($iframes.length > 0) {
+  $iframes.magnificPopup({'type': 'iframe'})
+}
 
 /* Dropdowns */
 
