@@ -71,13 +71,13 @@ class ProductController extends Controller
     public function showProductAction($id, Request $request)
     {
         $contentDocument = $this->pageService->getContentFromRequest($request);
-        $avaiableLocales = $this->pageService->getAvailableLocales($contentDocument);
+        $availableLocales = $this->pageService->getAvailableLocales($contentDocument);
         $product = $this->productRepository->findProduct($id);
         return $this->render(
             'product/details.html.twig',
             [
                 'product' => $product,
-                'avaiableLocales' => $avaiableLocales,
+                'availableLocales' => $availableLocales,
                 'page' => $contentDocument,
                 'cartCount' => $this->getCartCount()
             ]
@@ -94,13 +94,13 @@ class ProductController extends Controller
     public function showNewProductsAction(Request $request)
     {
         $contentDocument = $this->pageService->getContentFromRequest($request);
-        $avaiableLocales = $this->pageService->getAvailableLocales($contentDocument);
+        $availableLocales = $this->pageService->getAvailableLocales($contentDocument);
         $products = $this->productRepository->findNewProducts();
         return $this->render(
             'product/news.html.twig',
             [
                 'products' => $products,
-                'avaiableLocales' => $avaiableLocales,
+                'availableLocales' => $availableLocales,
                 'page' => $contentDocument,
                 'cartCount' => $this->getCartCount()
             ]
@@ -119,6 +119,9 @@ class ProductController extends Controller
         $locale = $request->getLocale();
         $collections = $this->productRepository->findCollections($locale);
         $themes = $this->productRepository->findThemes();
+        $themes = array_filter($themes, function ($theme) {
+            return $theme['theme'] != '';
+        });
 
         $products = null;
         
@@ -137,18 +140,19 @@ class ProductController extends Controller
             $productsCategorized = [];
             foreach ($collections as $collection) {
                 $productsCategorized[] = [
+                    'id' => $collection->getCodrub(),
                     'title' => $collection->getRubrique(),
                     'products' => $this->productRepository->findProducts($collection->getCodrub(), 2)
                 ];
             }
         }
         $contentDocument = $this->pageService->getContentFromRequest($request);
-        $avaiableLocales = $this->pageService->getAvailableLocales($contentDocument);
+        $availableLocales = $this->pageService->getAvailableLocales($contentDocument);
 
         return $this->render(
             'product/list.html.twig',
             [
-                'avaiableLocales' => $avaiableLocales,
+                'availableLocales' => $availableLocales,
                 'page' => $contentDocument,
                 'collections' => $collections,
                 'themes' => $themes,
@@ -165,6 +169,9 @@ class ProductController extends Controller
         $cartId = $session->get('cart');
         $cart = $this->cartRepository->find($cartId);
         $count = 0;
+        if ($cart === null) {
+            return null;
+        }
         foreach ($cart->getCartlines() as $line) {
             $count += $line->getQuantity();
         }

@@ -1,15 +1,14 @@
-{% set sections = [] %}
 {% set bodyClass = "page" %}
-{% set bodyBackground = 1 %}
-{% extends './alternative-parts/register-header.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block stylesheets %}
-<link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/pure-css-grids.css") }}">
+<link rel="stylesheet" href="{{ asset("assets/css/pure-css-grids.css") }}">
+<link rel="stylesheet" href="{{ asset('assets/css/carousel.css') }}">
 {% endblock %}
 {% block content %}
   <div class="content">
       <div class="left">
           <div class="inner">
-              <h1><small>Formulaire</small>D'inscription</h1>
+              <h1><small>Formulaire </small>d'inscription</h1>
               <div class="dropdown single">
                   <div class="item">
                     <h2>Formulaire</h2>
@@ -18,7 +17,7 @@
                           {% if error %}
                             <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                           {% endif %}
-                          <form action="{{ path('login-form') }}" method="post">
+                          <form action="{{ path('login-form-' ~ currentLocale) }}" method="post">
                             <div class="pure-u-1-2">
                               <input type="text" id="username" placeholder ="Identifiant" name="_username" value="{{ last_username }}" class="input"/>
                             </div>
@@ -30,7 +29,7 @@
                             </div>
                           </form>
                         </div>
-                        <a href="{{ path('register-form') }}"}>{{ 'security.register'|trans }}</a>
+                        <a href="{{ path('register-form-' ~ currentLocale) }}"}>{{ 'security.register'|trans }}</a>
                     </div>
                   </div>
               </div>
@@ -51,4 +50,5 @@
 {% endblock %}
 {% block javascripts %}
 <script src="{{ asset("assets/js/page.js") }}"></script>
+<script src="{{ asset("assets/js/carousel.js") }}"></script>
 {% endblock %}

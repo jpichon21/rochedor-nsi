@@ -1,25 +1,25 @@
-import $ from 'jquery'
+import JsBarcode from 'jsbarcode'
 
-/* Nouveautés */
+JsBarcode('.barcode').init()
 
-var slickNouveautes = $('.editions-nouveautes .slick').slick({
-  slidesToShow: 1,
-  arrows: false
-})
+const themesForm = document.querySelector('.filter.themes form')
+const filtersForm = document.querySelector('.filters form')
 
-function changeSlickNouveautes (direction) {
-  slickNouveautes.slick(direction)
+if (themesForm != null) {
+  themesForm.onchange = event => {
+    const themes = document.querySelectorAll('.filter.themes input:checked')
+    const input = document.querySelector('.filter.themes input.value')
+    let values = []
+    themes.forEach(function (element) {
+      values.push(element.value)
+    })
+    input.value = values.join('|')
+    event.currentTarget.submit()
+  }
 }
 
-/* Details */
-
-$('.pictures .carrousel').zoom()
-
-var slickDetails = $('.editions-details .slick').slick({
-  slidesToShow: 1,
-  arrows: false
-})
-
-function changeSlickDetails (direction) {
-  slickDetails.slick(direction)
+if (filtersForm != null) {
+  document.querySelector('.filters form').onchange = event => {
+    event.currentTarget.submit()
+  }
 }

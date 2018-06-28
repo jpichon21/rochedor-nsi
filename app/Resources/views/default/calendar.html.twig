@@ -1,8 +1,7 @@
 {% set bodyClass = "calendar" %}
-{% set bodyBackground = constant('AppBundle\\Entity\\Page::BACKGROUNDS')[page.background] %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-<link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/calendar.css") }}">
+<link rel="stylesheet" href="{{ asset("assets/css/calendar.css") }}">
 {% endblock %}
 {% block content %}
 <div class="content">

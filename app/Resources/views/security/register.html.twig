@@ -1,15 +1,14 @@
-{% set sections = [] %}
 {% set bodyClass = "page" %}
-{% set bodyBackground = 1 %}
-{% extends './alternative-parts/register-header.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block stylesheets %}
-<link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/pure-css-grids.css") }}">
+<link rel="stylesheet" href="{{ asset("assets/css/pure-css-grids.css") }}">
+<link rel="stylesheet" href="{{ asset('assets/css/carousel.css') }}">
 {% endblock %}
 {% block content %}
 <div class="content">
     <div class="left">
         <div class="inner">
-            <h1><small>Formulaire</small>D'inscription</h1>
+            <h1><small>Formulaire </small>d'inscription</h1>
             <div class="dropdown single">
                 <div class="item">
                 <h2>Formulaire</h2>
@@ -82,4 +81,5 @@
 {% endblock %}
 {% block javascripts %}
 <script src="{{ asset("assets/js/page.js") }}"></script>
+<script src="{{ asset("assets/js/carousel.js") }}"></script>
 {% endblock %}
