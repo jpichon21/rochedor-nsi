@@ -7,8 +7,8 @@
 {% block metadescription %}<meta name="description" content="{{ product.memoprd }}">{% endblock %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('assets/css/editions.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/carousel.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/editions.css') }}">
 {% endblock %}
 {% block content %}
 <div class="content">
@@ -20,11 +20,13 @@
             {% if slide != '' %}
             {% set slidesCount = slidesCount + 1 %}
             <div class="slide {% if loop.first %}active{% endif %}">
-              <a class="image"
-                title="{{ product.produit }}"
-                href="{{ slide }}"
-                style="{{ slide | background }}">
-              </a>
+              <div class="top">
+                <a class="full image"
+                  title="{{ product.produit }}"
+                  href="{{ slide }}"
+                  style="{{ slide | background }}">
+                </a>
+              </div>
             </div>
             {% endif %}
             {% endfor %}
@@ -83,6 +85,6 @@
 </div>
 {% endblock %}
 {% block javascripts %}
-<script src="{{ asset("assets/js/editions.js") }}"></script>
-<script src="{{ asset("assets/js/carousel.js") }}"></script>
+<script src="{{ asset('assets/js/carousel.js') }}"></script>
+<script src="{{ asset('assets/js/editions.js') }}"></script>
 {% endblock %}
