@@ -1,3 +1,7 @@
+{% set featured = products|first %}
+{% set others = products|slice(1) %}
+{% set slides = [featured.adimg, featured.adimg2, featured.adimg3] %}
+{% set slidesCount = 0 %}
 {% set bodyClass = "editions news" %}
 {% set bodyBackground = 7 %}
 {% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
@@ -7,10 +11,6 @@
 <link rel="stylesheet" href="{{ asset('assets/css/editions.css') }}">
 {% endblock %}
 {% block content %}
-{% set featured = products|first %}
-{% set others = products|slice(1) %}
-{% set slides = [featured.adimg, featured.adimg2, featured.adimg3] %}
-{% set slidesCount = 0 %}
 <div class="content">
     <div class="zone">
       <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
