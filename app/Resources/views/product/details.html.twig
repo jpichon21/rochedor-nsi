@@ -1,11 +1,28 @@
-<html>
-  <body>
-    Page: 
-    {{ dump(page) }}
-    Locale: 
-    {{ dump(avaiableLocales) }}
-    Product
-    {{ dump(product) }}
-    <a href="{{ path('cart-add', {'productId': product.codprd}) }}">Ajouter produit</a>
-  </body>
-</html>
+{% set bodyClass = "editions details" %}
+{% set bodyBackground = 7 %}
+{% block title %}{{ product.produit }} - La Roche d'Or{% endblock %}
+{% block metadescription %}<meta name="description" content="{{ product.memoprd }}">{% endblock %}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/editions.css') }}">
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="left">
+      <div class="inner">
+        
+      </div>
+    </div>
+    <div class="hole">
+    </div>
+    <div class="right">
+      <div class="inner">
+        <h1>{{ product.produit }}</h1>
+        <a href="{{ path('cart-add', {'productId': product.codprd}) }}">Ajouter produit</a>
+      </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset("assets/js/editions.js") }}"></script>
+{% endblock %}

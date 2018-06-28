@@ -50,13 +50,17 @@
           <div class="illustration" style="{{ asset('http://rochedor.fr/site/' ~ product.adimg) | background }}"></div>
           <div class="description">
             <h3>{{ product.produit }}</h3>
-            <p>{{ product.pageprd | truncate(100, true) }}</p>
             <div class="price">{{ product.prix }}<small>€</small></div>
-            <a href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">
-              <img class="cart" src="{{ asset('assets/img/cart.png') }}" alt="Panier">
+            <a class="cart" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">
+              <img src="{{ asset('assets/img/cart.png') }}" alt="Panier">
             </a>
-            <div class="more">
-              <p>{{ product.pageprd }}</p>
+            <div class="text">
+              <div class="short">
+                <p>{{ product.pageprd | truncate(110, true) }}</p>
+              </div>
+              <div class="long">
+                <p>{{ product.pageprd }}</p>
+              </div>
             </div>
           </div>
         </div>
