@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Editor } from 'react-draft-wysiwyg'
 import immutable from 'object-path-immutable'
 import draftToHtml from 'draftjs-to-html'
+import htmlToDraft from 'html-to-draftjs'
 import SaveIcon from '@material-ui/icons/Save'
 import { withStyles } from '@material-ui/core/styles'
 import { uploadFile } from '../../actions'
@@ -12,7 +13,6 @@ import moment from 'moment'
 import {
   EditorState,
   convertToRaw,
-  convertFromHTML,
   ContentState } from 'draft-js'
 import {
   MenuItem,
@@ -66,7 +66,7 @@ export class HomeForm extends React.Component {
   handleConvertFromHTML (state) {
     let sections = state.home.content.sections.map((section) => {
       if (typeof section.body === 'string') {
-        const blocksFromHTML = convertFromHTML(section.body)
+        const blocksFromHTML = htmlToDraft(section.body)
         let content
         if (blocksFromHTML.contentBlocks) {
           content = ContentState.createFromBlockArray(
@@ -297,6 +297,12 @@ export class HomeForm extends React.Component {
                       <Editor
                         stripPastedStyles
                         spellCheck
+                        localization={{
+                          locale: 'fr',
+                          translations: {
+                            'components.controls.link.linkTarget': 'Lien (URL)'
+                          }
+                        }}
                         editorState={this.state.home.content.sections[indexSection].body}
                         onEditorStateChange={editorState => this.handleChangeTextArea(editorState, indexSection)}
                         toolbar={{
@@ -336,7 +342,7 @@ export class HomeForm extends React.Component {
                 onOpen={this.handleTooltipOpen}
                 open={this.state.open}
                 placement='bottom'
-                title='Historique'
+                title='Revenir à une version antérieur'
               >
                 <Button
                   className={classes.button}
@@ -381,14 +387,14 @@ export class HomeForm extends React.Component {
             onOpen={this.handleTooltipOpen}
             open={this.state.open}
             placement='bottom'
-            title='Sauvegarder'
+            title='Publier'
           >
             <Button
               disabled={!this.isSubmitEnabled()}
               onClick={this.handleSubmit}
               className={classes.button}
               variant='fab'
-              text='Sauvegarder'
+              text='Publier'
               color='primary'>
               <SaveIcon />
             </Button>

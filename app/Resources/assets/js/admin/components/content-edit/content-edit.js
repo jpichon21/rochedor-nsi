@@ -23,6 +23,7 @@ export class ContentEdit extends React.Component {
     this.onVersionChange = this.onVersionChange.bind(this)
     this.onLocaleChange = this.onLocaleChange.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleCloseSnack = this.handleCloseSnack.bind(this)
   }
 
   componentDidMount () {

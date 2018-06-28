@@ -297,7 +297,7 @@ export class SpeakerForm extends React.Component {
                   onOpen={this.handleTooltipOpen}
                   open={this.state.open}
                   placement='bottom'
-                  title='Historique'
+                  title='Revenir à une version antérieur'
                 >
                   <Button
                     className={classes.button}
@@ -388,7 +388,7 @@ export class SpeakerForm extends React.Component {
             onOpen={this.handleTooltipOpen}
             open={this.state.open}
             placement='bottom'
-            title='Sauvegarder'
+            title='Publier'
           >
             <Button
               disabled={!this.isSubmitEnabled()}

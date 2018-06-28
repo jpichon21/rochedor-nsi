@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Editor } from 'react-draft-wysiwyg'
 import immutable from 'object-path-immutable'
 import draftToHtml from 'draftjs-to-html'
+import htmlToDraft from 'html-to-draftjs'
 import { SortableContainer, SortableElement, arrayMove, SortableHandle } from 'react-sortable-hoc'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import SaveIcon from '@material-ui/icons/Save'
@@ -21,7 +22,6 @@ import {
   RichUtils,
   EditorState,
   convertToRaw,
-  convertFromHTML,
   ContentState } from 'draft-js'
 import {
   Tab,
@@ -98,7 +98,12 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
           <Editor
             stripPastedStyles
             spellCheck
-            localization={{locale: 'fr'}}
+            localization={{
+              locale: 'fr',
+              translations: {
+                'components.controls.link.linkTarget': 'Lien (URL)'
+              }
+            }}
             editorState={context.state.page.content.sections[indexSection].bodyRaw}
             onEditorStateChange={editorState => context.handleChangeTextArea(editorState, indexSection)}
             toolbarCustomButtons={[<CustomOption addDocument={event => { context.handleChangeDocumentUpload(event, indexSection) }} />]}
@@ -160,7 +165,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                                       id='tooltip-controlled'
                                       leaveDelay={300}
                                       placement='bottom'
-                                      title='Sélectionner une image'
+                                      title='Sélectionner une image (2Mo max)'
                                     >
                                       <IconButton
                                         color={slide.images[tile.id].url === '' ? 'primary' : 'secondary'}>
@@ -378,7 +383,7 @@ export class PageForm extends React.Component {
 
   handleConvertFromHTML (sections) {
     return sections.map(section => {
-      const blocksFromHTML = convertFromHTML(section.body)
+      const blocksFromHTML = htmlToDraft(section.body)
       const content = blocksFromHTML.contentBlocks
         ? ContentState.createFromBlockArray(
           blocksFromHTML.contentBlocks,
@@ -824,7 +829,7 @@ export class PageForm extends React.Component {
                   onOpen={this.handleTooltipOpen}
                   open={this.state.open}
                   placement='bottom'
-                  title='Historique des versions'
+                  title='Revenir à une version antérieur'
                 >
                   <Button
                     className={classes.button}
@@ -929,7 +934,7 @@ export class PageForm extends React.Component {
             onOpen={this.handleTooltipOpen}
             open={this.state.open}
             placement='bottom'
-            title='Sauvegarder'
+            title='Publier'
           >
             <Button
               disabled={!this.isSubmitEnabled()}
