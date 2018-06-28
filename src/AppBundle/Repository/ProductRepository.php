@@ -33,9 +33,13 @@ class ProductRepository
     public function findProduct($productId)
     {
         $query = $this->entityManager
-        ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.codprd=:productId');
+        ->createQuery('SELECT p, r 
+        FROM AppBundle\Entity\Produit p 
+        JOIN AppBundle\Entity\Prodrub r 
+        WITH r.codrub=p.codrub 
+        WHERE p.codprd=:productId');
         $query->setParameter('productId', $productId);
-        return $query->getOneOrNullResult();
+        return $query->getArrayResult();
     }
 
     /**

@@ -44,6 +44,7 @@
     "jquery-scrollify": "^1.0.19",
     "jquery-zoom": "^1.7.21",
     "jquery.easing": "^1.4.1",
+    "jsbarcode": "^3.9.0",
     "magnific-popup": "^1.1.0",
     "material-ui-pickers": "^1.0.0-rc.9",
     "mochawesome": "^3.0.2",

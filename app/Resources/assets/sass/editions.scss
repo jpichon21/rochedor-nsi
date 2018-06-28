@@ -463,6 +463,12 @@ h2 {
       .inner {
         padding-left: 100px;
       }
+      .carousel {
+        width: auto;
+        height: 500px;
+        left: 100px;
+        right: 0;
+      }
     }
     .right {
       .inner {
@@ -470,7 +476,46 @@ h2 {
         h1 {
           font-size: 24px;
           font-weight: 100;
+          margin-bottom: 20px;
         }
+      }
+      .subtitle {
+        margin-bottom: 5px;
+        font-size: 14px;
+        font-weight: 100;
+        text-transform: uppercase;
+        letter-spacing: 1.4px;
+        b {
+          font-weight: 500;
+          margin-right: 5px;
+        }
+      }
+      .price {
+        padding-top: 10px;
+        margin-bottom: 40px;
+        font-size: 30px;
+        font-weight: 100;
+        color: $roche-orange;
+      }
+      .description {
+        line-height: 18px;
+        font-size: 14px;
+        font-weight: 100;
+        margin-bottom: 40px;
+      }
+      .actions {
+        margin-bottom: 40px;
+        a {
+          display: inline-block;
+          float: none;
+        }
+        .or {
+          display: inline-block;
+          margin: 0 10px;
+        }
+      }
+      .technicalreview {
+        margin-bottom: 40px;
       }
     }
   }

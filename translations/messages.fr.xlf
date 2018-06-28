@@ -1224,5 +1224,29 @@
         <target>__cart.empty</target>
       </segment>
     </unit>
+    <unit id="rgQWz6f" name="editions.author">
+      <segment>
+        <source>editions.author</source>
+        <target>Auteur</target>
+      </segment>
+    </unit>
+    <unit id="kwCXg0T" name="editions.collection">
+      <segment>
+        <source>editions.collection</source>
+        <target>Collection</target>
+      </segment>
+    </unit>
+    <unit id="zfUdmv." name="editions.addtocart">
+      <segment>
+        <source>editions.addtocart</source>
+        <target>Ajouter au panier</target>
+      </segment>
+    </unit>
+    <unit id="YxhvXIb" name="editions.ebookversion">
+      <segment>
+        <source>editions.ebookversion</source>
+        <target>Version ebook</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
