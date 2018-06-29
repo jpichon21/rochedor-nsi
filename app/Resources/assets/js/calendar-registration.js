@@ -313,13 +313,12 @@ itemParticipants.on('click', '.add-participant', function (event) {
 })
 
 function validateTransports () {
-  const whoAreWeWaiting = _participants.map(participant => {
-    if (participant.transport === '') { return participant }
-  })
-  if (whoAreWeWaiting.length) {
+  const whoAreWeWaiting = _participants.filter(participant => participant.transport === '')
+  if (whoAreWeWaiting.length > 0) {
     return {
-      whoAreWeWaiting: () => {
+      whoAreWeWaitingRender: () => {
         let html = ''
+        console.log(whoAreWeWaiting)
         whoAreWeWaiting.map(who => {
           html += '<li>' + who.prenom + ' ' + who.nom + '</li>'
         })
@@ -345,7 +344,7 @@ itemParticipants.on('click', '.validate-participants', function (event) {
   } else {
     $('.right .catch-message').html(
       _translations.message.verify_transport +
-      '<ul>' + validate.whoAreWeWaiting() + '</ul>'
+      '<ul>' + validate.whoAreWeWaitingRender() + '</ul>'
     )
   }
 })
