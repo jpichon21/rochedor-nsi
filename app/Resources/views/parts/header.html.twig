@@ -54,8 +54,8 @@
             <div class="blank"></div>
             <div class="blank"></div>
             <li><a href="#">{{ 'menu.five.one' | trans | raw }}</a></li>
-            <li><a href="#">{{ 'menu.five.two' | trans | raw }}</a></li>
-            <li><a href="#">{{ 'menu.five.three' | trans | raw }}</a></li>
+            <li><a href="{{ path('collections-news-' ~ currentLocale) }}">{{ 'menu.five.two' | trans | raw }}</a></li>
+            <li><a href="{{ path('collections-' ~ currentLocale) }}">{{ 'menu.five.three' | trans | raw }}</a></li>
         </ul>
         <ul class="sub-menu" data-menu="defrgt">
             <div class="blank"></div>
