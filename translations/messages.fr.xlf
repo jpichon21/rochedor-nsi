@@ -1248,5 +1248,160 @@
         <target>Version ebook</target>
       </segment>
     </unit>
+    <unit id="Csu2uYK" name="order.registration.cart.title.1">
+      <segment>
+        <source>order.registration.cart.title.1</source>
+        <target>Votre Panier</target>
+      </segment>
+    </unit>
+    <unit id="i2JGptw" name="order.registration.one.title">
+      <segment>
+        <source>order.registration.one.title</source>
+        <target>Connexion</target>
+      </segment>
+    </unit>
+    <unit id="BxI_rwF" name="order.registration.one.body.disconnected">
+      <segment>
+        <source>order.registration.one.body.disconnected</source>
+        <target>Avez vous déja effectuer une commande sur notre site ?</target>
+      </segment>
+    </unit>
+    <unit id="al9WFPE" name="order.registration.two.title">
+      <segment>
+        <source>order.registration.two.title</source>
+        <target>Commande</target>
+      </segment>
+    </unit>
+    <unit id="S_61BVF" name="order.registration.two.title.you">
+      <segment>
+        <source>order.registration.two.title.you</source>
+        <target>Votre fiche client</target>
+      </segment>
+    </unit>
+    <unit id="biPtN4s" name="order.registration.choose.adliv">
+      <segment>
+        <source>order.registration.choose.adliv</source>
+        <target>Votre adresse de livraison</target>
+      </segment>
+    </unit>
+    <unit id="TKTwy0K" name="form.choose.adliv">
+      <segment>
+        <source>form.choose.adliv</source>
+        <target>Livraison</target>
+      </segment>
+    </unit>
+    <unit id="EuDIPVk" name="select.ad.myadd">
+      <segment>
+        <source>select.ad.myadd</source>
+        <target>Mon adresse
+</target>
+      </segment>
+    </unit>
+    <unit id="rznIWfL" name="select.ad.roche">
+      <segment>
+        <source>select.ad.roche</source>
+        <target>La Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="8QjWF9b" name="select.ad.font">
+      <segment>
+        <source>select.ad.font</source>
+        <target>Les Fontanilles
+</target>
+      </segment>
+    </unit>
+    <unit id="MlxM03H" name="select.ad.other">
+      <segment>
+        <source>select.ad.other</source>
+        <target>Autre Adresse
+</target>
+      </segment>
+    </unit>
+    <unit id="GDNiQhU" name="order.choose.adliv">
+      <segment>
+        <source>order.choose.adliv</source>
+        <target>Adresse de livraison</target>
+      </segment>
+    </unit>
+    <unit id="xiX_zBW" name="form.adresse">
+      <segment>
+        <source>form.adresse</source>
+        <target>Adresse</target>
+      </segment>
+    </unit>
+    <unit id="CDqJj5g" name="order.registration.choose.country">
+      <segment>
+        <source>order.registration.choose.country</source>
+        <target>Choisir mon pays de livraison</target>
+      </segment>
+    </unit>
+    <unit id="qnrYsFN" name="form.choose.country">
+      <segment>
+        <source>form.choose.country</source>
+        <target>Pays</target>
+      </segment>
+    </unit>
+    <unit id="UxPpNQd" name="country.fr">
+      <segment>
+        <source>country.fr</source>
+        <target>France</target>
+      </segment>
+    </unit>
+    <unit id="Q6zSrRK" name="country.en">
+      <segment>
+        <source>country.en</source>
+        <target>Royaume Unis
+</target>
+      </segment>
+    </unit>
+    <unit id="ruZtiTw" name="country.de">
+      <segment>
+        <source>country.de</source>
+        <target>Allemagne</target>
+      </segment>
+    </unit>
+    <unit id="rZWRGQp" name="country.it">
+      <segment>
+        <source>country.it</source>
+        <target>Italie</target>
+      </segment>
+    </unit>
+    <unit id="lWwH1W0" name="country.es">
+      <segment>
+        <source>country.es</source>
+        <target>Espagne</target>
+      </segment>
+    </unit>
+    <unit id="JwRE9Ox" name="order.registration.choose.gift">
+      <segment>
+        <source>order.registration.choose.gift</source>
+        <target>
+Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.</target>
+      </segment>
+    </unit>
+    <unit id="7o3eWsz" name="order.choose.modpaie">
+      <segment>
+        <source>order.choose.modpaie</source>
+        <target>Choisir mon mode de paiment</target>
+      </segment>
+    </unit>
+    <unit id="CIlu59y" name="form.choose.modpaie">
+      <segment>
+        <source>form.choose.modpaie</source>
+        <target>Mode de paiement</target>
+      </segment>
+    </unit>
+    <unit id="D210X6f" name="select.cb">
+      <segment>
+        <source>select.cb</source>
+        <target>Carte Bancaire</target>
+      </segment>
+    </unit>
+    <unit id="BtZ0NwJ" name="select.paypal">
+      <segment>
+        <source>select.paypal</source>
+        <target>Paypal</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
