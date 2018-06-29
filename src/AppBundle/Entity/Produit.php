@@ -32,9 +32,16 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="Produit", type="string", length=80, nullable=false)
+     * @ORM\Column(name="Produitcourt", type="string", length=80, nullable=false)
      */
-    private $produit;
+    private $produitcourt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Produitlong", type="text", nullable=true)
+     */
+    private $produitlong;
 
     /**
      * @var int
@@ -60,6 +67,13 @@ class Produit
     /**
      * @var string
      *
+     * @ORM\Column(name="Ean", type="string", length=20, nullable=true, options={"fixed"=true})
+     */
+    private $ean;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="Serie", type="string", length=50, nullable=false)
      */
     private $serie;
@@ -74,6 +88,13 @@ class Produit
     /**
      * @var string
      *
+     * @ORM\Column(name="Editeur", type="string", length=255, nullable=true)
+     */
+    private $editeur;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="TypPrd", type="string", length=8, nullable=false)
      */
     private $typprd;
@@ -81,9 +102,9 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="Annee", type="string", length=4, nullable=false)
+     * @ORM\Column(name="Dateparution", type="datetime", nullable=true)
      */
-    private $annee;
+    private $dateparution;
 
     /**
      * @var string
@@ -126,6 +147,13 @@ class Produit
      * @ORM\Column(name="Hauteur", type="smallint", nullable=false)
      */
     private $hauteur;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="Epaisseur", type="smallint", nullable=false)
+     */
+    private $epaisseur;
 
     /**
      * @var int
@@ -243,20 +271,6 @@ class Produit
     }
 
     /**
-     * Set refprd.
-     *
-     * @param string $refprd
-     *
-     * @return Produit
-     */
-    public function setRefprd($refprd)
-    {
-        $this->refprd = $refprd;
-
-        return $this;
-    }
-
-    /**
      * Get refprd.
      *
      * @return string
@@ -264,20 +278,6 @@ class Produit
     public function getRefprd()
     {
         return $this->refprd;
-    }
-
-    /**
-     * Set produit.
-     *
-     * @param string $produit
-     *
-     * @return Produit
-     */
-    public function setProduit($produit)
-    {
-        $this->produit = $produit;
-
-        return $this;
     }
 
     /**
@@ -291,20 +291,6 @@ class Produit
     }
 
     /**
-     * Set codrub.
-     *
-     * @param int $codrub
-     *
-     * @return Produit
-     */
-    public function setCodrub($codrub)
-    {
-        $this->codrub = $codrub;
-
-        return $this;
-    }
-
-    /**
      * Get codrub.
      *
      * @return int
@@ -312,20 +298,6 @@ class Produit
     public function getCodrub()
     {
         return $this->codrub;
-    }
-
-    /**
-     * Set codb.
-     *
-     * @param int $codb
-     *
-     * @return Produit
-     */
-    public function setCodb($codb)
-    {
-        $this->codb = $codb;
-
-        return $this;
     }
 
     /**
@@ -339,20 +311,6 @@ class Produit
     }
 
     /**
-     * Set isbn.
-     *
-     * @param string $isbn
-     *
-     * @return Produit
-     */
-    public function setIsbn($isbn)
-    {
-        $this->isbn = $isbn;
-
-        return $this;
-    }
-
-    /**
      * Get isbn.
      *
      * @return string
@@ -360,20 +318,6 @@ class Produit
     public function getIsbn()
     {
         return $this->isbn;
-    }
-
-    /**
-     * Set serie.
-     *
-     * @param string $serie
-     *
-     * @return Produit
-     */
-    public function setSerie($serie)
-    {
-        $this->serie = $serie;
-
-        return $this;
     }
 
     /**
@@ -387,20 +331,6 @@ class Produit
     }
 
     /**
-     * Set auteur.
-     *
-     * @param string $auteur
-     *
-     * @return Produit
-     */
-    public function setAuteur($auteur)
-    {
-        $this->auteur = $auteur;
-
-        return $this;
-    }
-
-    /**
      * Get auteur.
      *
      * @return string
@@ -408,20 +338,6 @@ class Produit
     public function getAuteur()
     {
         return $this->auteur;
-    }
-
-    /**
-     * Set typprd.
-     *
-     * @param string $typprd
-     *
-     * @return Produit
-     */
-    public function setTypprd($typprd)
-    {
-        $this->typprd = $typprd;
-
-        return $this;
     }
 
     /**
@@ -435,20 +351,6 @@ class Produit
     }
 
     /**
-     * Set annee.
-     *
-     * @param string $annee
-     *
-     * @return Produit
-     */
-    public function setAnnee($annee)
-    {
-        $this->annee = $annee;
-
-        return $this;
-    }
-
-    /**
      * Get annee.
      *
      * @return string
@@ -456,20 +358,6 @@ class Produit
     public function getAnnee()
     {
         return $this->annee;
-    }
-
-    /**
-     * Set prix.
-     *
-     * @param string $prix
-     *
-     * @return Produit
-     */
-    public function setPrix($prix)
-    {
-        $this->prix = $prix;
-
-        return $this;
     }
 
     /**
@@ -483,20 +371,6 @@ class Produit
     }
 
     /**
-     * Set promo.
-     *
-     * @param string $promo
-     *
-     * @return Produit
-     */
-    public function setPromo($promo)
-    {
-        $this->promo = $promo;
-
-        return $this;
-    }
-
-    /**
      * Get promo.
      *
      * @return string
@@ -504,20 +378,6 @@ class Produit
     public function getPromo()
     {
         return $this->promo;
-    }
-
-    /**
-     * Set poids.
-     *
-     * @param int $poids
-     *
-     * @return Produit
-     */
-    public function setPoids($poids)
-    {
-        $this->poids = $poids;
-
-        return $this;
     }
 
     /**
@@ -531,20 +391,6 @@ class Produit
     }
 
     /**
-     * Set etatprd.
-     *
-     * @param string $etatprd
-     *
-     * @return Produit
-     */
-    public function setEtatprd($etatprd)
-    {
-        $this->etatprd = $etatprd;
-
-        return $this;
-    }
-
-    /**
      * Get etatprd.
      *
      * @return string
@@ -552,20 +398,6 @@ class Produit
     public function getEtatprd()
     {
         return $this->etatprd;
-    }
-
-    /**
-     * Set largeur.
-     *
-     * @param int $largeur
-     *
-     * @return Produit
-     */
-    public function setLargeur($largeur)
-    {
-        $this->largeur = $largeur;
-
-        return $this;
     }
 
     /**
@@ -579,20 +411,6 @@ class Produit
     }
 
     /**
-     * Set hauteur.
-     *
-     * @param int $hauteur
-     *
-     * @return Produit
-     */
-    public function setHauteur($hauteur)
-    {
-        $this->hauteur = $hauteur;
-
-        return $this;
-    }
-
-    /**
      * Get hauteur.
      *
      * @return int
@@ -600,20 +418,6 @@ class Produit
     public function getHauteur()
     {
         return $this->hauteur;
-    }
-
-    /**
-     * Set nbpage.
-     *
-     * @param int $nbpage
-     *
-     * @return Produit
-     */
-    public function setNbpage($nbpage)
-    {
-        $this->nbpage = $nbpage;
-
-        return $this;
     }
 
     /**
@@ -627,20 +431,6 @@ class Produit
     }
 
     /**
-     * Set stock.
-     *
-     * @param int $stock
-     *
-     * @return Produit
-     */
-    public function setStock($stock)
-    {
-        $this->stock = $stock;
-
-        return $this;
-    }
-
-    /**
      * Get stock.
      *
      * @return int
@@ -648,20 +438,6 @@ class Produit
     public function getStock()
     {
         return $this->stock;
-    }
-
-    /**
-     * Set hide.
-     *
-     * @param bool $hide
-     *
-     * @return Produit
-     */
-    public function setHide($hide)
-    {
-        $this->hide = $hide;
-
-        return $this;
     }
 
     /**
@@ -675,20 +451,6 @@ class Produit
     }
 
     /**
-     * Set adimg.
-     *
-     * @param string $adimg
-     *
-     * @return Produit
-     */
-    public function setAdimg($adimg)
-    {
-        $this->adimg = $adimg;
-
-        return $this;
-    }
-
-    /**
      * Get adimg.
      *
      * @return string
@@ -696,20 +458,6 @@ class Produit
     public function getAdimg()
     {
         return $this->adimg;
-    }
-
-    /**
-     * Set adimg2.
-     *
-     * @param string $adimg2
-     *
-     * @return Produit
-     */
-    public function setAdimg2($adimg2)
-    {
-        $this->adimg2 = $adimg2;
-
-        return $this;
     }
 
     /**
@@ -723,20 +471,6 @@ class Produit
     }
 
     /**
-     * Set adimg3.
-     *
-     * @param string $adimg3
-     *
-     * @return Produit
-     */
-    public function setAdimg3($adimg3)
-    {
-        $this->adimg3 = $adimg3;
-
-        return $this;
-    }
-
-    /**
      * Get adimg3.
      *
      * @return string
@@ -744,20 +478,6 @@ class Produit
     public function getAdimg3()
     {
         return $this->adimg3;
-    }
-
-    /**
-     * Set urlbook.
-     *
-     * @param string $urlbook
-     *
-     * @return Produit
-     */
-    public function setUrlbook($urlbook)
-    {
-        $this->urlbook = $urlbook;
-
-        return $this;
     }
 
     /**
@@ -771,20 +491,6 @@ class Produit
     }
 
     /**
-     * Set pageprd.
-     *
-     * @param string $pageprd
-     *
-     * @return Produit
-     */
-    public function setPageprd($pageprd)
-    {
-        $this->pageprd = $pageprd;
-
-        return $this;
-    }
-
-    /**
      * Get pageprd.
      *
      * @return string
@@ -792,20 +498,6 @@ class Produit
     public function getPageprd()
     {
         return $this->pageprd;
-    }
-
-    /**
-     * Set memoprd.
-     *
-     * @param string $memoprd
-     *
-     * @return Produit
-     */
-    public function setMemoprd($memoprd)
-    {
-        $this->memoprd = $memoprd;
-
-        return $this;
     }
 
     /**
@@ -819,20 +511,6 @@ class Produit
     }
 
     /**
-     * Set presentation.
-     *
-     * @param string|null $presentation
-     *
-     * @return Produit
-     */
-    public function setPresentation($presentation = null)
-    {
-        $this->presentation = $presentation;
-
-        return $this;
-    }
-
-    /**
      * Get presentation.
      *
      * @return string|null
@@ -840,20 +518,6 @@ class Produit
     public function getPresentation()
     {
         return $this->presentation;
-    }
-
-    /**
-     * Set enreg.
-     *
-     * @param string $enreg
-     *
-     * @return Produit
-     */
-    public function setEnreg($enreg)
-    {
-        $this->enreg = $enreg;
-
-        return $this;
     }
 
     /**
@@ -867,20 +531,6 @@ class Produit
     }
 
     /**
-     * Set rang.
-     *
-     * @param int $rang
-     *
-     * @return Produit
-     */
-    public function setRang($rang)
-    {
-        $this->rang = $rang;
-
-        return $this;
-    }
-
-    /**
      * Get rang.
      *
      * @return int
@@ -888,20 +538,6 @@ class Produit
     public function getRang()
     {
         return $this->rang;
-    }
-
-    /**
-     * Set maj.
-     *
-     * @param \DateTime|null $maj
-     *
-     * @return Produit
-     */
-    public function setMaj($maj = null)
-    {
-        $this->maj = $maj;
-
-        return $this;
     }
 
     /**
@@ -915,20 +551,6 @@ class Produit
     }
 
     /**
-     * Set nouveaute.
-     *
-     * @param bool|null $nouveaute
-     *
-     * @return Produit
-     */
-    public function setNouveaute($nouveaute = null)
-    {
-        $this->nouveaute = $nouveaute;
-
-        return $this;
-    }
-
-    /**
      * Get nouveaute.
      *
      * @return bool|null
@@ -939,20 +561,6 @@ class Produit
     }
 
     /**
-     * Set themes.
-     *
-     * @param string $themes
-     *
-     * @return Produit
-     */
-    public function setThemes($themes)
-    {
-        $this->themes = $themes;
-
-        return $this;
-    }
-
-    /**
      * Get themes.
      *
      * @return string
@@ -960,5 +568,65 @@ class Produit
     public function getThemes()
     {
         return $this->themes;
+    }
+
+    /**
+     * Get produitcourt.
+     *
+     * @return string
+     */
+    public function getProduitcourt()
+    {
+        return $this->produitcourt;
+    }
+
+    /**
+     * Get produitlong.
+     *
+     * @return string|null
+     */
+    public function getProduitlong()
+    {
+        return $this->produitlong;
+    }
+
+    /**
+     * Get ean.
+     *
+     * @return string|null
+     */
+    public function getEan()
+    {
+        return $this->ean;
+    }
+
+    /**
+     * Get editeur.
+     *
+     * @return string|null
+     */
+    public function getEditeur()
+    {
+        return $this->editeur;
+    }
+
+    /**
+     * Get dateparution.
+     *
+     * @return \DateTime|null
+     */
+    public function getDateparution()
+    {
+        return $this->dateparution;
+    }
+
+    /**
+     * Get epaisseur.
+     *
+     * @return int
+     */
+    public function getEpaisseur()
+    {
+        return $this->epaisseur;
     }
 }
