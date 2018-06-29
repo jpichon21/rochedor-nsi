@@ -103,29 +103,44 @@
                                 </div>
                             </form>
                         </div>
-                        <h3>{{ 'order.registration.choose.country' | trans | raw }}</h3>
-                        <select class="select country">
-                            <option selected disabled value="">{{ 'form.choose.country' | trans | raw }}</option>
-                            <option value="FR">{{ 'country.fr' | trans | raw }}</option>
-                            <option value="EN">{{ 'country.en' | trans | raw }}</option>
-                            <option value="DE">{{ 'country.de' | trans | raw }}</option>
-                            <option value="IT">{{ 'country.it' | trans | raw }}</option>
-                            <option value="es">{{ 'country.es' | trans | raw }}</option>
-                        </select>
+                        <div class = "panel countryliv">
+                            <h3>{{ 'order.registration.choose.country' | trans | raw }}</h3>
+                            <select class="select country">
+                                <option selected disabled value="">{{ 'form.choose.country' | trans | raw }}</option>
+                                <option value="FR">{{ 'country.fr' | trans | raw }}</option>
+                                <option value="EN">{{ 'country.en' | trans | raw }}</option>
+                                <option value="DE">{{ 'country.de' | trans | raw }}</option>
+                                <option value="IT">{{ 'country.it' | trans | raw }}</option>
+                                <option value="es">{{ 'country.es' | trans | raw }}</option>
+                            </select>
+                        </div>
                         <h3>{{ 'order.registration.choose.gift' | trans | raw }}</h3>
                         <p>{{ 'order.gift.text' | trans | raw }}</p>
-                            <div class="pure-u-1-3">
-                                <input class="input note" required type="textarea" name="note" placeholder="{{ 'form.adresse' | trans | raw }}">
+                            <form class="form gift">
+                                <div class="pure-u-1-1">
+                                    <input class="input note" required type="textarea" name="note" placeholder="{{ 'form.gift' | trans | raw }}">
+                                </div>
+                                <div class="pure-u-4-24">
+                                    <input class="button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                                </div>
+                            </form>
+                            <div class="pure-u-4-24">
+                                 <a href="#payment" class="button payment">{{ 'form.payment' | trans | raw }}</a>
                             </div>
-                        <h3>{{ 'order.choose.modpaie' | trans | raw }}</h3>
-                         <select class="select modpaie">
-                            <option selected disabled value="">{{ 'form.choose.modpaie' | trans | raw }}</option>
-                            <option value="CB">{{ 'select.cb' | trans | raw }}</option>
-                            <option value="Paypal">{{ 'select.paypal' | trans | raw }}</option>
-                        </select>
-                        <div class="pure-u-4-24">
-                            <input class="button submit process-order" type="submit" value="{{ 'form.ok' | trans | raw }}">
-                        </div>
+                </div>
+                <div class="item payment">
+                    <h3>{{ 'order.choose.modpaie' | trans | raw }}</h3>
+                    <div class="pure-u-2-3">
+                        <a href="#order" class="button order">{{ 'go.to.order' | trans | raw }}</a>
+                    </div>
+                    <select class="select modpaie">
+                        <option selected disabled value="">{{ 'form.choose.modpaie' | trans | raw }}</option>
+                        <option value="CB">{{ 'select.cb' | trans | raw }}</option>
+                        <option value="Paypal">{{ 'select.paypal' | trans | raw }}</option>
+                    </select>
+                    <div class="pure-u-4-24">
+                        <input class="button submit process-order" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                    </div>
                 </div>
                 <div class="item validation">
                     <h2>{{ 'calendar.registration.three.title' | trans | raw }}</h2>

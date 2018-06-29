@@ -15,16 +15,18 @@ let objectName = ''
 total = 30
 orderRef = '18-00015'
 objectName = `Commande sur le site La Roche D'Or`
-
-pbxBtn.addEventListener('click', function(e) {
-  placePayment('PBX', total, orderRef, itemName, objectName, email, locale)
-  e.preventDefault()
-})
-
-ppBtn.addEventListener('click', function(e) {
-  placePayment('PAYPAL', total, orderRef, itemName, objectName, email, locale)
-  e.preventDefault()
-})
+// if (pbxBtn.length) {
+//   pbxBtn.addEventListener('click', function(e) {
+//     placePayment('PBX', total, orderRef, itemName, objectName, email, locale)
+//     e.preventDefault()
+//   })
+// }
+// if (ppBtn.length) {  
+//   ppBtn.addEventListener('click', function(e) {
+//     placePayment('PAYPAL', total, orderRef, itemName, objectName, email, locale)
+//     e.preventDefault()
+//   })
+// }
 
 function host() {
   const host = window.location.hostname
@@ -32,7 +34,7 @@ function host() {
   return `${protocol}//${host}`
 }
 
-function placePayment (
+export function placePayment (
   method,
   amount,
   objectId,
