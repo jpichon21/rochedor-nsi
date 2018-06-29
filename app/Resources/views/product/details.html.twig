@@ -1,10 +1,127 @@
-<html>
-  <body>
-    Page: 
-    {{ dump(page) }}
-    Locale: 
-    {{ dump(avaiableLocales) }}
-    Product
-    {{ dump(product) }}
-  </body>
-</html>
+{% set product = product[0] | merge(product[1]) %}
+{% set slides = [product.adimg, product.adimg2, product.adimg3] %}
+{% set slidesCount = 0 %}
+{% set bodyClass = "editions details" %}
+{% set bodyBackground = 7 %}
+{% block title %}{{ product.produit }} - La Roche d'Or{% endblock %}
+{% block metadescription %}<meta name="description" content="{{ product.memoprd }}">{% endblock %}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/carousel.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/editions.css') }}">
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="left">
+      <div class="inner">
+        <div class="carousel active">
+          <div class="slides">
+            {% for slide in slides %}
+            {% if slide != '' %}
+            {% set slidesCount = slidesCount + 1 %}
+            <div class="slide {% if loop.first %}active{% endif %}">
+              <div class="top">
+                <a class="full image"
+                  title="{{ product.produit }}"
+                  href="{{ slide }}"
+                  style="{{ slide | background }}">
+                  <img src="{{ slide }}" alt="{{ product.produit }}">
+                </a>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+          {% if slidesCount > 1 %}
+          <div class="prev"></div>
+          <div class="next"></div>
+          {% endif %}
+        </div>
+        <div class="thumbnails">
+          {% for slide in slides %}
+          {% if slide != '' %}
+          {% set slidesCount = slidesCount + 1 %}
+          <div class="thumb {% if loop.first %}active{% endif %}" style="{{ slide | background }}"></div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="hole">
+    </div>
+    <div class="right">
+      <div class="inner">
+        <h1>{{ product.produit }}</h1>
+        <div class="subtitle">
+          <b>{{ 'editions.author' | trans }}</b>
+          {{ product.auteur }}
+        </div>
+        <div class="subtitle">
+          <b>{{ 'editions.collection' | trans }}</b>
+          {{ product.rubrique }}
+        </div>
+        <div class="price">
+          {{ product.prix }}
+          <small>€</small>
+        </div>
+        <div class="description">
+          {{ product.pageprd }}
+        </div>
+        <div class="actions">
+          <a class="button" href="{{ path('cart-add', {'productId': product.codprd}) }}">{{ 'editions.addtocart' | trans }}</a>
+          <div class="or">{{ 'editions.or' | trans }}</div>
+          <a class="button" href="{{ product.urlbook }}">{{ 'editions.ebookversion' | trans }}</a>
+        </div>
+        <h2>{{ 'editions.technicalreview' | trans }}</h2>
+        <div class="technical-review">
+          <div class="left">
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
+          </div>
+          <div class="right">
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
+          </div>
+        </div>
+        {% if product.isbn != '' %}
+        <svg class="barcode"
+          jsbarcode-format="upc"
+          jsbarcode-value="{{ product.isbn }}">
+        </svg>
+        {% endif %}
+      </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('assets/js/carousel.js') }}"></script>
+<script src="{{ asset('assets/js/editions.js') }}"></script>
+{% endblock %}

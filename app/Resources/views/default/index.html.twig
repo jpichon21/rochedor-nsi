@@ -1,4 +1,6 @@
 {% set bodyClass = "home" %}
+{% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
+{% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
 {% extends 'base.html.twig' %}
 {% block content %}
 <div class="animation-intro">

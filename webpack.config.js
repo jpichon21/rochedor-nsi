@@ -15,9 +15,13 @@ Encore
   .addEntry('js/calendar', './app/Resources/assets/js/calendar.js')
   .addEntry('js/calendar-api', './app/Resources/assets/js/calendar-api.js')
   .addEntry('js/calendar-registration', './app/Resources/assets/js/calendar-registration.js')
+  .addEntry('js/editions', './app/Resources/assets/js/editions.js')
+  .addEntry('js/carousel', './app/Resources/assets/js/carousel.js')
   .addStyleEntry('css/main', './app/Resources/assets/sass/main.scss')
   .addStyleEntry('css/calendar', './app/Resources/assets/sass/calendar.scss')
   .addStyleEntry('css/calendar-registration', './app/Resources/assets/sass/calendar-registration.scss')
+  .addStyleEntry('css/editions', './app/Resources/assets/sass/editions.scss')
+  .addStyleEntry('css/carousel', './app/Resources/assets/sass/carousel.scss')
   .addStyleEntry('css/Draft/Draft', './app/Resources/assets/css/Draft.css')
   .addStyleEntry('css/Draft/Editor', './app/Resources/assets/css/Editor.css')
   .addStyleEntry('css/pure-css-grids', './node_modules/purecss/build/grids-min.css')
@@ -34,6 +38,12 @@ Encore
     from: './app/Resources/assets/img',
     to: 'img'
   }]))
+  .autoProvideVariables({
+    $: 'jquery',
+    jQuery: 'jquery',
+    'window.jQuery': 'jquery',
+    'window.$': 'jquery'
+  })
 
 const config = Encore.getWebpackConfig()
 if (Encore.isProduction()) {
@@ -50,7 +60,8 @@ config.resolve.alias = {
   'ScrollMagic': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'),
   'animation.gsap': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'),
   'magnific-popup-js': path.resolve('node_modules', 'magnific-popup/dist/jquery.magnific-popup.js'),
-  'magnific-popup-css': path.resolve('node_modules', 'magnific-popup/src/css/main.scss')
+  'magnific-popup-css': path.resolve('node_modules', 'magnific-popup/src/css/main.scss'),
+  'jquery-zoom-js': path.resolve('node_modules', 'jquery-zoom/jquery.zoom.js')
 }
 
 module.exports = config

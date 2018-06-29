@@ -762,6 +762,18 @@
         <target>Demande d'inscription</target>
       </segment>
     </unit>
+    <unit id="jbjkLYq" name="news.title">
+      <segment>
+        <source>news.title</source>
+        <target>Nouveauté</target>
+      </segment>
+    </unit>
+    <unit id="Qx5vJC1" name="news.button.discover">
+      <segment>
+        <source>news.button.discover</source>
+        <target>Découvrir le produit</target>
+      </segment>
+    </unit>
     <unit id="RmsDr53" name="form.label.password">
       <notes>
         <note priority="1">app/Resources/views/security/login.html.twig:15</note>
@@ -987,7 +999,7 @@
       </notes>
       <segment>
         <source>password</source>
-        <target></target>
+        <target>Mot de passe</target>
       </segment>
     </unit>
     <unit id="1cJDMNG" name="security.register">
@@ -1180,6 +1192,102 @@
       <segment>
         <source>security.check_inbox</source>
         <target>Veuillez vérifier votre boîte email</target>
+      </segment>
+    </unit>
+    <unit id="hmTi4mf" name="news.last_posts.title">
+      <segment>
+        <source>news.last_posts.title</source>
+        <target>__news.last_posts.title</target>
+      </segment>
+    </unit>
+    <unit id="Rmhs3fL" name="editions.seeallproducts">
+      <segment>
+        <source>editions.seeallproducts</source>
+        <target>Voir toute la collection</target>
+      </segment>
+    </unit>
+    <unit id="PR.7mhC" name="editions.filters.title">
+      <segment>
+        <source>editions.filters.title</source>
+        <target>Affiner votre recherche</target>
+      </segment>
+    </unit>
+    <unit id="bYGmESp" name="editions.filter.collections.title">
+      <segment>
+        <source>editions.filter.collections.title</source>
+        <target>Par collections</target>
+      </segment>
+    </unit>
+    <unit id="JDutJpY" name="editions.filter.collections.choose">
+      <segment>
+        <source>editions.filter.collections.choose</source>
+        <target>Choisir une collection</target>
+      </segment>
+    </unit>
+    <unit id="aoxcH.V" name="editions.filter.themes.title">
+      <segment>
+        <source>editions.filter.themes.title</source>
+        <target>Par thèmes</target>
+      </segment>
+    </unit>
+    <unit id="yskUgvU" name="cart.remove">
+      <segment>
+        <source>cart.remove</source>
+        <target>__cart.remove</target>
+      </segment>
+    </unit>
+    <unit id="RoCT1_f" name="cart.empty">
+      <segment>
+        <source>cart.empty</source>
+        <target>__cart.empty</target>
+      </segment>
+    </unit>
+    <unit id="rgQWz6f" name="editions.author">
+      <segment>
+        <source>editions.author</source>
+        <target>Auteur</target>
+      </segment>
+    </unit>
+    <unit id="kwCXg0T" name="editions.collection">
+      <segment>
+        <source>editions.collection</source>
+        <target>Collection</target>
+      </segment>
+    </unit>
+    <unit id="zfUdmv." name="editions.addtocart">
+      <segment>
+        <source>editions.addtocart</source>
+        <target>Ajouter au panier</target>
+      </segment>
+    </unit>
+    <unit id="YxhvXIb" name="editions.ebookversion">
+      <segment>
+        <source>editions.ebookversion</source>
+        <target>Version ebook</target>
+      </segment>
+    </unit>
+    <unit id="Pox7Osf" name="editions.or">
+      <segment>
+        <source>editions.or</source>
+        <target>Ou</target>
+      </segment>
+    </unit>
+    <unit id="6yPWKi5" name="editions.technicalreview.annee">
+      <segment>
+        <source>editions.technicalreview.annee</source>
+        <target>editions.technicalreview.annee</target>
+      </segment>
+    </unit>
+    <unit id="rT63a4z" name="editions.technicalreview.isbn">
+      <segment>
+        <source>editions.technicalreview.isbn</source>
+        <target>ISBN</target>
+      </segment>
+    </unit>
+    <unit id="MyEvwMh" name="editions.technicalreview">
+      <segment>
+        <source>editions.technicalreview</source>
+        <target>Fiche technique</target>
       </segment>
     </unit>
   </file>

@@ -1,0 +1,118 @@
+@import 'magnific-popup-css';
+
+$roche-yellow: #faf28e;
+
+.carousel {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  z-index: 0;
+  &.active {
+    z-index: 1;
+    &.fade {
+      z-index: 2;
+      animation-duration: 0.8s;
+      animation-name: upElement;
+    }
+  }
+  .prev,
+  .next {
+    position: absolute;
+    top: 50%;
+    margin-top: -34px;
+    width: 68px;
+    height: 68px;
+    background-image: url('../img/arrow-left.png');
+    z-index: 1;
+    cursor: pointer;
+  }
+  .prev {
+    left: 0;
+  }
+  .next {
+    right: 0;
+    background-image: url('../img/arrow-right.png');
+  }
+  .slides {
+    position: relative;
+    display: flex;
+    flex: 1;
+    z-index: 0;
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      z-index: 0;
+      &.active {
+        z-index: 1;
+        &.fade {
+          z-index: 2;
+          animation-duration: 0.8s;
+          animation-name: upElement;
+        }
+      }
+      .top,
+      .bottom {
+        display: flex;
+        flex: 1;
+        .full,
+        .left,
+        .right {
+          flex: 1;
+          position: relative;
+          background-size: cover;
+          background-position: center;
+          outline: none;
+          &:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: $roche-yellow;
+            opacity: 0;
+            transition: 0.5s;
+            z-index: 0;
+          }
+          &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 39px;
+            height: 39px;
+            background-image: url('../img/plus.png');
+            z-index: 1;
+          }
+          &.iframe {
+            &:after {
+              background-image: url('../img/play.png');
+            }
+          }
+          &:hover {
+            &:before {
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+      .bottom {
+        .full,
+        .left,
+        .right {
+          &:after {
+            top: auto;
+            bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes upElement {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
