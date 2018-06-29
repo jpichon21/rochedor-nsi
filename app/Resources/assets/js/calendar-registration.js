@@ -10,6 +10,9 @@ import {
   getRegistered,
   postRegistered,
   postRegister } from './calendar-api.js'
+import I18n from './i18n'
+
+let i18n = new I18n()
 
 /* Infos */
 
@@ -121,7 +124,7 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
   }).then(user => {
     afterLogin(user)
   }).catch(() => {
-    $('.connection .catch-message', itemConnection).html('Invalid credientials')
+    $('.connection .catch-message', itemConnection).html(i18n.trans('security.bad_credentials'))
   })
 })
 
@@ -130,7 +133,7 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
   resetLogin({
     email: $('.username', this).val()
   }).then(() => {
-    $('.reset .catch-message', itemConnection).html('Please verifiy your email box')
+    $('.reset .catch-message', itemConnection).html(i18n.trans('security.check_inbox'))
   })
 })
 

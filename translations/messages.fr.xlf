@@ -1164,5 +1164,23 @@
         <target>Effacer les filtres</target>
       </segment>
     </unit>
+    <unit id="cvwzHYX" name="form.password.reset">
+      <segment>
+        <source>form.password.reset</source>
+        <target>Réinitialiser le mot de passe</target>
+      </segment>
+    </unit>
+    <unit id="kzkX1MK" name="security.bad_credentials">
+      <segment>
+        <source>security.bad_credentials</source>
+        <target>Identifiants erronés</target>
+      </segment>
+    </unit>
+    <unit id="rHsOKUn" name="security.check_inbox">
+      <segment>
+        <source>security.check_inbox</source>
+        <target>Veuillez vérifier votre boîte email</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
