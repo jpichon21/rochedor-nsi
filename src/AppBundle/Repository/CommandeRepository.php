@@ -35,7 +35,7 @@ class CommandeRepository
             'SELECT MAX(c.refcom) AS ref FROM AppBundle:Commande c WHERE c.refcom LIKE :ref'
         );
         $query->setParameter('ref', $currentYear->format('y') . '-%');
-        
+        $result = $query->getOneOrNullResult();
         if ($result === null) {
             return $currentYear->format('y')."-00001";
         }

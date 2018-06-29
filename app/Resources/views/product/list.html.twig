@@ -1,16 +1,113 @@
-<html>
-  <body>
-    Page: 
-    {{ dump(page) }}
-    Locale: 
-    {{ dump(avaiableLocales) }}
-    Collections: 
-    {{ dump(collections) }}
-    Themes:
-    {{ dump(themes) }}
-    Products categorized:
-    {{ dump(productsCategorized) }}
-    Products
-    {{ dump(products) }}
-  </body>
-</html>
+{% set bodyClass = "editions list" %}
+{% set bodyBackground = 7 %}
+{% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
+{% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/editions.css') }}">
+{% endblock %}
+{% block content %}
+{% set filters_collection = app.request.get('collection') %}
+{% set filters_themes = app.request.get('themes') %}
+{% set filters_themes_array = filters_themes|split('|') %}
+{% set collections_array = [] %}
+{% for collection in collections %}
+{% set collections_array = collections_array | merge({ ('collection-' ~ collection.codrub): collection.rubrique }) %}
+{% endfor %}
+<div class="content">
+  <div class="zone">
+    <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
+    <div class="filters">
+      <span class="title">{{ 'editions.filters.title' | trans }}</span>
+      <div class="box">
+        <div class="filter collections {% if filters_themes != null %}disabled{% endif %}">
+          <span class="label">{{ 'editions.filter.collections.title' | trans }}</span>
+          <form>
+            <select class="select" {% if filters_themes != null %}disabled{% endif %} required name="collection">
+              <option disabled value="" {% if filters_collection == null %}selected="selected"{% endif %}>{{ 'editions.filter.collections.choose' | trans }}</option>
+              {% for collection in collections %}
+              <option value="{{ collection.codrub }}" {% if filters_collection == collection.codrub %}selected="selected"{% endif %}>
+                {{ collection.rubrique }}
+              </option>
+              {% endfor %}
+            </select>
+          </form>
+        </div>
+        <div class="filter themes {% if filters_collection != null %}disabled{% endif %}">
+          <span class="label">{{ 'editions.filter.themes.title' | trans }}</span>
+          <form>
+            {% for theme in themes %}
+            <input id="{{ theme.theme }}" type="checkbox" value="{{ theme.theme }}"
+              {% if theme.theme in filters_themes_array %}checked="checked"{% endif %}
+              {% if filters_collection != null %}disabled{% endif %} />
+            <label for="{{ theme.theme }}">
+              {{ theme.theme }}
+            </label>
+            {% endfor %}
+            <input class="value" type="hidden" name="themes" value="{{ filters_themes }}" />
+          </form>
+        </div>
+        <a class="raz button" href="{{ currentPath }}">{{ 'filter.raz.button' | trans }}</a>
+      </div>
+    </div>
+    {% if productsCategorized %}
+      {% for category in productsCategorized %}
+        <div class="category">
+          <h2><small>{{ 'collection' | trans }} </small>{{ category.title }}</h2>
+          <div class="products">
+          {% for product in category.products %}
+            <div class="product">
+              <div class="illustration" style="{{ asset('http://rochedor.fr/site/' ~ product.adimg) | background }}"></div>
+              <div class="description">
+                <h3>{{ product.produit }}</h3>
+                <div class="price">{{ product.prix }}<small>€</small></div>
+                <a class="cart" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">
+                  <img src="{{ asset('assets/img/cart.png') }}" alt="Panier">
+                </a>
+                <div class="text">
+                  <div class="short">
+                    <p>{{ product.pageprd | truncate(110, true) }}</p>
+                  </div>
+                  <div class="long">
+                    <p>{{ product.pageprd }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+          </div>
+          <a class="button right-arrow" href="{{ currentPath ~ '?collection=' ~ category.id }}">{{ 'editions.seeallproducts' | trans }}</a>
+        </div>
+      {% endfor %}
+    {% else %}
+    {% if filters_collection %}<h2><small>{{ 'editions.filter.collections.title' | trans }} </small>{{ collections_array['collection-' ~ filters_collection] }}</h2>{% endif %}
+    {% if filters_themes %}<h2><small>{{ 'editions.filter.themes.title' | trans }} </small>{{ filters_themes_array|join(', ') }}{% if filters_themes_array|length > 1 %}.{% endif %}</h2>{% endif %}
+    <div class="products">
+    {% for product in products %}
+      <div class="product">
+        <div class="illustration" style="{{ asset('http://rochedor.fr/site/' ~ product.adimg) | background }}"></div>
+        <div class="description">
+          <h3>{{ product.produit }}</h3>
+          <div class="price">{{ product.prix }}<small>€</small></div>
+          <a class="cart" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">
+            <img src="{{ asset('assets/img/cart.png') }}" alt="Panier">
+          </a>
+          <div class="text">
+            <div class="short">
+              <p>{{ product.pageprd | truncate(110, true) }}</p>
+            </div>
+            <div class="long">
+              <p>{{ product.pageprd }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset("assets/js/editions.js") }}"></script>
+{% endblock %}

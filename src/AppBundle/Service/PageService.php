@@ -41,11 +41,10 @@ class PageService
 
     public function getAvailableLocales($contentDocument)
     {
-        if (!$contentDocument) {
+        if ($contentDocument === null) {
             return null;
         }
         $availableLocales = array();
-        $contentDocument = $contentDocument;
         if ($contentDocument->getLocale() === "fr") {
             $cm = $contentDocument->getChildren();
             $myChild = $cm->getValues();

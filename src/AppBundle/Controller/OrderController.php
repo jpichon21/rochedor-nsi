@@ -28,6 +28,7 @@ use Psr\Log\LoggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use SensioLabs\Security\Exception\HttpException;
 use AppBundle\Service\PaypalService;
+use AppBundle\Service\PageService;
 
 class OrderController extends Controller
 {
@@ -87,7 +88,8 @@ class OrderController extends Controller
         Mailer $mailer,
         Translator $translator,
         LoggerInterface $logger,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        PageService $pageService
     ) {
         $this->commandeRepository = $commandeRepository;
         $this->cartRepository = $cartRepository;
@@ -96,6 +98,7 @@ class OrderController extends Controller
         $this->translator = $translator;
         $this->logger = $logger;
         $this->em = $em;
+        $this->pageService = $pageService;
     }
 
     /**
@@ -143,6 +146,7 @@ class OrderController extends Controller
         if (!isset($delivery['cartId'])) {
             return ['status' => 'ko', 'message' => 'You must provide a client with a delivery cartid'];
         }
+        // if ($this->registerOrder($delivery, $cartId, $locale)) {
         if ($this->registerOrder($delivery, $cartId, $locale)) {
             return ['status' => 'ok'];
         }
@@ -198,16 +202,16 @@ class OrderController extends Controller
 
     private function registerOrder($delivery, $cartId, $locale)
     {
-        // $codcli = $user['codco'];
         $codcli = 37898;
         
-        // $user = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getDoctrine()->getRepository('AppBundle:Contact')->findByCodco($codcli);
+        $user = $this->getUser();
+        // $em = $this->getDoctrine()->getManager();
+        // $user = $this->getDoctrine()->getRepository('AppBundle:Contact')->findByCodco($codcli);
+        $codcli = $user->getCodco();
         
 
-        // $cart = $this->getCart($cartId);
         $cart = $this->cartRepository->find($delivery['cartId']);
+        // $cart = $this->getCart($cartId);
 
         $datCom = new \DateTime();
         $modpaie = $delivery['modpaie'];
@@ -218,17 +222,17 @@ class OrderController extends Controller
         if ($destliv === "Other") {
             $adliv = $this->getAdLiv($delivery['adliv'], $user);
         } else {
-            $adliv = $user[0]->getCivil().
+            $adliv = $user->getCivil().
                     " ".
-                    $user[0]->getNom().
+                    $user->getNom().
                     " ".
-                    $user[0]->getPrenom().
+                    $user->getPrenom().
                     " ".
-                    $user[0]->getAdresse().
+                    $user->getAdresse().
                     " ".
-                    $user[0]->getCp().
+                    $user->getCp().
                     " ".
-                    $user[0]->getVille();
+                    $user->getVille();
         }
         $paysliv = $delivery['paysliv'];
         
@@ -301,7 +305,7 @@ class OrderController extends Controller
     
     private function getCart($id)
     {
-        $cart = $this->cartRepository->findCart($id);
+        $cart = $this->cartRepository->find($id);
         return $cart;
     }
 
@@ -343,11 +347,11 @@ class OrderController extends Controller
     private function getAdLiv($adliv, $user)
     {
         $parsedAdliv =
-                    $user[0]->getCivil().
+                    $user->getCivil().
                     " ".
-                    $user[0]->getNom().
+                    $user->getNom().
                     " ".
-                    $user[0]->getPrenom().
+                    $user->getPrenom().
                     " ".
                     $adliv['adresse'].
                     " ".
@@ -361,7 +365,7 @@ class OrderController extends Controller
     {
         $this->mailer->send(
             [
-                $user[0]->getEmail(),
+                $user->getEmail(),
                 $this->getParameter('email_from_address')
             ],
             $this->translator->trans('order.notify.client.subject'),
@@ -378,5 +382,21 @@ class OrderController extends Controller
                 'user' => $user,
                 ])
         );
+    }
+     
+    /**
+     * @Route("/{_locale}/commande", name="commande-fr")
+     */
+    public function orderAction(Request $request)
+    {
+        $cookies = $request->cookies;
+        $cartId = $cookies->get('cart');
+        $page = $this->pageService->getContentFromRequest($request);
+        $availableLocales = $this->pageService->getAvailableLocales($page);
+        return $this->render('order/order-command.html.twig', [
+            'cart' => $this->cartRepository->find(1),
+            'page' => $page,
+            'availableLocales' => $availableLocales
+        ]);
     }
 }

@@ -26,8 +26,7 @@ ppBtn.addEventListener('click', function(e) {
   e.preventDefault()
 })
 
-function host()
-{
+function host() {
   const host = window.location.hostname
   const protocol = window.location.protocol
   return `${protocol}//${host}`

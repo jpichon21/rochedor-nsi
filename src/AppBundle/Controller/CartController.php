@@ -65,7 +65,7 @@ class CartController extends Controller
     public function addAction($productId, Request $request)
     {
         $session = new Session();
-        $product = $this->productRepository->findProduct($productId);
+        $product = $this->productRepository->find($productId);
         if ($product === null) {
             return $this->redirectToRoute('product-series-' . $request->getLocale());
         }
