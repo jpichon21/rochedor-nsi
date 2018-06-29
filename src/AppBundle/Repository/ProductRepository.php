@@ -117,4 +117,17 @@ class ProductRepository
         $query->execute();
         return $query->fetchAll();
     }
+
+    /**
+    * Find themes
+    *
+    * @return Product
+    */
+    public function find($productId)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.codprd=:productId');
+        $query->setParameter('productId', $productId);
+        return $query->getResult()[0];
+    }
 }
