@@ -41,7 +41,7 @@ class PageService
 
     public function getAvailableLocales($contentDocument)
     {
-        if (!$contentDocument) {
+        if ($contentDocument === null) {
             return null;
         }
         $availableLocales = array();
