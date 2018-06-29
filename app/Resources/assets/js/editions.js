@@ -1,7 +1,9 @@
 import $ from 'jquery'
 import JsBarcode from 'jsbarcode'
+import 'jquery-zoom-js'
 
 JsBarcode('.barcode').init()
+$('.slide .image').zoom()
 
 const themesForm = document.querySelector('.filter.themes form')
 const filtersForm = document.querySelector('.filters form')

@@ -421,6 +421,9 @@ h2 {
       .carousel {
         position: relative;
         height: 500px;
+        img {
+          display: none;
+        }
       }
       .thumbnails {
         display: flex;
@@ -514,13 +517,6 @@ h2 {
               font-weight: 100;
             }
           }
-        }
-      }
-      .thumbnails {
-        display: flex;
-        .thumb {
-          flex: 1;
-          height: 100px;
         }
       }
     }
