@@ -1248,5 +1248,29 @@
         <target>Version ebook</target>
       </segment>
     </unit>
+    <unit id="Pox7Osf" name="editions.or">
+      <segment>
+        <source>editions.or</source>
+        <target>Ou</target>
+      </segment>
+    </unit>
+    <unit id="6yPWKi5" name="editions.technicalreview.annee">
+      <segment>
+        <source>editions.technicalreview.annee</source>
+        <target>editions.technicalreview.annee</target>
+      </segment>
+    </unit>
+    <unit id="rT63a4z" name="editions.technicalreview.isbn">
+      <segment>
+        <source>editions.technicalreview.isbn</source>
+        <target>ISBN</target>
+      </segment>
+    </unit>
+    <unit id="MyEvwMh" name="editions.technicalreview">
+      <segment>
+        <source>editions.technicalreview</source>
+        <target>Fiche technique</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
