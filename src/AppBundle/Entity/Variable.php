@@ -97,4 +97,10 @@ class Variable
      * @ORM\Column(name="DatMaj", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $datmaj = 'CURRENT_TIMESTAMP';
+
+    public function setValeurn($valeurn)
+    {
+        $this->valeurn = $valeurn;
+        return $this;
+    }
 }
