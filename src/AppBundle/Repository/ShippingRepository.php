@@ -28,7 +28,6 @@ class ShippingRepository
     {
         
         $weight = $weight + $this::SHIPPINGWEIGHT;
-        dump($weight);
         if ($country != 'FR') {
             $country = 'HF';
         }

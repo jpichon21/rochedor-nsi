@@ -7,6 +7,7 @@ import {
   getLogin,
   getLogout,
   getRegistered,
+  getData,
   postLogin,
   postOrder
 } from './order-api.js'
@@ -53,11 +54,12 @@ $('.item-participants').on('click', '.button.radio', function (event) {
 let _you = {}
 let _registered = []
 let _delivery = {}
+let _cartInfo = {}
 let _participant = {}
 let _participants = []
 
 const itemConnection = $('.item.connection')
-const itemParticipants = $('.item.participants')
+const itemOrder = $('.item.order')
 const itemValidation = $('.item.validation')
 const itemCart = $('.item.cart')
 const itemPayment = $('.item.payment')
@@ -67,7 +69,7 @@ const itemPayment = $('.item.payment')
 const youTemplate = _.template($('.you-template').html())
 const deliveryFormTemplate = _.template($('.delivery-form-template').html())
 const registeredTemplate = _.template($('.registered-template').html())
-const participantsTemplate = _.template($('.participants-template').html())
+const cartTemplate = _.template($('.cart-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
 const himFormTemplate = _.template($('.him-form-template').html())
 
@@ -79,8 +81,8 @@ function updateRegisteredRender () {
   $('.registered-render').html(registeredTemplate({ registered: _registered }))
 }
 
-function updateParticipantsRender () {
-  $('.participants-render').html(participantsTemplate({ participants: _delivery, translations: _translations }))
+function updateCartRender () {
+  $('.participants-render').html(cartTemplate({ participants: _delivery, translations: _translations, cartInfo: _cartInfo }))
 }
 
 function updateYouFormRender () {
@@ -95,10 +97,10 @@ function updateDeliveryFormRender () {
   $('.delivery-form-render').html(deliveryFormTemplate({ delivery: _delivery, registered: _registered, you: _you }))
 }
 
-updateParticipantsRender()
+updateCartRender()
 
 /* Actions */
-itemParticipants.on('change', '.select.adliv', function (event) {
+itemOrder.on('change', '.select.adliv', function (event) {
   event.preventDefault()
   const data = $(this).val()
   let selectedVal = data
@@ -107,42 +109,44 @@ itemParticipants.on('change', '.select.adliv', function (event) {
     _delivery.adliv.adresse = _you.adresse
     _delivery.adliv.zipcode = _you.cp
     _delivery.adliv.city = _you.ville
-    $(`.panel.adliv`, itemParticipants).removeClass('active')
+    $(`.panel.adliv`, itemOrder).removeClass('active')
   } else {
-    $(`.panel.adliv`, itemParticipants).addClass('active')
+    $(`.panel.adliv`, itemOrder).addClass('active')
   }
   if (selectedVal === 'myAdd' || selectedVal === 'Other') {
-    $(`.panel.countryliv`, itemParticipants).addClass('active')
+    $(`.panel.countryliv`, itemOrder).addClass('active')
   } else {
-    $(`.panel.countryliv`, itemParticipants).removeClass('active')
+    $(`.panel.countryliv`, itemOrder).removeClass('active')
   }
   if (selectedVal === 'Roche' || selectedVal === 'Font') {
     _delivery.paysliv = 'FR'
   }
-  changeItem(itemParticipants)
+  changeItem(itemOrder)
 })
 
-itemParticipants.on('click', '.button.submit.process-order', function (event) {
+itemPayment.on('click', '.button.submit.process-order', function (event) {
   event.preventDefault()
   postOrder(_delivery).then(res => {
+    console.log('Coucou avant')
     let result = $('.result', itemValidation).html()
     result = result.replace('%entry_number%', res)
     $('.result', itemValidation).html(result)
-    placePayment()
+    placePayment(_delivery.modpaie, _cartInfo.priceIT, '18-00015', 'truc', `Commande sur le site La Roche D'Or`, _you.email, 'fr')
     changeItem(itemValidation)
+    console.log('Coucou apres')
   }).catch(error => {
     $('.right .catch-message').html(error)
   })
 })
 
-itemParticipants.on('change', '.select.country', function (event) {
+itemOrder.on('change', '.select.country', function (event) {
   event.preventDefault()
   const data = $(this).val()
   _delivery.paysliv = data
   console.log(_delivery)
 })
 
-itemParticipants.on('change', '.select.modpaie', function (event) {
+itemPayment.on('change', '.select.modpaie', function (event) {
   event.preventDefault()
   const data = $(this).val()
   _delivery.modpaie = data
@@ -150,7 +154,7 @@ itemParticipants.on('change', '.select.modpaie', function (event) {
   console.log(_delivery)
 })
 
-itemParticipants.on('submit', '.panel.adliv form', function (event) {
+itemOrder.on('submit', '.panel.adliv form', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
   let dataVal = data
@@ -160,7 +164,7 @@ itemParticipants.on('submit', '.panel.adliv form', function (event) {
   console.log(_delivery)
 })
 
-itemParticipants.on('submit', '.panel.adliv form', function (event) {
+itemOrder.on('submit', '.panel.adliv form', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
   let dataVal = data
@@ -170,13 +174,27 @@ itemParticipants.on('submit', '.panel.adliv form', function (event) {
   console.log(_delivery)
 })
 
-itemParticipants.on('submit', '.button.payment', function (event) {
+itemOrder.on('click', '.button.payment', function (event) {
   event.preventDefault()
-  $('a', itemParticipants).removeClass('active')
-  $('a', itemPayment).addClass('active')
+  if (_delivery.adliv.adresse === '' ||
+    _delivery.adliv.zipcode === '' ||
+    _delivery.adliv.city === '' ||
+    _delivery.destliv === '' ||
+    _delivery.country === '') {
+    console.log('error')
+  } else {
+    getData(_delivery.cartId, _delivery.destliv, _delivery.paysliv).then(data => {
+      console.log(data)
+      _cartInfo = data
+      updateCartRender()
+      changeItem(itemPayment)
+    }).catch(error => {
+      $('.right .catch-message').html(error)
+    })
+  }
 })
 
-itemParticipants.on('submit', '.form.gift', function (event) {
+itemOrder.on('submit', '.form.gift', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
   let dataVal = data
@@ -184,16 +202,16 @@ itemParticipants.on('submit', '.form.gift', function (event) {
   console.log(_delivery)
 })
 
-itemParticipants.on('click', 'a', function (event) {
+itemOrder.on('click', 'a', function (event) {
   event.preventDefault()
-  $('a', itemParticipants).removeClass('active')
+  $('a', itemOrder).removeClass('active')
   $(this).addClass('active')
   const which = $(this).attr('href').substring(1)
   switch (which) {
     case 'connection':
     case 'registration':
-      $('.panel', itemParticipants).hide()
-      $(`.panel.${which}`, itemParticipants).show()
+      $('.panel', itemOrder).hide()
+      $(`.panel.${which}`, itemOrder).show()
       _participant = getParticipant()
       updateYouFormRender()
       break
@@ -227,7 +245,7 @@ itemPayment.on('click', 'a', function (event) {
       getLogout()
       break
   }
-  changeItem(itemParticipants)
+  changeItem(itemOrder)
 })
 
 itemCart.on('click', 'a', function (event) {
@@ -266,8 +284,8 @@ function afterLogin (user) {
       return { ...participant, ...obj }
     })
     updateRegisteredRender()
-    updateParticipantsRender()
-    changeItem(itemParticipants)
+    updateCartRender()
+    changeItem(itemOrder)
   })
 }
 
@@ -381,21 +399,21 @@ function callbackSubmit (event, context, action, callback) {
       $('.right .catch-message').html('')
       $(`.panel.${action}`).slideUp(800, function () {
         $(this).hide()
-        changeItem(itemParticipants)
+        changeItem(itemOrder)
       })
     })
   } else {
-    $('.catch-message', itemParticipants).html(validate.error)
+    $('.catch-message', itemOrder).html(validate.error)
   }
 }
 
-itemParticipants.on('submit', '.panel.you form', function (event) {
+itemOrder.on('submit', '.panel.you form', function (event) {
   callbackSubmit(event, $(this), 'you', function (res) {
     _you = res
   })
 })
 
-itemParticipants.on('submit', '.panel.modify form', function (event) {
+itemOrder.on('submit', '.panel.modify form', function (event) {
   callbackSubmit(event, $(this), 'modify', function (res) {
     _registered = _registered.map(obj => {
       if (obj.codco === res.codco) { return res }
@@ -404,7 +422,7 @@ itemParticipants.on('submit', '.panel.modify form', function (event) {
   })
 })
 
-itemParticipants.on('submit', '.panel.add form', function (event) {
+itemOrder.on('submit', '.panel.add form', function (event) {
   callbackSubmit(event, $(this), 'add', function (res) {
     _registered.push(res)
   })
@@ -417,11 +435,11 @@ function updateParticipants () {
     return participant.check
   })
   _participants.push(_you)
-  updateParticipantsRender()
+  updateCartRender()
   updateDeliveryFormRender()
 }
 
-itemParticipants.on('click', '.participate-him', function (event) {
+itemOrder.on('click', '.participate-him', function (event) {
   event.preventDefault()
   const id = parseInt($(this).attr('data-id'))
   _registered = _registered.map(participant => {
@@ -433,13 +451,13 @@ itemParticipants.on('click', '.participate-him', function (event) {
   updateParticipants()
 })
 
-itemParticipants.on('click', '.modify-you', function (event) {
+itemOrder.on('click', '.modify-you', function (event) {
   event.preventDefault()
   _participant = _you
-  $('.panel', itemParticipants).hide()
-  $(`.panel.you`, itemParticipants).show()
+  $('.panel', itemOrder).hide()
+  $(`.panel.you`, itemOrder).show()
   updateYouFormRender()
-  changeItem(itemParticipants)
+  changeItem(itemOrder)
 })
 
 function validateTransports () {
@@ -450,7 +468,7 @@ function validateTransports () {
   return validate
 }
 
-itemParticipants.on('click', '.validate-participants', function (event) {
+itemOrder.on('click', '.validate-participants', function (event) {
   event.preventDefault()
   const validate = validateTransports()
   if (validate) {

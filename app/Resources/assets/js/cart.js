@@ -4,31 +4,7 @@ const Buffer = require('buffer').Buffer
 const PBX_LOCALE = {'fr': 'FRA', 'en': 'GBR', 'de': 'DEU', 'it': 'ITA'}
 const PAYPAL_LOCALE = {'fr': 'fr_FR', 'en': 'en_US', 'de': 'de_DE', 'it': 'it_IT'}
 
-
-const pbxBtn = document.querySelector('.paybox')
-const ppBtn = document.querySelector('.paypal')
-let total = 0
-let orderRef = ''
-let objectName = ''
-
-/*** TESTING  VARS  ***/
-total = 30
-orderRef = '18-00015'
-objectName = `Commande sur le site La Roche D'Or`
-// if (pbxBtn.length) {
-//   pbxBtn.addEventListener('click', function(e) {
-//     placePayment('PBX', total, orderRef, itemName, objectName, email, locale)
-//     e.preventDefault()
-//   })
-// }
-// if (ppBtn.length) {  
-//   ppBtn.addEventListener('click', function(e) {
-//     placePayment('PAYPAL', total, orderRef, itemName, objectName, email, locale)
-//     e.preventDefault()
-//   })
-// }
-
-function host() {
+function host () {
   const host = window.location.hostname
   const protocol = window.location.protocol
   return `${protocol}//${host}`
@@ -75,6 +51,7 @@ export function placePayment (
     window.open(environment.pbx_url + '?' + encodedUrl + '&PBX_HMAC=' + id.toString('hex').toUpperCase())
   }
   if (method === 'PAYPAL') {
+    console.log('PAYPAL')
     const params = {
       amount: amount,
       cmd: '_xclick',
@@ -89,9 +66,12 @@ export function placePayment (
       email: email,
       lc: PAYPAL_LOCALE[locale]
     }
+    console.log(params)
     const url = Object.keys(params).map(function (k) {
       return encodeURIComponent(k) + '=' + encodeURIComponent(params[k])
     }).join('&')
+    console.log(url)
     window.open(environment.pp_url + '?' + url)
+    console.log('window opened!')
   }
 }

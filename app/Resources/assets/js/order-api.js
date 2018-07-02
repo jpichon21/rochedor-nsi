@@ -74,3 +74,15 @@ export const postOrder = (data) => {
       return res.data
     })
 }
+
+export const getData = (cartId, paysliv, destliv) => {
+  return window.fetch(`/xhr/order/data/${cartId}/${paysliv}/${destliv}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.message }
+      return res.data
+    })
+}

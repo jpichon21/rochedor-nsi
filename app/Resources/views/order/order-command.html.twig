@@ -70,7 +70,7 @@
                     </div>
                     {% endif %}
                 </div>
-                <div class="item participants">
+                <div class="item order">
                     <h2>{{ 'order.registration.two.title' | trans | raw }}</h2>
                     <h3>{{ 'order.registration.two.title.you' | trans | raw }}</h3>
                     <div class="you-render"></div>
@@ -135,8 +135,8 @@
                     </div>
                     <select class="select modpaie">
                         <option selected disabled value="">{{ 'form.choose.modpaie' | trans | raw }}</option>
-                        <option value="CB">{{ 'select.cb' | trans | raw }}</option>
-                        <option value="Paypal">{{ 'select.paypal' | trans | raw }}</option>
+                        <option value="PBX">{{ 'select.cb' | trans | raw }}</option>
+                        <option value="PAYPAL">{{ 'select.paypal' | trans | raw }}</option>
                     </select>
                     <div class="pure-u-4-24">
                         <input class="button submit process-order" type="submit" value="{{ 'form.ok' | trans | raw }}">
@@ -155,10 +155,17 @@
     </div>
     <div class="right">
         <div class="inner">
-            <h2>{{ 'order.summary.title' | trans | raw }}</h2>
-            <h3>{{ 'order.summary.title.retreat' | trans | raw }}</h3>
             {# <p>&laquo;{{ activity.libact }}&raquo;<br>{{ 'filter.inner.date.in' | trans | raw }} {{ activity.datdeb | localizeddate('medium', 'none', app.request.locale ) }} {{ 'filter.inner.date.out' | trans | lower | raw }} {{ activity.datfin | localizeddate('medium', 'none', app.request.locale ) }} ({{ activity.sitact }})</p> #}
             <h3>{{ 'order.summary.title.participants' | trans | raw }}</h3>
+            {% if cart %}
+                {% for line in cart.cartLines %}
+                <div>
+                <p>{{ line.product.produit }} - {{ line.product.prix }} € - {{ line.quantity }} </p>
+                </div>
+                {% endfor %}
+            {% else %}
+            {{ 'cart.empty'|trans }}
+            {% endif %}
             <div class="participants-render"></div>
             <div class="catch-message"></div>
         </div>
@@ -196,19 +203,12 @@
         <a href="#" class="button radio hidden <%= (you.check) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
     </div>
 </script>
-<script type="text/template" class="participants-template">
-    <% if (participants.length) { %>
-        <% for (var i = 0; i < participants.length; i++) { %>
-        <% var him = participants[i] %>
-            <div class="him">
-                <p><%= him.prenom %> <%= him.nom %><br>
-                    <%= him.adresse %> <%= him.cp %> <%= him.ville %> <%= him.pays %><br>
-                    <%= translations.transport[him.transport] %></p>
-            </div>
-        <% } %>
-    <% } else { %>
-        <p>{{ 'form.no_participants' | trans }}</p>
-    <% } %>
+<script type="text/template" class="cart-template">
+    <p>poid total: <%= cartInfo.weight %> g<br></p>
+    <p>frais de port : <%= cartInfo.portprice %> €<br></p>
+    <p>prix total HT : <%= cartInfo.totalPrice %> €<br></p>
+    <p>prix total TTC: <%= cartInfo.priceIT %> €<br></p>
+    <p>prix de la TVA: <%= cartInfo.vatCost %> €<br></p>
 </script>
 <script type="text/template" class="registered-template">
     <% if (registered.length) { %>

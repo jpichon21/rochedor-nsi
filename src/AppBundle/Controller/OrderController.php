@@ -318,6 +318,31 @@ class OrderController extends Controller
         return $totalWeight;
     }
 
+    /**
+     * @Rest\Get("/order/data/{cartId}/{destliv}/{paysliv}", name="get_price")
+     * @Rest\View()
+     */
+    public function xhrGetCartDataAction($cartId, $paysliv, $destliv)
+    {
+        ;
+        $cart = $this->cartRepository->find($cartId);
+        $weight = $this->getTotalWeight($cart);
+        $portPrice = $this->shippingRepository->findGoodPort($weight, $paysliv, $destliv);
+        
+        $totalPrice = $this->getTotalPrice($cart, $portPrice);
+        $priceit = $this->getPriceIT($cart, $portPrice);
+        $vatCost = $this->getVatCost($priceit, $totalPrice);
+
+        $data = [];
+        $data['weight'] = $weight;
+        $data['portprice'] = $portPrice;
+        $data['totalPrice'] = $totalPrice;
+        $data['priceIT'] = $priceit;
+        $data['vatCost'] = $vatCost;
+
+        return ['status' => 'ok', 'data' => $data];
+    }
+
     private function getTotalPrice($cart, $portPrice)
     {
         $totalPrice = 0;
