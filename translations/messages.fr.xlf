@@ -1119,7 +1119,7 @@
     <unit id="fF5Ilm0" name="form.message.verify_transport">
       <segment>
         <source>form.message.verify_transport</source>
-        <target>Veuillez préciser le mode de transport pour chaque participant en cliquant sur le bouton "Modifier"</target>
+        <target>Veuillez préciser le mode de transport pour les participants suivants :</target>
       </segment>
     </unit>
     <unit id="0uJUpBY" name="form.message.parent_must_be_adult">

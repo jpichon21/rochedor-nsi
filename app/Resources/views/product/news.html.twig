@@ -1,3 +1,7 @@
+{% set bodyClass = "editions news" %}
+{% set bodyBackground = 7 %}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
 {% set featured = products|first %}
 {% set others = products|slice(1) %}
 {% set slides = [featured.adimg, featured.adimg2, featured.adimg3] %}

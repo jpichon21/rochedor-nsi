@@ -15,7 +15,9 @@
 </html>
 <script>
   const itemName = '{{ 'order.payment.item_name'|trans }}'
+  {% if app.user %}
   const locale = '{{ app.request.locale }}'
   const email = '{{ app.user.email }}'
+  {% endif %}
 </script>
 <script src="{{ asset("assets/js/cart.js") }}"></script>

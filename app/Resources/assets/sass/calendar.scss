@@ -229,11 +229,16 @@ body.calendar {
     }
   }
   .filter-raz {
-    display: inline-block;
-    font-size: 12px;
+    display: block;
+    padding: 0 20px;
+    font-size: 10px;
     color: #faf28e;
+    line-height: 30px;
+    text-align: center;
     text-decoration: none;
-    border-bottom: 1px #faf28e solid;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    border: 1px #faf28e solid;
   }
   .filter-keywords {
     position: relative;

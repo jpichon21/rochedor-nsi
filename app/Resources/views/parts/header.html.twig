@@ -1,11 +1,19 @@
 <div class="header">
     <div class="languages">
         <ul class="available">
-        {% for locale, url in availableLocales %}
-        {% if locale != app.request.locale %}
-            <li><a href={{ url }}>{{ locale }}</a></li>
+        {% if availableLocales is defined %}
+            {% for locale, url in availableLocales %}
+                {% if locale != app.request.locale %}
+                    <li><a href={{ url }}>{{ locale }}</a></li>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            {% for locale in locales %}
+                {% if locale != app.request.locale %}
+                    <li><a href={{ path(app.request.get('_route'), {'_locale': locale}) }}>{{ locale }}</a></li>
+                {% endif %}
+            {% endfor %}
         {% endif %}
-        {% endfor %}
         </ul>
         <ul class="current">
             <li><a href={{ currentPath }}>{{ currentLocale }}</a></li>
