@@ -1,5 +1,5 @@
 export const postLogin = (data) => {
-  return window.fetch('/login', {
+  return window.fetch('/shop/login', {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',
@@ -12,7 +12,7 @@ export const postLogin = (data) => {
 }
 
 export const postRegister = (data) => {
-  return window.fetch('/register', {
+  return window.fetch('/shop/register', {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',
@@ -36,26 +36,13 @@ export const getLogout = () => {
 }
 
 export const getLogin = () => {
-  return window.fetch('/login', {
+  return window.fetch('/shop/login', {
     method: 'GET',
     credentials: 'include'
   })
     .then(res => {
       if (!res.ok) { res.json().then(res => { throw res.message }) }
       return res.json()
-    })
-}
-
-export const getRegistered = () => {
-  return window.fetch('/xhr/calendar/attendees', {
-    headers: { 'Content-Type': 'application/json' },
-    method: 'GET',
-    credentials: 'include'
-  })
-    .then(res => res.json())
-    .then(res => {
-      if (res.status !== 'ok') { throw res.message }
-      return res.data
     })
 }
 

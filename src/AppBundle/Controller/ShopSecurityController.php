@@ -48,8 +48,7 @@ class ShopSecurityController extends Controller
     }
 
     /**
-    * @Rest\Post("/shop/login", name="shop-login")
-    * @Rest\View()
+    * @Route("/shop/login", name="shop-login", requirements={"methods": "POST"})
     * @SWG\Post(
     *   path="/xhr/shop/login",
     *   summary="login",
@@ -86,8 +85,11 @@ class ShopSecurityController extends Controller
                 'status' => 'not logged in'
             ], 201);
         }
-
-        return $user;
+        dump($user);
+        exit;
+        return new JsonResponse([
+        'email' => $user->getEmail()
+        ]);
     }
 
     /**
@@ -126,7 +128,7 @@ class ShopSecurityController extends Controller
         ->setPassword($password)
         ->setSociete($clientReq['societe'])
         ->setMemocli($clientReq['memocli'])
-        ->setEnregcli(new \DateTime($clientReq['enregcli']));
+        ->setEnregcli(new \DateTime('now'));
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($client);

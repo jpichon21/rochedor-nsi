@@ -8,10 +8,10 @@ import {
   getLogout,
   getRegistered,
   getData,
+  postRegister,
   postLogin,
   postOrder
 } from './order-api.js'
-
 const _infos = JSON.parse($('.infos-json').html())
 
 /* Translations */
@@ -44,7 +44,7 @@ $('.registered-render').on('click', '.button.radio', function (event) {
   $(this).toggleClass('checked')
 })
 
-$('.item-participants').on('click', '.button.radio', function (event) {
+$('.item-clients').on('click', '.button.radio', function (event) {
   event.preventDefault()
   $(this).toggleClass('checked')
 })
@@ -55,8 +55,8 @@ let _you = {}
 let _registered = []
 let _delivery = {}
 let _cartInfo = {}
-let _participant = {}
-let _participants = []
+let _client = {}
+let _clients = []
 
 const itemConnection = $('.item.connection')
 const itemOrder = $('.item.order')
@@ -82,15 +82,15 @@ function updateRegisteredRender () {
 }
 
 function updateCartRender () {
-  $('.participants-render').html(cartTemplate({ participants: _delivery, translations: _translations, cartInfo: _cartInfo }))
+  $('.clients-render').html(cartTemplate({ clients: _delivery, translations: _translations, cartInfo: _cartInfo }))
 }
 
 function updateYouFormRender () {
-  $('.you-form-render').html(youFormTemplate({ participant: _participant }))
+  $('.you-form-render').html(youFormTemplate({ client: _client }))
 }
 
 function updateHimFormRender () {
-  $('.him-form-render').html(himFormTemplate({ participant: _participant, registered: _registered, you: _you }))
+  $('.him-form-render').html(himFormTemplate({ client: _client, registered: _registered, you: _you }))
 }
 
 function updateDeliveryFormRender () {
@@ -176,13 +176,7 @@ itemOrder.on('submit', '.panel.adliv form', function (event) {
 
 itemOrder.on('click', '.button.payment', function (event) {
   event.preventDefault()
-  if (_delivery.adliv.adresse === '' ||
-    _delivery.adliv.zipcode === '' ||
-    _delivery.adliv.city === '' ||
-    _delivery.destliv === '' ||
-    _delivery.country === '') {
-    console.log('error')
-  } else {
+  if (valideDeliveryForm()) {
     getData(_delivery.cartId, _delivery.destliv, _delivery.paysliv).then(data => {
       console.log(data)
       _cartInfo = data
@@ -212,7 +206,7 @@ itemOrder.on('click', 'a', function (event) {
     case 'registration':
       $('.panel', itemOrder).hide()
       $(`.panel.${which}`, itemOrder).show()
-      _participant = getParticipant()
+      _client = getParticipant()
       updateYouFormRender()
       break
     case 'continue':
@@ -235,7 +229,7 @@ itemPayment.on('click', 'a', function (event) {
     case 'registration':
       $('.panel', itemPayment).hide()
       $(`.panel.${which}`, itemPayment).show()
-      _participant = getParticipant()
+      _client = getParticipant()
       updateYouFormRender()
       break
     case 'continue':
@@ -258,7 +252,7 @@ itemCart.on('click', 'a', function (event) {
     case 'registration':
       $('.item.cart', itemCart).hide()
       $(`.panel.${which}`, itemCart).show()
-      _participant = getParticipant()
+      _client = getParticipant()
       updateYouFormRender()
       break
     case 'continue':
@@ -275,28 +269,20 @@ function afterLogin (user) {
   const delivery = getDelivery()
   _delivery = delivery
   console.log(_delivery)
-  const participant = getParticipant()
-  _you = { ...participant, ...user }
-  _participants = [_you]
+  _you = user
   updateYouRender()
-  getRegistered().then(registered => {
-    _registered = registered.map(obj => {
-      return { ...participant, ...obj }
-    })
-    updateRegisteredRender()
-    updateCartRender()
-    changeItem(itemOrder)
-  })
+  updateCartRender()
+  changeItem(itemOrder)
 }
 
 function formatParticipant (data) {
-  let participant = getParticipant()
+  let client = getParticipant()
   data.map(obj => {
-    participant[obj.name] = obj.value
+    client[obj.name] = obj.value
   })
-  participant.codco = parseInt(participant.codco)
-  participant.datnaiss = moment(participant.datnaiss, 'DD/MM/YYYY').format()
-  return participant
+  client.codco = parseInt(client.codco)
+  client.datnaiss = moment(client.datnaiss, 'DD/MM/YYYY').format()
+  return client
 }
 
 itemConnection.on('submit', '.panel.connection form', function (event) {
@@ -312,24 +298,20 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
 itemConnection.on('submit', '.panel.registration form', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
-  const participant = formatParticipant(data)
-  const validate = validateDate(participant.datnaiss)
-  if (validate) {
-    postRegister({
-      contact: participant
+  const client = formatParticipant(data)
+  console.log(client)
+  postRegister({
+    client: client
+  }).then(user => {
+    postLogin({
+      username: client.email,
+      password: client.password
     }).then(user => {
-      postLogin({
-        username: user.username,
-        password: participant.password
-      }).then(user => {
-        afterLogin(user)
-      })
-    }).catch(error => {
-      $('.catch-message', itemConnection).html(error)
+      afterLogin(user)
     })
-  } else {
-    $('.catch-message', itemConnection).html(_translations.message.date_invalid)
-  }
+  }).catch(error => {
+    $('.catch-message', itemConnection).html(error)
+  })
 })
 
 itemConnection.on('click', 'a', function (event) {
@@ -342,7 +324,7 @@ itemConnection.on('click', 'a', function (event) {
     case 'registration':
       $('.panel', itemConnection).hide()
       $(`.panel.${which}`, itemConnection).show()
-      _participant = getParticipant()
+      _client = getParticipant()
       updateYouFormRender()
       break
     case 'continue':
@@ -359,15 +341,15 @@ function validateDate (date) {
   return moment(date).isValid()
 }
 
-function validateParticipant (participant) {
-  if (validateDate(participant.datnaiss)) {
-    if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
+function validateParticipant (client) {
+  if (validateDate(client.datnaiss)) {
+    if (moment().diff(moment(client.datnaiss), 'years') >= 16) {
       return { success: true }
     } else {
-      if (participant.coltyp === 'enfan') {
+      if (client.coltyp === 'enfan') {
         const people = [..._registered, _you]
         const filtered = people.filter(person => {
-          return person.codco === parseInt(participant.colp)
+          return person.codco === parseInt(client.colp)
         })
         const parent = filtered.shift()
         if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
@@ -387,11 +369,11 @@ function validateParticipant (participant) {
 function callbackSubmit (event, context, action, callback) {
   event.preventDefault()
   const data = context.serializeArray()
-  const participant = formatParticipant(data)
-  const validate = validateParticipant(participant)
+  const client = formatParticipant(data)
+  const validate = validateParticipant(client)
   if (validate.success) {
-    postParticipant(participant).then(res => {
-      const participantUpdated = { ...participant, ...res }
+    postParticipant(client).then(res => {
+      const participantUpdated = { ...client, ...res }
       callback(participantUpdated)
       updateYouRender()
       updateRegisteredRender()
@@ -430,11 +412,11 @@ itemOrder.on('submit', '.panel.add form', function (event) {
 
 function updateParticipants () {
   console.log(_registered)
-  _participants = _registered.filter(participant => {
-    console.log(participant)
-    return participant.check
+  _clients = _registered.filter(client => {
+    console.log(client)
+    return client.check
   })
-  _participants.push(_you)
+  _clients.push(_you)
   updateCartRender()
   updateDeliveryFormRender()
 }
@@ -442,18 +424,18 @@ function updateParticipants () {
 itemOrder.on('click', '.participate-him', function (event) {
   event.preventDefault()
   const id = parseInt($(this).attr('data-id'))
-  _registered = _registered.map(participant => {
-    if (participant.codco === id) {
-      participant.check = !participant.check
+  _registered = _registered.map(client => {
+    if (client.codco === id) {
+      client.check = !client.check
     }
-    return participant
+    return client
   })
   updateParticipants()
 })
 
 itemOrder.on('click', '.modify-you', function (event) {
   event.preventDefault()
-  _participant = _you
+  _client = _you
   $('.panel', itemOrder).hide()
   $(`.panel.you`, itemOrder).show()
   updateYouFormRender()
@@ -462,17 +444,28 @@ itemOrder.on('click', '.modify-you', function (event) {
 
 function validateTransports () {
   let validate = true
-  _participants.map(participant => {
-    if (participant.transport === '') { validate = false }
+  _clients.map(client => {
+    if (client.transport === '') { validate = false }
   })
   return validate
 }
 
-itemOrder.on('click', '.validate-participants', function (event) {
+function valideDeliveryForm () {
+  if (_delivery.adliv.adresse === '' ||
+    _delivery.adliv.zipcode === '' ||
+    _delivery.adliv.city === '' ||
+    _delivery.destliv === '' ||
+    _delivery.paysliv === '') {
+    return false
+  }
+  return true
+}
+
+itemOrder.on('click', '.validate-clients', function (event) {
   event.preventDefault()
   const validate = validateTransports()
   if (validate) {
-    postRegistered(_participants, _infos.idact).then(res => {
+    postRegistered(_clients, _infos.idact).then(res => {
       let result = $('.result', itemValidation).html()
       result = result.replace('%entry_number%', res)
       $('.result', itemValidation).html(result)
