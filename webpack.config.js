@@ -41,6 +41,12 @@ Encore
     to: 'img'
   }]))
   .addPlugin(new webpack.EnvironmentPlugin({'NODE_ENV': ((Encore.isProduction) ? 'prod' : 'dev')}))
+  .autoProvideVariables({
+    $: 'jquery',
+    jQuery: 'jquery',
+    'window.jQuery': 'jquery',
+    'window.$': 'jquery'
+  })
 
 const config = Encore.getWebpackConfig()
 if (Encore.isProduction()) {
@@ -57,7 +63,8 @@ config.resolve.alias = {
   'ScrollMagic': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'),
   'animation.gsap': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'),
   'magnific-popup-js': path.resolve('node_modules', 'magnific-popup/dist/jquery.magnific-popup.js'),
-  'magnific-popup-css': path.resolve('node_modules', 'magnific-popup/src/css/main.scss')
+  'magnific-popup-css': path.resolve('node_modules', 'magnific-popup/src/css/main.scss'),
+  'jquery-zoom-js': path.resolve('node_modules', 'jquery-zoom/jquery.zoom.js')
 }
 
 module.exports = config

@@ -1,5 +1,11 @@
+{% set featured = products|first %}
+{% set others = products|slice(1) %}
+{% set slides = [featured.adimg, featured.adimg2, featured.adimg3] %}
+{% set slidesCount = 0 %}
 {% set bodyClass = "editions news" %}
 {% set bodyBackground = 7 %}
+{% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
+{% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
 {% set featured = products|first %}
@@ -36,7 +42,7 @@
                   <a class="full"
                     title="{{ featured.produit }}"
                     href="{{ url('collection-' ~ app.request.locale, { id: featured.codprd }) }}"
-                    style="{{ asset('http://rochedor.fr/site/' ~ slide) | background }}">
+                    style="{{ asset(slide) | background }}">
                   </a>
                 </div>
               </div>
@@ -54,7 +60,7 @@
       <div class="products">
       {% for product in others %}
         <div class="product">
-          <div class="illustration" style="{{ asset('http://rochedor.fr/site/' ~ product.adimg) | background }}"></div>
+          <div class="illustration" style="{{ asset(product.adimg) | background }}"></div>
           <div class="description">
             <h3>{{ product.produit }}</h3>
             <div class="price">{{ product.prix }}<small>€</small></div>

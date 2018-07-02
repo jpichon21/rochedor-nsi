@@ -10,7 +10,7 @@ import {
   DO_LOGIN,
   DO_LOGIN_SUCCESS,
   DO_LOGIN_FAILURE,
-  DO_LOGOUT_SUCCESS,
+  DO_LOGOUT,
   DO_LOGINCHECK_SUCCESS
 } from '../actions'
 
@@ -58,7 +58,7 @@ export default function commmonReducer (state, action) {
         ...state,
         alertOpen: false
       }
-      case DO_LOGIN:
+    case DO_LOGIN:
       return {
         ...state,
         isLogging: true
@@ -78,7 +78,7 @@ export default function commmonReducer (state, action) {
         isLogging: false,
         errorLoginMessage: action.error
       }
-    case DO_LOGOUT_SUCCESS:
+    case DO_LOGOUT:
       return {
         ...state,
         roles: null,

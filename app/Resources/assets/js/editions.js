@@ -1,6 +1,9 @@
+import $ from 'jquery'
 import JsBarcode from 'jsbarcode'
+import 'jquery-zoom-js'
 
 JsBarcode('.barcode').init()
+$('.slide .image').zoom()
 
 const themesForm = document.querySelector('.filter.themes form')
 const filtersForm = document.querySelector('.filters form')
@@ -23,3 +26,21 @@ if (filtersForm != null) {
     event.currentTarget.submit()
   }
 }
+
+function changeThumb (direction) {
+  let thumbnails = $('.thumbnails')
+  let prev = $('.thumb.active', thumbnails)
+  let next = prev[direction]()
+  if (!next.length) {
+    next = (direction === 'next')
+      ? $('.thumb:first', thumbnails)
+      : $('.thumb:last', thumbnails)
+  }
+  next.addClass('active')
+  prev.removeClass('active')
+}
+
+$('.carousel .prev, .carousel .next').on('click', function () {
+  let direction = $(this).hasClass('prev') ? 'prev' : 'next'
+  changeThumb(direction)
+})

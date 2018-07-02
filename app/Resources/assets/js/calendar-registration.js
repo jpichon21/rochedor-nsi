@@ -10,6 +10,9 @@ import {
   getRegistered,
   postRegistered,
   postRegister } from './calendar-api.js'
+import I18n from './i18n'
+
+let i18n = new I18n()
 
 /* Infos */
 
@@ -121,7 +124,7 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
   }).then(user => {
     afterLogin(user)
   }).catch(() => {
-    $('.connection .catch-message', itemConnection).html('Invalid credientials')
+    $('.connection .catch-message', itemConnection).html(i18n.trans('security.bad_credentials'))
   })
 })
 
@@ -130,7 +133,7 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
   resetLogin({
     email: $('.username', this).val()
   }).then(() => {
-    $('.reset .catch-message', itemConnection).html('Please verifiy your email box')
+    $('.reset .catch-message', itemConnection).html(i18n.trans('security.check_inbox'))
   })
 })
 
@@ -310,13 +313,12 @@ itemParticipants.on('click', '.add-participant', function (event) {
 })
 
 function validateTransports () {
-  const whoAreWeWaiting = _participants.map(participant => {
-    if (participant.transport === '') { return participant }
-  })
-  if (whoAreWeWaiting.length) {
+  const whoAreWeWaiting = _participants.filter(participant => participant.transport === '')
+  if (whoAreWeWaiting.length > 0) {
     return {
-      whoAreWeWaiting: () => {
+      whoAreWeWaitingRender: () => {
         let html = ''
+        console.log(whoAreWeWaiting)
         whoAreWeWaiting.map(who => {
           html += '<li>' + who.prenom + ' ' + who.nom + '</li>'
         })
@@ -342,7 +344,7 @@ itemParticipants.on('click', '.validate-participants', function (event) {
   } else {
     $('.right .catch-message').html(
       _translations.message.verify_transport +
-      '<ul>' + validate.whoAreWeWaiting() + '</ul>'
+      '<ul>' + validate.whoAreWeWaitingRender() + '</ul>'
     )
   }
 })

@@ -50,12 +50,15 @@ class CalendarRepository
     }
 
 
-    public function findRegistrationCounter($site, $value)
+    public function updateRegistrationCounter($site, $value)
     {
         $query = $this->entityManager
-        ->createQuery('UPDATE AppBundle\Entity\Variable SET v.valeurn=:value WHERE v.nom=:varName');
-        $query->setParameters(['varName', $this->insVariable($site), 'value', $value]);
-        return $query->getOneOrNullResult();
+        ->createQuery('SELECT v FROM AppBundle\Entity\Variable v WHERE v.nom=:varName');
+        $query->setParameter('varName', $this->insVariable($site));
+        $v = $query->getOneOrNullResult();
+        $v->setValeurn($value);
+        $this->entityManager->persist($v);
+        $this->entityManager->flush();
     }
     
     

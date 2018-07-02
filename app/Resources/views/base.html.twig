@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ app.request.locale }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,11 @@
     {% block metadescription %}{% endblock %}
     {% block stylesheets %}{% endblock %}
 </head>
+{% if bodyClass == 'home' %}
+<body class="home">
+{% else %}
 <body class="{{ bodyClass|default('') }}" style="{{ bodyBackground|default(0)|constantBackground }}">
+{% endif %}
     {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
     {% set currentLocale = app.request.locale %}
     {% include 'parts/header.html.twig' %}

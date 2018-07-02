@@ -215,8 +215,7 @@ class SecurityController extends Controller
             return $this->redirectToRoute('password_register_success');
         }
         return $this->render('security/register.html.twig', array(
-            'form' => $form->createView(),
-            'availableLocales' => $this->pageService->getAvailableLocales('register-form')
+            'form' => $form->createView()
         ));
     }
 
@@ -297,8 +296,7 @@ class SecurityController extends Controller
             return $this->redirectToRoute('password_reset_success');
         }
         return $this->render('security/password-reset.html.twig', array(
-            'form' => $form->createView(),
-            'availableLocales' => $this->pageService->getAvailableLocales('password-reset')
+            'form' => $form->createView()
         ));
     }
 
@@ -309,8 +307,7 @@ class SecurityController extends Controller
     public function passwordResetSuccessAction(Request $request)
     {
         return $this->render('security/password-reset-success.html.twig', array(
-            'contact' => null,
-            'availableLocales' => $this->pageService->getAvailableLocales('password-reset-success')
+            'contact' => null
         ));
     }
 

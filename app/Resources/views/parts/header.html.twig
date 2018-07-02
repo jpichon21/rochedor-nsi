@@ -1,19 +1,22 @@
 <div class="header">
     <div class="languages">
         <ul class="available">
-        {% if availableLocales is defined %}
+            {% if availableLocales is defined %}
             {% for locale, url in availableLocales %}
-                {% if locale != app.request.locale %}
-                    <li><a href={{ url }}>{{ locale }}</a></li>
-                {% endif %}
+            {% if locale != app.request.locale %}
+            <li><a href={{ url }}>{{ locale }}</a></li>
+            {% endif %}
             {% endfor %}
-        {% else %}
+            {% else %}
+            {% set route = app.request.attributes.get('_route') %}
+            {% set route_params = app.request.attributes.get('_route_params') %}
+            {% set params = route_params|merge(app.request.query.all) %}
             {% for locale in locales %}
-                {% if locale != app.request.locale %}
-                    <li><a href={{ path(app.request.get('_route'), {'_locale': locale}) }}>{{ locale }}</a></li>
-                {% endif %}
+            {% if locale != app.request.locale %}
+            <li><a href="{{ path(route, params|merge({ _locale: locale })) }}">{{ locale }}</a></li>
+            {% endif %}
             {% endfor %}
-        {% endif %}
+            {% endif %}
         </ul>
         <ul class="current">
             <li><a href={{ currentPath }}>{{ currentLocale }}</a></li>
@@ -62,8 +65,8 @@
             <div class="blank"></div>
             <div class="blank"></div>
             <li><a href="#">{{ 'menu.five.one' | trans | raw }}</a></li>
-            <li><a href="#">{{ 'menu.five.two' | trans | raw }}</a></li>
-            <li><a href="#">{{ 'menu.five.three' | trans | raw }}</a></li>
+            <li><a href="{{ path('collections-news-' ~ currentLocale) }}">{{ 'menu.five.two' | trans | raw }}</a></li>
+            <li><a href="{{ path('collections-' ~ currentLocale) }}">{{ 'menu.five.three' | trans | raw }}</a></li>
         </ul>
         <ul class="sub-menu" data-menu="defrgt">
             <div class="blank"></div>

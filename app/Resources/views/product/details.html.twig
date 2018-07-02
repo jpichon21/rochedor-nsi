@@ -25,6 +25,7 @@
                   title="{{ product.produit }}"
                   href="{{ slide }}"
                   style="{{ slide | background }}">
+                  <img src="{{ slide }}" alt="{{ product.produit }}">
                 </a>
               </div>
             </div>
@@ -35,6 +36,14 @@
           <div class="prev"></div>
           <div class="next"></div>
           {% endif %}
+        </div>
+        <div class="thumbnails">
+          {% for slide in slides %}
+          {% if slide != '' %}
+          {% set slidesCount = slidesCount + 1 %}
+          <div class="thumb {% if loop.first %}active{% endif %}" style="{{ slide | background }}"></div>
+          {% endif %}
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -63,15 +72,43 @@
           <div class="or">{{ 'editions.or' | trans }}</div>
           <a class="button" href="{{ product.urlbook }}">{{ 'editions.ebookversion' | trans }}</a>
         </div>
-        <h2>{{ 'editions.technicalreview' }}</h2>
-        <div class="technicalreview">
-          <div class="line">
-            <b>{{ 'editions.technicalreview.annee' | trans }}</b>
-            {{ product.annee }}
+        <h2>{{ 'editions.technicalreview' | trans }}</h2>
+        <div class="technical-review">
+          <div class="left">
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
           </div>
-          <div class="line">
-            <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
-            {{ product.isbn }}
+          <div class="right">
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
+            <div class="line">
+              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+              <span>{{ product.isbn }}</span>
+            </div>
           </div>
         </div>
         {% if product.isbn != '' %}

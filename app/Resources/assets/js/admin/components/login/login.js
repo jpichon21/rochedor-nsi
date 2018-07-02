@@ -14,7 +14,9 @@ export class Login extends React.Component {
     super(props)
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      error: '',
+      alertOpen: false
     }
 
     this.handleClose = this.handleClose.bind(this)
@@ -31,10 +33,16 @@ export class Login extends React.Component {
   handleClose () {
     this.props.dispatch(initStatus())
     this.setState({alertOpen: false})
+    this.setState({error: ''})
   }
 
   handleSubmit (event) {
-    this.props.dispatch(doLogin(this.state.username, this.state.password))
+    this.props.dispatch(doLogin(this.state.username, this.state.password)).then((res) => {
+      if (res.error) {
+        this.setState({error: 'Invalid credentials'})
+        this.setState({alertOpen: true})
+      }
+    })
     event.preventDefault()
   }
 
@@ -49,7 +57,7 @@ export class Login extends React.Component {
       <div>
         <div className={classes.container}>
           {this.props.isLoggedIn && <Redirect to={'/content-list'} />}
-          <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
+          <Alert open={this.state.alertOpen} content={this.state.error} onClose={this.handleClose} />
           <div className={classes.container}>
             <Typography variant='display1' className={classes.title}>
               Connexion

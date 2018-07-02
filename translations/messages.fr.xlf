@@ -1176,6 +1176,24 @@
         <target>Effacer les filtres</target>
       </segment>
     </unit>
+    <unit id="cvwzHYX" name="form.password.reset">
+      <segment>
+        <source>form.password.reset</source>
+        <target>Réinitialiser le mot de passe</target>
+      </segment>
+    </unit>
+    <unit id="kzkX1MK" name="security.bad_credentials">
+      <segment>
+        <source>security.bad_credentials</source>
+        <target>Identifiants erronés</target>
+      </segment>
+    </unit>
+    <unit id="rHsOKUn" name="security.check_inbox">
+      <segment>
+        <source>security.check_inbox</source>
+        <target>Veuillez vérifier votre boîte email</target>
+      </segment>
+    </unit>
     <unit id="hmTi4mf" name="news.last_posts.title">
       <segment>
         <source>news.last_posts.title</source>
@@ -1293,8 +1311,7 @@
     <unit id="EuDIPVk" name="select.ad.myadd">
       <segment>
         <source>select.ad.myadd</source>
-        <target>Mon adresse
-</target>
+        <target>Mon adresse</target>
       </segment>
     </unit>
     <unit id="rznIWfL" name="select.ad.roche">
@@ -1306,15 +1323,13 @@
     <unit id="8QjWF9b" name="select.ad.font">
       <segment>
         <source>select.ad.font</source>
-        <target>Les Fontanilles
-</target>
+        <target>Les Fontanilles</target>
       </segment>
     </unit>
     <unit id="MlxM03H" name="select.ad.other">
       <segment>
         <source>select.ad.other</source>
-        <target>Autre Adresse
-</target>
+        <target>Autre Adresse</target>
       </segment>
     </unit>
     <unit id="GDNiQhU" name="order.choose.adliv">
@@ -1350,8 +1365,7 @@
     <unit id="Q6zSrRK" name="country.en">
       <segment>
         <source>country.en</source>
-        <target>Royaume Unis
-</target>
+        <target>Royaume Unis</target>
       </segment>
     </unit>
     <unit id="ruZtiTw" name="country.de">
@@ -1401,6 +1415,30 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
       <segment>
         <source>select.paypal</source>
         <target>Paypal</target>
+      </segment>
+    </unit>
+    <unit id="Pox7Osf" name="editions.or">
+      <segment>
+        <source>editions.or</source>
+        <target>Ou</target>
+      </segment>
+    </unit>
+    <unit id="6yPWKi5" name="editions.technicalreview.annee">
+      <segment>
+        <source>editions.technicalreview.annee</source>
+        <target>editions.technicalreview.annee</target>
+      </segment>
+    </unit>
+    <unit id="rT63a4z" name="editions.technicalreview.isbn">
+      <segment>
+        <source>editions.technicalreview.isbn</source>
+        <target>ISBN</target>
+      </segment>
+    </unit>
+    <unit id="MyEvwMh" name="editions.technicalreview">
+      <segment>
+        <source>editions.technicalreview</source>
+        <target>Fiche technique</target>
       </segment>
     </unit>
   </file>
