@@ -8,7 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Produit
  *
  * @ORM\Table(name="produit",
- * indexes={@ORM\Index(name="CodRub", columns={"CodRub"}), @ORM\Index(name="CodB", columns={"CodB"})})
+ * indexes={@ORM\Index(name="CodRub", columns={"CodRub"}), @ORM\Index(name="CodB", columns={"CodB"})},
+ * options={"engine":"InnoDB"})
+ * )
  * @ORM\Entity
  */
 class Produit
