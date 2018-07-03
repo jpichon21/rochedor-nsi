@@ -156,7 +156,7 @@
     <div class="right">
         <div class="inner">
             {# <p>&laquo;{{ activity.libact }}&raquo;<br>{{ 'filter.inner.date.in' | trans | raw }} {{ activity.datdeb | localizeddate('medium', 'none', app.request.locale ) }} {{ 'filter.inner.date.out' | trans | lower | raw }} {{ activity.datfin | localizeddate('medium', 'none', app.request.locale ) }} ({{ activity.sitact }})</p> #}
-            <h3>{{ 'order.summary.title.participants' | trans | raw }}</h3>
+            <h3>{{ 'order.summary.title.clients' | trans | raw }}</h3>
             {% if cart %}
                 {% for line in cart.cartLines %}
                 <div>
@@ -166,7 +166,7 @@
             {% else %}
             {{ 'cart.empty'|trans }}
             {% endif %}
-            <div class="participants-render"></div>
+            <div class="clients-render"></div>
             <div class="catch-message"></div>
         </div>
     </div>
@@ -199,7 +199,7 @@
     <div class="you">
         <p><%= you.prenom %> <%= you.nom %><br>
             <%= you.adresse %> <%= you.cp %> <%= you.ville %> <%= you.pays %></p>
-        <a href="#" data-id="<%= you.codco %>" class="modify-you button">{{ 'form.modify' | trans | raw }}</a>
+        <a href="#" data-id="<%= you.codcli %>" class="modify-you button">{{ 'form.modify' | trans | raw }}</a>
         <a href="#" class="button radio hidden <%= (you.check) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
     </div>
 </script>
@@ -217,75 +217,66 @@
             <div class="him">
                 <p><%= him.prenom %> <%= him.nom %><br>
                     <%= him.adresse %> <%= him.cp %> <%= him.ville %> <%= him.pays %></p>
-                <a href="#" data-id="<%= him.codco %>" class="modify-him button">{{ 'form.modify' | trans | raw }}</a>
-                <a href="#" data-id="<%= him.codco %>" class="participate-him button radio <%= (him.check) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
+                <a href="#" data-id="<%= him.codcli %>" class="modify-him button">{{ 'form.modify' | trans | raw }}</a>
+                <a href="#" data-id="<%= him.codcli %>" class="participate-him button radio <%= (him.check) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
             </div>
         <% } %>
     <% } else { %>
-        <p>{{ 'form.no_participants' | trans }}</p>
+        <p>{{ 'form.no_clients' | trans }}</p>
     <% } %>
 </script>
 <script type="text/template" class="you-form-template">
-    <input type="hidden" value="<%= participant.codco %>" name="codco">
-    <input type="hidden" value=<%= participant.check %> name="check">
+    <input type="hidden" value="<%= client.codcli %>" name="codcli">
+    <input type="hidden" value=<%= client.check %> name="check">
     <div class="pure-u-1-3">
         <select class="select civil" required name="civil">
-            <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
-            <option <%= (participant.civil == 'M.') ? 'selected' : '' %> value="M.">M.</option>
-            <option <%= (participant.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
-            <option <%= (participant.civil == 'Mlle') ? 'selected' : '' %> value="Mlle">Mlle</option>
-            <option <%= (participant.civil == 'Père') ? 'selected' : '' %> value="Père">Père</option>
-            <option <%= (participant.civil == 'Frère') ? 'selected' : '' %> value="Frère">Frère</option>
-            <option <%= (participant.civil == 'Soeur') ? 'selected' : '' %> value="Soeur">Soeur</option>
+            <option <%= (client.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
+            <option <%= (client.civil == 'M.') ? 'selected' : '' %> value="M.">M.</option>
+            <option <%= (client.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
+            <option <%= (client.civil == 'Mlle') ? 'selected' : '' %> value="Mlle">Mlle</option>
+            <option <%= (client.civil == 'Père') ? 'selected' : '' %> value="Père">Père</option>
+            <option <%= (client.civil == 'Frère') ? 'selected' : '' %> value="Frère">Frère</option>
+            <option <%= (client.civil == 'Soeur') ? 'selected' : '' %> value="Soeur">Soeur</option>
         </select>
     </div>
     <div class="pure-u-1-3">
-        <input class="input prenom" required type="text" value="<%= participant.prenom %>" name="prenom" placeholder="{{ 'form.surname' | trans | raw }}">
+        <input class="input prenom" required type="text" value="<%= client.prenom %>" name="prenom" placeholder="{{ 'form.surname' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input nom" required type="text" value="<%= participant.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
+        <input class="input nom" required type="text" value="<%= client.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
     </div>
     <div class="pure-u-1">
-        <textarea class="textarea adresse" required name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= participant.adresse %></textarea>
+        <textarea class="textarea adresse" required name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= client.adresse %></textarea>
     </div>
     <div class="pure-u-1-3">
-        <input class="input cp" required type="text" value="<%= participant.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
+        <input class="input cp" required type="text" value="<%= client.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input ville" required type="text" value="<%= participant.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
+        <input class="input ville" required type="text" value="<%= client.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input pays" type="text" value="<%= participant.pays %>" name="pays" placeholder="{{ 'form.country' | trans | raw }}">
+        <input class="input rue" required type="text" value="<%= client.rue %>" name="rue" placeholder="{{ 'form.street' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input pays" type="text" value="<%= client.pays %>" name="pays" placeholder="{{ 'form.country' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input tel" type="text" value="<%= participant.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
+        <input class="input tel" type="text" value="<%= client.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input mobil" type="text" value="<%= participant.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
+        <input class="input mobil" type="text" value="<%= client.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input autocomplete="off" class="input email" required type="email" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
+        <input autocomplete="off" class="input email" required type="email" value="<%= client.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
         <input class="input password" required type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input datnaiss" required type="text" value="<%= (participant.datnaiss !== '') ? moment(participant.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }}">
-    </div>
-    <div class="pure-u-1-2">
-        <input class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
+        <input class="input profession" type="text" value="<%= client.societe %>" name="societe" placeholder="{{ 'form.societe' | trans | raw }}">
     </div>
     <div class="pure-u-1 notAtThisMoment">
-        <select class="select transport" name="transport">
-            <option <%= (participant.transport == '') ? 'selected' : '' %> disabled value="">{{ 'form.transport' | trans | raw }}</option>
-            <option <%= (participant.transport == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
-            <option <%= (participant.transport == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
-            <option <%= (participant.transport == 'avion') ? 'selected' : '' %> value="avion">{{ 'form.transport.avion' | trans | raw }}</option>
-            <option <%= (participant.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
-        </select>
-    </div>
-    <div class="pure-u-1 notAtThisMoment">
-        <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= participant.memo %></textarea>
+        <textarea class="textarea memo" name="memocli" placeholder="{{ 'form.memo' | trans | raw }}"><%= client.memo %></textarea>
     </div>
     <div class="pure-u-4-24">
         <input class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
@@ -295,84 +286,84 @@
     </div>
 </script>
 <script type="text/template" class="him-form-template">
-    <input type="hidden" value="<%= participant.codco %>" name="codco">
-    <input type="hidden" value=<%= participant.check %> name="check">
+    <input type="hidden" value="<%= client.codcli %>" name="codcli">
+    <input type="hidden" value=<%= client.check %> name="check">
     <div class="pure-u-1-2">
         <select class="select coltyp" required name="coltyp">
-            <option <%= (participant.coltyp == '') ? 'selected' : '' %> disabled value="">{{ 'form.relation' | trans | raw }}</option>
-            <option <%= (participant.coltyp == 'accom') ? 'selected' : '' %> value="accom">Vient avec</option>
-            <option <%= (participant.coltyp == 'conjo') ? 'selected' : '' %> value="conjo">Conjoint</option>
-            <option <%= (participant.coltyp == 'enfan') ? 'selected' : '' %> value="enfan">Enfant de</option>
+            <option <%= (client.coltyp == '') ? 'selected' : '' %> disabled value="">{{ 'form.relation' | trans | raw }}</option>
+            <option <%= (client.coltyp == 'accom') ? 'selected' : '' %> value="accom">Vient avec</option>
+            <option <%= (client.coltyp == 'conjo') ? 'selected' : '' %> value="conjo">Conjoint</option>
+            <option <%= (client.coltyp == 'enfan') ? 'selected' : '' %> value="enfan">Enfant de</option>
         </select>
     </div>
     <div class="pure-u-1-2">
         <select class="select colp" required name="colp">
-            <option <%= (participant.colp == '') ? 'selected' : '' %> disabled value="">{{ 'form.colp' | trans | raw }}</option>
-            <option <%= (participant.colp == you.codco) ? 'selected' : '' %> value="<%= you.codco %>"><%= you.prenom + ' ' + you.nom %></option>
+            <option <%= (client.colp == '') ? 'selected' : '' %> disabled value="">{{ 'form.colp' | trans | raw }}</option>
+            <option <%= (client.colp == you.codcli) ? 'selected' : '' %> value="<%= you.codcli %>"><%= you.prenom + ' ' + you.nom %></option>
             <% for (var i = 0; i < registered.length; i++) { %>
                 <% var him = registered[i] %>
-                <% if (participant.codco != him.codco) { %>
-                <option <%= (participant.colp == him.codco) ? 'selected' : '' %> value="<%= him.codco %>"><%= him.prenom + ' ' + him.nom %></option>
+                <% if (client.codcli != him.codcli) { %>
+                <option <%= (client.colp == him.codcli) ? 'selected' : '' %> value="<%= him.codcli %>"><%= him.prenom + ' ' + him.nom %></option>
                 <% } %>
             <% } %>
         </select>
     </div>
     <div class="pure-u-1-3">
         <select class="select civil" required name="civil">
-            <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
-            <option <%= (participant.civil == 'M.') ? 'selected' : '' %> value="M.">M.</option>
-            <option <%= (participant.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
-            <option <%= (participant.civil == 'Mlle') ? 'selected' : '' %> value="Mlle">Mlle</option>
-            <option <%= (participant.civil == 'Père') ? 'selected' : '' %> value="Père">Père</option>
-            <option <%= (participant.civil == 'Frère') ? 'selected' : '' %> value="Frère">Frère</option>
-            <option <%= (participant.civil == 'Soeur') ? 'selected' : '' %> value="Soeur">Soeur</option>
+            <option <%= (client.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
+            <option <%= (client.civil == 'M.') ? 'selected' : '' %> value="M.">M.</option>
+            <option <%= (client.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
+            <option <%= (client.civil == 'Mlle') ? 'selected' : '' %> value="Mlle">Mlle</option>
+            <option <%= (client.civil == 'Père') ? 'selected' : '' %> value="Père">Père</option>
+            <option <%= (client.civil == 'Frère') ? 'selected' : '' %> value="Frère">Frère</option>
+            <option <%= (client.civil == 'Soeur') ? 'selected' : '' %> value="Soeur">Soeur</option>
         </select>
     </div>
     <div class="pure-u-1-3">
-        <input class="input prenom" required type="text" value="<%= participant.prenom %>" name="prenom" placeholder="{{ 'form.surname' | trans | raw }}">
+        <input class="input prenom" required type="text" value="<%= client.prenom %>" name="prenom" placeholder="{{ 'form.surname' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input nom" required type="text" value="<%= participant.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
+        <input class="input nom" required type="text" value="<%= client.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
     </div>
     <div class="pure-u-1">
-        <textarea class="textarea adresse" required name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= participant.adresse %></textarea>
+        <textarea class="textarea adresse" required name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= client.adresse %></textarea>
     </div>
     <div class="pure-u-1-3">
-        <input class="input cp" required type="text" value="<%= participant.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
+        <input class="input cp" required type="text" value="<%= client.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input ville" required type="text" value="<%= participant.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
+        <input class="input ville" required type="text" value="<%= client.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input pays" type="text" value="<%= participant.pays %>" name="pays" placeholder="{{ 'form.country' | trans | raw }}">
+        <input class="input pays" type="text" value="<%= client.pays %>" name="pays" placeholder="{{ 'form.country' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input tel" type="text" value="<%= participant.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
+        <input class="input tel" type="text" value="<%= client.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input mobil" type="text" value="<%= participant.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
+        <input class="input mobil" type="text" value="<%= client.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input autocomplete="off" class="input email" type="email" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
+        <input autocomplete="off" class="input email" type="email" value="<%= client.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input datnaiss" required type="text" value="<%= (participant.datnaiss !== '') ? moment(participant.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }}">
+        <input class="input datnaiss" required type="text" value="<%= (client.datnaiss !== '') ? moment(client.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
+        <input class="input profession" type="text" value="<%= client.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
     </div>
     <div class="pure-u-1">
-        <select class="select transport" required name="transport" "<%= participant.transport %>">
-            <option <%= (participant.transport == '') ? 'selected' : '' %> disabled value="">{{ 'form.transport' | trans | raw }}</option>
-            <option <%= (participant.transport == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
-            <option <%= (participant.transport == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
-            <option <%= (participant.transport == 'avion') ? 'selected' : '' %> value="avion">{{ 'form.transport.avion' | trans | raw }}</option>
-            <option <%= (participant.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
-            <option <%= (participant.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
+        <select class="select transport" required name="transport" "<%= client.transport %>">
+            <option <%= (client.transport == '') ? 'selected' : '' %> disabled value="">{{ 'form.transport' | trans | raw }}</option>
+            <option <%= (client.transport == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
+            <option <%= (client.transport == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
+            <option <%= (client.transport == 'avion') ? 'selected' : '' %> value="avion">{{ 'form.transport.avion' | trans | raw }}</option>
+            <option <%= (client.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
+            <option <%= (client.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
         </select>
     </div>
     <div class="pure-u-1">
-        <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= participant.memo %></textarea>
+        <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= client.memo %></textarea>
     </div>
     <div class="pure-u-4-24">
         <input class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">

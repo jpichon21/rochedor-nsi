@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Cart;
@@ -207,7 +208,7 @@ class OrderController extends Controller
         $user = $this->getUser();
         // $em = $this->getDoctrine()->getManager();
         // $user = $this->getDoctrine()->getRepository('AppBundle:Contact')->findByCodco($codcli);
-        $codcli = $user->getCodco();
+        $codcli = $user->getCodcli();
         
 
         $cart = $this->cartRepository->find($delivery['cartId']);
@@ -410,16 +411,18 @@ class OrderController extends Controller
     }
      
     /**
-     * @Route("/{_locale}/commande", name="commande-fr")
+     * @Route("/{_locale}/order", name="order-fr")
      */
     public function orderAction(Request $request)
     {
         $cookies = $request->cookies;
-        $cartId = $cookies->get('cart');
+         $session = new Session();
+        
+        $cartId = $session->get('cart');
         $page = $this->pageService->getContentFromRequest($request);
         $availableLocales = $this->pageService->getAvailableLocales($page);
         return $this->render('order/order-command.html.twig', [
-            'cart' => $this->cartRepository->find(1),
+            'cart' => $this->cartRepository->find($cartId),
             'page' => $page,
             'availableLocales' => $availableLocales
         ]);

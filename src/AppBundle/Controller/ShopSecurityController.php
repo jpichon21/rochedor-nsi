@@ -141,7 +141,7 @@ class ShopSecurityController extends Controller
         ->setPassword($password)
         ->setSociete($clientReq['societe'])
         ->setMemocli($clientReq['memocli'])
-        ->setEnregcli(new \DateTime($clientReq['enregcli']));
+        ->setEnregcli(new \DateTime('now'));
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($client);
