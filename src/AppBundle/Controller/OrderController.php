@@ -24,6 +24,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\CommandeRepository;
 use AppBundle\Repository\CartRepository;
 use AppBundle\Repository\ShippingRepository;
+use AppBundle\Repository\TpaysRepository;
 use AppBundle\Service\Mailer;
 use Psr\Log\LoggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -86,6 +87,7 @@ class OrderController extends Controller
         CommandeRepository $commandeRepository,
         CartRepository $cartRepository,
         ShippingRepository $shippingRepository,
+        TpaysRepository $tpaysRepository,
         Mailer $mailer,
         Translator $translator,
         LoggerInterface $logger,
@@ -93,6 +95,7 @@ class OrderController extends Controller
         PageService $pageService
     ) {
         $this->commandeRepository = $commandeRepository;
+        $this->tpaysRepository = $tpaysRepository;
         $this->cartRepository = $cartRepository;
         $this->shippingRepository = $shippingRepository;
         $this->mailer = $mailer;
@@ -416,14 +419,16 @@ class OrderController extends Controller
     public function orderAction(Request $request)
     {
         $cookies = $request->cookies;
-         $session = new Session();
+        $session = new Session();
         
+        $countrys = $this->tpaysRepository->findAllCountry();
         $cartId = $session->get('cart');
         $page = $this->pageService->getContentFromRequest($request);
         $availableLocales = $this->pageService->getAvailableLocales($page);
         return $this->render('order/order-command.html.twig', [
             'cart' => $this->cartRepository->find($cartId),
             'page' => $page,
+            'countrys' => $countrys,
             'availableLocales' => $availableLocales
         ]);
     }

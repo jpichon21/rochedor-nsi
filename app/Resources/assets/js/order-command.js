@@ -270,6 +270,7 @@ function afterLogin (user) {
   _delivery = delivery
   console.log(_delivery)
   _you = user
+  console.log(_you)
   updateYouRender()
   updateCartRender()
   changeItem(itemOrder)

@@ -85,8 +85,7 @@ class ShopSecurityController extends Controller
                 'status' => 'not logged in'
             ], 201);
         }
-        dump($user);
-        exit;
+
         return new JsonResponse([
         'email' => $user->getEmail()
         ]);

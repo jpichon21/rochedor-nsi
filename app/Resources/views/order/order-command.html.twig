@@ -107,11 +107,10 @@
                             <h3>{{ 'order.registration.choose.country' | trans | raw }}</h3>
                             <select class="select country">
                                 <option selected disabled value="">{{ 'form.choose.country' | trans | raw }}</option>
-                                <option value="FR">{{ 'country.fr' | trans | raw }}</option>
-                                <option value="EN">{{ 'country.en' | trans | raw }}</option>
-                                <option value="DE">{{ 'country.de' | trans | raw }}</option>
-                                <option value="IT">{{ 'country.it' | trans | raw }}</option>
-                                <option value="es">{{ 'country.es' | trans | raw }}</option>
+
+                                {% for country in countrys %}
+                                <option value={{country.CodPays}}>{{country.nompays | trans | raw }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <h3>{{ 'order.registration.choose.gift' | trans | raw }}</h3>
