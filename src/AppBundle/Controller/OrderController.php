@@ -18,10 +18,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Cart;
 use AppBundle\Entity\Cartline;
 use AppBundle\Entity\Commande;
+use AppBundle\Entity\Produit;
 use AppBundle\Entity\Comprd;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\CommandeRepository;
+use AppBundle\Repository\TaxRepository;
 use AppBundle\Repository\CartRepository;
 use AppBundle\Repository\ShippingRepository;
 use AppBundle\Repository\TpaysRepository;
@@ -64,6 +66,11 @@ class OrderController extends Controller
     private $commandeRepository;
 
     /**
+     * @var TaxRepository
+     */
+    private $taxRepository;
+
+    /**
      * @var Logger
      */
     private $logger;
@@ -85,6 +92,7 @@ class OrderController extends Controller
 
     public function __construct(
         CommandeRepository $commandeRepository,
+        TaxRepository $taxRepository,
         CartRepository $cartRepository,
         ShippingRepository $shippingRepository,
         TpaysRepository $tpaysRepository,
@@ -95,6 +103,7 @@ class OrderController extends Controller
         PageService $pageService
     ) {
         $this->commandeRepository = $commandeRepository;
+        $this->taxRepository = $taxRepository;
         $this->tpaysRepository = $tpaysRepository;
         $this->cartRepository = $cartRepository;
         $this->shippingRepository = $shippingRepository;
@@ -103,6 +112,18 @@ class OrderController extends Controller
         $this->logger = $logger;
         $this->em = $em;
         $this->pageService = $pageService;
+    }
+
+    /**
+     * @Rest\Get("/xhr/order/taxes/{produit_id}/{country}", name="get_taxes")
+     * @Rest\View()
+    */
+    public function xhrGetTaxes(Request $request, $produit_id, $country)
+    {
+        $produit = $this->taxRepository->findTax($produit_id, $country);
+        dump($produit);
+        exit;
+        // return $produit;
     }
 
     /**
