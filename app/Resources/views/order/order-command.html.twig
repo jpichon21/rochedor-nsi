@@ -20,7 +20,7 @@
                     {% if cart %}
                         {% for line in cart.cartLines %}
                         <div>
-                        {{ line.product.produit }} - {{ line.product.prix }} - {{ line.quantity }} - <a href="{{ path('cart-remove', {'cartLine': line.id}) }}">{{ 'cart.remove'|trans }}</a>
+                        {{ line.product.produitcourt }} - {{ line.product.prix }} - {{ line.quantity }} - <a href="{{ path('cart-remove', {'cartLine': line.id}) }}">{{ 'cart.remove'|trans }}</a>
                         </div>
                         {% endfor %}
                     <a href="#register" class="button continue">{{ 'form.continue' | trans | raw }}</a>
@@ -159,7 +159,7 @@
             {% if cart %}
                 {% for line in cart.cartLines %}
                 <div>
-                <p>{{ line.product.produit }} - {{ line.product.prix }} € - {{ line.quantity }} </p>
+                <p>{{ line.productcourt }} - {{ line.product.prix }} € - {{ line.quantity }} </p>
                 </div>
                 {% endfor %}
             {% else %}

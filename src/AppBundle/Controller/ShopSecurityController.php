@@ -12,12 +12,13 @@ use Swagger\Annotations as SWG;
 use AppBundle\Repository\ClientRepository;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use AppBundle\Service\Mailer;
 use AppBundle\Entity\Client;
 use AppBundle\Form\RegisterType;
 use AppBundle\Service\PageService;
-use FOS\RestBundle\Controller\Annotations as Rest;
 
 class ShopSecurityController extends Controller
 {
@@ -50,8 +51,8 @@ class ShopSecurityController extends Controller
     /**
     * @Route("/shop/login", name="shop-login", requirements={"methods": "POST"})
     * @SWG\Post(
-    *   path="/xhr/shop/login",
-    *   summary="login",
+    *   path="/shop/login",
+    *   summary="shop/login",
     *   @SWG\Parameter(
     *          name="body",
     *          in="body",
@@ -78,22 +79,35 @@ class ShopSecurityController extends Controller
         /**
          * @var AppBundle\Entity\Client
          */
-        $user = $this->getUser();
+        $client = $this->getUser();
 
-        if (!$user) {
+        if (!$client) {
             return new JsonResponse([
                 'status' => 'not logged in'
             ], 201);
         }
 
         return new JsonResponse([
-        'email' => $user->getEmail()
+            'codcli' => $client->getCodcli(),
+            'civil' => $client->getCivil(),
+            'nom' => $client->getNom(),
+            'prenom' => $client->getPrenom(),
+            'rue' => $client->getRue(),
+            'adresse' => $client->getAdresse(),
+            'cp' => $client->getCp(),
+            'ville' => $client->getVille(),
+            'pays' => $client->getPays(),
+            'tel' => $client->getTel(),
+            'mobil' => $client->getMobil(),
+            'email' => $client->getEmail(),
+            'societe' => $client->getSociete(),
+            'memocli' => $client->getMemocli(),
+            'enregcli' => $client->getEnregcli()
         ]);
     }
 
     /**
-    * @Rest\Post("/shop/register", name="register")
-    * @Rest\View()
+    * @Route("/shop/register", name="shop-register", requirements={"methods": "POST"})
     */
     public function registerAction(
         Request $request,
@@ -133,11 +147,27 @@ class ShopSecurityController extends Controller
         $em->persist($client);
         $em->flush();
 
-        return $client;
+        return new JsonResponse([
+            'codcli' => $client->getCodcli(),
+            'civil' => $client->getCivil(),
+            'nom' => $client->getNom(),
+            'prenom' => $client->getPrenom(),
+            'rue' => $client->getRue(),
+            'adresse' => $client->getAdresse(),
+            'cp' => $client->getCp(),
+            'ville' => $client->getVille(),
+            'pays' => $client->getPays(),
+            'tel' => $client->getTel(),
+            'mobil' => $client->getMobil(),
+            'email' => $client->getEmail(),
+            'societe' => $client->getSociete(),
+            'memocli' => $client->getMemocli(),
+            'enregcli' => $client->getEnregcli()
+        ]);
     }
 
     /**
-    * @Route("/password-request", name="password-request", requirements={"methods": "POST"})
+    * @Route("/shop/password-request", name="password-request", requirements={"methods": "POST"})
     */
     public function passwordRequestAction(Request $request, ClientRepository $repository)
     {
@@ -170,7 +200,7 @@ class ShopSecurityController extends Controller
         return new JsonResponse(['status' => 'ok', 'message' => 'The email has been sent']);
     }
     /**
-    * @Route("/password-reset/{token}", name="password-reset", requirements={"methods": "{GET, POST}"})
+    * @Route("/{_locale}/shop/password-reset/{token}", name="password-reset", requirements={"methods": "{GET, POST}"})
     */
     public function passwordResetAction(
         Request $request,
@@ -210,31 +240,10 @@ class ShopSecurityController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($client);
             $em->flush();
-            return $this->redirectToRoute('password_reset_success');
+            return $this->redirectToRoute('password-reset-success');
         }
         return $this->render('security/password-reset.html.twig', array(
-            'form' => $form->createView(),
-            'availableLocales' => $this->pageService->getAvailableLocales('password-reset')
+            'form' => $form->createView()
         ));
-    }
-
-    /**
-    * @Route("/{_locale}/password-reset-success",
-    * name="password-reset-success", requirements={"methods": "{GET, POST}"})
-    */
-    public function passwordResetSuccessAction(Request $request)
-    {
-        return $this->render('security/password-reset-success.html.twig', array(
-            'client' => null,
-            'availableLocales' => $this->pageService->getAvailableLocales('password-reset-success')
-        ));
-    }
-
-    /**
-    * @Route("/logout", name="logout")
-    */
-    public function logoutAction(Request $request)
-    {
-        return new JsonResponse(['status' => 'ok']);
     }
 }

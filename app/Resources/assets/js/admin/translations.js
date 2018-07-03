@@ -5,7 +5,9 @@ I18n.setTranslations({
     'Page not found': 'Page inexistante',
     'Route already exists': 'Ce nom ou cette adresse est déjà utilisé, veuillez utiliser autre chose.',
     'News not found': 'Cette nouveauté n\'existe pas',
-    'File Exists': 'Le fichier existe déjà'
+    'File Exists': 'Le fichier existe déjà',
+    'Invalid credentials': 'Identifiants incorrects',
+    'File too big': 'Ce fichier est trop volumineux (2Mo max)'
   }
 })
 

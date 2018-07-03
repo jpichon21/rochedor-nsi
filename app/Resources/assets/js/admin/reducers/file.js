@@ -24,6 +24,13 @@ export default function fileReducer (state, action) {
         loading: false
       }
     case UPLOAD_FILE_FAILURE:
+      if (action.data.message === 'body stream already read') {
+        return {
+          ...state,
+          uploadStatus: null,
+          loading: false
+        }
+      }
       return {
         ...state,
         uploadStatus: null,

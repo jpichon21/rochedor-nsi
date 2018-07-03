@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
-import { postNews, initStatus, setMessage, setLocale } from '../../actions'
+import { postNews, initStatus, setLocale } from '../../actions'
 import NewsForm from '../news-form/news-form'
 import AppMenu from '../app-menu/app-menu'
 import { locales } from '../../locales'
@@ -20,7 +19,9 @@ export class NewsCreate extends React.Component {
   }
 
   onSubmit (news) {
-    this.props.dispatch(postNews(news))
+    this.props.dispatch(postNews(news)).then((res) => {
+      this.props.history.push(`/news-edit/${res.id}`)
+    })
   }
 
   componentWillMount () {
@@ -39,11 +40,6 @@ export class NewsCreate extends React.Component {
     this.setState({alertOpen: false})
   }
   render () {
-    if (this.props.status === 'ok') {
-      this.props.dispatch(setMessage('Nouveauté créee'))
-      this.props.dispatch(initStatus())
-      return <Redirect to='/news-list' />
-    }
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />

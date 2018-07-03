@@ -34,16 +34,21 @@ export function postPage (attributes) {
     })
       .then(res => {
         if (res.status >= 400) {
-          res.json().then(res => {
+          const httpRes = res
+          httpRes.json().then(res => {
             dispatch({ type: POST_PAGE_FAILURE, ...{ data: res } })
-          })
-        } else {
-          res.json().then(res => {
-            dispatch({ type: POST_PAGE_SUCCESS, ...{ data: res } })
+            return res
           })
         }
+        return res
       })
-      .catch(error => dispatch({ type: POST_PAGE_FAILURE, ...{ data: error } }))
+      .then(res => res.json())
+      .then(res => {
+        if (res.error) throw res.error
+        dispatch({ type: POST_PAGE_SUCCESS, data: res })
+        return res
+      })
+      .catch(error => dispatch({ type: POST_PAGE_FAILURE, error }))
   }
 }
 
@@ -150,16 +155,21 @@ export function putPage (page) {
     })
       .then(res => {
         if (res.status >= 400) {
-          res.json().then(res => {
+          const httpRes = res
+          httpRes.json().then(res => {
             dispatch({ type: PUT_PAGE_FAILURE, ...{ data: res } })
-          })
-        } else {
-          res.json().then(res => {
-            dispatch({ type: PUT_PAGE_SUCCESS, ...{ data: res } })
+            return res
           })
         }
+        return res
       })
-      .catch(error => dispatch({ type: PUT_PAGE_FAILURE, ...{ data: error } }))
+      .then(res => res.json())
+      .then(res => {
+        if (res.error) throw res.error
+        dispatch({ type: PUT_PAGE_SUCCESS, data: res })
+        return res
+      })
+      .catch(error => dispatch({ type: PUT_PAGE_FAILURE, error }))
   }
 }
 
@@ -175,15 +185,20 @@ export function deletePage (page) {
     })
       .then(res => {
         if (res.status >= 400) {
-          res.json().then(res => {
+          const httpRes = res
+          httpRes.json().then(res => {
             dispatch({ type: DELETE_PAGE_FAILURE, ...{ data: res } })
-          })
-        } else {
-          res.json().then(res => {
-            dispatch({ type: DELETE_PAGE_SUCCESS, ...{ data: res } })
+            return res
           })
         }
+        return res
       })
-      .catch(error => dispatch({ type: DELETE_PAGE_FAILURE, ...{ data: error } }))
+      .then(res => res.json())
+      .then(res => {
+        if (res.error) throw res.error
+        dispatch({ type: DELETE_PAGE_SUCCESS, data: res })
+        return res
+      })
+      .catch(error => dispatch({ type: DELETE_PAGE_FAILURE, error }))
   }
 }
