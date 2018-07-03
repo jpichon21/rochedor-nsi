@@ -206,13 +206,10 @@ class OrderController extends Controller
 
     private function registerOrder($delivery, $cartId, $locale)
     {
-        $codcli = 37898;
-        
         $user = $this->getUser();
         // $em = $this->getDoctrine()->getManager();
         // $user = $this->getDoctrine()->getRepository('AppBundle:Contact')->findByCodco($codcli);
         $codcli = $user->getCodcli();
-        
 
         $cart = $this->cartRepository->find($delivery['cartId']);
         // $cart = $this->getCart($cartId);

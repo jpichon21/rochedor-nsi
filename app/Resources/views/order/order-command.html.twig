@@ -159,7 +159,7 @@
             {% if cart %}
                 {% for line in cart.cartLines %}
                 <div>
-                <p>{{ line.productcourt }} - {{ line.product.prix }} € - {{ line.quantity }} </p>
+                <p>{{ line.product.produitcourt }} - {{ line.product.prix }} € - {{ line.quantity }} </p>
                 </div>
                 {% endfor %}
             {% else %}
