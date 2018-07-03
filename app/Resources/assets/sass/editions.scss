@@ -440,6 +440,14 @@ h2 {
       .thumbnails {
         display: flex;
         padding-top: 10px;
+        div {
+          flex: 1;
+          margin-right: 10px;
+          height: 100px;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
         .thumb {
           flex: 1;
           margin-right: 10px;
@@ -447,9 +455,6 @@ h2 {
           background-size: cover;
           background-position: center;
           box-sizing: border-box;
-          &:last-child {
-            margin-right: 0;
-          }
           &.active {
             border: 4px #ffffff solid;
           }

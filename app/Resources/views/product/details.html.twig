@@ -40,8 +40,9 @@
         <div class="thumbnails">
           {% for slide in slides %}
           {% if slide != '' %}
-          {% set slidesCount = slidesCount + 1 %}
           <div class="thumb {% if loop.first %}active{% endif %}" style="{{ asset(slide) | background }}"></div>
+          {% else %}
+          <div class="empty"></div>
           {% endif %}
           {% endfor %}
         </div>
