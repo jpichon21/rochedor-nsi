@@ -56,24 +56,8 @@
           <h2><small>{{ 'collection' | trans }} </small>{{ category.title }}</h2>
           <div class="products">
           {% for product in category.products %}
-            <div class="product">
-              <div class="illustration" style="{{ asset(product.adimg) | background }}"></div>
-              <div class="description">
-                <h3>{{ product.produitcourt }}</h3>
-                <div class="price">{{ product.prix }}<small>€</small></div>
-                <a class="cart" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">
-                  <img src="{{ asset('assets/img/cart.png') }}" alt="Panier">
-                </a>
-                <div class="text">
-                  <div class="short">
-                    <p>{{ product.pageprd | truncate(110, true) }}</p>
-                  </div>
-                  <div class="long">
-                    <p>{{ product.pageprd | truncate(500, true) }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {% include 'parts/product.html.twig'
+              with { 'product': product } %}
           {% endfor %}
           </div>
           <a class="button right-arrow" href="{{ currentPath ~ '?collection=' ~ category.id }}">{{ 'editions.seeallproducts' | trans }}</a>
@@ -84,24 +68,8 @@
     {% if filters_themes %}<h2><small>{{ 'editions.filter.themes.title' | trans }} </small>{{ filters_themes_array|join(', ') }}{% if filters_themes_array|length > 1 %}.{% endif %}</h2>{% endif %}
     <div class="products">
     {% for product in products %}
-      <div class="product">
-        <div class="illustration" style="{{ asset(product.adimg) | background }}"></div>
-        <div class="description">
-          <h3>{{ product.produitcourt }}</h3>
-          <div class="price">{{ product.prix }}<small>€</small></div>
-          <a class="cart" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">
-            <img src="{{ asset('assets/img/cart.png') }}" alt="Panier">
-          </a>
-          <div class="text">
-            <div class="short">
-              <p>{{ product.pageprd | truncate(110, true) }}</p>
-            </div>
-            <div class="long">
-              <p>{{ product.pageprd }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% include 'parts/product.html.twig'
+        with { 'product': product } %}
     {% endfor %}
     </div>
     {% endif %}
