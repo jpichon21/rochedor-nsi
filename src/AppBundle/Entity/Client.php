@@ -138,6 +138,21 @@ class Client implements UserInterface, \Serializable
      */
     private $password;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reset_token", type="string", nullable=true)
+     */
+    private $resetToken;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="reset_token_expires_at", type="datetime", nullable=true)
+     */
+    private $resetTokenExpiresAt;
+
+
     public function getRoles()
     {
         return ['ROLE_SHOP_USER'];
@@ -148,7 +163,7 @@ class Client implements UserInterface, \Serializable
      *
      * @param array|null $roles
      *
-     * @return Contact
+     * @return Client
      */
     public function setRoles($roles = null)
     {
@@ -197,7 +212,7 @@ class Client implements UserInterface, \Serializable
      *
      * @param string $password
      *
-     * @return Contact
+     * @return Client
      */
     public function setPassword($password)
     {
@@ -574,5 +589,53 @@ class Client implements UserInterface, \Serializable
     public function getEnregcli()
     {
         return $this->enregcli;
+    }
+    
+    /**
+     * Set resetToken.
+     *
+     * @param string|null $resetToken
+     *
+     * @return Client
+     */
+    public function setResetToken($resetToken = null)
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    /**
+     * Get resetToken.
+     *
+     * @return string|null
+     */
+    public function getResetToken()
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * Set resetTokenExpiresAt.
+     *
+     * @param \DateTime|null $resetTokenExpiresAt
+     *
+     * @return Client
+     */
+    public function setResetTokenExpiresAt($resetTokenExpiresAt = null)
+    {
+        $this->resetTokenExpiresAt = $resetTokenExpiresAt;
+
+        return $this;
+    }
+
+    /**
+     * Get resetTokenExpiresAt.
+     *
+     * @return \DateTime|null
+     */
+    public function getResetTokenExpiresAt()
+    {
+        return $this->resetTokenExpiresAt;
     }
 }

@@ -293,7 +293,7 @@ class SecurityController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($contact);
             $em->flush();
-            return $this->redirectToRoute('password_reset_success');
+            return $this->redirectToRoute('password-reset-success');
         }
         return $this->render('security/password-reset.html.twig', array(
             'form' => $form->createView()
