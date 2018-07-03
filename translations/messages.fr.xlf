@@ -1441,5 +1441,47 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
         <target>Fiche technique</target>
       </segment>
     </unit>
+    <unit id="OA2.mJ3" name="editions.technicalreview.dateparution">
+      <segment>
+        <source>editions.technicalreview.dateparution</source>
+        <target>Date de parution</target>
+      </segment>
+    </unit>
+    <unit id="QOhaDtz" name="editions.technicalreview.dimensions">
+      <segment>
+        <source>editions.technicalreview.dimensions</source>
+        <target>Dimensions</target>
+      </segment>
+    </unit>
+    <unit id="K4k3lnA" name="editions.technicalreview.editeur">
+      <segment>
+        <source>editions.technicalreview.editeur</source>
+        <target>Editeur</target>
+      </segment>
+    </unit>
+    <unit id="M3yf8iz" name="editions.technicalreview.ean">
+      <segment>
+        <source>editions.technicalreview.ean</source>
+        <target>EAN</target>
+      </segment>
+    </unit>
+    <unit id="gik7lYM" name="editions.technicalreview.nbpage">
+      <segment>
+        <source>editions.technicalreview.nbpage</source>
+        <target>Nb. de page</target>
+      </segment>
+    </unit>
+    <unit id="SsON85Z" name="editions.technicalreview.rubrique">
+      <segment>
+        <source>editions.technicalreview.rubrique</source>
+        <target>Collection</target>
+      </segment>
+    </unit>
+    <unit id="Pbmdis9" name="editions.technicalreview.poids">
+      <segment>
+        <source>editions.technicalreview.poids</source>
+        <target>Poids</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
