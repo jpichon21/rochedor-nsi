@@ -11,7 +11,7 @@ h1 {
 }
 
 h2 {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   font-size: 23px;
   font-weight: 200;
   letter-spacing: 1px;
@@ -419,10 +419,29 @@ h2 {
         padding-left: 100px;
       }
       .carousel {
-        width: auto;
+        position: relative;
         height: 500px;
-        left: 100px;
-        right: 0;
+        img {
+          display: none;
+        }
+      }
+      .thumbnails {
+        display: flex;
+        padding-top: 10px;
+        .thumb {
+          flex: 1;
+          margin-right: 10px;
+          height: 100px;
+          background-size: cover;
+          background-position: center;
+          box-sizing: border-box;
+          &:last-child {
+            margin-right: 0;
+          }
+          &.active {
+            border: 4px #ffffff solid;
+          }
+        }
       }
     }
     .right {
@@ -467,10 +486,38 @@ h2 {
         .or {
           display: inline-block;
           margin: 0 10px;
+          font-size: 12px;
+          text-transform: uppercase;
         }
       }
-      .technicalreview {
+      .technical-review {
+        display: flex;
         margin-bottom: 40px;
+        .left {
+          margin-right: 20px;
+        }
+        .left,
+        .right {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          .line {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            line-height: 30px;
+            border-bottom: 2px #ffffff solid;
+            b {
+              font-size: 12px;
+              font-weight: 500;
+              text-transform: uppercase;
+            }
+            span {
+              font-size: 14px;
+              font-weight: 100;
+            }
+          }
+        }
       }
     }
   }

@@ -3,7 +3,7 @@
 {% set slidesCount = 0 %}
 {% set bodyClass = "editions details" %}
 {% set bodyBackground = 7 %}
-{% block title %}{{ product.produit }} - La Roche d'Or{% endblock %}
+{% block title %}{{ product.produitcourt }} - La Roche d'Or{% endblock %}
 {% block metadescription %}<meta name="description" content="{{ product.memoprd }}">{% endblock %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
@@ -22,10 +22,10 @@
             <div class="slide {% if loop.first %}active{% endif %}">
               <div class="top">
                 <a class="full image"
-                  title="{{ product.produit }}"
+                  title="{{ product.produitcourt }}"
                   href="{{ slide }}"
                   style="{{ slide | background }}">
-                  <img src="{{ slide }}" alt="{{ product.produit }}">
+                  <img src="{{ slide }}" alt="{{ product.produitcourt }}">
                 </a>
               </div>
             </div>
@@ -51,7 +51,7 @@
     </div>
     <div class="right">
       <div class="inner">
-        <h1>{{ product.produit }}</h1>
+        <h1>{{ product.produitcourt }}</h1>
         <div class="subtitle">
           <b>{{ 'editions.author' | trans }}</b>
           {{ product.auteur }}
