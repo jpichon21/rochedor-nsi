@@ -45,7 +45,8 @@ class OrderController extends Controller
         '195.25.67.2',
         '195.25.67.11',
         '194.2.122.190',
-        '195.25.67.22'
+        '195.25.67.22',
+        '127.0.0.1'
     ];
     const TVASHIPMENT = 20;
     /**
@@ -180,6 +181,7 @@ class OrderController extends Controller
             $ref = $request->get('Ref');
             $status = ($request->get('Erreur') === '00000') ? $request->get('Trans') : false;
             $country = $request->get('Pays');
+            $amount = ($request->get('Amount')/100);
         } elseif ($method === 'paypal') {
             $paypalService->useSandbox();
             if ($paypalService->verifyIPN()) {
@@ -194,9 +196,15 @@ class OrderController extends Controller
         }
         
         $order = $this->commandeRepository->findByRef($ref);
-        if ($status) {
+        if ($status && $order->getTtc() == $amount) {
             $order->setDatpaie(new \DateTime())
             ->setValidpaie($status)
+            ->setPaysIP($country);
+            $this->em->persist($order);
+            $this->em->flush();
+        } else {
+            $order->setDatpaie(new \DateTime())
+            ->setValidpaie('error')
             ->setPaysIP($country);
             $this->em->persist($order);
             $this->em->flush();
@@ -206,10 +214,12 @@ class OrderController extends Controller
 
     private function registerOrder($delivery, $cartId, $locale)
     {
+        
         $user = $this->getUser();
         // $em = $this->getDoctrine()->getManager();
         // $user = $this->getDoctrine()->getRepository('AppBundle:Contact')->findByCodco($codcli);
         $codcli = $user->getCodcli();
+        
 
         $cart = $this->cartRepository->find($delivery['cartId']);
         // $cart = $this->getCart($cartId);

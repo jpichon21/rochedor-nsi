@@ -130,7 +130,7 @@ itemPayment.on('click', '.button.submit.process-order', function (event) {
     let result = $('.result', itemValidation).html()
     result = result.replace('%entry_number%', res)
     $('.result', itemValidation).html(result)
-    placePayment(_delivery.modpaie, _cartInfo.priceIT, '18-00015', 'truc', `Commande sur le site La Roche D'Or`, _you.email, 'fr')
+    placePayment(_delivery.modpaie, _cartInfo.priceIT, '18-00065', 'truc', `Commande sur le site La Roche D'Or`, _you.email, 'fr')
     changeItem(itemValidation)
   }).catch(error => {
     $('.right .catch-message').html(error)
