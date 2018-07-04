@@ -6,7 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use AppBundle\Form\TaxType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Entity\Tax;
 
 class ProduitType extends AbstractType
 {
@@ -53,17 +54,20 @@ class ProduitType extends AbstractType
         ->add('themes')
         ->add(
             'taxes',
-            CollectionType::class,
+            EntityType::class,
             [
-                'entry_type' => TaxType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'required' => true,
-                'by_reference' => false
+                'class' => Tax::class,
+                'choice_label' => function ($tax) {
+                    return $tax->getName().' - '.$tax->getRate();
+                },
+                'multiple' => true,
+                'expanded' => true
+
             ]
         )
         ;
-    }/**
+    }
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

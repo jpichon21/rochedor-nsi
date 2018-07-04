@@ -18,41 +18,9 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
-
-<script
-  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-  crossorigin="anonymous"></script>
-<script defer>
-
-collectionFormInit();
-imageDeleteInit();
-
-collectionFormInit = function() {
-    $('.add-item-btn').click(function(e) {
-        e.preventDefault();
-        var container = $('#' + $(this).data('item-id'));
-        var index = container.find('> div').length;
-        var prototype = container.data('prototype');
-        prototype = prototype.replace(/__name__/g, index);
-        container.append($(prototype));
-        $('#' + $(this).data('item-id') + '_' + index + ' .mask').each(function () {
-            InputMask().mask($(this));
-        });
-        addDeleteLinksToCollection();
-    });
-    addDeleteLinksToCollection();
-    // Add events listener on remove buttons
-    $('.collection-container').delegate('.remove-item-btn', 'click', function() {
-        $(this).parent().remove();
-    });
-}
-
-addDeleteLinksToCollection = function() {
-    $('.remove-item-btn').remove();
-    $('.collection-container > div').each(function(i) {
-        $(this).append($('<button class="button remove-item-btn warning" data-index="' + i + '"><i class="fa fa-trash"></i> Supprimer</button>'));
-    });
-}
-</script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://symfony-collection.fuz.org/symfony3/js/jquery.collection.js?1.0.0"></script>
+    <script type="text/javascript">
+        $('.collection').collection();
+    </script>
 {% endblock %}
