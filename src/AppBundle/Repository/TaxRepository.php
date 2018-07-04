@@ -35,16 +35,30 @@ class TaxRepository
     {
         $query = $this->entityManager
         ->createQuery('SELECT t.name, t.rate, t.countries 
-        FROM AppBundle\Entity\Tax t 
-        JOIN AppBundle\Entity\Produit p
+        FROM AppBundle\Entity\Produit p
+        JOIN produits_taxes pt
+        WITH p.codprd = pt.produit_id
+        JOIN AppBundle\Entity\Tax t
+        WITH pt.tax_id = t.id
         WHERE p.codprd=:productId');
-        $query->setParameter('productId', $productId);
-        $results =  $query->getResult();
 
-        foreach ($results as $k => $result) {
-            if (in_array($country, $result['countries'])) {
-                return $result;
-            }
-        }
+        $qb = $this->entityManager->createQueryBuilder()
+        ->select('p.codprd', 't.name')
+        ->from('AppBundle\Entity\Produit', 'p')
+        ->join('AppBundle\Entity\Tax', 't')
+        ->where('p.codprd = :productId')
+        ->setParameter('productId', $productId);
+
+        $results = $qb->getQuery()->getResult();
+// dump($results);
+        return $results;
+        // $query->setParameter('productId', $productId);
+        // $results =  $query->getResult();
+
+        // foreach ($results as $k => $result) {
+        //     if (in_array($country, $result['countries'])) {
+        //         return $result;
+        //     }
+        // }
     }
 }
