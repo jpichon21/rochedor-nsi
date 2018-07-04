@@ -1,7 +1,10 @@
 {% set bodyClass = "home" %}
-{% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
+{% block title %}{{ page.title ~ ' ' ~ page.subTitle }}{% endblock %}
 {% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
+{% endblock %}
 {% block content %}
 <div class="animation-intro">
     <div class="element">
@@ -95,12 +98,6 @@
             {{page.content['sections'][5].body|raw}}
             <a class="button yellow" href="#">Découvrir</a>
         </div>
-        {# <div class="box">
-            <h2><small>Informations </small>et contacts</h2>
-            <i>L'âge achevé de la vraie mystique, <br>c'est de voir Dieu présent dans la matière.</i>
-            <span>Florin Callerand</span>
-            <a class="button yellow" href="#">Découvrir</a>
-        </div> #}
     </article>
 </section>
 {% endblock %}

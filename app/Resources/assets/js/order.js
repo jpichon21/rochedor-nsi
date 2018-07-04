@@ -127,13 +127,11 @@ itemOrder.on('change', '.select.adliv', function (event) {
 itemPayment.on('click', '.button.submit.process-order', function (event) {
   event.preventDefault()
   postOrder(_delivery).then(res => {
-    console.log('Coucou avant')
     let result = $('.result', itemValidation).html()
     result = result.replace('%entry_number%', res)
     $('.result', itemValidation).html(result)
     placePayment(_delivery.modpaie, _cartInfo.priceIT, '18-00015', 'truc', `Commande sur le site La Roche D'Or`, _you.email, 'fr')
     changeItem(itemValidation)
-    console.log('Coucou apres')
   }).catch(error => {
     $('.right .catch-message').html(error)
   })
@@ -268,8 +266,10 @@ itemCart.on('click', 'a', function (event) {
 function afterLogin (user) {
   const delivery = getDelivery()
   _delivery = delivery
+  _delivery.codcli = user.codcli
   console.log(_delivery)
   _you = user
+  console.log(_you)
   updateYouRender()
   updateCartRender()
   changeItem(itemOrder)

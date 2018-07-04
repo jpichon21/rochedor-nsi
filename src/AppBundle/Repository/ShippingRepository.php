@@ -33,7 +33,7 @@ class ShippingRepository
         }
         
         if ($name === "Font" || $name === "Roche") {
-            return $port = 0;
+            return 0;
         }
         
         $query = $this->entityManager

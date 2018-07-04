@@ -28,11 +28,11 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         shop:
-            pattern: ^/([a-z]{2}\/(cart|shop|order)|shop/(login|register|password-request))
+            pattern: ^/([a-z]{2,3}\/(cart|shop|order)|shop/(login|register|password-request))
             provider: shop_db_provider
             anonymous: ~
             json_login:
-                check_path: shop-login
+                check_path: /shop/login
         main:
             pattern: ^/
             provider: legacy_db_provider

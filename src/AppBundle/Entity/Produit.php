@@ -263,6 +263,20 @@ class Produit
     private $themes;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Tax")
+     * @ORM\JoinTable(name="produits_taxes",
+     *      joinColumns={@ORM\JoinColumn(name="produit_id", referencedColumnName="codprd")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tax_id", referencedColumnName="id")}
+     *      )
+     */
+    private $taxes;
+
+    public function __construct()
+    {
+        $this->taxes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get codprd.
      *
      * @return int
@@ -630,5 +644,41 @@ class Produit
     public function getEpaisseur()
     {
         return $this->epaisseur;
+    }
+
+    /**
+     * Add tax.
+     *
+     * @param \AppBundle\Entity\Tax $tax
+     *
+     * @return Cart
+     */
+    public function addTax(\AppBundle\Entity\Tax $tax)
+    {
+        $this->taxs[] = $tax;
+
+        return $this;
+    }
+
+    /**
+     * Remove tax.
+     *
+     * @param \AppBundle\Entity\Tax $tax
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeTax(\AppBundle\Entity\Tax $tax)
+    {
+        return $this->taxs->removeElement($tax);
+    }
+
+    /**
+     * Get taxs.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTaxs()
+    {
+        return $this->taxs;
     }
 }

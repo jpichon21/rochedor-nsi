@@ -4,7 +4,7 @@
 {% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('assets/css/carousel.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/page.css') }}">
 {% endblock %}
 {% block content %}
 <div class="content">
@@ -18,7 +18,7 @@
             {% endif %}
             <div class="dropdown {% if page.content.sections|length == 1 %}single{% endif %}">
                 {% for section in page.content.sections %}
-                <div class="item"
+                <div class="item {% if loop.first %}first{% endif %}"
                     data-carousel-id="{{ section.title|md5 }}">
                     <h2>{{ section.title }}</h2>
                     {{ section.body | raw }}
@@ -51,6 +51,5 @@
 </div>
 {% endblock %}
 {% block javascripts %}
-<script src="{{ asset('assets/js/carousel.js') }}"></script>
 <script src="{{ asset('assets/js/page.js') }}"></script>
 {% endblock %}

@@ -20,6 +20,8 @@ Encore
   .addEntry('js/carousel', './app/Resources/assets/js/carousel.js')
   .addEntry('js/order', './app/Resources/assets/js/order.js')
   .addStyleEntry('css/main', './app/Resources/assets/sass/main.scss')
+  .addStyleEntry('css/home', './app/Resources/assets/sass/home.scss')
+  .addStyleEntry('css/page', './app/Resources/assets/sass/page.scss')
   .addStyleEntry('css/calendar', './app/Resources/assets/sass/calendar.scss')
   .addStyleEntry('css/calendar-registration', './app/Resources/assets/sass/calendar-registration.scss')
   .addStyleEntry('css/editions', './app/Resources/assets/sass/editions.scss')

@@ -1,6 +1,4 @@
-$roche-yellow: #faf28e;
-$roche-orange: #ef7d1d;
-$roche-brown: #3a2e23;
+@import './variables';
 
 body {
   background-color: #ffffff;
@@ -172,27 +170,34 @@ h2 {
     width: 24%;
     height: 315px;
     overflow: hidden;
-    &:after,
-    &:before {
-      content: '';
+    .link {
       position: absolute;
       top: 0;
       right: 0;
       width: 43px;
       height: 44px;
-      transition: 0.5s;
-    }
-    &:after {
-      background-image: url('../img/plus-orange.png');
-      z-index: 2;
-    }
-    &:before {                
-      background-image: url('../img/plus-white.png');
-      z-index: 3;
+      &:after,
+      &:before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transition: 0.5s;
+      }
+      &:after {
+        background-image: url('../img/plus-orange.png');
+        z-index: 2;
+      }
+      &:before {                
+        background-image: url('../img/plus-white.png');
+        z-index: 3;
+      }
     }
     &:hover {
-      &:before {
-        opacity: 0;
+      .link {
+        &:before {
+          opacity: 0;
+        }
       }
       .description {
         top: 0;
@@ -244,14 +249,18 @@ h2 {
         opacity: 0;
         transition: 0.5s;
       }
-      h3 {
+      .title {
+        display: block;
+        height: 30px;
         margin-bottom: 20px;
         padding-right: 90px;
         line-height: 16px;
         font-size: 13px;
         font-weight: 300;
+        color: #000000;
         letter-spacing: 1px;
         text-transform: uppercase;
+        text-decoration: none;
       }
       .cart {
         position: absolute;
@@ -263,10 +272,11 @@ h2 {
         position: absolute;
         bottom: 80px;
         right: 20px;
-        line-height: 20px;
+        line-height: 100%;
         font-size: 23px;
         font-weight: 300;
         color: $roche-orange;
+        text-decoration: none;
         transition: 0.5s;
         small {
           font-size: 16px;
@@ -428,6 +438,14 @@ h2 {
       .thumbnails {
         display: flex;
         padding-top: 10px;
+        div {
+          flex: 1;
+          margin-right: 10px;
+          height: 100px;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
         .thumb {
           flex: 1;
           margin-right: 10px;
@@ -435,9 +453,6 @@ h2 {
           background-size: cover;
           background-position: center;
           box-sizing: border-box;
-          &:last-child {
-            margin-right: 0;
-          }
           &.active {
             border: 4px #ffffff solid;
           }
