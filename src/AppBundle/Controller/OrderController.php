@@ -134,22 +134,32 @@ class OrderController extends Controller
         $data = [];
         $data['totalPriceIT'] = 0;
         $data['totalPrice'] = 0;
+        $totalWeight = 0;
         foreach ($cart->getCartlines() as $k => $cartline) {
-            $product_id = $cartline->getProduct()->getCodPrd();
-            $taxrate = $this->taxRepository->findTax($product_id, $country);
-            $product = $this->productRepository->find($product_id);
-            if ($taxrate['rate'] == 0) {
-                $priceIncludeTaxes = $product->getPrix();
-            } else {
-                $priceIncludeTaxes = $this->getProductPrice($product, $taxrate);
+            $i = 1;
+            while ($i <= $cartline->getQuantity()) {
+                $product_id = $cartline->getProduct()->getCodPrd();
+                $taxrate = $this->taxRepository->findTax($product_id, $country);
+                $product = $this->productRepository->find($product_id);
+                if ($taxrate['rate'] == 0) {
+                    $priceIncludeTaxes = $product->getPrix();
+                } else {
+                    $priceIncludeTaxes = $this->getProductPrice($product, $taxrate);
+                }
+                $data['totalPrice'] = $data['totalPrice'] + $product->getPrix();
+                $data['totalPriceIT'] = $data['totalPriceIT'] + $priceIncludeTaxes;
+                $data['product'][$k]['codprd'] = $product->getCodprd();
+                $data['product'][$k]['quantity'] = $cartline->getQuantity();
+                $data['product'][$k]['productTaxeRate'] = $taxrate['rate'];
+                $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
+                $data['product'][$k]['price'] = $product->getPrix();
+                $data['product'][$k]['name'] = $product->getProduitcourt();
+                $data['product'][$k]['vatProduct'] = $data['product'][$k]['priceIT'] - $data['product'][$k]['price'];
+                $totalWeight = $totalWeight + $product->getPoids();
+                $i++;
             }
-            $data['totalPrice'] = $data['totalPrice'] + $product->getPrix();
-            $data['totalPriceIT'] = $data['totalPriceIT'] + $priceIncludeTaxes;
-            $data['product'][$k]['codprd'] = $product->getCodprd();
-            $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
-            $data['product'][$k]['price'] = $product->getPrix();
-            $data['product'][$k]['name'] = $product->getProduitcourt();
         }
+        $data['weightOrder'] = $totalWeight;
         $data['vat'] = $data['totalPriceIT'] - $data['totalPrice'];
         return $data;
     }
@@ -280,6 +290,10 @@ class OrderController extends Controller
         $datCom = new \DateTime();
         $modpaie = $delivery['modpaie'];
         $modliv = $delivery['modliv'];
+        $paysliv = $delivery['paysliv'];
+
+        $data = $this->getMyCartPrice($delivery['cartId'], $delivery['paysliv']);
+
         $datpaie = new \DateTime();
         $validpaie = $delivery['validpaie'];
         $destliv = $delivery['destliv'];
@@ -298,7 +312,6 @@ class OrderController extends Controller
                     " ".
                     $user->getVille();
         }
-        $paysliv = $delivery['paysliv'];
         
         if (!isset($delivery['memocmd'])) {
             $memoCmd = "";
@@ -306,12 +319,12 @@ class OrderController extends Controller
             $memoCmd = $delivery['memocmd'];
         }
 
-        $weight = $this->getTotalWeight($cart);
+        $weight = $data['weightOrder'];
         $portPrice = $this->shippingRepository->findGoodPort($weight, $paysliv, $destliv);
-        $amountHT = $this->getTotalPrice($cart, $portPrice);
+        $amountHT = $data['totalPrice'];
         $promo = 0;
-        $priceit = $this->getPriceIT($cart, $portPrice);
-        $vat = $this->getVATCost($priceit, $amountHT);
+        $priceit = $data['totalPriceIT'];
+        $vat = $data['vat'];
 
         $datliv = new \Datetime($delivery['datliv']);
         $paysip = $delivery['paysip'];
@@ -342,6 +355,7 @@ class OrderController extends Controller
         $order->setMemocmd($memoCmd);
     
         $em->persist($order);
+
         $em->flush();
 
         
