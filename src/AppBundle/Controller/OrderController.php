@@ -121,37 +121,49 @@ class OrderController extends Controller
     */
     public function xhrGetTaxes(Request $request, $cart_id, $country)
     {
-        return $this->getMyCartPrice($cart_id, $country);
+        $data = $this->getCartPrices($cart_id, $country);
+        return ['status' => 'ok','data' => $data];
     }
     
-    private function getMyCartPrice($cart_id, $country)
+    private function getCartPrices($cart_id, $country)
     {
         $cart = $this->cartRepository->find($cart_id);
         $data = [];
         $data['totalPriceIT'] = 0;
         $data['totalPrice'] = 0;
+        $totalWeight = 0;
         foreach ($cart->getCartlines() as $k => $cartline) {
-            $product = $cartline->getProduct();
-            $tax = $this->productRepository->findTax($product, $country);
-            if ($tax->getRate() == 0) {
-                $priceIncludeTaxes = $product->getPrix();
-            } else {
-                $priceIncludeTaxes = $this->getProductPrice($product, $tax->getRate());
+            $i = 1;
+            while ($i <= $cartline->getQuantity()) {
+                $product = $cartline->getProduct();
+                $tax = $this->productRepository->findTax($product->getCodPrd(), $country);
+                $product = $cartline->getProduct();
+                if ($tax === null) {
+                    $priceIncludeTaxes = $product->getPrix();
+                } else {
+                    $priceIncludeTaxes = $this->getProductPrice($product, $tax->getRate());
+                }
+                $data['totalPrice'] = $data['totalPrice'] + $product->getPrix();
+                $data['totalPriceIT'] = $data['totalPriceIT'] + $priceIncludeTaxes;
+                $data['product'][$k]['codprd'] = $product->getCodprd();
+                $data['product'][$k]['quantity'] = $cartline->getQuantity();
+                $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;
+                $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
+                $data['product'][$k]['price'] = $product->getPrix();
+                $data['product'][$k]['name'] = $product->getProduitcourt();
+                $data['product'][$k]['vatProduct'] = $data['product'][$k]['priceIT'] - $data['product'][$k]['price'];
+                $totalWeight = $totalWeight + $product->getPoids();
+                $i++;
             }
-            $data['totalPrice'] = $data['totalPrice'] + $product->getPrix();
-            $data['totalPriceIT'] = $data['totalPriceIT'] + $priceIncludeTaxes;
-            $data['product'][$k]['codprd'] = $product->getCodprd();
-            $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
-            $data['product'][$k]['price'] = $product->getPrix();
-            $data['product'][$k]['name'] = $product->getProduitcourt();
         }
+        $data['weightOrder'] = $totalWeight;
         $data['vat'] = $data['totalPriceIT'] - $data['totalPrice'];
         return $data;
     }
     
     private function getProductPrice($product, $taxrate)
     {
-        return ($product->getPrix() * (1+($taxrate['rate']/100)));
+        return ($product->getPrix() * (1+($taxrate/100)));
     }
 
     /**
@@ -275,6 +287,10 @@ class OrderController extends Controller
         $datCom = new \DateTime();
         $modpaie = $delivery['modpaie'];
         $modliv = $delivery['modliv'];
+        $paysliv = $delivery['paysliv'];
+
+        $data = $this->getCartPrices($delivery['cartId'], $delivery['paysliv']);
+
         $datpaie = new \DateTime();
         $validpaie = $delivery['validpaie'];
         $destliv = $delivery['destliv'];
@@ -293,7 +309,6 @@ class OrderController extends Controller
                     " ".
                     $user->getVille();
         }
-        $paysliv = $delivery['paysliv'];
         
         if (!isset($delivery['memocmd'])) {
             $memoCmd = "";
@@ -301,12 +316,12 @@ class OrderController extends Controller
             $memoCmd = $delivery['memocmd'];
         }
 
-        $weight = $this->getTotalWeight($cart);
+        $weight = $data['weightOrder'];
         $portPrice = $this->shippingRepository->findGoodPort($weight, $paysliv, $destliv);
-        $amountHT = $this->getTotalPrice($cart, $portPrice);
+        $amountHT = $data['totalPrice'];
         $promo = 0;
-        $priceit = $this->getPriceIT($cart, $portPrice);
-        $vat = $this->getVATCost($priceit, $amountHT);
+        $priceit = $data['totalPriceIT'];
+        $vat = $data['vat'];
 
         $datliv = new \Datetime($delivery['datliv']);
         $paysip = $delivery['paysip'];
@@ -337,6 +352,7 @@ class OrderController extends Controller
         $order->setMemocmd($memoCmd);
     
         $em->persist($order);
+
         $em->flush();
 
         
@@ -367,67 +383,6 @@ class OrderController extends Controller
         $cart = $this->cartRepository->find($id);
         return $cart;
     }
-
-    private function getTotalWeight($cart)
-    {
-        $totalWeight = 0;
-        foreach ($cart->getCartlines() as $cartline) {
-            $totalWeight = $totalWeight + $cartline->getProduct()->getPoids();
-        }
-        return $totalWeight;
-    }
-
-    /**
-     * @Rest\Get("/order/data/{cartId}/{destliv}/{paysliv}", name="get_price")
-     * @Rest\View()
-     */
-    public function xhrGetCartDataAction($cartId, $paysliv, $destliv)
-    {
-        ;
-        $cart = $this->cartRepository->find($cartId);
-        $weight = $this->getTotalWeight($cart);
-        $portPrice = $this->shippingRepository->findGoodPort($weight, $paysliv, $destliv);
-        
-        $totalPrice = $this->getTotalPrice($cart, $portPrice);
-        $priceit = $this->getPriceIT($cart, $portPrice);
-        $vatCost = $this->getVatCost($priceit, $totalPrice);
-
-        $data = [];
-        $data['weight'] = $weight;
-        $data['portprice'] = $portPrice;
-        $data['totalPrice'] = $totalPrice;
-        $data['priceIT'] = $priceit;
-        $data['vatCost'] = $vatCost;
-
-        return ['status' => 'ok', 'data' => $data];
-    }
-
-    private function getTotalPrice($cart, $portPrice)
-    {
-        $totalPrice = 0;
-        foreach ($cart->getCartlines() as $cartline) {
-            $totalPrice = $totalPrice + $cartline->getProduct()->getPrix() * $cartline->getQuantity();
-        }
-        $totalPrice = ($totalPrice/(1 + ($this::TVA/100))) + ($portPrice/(1 + ($this::TVASHIPMENT/100)));
-
-        return $totalPrice;
-    }
-
-    private function getPriceIT($cart, $portPrice)
-    {
-        $priceit = 0;
-        foreach ($cart->getCartlines() as $cartline) {
-            $priceit = $priceit + $cartline->getProduct()->getPrix() * $cartline->getQuantity();
-        }
-        return $priceit + $portPrice;
-    }
-    
-    private function getVATCost($produit, $HTprice)
-    {
-        $vat = $priceit - $HTprice;
-        return $vat;
-    }
-
 
     private function getAdLiv($adliv, $user)
     {
