@@ -8,6 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Tax;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use AppBundle\Entity\Produit;
 
 class ProduitType extends AbstractType
 {
@@ -27,7 +29,16 @@ class ProduitType extends AbstractType
         ->add('serie')
         ->add('auteur')
         ->add('editeur')
-        ->add('typprd')
+        ->add(
+            'typprd',
+            ChoiceType::class,
+            [
+                'choices' => [
+                    'livre' => Produit::TYP_BOOK,
+                    'autre' => Produit::TYP_OTHER
+                ]
+            ]
+        )
         ->add('dateparution')
         ->add('prix')
         ->add('prixht')
