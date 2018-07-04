@@ -163,7 +163,7 @@
           background: linear-gradient(to bottom, #ffffff 0%, #232323 25%, #232323 75%, $roche-yellow 100%);
           z-index: 0;
         }
-        p,
+        em,
         strong {
           position: relative;
           animation-name: blockquoteEnter;
@@ -173,8 +173,9 @@
           transform: translateX(40px);
           z-index: 1;
         }
-        p {
-          margin: 0;
+        em {
+          display: block;
+          margin-bottom: 15px;
           font-family: 'Playfair Display', serif;
           font-size: 18px;
           font-style: italic;
@@ -182,7 +183,6 @@
         }
         strong {
           display: block;
-          margin-top: 15px;
           font-family: 'Lato', sans-serif;
           font-size: 12px;
           font-style: normal;
