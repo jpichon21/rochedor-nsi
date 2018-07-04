@@ -23,7 +23,7 @@ use AppBundle\Entity\Comprd;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\CommandeRepository;
-use AppBundle\Repository\TaxRepository;
+use AppBundle\Repository\ProductRepository;
 use AppBundle\Repository\CartRepository;
 use AppBundle\Repository\ShippingRepository;
 use AppBundle\Repository\TpaysRepository;
@@ -66,9 +66,9 @@ class OrderController extends Controller
     private $commandeRepository;
 
     /**
-     * @var TaxRepository
+     * @var ProductRepository
      */
-    private $taxRepository;
+    private $productRepository;
 
     /**
      * @var Logger
@@ -92,7 +92,7 @@ class OrderController extends Controller
 
     public function __construct(
         CommandeRepository $commandeRepository,
-        TaxRepository $taxRepository,
+        ProductRepository $productRepository,
         CartRepository $cartRepository,
         ShippingRepository $shippingRepository,
         TpaysRepository $tpaysRepository,
@@ -103,7 +103,7 @@ class OrderController extends Controller
         PageService $pageService
     ) {
         $this->commandeRepository = $commandeRepository;
-        $this->taxRepository = $taxRepository;
+        $this->productRepository = $productRepository;
         $this->tpaysRepository = $tpaysRepository;
         $this->cartRepository = $cartRepository;
         $this->shippingRepository = $shippingRepository;
@@ -120,10 +120,15 @@ class OrderController extends Controller
     */
     public function xhrGetTaxes(Request $request, $produit_id, $country)
     {
-        $produit = $this->taxRepository->findTax($produit_id, $country);
-        dump($produit);
-        exit;
-        // return $produit;
+        $produit = $this->productRepository->find($produit_id);
+        $taxes = $produit->getTaxes();
+
+        foreach ($taxes as $tax) {
+            if (in_array($country, $tax->getCountries())) {
+                return $tax;
+            }
+        }
+        return null;
     }
 
     /**
