@@ -7,31 +7,29 @@
 {% block content %}
   <div class="content">
       <div class="left">
-          <div class="inner">
-              <h1><small>Formulaire </small>d'inscription</h1>
-              <div class="dropdown single">
-                  <div class="item">
-                    <h2>Formulaire</h2>
-                    <div class="panel active">
-                        <div class="pure-g">
-                          {% if error %}
-                            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                          {% endif %}
-                          <form action="{{ path('login-form') }}" method="post">
-                            <div class="pure-u-1-2">
-                              <input type="text" id="username" placeholder ="Identifiant" name="_username" value="{{ last_username }}" class="input"/>
-                            </div>
-                            <div class="pure-u-1-2"> 
-                              <input type="password" id="password" placeholder ="Mot de passe" name="_password" class="input password" />
-                            </div>
-                            <div class="pure-u-1-1"> 
-                              <button type="submit" class="input button">{{ 'form.label.connection'|trans }}</button>
-                            </div>
-                          </form>
+          <h1><small>Formulaire </small>d'inscription</h1>
+          <div class="dropdown single">
+              <div class="item">
+                <h2>Formulaire</h2>
+                <div class="panel active">
+                    <div class="pure-g">
+                      {% if error %}
+                        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                      {% endif %}
+                      <form action="{{ path('login-form') }}" method="post">
+                        <div class="pure-u-1-2">
+                          <input type="text" id="username" placeholder ="Identifiant" name="_username" value="{{ last_username }}" class="input"/>
                         </div>
-                        <a href="{{ path('register-form') }}"}>{{ 'security.register'|trans }}</a>
+                        <div class="pure-u-1-2"> 
+                          <input type="password" id="password" placeholder ="Mot de passe" name="_password" class="input password" />
+                        </div>
+                        <div class="pure-u-1-1"> 
+                          <button type="submit" class="input button">{{ 'form.label.connection'|trans }}</button>
+                        </div>
+                      </form>
                     </div>
-                  </div>
+                    <a href="{{ path('register-form') }}"}>{{ 'security.register'|trans }}</a>
+                </div>
               </div>
           </div>
       </div>

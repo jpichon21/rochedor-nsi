@@ -3,9 +3,11 @@
 
 .carousel {
   position: absolute;
-  width: 100%;
-  height: 100%;
   display: flex;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
   z-index: 0;
   &.active {
     z-index: 1;
@@ -57,9 +59,12 @@
       .bottom {
         display: flex;
         flex: 1;
-        .full,
         .left,
         .right {
+          display: flex;
+          flex: 1;
+        }
+        .full {
           flex: 1;
           position: relative;
           background-size: cover;
@@ -98,9 +103,7 @@
         }
       }
       .bottom {
-        .full,
-        .left,
-        .right {
+        .full {
           &:after {
             top: auto;
             bottom: 0;

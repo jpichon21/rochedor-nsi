@@ -1,0 +1,133 @@
+.animation-intro {
+  display: none;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  animation-name: intro-hidden;
+  animation-delay: 20s;
+  animation-fill-mode: forwards;
+  z-index: 4;
+  &:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    animation-name: intro-opacity-reverse;
+    animation-duration: 5s;
+    animation-delay: 10s;
+    animation-fill-mode: forwards;
+    z-index: 0;
+  }
+  .element {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    margin-left: -91px;
+    animation-name: intro-mount;
+    animation-duration: 5s;
+    animation-delay: 10s;
+    animation-fill-mode: forwards;
+    z-index: 1;
+    .logo {
+      width: 160px;
+      height: 122px;
+      background: url('../img/logo-icon.png') no-repeat;
+      animation-name: intro-opacity;
+      animation-duration: 4s;
+      animation-delay: 1s;
+      animation-fill-mode: forwards;
+      opacity: 0;
+      &:before,
+      &:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: 100%;
+      }
+      &:before {
+        background-image: url('../img/logo-overlay.png');
+        transform-origin: 70px 41px;
+        animation-name: intro-scale;
+        animation-duration: 10s;
+        animation-delay: 1s;
+        animation-fill-mode: forwards;
+        z-index: 1;
+      }
+      &:after {
+        background-image: url('../img/logo-text.png');
+        animation-name: intro-opacity-text;
+        animation-duration: 8s;
+        animation-delay: 6s;
+        opacity: 0;
+        z-index: 2;
+      }
+    }
+  }
+}
+
+body {
+  &.intro {
+    .animation-intro {
+      display: block;
+    }
+    .header,
+    .footer,
+    .scroll-down,
+    .swipe-section {
+      opacity: 0;
+      animation-name: intro-opacity;
+      animation-duration: 4s;
+      animation-fill-mode: forwards;
+    }
+    .header,
+    .footer {
+      animation-delay: 15s;
+    }
+    .swipe-section {
+      animation-delay: 17s;
+    }
+    .swipe-section {
+      animation-delay: 17s;
+    }
+    .scroll-down {
+      animation-delay: 19s;
+    }
+  }
+  
+}
+
+@keyframes intro-hidden {
+  from { visibility: visible; }
+  to { visibility: hidden; }
+}
+
+@keyframes intro-opacity {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes intro-opacity-reverse {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes intro-opacity-text {
+  from { opacity: 0; }
+  40% { opacity: 1; }
+  60% { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes intro-scale {
+  from { transform: scale(1); visibility: visible; }
+  50% { visibility: hidden; }
+  to { transform: scale(5); visibility: hidden; }
+}
+
+@keyframes intro-mount {
+  from { top: 45%; }
+  to { top: 58px; }
+}
