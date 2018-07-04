@@ -138,32 +138,50 @@ class OrderController extends Controller
                 $product = $cartline->getProduct();
                 $tax = $this->productRepository->findTax($product->getCodPrd(), $country);
                 $product = $cartline->getProduct();
-                if ($tax === null) {
+
+                if ($product->getTypprd() === "livre") {
                     $priceIncludeTaxes = $product->getPrix();
+                    $data['totalPrice'] = round($data['totalPrice'] + $product->getPrix(), 2);
+                    $data['totalPriceIT'] = round($data['totalPriceIT'] + $priceIncludeTaxes, 2);
+                    $data['product'][$k]['codprd'] = $product->getCodprd();
+                    $data['product'][$k]['quantity'] = $cartline->getQuantity();
+                    $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;
+                    $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
+                    $data['product'][$k]['price'] = round($product->getPrixht() * (1+($tax->getRate()/100)), 2);
+                    $data['product'][$k]['name'] = $product->getProduitcourt();
+                    $data['product'][$k]['vatProduct'] = round($data['product'][$k]['priceIT']
+                                                    - $data['product'][$k]['price'], 2);
+                    $totalWeight = $totalWeight + $product->getPoids();
                 } else {
-                    $priceIncludeTaxes = $this->getProductPrice($product, $tax->getRate());
+                    if ($tax === null || $tax->getRate() === 0) {
+                        $priceIncludeTaxes = $product->getPrixht();
+                    } else {
+                        $priceIncludeTaxes = $this->getProductPrice($product, $tax->getRate());
+                    }
+                    $data['totalPrice'] = round($data['totalPrice'] + $product->getPrixht(), 2);
+                    $data['totalPriceIT'] = round($data['totalPriceIT'] + $priceIncludeTaxes, 2);
+                    $data['product'][$k]['codprd'] = $product->getCodprd();
+                    $data['product'][$k]['quantity'] = $cartline->getQuantity();
+                    $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;
+                    $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
+                    $data['product'][$k]['price'] = $product->getPrixht();
+                    $data['product'][$k]['name'] = $product->getProduitcourt();
+                    $data['product'][$k]['vatProduct'] = round($data['product'][$k]['priceIT']
+                                                        - $data['product'][$k]['price'], 2);
+                    $totalWeight = $totalWeight + $product->getPoids();
                 }
-                $data['totalPrice'] = $data['totalPrice'] + $product->getPrix();
-                $data['totalPriceIT'] = $data['totalPriceIT'] + $priceIncludeTaxes;
-                $data['product'][$k]['codprd'] = $product->getCodprd();
-                $data['product'][$k]['quantity'] = $cartline->getQuantity();
-                $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;
-                $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
-                $data['product'][$k]['price'] = $product->getPrix();
-                $data['product'][$k]['name'] = $product->getProduitcourt();
-                $data['product'][$k]['vatProduct'] = $data['product'][$k]['priceIT'] - $data['product'][$k]['price'];
-                $totalWeight = $totalWeight + $product->getPoids();
+                
                 $i++;
             }
         }
         $data['weightOrder'] = $totalWeight;
-        $data['vat'] = $data['totalPriceIT'] - $data['totalPrice'];
+        $data['vat'] = round($data['totalPriceIT'] - $data['totalPrice'], 2);
         return $data;
     }
     
     private function getProductPrice($product, $taxrate)
     {
-        return ($product->getPrix() * (1+($taxrate/100)));
+        return round($product->getPrixht() * (1+($taxrate/100)), 2);
     }
 
     /**
