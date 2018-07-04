@@ -116,16 +116,16 @@ class OrderController extends Controller
     }
 
     /**
-     * @Rest\Get("/xhr/order/taxes/{cart_id}/{country}", name="get_taxes")
+     * @Rest\Get("/xhr/order/taxes/{cart_id}/{country}/{destliv}", name="get_taxes")
      * @Rest\View()
     */
-    public function xhrGetTaxes(Request $request, $cart_id, $country)
+    public function xhrGetTaxes(Request $request, $cart_id, $country, $destliv)
     {
-        $data = $this->getCartPrices($cart_id, $country);
+        $data = $this->getCartPrices($cart_id, $country, $destliv);
         return ['status' => 'ok','data' => $data];
     }
     
-    private function getCartPrices($cart_id, $country)
+    private function getCartPrices($cart_id, $country, $destliv)
     {
         $cart = $this->cartRepository->find($cart_id);
         $data = [];
@@ -174,8 +174,14 @@ class OrderController extends Controller
                 $i++;
             }
         }
-        $data['weightOrder'] = $totalWeight;
+        $data['portPriceIT'] = $this->shippingRepository->findGoodPort($totalWeight, $country, $destliv);
+        $data['portPrice'] = round($data['portPriceIT']/(1+($this::TVASHIPMENT/100)));
+        $data['vatPortPrice'] = $data['portPriceIT'] - $data['portPrice'];
+        $data['consumerPriceIT'] = $data['portPriceIT'] + $data['totalPriceIT'];
+        $data['consumerPrice'] = $data['portPrice'] + $data['totalPrice'];
+
         $data['vat'] = round($data['totalPriceIT'] - $data['totalPrice'], 2);
+        $data['vatWithPort'] = $data['vat'] + $data['vatPortPrice'];
         return $data;
     }
     
@@ -335,11 +341,11 @@ class OrderController extends Controller
         }
 
         $weight = $data['weightOrder'];
-        $portPrice = $this->shippingRepository->findGoodPort($weight, $paysliv, $destliv);
-        $amountHT = $data['totalPrice'];
+        $portPrice = $data['portPriceIT'];
+        $amountHT = $data['consumerPrice'];
         $promo = 0;
-        $priceit = $data['totalPriceIT'];
-        $vat = $data['vat'];
+        $priceit = $data['consumerPriceIT'];
+        $vat = $data['vatWithPort'];
 
         $datliv = new \Datetime($delivery['datliv']);
         $paysip = $delivery['paysip'];
