@@ -148,10 +148,10 @@ class OrderController extends Controller
             return ['status' => 'ko', 'message' => 'You must provide a client with a delivery cartid'];
         }
         // if ($this->registerOrder($delivery, $cartId, $locale)) {
-        if ($this->registerOrder($delivery, $cartId, $locale)) {
+        if ($order = $this->registerOrder($delivery, $cartId, $locale)) {
             return ['status' => 'ok'];
         }
-        return ['status' => 'ko', 'message' => 'an error as occured'];
+        return ['status' => 'ko', 'message' => 'an error as occured', 'order' => $order];
     }
 
     /**
@@ -421,7 +421,7 @@ class OrderController extends Controller
         $cartId = $session->get('cart');
         $page = $this->pageService->getContentFromRequest($request);
         $availableLocales = $this->pageService->getAvailableLocales($page);
-        return $this->render('order/order-command.html.twig', [
+        return $this->render('order/order.html.twig', [
             'cart' => $this->cartRepository->find($cartId),
             'page' => $page,
             'availableLocales' => $availableLocales
