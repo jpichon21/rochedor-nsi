@@ -47,7 +47,8 @@ class OrderController extends Controller
         '195.25.67.2',
         '195.25.67.11',
         '194.2.122.190',
-        '195.25.67.22'
+        '195.25.67.22',
+        '127.0.0.1'
     ];
     const TVASHIPMENT = 20;
     /**
@@ -115,20 +116,42 @@ class OrderController extends Controller
     }
 
     /**
-     * @Rest\Get("/xhr/order/taxes/{produit_id}/{country}", name="get_taxes")
+     * @Rest\Get("/xhr/order/taxes/{cart_id}/{country}", name="get_taxes")
      * @Rest\View()
     */
-    public function xhrGetTaxes(Request $request, $produit_id, $country)
+    public function xhrGetTaxes(Request $request, $cart_id, $country)
     {
-        $produit = $this->productRepository->find($produit_id);
-        $taxes = $produit->getTaxes();
-
-        foreach ($taxes as $tax) {
-            if (in_array($country, $tax->getCountries())) {
-                return $tax;
+        return $this->getMyCartPrice($cart_id, $country);
+    }
+    
+    private function getMyCartPrice($cart_id, $country)
+    {
+        $cart = $this->cartRepository->find($cart_id);
+        $data = [];
+        $data['totalPriceIT'] = 0;
+        $data['totalPrice'] = 0;
+        foreach ($cart->getCartlines() as $k => $cartline) {
+            $product = $cartline->getProduct();
+            $tax = $this->productRepository->findTax($product, $country);
+            if ($tax->getRate() == 0) {
+                $priceIncludeTaxes = $product->getPrix();
+            } else {
+                $priceIncludeTaxes = $this->getProductPrice($product, $tax->getRate());
             }
+            $data['totalPrice'] = $data['totalPrice'] + $product->getPrix();
+            $data['totalPriceIT'] = $data['totalPriceIT'] + $priceIncludeTaxes;
+            $data['product'][$k]['codprd'] = $product->getCodprd();
+            $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
+            $data['product'][$k]['price'] = $product->getPrix();
+            $data['product'][$k]['name'] = $product->getProduitcourt();
         }
-        return null;
+        $data['vat'] = $data['totalPriceIT'] - $data['totalPrice'];
+        return $data;
+    }
+    
+    private function getProductPrice($product, $taxrate)
+    {
+        return ($product->getPrix() * (1+($taxrate['rate']/100)));
     }
 
     /**
@@ -206,6 +229,7 @@ class OrderController extends Controller
             $ref = $request->get('Ref');
             $status = ($request->get('Erreur') === '00000') ? $request->get('Trans') : false;
             $country = $request->get('Pays');
+            $amount = ($request->get('Amount')/100);
         } elseif ($method === 'paypal') {
             $paypalService->useSandbox();
             if ($paypalService->verifyIPN()) {
@@ -220,9 +244,15 @@ class OrderController extends Controller
         }
         
         $order = $this->commandeRepository->findByRef($ref);
-        if ($status) {
+        if ($status && $order->getTtc() == $amount) {
             $order->setDatpaie(new \DateTime())
             ->setValidpaie($status)
+            ->setPaysIP($country);
+            $this->em->persist($order);
+            $this->em->flush();
+        } else {
+            $order->setDatpaie(new \DateTime())
+            ->setValidpaie('error')
             ->setPaysIP($country);
             $this->em->persist($order);
             $this->em->flush();
@@ -232,10 +262,12 @@ class OrderController extends Controller
 
     private function registerOrder($delivery, $cartId, $locale)
     {
+        
         $user = $this->getUser();
         // $em = $this->getDoctrine()->getManager();
         // $user = $this->getDoctrine()->getRepository('AppBundle:Contact')->findByCodco($codcli);
         $codcli = $user->getCodcli();
+        
 
         $cart = $this->cartRepository->find($delivery['cartId']);
         // $cart = $this->getCart($cartId);
@@ -390,11 +422,12 @@ class OrderController extends Controller
         return $priceit + $portPrice;
     }
     
-    private function getVATCost($priceit, $HTprice)
+    private function getVATCost($produit, $HTprice)
     {
         $vat = $priceit - $HTprice;
         return $vat;
     }
+
 
     private function getAdLiv($adliv, $user)
     {
