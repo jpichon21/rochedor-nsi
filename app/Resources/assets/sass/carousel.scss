@@ -59,9 +59,12 @@
       .bottom {
         display: flex;
         flex: 1;
-        .full,
         .left,
         .right {
+          display: flex;
+          flex: 1;
+        }
+        .full {
           flex: 1;
           position: relative;
           background-size: cover;
@@ -100,9 +103,7 @@
         }
       }
       .bottom {
-        .full,
-        .left,
-        .right {
+        .full {
           &:after {
             top: auto;
             bottom: 0;

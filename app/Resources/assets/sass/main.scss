@@ -340,21 +340,18 @@ i {
   flex: 1;
   z-index: 0;
   overflow: hidden;
-  .left,
-  .right {
+  > .left,
+  > .right {
     flex: 1;
     position: relative;
   }
-  .hole {
-    width: 170px;
-  }
-  .left {
+  > .left {
     padding: 100px 0 50px 80px;
   }
-  .right {
+  > .right {
     padding: 100px 80px 50px 0;
   }
-  .right {
+  > .right {
     position: sticky;
     top: 0;
     h2, h3 {
@@ -385,5 +382,8 @@ i {
         list-style: disc;
       }
     }
+  }
+  > .hole {
+    width: 170px;
   }
 }
