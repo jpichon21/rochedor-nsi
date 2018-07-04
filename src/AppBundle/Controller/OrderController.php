@@ -18,10 +18,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Cart;
 use AppBundle\Entity\Cartline;
 use AppBundle\Entity\Commande;
+use AppBundle\Entity\Produit;
 use AppBundle\Entity\Comprd;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\CommandeRepository;
+use AppBundle\Repository\TaxRepository;
 use AppBundle\Repository\CartRepository;
 use AppBundle\Repository\ShippingRepository;
 use AppBundle\Repository\TpaysRepository;
@@ -65,6 +67,11 @@ class OrderController extends Controller
     private $commandeRepository;
 
     /**
+     * @var TaxRepository
+     */
+    private $taxRepository;
+
+    /**
      * @var Logger
      */
     private $logger;
@@ -86,6 +93,7 @@ class OrderController extends Controller
 
     public function __construct(
         CommandeRepository $commandeRepository,
+        TaxRepository $taxRepository,
         CartRepository $cartRepository,
         ShippingRepository $shippingRepository,
         TpaysRepository $tpaysRepository,
@@ -96,6 +104,7 @@ class OrderController extends Controller
         PageService $pageService
     ) {
         $this->commandeRepository = $commandeRepository;
+        $this->taxRepository = $taxRepository;
         $this->tpaysRepository = $tpaysRepository;
         $this->cartRepository = $cartRepository;
         $this->shippingRepository = $shippingRepository;
@@ -104,6 +113,18 @@ class OrderController extends Controller
         $this->logger = $logger;
         $this->em = $em;
         $this->pageService = $pageService;
+    }
+
+    /**
+     * @Rest\Get("/xhr/order/taxes/{produit_id}/{country}", name="get_taxes")
+     * @Rest\View()
+    */
+    public function xhrGetTaxes(Request $request, $produit_id, $country)
+    {
+        $produit = $this->taxRepository->findTax($produit_id, $country);
+        dump($produit);
+        exit;
+        // return $produit;
     }
 
     /**
@@ -152,10 +173,10 @@ class OrderController extends Controller
             return ['status' => 'ko', 'message' => 'You must provide a client with a delivery cartid'];
         }
         // if ($this->registerOrder($delivery, $cartId, $locale)) {
-        if ($this->registerOrder($delivery, $cartId, $locale)) {
+        if ($order = $this->registerOrder($delivery, $cartId, $locale)) {
             return ['status' => 'ok'];
         }
-        return ['status' => 'ko', 'message' => 'an error as occured'];
+        return ['status' => 'ko', 'message' => 'an error as occured', 'order' => $order];
     }
 
     /**
@@ -432,7 +453,7 @@ class OrderController extends Controller
         $cartId = $session->get('cart');
         $page = $this->pageService->getContentFromRequest($request);
         $availableLocales = $this->pageService->getAvailableLocales($page);
-        return $this->render('order/order-command.html.twig', [
+        return $this->render('order/order.html.twig', [
             'cart' => $this->cartRepository->find($cartId),
             'page' => $page,
             'countrys' => $countrys,

@@ -1,25 +1,35 @@
-import $ from 'jquery'
+import { changeCarousel } from './carousel.js'
 
-function updateHeightDropdown () {
-  let elmt = $('.dropdown .active')[0]
-  elmt.style.maxHeight = elmt.scrollHeight + 'px'
+const dropdown = document.querySelector('.dropdown')
+const items = dropdown.querySelectorAll('.item')
+
+const updateHeightDropdown = () => {
+  let active = dropdown.querySelector('.active')
+  active.style.maxHeight = active.scrollHeight + 'px'
 }
 
-$('.dropdown .item').on('click', function () {
-  $('.dropdown .item').each(function () {
-    this.style.maxHeight = null
-    this.classList.remove('active')
+const changeItem = item => {
+  items.forEach(item => {
+    item.style.maxHeight = null
+    item.classList.remove('active')
   })
-  this.classList.add('active')
+  item.classList.add('active')
   updateHeightDropdown()
-  let reference = this.getAttribute('data-carousel-id')
+  let reference = item.getAttribute('data-carousel-id')
   if (reference) {
     changeCarousel(reference)
   }
+}
+
+items.forEach(item => {
+  item.addEventListener('click', () => {
+    changeItem(item)
+  })
 })
 
-$(document).ready(function () {
-  setTimeout(function () {
-    $('.dropdown .item:first').trigger('click')
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    const item = dropdown.querySelector('.item.first')
+    changeItem(item)
   }, 500)
 })
