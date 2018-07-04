@@ -13,114 +13,110 @@
 {% block content %}
 <div class="content">
     <div class="left">
-      <div class="inner">
-        <div class="carousel active">
-          <div class="slides">
-            {% for slide in slides %}
-            {% if slide != '' %}
-            {% set slidesCount = slidesCount + 1 %}
-            <div class="slide {% if loop.first %}active{% endif %}">
-              <div class="top">
-                <a class="full image"
-                  title="{{ product.produitcourt }}"
-                  href="{{ slide }}"
-                  style="{{ asset(slide) | background }}">
-                  <img src="{{ asset(slide) }}" alt="{{ product.produitcourt }}">
-                </a>
-              </div>
-            </div>
-            {% endif %}
-            {% endfor %}
-          </div>
-          {% if slidesCount > 1 %}
-          <div class="prev"></div>
-          <div class="next"></div>
-          {% endif %}
-        </div>
-        <div class="thumbnails">
+      <div class="carousel active">
+        <div class="slides">
           {% for slide in slides %}
           {% if slide != '' %}
-          <div class="thumb {% if loop.first %}active{% endif %}" style="{{ asset(slide) | background }}"></div>
-          {% else %}
-          <div class="empty"></div>
+          {% set slidesCount = slidesCount + 1 %}
+          <div class="slide {% if loop.first %}active{% endif %}">
+            <div class="top">
+              <a class="full image"
+                title="{{ product.produitcourt }}"
+                href="{{ slide }}"
+                style="{{ asset(slide) | background }}">
+                <img src="{{ asset(slide) }}" alt="{{ product.produitcourt }}">
+              </a>
+            </div>
+          </div>
           {% endif %}
           {% endfor %}
         </div>
+        {% if slidesCount > 1 %}
+        <div class="prev"></div>
+        <div class="next"></div>
+        {% endif %}
+      </div>
+      <div class="thumbnails">
+        {% for slide in slides %}
+        {% if slide != '' %}
+        <div class="thumb {% if loop.first %}active{% endif %}" style="{{ asset(slide) | background }}"></div>
+        {% else %}
+        <div class="empty"></div>
+        {% endif %}
+        {% endfor %}
       </div>
     </div>
     <div class="hole">
     </div>
     <div class="right">
-      <div class="inner">
-        <h1>{{ product.produitlong }}</h1>
-        <div class="subtitle">
-          <b>{{ 'editions.author' | trans }}</b>
-          {{ product.auteur }}
-        </div>
-        <div class="subtitle">
-          <b>{{ 'editions.collection' | trans }}</b>
-          {{ product.rubrique }}
-        </div>
-        <div class="price">
-          {{ product.prix }}
-          <small>€</small>
-        </div>
-        <div class="description">
-          {{ product.pageprd }}
-        </div>
-        <div class="actions">
-          <a class="button" href="{{ path('cart-add', {'productId': product.codprd}) }}">{{ 'editions.addtocart' | trans }}</a>
-          {% if product.urlbook != '' %}
-          <div class="or">{{ 'editions.or' | trans }}</div>
-          <a class="button" href="{{ product.urlbook }}">{{ 'editions.ebookversion' | trans }}</a>
-          {% endif %}
-        </div>
-        <h2>{{ 'editions.technicalreview' | trans }}</h2>
-        <div class="technical-review">
-          <div class="left">
-            <div class="line">
-              <b>{{ 'editions.technicalreview.dateparution' | trans }}</b>
-              <span>{{ product.dateparution }}</span>
-            </div>
-            <div class="line">
-              <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
-              <span>{{ product.isbn }}</span>
-            </div>
-            <div class="line">
-              <b>{{ 'editions.technicalreview.dimensions' | trans }}</b>
-              <span>{{ product.largeur / 10 }} cm x {{ product.hauteur / 10 }} cm x {{ product.epaisseur / 10 }} cm</span>
-            </div>
-            <div class="line">
-              <b>{{ 'editions.technicalreview.editeur' | trans }}</b>
-              <span>{{ product.editeur }}</span>
-            </div>
-          </div>
-          <div class="right">
-            <div class="line">
-              <b>{{ 'editions.technicalreview.ean' | trans }}</b>
-              <span>{{ product.ean }}</span>
-            </div>
-            <div class="line">
-              <b>{{ 'editions.technicalreview.nbpage' | trans }}</b>
-              <span>{{ product.nbpage }}</span>
-            </div>
-            <div class="line">
-              <b>{{ 'editions.technicalreview.rubrique' | trans }}</b>
-              <span>{{ product.rubrique }}</span>
-            </div>
-            <div class="line">
-              <b>{{ 'editions.technicalreview.poids' | trans }}</b>
-              <span>{{ product.poids / 100 }} kg</span>
-            </div>
-          </div>
-        </div>
-        {% if product.isbn != '' %}
-        <svg class="barcode"
-          jsbarcode-format="upc"
-          jsbarcode-value="{{ product.isbn }}">
-        </svg>
+      <h1>{{ product.produitlong }}</h1>
+      <div class="subtitle">
+        <b>{{ 'editions.author' | trans }}</b>
+        {{ product.auteur }}
+      </div>
+      <div class="subtitle">
+        <b>{{ 'editions.collection' | trans }}</b>
+        {{ product.rubrique }}
+      </div>
+      <div class="price">
+        {{ product.prix }}
+        <small>€</small>
+      </div>
+      <div class="description">
+        {{ product.pageprd }}
+      </div>
+      <div class="actions">
+        <a class="button" href="{{ path('cart-add', {'productId': product.codprd}) }}">{{ 'editions.addtocart' | trans }}</a>
+        {% if product.urlbook != '' %}
+        <div class="choice">{{ 'editions.or' | trans }}</div>
+        <a class="button" href="{{ product.urlbook }}">{{ 'editions.ebookversion' | trans }}</a>
         {% endif %}
       </div>
+      <h2>{{ 'editions.technicalreview' | trans }}</h2>
+      <div class="technical-review">
+        <div class="left">
+          <div class="line">
+            <b>{{ 'editions.technicalreview.dateparution' | trans }}</b>
+            <span>{{ product.dateparution }}</span>
+          </div>
+          <div class="line">
+            <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+            <span>{{ product.isbn }}</span>
+          </div>
+          <div class="line">
+            <b>{{ 'editions.technicalreview.dimensions' | trans }}</b>
+            <span>{{ product.largeur / 10 }} cm x {{ product.hauteur / 10 }} cm x {{ product.epaisseur / 10 }} cm</span>
+          </div>
+          <div class="line">
+            <b>{{ 'editions.technicalreview.editeur' | trans }}</b>
+            <span>{{ product.editeur }}</span>
+          </div>
+        </div>
+        <div class="right">
+          <div class="line">
+            <b>{{ 'editions.technicalreview.ean' | trans }}</b>
+            <span>{{ product.ean }}</span>
+          </div>
+          <div class="line">
+            <b>{{ 'editions.technicalreview.nbpage' | trans }}</b>
+            <span>{{ product.nbpage }}</span>
+          </div>
+          <div class="line">
+            <b>{{ 'editions.technicalreview.rubrique' | trans }}</b>
+            <span>{{ product.rubrique }}</span>
+          </div>
+          <div class="line">
+            <b>{{ 'editions.technicalreview.poids' | trans }}</b>
+            <span>{{ product.poids / 100 }} kg</span>
+          </div>
+        </div>
+      </div>
+      {% if product.isbn != '' %}
+      <svg class="barcode"
+        jsbarcode-format="upc"
+        jsbarcode-value="{{ product.isbn }}">
+      </svg>
+      {% endif %}
     </div>
 </div>
 {% endblock %}
