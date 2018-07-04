@@ -260,9 +260,7 @@ itemParticipants.on('submit', '.panel.add form', function (event) {
 })
 
 function updateParticipants () {
-  console.log(_registered)
   _participants = _registered.filter(participant => {
-    console.log(participant)
     return participant.check
   })
   _participants.push(_you)

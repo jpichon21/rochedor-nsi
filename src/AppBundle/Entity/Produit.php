@@ -15,6 +15,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Produit
 {
+    const TYP_BOOK = 'book';
+    const TYP_OTHER = 'other';
+
     /**
      * @var int
      *
@@ -114,6 +117,13 @@ class Produit
      * @ORM\Column(name="Prix", type="decimal", precision=10, scale=2, nullable=false)
      */
     private $prix;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="PrixHt", type="decimal", precision=10, scale=2, nullable=false)
+     */
+    private $prixht;
 
     /**
      * @var string
@@ -261,6 +271,20 @@ class Produit
      * @ORM\Column(name="Themes", type="text", nullable=false)
      */
     private $themes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Tax")
+     * @ORM\JoinTable(name="produits_taxes",
+     *      joinColumns={@ORM\JoinColumn(name="produit_id", referencedColumnName="CodPrd")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tax_id", referencedColumnName="id")}
+     *      )
+     */
+    private $taxes;
+
+    public function __construct()
+    {
+        $this->taxes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get codprd.
@@ -630,5 +654,551 @@ class Produit
     public function getEpaisseur()
     {
         return $this->epaisseur;
+    }
+
+    /**
+     * Add tax.
+     *
+     * @param \AppBundle\Entity\Tax $tax
+     *
+     * @return Cart
+     */
+    public function addTax(\AppBundle\Entity\Tax $tax)
+    {
+        $this->taxs[] = $tax;
+
+        return $this;
+    }
+
+    /**
+     * Remove tax.
+     *
+     * @param \AppBundle\Entity\Tax $tax
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeTax(\AppBundle\Entity\Tax $tax)
+    {
+        return $this->taxs->removeElement($tax);
+    }
+
+    /**
+     * Get taxs.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTaxs()
+    {
+        return $this->taxs;
+    }
+
+    /**
+     * Set refprd.
+     *
+     * @param string $refprd
+     *
+     * @return Produit
+     */
+    public function setRefprd($refprd)
+    {
+        $this->refprd = $refprd;
+
+        return $this;
+    }
+
+    /**
+     * Set produitcourt.
+     *
+     * @param string $produitcourt
+     *
+     * @return Produit
+     */
+    public function setProduitcourt($produitcourt)
+    {
+        $this->produitcourt = $produitcourt;
+
+        return $this;
+    }
+
+    /**
+     * Set produitlong.
+     *
+     * @param string|null $produitlong
+     *
+     * @return Produit
+     */
+    public function setProduitlong($produitlong = null)
+    {
+        $this->produitlong = $produitlong;
+
+        return $this;
+    }
+
+    /**
+     * Set codrub.
+     *
+     * @param int $codrub
+     *
+     * @return Produit
+     */
+    public function setCodrub($codrub)
+    {
+        $this->codrub = $codrub;
+
+        return $this;
+    }
+
+    /**
+     * Set codb.
+     *
+     * @param int $codb
+     *
+     * @return Produit
+     */
+    public function setCodb($codb)
+    {
+        $this->codb = $codb;
+
+        return $this;
+    }
+
+    /**
+     * Set isbn.
+     *
+     * @param string $isbn
+     *
+     * @return Produit
+     */
+    public function setIsbn($isbn)
+    {
+        $this->isbn = $isbn;
+
+        return $this;
+    }
+
+    /**
+     * Set ean.
+     *
+     * @param string|null $ean
+     *
+     * @return Produit
+     */
+    public function setEan($ean = null)
+    {
+        $this->ean = $ean;
+
+        return $this;
+    }
+
+    /**
+     * Set serie.
+     *
+     * @param string $serie
+     *
+     * @return Produit
+     */
+    public function setSerie($serie)
+    {
+        $this->serie = $serie;
+
+        return $this;
+    }
+
+    /**
+     * Set auteur.
+     *
+     * @param string $auteur
+     *
+     * @return Produit
+     */
+    public function setAuteur($auteur)
+    {
+        $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    /**
+     * Set editeur.
+     *
+     * @param string|null $editeur
+     *
+     * @return Produit
+     */
+    public function setEditeur($editeur = null)
+    {
+        $this->editeur = $editeur;
+
+        return $this;
+    }
+
+    /**
+     * Set typprd.
+     *
+     * @param string $typprd
+     *
+     * @return Produit
+     */
+    public function setTypprd($typprd)
+    {
+        $this->typprd = $typprd;
+
+        return $this;
+    }
+
+    /**
+     * Set dateparution.
+     *
+     * @param \DateTime|null $dateparution
+     *
+     * @return Produit
+     */
+    public function setDateparution($dateparution = null)
+    {
+        $this->dateparution = $dateparution;
+
+        return $this;
+    }
+
+    /**
+     * Set prix.
+     *
+     * @param string $prix
+     *
+     * @return Produit
+     */
+    public function setPrix($prix)
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * Set prixht.
+     *
+     * @param string $prixht
+     *
+     * @return Produit
+     */
+    public function setPrixht($prixht)
+    {
+        $this->prixht = $prixht;
+
+        return $this;
+    }
+
+    /**
+     * Get prixht.
+     *
+     * @return string
+     */
+    public function getPrixht()
+    {
+        return $this->prixht;
+    }
+
+    /**
+     * Set promo.
+     *
+     * @param string $promo
+     *
+     * @return Produit
+     */
+    public function setPromo($promo)
+    {
+        $this->promo = $promo;
+
+        return $this;
+    }
+
+    /**
+     * Set poids.
+     *
+     * @param int $poids
+     *
+     * @return Produit
+     */
+    public function setPoids($poids)
+    {
+        $this->poids = $poids;
+
+        return $this;
+    }
+
+    /**
+     * Set etatprd.
+     *
+     * @param string $etatprd
+     *
+     * @return Produit
+     */
+    public function setEtatprd($etatprd)
+    {
+        $this->etatprd = $etatprd;
+
+        return $this;
+    }
+
+    /**
+     * Set largeur.
+     *
+     * @param int $largeur
+     *
+     * @return Produit
+     */
+    public function setLargeur($largeur)
+    {
+        $this->largeur = $largeur;
+
+        return $this;
+    }
+
+    /**
+     * Set hauteur.
+     *
+     * @param int $hauteur
+     *
+     * @return Produit
+     */
+    public function setHauteur($hauteur)
+    {
+        $this->hauteur = $hauteur;
+
+        return $this;
+    }
+
+    /**
+     * Set epaisseur.
+     *
+     * @param int $epaisseur
+     *
+     * @return Produit
+     */
+    public function setEpaisseur($epaisseur)
+    {
+        $this->epaisseur = $epaisseur;
+
+        return $this;
+    }
+
+    /**
+     * Set nbpage.
+     *
+     * @param int $nbpage
+     *
+     * @return Produit
+     */
+    public function setNbpage($nbpage)
+    {
+        $this->nbpage = $nbpage;
+
+        return $this;
+    }
+
+    /**
+     * Set stock.
+     *
+     * @param int $stock
+     *
+     * @return Produit
+     */
+    public function setStock($stock)
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    /**
+     * Set hide.
+     *
+     * @param bool $hide
+     *
+     * @return Produit
+     */
+    public function setHide($hide)
+    {
+        $this->hide = $hide;
+
+        return $this;
+    }
+
+    /**
+     * Set adimg.
+     *
+     * @param string $adimg
+     *
+     * @return Produit
+     */
+    public function setAdimg($adimg)
+    {
+        $this->adimg = $adimg;
+
+        return $this;
+    }
+
+    /**
+     * Set adimg2.
+     *
+     * @param string $adimg2
+     *
+     * @return Produit
+     */
+    public function setAdimg2($adimg2)
+    {
+        $this->adimg2 = $adimg2;
+
+        return $this;
+    }
+
+    /**
+     * Set adimg3.
+     *
+     * @param string $adimg3
+     *
+     * @return Produit
+     */
+    public function setAdimg3($adimg3)
+    {
+        $this->adimg3 = $adimg3;
+
+        return $this;
+    }
+
+    /**
+     * Set urlbook.
+     *
+     * @param string $urlbook
+     *
+     * @return Produit
+     */
+    public function setUrlbook($urlbook)
+    {
+        $this->urlbook = $urlbook;
+
+        return $this;
+    }
+
+    /**
+     * Set pageprd.
+     *
+     * @param string $pageprd
+     *
+     * @return Produit
+     */
+    public function setPageprd($pageprd)
+    {
+        $this->pageprd = $pageprd;
+
+        return $this;
+    }
+
+    /**
+     * Set memoprd.
+     *
+     * @param string $memoprd
+     *
+     * @return Produit
+     */
+    public function setMemoprd($memoprd)
+    {
+        $this->memoprd = $memoprd;
+
+        return $this;
+    }
+
+    /**
+     * Set presentation.
+     *
+     * @param string|null $presentation
+     *
+     * @return Produit
+     */
+    public function setPresentation($presentation = null)
+    {
+        $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    /**
+     * Set enreg.
+     *
+     * @param string $enreg
+     *
+     * @return Produit
+     */
+    public function setEnreg($enreg)
+    {
+        $this->enreg = $enreg;
+
+        return $this;
+    }
+
+    /**
+     * Set rang.
+     *
+     * @param int $rang
+     *
+     * @return Produit
+     */
+    public function setRang($rang)
+    {
+        $this->rang = $rang;
+
+        return $this;
+    }
+
+    /**
+     * Set maj.
+     *
+     * @param \DateTime|null $maj
+     *
+     * @return Produit
+     */
+    public function setMaj($maj = null)
+    {
+        $this->maj = $maj;
+
+        return $this;
+    }
+
+    /**
+     * Set nouveaute.
+     *
+     * @param bool|null $nouveaute
+     *
+     * @return Produit
+     */
+    public function setNouveaute($nouveaute = null)
+    {
+        $this->nouveaute = $nouveaute;
+
+        return $this;
+    }
+
+    /**
+     * Set themes.
+     *
+     * @param string $themes
+     *
+     * @return Produit
+     */
+    public function setThemes($themes)
+    {
+        $this->themes = $themes;
+
+        return $this;
+    }
+
+    /**
+     * Get taxes.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTaxes()
+    {
+        return $this->taxes;
     }
 }

@@ -18,7 +18,7 @@ Encore
   .addEntry('js/cart', './app/Resources/assets/js/cart.js')
   .addEntry('js/editions', './app/Resources/assets/js/editions.js')
   .addEntry('js/carousel', './app/Resources/assets/js/carousel.js')
-  .addEntry('js/order-command', './app/Resources/assets/js/order-command.js')
+  .addEntry('js/order', './app/Resources/assets/js/order.js')
   .addStyleEntry('css/main', './app/Resources/assets/sass/main.scss')
   .addStyleEntry('css/home', './app/Resources/assets/sass/home.scss')
   .addStyleEntry('css/page', './app/Resources/assets/sass/page.scss')

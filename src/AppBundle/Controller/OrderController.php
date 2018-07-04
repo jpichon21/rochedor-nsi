@@ -18,10 +18,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Cart;
 use AppBundle\Entity\Cartline;
 use AppBundle\Entity\Commande;
+use AppBundle\Entity\Produit;
 use AppBundle\Entity\Comprd;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\CommandeRepository;
+use AppBundle\Repository\ProductRepository;
 use AppBundle\Repository\CartRepository;
 use AppBundle\Repository\ShippingRepository;
 use AppBundle\Repository\TpaysRepository;
@@ -45,7 +47,8 @@ class OrderController extends Controller
         '195.25.67.2',
         '195.25.67.11',
         '194.2.122.190',
-        '195.25.67.22'
+        '195.25.67.22',
+        '127.0.0.1'
     ];
     const TVASHIPMENT = 20;
     /**
@@ -62,6 +65,11 @@ class OrderController extends Controller
      * @var CommandeRepository
      */
     private $commandeRepository;
+
+    /**
+     * @var ProductRepository
+     */
+    private $productRepository;
 
     /**
      * @var Logger
@@ -85,6 +93,7 @@ class OrderController extends Controller
 
     public function __construct(
         CommandeRepository $commandeRepository,
+        ProductRepository $productRepository,
         CartRepository $cartRepository,
         ShippingRepository $shippingRepository,
         TpaysRepository $tpaysRepository,
@@ -95,6 +104,7 @@ class OrderController extends Controller
         PageService $pageService
     ) {
         $this->commandeRepository = $commandeRepository;
+        $this->productRepository = $productRepository;
         $this->tpaysRepository = $tpaysRepository;
         $this->cartRepository = $cartRepository;
         $this->shippingRepository = $shippingRepository;
@@ -103,6 +113,57 @@ class OrderController extends Controller
         $this->logger = $logger;
         $this->em = $em;
         $this->pageService = $pageService;
+    }
+
+    /**
+     * @Rest\Get("/xhr/order/taxes/{cart_id}/{country}", name="get_taxes")
+     * @Rest\View()
+    */
+    public function xhrGetTaxes(Request $request, $cart_id, $country)
+    {
+        $data = $this->getCartPrices($cart_id, $country);
+        return ['status' => 'ok','data' => $data];
+    }
+    
+    private function getCartPrices($cart_id, $country)
+    {
+        $cart = $this->cartRepository->find($cart_id);
+        $data = [];
+        $data['totalPriceIT'] = 0;
+        $data['totalPrice'] = 0;
+        $totalWeight = 0;
+        foreach ($cart->getCartlines() as $k => $cartline) {
+            $i = 1;
+            while ($i <= $cartline->getQuantity()) {
+                $product = $cartline->getProduct();
+                $tax = $this->productRepository->findTax($product->getCodPrd(), $country);
+                $product = $cartline->getProduct();
+                if ($tax === null) {
+                    $priceIncludeTaxes = $product->getPrix();
+                } else {
+                    $priceIncludeTaxes = $this->getProductPrice($product, $tax->getRate());
+                }
+                $data['totalPrice'] = $data['totalPrice'] + $product->getPrix();
+                $data['totalPriceIT'] = $data['totalPriceIT'] + $priceIncludeTaxes;
+                $data['product'][$k]['codprd'] = $product->getCodprd();
+                $data['product'][$k]['quantity'] = $cartline->getQuantity();
+                $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;
+                $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
+                $data['product'][$k]['price'] = $product->getPrix();
+                $data['product'][$k]['name'] = $product->getProduitcourt();
+                $data['product'][$k]['vatProduct'] = $data['product'][$k]['priceIT'] - $data['product'][$k]['price'];
+                $totalWeight = $totalWeight + $product->getPoids();
+                $i++;
+            }
+        }
+        $data['weightOrder'] = $totalWeight;
+        $data['vat'] = $data['totalPriceIT'] - $data['totalPrice'];
+        return $data;
+    }
+    
+    private function getProductPrice($product, $taxrate)
+    {
+        return ($product->getPrix() * (1+($taxrate/100)));
     }
 
     /**
@@ -151,10 +212,10 @@ class OrderController extends Controller
             return ['status' => 'ko', 'message' => 'You must provide a client with a delivery cartid'];
         }
         // if ($this->registerOrder($delivery, $cartId, $locale)) {
-        if ($this->registerOrder($delivery, $cartId, $locale)) {
+        if ($order = $this->registerOrder($delivery, $cartId, $locale)) {
             return ['status' => 'ok'];
         }
-        return ['status' => 'ko', 'message' => 'an error as occured'];
+        return ['status' => 'ko', 'message' => 'an error as occured', 'order' => $order];
     }
 
     /**
@@ -180,6 +241,7 @@ class OrderController extends Controller
             $ref = $request->get('Ref');
             $status = ($request->get('Erreur') === '00000') ? $request->get('Trans') : false;
             $country = $request->get('Pays');
+            $amount = ($request->get('Amount')/100);
         } elseif ($method === 'paypal') {
             $paypalService->useSandbox();
             if ($paypalService->verifyIPN()) {
@@ -194,9 +256,15 @@ class OrderController extends Controller
         }
         
         $order = $this->commandeRepository->findByRef($ref);
-        if ($status) {
+        if ($status && $order->getTtc() == $amount) {
             $order->setDatpaie(new \DateTime())
             ->setValidpaie($status)
+            ->setPaysIP($country);
+            $this->em->persist($order);
+            $this->em->flush();
+        } else {
+            $order->setDatpaie(new \DateTime())
+            ->setValidpaie('error')
             ->setPaysIP($country);
             $this->em->persist($order);
             $this->em->flush();
@@ -206,10 +274,12 @@ class OrderController extends Controller
 
     private function registerOrder($delivery, $cartId, $locale)
     {
+        
         $user = $this->getUser();
         // $em = $this->getDoctrine()->getManager();
         // $user = $this->getDoctrine()->getRepository('AppBundle:Contact')->findByCodco($codcli);
         $codcli = $user->getCodcli();
+        
 
         $cart = $this->cartRepository->find($delivery['cartId']);
         // $cart = $this->getCart($cartId);
@@ -217,6 +287,10 @@ class OrderController extends Controller
         $datCom = new \DateTime();
         $modpaie = $delivery['modpaie'];
         $modliv = $delivery['modliv'];
+        $paysliv = $delivery['paysliv'];
+
+        $data = $this->getCartPrices($delivery['cartId'], $delivery['paysliv']);
+
         $datpaie = new \DateTime();
         $validpaie = $delivery['validpaie'];
         $destliv = $delivery['destliv'];
@@ -235,7 +309,6 @@ class OrderController extends Controller
                     " ".
                     $user->getVille();
         }
-        $paysliv = $delivery['paysliv'];
         
         if (!isset($delivery['memocmd'])) {
             $memoCmd = "";
@@ -243,12 +316,12 @@ class OrderController extends Controller
             $memoCmd = $delivery['memocmd'];
         }
 
-        $weight = $this->getTotalWeight($cart);
+        $weight = $data['weightOrder'];
         $portPrice = $this->shippingRepository->findGoodPort($weight, $paysliv, $destliv);
-        $amountHT = $this->getTotalPrice($cart, $portPrice);
+        $amountHT = $data['totalPrice'];
         $promo = 0;
-        $priceit = $this->getPriceIT($cart, $portPrice);
-        $vat = $this->getVATCost($priceit, $amountHT);
+        $priceit = $data['totalPriceIT'];
+        $vat = $data['vat'];
 
         $datliv = new \Datetime($delivery['datliv']);
         $paysip = $delivery['paysip'];
@@ -279,6 +352,7 @@ class OrderController extends Controller
         $order->setMemocmd($memoCmd);
     
         $em->persist($order);
+
         $em->flush();
 
         
@@ -308,66 +382,6 @@ class OrderController extends Controller
     {
         $cart = $this->cartRepository->find($id);
         return $cart;
-    }
-
-    private function getTotalWeight($cart)
-    {
-        $totalWeight = 0;
-        foreach ($cart->getCartlines() as $cartline) {
-            $totalWeight = $totalWeight + $cartline->getProduct()->getPoids();
-        }
-        return $totalWeight;
-    }
-
-    /**
-     * @Rest\Get("/order/data/{cartId}/{destliv}/{paysliv}", name="get_price")
-     * @Rest\View()
-     */
-    public function xhrGetCartDataAction($cartId, $paysliv, $destliv)
-    {
-        ;
-        $cart = $this->cartRepository->find($cartId);
-        $weight = $this->getTotalWeight($cart);
-        $portPrice = $this->shippingRepository->findGoodPort($weight, $paysliv, $destliv);
-        
-        $totalPrice = $this->getTotalPrice($cart, $portPrice);
-        $priceit = $this->getPriceIT($cart, $portPrice);
-        $vatCost = $this->getVatCost($priceit, $totalPrice);
-
-        $data = [];
-        $data['weight'] = $weight;
-        $data['portprice'] = $portPrice;
-        $data['totalPrice'] = $totalPrice;
-        $data['priceIT'] = $priceit;
-        $data['vatCost'] = $vatCost;
-
-        return ['status' => 'ok', 'data' => $data];
-    }
-
-    private function getTotalPrice($cart, $portPrice)
-    {
-        $totalPrice = 0;
-        foreach ($cart->getCartlines() as $cartline) {
-            $totalPrice = $totalPrice + $cartline->getProduct()->getPrix() * $cartline->getQuantity();
-        }
-        $totalPrice = ($totalPrice/(1 + ($this::TVA/100))) + ($portPrice/(1 + ($this::TVASHIPMENT/100)));
-
-        return $totalPrice;
-    }
-
-    private function getPriceIT($cart, $portPrice)
-    {
-        $priceit = 0;
-        foreach ($cart->getCartlines() as $cartline) {
-            $priceit = $priceit + $cartline->getProduct()->getPrix() * $cartline->getQuantity();
-        }
-        return $priceit + $portPrice;
-    }
-    
-    private function getVATCost($priceit, $HTprice)
-    {
-        $vat = $priceit - $HTprice;
-        return $vat;
     }
 
     private function getAdLiv($adliv, $user)
@@ -422,7 +436,7 @@ class OrderController extends Controller
         $cartId = $session->get('cart');
         $page = $this->pageService->getContentFromRequest($request);
         $availableLocales = $this->pageService->getAvailableLocales($page);
-        return $this->render('order/order-command.html.twig', [
+        return $this->render('order/order.html.twig', [
             'cart' => $this->cartRepository->find($cartId),
             'page' => $page,
             'countrys' => $countrys,

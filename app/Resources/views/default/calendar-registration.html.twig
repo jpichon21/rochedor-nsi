@@ -1,8 +1,8 @@
 {% set bodyClass = "page" %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset("assets/css/pure-css-grids.css") }}">
 <link rel="stylesheet" href="{{ asset("assets/css/calendar-registration.css") }}">
+<link rel="stylesheet" href="{{ asset("assets/css/pure-css-grids.css") }}">
 {% endblock %}
 {% block content %}
 <div class="content">
@@ -86,19 +86,14 @@
                     <h3>{{ 'calendar.registration.two.title.modify.you' | trans | raw }}</h3>
                     <form class="pure-g you-form-render"></form>
                 </div>
-                <form>
-                    <div class="panel add">
-                        <h3>{{ 'calendar.registration.two.title.registration' | trans | raw }}</h3>
-                        <form class="pure-g him-form-render"></form>
-                    </div>
-                    <div class="panel modify">
-                        <h3>{{ 'calendar.registration.two.title.modify.him' | trans | raw }}</h3>
-                        <form class="pure-g him-form-render"></form>
-                    </div>
-                    <div class="pure-u-4-24">
-                        <input class="button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
-                    </div>
-                </form>
+                <div class="panel add">
+                    <h3>{{ 'calendar.registration.two.title.registration' | trans | raw }}</h3>
+                    <form class="pure-g him-form-render"></form>
+                </div>
+                <div class="panel modify">
+                    <h3>{{ 'calendar.registration.two.title.modify.him' | trans | raw }}</h3>
+                    <form class="pure-g him-form-render"></form>
+                </div>
             </div>
             <div class="item validation">
                 <h2>{{ 'calendar.registration.three.title' | trans | raw }}</h2>
