@@ -27,6 +27,7 @@ use AppBundle\Repository\TaxRepository;
 use AppBundle\Repository\CartRepository;
 use AppBundle\Repository\ShippingRepository;
 use AppBundle\Repository\TpaysRepository;
+use AppBundle\Repository\ProductRepository;
 use AppBundle\Service\Mailer;
 use Psr\Log\LoggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -96,6 +97,7 @@ class OrderController extends Controller
         TaxRepository $taxRepository,
         CartRepository $cartRepository,
         ShippingRepository $shippingRepository,
+        ProductRepository $productRepository,
         TpaysRepository $tpaysRepository,
         Mailer $mailer,
         Translator $translator,
@@ -105,6 +107,7 @@ class OrderController extends Controller
     ) {
         $this->commandeRepository = $commandeRepository;
         $this->taxRepository = $taxRepository;
+        $this->productRepository = $productRepository;
         $this->tpaysRepository = $tpaysRepository;
         $this->cartRepository = $cartRepository;
         $this->shippingRepository = $shippingRepository;
@@ -116,15 +119,44 @@ class OrderController extends Controller
     }
 
     /**
-     * @Rest\Get("/xhr/order/taxes/{produit_id}/{country}", name="get_taxes")
+     * @Rest\Get("/xhr/order/taxes/{cart_id}/{country}", name="get_taxes")
      * @Rest\View()
     */
-    public function xhrGetTaxes(Request $request, $produit_id, $country)
+    public function xhrGetTaxes(Request $request, $cart_id, $country)
     {
-        $produit = $this->taxRepository->findTax($produit_id, $country);
-        dump($produit);
-        exit;
+        return $this->getMyCartPrice($cart_id, $country);
         // return $produit;
+    }
+    
+    private function getMyCartPrice($cart_id, $country)
+    {
+        $cart = $this->cartRepository->find($cart_id);
+        $data = [];
+        $data['totalPriceIT'] = 0;
+        $data['totalPrice'] = 0;
+        foreach ($cart->getCartlines() as $k => $cartline) {
+            $product_id = $cartline->getProduct()->getCodPrd();
+            $taxrate = $this->taxRepository->findTax($product_id, $country);
+            $product = $this->productRepository->find($product_id);
+            if ($taxrate['rate'] == 0) {
+                $priceIncludeTaxes = $product->getPrix();
+            } else {
+                $priceIncludeTaxes = $this->getProductPrice($product, $taxrate);
+            }
+            $data['totalPrice'] = $data['totalPrice'] + $product->getPrix();
+            $data['totalPriceIT'] = $data['totalPriceIT'] + $priceIncludeTaxes;
+            $data['product'][$k]['codprd'] = $product->getCodprd();
+            $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
+            $data['product'][$k]['price'] = $product->getPrix();
+            $data['product'][$k]['name'] = $product->getProduitcourt();
+        }
+        $data['vat'] = $data['totalPriceIT'] - $data['totalPrice'];
+        return $data;
+    }
+    
+    private function getProductPrice($product, $taxrate)
+    {
+        return ($product->getPrix() * (1+($taxrate['rate']/100)));
     }
 
     /**
@@ -395,11 +427,12 @@ class OrderController extends Controller
         return $priceit + $portPrice;
     }
     
-    private function getVATCost($priceit, $HTprice)
+    private function getVATCost($produit, $HTprice)
     {
         $vat = $priceit - $HTprice;
         return $vat;
     }
+
 
     private function getAdLiv($adliv, $user)
     {
