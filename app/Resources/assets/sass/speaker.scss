@@ -1,12 +1,10 @@
+@import '~slick-carousel/slick/slick';
+@import '~slick-carousel/slick/slick-theme';
+
 .content {
-    flex-direction: column;
-  }
-.zone {
-  width: 100%;
-  padding: 120px 100px 0;
-  box-sizing: border-box;
-  .intro {
-    width: 40%;
+  flex-direction: column;
+  .zone {
+    flex: none;
   }
 }
 .prev,
@@ -27,9 +25,10 @@
   right: 0;
   background-image: url('../img/arrow-right.png');
 }
-.intervenants {
+.carousel {
   position: relative;
-  padding: 0 80px 60px;
+  min-height: 450px;
+  padding: 10px 60px 50px;
   flex: 1;
   .slick-slider,
   .slick-list,
@@ -43,10 +42,18 @@
     outline: none;
     overflow: hidden;
     &:hover {
+      &:before {
+        opacity: 0;
+      }
       .description {
         top: 0;
-        .more {
-          opacity: 1;
+        .text {
+          .short {
+            opacity: 0;
+          }
+          .long {
+            opacity: 1;
+          }
         }
       }
     }
@@ -59,6 +66,7 @@
       height: 39px;
       background-image: url('../img/plus.png');
       z-index: 2;
+      transition: 0.5s;
     }
     .portrait {
       position: relative;
@@ -69,11 +77,13 @@
     }
     .description {
       position: absolute;
+      width: 100%;
       top: 180px;
       bottom: 0;
       padding: 25px;
       background-color: #000000;
       color: #ffffff;
+      box-sizing: border-box;
       transition: 0.5s;
       z-index: 1;
       h2 {
@@ -94,9 +104,17 @@
         font-weight: 300;
         line-height: 17px;
       }
-      .more {
-        transition: 0.5s;
-        opacity: 0;
+      .text {
+        position: relative;
+        .long,
+        .short {
+          position: absolute;
+          padding-right: 60px;
+          transition: 0.5s;
+        }
+        .long {
+          opacity: 0;
+        }
       }
     }
   }   
