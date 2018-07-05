@@ -49,3 +49,5 @@ security:
 
     access_control:
         - { path: ^/api, role: ROLE_ADMIN}
+        - { path: ^/crud, role: ROLE_ADMIN}
+        - { path: ^/admin/_trans, role: ROLE_ADMIN}

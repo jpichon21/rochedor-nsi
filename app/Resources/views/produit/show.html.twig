@@ -1,0 +1,168 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block body %}
+    <h1>Produit</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Codprd</th>
+                <td>{{ produit.codprd }}</td>
+            </tr>
+            <tr>
+                <th>Refprd</th>
+                <td>{{ produit.refprd }}</td>
+            </tr>
+            <tr>
+                <th>Produitcourt</th>
+                <td>{{ produit.produitcourt }}</td>
+            </tr>
+            <tr>
+                <th>Produitlong</th>
+                <td>{{ produit.produitlong }}</td>
+            </tr>
+            <tr>
+                <th>Codrub</th>
+                <td>{{ produit.codrub }}</td>
+            </tr>
+            <tr>
+                <th>Codb</th>
+                <td>{{ produit.codb }}</td>
+            </tr>
+            <tr>
+                <th>Isbn</th>
+                <td>{{ produit.isbn }}</td>
+            </tr>
+            <tr>
+                <th>Ean</th>
+                <td>{{ produit.ean }}</td>
+            </tr>
+            <tr>
+                <th>Serie</th>
+                <td>{{ produit.serie }}</td>
+            </tr>
+            <tr>
+                <th>Auteur</th>
+                <td>{{ produit.auteur }}</td>
+            </tr>
+            <tr>
+                <th>Editeur</th>
+                <td>{{ produit.editeur }}</td>
+            </tr>
+            <tr>
+                <th>Typprd</th>
+                <td>{{ produit.typprd }}</td>
+            </tr>
+            <tr>
+                <th>Dateparution</th>
+                <td>{% if produit.dateparution %}{{ produit.dateparution|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ produit.prix }}</td>
+            </tr>
+            <tr>
+                <th>Prixht</th>
+                <td>{{ produit.prixht }}</td>
+            </tr>
+            <tr>
+                <th>Promo</th>
+                <td>{{ produit.promo }}</td>
+            </tr>
+            <tr>
+                <th>Poids</th>
+                <td>{{ produit.poids }}</td>
+            </tr>
+            <tr>
+                <th>Etatprd</th>
+                <td>{{ produit.etatprd }}</td>
+            </tr>
+            <tr>
+                <th>Largeur</th>
+                <td>{{ produit.largeur }}</td>
+            </tr>
+            <tr>
+                <th>Hauteur</th>
+                <td>{{ produit.hauteur }}</td>
+            </tr>
+            <tr>
+                <th>Epaisseur</th>
+                <td>{{ produit.epaisseur }}</td>
+            </tr>
+            <tr>
+                <th>Nbpage</th>
+                <td>{{ produit.nbpage }}</td>
+            </tr>
+            <tr>
+                <th>Stock</th>
+                <td>{{ produit.stock }}</td>
+            </tr>
+            <tr>
+                <th>Hide</th>
+                <td>{% if produit.hide %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Adimg</th>
+                <td>{{ produit.adimg }}</td>
+            </tr>
+            <tr>
+                <th>Adimg2</th>
+                <td>{{ produit.adimg2 }}</td>
+            </tr>
+            <tr>
+                <th>Adimg3</th>
+                <td>{{ produit.adimg3 }}</td>
+            </tr>
+            <tr>
+                <th>Urlbook</th>
+                <td>{{ produit.urlbook }}</td>
+            </tr>
+            <tr>
+                <th>Pageprd</th>
+                <td>{{ produit.pageprd }}</td>
+            </tr>
+            <tr>
+                <th>Memoprd</th>
+                <td>{{ produit.memoprd }}</td>
+            </tr>
+            <tr>
+                <th>Presentation</th>
+                <td>{{ produit.presentation }}</td>
+            </tr>
+            <tr>
+                <th>Enreg</th>
+                <td>{{ produit.enreg }}</td>
+            </tr>
+            <tr>
+                <th>Rang</th>
+                <td>{{ produit.rang }}</td>
+            </tr>
+            <tr>
+                <th>Maj</th>
+                <td>{% if produit.maj %}{{ produit.maj|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Nouveaute</th>
+                <td>{% if produit.nouveaute %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Themes</th>
+                <td>{{ produit.themes }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_produit_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_produit_edit', { 'codprd': produit.codprd }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

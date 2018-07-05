@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import Velocity from 'velocityjs'
 import scrollify from 'jquery-scrollify'
 import ScrollMagic from 'scrollmagic'
 import 'animation.gsap'

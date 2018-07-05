@@ -5,9 +5,9 @@
 {% endblock %}
 {% block content %}
 <div class="content">
-    <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
     <div class="zone">
-        <div class="left">
+        <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
+        <div class="flex">
             <div class="filters">
                 {% include 'parts/filter.html.twig' with {
                     'name': 'site',
@@ -44,8 +44,6 @@
                 </form>
                 <a class="filter-raz" href="#reset">{{ 'filter.raz.button' | trans }}</a>
             </div>
-        </div>
-        <div class="right">
             <table class="retreats-table">
                 <thead>
                     <tr>
@@ -62,7 +60,7 @@
                 </tbody>
             </table>
         </div>
-    </div>    
+    </div>
 </div>
 {% endblock %}
 {% block javascripts %}

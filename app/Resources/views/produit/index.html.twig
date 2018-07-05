@@ -1,0 +1,57 @@
+{% extends 'base-admin.html.twig' %}
+{% block body %}
+    <h1>Produits list</h1>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Codprd</th>
+                    <th scope="col">Refprd</th>
+                    <th scope="col">Produitcourt</th>
+                    <th scope="col">Codrub</th>
+                    <th scope="col">Typprd</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Prixht</th>
+                    <th scope="col">Poids</th>
+                    <th scope="col">Maj</th>
+                    <th scope="col">Nouveaute</th>
+                    <th scope="col">Themes</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for produit in produits %}
+                <tr>
+                    <td><a href="{{ path('admin_produit_show', { 'codprd': produit.codprd }) }}">{{ produit.codprd }}</a></td>
+                    <td>{{ produit.refprd }}</td>
+                    <td>{{ produit.produitcourt }}</td>
+                    <td>{{ produit.codrub }}</td>
+                    <td>{{ produit.typprd }}</td>
+                    <td>{{ produit.prix }}</td>
+                    <td>{{ produit.prixht }}</td>
+                    <td>{{ produit.poids }}</td>
+                    <td>{% if produit.maj %}{{ produit.maj|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{% if produit.nouveaute %}Yes{% else %}No{% endif %}</td>
+                    <td>{{ produit.themes }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('admin_produit_show', { 'codprd': produit.codprd }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('admin_produit_edit', { 'codprd': produit.codprd }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_produit_new') }}">Create a new produit</a>
+        </li>
+    </ul>
+{% endblock %}
