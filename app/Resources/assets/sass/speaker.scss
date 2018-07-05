@@ -28,7 +28,7 @@
 .carousel {
   position: relative;
   min-height: 450px;
-  padding: 10px 60px 50px;
+  padding: 10px 100px 50px;
   flex: 1;
   .slick-slider,
   .slick-list,
@@ -109,7 +109,6 @@
         .long,
         .short {
           position: absolute;
-          padding-right: 60px;
           transition: 0.5s;
         }
         .long {

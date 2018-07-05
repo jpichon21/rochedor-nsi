@@ -56,7 +56,7 @@ i {
   .languages {
     position: absolute;
     top: 20px;
-    right: 130px;
+    right: 140px;
     z-index: 1;
     ul {
       float: left;
@@ -99,7 +99,7 @@ i {
   .zoom {
     position: absolute;
     top: 20px;
-    right: 40px;
+    right: 50px;
     z-index: 1;
     li {
       float: left;
@@ -347,13 +347,13 @@ i {
     position: relative;
   }
   > .zone {
-    padding: 100px 80px 0;
+    padding: 100px 50px 0;
   }
   > .left {
-    padding: 100px 0 0 80px;
+    padding: 100px 0 0 50px;
   }
   > .right {
-    padding: 100px 80px 0 0;
+    padding: 100px 50px 0 0;
   }
   > .right {
     position: sticky;
