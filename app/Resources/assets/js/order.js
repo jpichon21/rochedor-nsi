@@ -3,10 +3,8 @@ import moment from 'moment'
 import { getParticipant, getDelivery } from './sample'
 import { placePayment } from './cart.js'
 import {
-  postParticipant,
   getLogin,
   getLogout,
-  getRegistered,
   getData,
   postRegister,
   postLogin,
@@ -17,6 +15,7 @@ const _infos = JSON.parse($('.infos-json').html())
 /* Translations */
 
 const _translations = JSON.parse($('.translations-json').html())
+const _cartId = parseInt($('.cart-data').html(), 10)
 
 moment.locale(_translations.locale)
 
@@ -52,11 +51,9 @@ $('.item-clients').on('click', '.button.radio', function (event) {
 /* Variables */
 
 let _you = {}
-let _registered = []
 let _delivery = {}
 let _cartInfo = {}
 let _client = {}
-let _clients = []
 
 const itemConnection = $('.item.connection')
 const itemOrder = $('.item.order')
@@ -67,37 +64,34 @@ const itemPayment = $('.item.payment')
 /* Renders */
 
 const youTemplate = _.template($('.you-template').html())
-const deliveryFormTemplate = _.template($('.delivery-form-template').html())
-const registeredTemplate = _.template($('.registered-template').html())
 const cartTemplate = _.template($('.cart-template').html())
+const deliveryTemplate = _.template($('.delivery-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
-const himFormTemplate = _.template($('.him-form-template').html())
 
 function updateYouRender () {
   $('.you-render').html(youTemplate({ you: _you }))
 }
 
-function updateRegisteredRender () {
-  $('.registered-render').html(registeredTemplate({ registered: _registered }))
-}
+// function updateClientsRender () {
+//   $('.clients-render').html(cartTemplate({ delivery: _delivery, translations: _translations, cartInfo: _cartInfo }))
+// }
 
 function updateCartRender () {
-  $('.clients-render').html(cartTemplate({ clients: _delivery, translations: _translations, cartInfo: _cartInfo }))
+  $('.cart-render').html(cartTemplate({ cartInfo: _cartInfo }))
+}
+
+function updateDeliveryRender () {
+  $('.delivery-render').html(deliveryTemplate({ delivery: _delivery, you: _you }))
 }
 
 function updateYouFormRender () {
   $('.you-form-render').html(youFormTemplate({ client: _client }))
 }
 
-function updateHimFormRender () {
-  $('.him-form-render').html(himFormTemplate({ client: _client, registered: _registered, you: _you }))
-}
-
-function updateDeliveryFormRender () {
-  $('.delivery-form-render').html(deliveryFormTemplate({ delivery: _delivery, registered: _registered, you: _you }))
-}
-
 updateCartRender()
+console.log('Cart')
+updateDeliveryRender()
+console.log('Delivery')
 
 /* Actions */
 itemOrder.on('change', '.select.adliv', function (event) {
@@ -105,7 +99,7 @@ itemOrder.on('change', '.select.adliv', function (event) {
   const data = $(this).val()
   let selectedVal = data
   _delivery.destliv = data
-  if (selectedVal === 'Roche' || selectedVal === 'Font' || selectedVal === 'myAdd') {
+  if (selectedVal === 'Roche' ||  selectedVal === 'Font' || selectedVal === 'myAdd') {
     _delivery.adliv.adresse = _you.adresse
     _delivery.adliv.zipcode = _you.cp
     _delivery.adliv.city = _you.ville
@@ -125,12 +119,21 @@ itemOrder.on('change', '.select.adliv', function (event) {
 })
 
 itemPayment.on('click', '.button.submit.process-order', function (event) {
+  _delivery.cartId = _cartId
+  console.log(_cartId)
   event.preventDefault()
   postOrder(_delivery).then(res => {
     let result = $('.result', itemValidation).html()
     result = result.replace('%entry_number%', res)
     $('.result', itemValidation).html(result)
-    placePayment(_delivery.modpaie, _cartInfo.priceIT, '18-00065', 'truc', `Commande sur le site La Roche D'Or`, _you.email, 'fr')
+    placePayment(_delivery.modpaie,
+      _cartInfo.consumerPriceIT,
+      result.refcom,
+      'truc',
+      `Commande sur le site La Roche D'Or`,
+      _you.email,
+      _delivery.paysliv.toLowerCase()
+    )
     changeItem(itemValidation)
   }).catch(error => {
     $('.right .catch-message').html(error)
@@ -174,16 +177,45 @@ itemOrder.on('submit', '.panel.adliv form', function (event) {
 
 itemOrder.on('click', '.button.payment', function (event) {
   event.preventDefault()
-  if (valideDeliveryForm()) {
-    getData(_delivery.cartId, _delivery.destliv, _delivery.paysliv).then(data => {
+  if (valideDeliveryForm() === true) {
+    getData(_cartId, _delivery.destliv, _delivery.paysliv).then(data => {
       console.log(data)
+      console.log(_delivery)
       _cartInfo = data
       updateCartRender()
+      updateDeliveryRender()
       changeItem(itemPayment)
     }).catch(error => {
       $('.right .catch-message').html(error)
     })
+  } else {
+    $('.right .catch-message').html('erreur de formulaire')
   }
+})
+
+function valideDeliveryForm () {
+  if (_delivery.adliv.adresse === '' ||
+    _delivery.adliv.zipcode === '' ||
+    _delivery.adliv.city === '' ||
+    _delivery.destliv === '' ||
+    _delivery.paysliv === '') {
+    return false
+  }
+  return true
+}
+
+itemOrder.on('click', '.button.gift', function (event) {
+  event.preventDefault()
+  $(`.panel.gift`, itemOrder).addClass('active')
+  changeItem(itemOrder)
+})
+
+itemOrder.on('click', '.button.reset_gift', function (event) {
+  event.preventDefault()
+  delete _delivery.memocmd
+  $(`.input.note`, itemOrder).value = ''
+  console.log(_delivery)
+  changeItem(itemOrder)
 })
 
 itemOrder.on('submit', '.form.gift', function (event) {
@@ -191,6 +223,8 @@ itemOrder.on('submit', '.form.gift', function (event) {
   const data = $(this).serializeArray()
   let dataVal = data
   _delivery.memocmd = dataVal[0].value
+  $(`.panel.gift`, itemOrder).removeClass('active')
+  changeItem(itemOrder)
   console.log(_delivery)
 })
 
@@ -240,7 +274,7 @@ itemPayment.on('click', 'a', function (event) {
   changeItem(itemOrder)
 })
 
-itemCart.on('click', 'a', function (event) {
+itemCart.on('click', 'a.button.continue', function (event) {
   event.preventDefault()
   $('a', itemCart).removeClass('active')
   $(this).addClass('active')
@@ -264,8 +298,7 @@ itemCart.on('click', 'a', function (event) {
 })
 
 function afterLogin (user) {
-  const delivery = getDelivery()
-  _delivery = delivery
+  _delivery = getDelivery()
   _delivery.codcli = user.codcli
   console.log(_delivery)
   _you = user
@@ -337,102 +370,6 @@ itemConnection.on('click', 'a', function (event) {
   changeItem(itemConnection)
 })
 
-function validateDate (date) {
-  return moment(date).isValid()
-}
-
-function validateParticipant (client) {
-  if (validateDate(client.datnaiss)) {
-    if (moment().diff(moment(client.datnaiss), 'years') >= 16) {
-      return { success: true }
-    } else {
-      if (client.coltyp === 'enfan') {
-        const people = [..._registered, _you]
-        const filtered = people.filter(person => {
-          return person.codco === parseInt(client.colp)
-        })
-        const parent = filtered.shift()
-        if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
-          return { success: true }
-        } else {
-          return { error: _translations.message.parent_must_be_adult }
-        }
-      } else {
-        return { error: _translations.message.must_be_a_child }
-      }
-    }
-  } else {
-    return { error: _translations.message.date_invalid }
-  }
-}
-
-function callbackSubmit (event, context, action, callback) {
-  event.preventDefault()
-  const data = context.serializeArray()
-  const client = formatParticipant(data)
-  const validate = validateParticipant(client)
-  if (validate.success) {
-    postParticipant(client).then(res => {
-      const participantUpdated = { ...client, ...res }
-      callback(participantUpdated)
-      updateYouRender()
-      updateRegisteredRender()
-      updateParticipants()
-      $('.right .catch-message').html('')
-      $(`.panel.${action}`).slideUp(800, function () {
-        $(this).hide()
-        changeItem(itemOrder)
-      })
-    })
-  } else {
-    $('.catch-message', itemOrder).html(validate.error)
-  }
-}
-
-itemOrder.on('submit', '.panel.you form', function (event) {
-  callbackSubmit(event, $(this), 'you', function (res) {
-    _you = res
-  })
-})
-
-itemOrder.on('submit', '.panel.modify form', function (event) {
-  callbackSubmit(event, $(this), 'modify', function (res) {
-    _registered = _registered.map(obj => {
-      if (obj.codco === res.codco) { return res }
-      return obj
-    })
-  })
-})
-
-itemOrder.on('submit', '.panel.add form', function (event) {
-  callbackSubmit(event, $(this), 'add', function (res) {
-    _registered.push(res)
-  })
-})
-
-function updateParticipants () {
-  console.log(_registered)
-  _clients = _registered.filter(client => {
-    console.log(client)
-    return client.check
-  })
-  _clients.push(_you)
-  updateCartRender()
-  updateDeliveryFormRender()
-}
-
-itemOrder.on('click', '.participate-him', function (event) {
-  event.preventDefault()
-  const id = parseInt($(this).attr('data-id'))
-  _registered = _registered.map(client => {
-    if (client.codco === id) {
-      client.check = !client.check
-    }
-    return client
-  })
-  updateParticipants()
-})
-
 itemOrder.on('click', '.modify-you', function (event) {
   event.preventDefault()
   _client = _you
@@ -442,38 +379,20 @@ itemOrder.on('click', '.modify-you', function (event) {
   changeItem(itemOrder)
 })
 
-function validateTransports () {
-  let validate = true
-  _clients.map(client => {
-    if (client.transport === '') { validate = false }
-  })
-  return validate
-}
-
-function valideDeliveryForm () {
-  if (_delivery.adliv.adresse === '' ||
-    _delivery.adliv.zipcode === '' ||
-    _delivery.adliv.city === '' ||
-    _delivery.destliv === '' ||
-    _delivery.paysliv === '') {
-    return false
-  }
-  return true
-}
-
-itemOrder.on('click', '.validate-clients', function (event) {
-  event.preventDefault()
-  const validate = validateTransports()
-  if (validate) {
-    postRegistered(_clients, _infos.idact).then(res => {
-      let result = $('.result', itemValidation).html()
-      result = result.replace('%entry_number%', res)
-      $('.result', itemValidation).html(result)
-      changeItem(itemValidation)
-    }).catch(error => {
-      $('.right .catch-message').html(error)
-    })
-  } else {
-    $('.right .catch-message').html(_translations.message.verify_transport)
-  }
-})
+// itemOrder.on('submit', '.form.input.button.submit') {
+//   event.preventDefault()
+//   const data = $(this).serializeArray()
+//   const client = formatParticipant(data)
+//   postRegister({
+//     client: client
+//   }).then(user => {
+//     postLogin({
+//       username: client.email,
+//       password: client.password
+//     }).then(user => {
+//       afterLogin(user)
+//     })
+//   }).catch(error => {
+//     $('.catch-message', itemConnection).html(error)
+//   })
+// }

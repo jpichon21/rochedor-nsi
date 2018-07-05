@@ -22,7 +22,7 @@
                     {{ line.product.produitcourt }} - {{ line.product.prix }} - {{ line.quantity }} - <a href="{{ path('cart-remove', {'cartLine': line.id}) }}">{{ 'cart.remove'|trans }}</a>
                     </div>
                     {% endfor %}
-                <a href="#register" class="button continue">{{ 'form.continue' | trans | raw }}</a>
+                <a href="#validCart" class="button continue">{{ 'form.continue' | trans | raw }}</a>
                 {% else %}
                 {{ 'cart.empty'|trans }}
                 {% endif %}
@@ -86,7 +86,7 @@
                         <option value="Other">{{ 'select.ad.other' | trans | raw }}</option>
                     </select>
                     <div class = "panel adliv">
-                        <form>
+                        <form class = "form adliv">
                             <h3>{{ 'order.choose.adliv' | trans | raw }}</h3>
                             <div class="pure-u-1-3">
                                 <input class="input adresse" required type="text" name="adresse" placeholder="{{ 'form.adresse' | trans | raw }}">
@@ -112,6 +112,13 @@
                             {% endfor %}
                         </select>
                     </div>
+                        <div class="pure-u-2-4">
+                            <input class="button gift" type="submit" value="{{ 'form.its.a.gift' | trans | raw }}">
+                        </div>
+                        <div class="pure-u-2-2">
+                            <input class="button reset_gift" type="submit" value="{{ 'form.suprmessage.gift' | trans | raw }}">
+                        </div>
+                    <div class = "panel gift">
                     <h3>{{ 'order.registration.choose.gift' | trans | raw }}</h3>
                     <p>{{ 'order.gift.text' | trans | raw }}</p>
                         <form class="form gift">
@@ -119,9 +126,10 @@
                                 <input class="input note" required type="textarea" name="note" placeholder="{{ 'form.gift' | trans | raw }}">
                             </div>
                             <div class="pure-u-4-24">
-                                <input class="button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                                <input class="button submit_gift" type="submit" value="{{ 'form.validate.gift' | trans | raw }}">
                             </div>
                         </form>
+                    </div>
                         <div class="pure-u-4-24">
                                 <a href="#payment" class="button payment">{{ 'form.payment' | trans | raw }}</a>
                         </div>
@@ -162,6 +170,8 @@
         {{ 'cart.empty'|trans }}
         {% endif %}
         <div class="clients-render"></div>
+        <div class="delivery-render"></div>
+        <div class="cart-render"></div>
         <div class="catch-message"></div>
     </div>
 </div>
@@ -197,12 +207,43 @@
         <a href="#" class="button radio hidden <%= (you.check) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
     </div>
 </script>
+<script type="text/data" class="cart-data">
+{{cart.id}}
+</script>
+<script type="text/template" class="delivery-template">
+    <h3>{{'form.message.recap_delivery' | trans}}</h3>
+    <% if (delivery.adliv) { %>
+        <p>adresse de facturation : <%= you.adresse %> <%= you.cp %> <%= you.ville %> </p>
+        <% if (delivery.destliv === "Roche") { %>
+            <p>retrait a la Roche d'Or</p>
+        <% } %> 
+        <% if (delivery.destliv === "Font") { %>
+            <p>retrait aux Fontanilles</p>
+        <% } %>
+        <% if (delivery.destliv === "Other") { %>
+            <p>adresse de livraison : <%= delivery.adliv.adresse %> <%= delivery.adliv.zipcode %> <%= delivery.adliv.city %> </p>
+        <% } %>
+        <% if (delivery.destliv === "myAdd") { %>
+            <p>adresse de livraison : <%= delivery.adliv.adresse %> <%= delivery.adliv.zipcode %> <%= delivery.adliv.city %> </p>
+        <% } %>
+        <% if (delivery.memocmd) { %>
+            <p>Message cadeaux : <%= delivery.note %></p>
+        <% } %>
+    <% } else { %>
+        <p>{{ 'cart.emptydelivery' | trans }}</p>
+    <% } %>
+</script>
 <script type="text/template" class="cart-template">
-    <p>poid total: <%= cartInfo.weight %> g<br></p>
-    <p>frais de port : <%= cartInfo.portprice %> €<br></p>
-    <p>prix total HT : <%= cartInfo.totalPrice %> €<br></p>
-    <p>prix total TTC: <%= cartInfo.priceIT %> €<br></p>
-    <p>prix de la TVA: <%= cartInfo.vatCost %> €<br></p>
+    <h3>{{'form.message.recap_cartInfo' | trans}}</h3>
+    <% if (cartInfo.consumerPrice) { %>
+        <p>poid total: <%= cartInfo.weightOrder %> g<br></p>
+        <p>frais de port : <%= cartInfo.portPriceIT %> €<br></p>
+        <p>prix total HT : <%= cartInfo.consumerPrice %> €<br></p>
+        <p>prix total TTC: <%= cartInfo.consumerPriceIT %> €<br></p>
+        <p>prix de la TVA: <%= cartInfo.vatWithPort %> €<br></p>
+    <% } else { %>
+    <p>{{ 'cart.emptycart' | trans }}</p>
+    <% } %>
 </script>
 <script type="text/template" class="registered-template">
     <% if (registered.length) { %>

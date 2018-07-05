@@ -1483,5 +1483,107 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
         <target>Poids</target>
       </segment>
     </unit>
+    <unit id="lYDi7RY" name="cart.emptydelivery">
+      <segment>
+        <source>cart.emptydelivery</source>
+        <target>Aucune adresse de facturation</target>
+      </segment>
+    </unit>
+    <unit id="OVd0vdP" name="form.message.recap_delivery">
+      <segment>
+        <source>form.message.recap_delivery</source>
+        <target>Récapitulatif livraison</target>
+      </segment>
+    </unit>
+    <unit id="2nyW22." name="form.message.recap_cartInfo">
+      <segment>
+        <source>form.message.recap_cartInfo</source>
+        <target>Récapitulatif panier</target>
+      </segment>
+    </unit>
+    <unit id="C8Akz4x" name="cart.emptycart">
+      <segment>
+        <source>cart.emptycart</source>
+        <target>Panier vide</target>
+      </segment>
+    </unit>
+    <unit id="1e765_n" name="form.street">
+      <segment>
+        <source>form.street</source>
+        <target>Rue</target>
+      </segment>
+    </unit>
+    <unit id="oirGR28" name="form.societe">
+      <segment>
+        <source>form.societe</source>
+        <target>Société</target>
+      </segment>
+    </unit>
+    <unit id="Sc.pDDq" name="order.summary.title.clients">
+      <segment>
+        <source>order.summary.title.clients</source>
+        <target>Récapitulatif produit</target>
+      </segment>
+    </unit>
+    <unit id="CJ0FDoz" name="its.a.gift">
+      <segment>
+        <source>its.a.gift</source>
+        <target>Cadeau</target>
+      </segment>
+    </unit>
+    <unit id="u6sNBSu" name="order.gift.text">
+      <segment>
+        <source>order.gift.text</source>
+        <target>Entrer votre message personnalisé</target>
+      </segment>
+    </unit>
+    <unit id="kkp4fpp" name="order.registration.one.body.connected">
+      <segment>
+        <source>order.registration.one.body.connected</source>
+        <target>Avez déjà effectuer une commande sur le site web la Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="JdLwAci" name="form.gift">
+      <segment>
+        <source>form.gift</source>
+        <target>Message</target>
+      </segment>
+    </unit>
+    <unit id="HLmsseT" name="form.payment">
+      <segment>
+        <source>form.payment</source>
+        <target>Paiement</target>
+      </segment>
+    </unit>
+    <unit id="f3pcw8k" name="go.to.order">
+      <segment>
+        <source>go.to.order</source>
+        <target>Retour à la livraison</target>
+      </segment>
+    </unit>
+    <unit id="zPY3e8P" name="form.its.a.gift">
+      <segment>
+        <source>form.its.a.gift</source>
+        <target>Cadeau</target>
+      </segment>
+    </unit>
+    <unit id="p3KOArL" name="form.validate.gift">
+      <segment>
+        <source>form.validate.gift</source>
+        <target>Valider le message</target>
+      </segment>
+    </unit>
+    <unit id="GHT1Oe_" name="form.no_clients">
+      <segment>
+        <source>form.no_clients</source>
+        <target>form.no_clients</target>
+      </segment>
+    </unit>
+    <unit id="Yenhfq6" name="form.suprmessage.gift">
+      <segment>
+        <source>form.suprmessage.gift</source>
+        <target>Supprimer le message</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

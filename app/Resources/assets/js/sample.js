@@ -35,7 +35,7 @@ const delivery = {
   datliv: '',
   paysip: '',
   dateenreg: '',
-  cartId: 1
+  cartId: ''
 }
 
 const clone = (obj) => {

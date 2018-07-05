@@ -121,8 +121,11 @@ class OrderController extends Controller
     */
     public function xhrGetTaxes(Request $request, $cart_id, $country, $destliv)
     {
-        $data = $this->getCartPrices($cart_id, $country, $destliv);
-        return ['status' => 'ok','data' => $data];
+        if ($data = $this->getCartPrices($cart_id, $country, $destliv)) {
+            return ['status' => 'ok','data' => $data];
+        } else {
+            return ['status' => 'ko','error' => 'you must delive a good form'];
+        }
     }
     
     private function getCartPrices($cart_id, $country, $destliv)
@@ -238,9 +241,9 @@ class OrderController extends Controller
         }
         // if ($this->registerOrder($delivery, $cartId, $locale)) {
         if ($order = $this->registerOrder($delivery, $cartId, $locale)) {
-            return ['status' => 'ok'];
+            return ['status' => 'ok', 'order' => $order];
         }
-        return ['status' => 'ko', 'message' => 'an error as occured', 'order' => $order];
+        return ['status' => 'ko', 'message' => 'an error as occured'];
     }
 
     /**
