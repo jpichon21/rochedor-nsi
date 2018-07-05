@@ -1,0 +1,44 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block body %}
+    <h1>Tax</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tax.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ tax.name }}</td>
+            </tr>
+            <tr>
+                <th>Rate</th>
+                <td>{{ tax.rate }}</td>
+            </tr>
+            <tr>
+                <th>Countries</th>
+                <td>{% if tax.countries %}{{ tax.countries|join(', ') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Zipcodes</th>
+                <td>{% if tax.zipcodes %}{{ tax.zipcodes|join(', ') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_tax_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_tax_edit', { 'id': tax.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

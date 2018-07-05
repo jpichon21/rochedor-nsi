@@ -139,7 +139,7 @@ class OrderController extends Controller
                 $tax = $this->productRepository->findTax($product->getCodPrd(), $country);
                 $product = $cartline->getProduct();
 
-                if ($product->getTypprd() === "livre") {
+                if ($product->getTypprd() === Produit::TYP_BOOK) {
                     $priceIncludeTaxes = $product->getPrix();
                     $data['totalPrice'] = round($data['totalPrice'] + $product->getPrix(), 2);
                     $data['totalPriceIT'] = round($data['totalPriceIT'] + $priceIncludeTaxes, 2);
