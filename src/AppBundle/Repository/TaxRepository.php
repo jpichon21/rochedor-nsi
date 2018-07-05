@@ -36,11 +36,10 @@ class TaxRepository
         $query = $this->entityManager
         ->createQuery('SELECT t.name, t.rate, t.countries 
         FROM AppBundle\Entity\Tax t 
-        JOIN AppBundle\Entity\Produit p
+        INNER JOIN AppBundle\Entity\Produit p
         WHERE p.codprd=:productId');
         $query->setParameter('productId', $productId);
         $results =  $query->getResult();
-
         foreach ($results as $k => $result) {
             if (in_array($country, $result['countries'])) {
                 return $result;

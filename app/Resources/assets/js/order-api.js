@@ -63,7 +63,7 @@ export const postOrder = (data) => {
 }
 
 export const getData = (cartId, paysliv, destliv) => {
-  return window.fetch(`/xhr/order/data/${cartId}/${paysliv}/${destliv}`, {
+  return window.fetch(`/xhr/order/taxes/${cartId}/${destliv}/${paysliv}`, {
     method: 'GET',
     credentials: 'include'
   })

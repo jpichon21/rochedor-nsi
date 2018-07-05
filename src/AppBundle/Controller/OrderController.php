@@ -174,6 +174,7 @@ class OrderController extends Controller
                 $i++;
             }
         }
+        $data['weightOrder'] = $totalWeight;
         $data['portPriceIT'] = $this->shippingRepository->findGoodPort($totalWeight, $country, $destliv);
         $data['portPrice'] = round($data['portPriceIT']/(1+($this::TVASHIPMENT/100)));
         $data['vatPortPrice'] = $data['portPriceIT'] - $data['portPrice'];
@@ -313,7 +314,7 @@ class OrderController extends Controller
         $modliv = $delivery['modliv'];
         $paysliv = $delivery['paysliv'];
 
-        $data = $this->getCartPrices($delivery['cartId'], $delivery['paysliv']);
+        $data = $this->getCartPrices($delivery['cartId'], $delivery['paysliv'], $delivery['destliv']);
 
         $datpaie = new \DateTime();
         $validpaie = $delivery['validpaie'];
