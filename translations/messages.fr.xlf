@@ -378,7 +378,7 @@
       </notes>
       <segment>
         <source>retreats.table.head.translations</source>
-        <target>Traductions</target>
+        <target>Trad.</target>
       </segment>
     </unit>
     <unit id="7tmJeqV" name="retreats.table.head.selections">
@@ -1167,7 +1167,7 @@
     <unit id="edrUzMC" name="calendar.days">
       <segment>
         <source>calendar.days</source>
-        <target>jours</target>
+        <target>j</target>
       </segment>
     </unit>
     <unit id="A9HWtXN" name="filter.raz.button">

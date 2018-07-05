@@ -117,7 +117,7 @@
         </td>
         <td class="site center" style="color: <%= retreats[i].site.color %>"><%= retreats[i].site.abbr %></td>
         <td class="event"><%= retreats[i].event %></td>
-        <td class="speaker"><%= _.pluck(retreats[i].speaker, 'name').join(', ') %></td>
+        <td class="speaker"><%= _.pluck(retreats[i].speaker, 'name').join('<br>') %></td>
         <td class="type center"><i style="color: <%= retreats[i].type.color %>"></i><%= retreats[i].type.abbr %></td>
         <td class="duration center"><%= retreats[i].duration %> {{ 'calendar.days' | trans }}</td>
         <td class="translation center"><%= retreats[i].translation %></td>
