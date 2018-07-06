@@ -74,6 +74,8 @@ class ContactController extends Controller
                     'mail' => $mail
                     ])
             );
+
+            return $this->render('default/contact-ro-success.html.twig');
         }
 
         $path = $request->getPathInfo();
@@ -119,6 +121,8 @@ class ContactController extends Controller
                     'mail' => $mail
                     ])
             );
+
+            return $this->render('default/contact-font-success.html.twig');
         }
 
         $path = $request->getPathInfo();
