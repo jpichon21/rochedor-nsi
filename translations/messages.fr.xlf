@@ -1011,7 +1011,7 @@
     <unit id="N_ACgte" name="calendar.registration.intro">
       <segment>
         <source>calendar.registration.intro</source>
-        <target><![CDATA[Vous êtes sur le point de vous inscrire à une retraite. Complétez les informations suivantes si vous souahitez continuer, sinon retourner au <a href="%link%">calendrier</a>.]]></target>
+        <target><![CDATA[Vous êtes sur le point de vous inscrire à une retraite. Complétez les informations suivantes si vous souhaitez continuer, sinon retourner au <a href="%link%">calendrier</a>.]]></target>
       </segment>
     </unit>
     <unit id="EHnUJsc" name="calendar.registration.two.title.modify">

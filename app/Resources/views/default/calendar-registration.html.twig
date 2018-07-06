@@ -8,11 +8,9 @@
 <div class="content">
     <div class="left">
         <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
-        {% if page.content.intro %}
         <div class="intro">
             {{ 'calendar.registration.intro'|trans({'%link%': path('calendar-' ~ app.request.locale)}) | raw }}
         </div>
-        {% endif %}
         <div class="dropdown">
             <div class="item connection">
                 <h2>{{ 'calendar.registration.one.title' | trans | raw }}</h2>
