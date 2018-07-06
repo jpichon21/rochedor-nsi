@@ -24,7 +24,7 @@ class UploadService
     {
         $extension = '.' . $file->guessExtension();
         $baseName = str_replace($extension, '', $file->getClientOriginalName());
-        $fileName = $baseName .time(). $extension;
+        $fileName = $this->slugify($baseName) .time(). $extension;
         return $fileName;
     }
     
