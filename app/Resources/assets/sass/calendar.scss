@@ -260,45 +260,21 @@
     text-transform: uppercase;
     th {
       position: relative;
-      padding: 10px 20px;
+      padding: 10px 15px;
       text-align: left;
       border-bottom: 1px #575432 solid;
       &.dates {
         padding-left: 0;
       }
       &.sites {
-        padding-right: 20px;
+        padding: 0;
       }
       &.translations {
-        width: 10px;
         padding-right: 0;
       }
     }
   }
   tbody {
-    &:hover {
-      tr.retreat {
-        &:hover {
-          td {
-            opacity: 1;
-            &.dates {
-              .bullet {
-                background: #ffffff;
-              }
-            }
-          }
-        }
-        td {
-          opacity: 0.6;
-          transition: 0.2s;
-          &.dates {
-            .bullet {
-              opacity: 1;
-            }
-          }
-        }
-      }
-    }
     tr {
       &.month {
         td {
@@ -312,7 +288,7 @@
       &.retreat {
         cursor: pointer;
         td {
-          padding: 10px 20px;
+          padding: 15px;
           font-size: 14px;
           color: #ffffff;
           border-bottom: 1px #262626 solid;
@@ -324,14 +300,14 @@
             padding-left: 30px;
             white-space: nowrap;
           }
-          &.site {
-            height: 28px;
-            padding-right: 20px;
+          &.sites {
+            padding: 0;
           }
           &.speaker {
             white-space: nowrap;
           }
           &.type {
+            white-space: nowrap;
             i {
               display: inline-block;
               width: 6px;
@@ -342,6 +318,7 @@
             }
           }
           &.duration {
+            white-space: nowrap;
             color: $roche-yellow;
           }
           &.translation {
@@ -363,7 +340,7 @@
     .bullet {
       position: absolute;
       top: 15px;
-      left: 0;
+      left: -3px;
       width: 7px;
       height: 7px;
       border-radius: 100%;
@@ -372,7 +349,7 @@
     .fadeline {
       position: absolute;
       top: 20px;
-      left: 3px;
+      left: 0;
       width: 1px;
       height: 100%;
       background: $roche-yellow;
@@ -385,7 +362,7 @@
       }
       .fadeline {
         height: 30px;
-        background: linear-gradient(to bottom, $roche-yellow 0%, #000000 100%);
+        background: linear-gradient(to bottom, $roche-yellow 0%, transparent 100%);
       }
     }
   }

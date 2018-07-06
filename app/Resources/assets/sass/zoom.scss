@@ -26,12 +26,14 @@ body {
     }
     &.home {
       .swipe-section {
-        i {
-          font-size: 21px;
-          line-height: 27px;
-        }
-        span {
-          font-size: 16px;
+        blockquote {
+          em {
+            font-size: 21px;
+            line-height: 27px;
+          }
+          strong {
+            font-size: 16px;
+          }
         }
       }
       .nouveautes {
@@ -78,12 +80,14 @@ body {
     }
     &.home {
       .swipe-section {
-        i {
-          font-size: 23px;
-          line-height: 29px;
-        }
-        span {
-          font-size: 18px;
+        blockquote {
+          em {
+            font-size: 23px;
+            line-height: 29px;
+          }
+          strong {
+            font-size: 18px;
+          }
         }
       }
       .nouveautes {

@@ -1,9 +1,10 @@
 // Scrollbar
 
 const content = document.querySelector('.content')
-
-content.style.overflowY = 'scroll'
-content.style.width = 'calc(100% + ' + (content.offsetWidth - content.clientWidth) + 'px)'
+if (content) {
+  content.style.overflowY = 'scroll'
+  content.style.width = 'calc(100% + ' + (content.offsetWidth - content.clientWidth) + 'px)'
+}
 
 // Zoom
 
@@ -11,7 +12,7 @@ const bodyClass = document.querySelector('body').classList
 const dropdown = document.querySelector('.dropdown')
 
 const updateHeightDropdown = () => {
-  if (dropdown !== undefined) {
+  if (dropdown) {
     let active = dropdown.querySelector('.active')
     active.style.maxHeight = active.scrollHeight + 'px'
   }
