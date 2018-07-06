@@ -180,12 +180,12 @@ class OrderController extends Controller
         $data['weightOrder'] = $totalWeight;
         $data['portPriceIT'] = $this->shippingRepository->findGoodPort($totalWeight, $country, $destliv);
         $data['portPrice'] = round($data['portPriceIT']/(1+($this::TVASHIPMENT/100)));
-        $data['vatPortPrice'] = $data['portPriceIT'] - $data['portPrice'];
+        $data['vatPortPrice'] = round($data['portPriceIT'] - $data['portPrice'], 2);
         $data['consumerPriceIT'] = $data['portPriceIT'] + $data['totalPriceIT'];
         $data['consumerPrice'] = $data['portPrice'] + $data['totalPrice'];
 
         $data['vat'] = round($data['totalPriceIT'] - $data['totalPrice'], 2);
-        $data['vatWithPort'] = $data['vat'] + $data['vatPortPrice'];
+        $data['vatWithPort'] = round($data['vat'] + $data['vatPortPrice'], 2);
         return $data;
     }
     
