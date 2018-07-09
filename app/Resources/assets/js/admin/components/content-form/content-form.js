@@ -98,7 +98,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
             }}
             editorState={context.state.page.content.sections[indexSection].bodyRaw}
             onEditorStateChange={editorState => context.handleChangeTextArea(editorState, indexSection)}
-            toolbarCustomButtons={[<CustomOption addDocument={event => { context.handleChangeDocumentUpload(event, indexSection) }} />]}
+            toolbarCustomButtons={[<CustomOption indexSection={indexSection} addDocument={event => { console.log(event); console.log(indexSection) /* context.handleChangeDocumentUpload(event, indexSection) */ }} />]}
             toolbar={{
               options: ['inline', 'blockType', 'textAlign', 'link'],
               inline: {
@@ -236,13 +236,15 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
               placement='bottom'
               title="Suprimer l'assemblage d'images séléctionné"
             >
-              <Button
-                variant='outlined'
-                onClick={() => { context.handleDeleteSlide(indexSection) }}
-                disabled={section.slides.length === 1}
-                className={classes.option}>
-                Supprimer
-              </Button>
+              <div>
+                <Button
+                  variant='outlined'
+                  onClick={() => { context.handleDeleteSlide(indexSection) }}
+                  disabled={section.slides.length === 1}
+                  className={classes.option}>
+                  Supprimer
+                </Button>
+              </div>
             </Tooltip>
             <Tooltip
               enterDelay={300}
@@ -283,11 +285,13 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
         placement='bottom'
         title='Supprimer le volet'
       >
-        <Button
-          onClick={() => { context.handleDeleteSection(indexSection) }}
-          disabled={context.state.page.content.sections.length === 1}>
-          Supprimer
-        </Button>
+        <div>
+          <Button
+            onClick={() => { context.handleDeleteSection(indexSection) }}
+            disabled={context.state.page.content.sections.length === 1}>
+            Supprimer
+          </Button>
+        </div>
       </Tooltip>
     </ExpansionPanelActions>
   </ExpansionPanel>
@@ -768,14 +772,16 @@ export class ContentForm extends React.Component {
             placement='bottom'
             title='Publier'
           >
-            <Button
-              disabled={!this.isSubmitEnabled()}
-              onClick={this.handleSubmit}
-              className={classes.button}
-              variant='fab'
-              color='primary'>
-              <SaveIcon />
-            </Button>
+            <div>
+              <Button
+                disabled={!this.isSubmitEnabled()}
+                onClick={this.handleSubmit}
+                className={classes.button}
+                variant='fab'
+                color='primary'>
+                <SaveIcon />
+              </Button>
+            </div>
           </Tooltip>
         </div>
       </div>
