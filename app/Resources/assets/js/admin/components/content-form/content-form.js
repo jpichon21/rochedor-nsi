@@ -236,15 +236,13 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
               placement='bottom'
               title="Suprimer l'assemblage d'images séléctionné"
             >
-              <div>
-                <Button
-                  variant='outlined'
-                  onClick={() => { context.handleDeleteSlide(indexSection) }}
-                  disabled={section.slides.length === 1}
-                  className={classes.option}>
-                  Supprimer
-                </Button>
-              </div>
+              <Button
+                variant='outlined'
+                onClick={() => { context.handleDeleteSlide(indexSection) }}
+                disabled={section.slides.length === 1}
+                className={classes.option}>
+                Supprimer
+              </Button>
             </Tooltip>
             <Tooltip
               enterDelay={300}
@@ -285,13 +283,11 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
         placement='bottom'
         title='Supprimer le volet'
       >
-        <div>
-          <Button
-            onClick={() => { context.handleDeleteSection(indexSection) }}
-            disabled={context.state.page.content.sections.length === 1}>
-            Supprimer
-          </Button>
-        </div>
+        <Button
+          onClick={() => { context.handleDeleteSection(indexSection) }}
+          disabled={context.state.page.content.sections.length === 1}>
+          Supprimer
+        </Button>
       </Tooltip>
     </ExpansionPanelActions>
   </ExpansionPanel>
@@ -772,16 +768,14 @@ export class ContentForm extends React.Component {
             placement='bottom'
             title='Publier'
           >
-            <div>
-              <Button
-                disabled={!this.isSubmitEnabled()}
-                onClick={this.handleSubmit}
-                className={classes.button}
-                variant='fab'
-                color='primary'>
-                <SaveIcon />
-              </Button>
-            </div>
+            <Button
+              disabled={!this.isSubmitEnabled()}
+              onClick={this.handleSubmit}
+              className={classes.button}
+              variant='fab'
+              color='primary'>
+              <SaveIcon />
+            </Button>
           </Tooltip>
         </div>
       </div>
