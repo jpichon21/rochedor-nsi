@@ -108,7 +108,7 @@
                             <option selected disabled value="">{{ 'form.choose.country' | trans | raw }}</option>
 
                             {% for country in countrys %}
-                            <option value={{country.CodPays}}>{{country.nompays | trans | raw }}</option>
+                            <option value={{country['codpays']}}>{{country['nompays'] | trans | raw }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -236,7 +236,9 @@
 <script type="text/template" class="cart-template">
     <h3>{{'form.message.recap_cartInfo' | trans}}</h3>
     <% if (cartInfo.consumerPrice) { %>
-        <p>poid total: <%= cartInfo.weightOrder %> g<br></p>
+        <p>poid total: <%= cartInfo.totalWeight %> g<br></p>
+        <p>poid des article: <%= cartInfo.weightOrder %> g<br></p>
+        <p>poid de l'emballage : <%= cartInfo.packagingWeight %> g<br></p>
         <p>frais de port : <%= cartInfo.portPriceIT %> €<br></p>
         <p>prix total HT : <%= cartInfo.consumerPrice %> €<br></p>
         <p>prix total TTC: <%= cartInfo.consumerPriceIT %> €<br></p>

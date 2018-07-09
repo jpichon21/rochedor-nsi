@@ -14,6 +14,11 @@ use AppBundle\Entity\Produit;
  */
 class TpaysRepository
 {
+    const EXCEPTION = [
+        'Roche',
+        'Font',
+    ];
+
     /**
     * @var EntityManagerInterface
     */
@@ -32,7 +37,48 @@ class TpaysRepository
     public function findAllCountry()
     {
         $query = $this->entityManager
-        ->createQuery('SELECT t FROM AppBundle\Entity\Tpays t');
+        ->createQuery('SELECT tp.codpays,tp.nompays FROM AppBundle\Entity\Tpays tp');
         return $query->getResult();
+    }
+
+    /**
+    * Check Zipcode
+    *
+    * @return Bool
+    */
+    public function checkZipcode($country, $zipcode, $destliv)
+    {
+        if (in_array($destliv, $this::EXCEPTION)) {
+            return true;
+        }
+
+        if (strlen($country) === 2) {
+            $query = $this->entityManager
+            ->createQuery('SELECT tp.nompays 
+            FROM AppBundle\Entity\Tpays tp 
+            WHERE tp.codpays=:country');
+            $query->setParameter('country', $country);
+            $result =  $query->getOneOrNullResult();
+            $country = $result;
+        }
+ 
+        $query = $this->entityManager
+        ->createQuery('SELECT tp.zipcodes 
+        FROM AppBundle\Entity\Tpays tp 
+        WHERE tp.nompays=:country');
+        $query->setParameter('country', $country["nompays"]);
+        $results =  $query->getResult();
+
+        if ($results[0]['zipcodes'] === null) {
+            return true;
+        }
+        
+        foreach ($results[0]['zipcodes'] as $k => $result) {
+            if ($zipcode >= $result[0] && $zipcode <= $result[1]) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 }

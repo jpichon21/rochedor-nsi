@@ -116,6 +116,31 @@ class OrderController extends Controller
     }
 
     /**
+     * @Rest\Get("/xhr/order/Weight/{weight}/{country}/{destliv}", name="get_weight")
+     * @Rest\View()
+    */
+    public function xhrTestWeight(Request $request, $weight, $country, $destliv)
+    {
+        return $this->shippingRepository->findGoodPort($weight, $country, $destliv);
+    }
+
+
+
+    /**
+     * @Rest\Get("/xhr/order/zipcode/{country}/{zipcode}/{destliv}", name="get_zipcode")
+     * @Rest\View()
+    */
+    public function xhrCheckZipcode(Request $request, $country, $zipcode, $destliv)
+    {
+        $value = $this->tpaysRepository->checkZipcode($country, $zipcode, $destliv);
+        if ($value === true) {
+            return ['status' => 'ok'];
+        } else {
+            return ['status' => 'ko','error' => 'your zipcode didnt exist'];
+        }
+    }
+
+    /**
      * @Rest\Get("/xhr/order/taxes/{cart_id}/{country}/{destliv}", name="get_taxes")
      * @Rest\View()
     */
@@ -150,7 +175,8 @@ class OrderController extends Controller
                     $data['product'][$k]['quantity'] = $cartline->getQuantity();
                     $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;
                     $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
-                    $data['product'][$k]['price'] = round($product->getPrixht() * (1+($tax->getRate()/100)), 2);
+                    $data['product'][$k]['price'] = round($product->getPrixht()
+                    * (1+($data['product'][$k]['productTaxRate']/100)), 2);
                     $data['product'][$k]['name'] = $product->getProduitcourt();
                     $data['product'][$k]['vatProduct'] = round($data['product'][$k]['priceIT']
                                                     - $data['product'][$k]['price'], 2);
@@ -177,15 +203,17 @@ class OrderController extends Controller
                 $i++;
             }
         }
+        $portPriceData = $this->shippingRepository->findGoodPort($totalWeight, $country, $destliv);
+        $packagingWeight = $portPriceData['suplementWeight'];
+        $portPriceIT = $portPriceData['price'];
+        $data['packagingWeight'] = $packagingWeight;
         $data['weightOrder'] = $totalWeight;
-        $data['portPriceIT'] = $this->shippingRepository->findGoodPort($totalWeight, $country, $destliv);
-        $data['portPrice'] = round($data['portPriceIT']/(1+($this::TVASHIPMENT/100)));
-        $data['vatPortPrice'] = round($data['portPriceIT'] - $data['portPrice'], 2);
+        $data['totalWeight'] = $totalWeight + $packagingWeight;
+        $data['portPriceIT'] = $portPriceIT;
         $data['consumerPriceIT'] = $data['portPriceIT'] + $data['totalPriceIT'];
-        $data['consumerPrice'] = $data['portPrice'] + $data['totalPrice'];
+        $data['consumerPrice'] = $data['portPriceIT'] + $data['totalPrice'];
 
         $data['vat'] = round($data['totalPriceIT'] - $data['totalPrice'], 2);
-        $data['vatWithPort'] = round($data['vat'] + $data['vatPortPrice'], 2);
         return $data;
     }
     
@@ -349,7 +377,7 @@ class OrderController extends Controller
         $amountHT = $data['consumerPrice'];
         $promo = 0;
         $priceit = $data['consumerPriceIT'];
-        $vat = $data['vatWithPort'];
+        $vat = $data['vat'];
 
         $datliv = new \Datetime($delivery['datliv']);
         $paysip = $delivery['paysip'];

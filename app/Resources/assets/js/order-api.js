@@ -73,3 +73,15 @@ export const getData = (cartId, paysliv, destliv) => {
       return res.data
     })
 }
+
+export const checkZipcode = (zipcode, country, destliv) => {
+  return window.fetch(`/xhr/order/zipcode/${zipcode}/${country}/${destliv}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.message }
+      return res.data
+    })
+}

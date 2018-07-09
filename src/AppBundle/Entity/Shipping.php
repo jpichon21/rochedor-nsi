@@ -31,7 +31,7 @@ class Shipping
     /**
      * @var string
      *
-     * @ORM\Column(name="weight", type="string", length=255)
+     * @ORM\Column(name="weight", type="integer", length=255)
      */
     private $weight;
 
@@ -49,6 +49,20 @@ class Shipping
      */
     private $price;
 
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="relatedcountrys", type="array")
+     */
+    private $relatedcountrys;
+
+    /**
+    * @var int
+    *
+    * @ORM\Column(name="maximal_weight", type="boolean")
+     */
+    private $maximalWeight;
 
     /**
      * Get id.
@@ -154,5 +168,53 @@ class Shipping
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Set relatedcountrys.
+     *
+     * @param array $relatedcountrys
+     *
+     * @return Tax
+    */
+    public function setRelatedcountrys($relatedcountrys)
+    {
+        $this->relatedcountrys = $relatedcountrys;
+
+        return $this;
+    }
+
+    /**
+     * Get relatedcountrys.
+     *
+     * @return array
+    */
+    public function getRelatedcountrys()
+    {
+        return $this->relatedcountrys;
+    }
+
+            /**
+     * Set maximalWeight.
+     *
+     * @param int $maximalWeight
+     *
+     * @return Packaging
+     */
+    public function setMaximalWeight($maximalWeight)
+    {
+        $this->maximalWeight = $maximalWeight;
+
+        return $this;
+    }
+
+    /**
+     * Get maximalWeight.
+     *
+     * @return int
+     */
+    public function getMaximalWeight()
+    {
+        return $this->maximalWeight;
     }
 }

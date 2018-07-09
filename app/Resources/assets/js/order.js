@@ -8,7 +8,8 @@ import {
   getData,
   postRegister,
   postLogin,
-  postOrder
+  postOrder,
+  checkZipcode
 } from './order-api.js'
 const _infos = JSON.parse($('.infos-json').html())
 
@@ -177,19 +178,32 @@ itemOrder.on('submit', '.panel.adliv form', function (event) {
 
 itemOrder.on('click', '.button.payment', function (event) {
   event.preventDefault()
-  if (valideDeliveryForm() === true) {
-    getData(_cartId, _delivery.destliv, _delivery.paysliv).then(data => {
-      console.log(data)
-      console.log(_delivery)
-      _cartInfo = data
-      updateCartRender()
-      updateDeliveryRender()
-      changeItem(itemPayment)
-    }).catch(error => {
-      $('.right .catch-message').html(error)
-    })
+  if (_delivery.destliv === 'myAdd') {
+    var country = _delivery.paysliv
+    var zipcode = _you.cp
+    var destliv = _delivery.destliv
   } else {
-    $('.right .catch-message').html('erreur de formulaire')
+    var country = _delivery.paysliv
+    var zipcode = _delivery.adliv.zipcode
+    var destliv = _delivery.destliv
+  }
+  if (checkZipcode(country, zipcode, destliv)) {    
+    if (valideDeliveryForm() === true) {
+      getData(_cartId, _delivery.destliv, _delivery.paysliv).then(data => {
+        console.log(data)
+        console.log(_delivery)
+        _cartInfo = data
+        updateCartRender()
+        updateDeliveryRender()
+        changeItem(itemPayment)
+      }).catch(error => {
+        $('.right .catch-message').html(error)
+      })
+    } else {
+      $('.right .catch-message').html('erreur de formulaire')
+    }
+  } else {
+    $('.right .catch-message').html('erreur de zipcode')
   }
 })
 
