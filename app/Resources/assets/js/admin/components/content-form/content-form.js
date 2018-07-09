@@ -98,7 +98,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
             }}
             editorState={context.state.page.content.sections[indexSection].bodyRaw}
             onEditorStateChange={editorState => context.handleChangeTextArea(editorState, indexSection)}
-            toolbarCustomButtons={[<CustomOption indexSection={indexSection} addDocument={event => { console.log(event); console.log(indexSection) /* context.handleChangeDocumentUpload(event, indexSection) */ }} />]}
+            toolbarCustomButtons={[<CustomOption addDocument={(event, indexSection) => { context.handleChangeDocumentUpload(event, indexSection) }} />]}
             toolbar={{
               options: ['inline', 'blockType', 'textAlign', 'link'],
               inline: {
