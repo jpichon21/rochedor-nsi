@@ -242,6 +242,15 @@ itemOrder.on('submit', '.form.gift', function (event) {
   console.log(_delivery)
 })
 
+itemOrder.on('submit', '.form.tvaintra', function (event) {
+  event.preventDefault()
+  const data = $(this).serializeArray()
+  let dataVal = data
+  _delivery.tvaintra = dataVal[0].value
+  changeItem(itemOrder)
+  console.log(_delivery)
+})
+
 itemOrder.on('click', 'a', function (event) {
   event.preventDefault()
   $('a', itemOrder).removeClass('active')
