@@ -24,7 +24,27 @@ class ShippingRepository
     {
         $this->entityManager = $entityManager;
     }
-    
+  
+    public function find($id)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT s
+        FROM AppBundle\Entity\Shipping s 
+        WHERE s.id = :id');
+        $query->setParameters(['id' => $id]);
+        return $query->getResult()[0];
+    }
+
+
+    public function findAll()
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT s
+        FROM AppBundle\Entity\Shipping s ');
+        return $query->getResult();
+    }
+
+
     public function findGoodWeight($weight, $country)
     {
         $query = $this->entityManager
