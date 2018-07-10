@@ -27,6 +27,7 @@ use AppBundle\Repository\ProductRepository;
 use AppBundle\Repository\CartRepository;
 use AppBundle\Repository\ShippingRepository;
 use AppBundle\Repository\TpaysRepository;
+use AppBundle\Repository\ClientRepository;
 use AppBundle\Service\Mailer;
 use Psr\Log\LoggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -81,10 +82,15 @@ class OrderController extends Controller
      */
     private $shippingRepository;
 
-        /**
+    /**
      * @var CartRepository
      */
     private $cartRepository;
+
+    /**
+     * @var ClientRepository
+     */
+    private $clientRepository;
 
     /**
      * @var EntityManagerInterface
@@ -95,6 +101,7 @@ class OrderController extends Controller
         CommandeRepository $commandeRepository,
         ProductRepository $productRepository,
         CartRepository $cartRepository,
+        ClientRepository $clientRepository,
         ShippingRepository $shippingRepository,
         TpaysRepository $tpaysRepository,
         Mailer $mailer,
@@ -107,6 +114,7 @@ class OrderController extends Controller
         $this->productRepository = $productRepository;
         $this->tpaysRepository = $tpaysRepository;
         $this->cartRepository = $cartRepository;
+        $this->clientRepository = $clientRepository;
         $this->shippingRepository = $shippingRepository;
         $this->mailer = $mailer;
         $this->translator = $translator;
@@ -153,6 +161,36 @@ class OrderController extends Controller
         }
     }
     
+
+    /**
+     * @Rest\Post("xhr/order/client", name="post_client")
+     * @Rest\View()
+     */
+    public function xhrPostClientAction(Request $request)
+    {
+        $client = $request->get('client');
+        if (!$client) {
+            return ['status' => 'ko', 'message' => 'You must provide a client object'];
+        }
+        $em = $this->getDoctrine()->getManager();
+        $customer = $this->clientRepository->findClient($client['codcli']);
+        $customer->setNom($client['nom'])
+        ->setPrenom($client['prenom'])
+        ->setCivil($client['civil'])
+        ->setAdresse($client['adresse'])
+        ->setCp($client['cp'])
+        ->setVille($client['ville'])
+        ->setPays($client['pays'])
+        ->setTel($client['tel'])
+        ->setMobil($client['mobil'])
+        ->setEmail($client['email'])
+        ->setSociete($client['societe']);
+        $em->persist($customer);
+        $em->flush();
+        return ['status' => 'ok', 'data' => $customer];
+    }
+
+
     private function getCartPrices($cart_id, $country, $destliv)
     {
         $cart = $this->cartRepository->find($cart_id);
