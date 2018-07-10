@@ -151,6 +151,8 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
         password: participant.password
       }).then(user => {
         afterLogin(user)
+      }).catch(() => {
+        $('.registration .catch-message', itemConnection).html(i18n.trans('security.user_exist'))
       })
     }).catch(error => {
       $('.registration .catch-message', itemConnection).html(error)

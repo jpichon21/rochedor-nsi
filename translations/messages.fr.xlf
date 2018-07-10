@@ -1483,5 +1483,11 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
         <target>Poids</target>
       </segment>
     </unit>
+    <unit id="znn8YMw" name="security.user_exist">
+      <segment>
+        <source>security.user_exist</source>
+        <target>L'adresse mail utilisée est déjà enregistrée.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
