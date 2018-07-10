@@ -13,6 +13,7 @@
                     <th scope="col">Price</th>
                     <th scope="col">Related Countrys</th>
                     <th scope="col">Maximal Weight</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +25,7 @@
                     <td>{{ shipping.country }}</td>
                     <td>{{ shipping.price }}</td>
                     <td>{% if shipping.relatedCountrys %}{{ shipping.relatedCountrys|join(', ') }}{% endif %}</td>
+                    <td>{{ shipping.maximalWeight }}</td>
                     <td>
                         <ul>
                             <li>

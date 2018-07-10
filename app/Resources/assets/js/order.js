@@ -99,7 +99,7 @@ itemOrder.on('change', '.select.adliv', function (event) {
   event.preventDefault()
   const data = $(this).val()
   let selectedVal = data
-  _delivery.destliv = data
+  _delivery.destliv = selectedVal
   if (selectedVal === 'Roche' ||  selectedVal === 'Font' || selectedVal === 'myAdd') {
     _delivery.adliv.adresse = _you.adresse
     _delivery.adliv.zipcode = _you.cp
