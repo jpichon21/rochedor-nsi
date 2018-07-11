@@ -26,6 +26,11 @@ import {
 import {
   Tab,
   Tabs,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
   MenuItem,
   Menu,
   GridList,
@@ -181,27 +186,6 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                                         <OnDemandVideoIcon />
                                       </IconButton>
                                     </Tooltip>
-                                    <Popover
-                                      open={context.state.popoverOpened === `${indexSection}-${indexSlide}-${indexImage}`}
-                                      anchorEl={context.state.anchorPopover}
-                                      onClose={context.handleClosePopover}>
-                                      <Tooltip
-                                        enterDelay={300}
-                                        id='tooltip-controlled'
-                                        leaveDelay={300}
-                                        placement='bottom'
-                                        title="Renseigner l'url de la vidéo choisie"
-                                      >
-                                        <TextField
-                                          className={classes.popover}
-                                          autoComplete='off'
-                                          InputLabelProps={{ shrink: true }}
-                                          name='page.title'
-                                          label='URL Vidéo'
-                                          value={context.state.page.content.sections[indexSection].slides[indexSlide].images[indexImage].video}
-                                          onChange={(event) => { context.handleChangePopover(event, indexSection, indexSlide, indexImage) }} />
-                                      </Tooltip>
-                                    </Popover>
                                   </div>
                                 )
                             }
@@ -320,13 +304,17 @@ export class ContentForm extends React.Component {
         isUploading: false
       },
       anchorVersion: null,
-      page: this.props.page
+      page: this.props.page,
+      noticeBlockquote: true,
+      noticeVideo: true,
+      noticeVideoId: '0-0-0',
+      AlertBlockquoteOpen: false,
+      AlertVideoOpen: false
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleOpenPopover = this.handleOpenPopover.bind(this)
-    this.handleClosePopover = this.handleClosePopover.bind(this)
     this.handleCloseVersion = this.handleCloseVersion.bind(this)
     this.handleChangePopover = this.handleChangePopover.bind(this)
     this.handleOpenLayoutMenu = this.handleOpenLayoutMenu.bind(this)
@@ -352,6 +340,10 @@ export class ContentForm extends React.Component {
     this.handleConvertFromHTML = this.handleConvertFromHTML.bind(this)
     this.handleSortSections = this.handleSortSections.bind(this)
     this.handleExpandSection = this.handleExpandSection.bind(this)
+    this.handleOpenAlertBlockquote = this.handleOpenAlertBlockquote.bind(this)
+    this.handleCloseAlertBlockquote = this.handleCloseAlertBlockquote.bind(this)
+    this.handleOpenAlertVideo = this.handleOpenAlertVideo.bind(this)
+    this.handleCloseAlertVideo = this.handleCloseAlertVideo.bind(this)
   }
 
   handleSortSections ({ oldIndex, newIndex }) {
@@ -452,16 +444,9 @@ export class ContentForm extends React.Component {
   }
 
   handleOpenPopover (event, indexPopover) {
+    this.handleOpenAlertVideo()
     this.setState({
-      anchorPopover: event.currentTarget,
-      popoverOpened: indexPopover
-    })
-  }
-
-  handleClosePopover () {
-    this.setState({
-      anchorPopover: null,
-      popoverOpened: false
+      noticeVideoId: indexPopover
     })
   }
 
@@ -657,11 +642,72 @@ export class ContentForm extends React.Component {
     })
   }
 
+  handleOpenAlertBlockquote () {
+    this.setState({ AlertBlockquoteOpen: true })
+  }
+
+  handleCloseAlertBlockquote () {
+    this.setState({ AlertBlockquoteOpen: false })
+  }
+
+  handleOpenAlertVideo () {
+    this.setState({ AlertVideoOpen: true })
+  }
+
+  handleCloseAlertVideo () {
+    this.setState({ AlertVideoOpen: false })
+  }
+
   render () {
+    document.addEventListener('click', event => {
+      const element = event.target
+      if (element && element.classList.contains('rdw-dropdownoption-default') && this.state.noticeBlockquote) {
+        this.setState({ noticeBlockquote: false })
+        this.handleOpenAlertBlockquote()
+      }
+    })
     const { classes } = this.props
     const versions = this.props.versions
+    const noticeVideoIds = this.state.noticeVideoId.split('-')
+    const noticeIndexSection = noticeVideoIds[0]
+    const noticeIndexSlide = noticeVideoIds[1]
+    const noticeIndexImage = noticeVideoIds[2]
     return (
       <div className={classes.container}>
+        <Dialog
+          open={this.state.AlertBlockquoteOpen}
+          onClose={this.handleCloseAlertBlockquote}>
+          <DialogTitle>Citation</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <p>La citation doit être renseigné en <em>italique</em><br />L'auteur doit être renseigné en <strong>gras</strong></p>
+              <p>Exemple :<br /><em>La foi, c'est une confiance, la gratuité d'une amitié.</em> <strong>Florin Callerand</strong></p>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseAlertBlockquote} color='primary' autoFocus>J'ai compris !</Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={this.state.AlertVideoOpen}
+          onClose={this.handleCloseAlertVideo}>
+          <DialogTitle>Vidéo</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <p>Vous êtes sur le point de renseigner l'URL de la vidéo. Ceci ne dispense pas d'ajouter une image !</p><br />
+              <TextField
+                autoComplete='off'
+                InputLabelProps={{ shrink: true }}
+                name='page.title'
+                label='URL Vidéo'
+                value={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].video}
+                onChange={(event) => { this.handleChangePopover(event, noticeIndexSection, noticeIndexSlide, noticeIndexImage) }} />
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseAlertVideo} color='primary' autoFocus>Valider</Button>
+          </DialogActions>
+        </Dialog>
         <Typography variant='display1' className={classes.title}>
           Contenu
         </Typography>
