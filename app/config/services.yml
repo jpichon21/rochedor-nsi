@@ -37,13 +37,14 @@ services:
         class: Gedmo\Loggable\LoggableListener
         tags:
             - { name: doctrine.event_subscriber, connection: default }
-    AppBundle\ServiceUpload:
+    AppBundle\Service\UploadService:
         arguments: 
             $targetDir: '%files_directory%'
     AppBundle\Service\PageService:
         arguments:
             $contentRepository: '@cmf_routing.content_repository'
             $routeProvider: '@cmf_routing.route_provider'
+            $locales: '%locales%'
     AppBundle\Repository\:
         resource: ../../src/AppBundle/Repository
     Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository: '@cmf_routing.orm_content_repository'
@@ -55,5 +56,9 @@ services:
         public: true
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
         tags:
             - { name: twig.extension }

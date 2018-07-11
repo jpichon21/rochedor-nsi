@@ -13,11 +13,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Repository\CalendarRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\ProductRepository;
+use AppBundle\Repository\CartRepository;
 use AppBundle\Entity\Produit;
 use AppBundle\Service\PageService;
 
@@ -33,6 +35,11 @@ class ProductController extends Controller
     private $productRepository;
 
     /**
+     * @var CartRepository
+     */
+    private $cartRepository;
+
+    /**
      * @var Translator
      */
     private $translator;
@@ -44,10 +51,12 @@ class ProductController extends Controller
 
     public function __construct(
         ProductRepository $productRepository,
+        CartRepository $cartRepository,
         Translator $translator,
         PageService $pageService
     ) {
         $this->productRepository = $productRepository;
+        $this->cartRepository = $cartRepository;
         $this->translator = $translator;
         $this->pageService = $pageService;
     }
@@ -62,11 +71,16 @@ class ProductController extends Controller
     public function showProductAction($id, Request $request)
     {
         $contentDocument = $this->pageService->getContentFromRequest($request);
-        $avaiableLocales = $this->pageService->getAvailableLocales($contentDocument);
+        $availableLocales = $this->pageService->getAvailableLocales($contentDocument);
         $product = $this->productRepository->findProduct($id);
         return $this->render(
             'product/details.html.twig',
-            ['product' => $product, 'avaiableLocales' => $avaiableLocales, 'page' => $contentDocument]
+            [
+                'product' => $product,
+                'availableLocales' => $availableLocales,
+                'page' => $contentDocument,
+                'cartCount' => $this->getCartCount()
+            ]
         );
     }
 
@@ -80,11 +94,16 @@ class ProductController extends Controller
     public function showNewProductsAction(Request $request)
     {
         $contentDocument = $this->pageService->getContentFromRequest($request);
-        $avaiableLocales = $this->pageService->getAvailableLocales($contentDocument);
+        $availableLocales = $this->pageService->getAvailableLocales($contentDocument);
         $products = $this->productRepository->findNewProducts();
         return $this->render(
             'product/news.html.twig',
-            ['products' => $products, 'avaiableLocales' => $avaiableLocales, 'page' => $contentDocument]
+            [
+                'products' => $products,
+                'availableLocales' => $availableLocales,
+                'page' => $contentDocument,
+                'cartCount' => $this->getCartCount()
+            ]
         );
     }
     
@@ -100,6 +119,9 @@ class ProductController extends Controller
         $locale = $request->getLocale();
         $collections = $this->productRepository->findCollections($locale);
         $themes = $this->productRepository->findThemes();
+        $themes = array_filter($themes, function ($theme) {
+            return $theme['theme'] != '';
+        });
 
         $products = null;
         
@@ -118,24 +140,41 @@ class ProductController extends Controller
             $productsCategorized = [];
             foreach ($collections as $collection) {
                 $productsCategorized[] = [
+                    'id' => $collection->getCodrub(),
                     'title' => $collection->getRubrique(),
                     'products' => $this->productRepository->findProducts($collection->getCodrub(), 2)
                 ];
             }
         }
         $contentDocument = $this->pageService->getContentFromRequest($request);
-        $avaiableLocales = $this->pageService->getAvailableLocales($contentDocument);
+        $availableLocales = $this->pageService->getAvailableLocales($contentDocument);
 
         return $this->render(
             'product/list.html.twig',
             [
-                'avaiableLocales' => $avaiableLocales,
+                'availableLocales' => $availableLocales,
                 'page' => $contentDocument,
                 'collections' => $collections,
                 'themes' => $themes,
                 'productsCategorized' => $productsCategorized,
                 'products' => $products,
+                'cartCount' => $this->getCartCount()
             ]
         );
+    }
+
+    private function getCartCount()
+    {
+        $session = new Session();
+        $cartId = $session->get('cart');
+        $cart = $this->cartRepository->find($cartId);
+        $count = 0;
+        if ($cart === null) {
+            return null;
+        }
+        foreach ($cart->getCartlines() as $line) {
+            $count += $line->getQuantity();
+        }
+        return $count;
     }
 }

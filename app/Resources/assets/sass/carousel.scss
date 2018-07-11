@@ -1,0 +1,120 @@
+@import 'magnific-popup-css';
+@import './variables';
+
+.carousel {
+  position: absolute;
+  display: flex;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 0;
+  &.active {
+    z-index: 1;
+    &.fade {
+      z-index: 2;
+      animation-duration: 0.8s;
+      animation-name: upElement;
+    }
+  }
+  .prev,
+  .next {
+    position: absolute;
+    top: 50%;
+    margin-top: -34px;
+    width: 68px;
+    height: 68px;
+    background-image: url('../img/arrow-left.png');
+    z-index: 1;
+    cursor: pointer;
+  }
+  .prev {
+    left: 0;
+  }
+  .next {
+    right: 0;
+    background-image: url('../img/arrow-right.png');
+  }
+  .slides {
+    position: relative;
+    display: flex;
+    flex: 1;
+    z-index: 0;
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      z-index: 0;
+      &.active {
+        z-index: 1;
+        &.fade {
+          z-index: 2;
+          animation-duration: 0.8s;
+          animation-name: upElement;
+        }
+      }
+      .top,
+      .bottom {
+        display: flex;
+        flex: 1;
+        .left,
+        .right {
+          display: flex;
+          flex: 1;
+        }
+        .full {
+          flex: 1;
+          position: relative;
+          background-size: cover;
+          background-position: center;
+          outline: none;
+          &:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: $roche-yellow;
+            opacity: 0;
+            transition: 0.5s;
+            z-index: 0;
+          }
+          &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 39px;
+            height: 39px;
+            background-image: url('../img/plus.png');
+            z-index: 1;
+          }
+          &.iframe {
+            &:after {
+              background-image: url('../img/play.png');
+            }
+          }
+          &:hover {
+            &:before {
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+      .bottom {
+        .full {
+          &:after {
+            top: auto;
+            bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes upElement {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

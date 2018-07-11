@@ -33,9 +33,13 @@ class ProductRepository
     public function findProduct($productId)
     {
         $query = $this->entityManager
-        ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.codprd=:productId');
+        ->createQuery('SELECT p, r 
+        FROM AppBundle\Entity\Produit p 
+        JOIN AppBundle\Entity\Prodrub r 
+        WITH r.codrub=p.codrub 
+        WHERE p.codprd=:productId');
         $query->setParameter('productId', $productId);
-        return $query->getOneOrNullResult();
+        return $query->getArrayResult();
     }
 
     /**
@@ -76,8 +80,8 @@ class ProductRepository
     {
         $query = $this->entityManager
         ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.nouveaute=true ORDER BY p.maj DESC');
-        $query->setMaxResults(4);
-        return $query->getResult();
+        $query->setMaxResults(5);
+        return $query->getArrayResult();
     }
 
     /**
@@ -112,5 +116,39 @@ class ProductRepository
         theme");
         $query->execute();
         return $query->fetchAll();
+    }
+
+    /**
+    * Find themes
+    *
+    * @return Product
+    */
+    public function find($productId)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.codprd=:productId');
+        $query->setParameter('productId', $productId);
+        return $query->getResult()[0];
+    }
+
+
+    /**
+     * Find applicable tax for a given product and country
+     *
+     * @param integer $productId
+     * @param string $country
+     * @return AppBundle\Entity\Tax|null
+     */
+    public function findTax($productId, $country)
+    {
+        $product = $this->find($productId);
+        $taxes = $product->getTaxes();
+
+        foreach ($taxes as $tax) {
+            if (in_array($country, $tax->getCountries())) {
+                return $tax;
+            }
+        }
+        return null;
     }
 }

@@ -1,26 +1,28 @@
-{% set sections = [] %}
 {% set bodyClass = "page" %}
-{% set bodyBackground = constant('AppBundle\\Entity\\Page::BACKGROUNDS')[page.background] %}
+{% set bodyBackground = page.background %}
+{% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
+{% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/page.css') }}">
+{% endblock %}
 {% block content %}
 <div class="content">
     <div class="left">
-        <div class="inner">
-            <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
-            {% if page.content.intro %}
-            <div class="intro">
-                {{ page.content.intro | raw }}
+        <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
+        {% if page.content.intro %}
+        <div class="intro">
+            {{ page.content.intro | raw }}
+        </div>
+        {% endif %}
+        <div class="dropdown {% if page.content.sections|length == 1 %}single{% endif %}">
+            {% for section in page.content.sections %}
+            <div class="item {% if loop.first %}first{% endif %}"
+                data-carousel-id="{{ section.title|md5 }}">
+                <h2>{{ section.title }}</h2>
+                {{ section.body | raw }}
             </div>
-            {% endif %}
-            <div class="dropdown {% if page.content.sections|length == 1 %}single{% endif %}">
-                {% for section in page.content.sections %}
-                <div class="item"
-                    data-carousel-id="{{ section.title|md5 }}">
-                    <h2>{{ section.title }}</h2>
-                    {{ section.body | raw }}
-                </div>
-                {% endfor %}
-            </div>
+            {% endfor %}
         </div>
     </div>
     <div class="hole">
@@ -47,5 +49,5 @@
 </div>
 {% endblock %}
 {% block javascripts %}
-<script src="{{ asset("assets/js/page.js") }}"></script>
+<script src="{{ asset('assets/js/page.js') }}"></script>
 {% endblock %}

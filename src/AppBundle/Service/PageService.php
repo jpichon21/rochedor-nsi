@@ -7,16 +7,25 @@ use Symfony\Cmf\Bundle\RoutingBundle\Controller;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PageService
 {
     private $contentRepository;
     private $routeProvider;
+    private $locales;
+    private $urlGenerator;
 
-    public function __construct(ContentRepository $contentRepository, RouteProvider $routeProvider)
-    {
+    public function __construct(
+        ContentRepository $contentRepository,
+        RouteProvider $routeProvider,
+        String $locales,
+        UrlGeneratorInterface $urlGenerator
+    ) {
         $this->contentRepository = $contentRepository;
         $this->routeProvider = $routeProvider;
+        $this->locales = explode('|', $locales);
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function getContent($route)
@@ -32,10 +41,11 @@ class PageService
 
     public function getAvailableLocales($contentDocument)
     {
-        if (!$contentDocument) {
+        if ($contentDocument === null) {
             return null;
         }
         $availableLocales = array();
+     
         if ($contentDocument->getLocale() === "fr") {
             $cm = $contentDocument->getChildren();
             $myChild = $cm->getValues();
@@ -44,6 +54,9 @@ class PageService
             $mc = $cm->getChildren();
             $myChild = $mc->getValues();
             $tmpP = $cm->getRoutes()->getValues();
+            if (!$tmpP) {
+                return null;
+            }
             $availableLocales['fr'] = $tmpP[0]->getStaticPrefix();
         }
         foreach ($myChild as $childPage) {

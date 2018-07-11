@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
-import { postPage, initStatus, setMessage, setLocale, getPages } from '../../actions'
+import { postPage, initStatus, setLocale, getPages } from '../../actions'
 import PageForm from '../page-form/page-form'
 import AppMenu from '../app-menu/app-menu'
 import { locales } from '../../locales'
@@ -19,7 +18,9 @@ export class PageCreate extends React.Component {
   }
 
   onSubmit (page) {
-    this.props.dispatch(postPage(page))
+    this.props.dispatch(postPage(page)).then((res) => {
+      this.props.history.push(`/page-edit/${res.id}`)
+    })
   }
 
   componentWillMount () {
@@ -43,11 +44,6 @@ export class PageCreate extends React.Component {
   }
 
   render () {
-    if (this.props.status === 'ok') {
-      this.props.dispatch(setMessage('Page créee'))
-      this.props.dispatch(initStatus())
-      return <Redirect to='/page-list' />
-    }
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />

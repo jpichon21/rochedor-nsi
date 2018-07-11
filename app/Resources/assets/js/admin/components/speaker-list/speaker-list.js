@@ -57,7 +57,7 @@ export class SpeakerList extends React.Component {
           onOpen={this.handleTooltipOpen}
           open={this.state.open}
           placement='bottom'
-          title='Réordoner par glisser déposer'
+          title='Réordonner par glisser déposer'
         >
           <TableCell style={{ 'width': '50px' }}>
             <DragHandle />

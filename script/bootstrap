@@ -53,8 +53,9 @@ composer install
 echo "==> Installing NPM dependencies… ${do_update:+'(force update)'}"
 yarn install ${do_update:+'--force'}
 
-echo "==> Creating database…"
-php bin/console doctrine:database:create > /dev/null
+
+# echo "==> Creating database…"
+# php bin/console doctrine:database:create > /dev/null
 
 echo "==> Update database schema…"
 php bin/console doctrine:schema:update --force

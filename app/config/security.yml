@@ -11,17 +11,28 @@ security:
             entity:
                 class: AppBundle:Contact
                 property: username
+        shop_db_provider:
+            entity:
+                class: AppBundle:Client
+                property: email
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
     encoders:
         AppBundle\Entity\Contact: bcrypt
+        AppBundle\Entity\Client: bcrypt
         Symfony\Component\Security\Core\User\User: bcrypt
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        shop:
+            pattern: ^/([a-z]{2,3}\/(cart|shop|order)|shop/(login|register|password-request))
+            provider: shop_db_provider
+            anonymous: ~
+            json_login:
+                check_path: /shop/login
         main:
             pattern: ^/
             provider: legacy_db_provider
@@ -38,3 +49,5 @@ security:
 
     access_control:
         - { path: ^/api, role: ROLE_ADMIN}
+        - { path: ^/crud, role: ROLE_ADMIN}
+        - { path: ^/admin/_trans, role: ROLE_ADMIN}

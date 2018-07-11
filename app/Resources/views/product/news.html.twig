@@ -1,7 +1,63 @@
-<html>
-<body>
-  {{ dump(products) }}
-  {{ dump(page) }}
-  {{ dump(avaiableLocales) }}
-</body>
-</html>
+{% set featured = products|first %}
+{% set others = products|slice(1) %}
+{% set slides = [featured.adimg, featured.adimg2, featured.adimg3] %}
+{% set slidesCount = 0 %}
+{% set bodyClass = "editions news" %}
+{% set bodyBackground = 7 %}
+{% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
+{% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/carousel.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/editions.css') }}">
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="zone">
+      <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
+      <div class="featured">
+        <div class="left">
+          <h2>{{ 'news.title' | trans }}</h2>
+          <p>{{ featured.memoprd | raw }}</p>
+          <a class="button right-arrow" href="{{ url('collection-' ~ app.request.locale, { id: featured.codprd }) }}">{{ 'news.button.discover' | trans }}</a>
+        </div>
+        <div class="right">
+          <div class="carousel active">
+            <div class="slides">
+              {% for slide in slides %}
+              {% if slide != '' %}
+              {% set slidesCount = slidesCount + 1 %}
+              <div class="slide {% if loop.first %}active{% endif %}">
+                <div class="top">
+                  <a class="full"
+                    title="{{ featured.produitcourt }}"
+                    href="{{ url('collection-' ~ app.request.locale, { id: featured.codprd }) }}"
+                    style="{{ asset(slide) | background }}">
+                  </a>
+                </div>
+              </div>
+              {% endif %}
+              {% endfor %}
+            </div>
+            {% if slidesCount > 1 %}
+            <div class="prev"></div>
+            <div class="next"></div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <h2>{{ 'news.last_posts.title' | trans }}</h2>
+      <div class="products">
+      {% for product in others %}
+        {% include 'parts/product.html.twig'
+          with { 'product': product } %}
+      {% endfor %}
+      </div>
+      <a href="{{ url('collections-' ~ app.request.locale) }}" class="button right-arrow">{{ 'editions.seeallproducts' | trans }}</a>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset("assets/js/carousel.js") }}"></script>
+<script src="{{ asset("assets/js/editions.js") }}"></script>
+{% endblock %}

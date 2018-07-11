@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ app.request.locale }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>LRDO</title>
+    <title>{% block title %}La Roche d'Or{% endblock %}</title>
     <link rel="stylesheet" href="https://use.typekit.net/ozm6rkb.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display">
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/main.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/main.css") }}">
+    {% block metadescription %}{% endblock %}
     {% block stylesheets %}{% endblock %}
 </head>
-<body class="{{ bodyClass }}" style="{{ asset(bodyBackground)|background }}">
+{% if bodyClass == 'home' %}
+<body class="home">
+{% else %}
+<body class="{{ bodyClass|default('') }}" style="{{ bodyBackground|default(0)|constantBackground }}">
+{% endif %}
+    {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+    {% set currentLocale = app.request.locale %}
     {% include 'parts/header.html.twig' %}
     {% block content %}{% endblock %}
     {% include 'parts/footer.html.twig' %}

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\ServiceUpload;
+use AppBundle\Service\UploadService;
 
 /**
  * MediaRepository

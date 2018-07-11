@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Editor } from 'react-draft-wysiwyg'
 import immutable from 'object-path-immutable'
 import draftToHtml from 'draftjs-to-html'
+import htmlToDraft from 'html-to-draftjs'
 import SaveIcon from '@material-ui/icons/Save'
 import { withStyles } from '@material-ui/core/styles'
 import { uploadFile } from '../../actions'
@@ -12,7 +13,6 @@ import moment from 'moment'
 import {
   EditorState,
   convertToRaw,
-  convertFromHTML,
   ContentState } from 'draft-js'
 import {
   MenuItem,
@@ -22,6 +22,11 @@ import {
   Typography,
   Grid,
   Tooltip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
@@ -45,7 +50,9 @@ export class HomeForm extends React.Component {
       fileUploading: {
         isUploading: false
       },
-      anchorVersion: null
+      anchorVersion: null,
+      noticeBlockquote: true,
+      AlertBlockquoteOpen: false
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
@@ -56,6 +63,8 @@ export class HomeForm extends React.Component {
     this.handleChangeTextArea = this.handleChangeTextArea.bind(this)
     this.handleInit = this.handleInit.bind(this)
     this.handleConvertFromHTML = this.handleConvertFromHTML.bind(this)
+    this.handleOpenAlertBlockquote = this.handleOpenAlertBlockquote.bind(this)
+    this.handleCloseAlertBlockquote = this.handleCloseAlertBlockquote.bind(this)
   }
 
   handleInit (props) {
@@ -66,7 +75,7 @@ export class HomeForm extends React.Component {
   handleConvertFromHTML (state) {
     let sections = state.home.content.sections.map((section) => {
       if (typeof section.body === 'string') {
-        const blocksFromHTML = convertFromHTML(section.body)
+        const blocksFromHTML = htmlToDraft(section.body)
         let content
         if (blocksFromHTML.contentBlocks) {
           content = ContentState.createFromBlockArray(
@@ -151,7 +160,6 @@ export class HomeForm extends React.Component {
   }
 
   handleChangeFileUpload (event, indexSection, indexSlide, indexImage) {
-    this.props.dispatch(uploadFile(event.target.files[0]))
     this.setState({
       fileUploading: {
         isUploading: true,
@@ -159,6 +167,13 @@ export class HomeForm extends React.Component {
         indexSlide: indexSlide,
         indexImage: indexImage
       }
+    })
+    this.props.dispatch(uploadFile(event.target.files[0])).then((res) => {
+      this.setState({
+        fileUploading: {
+          isUploading: false
+        }
+      })
     })
   }
 
@@ -185,11 +200,40 @@ export class HomeForm extends React.Component {
     }
   }
 
+  handleOpenAlertBlockquote () {
+    this.setState({ AlertBlockquoteOpen: true })
+  }
+
+  handleCloseAlertBlockquote () {
+    this.setState({ AlertBlockquoteOpen: false })
+  }
+
   render () {
+    document.addEventListener('click', event => {
+      const element = event.target
+      if (element && element.classList.contains('rdw-dropdownoption-default') && this.state.noticeBlockquote) {
+        this.setState({ noticeBlockquote: false })
+        this.handleOpenAlertBlockquote()
+      }
+    })
     const { classes } = this.props
     const versions = this.props.versions
     return (
       <div className={classes.container}>
+        <Dialog
+          open={this.state.AlertBlockquoteOpen}
+          onClose={this.handleCloseAlertBlockquote}>
+          <DialogTitle>Citation</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <p>La citation doit être renseigné en <em>italique</em><br />L'auteur doit être renseigné en <strong>gras</strong></p>
+              <p>Exemple :<br /><em>La foi, c'est une confiance, la gratuité d'une amitié.</em> <strong>Florin Callerand</strong></p>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseAlertBlockquote} color='primary' autoFocus>J'ai compris !</Button>
+          </DialogActions>
+        </Dialog>
         <Typography variant='display1' className={classes.title}>
           SEO
         </Typography>
@@ -291,6 +335,12 @@ export class HomeForm extends React.Component {
                       <Editor
                         stripPastedStyles
                         spellCheck
+                        localization={{
+                          locale: 'fr',
+                          translations: {
+                            'components.controls.link.linkTarget': 'Lien (URL)'
+                          }
+                        }}
                         editorState={this.state.home.content.sections[indexSection].body}
                         onEditorStateChange={editorState => this.handleChangeTextArea(editorState, indexSection)}
                         toolbar={{
@@ -330,7 +380,7 @@ export class HomeForm extends React.Component {
                 onOpen={this.handleTooltipOpen}
                 open={this.state.open}
                 placement='bottom'
-                title='Historique'
+                title='Revenir à une version antérieur'
               >
                 <Button
                   className={classes.button}
@@ -375,14 +425,14 @@ export class HomeForm extends React.Component {
             onOpen={this.handleTooltipOpen}
             open={this.state.open}
             placement='bottom'
-            title='Sauvegarder'
+            title='Publier'
           >
             <Button
               disabled={!this.isSubmitEnabled()}
               onClick={this.handleSubmit}
               className={classes.button}
               variant='fab'
-              text='Sauvegarder'
+              text='Publier'
               color='primary'>
               <SaveIcon />
             </Button>

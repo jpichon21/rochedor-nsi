@@ -1,22 +1,39 @@
-{% set sections = [] %}
 {% set bodyClass = "page" %}
 {% set bodyBackground = page.background %}
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/speaker.css') }}">
+{% endblock %}
 {% block content %}
 <div class="content">
-    <div class="left">
-        <div class="zone">
-            <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
+    <div class="zone">
+        <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
+    </div>
+    <div class="carousel">
+        <div class="prev"></div>
+        <div class="next"></div>
+        <div class="slick">
             {% for speaker in speakers %}
-                <h1>{{speaker.name}}</h1>
-                <h1>{{speaker.title}}</h1>
-                <h1>{{speaker.description}}<h1>
-                <img src="{{speaker.image}}" />
+            <div class="slide">
+                <div class="portrait" style="{{ speaker.image | background }}"></div>
+                <div class="description">
+                    <h2>{{ speaker.name }}</h2>
+                    <span>{{ speaker.title }}</span>
+                    <div class="text">
+                        <div class="short">
+                            <p>{{ speaker.description | truncate(300, true) }}</p>
+                        </div>
+                        <div class="long">
+                            <p>{{ speaker.description | truncate(700, true) }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
         </div>
     </div>
 </div>
 {% endblock %}
 {% block javascripts %}
-<script src="{{ asset("assets/js/page.js") }}"></script>
+<script src="{{ asset('assets/js/speaker.js') }}"></script>
 {% endblock %}

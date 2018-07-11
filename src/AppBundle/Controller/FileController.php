@@ -9,12 +9,14 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use AppBundle\ServiceUpload;
+use AppBundle\Service\UploadService;
 use AppBundle\Entity\Media;
 use Swagger\Annotations as SWG;
 
 class FileController extends Controller
 {
+    const MAX_FILE_SIZE = 2000000;
+    
     /**
      * @Route("/api/file/upload")
      * @Method({"POST"})
@@ -38,13 +40,16 @@ class FileController extends Controller
      *   )
      * )
      */
-    public function postAction(Request $request, ServiceUpload $upload)
+    public function postAction(Request $request, UploadService $upload)
     {
         $em = $this->getDoctrine()->getManager();
         $media = new Media;
         $file = $request->files->get('file');
         if (empty($file)) {
             return new JsonResponse(['message' => 'File not found'], Response::HTTP_NOT_FOUND);
+        }
+        if ($file->getClientSize() > $this::MAX_FILE_SIZE || $file->getClientSize() ===  0) {
+            return new JsonResponse(['message' => 'File too big'], Response::HTTP_FORBIDDEN);
         }
         $path = $upload->assignName($file);
         $check = $this->getDoctrine()->getRepository('AppBundle:Media')->findByPath($path);

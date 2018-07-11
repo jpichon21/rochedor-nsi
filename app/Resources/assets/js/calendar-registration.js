@@ -6,9 +6,13 @@ import {
   getLogin,
   getLogout,
   postLogin,
+  resetLogin,
   getRegistered,
   postRegistered,
   postRegister } from './calendar-api.js'
+import I18n from './i18n'
+
+let i18n = new I18n()
 
 /* Infos */
 
@@ -119,6 +123,17 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
     password: $('.password', this).val()
   }).then(user => {
     afterLogin(user)
+  }).catch(() => {
+    $('.connection .catch-message', itemConnection).html(i18n.trans('security.bad_credentials'))
+  })
+})
+
+itemConnection.on('submit', '.panel.reset form', function (event) {
+  event.preventDefault()
+  resetLogin({
+    email: $('.username', this).val()
+  }).then(() => {
+    $('.reset .catch-message', itemConnection).html(i18n.trans('security.check_inbox'))
   })
 })
 
@@ -136,12 +151,14 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
         password: participant.password
       }).then(user => {
         afterLogin(user)
+      }).catch(() => {
+        $('.registration .catch-message', itemConnection).html(i18n.trans('security.user_exist'))
       })
     }).catch(error => {
-      $('.catch-message', itemConnection).html(error)
+      $('.registration .catch-message', itemConnection).html(error)
     })
   } else {
-    $('.catch-message', itemConnection).html(_translations.message.date_invalid)
+    $('.registration .catch-message', itemConnection).html(_translations.message.date_invalid)
   }
 })
 
@@ -157,6 +174,9 @@ itemConnection.on('click', 'a', function (event) {
       $(`.panel.${which}`, itemConnection).show()
       _participant = getParticipant()
       updateYouFormRender()
+      break
+    case 'reset':
+      $('.panel.reset', itemConnection).show()
       break
     case 'continue':
       getLogin().then(user => afterLogin(user))
@@ -242,9 +262,7 @@ itemParticipants.on('submit', '.panel.add form', function (event) {
 })
 
 function updateParticipants () {
-  console.log(_registered)
   _participants = _registered.filter(participant => {
-    console.log(participant)
     return participant.check
   })
   _participants.push(_you)
@@ -295,17 +313,26 @@ itemParticipants.on('click', '.add-participant', function (event) {
 })
 
 function validateTransports () {
-  let validate = true
-  _participants.map(participant => {
-    if (participant.transport === '') { validate = false }
-  })
-  return validate
+  const whoAreWeWaiting = _participants.filter(participant => participant.transport === '')
+  if (whoAreWeWaiting.length > 0) {
+    return {
+      whoAreWeWaitingRender: () => {
+        let html = ''
+        console.log(whoAreWeWaiting)
+        whoAreWeWaiting.map(who => {
+          html += '<li>' + who.prenom + ' ' + who.nom + '</li>'
+        })
+        return html
+      }
+    }
+  }
+  return { success: true }
 }
 
 itemParticipants.on('click', '.validate-participants', function (event) {
   event.preventDefault()
   const validate = validateTransports()
-  if (validate) {
+  if (validate.success) {
     postRegistered(_participants, _infos.idact).then(res => {
       let result = $('.result', itemValidation).html()
       result = result.replace('%entry_number%', res)
@@ -315,6 +342,9 @@ itemParticipants.on('click', '.validate-participants', function (event) {
       $('.right .catch-message').html(error)
     })
   } else {
-    $('.right .catch-message').html(_translations.message.verify_transport)
+    $('.right .catch-message').html(
+      _translations.message.verify_transport +
+      '<ul>' + validate.whoAreWeWaitingRender() + '</ul>'
+    )
   }
 })

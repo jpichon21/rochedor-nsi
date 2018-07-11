@@ -18,6 +18,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use AppBundle\Service\Mailer;
 use AppBundle\Entity\Contact;
 use AppBundle\Form\RegisterType;
+use AppBundle\Service\PageService;
 
 class SecurityController extends Controller
 {
@@ -32,12 +33,19 @@ class SecurityController extends Controller
      */
     private $translator;
 
+    /**
+     * @var PageService
+     */
+    private $pageService;
+
     public function __construct(
         Mailer $mailer,
-        Translator $translator
+        Translator $translator,
+        PageService $pageService
     ) {
         $this->mailer = $mailer;
         $this->translator = $translator;
+        $this->pageService = $pageService;
     }
 
     /**
@@ -100,7 +108,16 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/login-form/{_locale}", name="login-form", requirements={"methods": "{GET, POST}"})
+     * @Route("/_locale/login-form", name="login-form")
+     */
+    public function preLoginFormAction(Request $request)
+    {
+        $locale = $request->getLocale();
+        return $this->redirectToRoute("login-form-$locale");
+    }
+
+    /**
+     * @Route("/{_locale}/login-form", name="login-form", requirements={"methods": "{GET, POST}"})
      */
     public function loginFormAction(Request $request, AuthenticationUtils $authenticationUtils)
     {
@@ -109,7 +126,7 @@ class SecurityController extends Controller
     
         return $this->render('security/login.html.twig', array(
             'last_username' => $lastUsername,
-            'error'         => $error,
+            'error' => $error
         ));
     }
 
@@ -173,7 +190,7 @@ class SecurityController extends Controller
     }
 
     /**
-    * @Route("/register-form/{_locale}", name="register-form", requirements={"methods": "{GET, POST}"})
+    * @Route("/{_locale}/register-form", name="register-form", requirements={"methods": "{GET, POST}"})
     */
     public function registerFormAction(
         Request $request,
@@ -197,7 +214,9 @@ class SecurityController extends Controller
             $em->flush();
             return $this->redirectToRoute('password_register_success');
         }
-        return $this->render('security/register.html.twig', ['form' => $form->createView()]);
+        return $this->render('security/register.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
     /**
@@ -234,7 +253,7 @@ class SecurityController extends Controller
         return new JsonResponse(['status' => 'ok', 'message' => 'The email has been sent']);
     }
     /**
-    * @Route("/password-reset/{_locale}/{token}", name="password-reset", requirements={"methods": "{GET, POST}"})
+    * @Route("/{_locale}/password-reset/{token}", name="password-reset", requirements={"methods": "{GET, POST}"})
     */
     public function passwordResetAction(
         Request $request,
@@ -274,18 +293,22 @@ class SecurityController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($contact);
             $em->flush();
-            return $this->redirectToRoute('password_reset_success');
+            return $this->redirectToRoute('password-reset-success');
         }
-        return $this->render('security/password-reset.html.twig', ['form' => $form->createView()]);
+        return $this->render('security/password-reset.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
     /**
-    * @Route("/password-reset-success/{_locale}", name="password_reset_success",
-    * requirements={"methods": "{GET, POST}"})
+    * @Route("/{_locale}/password-reset-success",
+    * name="password-reset-success", requirements={"methods": "{GET, POST}"})
     */
     public function passwordResetSuccessAction(Request $request)
     {
-        return $this->render('security/password-reset-success.html.twig', ['contact' => null]);
+        return $this->render('security/password-reset-success.html.twig', array(
+            'contact' => null
+        ));
     }
 
     /**

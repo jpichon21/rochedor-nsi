@@ -1,9 +1,9 @@
 <?php
-namespace AppBundle;
+namespace AppBundle\Service;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class ServiceUpload
+class UploadService
 {
     private $targetDir;
 
@@ -24,7 +24,7 @@ class ServiceUpload
     {
         $extension = '.' . $file->guessExtension();
         $baseName = str_replace($extension, '', $file->getClientOriginalName());
-        $fileName = $baseName .time(). $extension;
+        $fileName = $this->slugify($baseName) .time(). $extension;
         return $fileName;
     }
     

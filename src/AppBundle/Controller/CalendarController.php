@@ -243,6 +243,7 @@ class CalendarController extends Controller
                 $site = $calendar['sitact'];
                 $registrationCount = (int) $this->calendarRepository->findRegistrationCount($site)['valeurn'] + 1;
                 $refLcal = $this->refCal($registrationCount, $site);
+                $this->calendarRepository->updateRegistrationCounter($site, $registrationCount);
                 $calL = new CalL();
                 $calL->setCodcal($activityId)
                 ->setLcal($contact->getCodco())

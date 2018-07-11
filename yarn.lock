@@ -1361,6 +1361,13 @@ buffer@^4.3.0:
     ieee754 "^1.1.4"
     isarray "^1.0.0"
 
+buffer@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.1.0.tgz#c913e43678c7cb7c8bd16afbcddb6c5505e8f9fe"
+  dependencies:
+    base64-js "^1.0.2"
+    ieee754 "^1.1.4"
+
 builtin-modules@^1.0.0, builtin-modules@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/builtin-modules/-/builtin-modules-1.1.1.tgz#270f076c5a72c02f5b65a47df94c5fe3a278892f"
@@ -4370,6 +4377,10 @@ js-yaml@~3.7.0:
     argparse "^1.0.7"
     esprima "^2.6.0"
 
+jsbarcode@^3.9.0:
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/jsbarcode/-/jsbarcode-3.9.0.tgz#dabe86e28bc3f189a80dc9d88030036882967912"
+
 jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
@@ -7261,6 +7272,10 @@ sha.js@^2.4.0, sha.js@^2.4.8:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
+
+sha512@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/sha512/-/sha512-0.0.1.tgz#26e59022ef6abc75c7344f0a5ef3936caf2542d5"
 
 shallow-clone@^1.0.0:
   version "1.0.0"
