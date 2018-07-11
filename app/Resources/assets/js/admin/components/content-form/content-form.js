@@ -10,6 +10,7 @@ import { SortableContainer, SortableElement, arrayMove, SortableHandle } from 'r
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import SaveIcon from '@material-ui/icons/Save'
 import OnDemandVideoIcon from '@material-ui/icons/OndemandVideo'
+import FontDownloadIcon from '@material-ui/icons/FontDownload'
 import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual'
 import { withStyles } from '@material-ui/core/styles'
 import { tileData } from './tileData'
@@ -178,11 +179,24 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                                       id='tooltip-controlled'
                                       leaveDelay={300}
                                       placement='bottom'
-                                      title='Sélectionner une vidéo'
+                                      title='Ajouter une légende'
+                                    >
+                                      <IconButton
+                                        color={slide.images[tile.id].alt === '' ? 'primary' : 'secondary'}
+                                        onClick={event => { context.handleChangeImageAlt(event, `${indexSection}-${indexSlide}-${indexImage}`) }}>
+                                        <FontDownloadIcon />
+                                      </IconButton>
+                                    </Tooltip>
+                                    <Tooltip
+                                      enterDelay={300}
+                                      id='tooltip-controlled'
+                                      leaveDelay={300}
+                                      placement='bottom'
+                                      title='Ajouter une vidéo'
                                     >
                                       <IconButton
                                         color={slide.images[tile.id].video === '' ? 'primary' : 'secondary'}
-                                        onClick={event => { context.handleOpenPopover(event, `${indexSection}-${indexSlide}-${indexImage}`) }}>
+                                        onClick={event => { context.handleChangeImageVideo(event, `${indexSection}-${indexSlide}-${indexImage}`) }}>
                                         <OnDemandVideoIcon />
                                       </IconButton>
                                     </Tooltip>
@@ -307,16 +321,18 @@ export class ContentForm extends React.Component {
       page: this.props.page,
       noticeBlockquote: true,
       noticeVideo: true,
-      noticeVideoId: '0-0-0',
+      noticeId: '0-0-0',
       AlertBlockquoteOpen: false,
-      AlertVideoOpen: false
+      AlertVideoOpen: false,
+      AlertAltOpen: false
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleOpenPopover = this.handleOpenPopover.bind(this)
+    this.handleChangeImageVideo = this.handleChangeImageVideo.bind(this)
+    this.handleChangeImageAlt = this.handleChangeImageAlt.bind(this)
     this.handleCloseVersion = this.handleCloseVersion.bind(this)
-    this.handleChangePopover = this.handleChangePopover.bind(this)
+    this.handleChangeVideo = this.handleChangeVideo.bind(this)
     this.handleOpenLayoutMenu = this.handleOpenLayoutMenu.bind(this)
     this.handleCloseLayoutMenu = this.handleCloseLayoutMenu.bind(this)
     this.handleChangeLayoutMenu = this.handleChangeLayoutMenu.bind(this)
@@ -344,6 +360,8 @@ export class ContentForm extends React.Component {
     this.handleCloseAlertBlockquote = this.handleCloseAlertBlockquote.bind(this)
     this.handleOpenAlertVideo = this.handleOpenAlertVideo.bind(this)
     this.handleCloseAlertVideo = this.handleCloseAlertVideo.bind(this)
+    this.handleOpenAlertAlt = this.handleOpenAlertAlt.bind(this)
+    this.handleCloseAlertAlt = this.handleCloseAlertAlt.bind(this)
   }
 
   handleSortSections ({ oldIndex, newIndex }) {
@@ -443,10 +461,17 @@ export class ContentForm extends React.Component {
     }
   }
 
-  handleOpenPopover (event, indexPopover) {
+  handleChangeImageVideo (event, indexPopover) {
     this.handleOpenAlertVideo()
     this.setState({
-      noticeVideoId: indexPopover
+      noticeId: indexPopover
+    })
+  }
+
+  handleChangeImageAlt (event, indexPopover) {
+    this.handleOpenAlertAlt()
+    this.setState({
+      noticeId: indexPopover
     })
   }
 
@@ -458,8 +483,13 @@ export class ContentForm extends React.Component {
     this.setState({ anchorVersion: event.currentTarget })
   }
 
-  handleChangePopover (event, indexSection, indexSlide, indexImage) {
+  handleChangeVideo (event, indexSection, indexSlide, indexImage) {
     const state = immutable.set(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}.images.${indexImage}.video`, event.target.value)
+    this.setState(state)
+  }
+
+  handleChangeAlt (event, indexSection, indexSlide, indexImage) {
+    const state = immutable.set(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}.images.${indexImage}.alt`, event.target.value)
     this.setState(state)
   }
 
@@ -658,6 +688,14 @@ export class ContentForm extends React.Component {
     this.setState({ AlertVideoOpen: false })
   }
 
+  handleOpenAlertAlt () {
+    this.setState({ AlertAltOpen: true })
+  }
+
+  handleCloseAlertAlt () {
+    this.setState({ AlertAltOpen: false })
+  }
+
   render () {
     document.addEventListener('click', event => {
       const element = event.target
@@ -668,10 +706,10 @@ export class ContentForm extends React.Component {
     })
     const { classes } = this.props
     const versions = this.props.versions
-    const noticeVideoIds = this.state.noticeVideoId.split('-')
-    const noticeIndexSection = noticeVideoIds[0]
-    const noticeIndexSlide = noticeVideoIds[1]
-    const noticeIndexImage = noticeVideoIds[2]
+    const noticeIds = this.state.noticeId.split('-')
+    const noticeIndexSection = noticeIds[0]
+    const noticeIndexSlide = noticeIds[1]
+    const noticeIndexImage = noticeIds[2]
     return (
       <div className={classes.container}>
         <Dialog
@@ -701,11 +739,31 @@ export class ContentForm extends React.Component {
                 name='page.title'
                 label='URL Vidéo'
                 value={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].video}
-                onChange={(event) => { this.handleChangePopover(event, noticeIndexSection, noticeIndexSlide, noticeIndexImage) }} />
+                onChange={(event) => { this.handleChangeVideo(event, noticeIndexSection, noticeIndexSlide, noticeIndexImage) }} />
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleCloseAlertVideo} color='primary' autoFocus>Valider</Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={this.state.AlertAltOpen}
+          onClose={this.handleCloseAlertAlt}>
+          <DialogTitle>Légende</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <p>Vous êtes sur le point de renseigner la légende de l'image.</p><br />
+              <TextField
+                autoComplete='off'
+                InputLabelProps={{ shrink: true }}
+                name='page.title'
+                label='Légende'
+                value={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].alt}
+                onChange={(event) => { this.handleChangeAlt(event, noticeIndexSection, noticeIndexSlide, noticeIndexImage) }} />
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseAlertAlt} color='primary' autoFocus>Valider</Button>
           </DialogActions>
         </Dialog>
         <Typography variant='display1' className={classes.title}>
