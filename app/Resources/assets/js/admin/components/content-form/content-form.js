@@ -45,7 +45,6 @@ import {
   ExpansionPanelSummary,
   ExpansionPanelActions,
   Divider,
-  Popover,
   IconButton,
   CircularProgress,
   Tooltip,
