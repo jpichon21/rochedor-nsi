@@ -5,46 +5,50 @@
 <link rel="stylesheet" href="{{ asset('assets/css/page.css') }}">
 {% endblock %}
 {% block content %}
-  <div class="content">
-      <div class="left">
-          <h1><small>Formulaire </small>d'inscription</h1>
-          <div class="dropdown single">
-              <div class="item">
-                <h2>Formulaire</h2>
-                <div class="panel active">
-                    <div class="pure-g">
+<div class="content">
+    <div class="left">
+        <h1><small>La </small>Roche d'Or</h1>
+        <div class="dropdown single">
+            <div class="item">
+              <h2>{{ 'form.title.connection' | trans }}</h2>
+              <div class="panel active">
+                  <div class="pure-g">
+                    <form action="{{ path('login-form') }}" method="post">
+                      <div class="pure-u-1-2">
+                        <input autocomplete="nope" type="text" class="input" placeholder="{{ 'form.username' | trans }}" name="_username">
+                      </div>
+                      <div class="pure-u-1-2"> 
+                        <input autocomplete="nope" type="password" class="input" placeholder="{{ 'form.password' | trans }}" name="_password">
+                      </div>
+                      <div class="pure-u-1-4"> 
+                        <button type="submit" class="input button submit">{{ 'form.validate'|trans }}</button>
+                      </div>
+                      <div class="pure-u-3-4"> 
                       {% if error %}
-                        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        <div class="catch-message">
+                          {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
                       {% endif %}
-                      <form action="{{ path('login-form') }}" method="post">
-                        <div class="pure-u-1-2">
-                          <input type="text" id="username" placeholder ="Identifiant" name="_username" value="{{ last_username }}" class="input"/>
-                        </div>
-                        <div class="pure-u-1-2"> 
-                          <input type="password" id="password" placeholder ="Mot de passe" name="_password" class="input password" />
-                        </div>
-                        <div class="pure-u-1-1"> 
-                          <button type="submit" class="input button">{{ 'form.label.connection'|trans }}</button>
-                        </div>
-                      </form>
-                    </div>
-                    <a href="{{ path('register-form') }}"}>{{ 'security.register'|trans }}</a>
-                </div>
-              </div>
-          </div>
-      </div>
-      <div class="hole">
-      </div>
-      <div class="right">
-          <div class="carousel">
-              <div class="slides">
-                  <div class="slide active">
-
+                      </div>
+                    </form>
                   </div>
+                  <a class="option" href="{{ path('register-form') }}"}>{{ 'security.register'|trans }}</a>
               </div>
-          </div>
-      </div>
-  </div>
+            </div>
+        </div>
+    </div>
+    <div class="hole">
+    </div>
+    <div class="right">
+        <div class="carousel">
+            <div class="slides">
+                <div class="slide active">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block javascripts %}
 <script src="{{ asset('assets/js/page.js') }}"></script>

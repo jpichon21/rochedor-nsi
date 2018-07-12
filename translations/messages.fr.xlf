@@ -670,7 +670,7 @@
       </notes>
       <segment>
         <source>form.birthday</source>
-        <target>Anniversaire (JJ/MM/AAAA)</target>
+        <target>Naissance (jj/mm/aaaa)</target>
       </segment>
     </unit>
     <unit id="P7A68ag" name="form.profession">
@@ -1487,6 +1487,54 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
       <segment>
         <source>security.user_exist</source>
         <target>L'adresse mail utilisée est déjà enregistrée.</target>
+      </segment>
+    </unit>
+    <unit id="lDOm6tr" name="form.contact.title">
+      <segment>
+        <source>form.contact.title</source>
+        <target>Formulaire de contact</target>
+      </segment>
+    </unit>
+    <unit id="jBsBTZU" name="form.body">
+      <segment>
+        <source>form.body</source>
+        <target>Message</target>
+      </segment>
+    </unit>
+    <unit id="N7xyN0P" name="form.send">
+      <segment>
+        <source>form.send</source>
+        <target>Envoyer</target>
+      </segment>
+    </unit>
+    <unit id="06a7tU5" name="title.connection">
+      <segment>
+        <source>title.connection</source>
+        <target>Connexion</target>
+      </segment>
+    </unit>
+    <unit id="KaXjE7S" name="form.title.connection">
+      <segment>
+        <source>form.title.connection</source>
+        <target>Formulaire de connexion</target>
+      </segment>
+    </unit>
+    <unit id="k3DuK7A" name="form.validate">
+      <segment>
+        <source>form.validate</source>
+        <target>Valider</target>
+      </segment>
+    </unit>
+    <unit id="yJYpS55" name="form.title.registration">
+      <segment>
+        <source>form.title.registration</source>
+        <target>Formulaire d'inscription</target>
+      </segment>
+    </unit>
+    <unit id="ILWuW.c" name="form.password.repeat">
+      <segment>
+        <source>form.password.repeat</source>
+        <target>Répéter mot de passe</target>
       </segment>
     </unit>
   </file>

@@ -1,6 +1,7 @@
 // Scrollbar
 
 const content = document.querySelector('.content')
+
 if (content) {
   content.style.overflowY = 'scroll'
   content.style.width = 'calc(100% + ' + (content.offsetWidth - content.clientWidth) + 'px)'
@@ -64,4 +65,12 @@ document.addEventListener('change', function (event) {
       element.classList.add('white')
     }
   }
+})
+
+// Inputs
+
+const inputs = dropdown.querySelectorAll('.input')
+
+inputs.forEach(input => {
+  input.setAttribute('autocomplete', 'nope')
 })

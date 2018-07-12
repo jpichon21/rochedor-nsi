@@ -1,9 +1,10 @@
 {% set sections = [] %}
 {% set bodyClass = "page" %}
-{% set bodyBackground = constant('AppBundle\\Entity\\Page::BACKGROUNDS')[1] %}
+{% set bodyBackground = 1 %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-<link rel="stylesheet" type="text/css" media="screen" href="{{ asset("assets/css/pure-css-grids.css") }}">
+<link rel="stylesheet" href="{{ asset('assets/css/pure-css-grids.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/page.css') }}">
 {% endblock %}
 {% block content %}
 <div class="content">
@@ -17,7 +18,7 @@
             {% endif %}
             <div class="dropdown single">
                 <div class="item">
-                    <h2>Formulaire de contact de la Roche d'Or</h2>
+                    <h2>{{ 'form.contact.title' | trans }}</h2>
                     <div class="panel active">
                         <div class="pure-g">
                             {{ form_start(form) }}
@@ -28,7 +29,7 @@
                                 {{ form_widget(form.surname) }}
                             </div>
                             <div class="pure-u-1-2">
-                                {{ form_widget(form.adress) }}
+                                {{ form_widget(form.address) }}
                             </div>
                             <div class="pure-u-1-2">
                                 {{ form_widget(form.city) }}
@@ -37,13 +38,13 @@
                                 {{ form_widget(form.zipcode) }}
                             </div>
                             <div class="pure-u-1-2">
-                                {{ form_widget(form.mail) }}
+                                {{ form_widget(form.email) }}
                             </div>
                             <div class="pure-u-1-1">
                                 {{ form_widget(form.body) }}
                             </div>
-                            <div class="pure-u-1-1">
-                                {{ form_widget(form.save) }}
+                            <div class="pure-u-1-4">
+                                {{ form_widget(form.submit) }}
                             </div>
                             {{ form_end(form) }}
                         </div>
@@ -74,9 +75,7 @@
         {% endfor %}
     </div>
 </div>
-
 {% endblock %}
-
 {% block javascripts %}
 <script src="{{ asset("assets/js/page.js") }}"></script>
 {% endblock %}
