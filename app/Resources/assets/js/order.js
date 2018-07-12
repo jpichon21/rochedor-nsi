@@ -20,35 +20,6 @@ const _translations = JSON.parse($('.translations-json').html())
 
 moment.locale(_translations.locale)
 
-/* Dropdowns */
-
-function changeItem (elmt) {
-  $('.dropdown .item').each(function () {
-    this.style.maxHeight = null
-    this.classList.remove('active')
-  })
-  elmt[0].classList.add('active')
-  elmt[0].style.maxHeight = elmt[0].scrollHeight + 'px'
-}
-
-$(document).ready(function () {
-  setTimeout(function () {
-    changeItem($('.dropdown .item:first'))
-  }, 500)
-})
-
-/* Button Radio */
-
-$('.registered-render').on('click', '.button.radio', function (event) {
-  event.preventDefault()
-  $(this).toggleClass('checked')
-})
-
-$('.item-clients').on('click', '.button.radio', function (event) {
-  event.preventDefault()
-  $(this).toggleClass('checked')
-})
-
 /* Variables */
 
 let _you = {}
@@ -63,6 +34,35 @@ const itemOrder = $('.item.order')
 const itemValidation = $('.item.validation')
 const itemCart = $('.item.cart')
 const itemPayment = $('.item.payment')
+
+/* Dropdowns */
+
+function changeItem (elmt) {
+  $('.dropdown .item').each(function () {
+    this.style.maxHeight = null
+    this.classList.remove('active')
+  })
+  elmt[0].classList.add('active')
+  elmt[0].style.maxHeight = elmt[0].scrollHeight + 'px'
+}
+
+$(document).ready(function () {
+  setTimeout(function () {
+    changeItem(itemCart)
+  }, 500)
+})
+
+/* Button Radio */
+
+$('.registered-render').on('click', '.button.radio', function (event) {
+  event.preventDefault()
+  $(this).toggleClass('checked')
+})
+
+$('.item-clients').on('click', '.button.radio', function (event) {
+  event.preventDefault()
+  $(this).toggleClass('checked')
+})
 
 /* Renders */
 

@@ -24,6 +24,17 @@ const _translations = JSON.parse($('.translations-json').html())
 
 moment.locale(_translations.locale)
 
+/* Variables */
+
+let _you = {}
+let _registered = []
+let _participant = {}
+let _participants = []
+
+const itemConnection = $('.item.connection')
+const itemParticipants = $('.item.participants')
+const itemValidation = $('.item.validation')
+
 /* Dropdowns */
 
 function changeItem (elmt) {
@@ -37,7 +48,7 @@ function changeItem (elmt) {
 
 $(document).ready(function () {
   setTimeout(function () {
-    changeItem($('.dropdown .item:first'))
+    changeItem(itemConnection)
   }, 500)
 })
 
@@ -47,17 +58,6 @@ $('.registered-render').on('click', '.button.radio', function (event) {
   event.preventDefault()
   $(this).toggleClass('checked')
 })
-
-/* Variables */
-
-let _you = {}
-let _registered = []
-let _participant = {}
-let _participants = []
-
-const itemConnection = $('.item.connection')
-const itemParticipants = $('.item.participants')
-const itemValidation = $('.item.validation')
 
 /* Renders */
 
