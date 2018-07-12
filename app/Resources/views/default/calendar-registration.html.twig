@@ -108,7 +108,7 @@
         <h3>{{ 'calendar.registration.summary.title.retreat' | trans | raw }}</h3>
         <p>{{ activity.libact }}<br>{{ 'filter.inner.date.in' | trans | raw }} {{ activity.datdeb | localizeddate('medium', 'none', app.request.locale ) }} {{ 'filter.inner.date.out' | trans | lower | raw }} {{ activity.datfin | localizeddate('medium', 'none', app.request.locale ) }} ({{ activity.sitact }})</p>
         <h3>{{ 'calendar.registration.summary.title.participants' | trans | raw }}</h3>
-        <div class="participants-render"></div>
+        <div class="participants-render"><p>{{ 'form.no_participants' | trans }}</p></div>
         <div class="catch-message"></div>
     </div>
 </div>

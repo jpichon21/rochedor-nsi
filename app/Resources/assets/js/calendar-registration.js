@@ -87,8 +87,6 @@ function updateHimFormRender () {
   $('.him-form-render').html(himFormTemplate({ participant: _participant, registered: _registered, you: _you }))
 }
 
-updateParticipantsRender()
-
 /* Actions */
 
 function afterLogin (user) {
