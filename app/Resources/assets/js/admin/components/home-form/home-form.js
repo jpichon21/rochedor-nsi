@@ -211,7 +211,12 @@ export class HomeForm extends React.Component {
   render () {
     document.addEventListener('click', event => {
       const element = event.target
-      if (element && element.classList.contains('rdw-dropdownoption-default') && this.state.noticeBlockquote) {
+      if (
+        element &&
+        element.classList.contains('rdw-dropdownoption-default') &&
+        element.textContent === 'Citation' &&
+        this.state.noticeBlockquote
+      ) {
         this.setState({ noticeBlockquote: false })
         this.handleOpenAlertBlockquote()
       }
