@@ -870,21 +870,31 @@ export class PageForm extends React.Component {
             !this.props.edit &&
             this.props.parents.length > 0 &&
             this.state.page.locale !== 'fr' &&
-            <FormControl style={{ minWidth: 200 }}>
-              <InputLabel htmlFor={'parent'} shrink>Page parente</InputLabel>
-              <Select
-                id={'parent'}
-                placeholder={'Page parente'}
-                className={classes.option}
-                value={this.state.parentKey}
-                onChange={this.handleParent}
-                inputProps={{
-                  name: 'parent_key',
-                  id: 'parent_key'
-                }}>
-                {parents}
-              </Select>
-            </FormControl>
+            <Tooltip
+              enterDelay={300}
+              id='tooltip-controlled'
+              leaveDelay={100}
+              onClose={this.handleTooltipClose}
+              onOpen={this.handleTooltipOpen}
+              open={this.state.open}
+              placement='bottom'
+              title='Renseigner la traduction française associée'
+            >
+              <FormControl style={{ width: '100%' }}>
+                <InputLabel htmlFor={'parent'} shrink>Page parente</InputLabel>
+                <Select
+                  id={'parent'}
+                  className={classes.textfield}
+                  value={this.state.parentKey}
+                  onChange={this.handleParent}
+                  inputProps={{
+                    name: 'parent_key',
+                    id: 'parent_key'
+                  }}>
+                  {parents}
+                </Select>
+              </FormControl>
+            </Tooltip>
           }
         </form>
         <Typography variant='display1' className={classes.title}>
