@@ -717,7 +717,7 @@ export class ContentForm extends React.Component {
           <DialogTitle>Citation</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              <p>La citation doit être renseigné en <em>italique</em><br />L'auteur doit être renseigné en <strong>gras</strong></p>
+              <p>La citation doit être renseignée en <em>italique</em><br />L'auteur doit être renseigné en <strong>gras</strong></p>
               <p>Exemple :<br /><em>La foi, c'est une confiance, la gratuité d'une amitié.</em> <strong>Florin Callerand</strong></p>
             </DialogContentText>
           </DialogContent>
