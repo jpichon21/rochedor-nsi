@@ -60,7 +60,7 @@ class ContactController extends Controller
             $mail['site'] = "la Roche d'Or";
 
             $this->mailer->send(
-                $mail['mail'],
+                $mail['email'],
                 $this->translator->trans('contact.ro.foradmin.subject').$mail['name'].' '.$mail['surname'],
                 $this->renderView('emails/contact/contact-admin.html.twig', [
                     'mail' => $mail
@@ -107,7 +107,7 @@ class ContactController extends Controller
             $mail['site'] = "les Fontanilles";
             
             $this->mailer->send(
-                $mail['mail'],
+                $mail['email'],
                 $this->translator->trans('contact.foradmin.subject').$mail['name'].' '.$mail['surname'],
                 $this->renderView('emails/contact/contact-admin.html.twig', [
                     'mail' => $mail
