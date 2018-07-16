@@ -1,4 +1,6 @@
-<p>Voici une demande de contact de <em>{{ mail['surname'] }} {{ mail['name'] }}</em> à destination de <strong>{{ mail['site'] }}</strong></p>
-<p>Domicilié au {{ mail['address'] }} {{ mail['zipcode'] }} {{ mail['city'] }}</p>
-<p> {{ mail['body'] }} </p>
-<a href={{ mail['email'] }}>{{ mail['email'] }}</a></p>
+<p>Voici une demande de contact à destination de <b>{{ mail['site'] }}</b></p>
+<p>{{ mail['surname'] }} {{ mail['name'] }}<br>
+{{ mail['address'] }}<br>
+{{ mail['zipcode'] }} {{ mail['city'] }}<br>
+<a href="mailto:{{ mail['email'] }}">{{ mail['email'] }}</a></p>
+{{ mail['body'] }}

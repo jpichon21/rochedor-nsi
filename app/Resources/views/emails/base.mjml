@@ -9,9 +9,9 @@
       </mj-column>
     </mj-section>
     <mj-section>
-      <mj-column background-color='#ffffff'>
-        <mj-text font-size='14px'>
-          <h1>Communauté de la Roche d'Or</h1>
+      <mj-column background-color='#ffffff' padding='20px 15px'>
+        <mj-text font-size='14px' line-height='22px'>
+          Coucou
         </mj-text>
       </mj-column>
     </mj-section>

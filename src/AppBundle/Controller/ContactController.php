@@ -55,13 +55,17 @@ class ContactController extends Controller
         $form = $this->createForm(ContactType::class, $data);
 
         $form->handleRequest($request);
+        $path = $request->getPathInfo();
+        $name = substr($path, 1);
+        $contentDocument = $this->pageService->getContent($name);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $mail = $form->getData();
-            $mail['site'] = "la Roche d'Or";
+            $mail['site'] = "Roche d'Or";
 
             $this->mailer->send(
                 $mail['email'],
-                $this->translator->trans('contact.ro.foradmin.subject').$mail['name'].' '.$mail['surname'],
+                $this->translator->trans('contact.ro.foradmin.subject').' '.$mail['name'].' '.$mail['surname'],
                 $this->renderView('emails/contact/contact-admin.html.twig', [
                     'mail' => $mail
                     ])
@@ -69,18 +73,18 @@ class ContactController extends Controller
 
             $this->mailer->send(
                 'secretariat@rochedor.fr',
-                $this->translator->trans('contact.ro.foradmin.subject'),
+                $this->translator->trans('contact.ro.forclient.subject'),
                 $this->renderView('emails/contact/locale/contact-client-'.$request->getLocale().'.html.twig', [
                     'mail' => $mail
                     ])
             );
 
-            return $this->render('default/contact-ro-success.html.twig');
+            return $this->render('default/contact-ro-success.html.twig', array(
+                'page' => $contentDocument,
+                'availableLocales' => $this->pageService->getAvailableLocales($contentDocument)
+            ));
         }
 
-        $path = $request->getPathInfo();
-        $name = substr($path, 1);
-        $contentDocument = $this->pageService->getContent($name);
         return $this->render('default/contact-ro.html.twig', array(
             'form' => $form->createView(),
             'page' => $contentDocument,
@@ -102,13 +106,17 @@ class ContactController extends Controller
         $form = $this->createForm(ContactType::class, $data);
 
         $form->handleRequest($request);
+        $path = $request->getPathInfo();
+        $name = substr($path, 1);
+        $contentDocument = $this->pageService->getContent($name);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $mail = $form->getData();
-            $mail['site'] = "les Fontanilles";
+            $mail['site'] = "Fontanilles";
             
             $this->mailer->send(
                 $mail['email'],
-                $this->translator->trans('contact.foradmin.subject').$mail['name'].' '.$mail['surname'],
+                $this->translator->trans('contact.font.foradmin.subject').' '.$mail['name'].' '.$mail['surname'],
                 $this->renderView('emails/contact/contact-admin.html.twig', [
                     'mail' => $mail
                     ])
@@ -116,18 +124,18 @@ class ContactController extends Controller
 
             $this->mailer->send(
                 'secretariat@rochedor.fr',
-                $this->translator->trans('contact.font.client.subject'),
+                $this->translator->trans('contact.font.forclient.subject'),
                 $this->renderView('emails/contact/locale/contact-client-'.$request->getLocale().'.html.twig', [
                     'mail' => $mail
                     ])
             );
 
-            return $this->render('default/contact-font-success.html.twig');
+            return $this->render('default/contact-font-success.html.twig', array(
+                'page' => $contentDocument,
+                'availableLocales' => $this->pageService->getAvailableLocales($contentDocument)
+            ));
         }
 
-        $path = $request->getPathInfo();
-        $name = substr($path, 1);
-        $contentDocument = $this->pageService->getContent($name);
         return $this->render('default/contact-font.html.twig', array(
             'form' => $form->createView(),
             'page' => $contentDocument,

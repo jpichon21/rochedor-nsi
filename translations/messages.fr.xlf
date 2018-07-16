@@ -1537,5 +1537,35 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
         <target>Répéter mot de passe</target>
       </segment>
     </unit>
+    <unit id="7HI7BgF" name="contact.submit.success">
+      <segment>
+        <source>contact.submit.success</source>
+        <target><![CDATA[Votre message a bien été pris en compte. Il sera traité dans les plus brefs délais. Vous recevrez une confirmation d'envoi dans les prochaines minutes. Retour à la <a href="/">page d'accueil</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="PnnB3aX" name="contact.ro.foradmin.subject">
+      <segment>
+        <source>contact.ro.foradmin.subject</source>
+        <target>[RO] Nouveau message de</target>
+      </segment>
+    </unit>
+    <unit id="aXfD6Ri" name="contact.ro.forclient.subject">
+      <segment>
+        <source>contact.ro.forclient.subject</source>
+        <target>Votre message à la Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="CnKFeFj" name="contact.font.forclient.subject">
+      <segment>
+        <source>contact.font.forclient.subject</source>
+        <target>Votre message aux Fontanilles</target>
+      </segment>
+    </unit>
+    <unit id="Rd5R24U" name="contact.font.foradmin.subject">
+      <segment>
+        <source>contact.font.foradmin.subject</source>
+        <target>[FT] Nouveau message de</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
