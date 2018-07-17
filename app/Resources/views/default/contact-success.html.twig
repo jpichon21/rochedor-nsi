@@ -1,6 +1,7 @@
-{% set sections = [] %}
 {% set bodyClass = "page" %}
-{% set bodyBackground = 1 %}
+{% set bodyBackground = page.background %}
+{% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
+{% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('assets/css/pure-css-grids.css') }}">
@@ -9,14 +10,12 @@
 {% block content %}
 <div class="content">
     <div class="left">
-        <div class="inner">
-            <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
-            {% if page.content.intro %}
-            <div class="intro">
-                {{ 'contact.submit.success' | trans | raw }}
-            </div>
-            {% endif %}
+        <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
+        {% if page.content.intro %}
+        <div class="intro">
+            {{ 'contact.submit.success' | trans | raw }}
         </div>
+        {% endif %}
     </div>
     <div class="hole">
     </div>
