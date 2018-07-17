@@ -4,7 +4,7 @@ const dropdown = document.querySelector('.dropdown')
 const items = dropdown.querySelectorAll('.item')
 
 const updateHeightDropdown = () => {
-  let active = dropdown.querySelector('.active')
+  let active = dropdown.querySelector('.item.active')
   active.style.maxHeight = active.scrollHeight + 'px'
 }
 
