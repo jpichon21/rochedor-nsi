@@ -1,8 +1,8 @@
 {% set bodyClass = "page" %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset("assets/css/calendar-registration.css") }}">
 <link rel="stylesheet" href="{{ asset("assets/css/pure-css-grids.css") }}">
+<link rel="stylesheet" href="{{ asset("assets/css/calendar-registration.css") }}">
 {% endblock %}
 {% block content %}
 <div class="content">
@@ -38,19 +38,19 @@
                     <h3>{{ 'calendar.registration.one.title.connection' | trans | raw }}</h3>
                     <form class="pure-g connection">
                         <div class="pure-u-1-2">
-                            <input autocomplete="off" class="input username" required type="text" name="username" placeholder="{{ 'form.username' | trans | raw }}">
+                            <input autocomplete="nope" class="input username" required type="text" name="username" placeholder="{{ 'form.username' | trans | raw }}">
                         </div>
                         <div class="pure-u-1-2">
-                            <input class="input password" required type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
+                            <input autocomplete="nope" class="input password" required type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
                         </div>
                         <div class="pure-u-4-24">
-                            <input class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                            <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
                         </div>
                         <div class="pure-u-20-24">
                             <div class="catch-message"></div>
                         </div>
                     </form>
-                    <a href="#reset" class="password-reset">{{ 'form.password.reset'|trans }}</a>
+                    <a class="option" href="#reset">{{ 'form.password.reset'|trans }}</a>
                 </div>
                 <div class="panel registration">
                     <h3>{{ 'calendar.registration.one.title.registration' | trans | raw }}</h3>
@@ -60,10 +60,10 @@
                     <h3>{{ 'form.password.reset'|trans|raw }}</h3>
                     <form class="pure-g reset">
                         <div class="pure-u-1">
-                            <input autocomplete="off" class="input username" required type="text" name="username" placeholder="{{ 'form.username' | trans | raw }}">
+                            <input autocomplete="nope" class="input username" required type="text" name="username" placeholder="{{ 'form.username' | trans | raw }}">
                         </div>
                         <div class="pure-u-4-24">
-                            <input class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                            <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
                         </div>
                         <div class="pure-u-20-24">
                             <div class="catch-message"></div>
@@ -108,7 +108,7 @@
         <h3>{{ 'calendar.registration.summary.title.retreat' | trans | raw }}</h3>
         <p>{{ activity.libact }}<br>{{ 'filter.inner.date.in' | trans | raw }} {{ activity.datdeb | localizeddate('medium', 'none', app.request.locale ) }} {{ 'filter.inner.date.out' | trans | lower | raw }} {{ activity.datfin | localizeddate('medium', 'none', app.request.locale ) }} ({{ activity.sitact }})</p>
         <h3>{{ 'calendar.registration.summary.title.participants' | trans | raw }}</h3>
-        <div class="participants-render"></div>
+        <div class="participants-render"><p>{{ 'form.no_participants' | trans }}</p></div>
         <div class="catch-message"></div>
     </div>
 </div>
@@ -174,8 +174,8 @@
     <% } %>
 </script>
 <script type="text/template" class="you-form-template">
-    <input type="hidden" value="<%= participant.codco %>" name="codco">
-    <input type="hidden" value=<%= participant.check %> name="check">
+    <input autocomplete="nope" type="hidden" value="<%= participant.codco %>" name="codco">
+    <input autocomplete="nope" type="hidden" value=<%= participant.check %> name="check">
     <div class="pure-u-1-3">
         <select class="select civil <%= (participant.civil != '') ? 'white' : '' %>" required name="civil">
             <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
@@ -188,40 +188,40 @@
         </select>
     </div>
     <div class="pure-u-1-3">
-        <input class="input prenom" required type="text" value="<%= participant.prenom %>" name="prenom" placeholder="{{ 'form.surname' | trans | raw }}">
+        <input autocomplete="nope" class="input prenom" required type="text" value="<%= participant.prenom %>" name="prenom" placeholder="{{ 'form.surname' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input nom" required type="text" value="<%= participant.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
+        <input autocomplete="nope" class="input nom" required type="text" value="<%= participant.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
     </div>
     <div class="pure-u-1">
         <textarea class="textarea adresse" required name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= participant.adresse %></textarea>
     </div>
     <div class="pure-u-1-3">
-        <input class="input cp" required type="text" value="<%= participant.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
+        <input autocomplete="nope" class="input cp" required type="text" value="<%= participant.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input ville" required type="text" value="<%= participant.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
+        <input autocomplete="nope" class="input ville" required type="text" value="<%= participant.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input pays" type="text" value="<%= participant.pays %>" name="pays" placeholder="{{ 'form.country' | trans | raw }}">
+        <input autocomplete="nope" class="input pays" type="text" value="<%= participant.pays %>" name="pays" placeholder="{{ 'form.country' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input tel" type="text" value="<%= participant.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
+        <input autocomplete="nope" class="input tel" type="text" value="<%= participant.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input mobil" type="text" value="<%= participant.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
+        <input autocomplete="nope" class="input mobil" type="text" value="<%= participant.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input autocomplete="off" class="input email" required type="email" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
+        <input autocomplete="nope" class="input email" required type="email" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input password" type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
+        <input autocomplete="nope" class="input password" type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input datnaiss" required type="text" value="<%= (participant.datnaiss !== '') ? moment(participant.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }}">
+        <input autocomplete="nope" class="input datnaiss" required type="text" value="<%= (participant.datnaiss !== '') ? moment(participant.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
+        <input autocomplete="nope" class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
     </div>
     <div class="pure-u-1">
         <select class="select transport <%= (participant.transport != '') ? 'white' : '' %>" required name="transport">
@@ -236,15 +236,15 @@
         <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= participant.memo %></textarea>
     </div>
     <div class="pure-u-4-24">
-        <input class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
+        <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
     </div>
     <div class="pure-u-20-24">
         <div class="catch-message"></div>
     </div>
 </script>
 <script type="text/template" class="him-form-template">
-    <input type="hidden" value="<%= participant.codco %>" name="codco">
-    <input type="hidden" value=<%= participant.check %> name="check">
+    <input autocomplete="nope" type="hidden" value="<%= participant.codco %>" name="codco">
+    <input autocomplete="nope" type="hidden" value=<%= participant.check %> name="check">
     <div class="pure-u-1-2">
         <select class="select coltyp <%= (participant.coltyp != '') ? 'white' : '' %>" required name="coltyp">
             <option <%= (participant.coltyp == '') ? 'selected' : '' %> disabled value="">{{ 'form.relation' | trans | raw }}</option>
@@ -277,37 +277,37 @@
         </select>
     </div>
     <div class="pure-u-1-3">
-        <input class="input prenom" required type="text" value="<%= participant.prenom %>" name="prenom" placeholder="{{ 'form.surname' | trans | raw }}">
+        <input autocomplete="nope" class="input prenom" required type="text" value="<%= participant.prenom %>" name="prenom" placeholder="{{ 'form.surname' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input nom" required type="text" value="<%= participant.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
+        <input autocomplete="nope" class="input nom" required type="text" value="<%= participant.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
     </div>
     <div class="pure-u-1">
         <textarea class="textarea adresse" required name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= participant.adresse %></textarea>
     </div>
     <div class="pure-u-1-3">
-        <input class="input cp" required type="text" value="<%= participant.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
+        <input autocomplete="nope" class="input cp" required type="text" value="<%= participant.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input ville" required type="text" value="<%= participant.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
+        <input autocomplete="nope" class="input ville" required type="text" value="<%= participant.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input pays" type="text" value="<%= participant.pays %>" name="pays" placeholder="{{ 'form.country' | trans | raw }}">
+        <input autocomplete="nope" class="input pays" type="text" value="<%= participant.pays %>" name="pays" placeholder="{{ 'form.country' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input tel" type="text" value="<%= participant.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
+        <input autocomplete="nope" class="input tel" type="text" value="<%= participant.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input mobil" type="text" value="<%= participant.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
+        <input autocomplete="nope" class="input mobil" type="text" value="<%= participant.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input autocomplete="off" class="input email" type="email" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
+        <input autocomplete="nope" class="input email" type="email" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input datnaiss" required type="text" value="<%= (participant.datnaiss !== '') ? moment(participant.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }}">
+        <input autocomplete="nope" class="input datnaiss" required type="text" value="<%= (participant.datnaiss !== '') ? moment(participant.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
+        <input autocomplete="nope" class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
     </div>
     <div class="pure-u-1">
         <select class="select transport <%= (participant.transport != '') ? 'white' : '' %>" required name="transport">
@@ -322,7 +322,7 @@
         <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= participant.memo %></textarea>
     </div>
     <div class="pure-u-4-24">
-        <input class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
+        <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
     </div>
     <div class="pure-u-20-24">
         <div class="catch-message"></div>

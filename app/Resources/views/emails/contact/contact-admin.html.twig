@@ -1,0 +1,6 @@
+<p>Voici une demande de contact à destination de "{{ mail['site'] }}".</p>
+<p>{{ mail['surname'] }} {{ mail['name'] }}<br>
+{{ mail['address'] }}<br>
+{{ mail['zipcode'] }} {{ mail['city'] }}<br>
+<a href="mailto:{{ mail['email'] }}">{{ mail['email'] }}</a></p>
+{{ mail['body'] }}

@@ -20,6 +20,7 @@ Encore
   .addEntry('js/editions', './app/Resources/assets/js/editions.js')
   .addEntry('js/carousel', './app/Resources/assets/js/carousel.js')
   .addEntry('js/order', './app/Resources/assets/js/order.js')
+  .addEntry('js/form', './app/Resources/assets/js/form.js')
   .addStyleEntry('css/main', './app/Resources/assets/sass/main.scss')
   .addStyleEntry('css/home', './app/Resources/assets/sass/home.scss')
   .addStyleEntry('css/page', './app/Resources/assets/sass/page.scss')
