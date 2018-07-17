@@ -16,7 +16,7 @@ describe('Load Page', function () {
   describe('L\'inscription doit se dérouler sans erreur', () => {
     it('Les actions suivantes doivent se derouler sans timout', done => {
       nightmare
-        .goto('http://127.0.0.1:8001/contact-font')
+        .goto('http://127.0.0.1:8001/contact-ft')
         .wait('.panel.active')
         .type('#contact_name', 'Martin')
         .type('#contact_surname', 'Martin')

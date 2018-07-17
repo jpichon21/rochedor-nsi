@@ -21,23 +21,6 @@
     <div class="hole">
     </div>
     <div class="right">
-        {% for section in page.content['sections'] %}
-        <div class="carousel {% if loop.first %}active{% endif %}"
-            data-carousel-element="{{ section.title|md5 }}">
-            <div class="slides">
-                {% for slide in section.slides %}
-                <div class="slide {% if loop.first %}active{% endif %}">
-                    {% include 'parts/carousel/layout-' ~ slide.layout ~ '.html.twig'
-                    with { 'images': slide.images } %}
-                </div>
-                {% endfor %}
-            </div>
-            {% if section.slides|length > 1 %}
-            <div class="prev"></div>
-            <div class="next"></div>
-            {% endif %}
-        </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock %}

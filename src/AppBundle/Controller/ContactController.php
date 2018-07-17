@@ -79,13 +79,13 @@ class ContactController extends Controller
                     ])
             );
 
-            return $this->render('default/contact-ro-success.html.twig', array(
+            return $this->render('default/contact-success.html.twig', array(
                 'page' => $contentDocument,
                 'availableLocales' => $this->pageService->getAvailableLocales($contentDocument)
             ));
         }
 
-        return $this->render('default/contact-ro.html.twig', array(
+        return $this->render('default/contact.html.twig', array(
             'form' => $form->createView(),
             'page' => $contentDocument,
             'availableLocales' => $this->pageService->getAvailableLocales($contentDocument)
@@ -93,11 +93,11 @@ class ContactController extends Controller
     }
 
     /**
-    * @Route("/contact-font", name="contact-font")
-    * @Route("/kontakt-font", name="kontakt-font")
-    * @Route("/contactar-font", name="contactar-font")
-    * @Route("/contact-us-font", name="contact-us-font")
-    * @Route("/contáctenos-font", name="contáctenos-font")
+    * @Route("/contact-ft", name="contact-ft")
+    * @Route("/kontakt-ft", name="kontakt-ft")
+    * @Route("/contactar-ft", name="contactar-ft")
+    * @Route("/contact-us-ft", name="contact-us-ft")
+    * @Route("/contáctenos-ft", name="contáctenos-ft")
     */
     public function showContactFont(Request $request)
     {
@@ -130,13 +130,13 @@ class ContactController extends Controller
                     ])
             );
 
-            return $this->render('default/contact-font-success.html.twig', array(
+            return $this->render('default/contact-success.html.twig', array(
                 'page' => $contentDocument,
                 'availableLocales' => $this->pageService->getAvailableLocales($contentDocument)
             ));
         }
 
-        return $this->render('default/contact-font.html.twig', array(
+        return $this->render('default/contact.html.twig', array(
             'form' => $form->createView(),
             'page' => $contentDocument,
             'availableLocales' => $this->pageService->getAvailableLocales($contentDocument)
