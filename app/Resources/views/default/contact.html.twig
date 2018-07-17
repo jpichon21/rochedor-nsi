@@ -17,7 +17,13 @@
         </div>
         {% endif %}
         <div class="dropdown">
-            <div class="item first">
+            {% for section in page.content.sections %}
+            <div class="item {% if loop.first %}first{% endif %}">
+                <h2>{{ section.title }}</h2>
+                {{ section.body | raw }}
+            </div>
+            {% endfor %}
+            <div class="item">
                 <h2>{{ 'form.contact.title' | trans }}</h2>
                 <div class="panel active">
                     <div class="pure-g">
@@ -50,12 +56,6 @@
                     </div>
                 </div>
             </div>
-            {% for section in page.content.sections %}
-            <div class="item">
-                <h2>{{ section.title }}</h2>
-                {{ section.body | raw }}
-            </div>
-            {% endfor %}
         </div>
     </div>
     <div class="hole">
