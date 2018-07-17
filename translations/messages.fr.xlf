@@ -1567,5 +1567,11 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
         <target>[FT] Nouveau message de</target>
       </segment>
     </unit>
+    <unit id="zRLk9BZ" name="form.please.recaptcha">
+      <segment>
+        <source>form.please.recaptcha</source>
+        <target>Merci de cocher la case "Je ne suis pas un robot"</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

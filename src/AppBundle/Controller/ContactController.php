@@ -109,8 +109,7 @@ class ContactController extends Controller
         $path = $request->getPathInfo();
         $name = substr($path, 1);
         $contentDocument = $this->pageService->getContent($name);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->captchaverify($request->get('g-recaptcha-response'))) {
             $mail = $form->getData();
             $mail['site'] = "Fontanilles";
             
@@ -141,5 +140,24 @@ class ContactController extends Controller
             'page' => $contentDocument,
             'availableLocales' => $this->pageService->getAvailableLocales($contentDocument)
         ));
+    }
+
+    public function captchaverify($recaptcha)
+    {
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array(
+            'secret' => '6LdgnGQUAAAAAL-S38oSIPzMm85iWCG1vIoZX-mL',
+            'response' => $recaptcha
+        ));
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $data = json_decode($response);
+
+        return $data->success;
     }
 }
