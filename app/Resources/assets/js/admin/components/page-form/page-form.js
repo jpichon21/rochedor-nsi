@@ -727,6 +727,16 @@ export class PageForm extends React.Component {
       : null
     return (
       <div className={classes.container}>
+        <Dialog open={this.state.fileUploading.isUploading &&
+          this.state.fileUploading.type === 'image'}>
+          <DialogTitle>Image</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <p>Merci de patienter pendant le chargement de votre image...</p>
+              <CircularProgress />
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
         <Dialog
           open={this.state.AlertBlockquoteOpen}
           onClose={this.handleCloseAlertBlockquote}>
