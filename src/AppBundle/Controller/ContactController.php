@@ -64,15 +64,15 @@ class ContactController extends Controller
             $mail['site'] = "Roche d'Or";
 
             $this->mailer->send(
-                $mail['email'],
+                'secretariat@rochedor.fr',
                 $this->translator->trans('contact.ro.foradmin.subject').' '.$mail['name'].' '.$mail['surname'],
                 $this->renderView('emails/contact/contact-admin.html.twig', [
                     'mail' => $mail
                     ])
             );
-
+                
             $this->mailer->send(
-                'secretariat@rochedor.fr',
+                $mail['email'],
                 $this->translator->trans('contact.ro.forclient.subject'),
                 $this->renderView('emails/contact/locale/contact-client-'.$request->getLocale().'.html.twig', [
                     'mail' => $mail
@@ -114,15 +114,15 @@ class ContactController extends Controller
             $mail['site'] = "Fontanilles";
             
             $this->mailer->send(
-                $mail['email'],
+                'secretariat@rochedor.fr',
                 $this->translator->trans('contact.font.foradmin.subject').' '.$mail['name'].' '.$mail['surname'],
                 $this->renderView('emails/contact/contact-admin.html.twig', [
                     'mail' => $mail
                     ])
             );
-
+                
             $this->mailer->send(
-                'secretariat@rochedor.fr',
+                $mail['email'],
                 $this->translator->trans('contact.font.forclient.subject'),
                 $this->renderView('emails/contact/locale/contact-client-'.$request->getLocale().'.html.twig', [
                     'mail' => $mail
