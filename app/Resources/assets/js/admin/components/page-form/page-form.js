@@ -1025,7 +1025,7 @@ export class PageForm extends React.Component {
                 aria-labelledby='alert-dialog-title'
                 aria-describedby='alert-dialog-description'>
                 <DialogTitle id='alert-dialog-title'>
-                  {'Êtes-vous sûr?'}
+                  {'Êtes-vous sûr ?'}
                 </DialogTitle>
                 <DialogContent>
                   <DialogContentText id='alert-dialog-description'>

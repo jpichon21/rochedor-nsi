@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import update from 'immutability-helper'
-import { Menu, MenuItem, TextField, Button, Tooltip, Typography, Select, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
+import { Menu, MenuItem, TextField, Button, Tooltip, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Icon } from '@material-ui/core'
 import MomentUtils from 'material-ui-pickers/utils/moment-utils'
 import moment from 'moment'
 import 'moment/locale/fr'
@@ -316,7 +316,7 @@ export class NewsForm extends React.Component {
                   aria-labelledby='alert-dialog-title'
                   aria-describedby='alert-dialog-description'>
                   <DialogTitle id='alert-dialog-title'>
-                    {'Êtes-vous sûr?'}
+                    {'Êtes-vous sûr ?'}
                   </DialogTitle>
                   <DialogContent>
                     <DialogContentText id='alert-dialog-description'>
