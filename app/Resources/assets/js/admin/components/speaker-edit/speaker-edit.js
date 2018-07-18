@@ -38,7 +38,7 @@ export class SpeakerEdit extends React.Component {
   render () {
     return (
       <div>
-        <AppMenu goBack='/speaker-list' title={'Modification de l\'intervenant'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
+        <AppMenu goBack='/speaker-list' title={`Modification d'un intervenant`} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
         <SpeakerForm speaker={this.props.speaker} locale={this.props.locale} edit speakerId={this.state.speakerId} />
       </div>
     )
