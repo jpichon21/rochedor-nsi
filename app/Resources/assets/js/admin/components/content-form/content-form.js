@@ -747,6 +747,7 @@ export class ContentForm extends React.Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
+            <Button onClick={this.handleCloseAlertVideo} color='secondary' autoFocus>Annuler</Button>
             <Button onClick={this.handleCloseAlertVideo} color='primary' autoFocus>Valider</Button>
           </DialogActions>
         </Dialog>
@@ -767,6 +768,7 @@ export class ContentForm extends React.Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
+            <Button onClick={this.handleCloseAlertAlt} color='secondary' autoFocus>Annuler</Button>
             <Button onClick={this.handleCloseAlertAlt} color='primary' autoFocus>Valider</Button>
           </DialogActions>
         </Dialog>
