@@ -1573,5 +1573,17 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
         <target>Merci de cocher la case "Je ne suis pas un robot"</target>
       </segment>
     </unit>
+    <unit id="EvNMn7e" name="security.reset.intro">
+      <segment>
+        <source>security.reset.intro</source>
+        <target>Veuillez renseigner votre nouveau mot de passe dans le formulaire ci-dessous</target>
+      </segment>
+    </unit>
+    <unit id="GaSM3XU" name="security.reset.title">
+      <segment>
+        <source>security.reset.title</source>
+        <target><![CDATA[<small>Réinitialiser </small>Votre mot de passe]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>
