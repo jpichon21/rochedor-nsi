@@ -1,9 +1,12 @@
 @import '~reset-css/_reset';
-@import './zoom';
 @import './variables';
+@import './zoom';
+@import './flashbag';
 
 html {
   background-color: #000000;
+  // Fix for Magnific Popup
+  margin-right: 0!important;
 }
 
 body {
@@ -378,14 +381,6 @@ i {
       font-size: 14px;
       line-height: 18px;
       color: #ffffff;
-    }
-    .catch-message {
-      color: #ff0000;
-      font-size: 14px;
-      ul {
-        padding: 10px 20px;
-        list-style: disc;
-      }
     }
   }
   > .hole {

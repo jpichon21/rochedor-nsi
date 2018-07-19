@@ -5,6 +5,13 @@
 <link rel="stylesheet" href="{{ asset("assets/css/calendar-registration.css") }}">
 {% endblock %}
 {% block content %}
+<div class="flashbag">
+    <div class="overlay"></div>
+    <div class="box">
+        <div class="message"></div>
+        <div class="button">{{ 'continue' | trans }}</div>
+    </div>
+</div>
 <div class="content">
     <div class="left">
         <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
@@ -46,9 +53,6 @@
                         <div class="pure-u-4-24">
                             <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
                         </div>
-                        <div class="pure-u-20-24">
-                            <div class="catch-message"></div>
-                        </div>
                     </form>
                     <a class="option" href="#reset">{{ 'form.password.reset'|trans }}</a>
                 </div>
@@ -64,9 +68,6 @@
                         </div>
                         <div class="pure-u-4-24">
                             <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
-                        </div>
-                        <div class="pure-u-20-24">
-                            <div class="catch-message"></div>
                         </div>
                     </form>
                 </div>
@@ -109,7 +110,6 @@
         <p>{{ activity.libact }}<br>{{ 'filter.inner.date.in' | trans | raw }} {{ activity.datdeb | localizeddate('medium', 'none', app.request.locale ) }} {{ 'filter.inner.date.out' | trans | lower | raw }} {{ activity.datfin | localizeddate('medium', 'none', app.request.locale ) }} ({{ activity.sitact }})</p>
         <h3>{{ 'calendar.registration.summary.title.participants' | trans | raw }}</h3>
         <div class="participants-render"><p>{{ 'form.no_participants' | trans }}</p></div>
-        <div class="catch-message"></div>
     </div>
 </div>
 {% endblock %}
@@ -238,9 +238,6 @@
     <div class="pure-u-4-24">
         <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
     </div>
-    <div class="pure-u-20-24">
-        <div class="catch-message"></div>
-    </div>
 </script>
 <script type="text/template" class="him-form-template">
     <input autocomplete="nope" type="hidden" value="<%= participant.codco %>" name="codco">
@@ -323,9 +320,6 @@
     </div>
     <div class="pure-u-4-24">
         <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
-    </div>
-    <div class="pure-u-20-24">
-        <div class="catch-message"></div>
     </div>
 </script>
 <script src="{{ asset("assets/js/calendar-registration.js") }}"></script>

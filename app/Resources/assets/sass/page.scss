@@ -126,7 +126,7 @@
         margin-bottom: 20px;
         letter-spacing: 2px;
         text-transform: uppercase;
-        color: #faf28e;
+        color: $roche-yellow;
       }
       p {
         font-family: 'Lato', sans-serif;
@@ -248,7 +248,7 @@
         text-transform: uppercase;
         letter-spacing: 1.4px;
         color: $roche-yellow;
-        border: 1px #faf28e solid;
+        border: 1px $roche-yellow solid;
         background: none;
         box-sizing: border-box;
         outline: none;

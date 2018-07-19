@@ -1,6 +1,7 @@
 import $ from 'jquery'
 import moment from 'moment'
 import { getParticipant } from './sample'
+import { upFlashbag } from './flashbag'
 import {
   postParticipant,
   getLogin,
@@ -122,7 +123,7 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
   }).then(user => {
     afterLogin(user)
   }).catch(() => {
-    $('.connection .catch-message', itemConnection).html(i18n.trans('security.bad_credentials'))
+    upFlashbag(i18n.trans('security.bad_credentials'))
   })
 })
 
@@ -131,7 +132,7 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
   resetLogin({
     email: $('.username', this).val()
   }).then(() => {
-    $('.reset .catch-message', itemConnection).html(i18n.trans('security.check_inbox'))
+    upFlashbag(i18n.trans('security.check_inbox'))
   })
 })
 
@@ -150,13 +151,13 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
       }).then(user => {
         afterLogin(user)
       }).catch(() => {
-        $('.registration .catch-message', itemConnection).html(i18n.trans('security.user_exist'))
+        upFlashbag(i18n.trans('security.user_exist'))
       })
     }).catch(error => {
-      $('.registration .catch-message', itemConnection).html(error)
+      upFlashbag(error)
     })
   } else {
-    $('.registration .catch-message', itemConnection).html(_translations.message.date_invalid)
+    upFlashbag(_translations.message.date_invalid)
   }
 })
 
@@ -227,14 +228,13 @@ function callbackSubmit (event, context, action, callback) {
       updateYouRender()
       updateRegisteredRender()
       updateParticipants()
-      $('.right .catch-message').html('')
       $(`.panel.${action}`).slideUp(800, function () {
         $(this).hide()
         changeItem(itemParticipants)
       })
     })
   } else {
-    $('.catch-message', itemParticipants).html(validate.error)
+    upFlashbag(validate.error)
   }
 }
 
@@ -337,10 +337,10 @@ itemParticipants.on('click', '.validate-participants', function (event) {
       $('.result', itemValidation).html(result)
       changeItem(itemValidation)
     }).catch(error => {
-      $('.right .catch-message').html(error)
+      upFlashbag(error)
     })
   } else {
-    $('.right .catch-message').html(
+    upFlashbag(
       _translations.message.verify_transport +
       '<ul>' + validate.whoAreWeWaitingRender() + '</ul>'
     )

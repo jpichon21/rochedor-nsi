@@ -2,7 +2,7 @@
 
 const content = document.querySelector('.content')
 
-if (content) {
+if (content !== null) {
   content.style.overflowY = 'scroll'
   content.style.width = 'calc(100% + ' + (content.offsetWidth - content.clientWidth) + 'px)'
 }
