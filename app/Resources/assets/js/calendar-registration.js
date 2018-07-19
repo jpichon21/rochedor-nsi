@@ -140,22 +140,27 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
   const participant = formatParticipant(data)
-  const validate = validateDate(participant.datnaiss)
-  if (validate) {
-    postRegister({
-      contact: participant
-    }).then(user => {
-      postLogin({
-        username: user.username,
-        password: participant.password
+  const validatedDate = validateDate(participant.datnaiss)
+  const validatedPhone = validatePhone(participant.tel, participant.mobil)
+  if (validatedDate) {
+    if (validatedPhone) {
+      postRegister({
+        contact: participant
       }).then(user => {
-        afterLogin(user)
-      }).catch(() => {
-        upFlashbag(i18n.trans('security.user_exist'))
+        postLogin({
+          username: user.username,
+          password: participant.password
+        }).then(user => {
+          afterLogin(user)
+        }).catch(() => {
+          upFlashbag(i18n.trans('security.user_exist'))
+        })
+      }).catch(error => {
+        upFlashbag(error)
       })
-    }).catch(error => {
-      upFlashbag(error)
-    })
+    } else {
+      upFlashbag(_translations.message.phone_invalid)
+    }
   } else {
     upFlashbag(_translations.message.date_invalid)
   }
@@ -191,28 +196,36 @@ function validateDate (date) {
   return moment(date).isValid()
 }
 
+function validatePhone (phone, mobile) {
+  return !(phone === '' && mobile === '')
+}
+
 function validateParticipant (participant) {
-  if (validateDate(participant.datnaiss)) {
-    if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
-      return { success: true }
-    } else {
-      if (participant.coltyp === 'enfan') {
-        const people = [..._registered, _you]
-        const filtered = people.filter(person => {
-          return person.codco === parseInt(participant.colp)
-        })
-        const parent = filtered.shift()
-        if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
-          return { success: true }
-        } else {
-          return { error: _translations.message.parent_must_be_adult }
-        }
+  if (validatePhone(participant.tel, participant.mobil)) {
+    if (validateDate(participant.datnaiss)) {
+      if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
+        return { success: true }
       } else {
-        return { error: _translations.message.must_be_a_child }
+        if (participant.coltyp === 'enfan') {
+          const people = [..._registered, _you]
+          const filtered = people.filter(person => {
+            return person.codco === parseInt(participant.colp)
+          })
+          const parent = filtered.shift()
+          if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
+            return { success: true }
+          } else {
+            return { error: _translations.message.parent_must_be_adult }
+          }
+        } else {
+          return { error: _translations.message.must_be_a_child }
+        }
       }
+    } else {
+      return { error: _translations.message.date_invalid }
     }
   } else {
-    return { error: _translations.message.date_invalid }
+    return { error: _translations.message.phone_invalid }
   }
 }
 
