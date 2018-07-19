@@ -66,11 +66,3 @@ document.addEventListener('change', function (event) {
     }
   }
 })
-
-// Inputs
-
-const inputs = dropdown.querySelectorAll('.input')
-
-inputs.forEach(input => {
-  input.setAttribute('autocomplete', 'nope')
-})

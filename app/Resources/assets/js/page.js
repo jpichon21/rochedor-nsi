@@ -33,3 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
     changeItem(item)
   }, 500)
 })
+
+const inputs = dropdown.querySelectorAll('.input')
+
+inputs.forEach(input => {
+  input.setAttribute('autocomplete', 'nope')
+})
