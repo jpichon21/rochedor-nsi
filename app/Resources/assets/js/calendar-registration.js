@@ -316,7 +316,6 @@ function validateTransports () {
     return {
       whoAreWeWaitingRender: () => {
         let html = ''
-        console.log(whoAreWeWaiting)
         whoAreWeWaiting.map(who => {
           html += '<li>' + who.prenom + ' ' + who.nom + '</li>'
         })
