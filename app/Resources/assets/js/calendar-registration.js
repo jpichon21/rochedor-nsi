@@ -25,6 +25,10 @@ const _translations = JSON.parse($('.translations-json').html())
 
 moment.locale(_translations.locale)
 
+/* Countries */
+
+const _countries = JSON.parse($('.countries-json').html())
+
 /* Variables */
 
 let _you = {}
@@ -81,7 +85,7 @@ function updateParticipantsRender () {
 }
 
 function updateYouFormRender () {
-  $('.you-form-render').html(youFormTemplate({ participant: _participant }))
+  $('.you-form-render').html(youFormTemplate({ participant: _participant, countries: _countries }))
 }
 
 function updateHimFormRender () {
