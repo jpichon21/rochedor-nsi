@@ -306,6 +306,11 @@ itemParticipants.on('click', '.modify-you', function (event) {
   $(`.panel.you`, itemParticipants).show()
   updateYouFormRender()
   changeItem(itemParticipants)
+  setTimeout(() => {
+    const content = document.querySelector('.content')
+    const panel = content.querySelector('.panel.you')
+    content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
+  }, 200)
 })
 
 itemParticipants.on('click', '.modify-him', function (event) {
@@ -319,6 +324,11 @@ itemParticipants.on('click', '.modify-him', function (event) {
   $(`.panel.modify`, itemParticipants).show()
   updateHimFormRender()
   changeItem(itemParticipants)
+  setTimeout(() => {
+    const content = document.querySelector('.content')
+    const panel = content.querySelector('.panel.modify')
+    content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
+  }, 200)
 })
 
 itemParticipants.on('click', '.add-participant', function (event) {
