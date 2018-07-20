@@ -726,7 +726,7 @@
       </notes>
       <segment>
         <source>calendar.registration.two.validate_participants</source>
-        <target>Valider les participants</target>
+        <target>Valider l'inscription</target>
       </segment>
     </unit>
     <unit id="B0VCgO_" name="form.username">
@@ -1583,6 +1583,36 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
       <segment>
         <source>security.reset.title</source>
         <target><![CDATA[<small>Réinitialiser </small>Votre mot de passe]]></target>
+      </segment>
+    </unit>
+    <unit id="4lbujnr" name="continue">
+      <segment>
+        <source>continue</source>
+        <target>Continuer</target>
+      </segment>
+    </unit>
+    <unit id="pcWhXux" name="homepage">
+      <segment>
+        <source>homepage</source>
+        <target>Accueil</target>
+      </segment>
+    </unit>
+    <unit id="PG6DQU." name="return.to.calendar">
+      <segment>
+        <source>return.to.calendar</source>
+        <target>return.to.calendar</target>
+      </segment>
+    </unit>
+    <unit id="UVJ5Die" name="calendar">
+      <segment>
+        <source>calendar</source>
+        <target>Calendrier</target>
+      </segment>
+    </unit>
+    <unit id="oXrCtEF" name="form.reset">
+      <segment>
+        <source>form.reset</source>
+        <target>Effacer</target>
       </segment>
     </unit>
   </file>
