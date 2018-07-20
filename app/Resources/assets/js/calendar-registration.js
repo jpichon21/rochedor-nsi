@@ -151,7 +151,10 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
           username: user.username,
           password: participant.password
         }).then(user => {
-          afterLogin(user)
+          afterLogin({
+            ...user,
+            transport: participant.transport
+          })
         }).catch(() => {
           upFlashbag(i18n.trans('security.user_exist'))
         })
