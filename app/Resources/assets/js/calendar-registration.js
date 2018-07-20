@@ -328,6 +328,11 @@ itemParticipants.on('click', '.add-participant', function (event) {
   $(`.panel.add`, itemParticipants).show()
   updateHimFormRender()
   changeItem(itemParticipants)
+  setTimeout(() => {
+    const content = document.querySelector('.content')
+    const panel = content.querySelector('.panel.add')
+    content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
+  }, 200)
 })
 
 function validateTransports () {
