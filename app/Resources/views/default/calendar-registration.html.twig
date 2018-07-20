@@ -98,6 +98,14 @@
                 <h2>{{ 'calendar.registration.three.title' | trans | raw }}</h2>
                 <div class="result">
                     {{ 'calendar.registration.three.body' | trans | raw }}
+                    <div class="pure-g">
+                        <div class="pure-u-1-3">
+                            <p><a class="button" href="{{ path('home') }}">{{ 'homepage' | trans }}</a></p>
+                        </div>
+                        <div class="pure-u-1-3">
+                            <p><a class="button" href="{{ path('calendar-' ~ currentLocale) }}">{{ 'calendar' | trans }}</a></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -116,6 +124,11 @@
 {% block javascripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+<script type="text/javascript">
+    window.onbeforeunload = function () {
+        return 'Are you sure want to close';
+    }
+</script>
 <script type="text/json" class="infos-json">
     {{ activity | json_encode() | raw }}
 </script>
@@ -247,6 +260,9 @@
     <div class="pure-u-1">
         <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= participant.memo %></textarea>
     </div>
+    <div class="pure-u-6-24">
+        <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reset' | trans | raw }}">
+    </div>
     <div class="pure-u-4-24">
         <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
     </div>
@@ -332,6 +348,9 @@
     </div>
     <div class="pure-u-1">
         <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= participant.memo %></textarea>
+    </div>
+    <div class="pure-u-6-24">
+        <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reset' | trans | raw }}">
     </div>
     <div class="pure-u-4-24">
         <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
