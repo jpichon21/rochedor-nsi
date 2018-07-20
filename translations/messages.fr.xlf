@@ -1131,7 +1131,7 @@
     <unit id="EtAAt8D" name="form.message.must_be_a_child">
       <segment>
         <source>form.message.must_be_a_child</source>
-        <target>Les personnes de moins de 16 ans doivent être considéré comme "Enfant de"</target>
+        <target>Les personnes de moins de 16 ans doivent être considérées comme "Enfant de"</target>
       </segment>
     </unit>
     <unit id="Cr.q521" name="form.message.date_invalid">
