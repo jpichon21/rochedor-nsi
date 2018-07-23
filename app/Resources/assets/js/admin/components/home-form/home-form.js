@@ -22,6 +22,11 @@ import {
   Typography,
   Grid,
   Tooltip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
@@ -45,7 +50,9 @@ export class HomeForm extends React.Component {
       fileUploading: {
         isUploading: false
       },
-      anchorVersion: null
+      anchorVersion: null,
+      noticeBlockquote: true,
+      AlertBlockquoteOpen: false
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
@@ -56,6 +63,8 @@ export class HomeForm extends React.Component {
     this.handleChangeTextArea = this.handleChangeTextArea.bind(this)
     this.handleInit = this.handleInit.bind(this)
     this.handleConvertFromHTML = this.handleConvertFromHTML.bind(this)
+    this.handleOpenAlertBlockquote = this.handleOpenAlertBlockquote.bind(this)
+    this.handleCloseAlertBlockquote = this.handleCloseAlertBlockquote.bind(this)
   }
 
   handleInit (props) {
@@ -191,11 +200,45 @@ export class HomeForm extends React.Component {
     }
   }
 
+  handleOpenAlertBlockquote () {
+    this.setState({ AlertBlockquoteOpen: true })
+  }
+
+  handleCloseAlertBlockquote () {
+    this.setState({ AlertBlockquoteOpen: false })
+  }
+
   render () {
+    document.addEventListener('click', event => {
+      const element = event.target
+      if (
+        element &&
+        element.classList.contains('rdw-dropdownoption-default') &&
+        element.textContent === 'Citation' &&
+        this.state.noticeBlockquote
+      ) {
+        this.setState({ noticeBlockquote: false })
+        this.handleOpenAlertBlockquote()
+      }
+    })
     const { classes } = this.props
     const versions = this.props.versions
     return (
       <div className={classes.container}>
+        <Dialog
+          open={this.state.AlertBlockquoteOpen}
+          onClose={this.handleCloseAlertBlockquote}>
+          <DialogTitle>Citation</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <p>La citation doit être renseignée en <em>italique</em><br />L'auteur doit être renseigné en <strong>gras</strong></p>
+              <p>Exemple :<br /><em>La foi, c'est une confiance, la gratuité d'une amitié.</em> <strong>Florin Callerand</strong></p>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseAlertBlockquote} color='primary' autoFocus>J'ai compris !</Button>
+          </DialogActions>
+        </Dialog>
         <Typography variant='display1' className={classes.title}>
           SEO
         </Typography>

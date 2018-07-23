@@ -670,7 +670,7 @@
       </notes>
       <segment>
         <source>form.birthday</source>
-        <target>Anniversaire (JJ/MM/AAAA)</target>
+        <target>Naissance (jj/mm/aaaa)</target>
       </segment>
     </unit>
     <unit id="P7A68ag" name="form.profession">
@@ -726,7 +726,7 @@
       </notes>
       <segment>
         <source>calendar.registration.two.validate_participants</source>
-        <target>Valider les participants</target>
+        <target>Valider l'inscription</target>
       </segment>
     </unit>
     <unit id="B0VCgO_" name="form.username">
@@ -1011,7 +1011,7 @@
     <unit id="N_ACgte" name="calendar.registration.intro">
       <segment>
         <source>calendar.registration.intro</source>
-        <target><![CDATA[Vous êtes sur le point de vous inscrire à une retraite. Complétez les informations suivantes si vous souahitez continuer, sinon retourner au <a href="%link%">calendrier</a>.]]></target>
+        <target><![CDATA[Vous êtes sur le point de vous inscrire à une retraite. Complétez les informations suivantes si vous souhaitez continuer, sinon retourner au <a href="%link%">calendrier</a>.]]></target>
       </segment>
     </unit>
     <unit id="EHnUJsc" name="calendar.registration.two.title.modify">
@@ -1077,7 +1077,7 @@
     <unit id="kswmam." name="form.transport">
       <segment>
         <source>form.transport</source>
-        <target>Transport</target>
+        <target>Vous viendrez</target>
       </segment>
     </unit>
     <unit id="g8r0.vw" name="form.memo">
@@ -1131,13 +1131,13 @@
     <unit id="EtAAt8D" name="form.message.must_be_a_child">
       <segment>
         <source>form.message.must_be_a_child</source>
-        <target>Les personnes de moins de 16 ans doivent être considéré comme "Enfant de"</target>
+        <target>Les personnes de moins de 16 ans doivent être considérées comme "Enfant de"</target>
       </segment>
     </unit>
     <unit id="Cr.q521" name="form.message.date_invalid">
       <segment>
         <source>form.message.date_invalid</source>
-        <target>Date invalide</target>
+        <target>La date que vous avez saisi est invalide</target>
       </segment>
     </unit>
     <unit id="RJ.6oSN" name="form.no_participants">
@@ -1185,7 +1185,7 @@
     <unit id="kzkX1MK" name="security.bad_credentials">
       <segment>
         <source>security.bad_credentials</source>
-        <target>Identifiants erronés</target>
+        <target>Les identifiants que vous avez saisi sont erronés</target>
       </segment>
     </unit>
     <unit id="rHsOKUn" name="security.check_inbox">
@@ -1481,6 +1481,138 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
       <segment>
         <source>editions.technicalreview.poids</source>
         <target>Poids</target>
+      </segment>
+    </unit>
+    <unit id="znn8YMw" name="security.user_exist">
+      <segment>
+        <source>security.user_exist</source>
+        <target>L'adresse mail utilisée est déjà enregistrée.</target>
+      </segment>
+    </unit>
+    <unit id="lDOm6tr" name="form.contact.title">
+      <segment>
+        <source>form.contact.title</source>
+        <target>Formulaire de contact</target>
+      </segment>
+    </unit>
+    <unit id="jBsBTZU" name="form.body">
+      <segment>
+        <source>form.body</source>
+        <target>Message</target>
+      </segment>
+    </unit>
+    <unit id="N7xyN0P" name="form.send">
+      <segment>
+        <source>form.send</source>
+        <target>Envoyer</target>
+      </segment>
+    </unit>
+    <unit id="06a7tU5" name="title.connection">
+      <segment>
+        <source>title.connection</source>
+        <target>Connexion</target>
+      </segment>
+    </unit>
+    <unit id="KaXjE7S" name="form.title.connection">
+      <segment>
+        <source>form.title.connection</source>
+        <target>Formulaire de connexion</target>
+      </segment>
+    </unit>
+    <unit id="k3DuK7A" name="form.validate">
+      <segment>
+        <source>form.validate</source>
+        <target>Valider</target>
+      </segment>
+    </unit>
+    <unit id="yJYpS55" name="form.title.registration">
+      <segment>
+        <source>form.title.registration</source>
+        <target>Formulaire d'inscription</target>
+      </segment>
+    </unit>
+    <unit id="ILWuW.c" name="form.password.repeat">
+      <segment>
+        <source>form.password.repeat</source>
+        <target>Répéter mot de passe</target>
+      </segment>
+    </unit>
+    <unit id="7HI7BgF" name="contact.submit.success">
+      <segment>
+        <source>contact.submit.success</source>
+        <target><![CDATA[Votre message a bien été pris en compte. Il sera traité dans les plus brefs délais. Vous recevrez une confirmation d'envoi dans les prochaines minutes. Retour à la <a href="/">page d'accueil</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="PnnB3aX" name="contact.ro.foradmin.subject">
+      <segment>
+        <source>contact.ro.foradmin.subject</source>
+        <target>[RO] Nouveau message de</target>
+      </segment>
+    </unit>
+    <unit id="aXfD6Ri" name="contact.ro.forclient.subject">
+      <segment>
+        <source>contact.ro.forclient.subject</source>
+        <target>Votre message à la Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="CnKFeFj" name="contact.font.forclient.subject">
+      <segment>
+        <source>contact.font.forclient.subject</source>
+        <target>Votre message aux Fontanilles</target>
+      </segment>
+    </unit>
+    <unit id="Rd5R24U" name="contact.font.foradmin.subject">
+      <segment>
+        <source>contact.font.foradmin.subject</source>
+        <target>[FT] Nouveau message de</target>
+      </segment>
+    </unit>
+    <unit id="zRLk9BZ" name="form.please.recaptcha">
+      <segment>
+        <source>form.please.recaptcha</source>
+        <target>Merci de cocher la case "Je ne suis pas un robot"</target>
+      </segment>
+    </unit>
+    <unit id="EvNMn7e" name="security.reset.intro">
+      <segment>
+        <source>security.reset.intro</source>
+        <target>Veuillez renseigner votre nouveau mot de passe dans le formulaire ci-dessous</target>
+      </segment>
+    </unit>
+    <unit id="GaSM3XU" name="security.reset.title">
+      <segment>
+        <source>security.reset.title</source>
+        <target><![CDATA[<small>Réinitialiser </small>Votre mot de passe]]></target>
+      </segment>
+    </unit>
+    <unit id="4lbujnr" name="continue">
+      <segment>
+        <source>continue</source>
+        <target>Continuer</target>
+      </segment>
+    </unit>
+    <unit id="pcWhXux" name="homepage">
+      <segment>
+        <source>homepage</source>
+        <target>Accueil</target>
+      </segment>
+    </unit>
+    <unit id="PG6DQU." name="return.to.calendar">
+      <segment>
+        <source>return.to.calendar</source>
+        <target>return.to.calendar</target>
+      </segment>
+    </unit>
+    <unit id="UVJ5Die" name="calendar">
+      <segment>
+        <source>calendar</source>
+        <target>Calendrier</target>
+      </segment>
+    </unit>
+    <unit id="oXrCtEF" name="form.reset">
+      <segment>
+        <source>form.reset</source>
+        <target>Effacer</target>
       </segment>
     </unit>
   </file>

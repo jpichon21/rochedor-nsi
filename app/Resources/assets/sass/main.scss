@@ -1,9 +1,12 @@
 @import '~reset-css/_reset';
-@import './zoom';
 @import './variables';
+@import './zoom';
+@import './flashbag';
 
 html {
   background-color: #000000;
+  // Fix for Magnific Popup
+  margin-right: 0!important;
 }
 
 body {
@@ -340,54 +343,49 @@ i {
   flex: 1;
   z-index: 0;
   overflow: hidden;
-  > .zone,
-  > .left,
-  > .right {
-    flex: 1;
-    position: relative;
-  }
-  > .zone {
-    padding: 100px 50px 0;
-  }
-  > .left {
-    padding: 100px 0 0 50px;
-  }
-  > .right {
-    padding: 100px 50px 0 0;
-  }
-  > .right {
-    position: sticky;
-    top: 0;
-    h2, h3 {
-      color: $roche-yellow; 
-      font-weight: 400;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+  & > {
+    .zone,
+    .left,
+    .right {
+      flex: 1;
+      position: relative;
     }
-    h2 {
-      font-size: 20px;
-      margin-bottom: 30px;
+    .zone {
+      padding: 100px 50px 0;
     }
-    h3 {
-      font-size: 13px;
-      margin-bottom: 20px;
+    .hole {
+      width: 170px;
     }
-    p {
-      font-family: 'Lato', sans-serif;
-      font-size: 14px;
-      line-height: 18px;
-      color: #ffffff;
+    .left {
+      padding: 100px 0 0 50px;
     }
-    .catch-message {
-      color: #ff0000;
-      font-size: 14px;
-      ul {
-        padding: 10px 20px;
-        list-style: disc;
+    .right {
+      padding: 100px 50px 50px 0;
+      overflow: auto;
+    }
+    .right {
+      position: sticky;
+      top: 0;
+      h2, h3 {
+        color: $roche-yellow; 
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      h2 {
+        font-size: 20px;
+        margin-bottom: 30px;
+      }
+      h3 {
+        font-size: 13px;
+        margin-bottom: 20px;
+      }
+      p {
+        font-family: 'Lato', sans-serif;
+        font-size: 14px;
+        line-height: 18px;
+        color: #ffffff;
       }
     }
-  }
-  > .hole {
-    width: 170px;
   }
 }

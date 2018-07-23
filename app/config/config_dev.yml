@@ -29,10 +29,10 @@ monolog:
             host: 127.0.0.1:9911
 swiftmailer:
     transport: smtp
-    host: 127.0.0.1
+    host: smtp.mailtrap.io
     port: 2525
-    username: user
-    password: password
+    username: ea30d8ce27f744
+    password: b2ad4ca0ea5f61
 translation:
     symfony_profiler:
         enabled: true

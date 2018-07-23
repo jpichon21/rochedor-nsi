@@ -1,6 +1,7 @@
 import $ from 'jquery'
 import moment from 'moment'
 import { getParticipant } from './sample'
+import { upFlashbag } from './flashbag'
 import {
   postParticipant,
   getLogin,
@@ -24,6 +25,21 @@ const _translations = JSON.parse($('.translations-json').html())
 
 moment.locale(_translations.locale)
 
+/* Countries */
+
+const _countries = JSON.parse($('.countries-json').html())
+
+/* Variables */
+
+let _you = {}
+let _registered = []
+let _participant = {}
+let _participants = []
+
+const itemConnection = $('.item.connection')
+const itemParticipants = $('.item.participants')
+const itemValidation = $('.item.validation')
+
 /* Dropdowns */
 
 function changeItem (elmt) {
@@ -37,7 +53,7 @@ function changeItem (elmt) {
 
 $(document).ready(function () {
   setTimeout(function () {
-    changeItem($('.dropdown .item:first'))
+    changeItem(itemConnection)
   }, 500)
 })
 
@@ -47,17 +63,6 @@ $('.registered-render').on('click', '.button.radio', function (event) {
   event.preventDefault()
   $(this).toggleClass('checked')
 })
-
-/* Variables */
-
-let _you = {}
-let _registered = []
-let _participant = {}
-let _participants = []
-
-const itemConnection = $('.item.connection')
-const itemParticipants = $('.item.participants')
-const itemValidation = $('.item.validation')
 
 /* Renders */
 
@@ -80,14 +85,12 @@ function updateParticipantsRender () {
 }
 
 function updateYouFormRender () {
-  $('.you-form-render').html(youFormTemplate({ participant: _participant }))
+  $('.you-form-render').html(youFormTemplate({ participant: _participant, countries: _countries }))
 }
 
 function updateHimFormRender () {
   $('.him-form-render').html(himFormTemplate({ participant: _participant, registered: _registered, you: _you }))
 }
-
-updateParticipantsRender()
 
 /* Actions */
 
@@ -124,7 +127,7 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
   }).then(user => {
     afterLogin(user)
   }).catch(() => {
-    $('.connection .catch-message', itemConnection).html(i18n.trans('security.bad_credentials'))
+    upFlashbag(i18n.trans('security.bad_credentials'))
   })
 })
 
@@ -133,7 +136,7 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
   resetLogin({
     email: $('.username', this).val()
   }).then(() => {
-    $('.reset .catch-message', itemConnection).html(i18n.trans('security.check_inbox'))
+    upFlashbag(i18n.trans('security.check_inbox'))
   })
 })
 
@@ -141,22 +144,32 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
   const participant = formatParticipant(data)
-  const validate = validateDate(participant.datnaiss)
-  if (validate) {
-    postRegister({
-      contact: participant
-    }).then(user => {
-      postLogin({
-        username: user.username,
-        password: participant.password
+  const validatedDate = validateDate(participant.datnaiss)
+  const validatedPhone = validatePhone(participant.tel, participant.mobil)
+  if (validatedDate) {
+    if (validatedPhone) {
+      postRegister({
+        contact: participant
       }).then(user => {
-        afterLogin(user)
+        postLogin({
+          username: user.username,
+          password: participant.password
+        }).then(user => {
+          afterLogin({
+            ...user,
+            transport: participant.transport
+          })
+        }).catch(() => {
+          upFlashbag(i18n.trans('security.user_exist'))
+        })
+      }).catch(error => {
+        upFlashbag(error)
       })
-    }).catch(error => {
-      $('.registration .catch-message', itemConnection).html(error)
-    })
+    } else {
+      upFlashbag(_translations.message.phone_invalid)
+    }
   } else {
-    $('.registration .catch-message', itemConnection).html(_translations.message.date_invalid)
+    upFlashbag(_translations.message.date_invalid)
   }
 })
 
@@ -190,28 +203,36 @@ function validateDate (date) {
   return moment(date).isValid()
 }
 
+function validatePhone (phone, mobile) {
+  return !(phone === '' && mobile === '')
+}
+
 function validateParticipant (participant) {
-  if (validateDate(participant.datnaiss)) {
-    if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
-      return { success: true }
-    } else {
-      if (participant.coltyp === 'enfan') {
-        const people = [..._registered, _you]
-        const filtered = people.filter(person => {
-          return person.codco === parseInt(participant.colp)
-        })
-        const parent = filtered.shift()
-        if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
-          return { success: true }
-        } else {
-          return { error: _translations.message.parent_must_be_adult }
-        }
+  if (validatePhone(participant.tel, participant.mobil)) {
+    if (validateDate(participant.datnaiss)) {
+      if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
+        return { success: true }
       } else {
-        return { error: _translations.message.must_be_a_child }
+        if (participant.coltyp === 'enfan') {
+          const people = [..._registered, _you]
+          const filtered = people.filter(person => {
+            return person.codco === parseInt(participant.colp)
+          })
+          const parent = filtered.shift()
+          if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
+            return { success: true }
+          } else {
+            return { error: _translations.message.parent_must_be_adult }
+          }
+        } else {
+          return { error: _translations.message.must_be_a_child }
+        }
       }
+    } else {
+      return { error: _translations.message.date_invalid }
     }
   } else {
-    return { error: _translations.message.date_invalid }
+    return { error: _translations.message.phone_invalid }
   }
 }
 
@@ -227,14 +248,13 @@ function callbackSubmit (event, context, action, callback) {
       updateYouRender()
       updateRegisteredRender()
       updateParticipants()
-      $('.right .catch-message').html('')
       $(`.panel.${action}`).slideUp(800, function () {
         $(this).hide()
         changeItem(itemParticipants)
       })
     })
   } else {
-    $('.catch-message', itemParticipants).html(validate.error)
+    upFlashbag(validate.error)
   }
 }
 
@@ -286,6 +306,11 @@ itemParticipants.on('click', '.modify-you', function (event) {
   $(`.panel.you`, itemParticipants).show()
   updateYouFormRender()
   changeItem(itemParticipants)
+  setTimeout(() => {
+    const content = document.querySelector('.content')
+    const panel = content.querySelector('.panel.you')
+    content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
+  }, 200)
 })
 
 itemParticipants.on('click', '.modify-him', function (event) {
@@ -299,6 +324,11 @@ itemParticipants.on('click', '.modify-him', function (event) {
   $(`.panel.modify`, itemParticipants).show()
   updateHimFormRender()
   changeItem(itemParticipants)
+  setTimeout(() => {
+    const content = document.querySelector('.content')
+    const panel = content.querySelector('.panel.modify')
+    content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
+  }, 200)
 })
 
 itemParticipants.on('click', '.add-participant', function (event) {
@@ -308,6 +338,11 @@ itemParticipants.on('click', '.add-participant', function (event) {
   $(`.panel.add`, itemParticipants).show()
   updateHimFormRender()
   changeItem(itemParticipants)
+  setTimeout(() => {
+    const content = document.querySelector('.content')
+    const panel = content.querySelector('.panel.add')
+    content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
+  }, 200)
 })
 
 function validateTransports () {
@@ -316,7 +351,6 @@ function validateTransports () {
     return {
       whoAreWeWaitingRender: () => {
         let html = ''
-        console.log(whoAreWeWaiting)
         whoAreWeWaiting.map(who => {
           html += '<li>' + who.prenom + ' ' + who.nom + '</li>'
         })
@@ -337,10 +371,10 @@ itemParticipants.on('click', '.validate-participants', function (event) {
       $('.result', itemValidation).html(result)
       changeItem(itemValidation)
     }).catch(error => {
-      $('.right .catch-message').html(error)
+      upFlashbag(error)
     })
   } else {
-    $('.right .catch-message').html(
+    upFlashbag(
       _translations.message.verify_transport +
       '<ul>' + validate.whoAreWeWaitingRender() + '</ul>'
     )

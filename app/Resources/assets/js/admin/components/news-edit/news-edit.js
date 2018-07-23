@@ -30,7 +30,7 @@ export class NewsEdit extends React.Component {
     this.props.dispatch(getNews(params.newsId))
   }
   componentWillReceiveProps (nextProps) {
-    this.props.dispatch(setTitle(`Modification de la news ${(nextProps.news) ? nextProps.news.title : ''}`))
+    this.props.dispatch(setTitle(`Modification d'une nouveauté`))
     if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully') || nextProps.error) {
     }
 
@@ -72,7 +72,7 @@ export class NewsEdit extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu goBack='/news-list' title={'Modification de la nouveauté'} localeHandler={this.onLocaleChange} locales={locales} locale={(this.props.news) ? this.props.news.locale : 'fr'} />
+        <AppMenu goBack='/news-list' title={`Modification d'une nouveauté`} localeHandler={this.onLocaleChange} locales={locales} locale={(this.props.news) ? this.props.news.locale : 'fr'} />
         <Snackbar
           open={this.state.snackbarOpen}
           autoHideDuration={4000}

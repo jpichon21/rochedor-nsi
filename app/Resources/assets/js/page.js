@@ -4,7 +4,7 @@ const dropdown = document.querySelector('.dropdown')
 const items = dropdown.querySelectorAll('.item')
 
 const updateHeightDropdown = () => {
-  let active = dropdown.querySelector('.active')
+  let active = dropdown.querySelector('.item.active')
   active.style.maxHeight = active.scrollHeight + 'px'
 }
 
@@ -32,4 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const item = dropdown.querySelector('.item.first')
     changeItem(item)
   }, 500)
+})
+
+const inputs = dropdown.querySelectorAll('.input')
+
+inputs.forEach(input => {
+  input.setAttribute('autocomplete', 'nope')
 })
