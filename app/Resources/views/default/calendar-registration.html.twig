@@ -312,7 +312,13 @@
         <input autocomplete="nope" class="input ville" required type="text" value="<%= participant.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input autocomplete="nope" class="input pays" type="text" value="<%= participant.pays %>" name="pays" placeholder="{{ 'form.country' | trans | raw }}">
+        <select class="select pays <%= (participant.pays != '') ? 'white' : '' %>" required name="pays">
+            <option <%= (participant.pays == '') ? 'selected' : '' %> disabled value="">{{ 'form.country' | trans | raw }}</option>
+            <% for (var i = 0; i < countries.length; i++) { %>
+                <% var country = countries[i] %>
+                <option <%= (participant.pays == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
+            <% } %>
+        </select>
     </div>
     <div class="pure-u-1-3">
         <input autocomplete="nope" class="input tel" type="number" value="<%= participant.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">

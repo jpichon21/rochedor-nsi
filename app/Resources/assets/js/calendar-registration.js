@@ -89,7 +89,7 @@ function updateYouFormRender () {
 }
 
 function updateHimFormRender () {
-  $('.him-form-render').html(himFormTemplate({ participant: _participant, registered: _registered, you: _you }))
+  $('.him-form-render').html(himFormTemplate({ participant: _participant, countries: _countries, registered: _registered, you: _you }))
 }
 
 /* Actions */
