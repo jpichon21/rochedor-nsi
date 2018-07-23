@@ -157,9 +157,9 @@ class CalendarController extends Controller
         ]);
     }
 
+    //  * @Security("has_role('ROLE_USER')")
     /**
      * @Rest\Post("/calendar/attendees", name="post_attendees")
-     * @Security("has_role('ROLE_USER')")
      * @Rest\View()
      */
     public function xhrPostAttendeesAction(Request $request)
@@ -179,9 +179,9 @@ class CalendarController extends Controller
         return ['status' => 'ok', 'message' => 'Registration successful', 'data' => $calL];
     }
 
+    //  * @Security("has_role('ROLE_USER')")
     /**
      * @Rest\Post("/calendar/attendee", name="post_attendee")
-     * @Security("has_role('ROLE_USER')")
      * @Rest\View()
      */
     public function xhrPostAttendeeAction(Request $request)
@@ -251,6 +251,22 @@ class CalendarController extends Controller
                     ->setColt('famil')
                     ->setColtyp($a['coltyp']);
                     $em->persist($contactl);
+                }
+                if ($a['coltyp'] === 'accom') {
+                    if (!$contactl = $this->contactRepository->findContactL($contact->getCodco(), $a['colp'])) {
+                        $contactl = new ContactL();
+                        $contactl->setCol((int) $a['codco']);
+                    }
+                    $contactl->setColp((int) $a['colp'])
+                    ->setColt('accom')
+                    ->setColtyp('accom');
+                    $em->persist($contactl);
+                }
+                if (isset($a['autpar'])) {
+                    if ($a['autpar'] === 1) {
+                        $contactl->setAutpar(new \DateTime('now'));
+                        $em->persist($contactl);
+                    }
                 }
                 $calendar = $this->calendarRepository->findCalendar($activityId);
                 $site = $calendar['sitact'];
@@ -324,6 +340,9 @@ class CalendarController extends Controller
     private function hasParent($child, $attendees)
     {
         if ($child['coltyp'] !== 'enfan') {
+            if (isset($child['autpar'])) {
+                return true;
+            }
             return false;
         }
         foreach ($attendees as $attendee) {
