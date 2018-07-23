@@ -5,11 +5,13 @@
 <link rel="stylesheet" href="{{ asset("assets/css/calendar-registration.css") }}">
 {% endblock %}
 {% block content %}
-<div class="flashbag">
+<div class="popup">
     <div class="overlay"></div>
     <div class="box">
         <div class="message"></div>
-        <div class="button">{{ 'continue' | trans }}</div>
+        <div class="button continue">{{ 'continue' | trans }}</div>
+        <div class="button yes">{{ 'yes' | trans }}</div>
+        <div class="button no">{{ 'no' | trans }}</div>
     </div>
 </div>
 <div class="content">
@@ -130,22 +132,8 @@
 <script type="text/json" class="countries-json">
     {{ countries | json_encode() | raw }}
 </script>
-<script type="text/json" class="translations-json">
-    {
-        "locale": "{{ app.request.locale }}",
-        "transport": {
-            "perso": "{{ 'form.transport.perso' | trans }}",
-            "train": "{{ 'form.transport.train' | trans }}",
-            "avion": "{{ 'form.transport.avion' | trans }}",
-            "bus": "{{ 'form.transport.bus' | trans }}"
-        },
-        "message": {
-            "verify_transport": "{{ 'form.message.verify_transport' | trans }}",
-            "parent_must_be_adult": "{{ 'form.message.parent_must_be_adult' | trans }}",
-            "must_be_a_child": "{{ 'form.message.must_be_a_child' | trans }}",
-            "date_invalid": "{{ 'form.message.date_invalid' | trans }}"
-        }
-    }
+<script type="text/json" class="locale-json">
+    {{ currentLocale }}
 </script>
 <script type="text/template" class="you-template">
     <div class="you">
@@ -162,7 +150,7 @@
             <div class="him">
                 <p><%= him.prenom %> <%= him.nom %><br>
                     <%= him.adresse %> <%= him.cp %> <%= him.ville %> (<%= him.pays %>)<br>
-                    <%= translations.transport[him.transport] %></p>
+                    <%= transports[him.transport] %></p>
             </div>
         <% } %>
     <% } else { %>
@@ -190,12 +178,9 @@
     <div class="pure-u-1-3">
         <select class="select civil <%= (participant.civil != '') ? 'white' : '' %>" required name="civil">
             <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
-            <option <%= (participant.civil == 'M.') ? 'selected' : '' %> value="M.">M.</option>
-            <option <%= (participant.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
-            <option <%= (participant.civil == 'Mlle') ? 'selected' : '' %> value="Mlle">Mlle</option>
-            <option <%= (participant.civil == 'Père') ? 'selected' : '' %> value="Père">Père</option>
-            <option <%= (participant.civil == 'Frère') ? 'selected' : '' %> value="Frère">Frère</option>
-            <option <%= (participant.civil == 'Soeur') ? 'selected' : '' %> value="Soeur">Soeur</option>
+            <% for (var i = 0; i < civilites.length; i++) { %>
+                <option <%= (participant.civil == civilites[i]) ? 'selected' : '' %> value="<%= civilites[i] %>"><%= civilites[i] %></option>
+            <% } %>
         </select>
     </div>
     <div class="pure-u-1-3">
@@ -288,12 +273,9 @@
     <div class="pure-u-1-3">
         <select class="select civil <%= (participant.civil != '') ? 'white' : '' %>" required name="civil">
             <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
-            <option <%= (participant.civil == 'M.') ? 'selected' : '' %> value="M.">M.</option>
-            <option <%= (participant.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
-            <option <%= (participant.civil == 'Mlle') ? 'selected' : '' %> value="Mlle">Mlle</option>
-            <option <%= (participant.civil == 'Père') ? 'selected' : '' %> value="Père">Père</option>
-            <option <%= (participant.civil == 'Frère') ? 'selected' : '' %> value="Frère">Frère</option>
-            <option <%= (participant.civil == 'Soeur') ? 'selected' : '' %> value="Soeur">Soeur</option>
+            <% for (var i = 0; i < civilites.length; i++) { %>
+                <option <%= (participant.civil == civilites[i]) ? 'selected' : '' %> value="<%= civilites[i] %>"><%= civilites[i] %></option>
+            <% } %>
         </select>
     </div>
     <div class="pure-u-1-3">

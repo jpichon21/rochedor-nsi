@@ -1,4 +1,4 @@
-.flashbag {
+.popup {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,6 +17,17 @@
     visibility: visible;
     opacity: 1;
     transition-delay: 0s;
+  }
+  &.flashbag {
+    .no,
+    .yes {
+      display: none;
+    }
+  }
+  &.confirmbox {
+    .continue {
+      display: none;
+    }
   }
   .overlay {
     position: absolute;
@@ -42,7 +53,7 @@
   }
   .button {
     float: right;
-    margin-top: 40px;
+    margin: 40px 0 0 20px;
     padding: 0 20px;
     font-size: 10px;
     line-height: 30px;
