@@ -255,9 +255,6 @@ class CalendarController extends Controller
                         $contactl = new ContactL();
                         $contactl->setCol((int) $a['codco']);
                     }
-                    if ($a['coltyp'] === 'enfan') {
-                        $contactl->setAutpar(new \DateTime('now'));
-                    }
                     $contactl->setColp((int) $a['colp'])
                     ->setColt('famil')
                     ->setColtyp($a['coltyp']);
@@ -403,7 +400,7 @@ class CalendarController extends Controller
         foreach ($eventTypes as $eventType) {
             if ($eventType['color'] === "") {
                 $key = $eventType['abbr'];
-                if (isset($this::COLORS[$key])) {
+                if ($this::COLORS[$key] !== null) {
                     $eventType['color'] = $this::COLORS[$key];
                 } else {
                     $eventType['color'] = $this::COLORS['Autre'];
