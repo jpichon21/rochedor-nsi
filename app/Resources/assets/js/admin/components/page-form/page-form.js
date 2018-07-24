@@ -594,6 +594,7 @@ export class PageForm extends React.Component {
   }
 
   handleChangeDocumentUpload (event, indexSection) {
+    console.log(indexSection)
     this.setState({
       fileUploading: {
         isUploading: true,
@@ -601,6 +602,8 @@ export class PageForm extends React.Component {
         indexSection: indexSection
       }
     })
+    console.log(indexSection)
+    console.log(this.state.fileUploading)
     this.props.dispatch(uploadFile(event.target.files[0])).then((res) => {
       this.setState({
         fileUploading: {
@@ -611,9 +614,11 @@ export class PageForm extends React.Component {
   }
 
   handleAddDocument (linkToDocument, indexSection) {
+    console.log('handleAddDocument')
     const oldEditorState = this.state.page.content.sections[indexSection].bodyRaw
     const oldEditorStateSelection = oldEditorState.getSelection()
     if (!oldEditorStateSelection.isCollapsed()) {
+      console.log('isCollapsed')
       const editorState = RichUtils.toggleLink(
         oldEditorState,
         oldEditorStateSelection,
@@ -651,6 +656,8 @@ export class PageForm extends React.Component {
         this.setState(state)
       }
       if (fileUploading.type === 'document') {
+        console.log(fileUploading)
+        window.alert(nextProps.uploadStatus.path)
         this.handleAddDocument(nextProps.uploadStatus.path, fileUploading.indexSection)
       }
       this.setState(prevState => {
