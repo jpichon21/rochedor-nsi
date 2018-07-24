@@ -392,7 +392,7 @@ class CalendarController extends Controller
         foreach ($eventTypes as $eventType) {
             if ($eventType['color'] === "") {
                 $key = $eventType['abbr'];
-                if ($this::COLORS[$key] !== null) {
+                if (isset($this::COLORS[$key])) {
                     $eventType['color'] = $this::COLORS[$key];
                 } else {
                     $eventType['color'] = $this::COLORS['Autre'];
