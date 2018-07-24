@@ -19,7 +19,8 @@ const participant = {
   transport: '',
   memo: '',
   check: false,
-  autpar: false
+  aut16: 0,
+  datAut16: null
 }
 
 const delivery = {

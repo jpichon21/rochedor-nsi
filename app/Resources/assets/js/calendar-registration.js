@@ -246,7 +246,7 @@ function validateParticipant (participant) {
     if (validatePhone(participant.tel, participant.mobil)) {
       if (validateDate(participant.datnaiss)) {
         if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
-          resolve()
+          resolve(participant)
         } else {
           if (participant.coltyp === 'enfan' || participant.coltyp === 'accom') {
             const people = [..._registered, _you]
@@ -256,7 +256,11 @@ function validateParticipant (participant) {
             const parent = filtered.shift()
             if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
               upConfirmbox(i18n.trans('form.message.does_child_have_autpar')).then(() => {
-                resolve()
+                resolve({
+                  ...participant,
+                  aut16: 1,
+                  datAut16: moment().format()
+                })
               }).catch(() => {
                 reject(i18n.trans('form.message.child_must_have_autpar'))
               })
@@ -279,10 +283,10 @@ function validateParticipant (participant) {
 function callbackSubmit (event, context, action, callback) {
   event.preventDefault()
   const data = context.serializeArray()
-  const participant = formatParticipant(data)
-  validateParticipant(participant).then(() => {
-    postParticipant(participant).then(res => {
-      const participantUpdated = { ...participant, ...res }
+  const participantFormated = formatParticipant(data)
+  validateParticipant(participantFormated).then(participantValidated => {
+    postParticipant(participantValidated).then(res => {
+      const participantUpdated = { ...participantValidated, ...res }
       callback(participantUpdated)
       updateYouRender()
       updateRegisteredRender()
