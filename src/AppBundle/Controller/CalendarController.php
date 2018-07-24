@@ -255,9 +255,22 @@ class CalendarController extends Controller
                         $contactl = new ContactL();
                         $contactl->setCol((int) $a['codco']);
                     }
+                    if ($a['coltyp'] === 'enfan') {
+                        $contactl->setAutpar(new \DateTime('now'));
+                    }
                     $contactl->setColp((int) $a['colp'])
                     ->setColt('famil')
                     ->setColtyp($a['coltyp']);
+                    $em->persist($contactl);
+                }
+                if ($a['coltyp'] === 'accom') {
+                    if (!$contactl = $this->contactRepository->findContactL($contact->getCodco(), $a['colp'])) {
+                        $contactl = new ContactL();
+                        $contactl->setCol((int) $a['codco']);
+                    }
+                    $contactl->setColp((int) $a['colp'])
+                    ->setColt('accom')
+                    ->setColtyp('accom');
                     $em->persist($contactl);
                 }
                 $calendar = $this->calendarRepository->findCalendar($activityId);
@@ -304,7 +317,9 @@ class CalendarController extends Controller
         ->setMobil($attendee['mobil'])
         ->setEmail($attendee['email'])
         ->setDatnaiss(new \DateTime($attendee['datnaiss']))
-        ->setProfession($attendee['profession']);
+        ->setProfession($attendee['profession'])
+        ->setDataut16(new \DateTime($attendee['datAut16']))
+        ->setAut16($attendee['aut16']);
         return $contact;
     }
 
@@ -319,19 +334,22 @@ class CalendarController extends Controller
 
     private function validAttendees($attendees)
     {
-        foreach ($attendees as $attendee) {
-            if ($this->isChild($attendee['datnaiss'])) {
-                if (!$this->hasParent($attendee, $attendees)) {
-                    return false;
-                }
-            }
-        }
+        // foreach ($attendees as $attendee) {
+        //     if ($this->isChild($attendee['datnaiss'])) {
+        //         if (!$this->hasParent($attendee, $attendees)) {
+        //             return false;
+        //         }
+        //     }
+        // }
         return true;
     }
     
     private function hasParent($child, $attendees)
     {
         if ($child['coltyp'] !== 'enfan') {
+            if (isset($child['autpar'])) {
+                return true;
+            }
             return false;
         }
         foreach ($attendees as $attendee) {
