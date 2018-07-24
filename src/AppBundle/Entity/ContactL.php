@@ -68,13 +68,6 @@ class ContactL
      */
     private $jscol;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="AutPar", type="datetime", nullable=true)
-     */
-    private $autpar;
-
     public function __construct()
     {
         $this->col = '';
@@ -236,29 +229,5 @@ class ContactL
     public function getJscol()
     {
         return $this->jscol;
-    }
-    
-    /**
-     * Set autpar.
-     *
-     * @param string $autpar
-     *
-     * @return ContactL
-     */
-    public function setAutpar($autpar)
-    {
-        $this->autpar = $autpar;
-
-        return $this;
-    }
-
-    /**
-     * Get autpar.
-     *
-     * @return string
-     */
-    public function getAutpar()
-    {
-        return $this->autpar;
     }
 }

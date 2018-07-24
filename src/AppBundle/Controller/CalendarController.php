@@ -260,19 +260,10 @@ class CalendarController extends Controller
                         $contactl = new ContactL();
                         $contactl->setCol((int) $a['codco']);
                     }
-                    if ($this->isChild($a['datnaiss'])) {
-                        $contactl->setAutpar(new \DateTime('now'));
-                    }
                     $contactl->setColp((int) $a['colp'])
                     ->setColt('accom')
                     ->setColtyp('accom');
                     $em->persist($contactl);
-                }
-                if (isset($a['autpar'])) {
-                    if ($a['autpar'] === 1) {
-                        $contactl->setAutpar(new \DateTime('now'));
-                        $em->persist($contactl);
-                    }
                 }
                 $calendar = $this->calendarRepository->findCalendar($activityId);
                 $site = $calendar['sitact'];
@@ -318,7 +309,9 @@ class CalendarController extends Controller
         ->setMobil($attendee['mobil'])
         ->setEmail($attendee['email'])
         ->setDatnaiss(new \DateTime($attendee['datnaiss']))
-        ->setProfession($attendee['profession']);
+        ->setProfession($attendee['profession'])
+        ->setDataut16($attendee['datAut16'])
+        ->setAut16($attendee['Aut16']);
         return $contact;
     }
 
