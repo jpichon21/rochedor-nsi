@@ -247,9 +247,6 @@ class CalendarController extends Controller
                         $contactl = new ContactL();
                         $contactl->setCol((int) $a['codco']);
                     }
-                    if ($a['coltyp'] === 'enfan') {
-                        $contactl->setAutpar(new \DateTime('now'));
-                    }
                     $contactl->setColp((int) $a['colp'])
                     ->setColt('famil')
                     ->setColtyp($a['coltyp']);
