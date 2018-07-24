@@ -315,8 +315,10 @@ class CalendarController extends Controller
         ->setEmail($attendee['email'])
         ->setDatnaiss(new \DateTime($attendee['datnaiss']))
         ->setProfession($attendee['profession'])
-        ->setDataut16(new \DateTime($attendee['datAut16']))
         ->setAut16($attendee['aut16']);
+        if ($attendee['aut16'] == 1) {
+            $contact->setDataut16(new \DateTime($attendee['datAut16']));
+        }
         return $contact;
     }
 
