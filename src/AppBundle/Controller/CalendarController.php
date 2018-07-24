@@ -146,13 +146,21 @@ class CalendarController extends Controller
                     ]);
                 }
                 return $this->render('default/calendar-registration-error.html.twig', [
-                    'page' => $page,
+                    'page' => array(
+                        'title' => $page->getTitle(),
+                        'subTitle' => $page->getSubTitle(),
+                        'content' => array('intro' => $this->translator->trans('calendar.registration.error.date'))
+                    ),
                     'availableLocales' => $availableLocales
                 ]);
             }
         }
         return $this->render('default/calendar-registration-error.html.twig', [
-            'page' => $page,
+            'page' => array(
+                'title' => $page->getTitle(),
+                'subTitle' => $page->getSubTitle(),
+                'content' => array('intro' => $this->translator->trans('calendar.registration.error.empty'))
+            ),
             'availableLocales' => $availableLocales
         ]);
     }

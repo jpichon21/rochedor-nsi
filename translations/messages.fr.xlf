@@ -1669,5 +1669,23 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
         <target>L'enfant que vous inscrivez dispose-t'il d'un accord parental ou tutorial ?</target>
       </segment>
     </unit>
+    <unit id="LLzWehQ" name="calendar.registration.error">
+      <segment>
+        <source>calendar.registration.error</source>
+        <target>calendar.registration.error</target>
+      </segment>
+    </unit>
+    <unit id="E_Qadzd" name="calendar.registration.error.empty">
+      <segment>
+        <source>calendar.registration.error.empty</source>
+        <target><![CDATA[Désolé, mais cette retraite n'existe plus. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="n6oIkhX" name="calendar.registration.error.date">
+      <segment>
+        <source>calendar.registration.error.date</source>
+        <target><![CDATA[Désolé, cette retraite n'est plus disponible. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>
