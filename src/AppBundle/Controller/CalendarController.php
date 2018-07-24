@@ -260,16 +260,6 @@ class CalendarController extends Controller
                     ->setColtyp($a['coltyp']);
                     $em->persist($contactl);
                 }
-                if ($a['coltyp'] === 'accom') {
-                    if (!$contactl = $this->contactRepository->findContactL($contact->getCodco(), $a['colp'])) {
-                        $contactl = new ContactL();
-                        $contactl->setCol((int) $a['codco']);
-                    }
-                    $contactl->setColp((int) $a['colp'])
-                    ->setColt('accom')
-                    ->setColtyp('accom');
-                    $em->persist($contactl);
-                }
                 $calendar = $this->calendarRepository->findCalendar($activityId);
                 $site = $calendar['sitact'];
                 $registrationCount = (int) $this->calendarRepository->findRegistrationCount($site)['valeurn'] + 1;
