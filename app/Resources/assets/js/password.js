@@ -1,4 +1,4 @@
-import { upFlashbag } from './flashbag'
+import { upFlashbag } from './popup'
 import I18n from './i18n'
 
 let i18n = new I18n()

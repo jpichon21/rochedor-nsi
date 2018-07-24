@@ -1125,13 +1125,7 @@
     <unit id="0uJUpBY" name="form.message.parent_must_be_adult">
       <segment>
         <source>form.message.parent_must_be_adult</source>
-        <target>Les enfants doivent être accompagné par une personne de plus de 18 ans</target>
-      </segment>
-    </unit>
-    <unit id="EtAAt8D" name="form.message.must_be_a_child">
-      <segment>
-        <source>form.message.must_be_a_child</source>
-        <target>Les personnes de moins de 16 ans doivent être considérées comme "Enfant de"</target>
+        <target>Les enfants doivent être accompagnés par une personne de plus de 18 ans</target>
       </segment>
     </unit>
     <unit id="Cr.q521" name="form.message.date_invalid">
@@ -1613,6 +1607,66 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
       <segment>
         <source>form.reset</source>
         <target>Effacer</target>
+      </segment>
+    </unit>
+    <unit id="reTt_sP" name="form.message.child_must_come_with_adult">
+      <segment>
+        <source>form.message.child_must_come_with_adult</source>
+        <target>Les personnes de moins de 16 ans doivent être accompagnées d'un adulte</target>
+      </segment>
+    </unit>
+    <unit id="gWaJq50" name="form.message.child_must_have_autpar">
+      <segment>
+        <source>form.message.child_must_have_autpar</source>
+        <target>Tous les enfants doivent être en possession d'un accord parental ou tutorial</target>
+      </segment>
+    </unit>
+    <unit id="38v6mFF" name="form.civilite.mr">
+      <segment>
+        <source>form.civilite.mr</source>
+        <target>M.</target>
+      </segment>
+    </unit>
+    <unit id="eGbXcnm" name="form.civilite.mme">
+      <segment>
+        <source>form.civilite.mme</source>
+        <target>Mme</target>
+      </segment>
+    </unit>
+    <unit id="6mFCpN5" name="form.civilite.mlle">
+      <segment>
+        <source>form.civilite.mlle</source>
+        <target>Mlle</target>
+      </segment>
+    </unit>
+    <unit id="vBzG3A3" name="form.civilite.pere">
+      <segment>
+        <source>form.civilite.pere</source>
+        <target>Père</target>
+      </segment>
+    </unit>
+    <unit id="2cYcREU" name="form.civilite.frere">
+      <segment>
+        <source>form.civilite.frere</source>
+        <target>Frère</target>
+      </segment>
+    </unit>
+    <unit id="_MsfZra" name="form.civilite.soeur">
+      <segment>
+        <source>form.civilite.soeur</source>
+        <target>Soeur</target>
+      </segment>
+    </unit>
+    <unit id="59StlEF" name="form.message.phone_invalid">
+      <segment>
+        <source>form.message.phone_invalid</source>
+        <target>Vous devez saisir au moins un numéro de téléphone</target>
+      </segment>
+    </unit>
+    <unit id="LVTrH3N" name="form.message.does_child_have_autpar">
+      <segment>
+        <source>form.message.does_child_have_autpar</source>
+        <target>L'enfant que vous inscrivez dispose-t'il d'un accord parental ou tutorial ?</target>
       </segment>
     </unit>
   </file>
