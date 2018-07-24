@@ -1,7 +1,8 @@
 import $ from 'jquery'
 import moment from 'moment'
 import { getParticipant } from './sample'
-import { upFlashbag } from './flashbag'
+import { upFlashbag, upConfirmbox } from './popup'
+import I18n from './i18n'
 import {
   postParticipant,
   getLogin,
@@ -11,9 +12,6 @@ import {
   getRegistered,
   postRegistered,
   postRegister } from './calendar-api.js'
-import I18n from './i18n'
-
-let i18n = new I18n()
 
 /* Infos */
 
@@ -21,9 +19,11 @@ const _infos = JSON.parse($('.infos-json').html())
 
 /* Translations */
 
-const _translations = JSON.parse($('.translations-json').html())
+let i18n = new I18n()
 
-moment.locale(_translations.locale)
+const _locale = $('.locale-json').html()
+
+moment.locale(_locale)
 
 /* Countries */
 
@@ -77,19 +77,53 @@ function updateYouRender () {
 }
 
 function updateRegisteredRender () {
-  $('.registered-render').html(registeredTemplate({ registered: _registered }))
+  $('.registered-render').html(registeredTemplate({
+    registered: _registered
+  }))
 }
 
 function updateParticipantsRender () {
-  $('.participants-render').html(participantsTemplate({ participants: _participants, translations: _translations }))
+  $('.participants-render').html(participantsTemplate({
+    participants: _participants,
+    transports: {
+      'perso': i18n.trans('form.transport.perso'),
+      'train': i18n.trans('form.transport.train'),
+      'avion': i18n.trans('form.transport.avion'),
+      'bus': i18n.trans('form.transport.bus')
+    }
+  }))
 }
 
 function updateYouFormRender () {
-  $('.you-form-render').html(youFormTemplate({ participant: _participant, countries: _countries }))
+  $('.you-form-render').html(youFormTemplate({
+    participant: _participant,
+    countries: _countries,
+    civilites: [
+      i18n.trans('form.civilite.mr'),
+      i18n.trans('form.civilite.mme'),
+      i18n.trans('form.civilite.mlle'),
+      i18n.trans('form.civilite.frere'),
+      i18n.trans('form.civilite.pere'),
+      i18n.trans('form.civilite.soeur')
+    ]
+  }))
 }
 
 function updateHimFormRender () {
-  $('.him-form-render').html(himFormTemplate({ participant: _participant, registered: _registered, you: _you }))
+  $('.him-form-render').html(himFormTemplate({
+    participant: _participant,
+    countries: _countries,
+    registered: _registered,
+    you: _you,
+    civilites: [
+      i18n.trans('form.civilite.mr'),
+      i18n.trans('form.civilite.mme'),
+      i18n.trans('form.civilite.mlle'),
+      i18n.trans('form.civilite.frere'),
+      i18n.trans('form.civilite.pere'),
+      i18n.trans('form.civilite.soeur')
+    ]
+  }))
 }
 
 /* Actions */
@@ -166,10 +200,10 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
         upFlashbag(error)
       })
     } else {
-      upFlashbag(_translations.message.phone_invalid)
+      upFlashbag(i18n.trans('form.message.phone_invalid'))
     }
   } else {
-    upFlashbag(_translations.message.date_invalid)
+    upFlashbag(i18n.trans('form.message.date_invalid'))
   }
 })
 
@@ -208,40 +242,45 @@ function validatePhone (phone, mobile) {
 }
 
 function validateParticipant (participant) {
-  if (validatePhone(participant.tel, participant.mobil)) {
-    if (validateDate(participant.datnaiss)) {
-      if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
-        return { success: true }
-      } else {
-        if (participant.coltyp === 'enfan') {
-          const people = [..._registered, _you]
-          const filtered = people.filter(person => {
-            return person.codco === parseInt(participant.colp)
-          })
-          const parent = filtered.shift()
-          if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
-            return { success: true }
-          } else {
-            return { error: _translations.message.parent_must_be_adult }
-          }
+  return new Promise((resolve, reject) => {
+    if (validatePhone(participant.tel, participant.mobil)) {
+      if (validateDate(participant.datnaiss)) {
+        if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
+          resolve()
         } else {
-          return { error: _translations.message.must_be_a_child }
+          if (participant.coltyp === 'enfan' || participant.coltyp === 'accom') {
+            const people = [..._registered, _you]
+            const filtered = people.filter(person => {
+              return person.codco === parseInt(participant.colp)
+            })
+            const parent = filtered.shift()
+            if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
+              upConfirmbox(i18n.trans('form.message.does_child_have_autpar')).then(() => {
+                resolve()
+              }).catch(() => {
+                reject(i18n.trans('form.message.child_must_have_autpar'))
+              })
+            } else {
+              reject(i18n.trans('form.message.parent_must_be_adult'))
+            }
+          } else {
+            reject(i18n.trans('form.message.child_must_come_with_adult'))
+          }
         }
+      } else {
+        reject(i18n.trans('form.message.date_invalid'))
       }
     } else {
-      return { error: _translations.message.date_invalid }
+      reject(i18n.trans('form.message.phone_invalid'))
     }
-  } else {
-    return { error: _translations.message.phone_invalid }
-  }
+  })
 }
 
 function callbackSubmit (event, context, action, callback) {
   event.preventDefault()
   const data = context.serializeArray()
   const participant = formatParticipant(data)
-  const validate = validateParticipant(participant)
-  if (validate.success) {
+  validateParticipant(participant).then(() => {
     postParticipant(participant).then(res => {
       const participantUpdated = { ...participant, ...res }
       callback(participantUpdated)
@@ -253,9 +292,11 @@ function callbackSubmit (event, context, action, callback) {
         changeItem(itemParticipants)
       })
     })
-  } else {
-    upFlashbag(validate.error)
-  }
+  }).catch(error => {
+    if (error) {
+      upFlashbag(error)
+    }
+  })
 }
 
 itemParticipants.on('submit', '.panel.you form', function (event) {
@@ -375,7 +416,7 @@ itemParticipants.on('click', '.validate-participants', function (event) {
     })
   } else {
     upFlashbag(
-      _translations.message.verify_transport +
+      i18n.trans('form.message.verify_transport') +
       '<ul>' + validate.whoAreWeWaitingRender() + '</ul>'
     )
   }
