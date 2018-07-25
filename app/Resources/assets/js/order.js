@@ -1,13 +1,15 @@
 import $ from 'jquery'
 import moment from 'moment'
 import { getParticipant, getDelivery } from './sample'
-import { placePayment } from './cart.js'
+import { placePayment } from './cart'
+import { upFlashbag } from './popup'
 import I18n from './i18n'
 import {
   getLogin,
   getLogout,
   getData,
   postRegister,
+  resetLogin,
   postLogin,
   postOrder,
   checkZipcode
@@ -25,6 +27,10 @@ const _locale = $('.locale-json').html()
 
 moment.locale(_locale)
 
+/* Countries */
+
+const _countries = JSON.parse($('.countries-json').html())
+
 /* Variables */
 
 let _you = {}
@@ -33,9 +39,9 @@ let _cartInfo = {}
 let _client = {}
 
 const itemConnection = $('.item.connection')
-const itemOrder = $('.item.order')
+const itemCard = $('.item.card')
+const itemShipping = $('.item.shipping')
 const itemValidation = $('.item.validation')
-const itemCart = $('.item.cart')
 const itemPayment = $('.item.payment')
 
 /* Dropdowns */
@@ -51,7 +57,7 @@ function changeItem (elmt) {
 
 $(document).ready(function () {
   setTimeout(function () {
-    changeItem(itemCart)
+    changeItem(itemConnection)
   }, 500)
 })
 
@@ -75,54 +81,210 @@ const deliveryTemplate = _.template($('.delivery-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
 
 function updateYouRender () {
-  $('.you-render').html(youTemplate({ you: _you }))
+  $('.you-render').html(youTemplate({
+    you: _you
+  }))
 }
 
 function updateCartRender () {
-  $('.cart-render').html(cartTemplate({ cartInfo: _cartInfo }))
+  $('.cart-render').html(cartTemplate({
+    cartInfo: _cartInfo
+  }))
 }
 
 function updateDeliveryRender () {
-  $('.delivery-render').html(deliveryTemplate({ delivery: _delivery, you: _you }))
+  $('.delivery-render').html(deliveryTemplate({
+    delivery: _delivery,
+    you: _you
+  }))
 }
 
 function updateYouFormRender () {
-  $('.you-form-render').html(youFormTemplate({ client: _client }))
+  $('.you-form-render').html(youFormTemplate({
+    client: _client,
+    countries: _countries,
+    civilites: [
+      i18n.trans('form.civilite.mr'),
+      i18n.trans('form.civilite.mme'),
+      i18n.trans('form.civilite.mlle'),
+      i18n.trans('form.civilite.frere'),
+      i18n.trans('form.civilite.pere'),
+      i18n.trans('form.civilite.soeur')
+    ]
+  }))
 }
 
 updateCartRender()
-console.log('Cart')
 updateDeliveryRender()
-console.log('Delivery')
 
 /* Actions */
-itemOrder.on('change', '.select.adliv', function (event) {
+
+function afterLogin (user, bypass) {
+  _delivery = getDelivery()
+  _delivery.codcli = user.codcli
+  _you = user
+  updateYouRender()
+  updateCartRender()
+  if (bypass) {
+    changeItem(itemShipping)
+  } else {
+    changeItem(itemCard)
+  }
+}
+
+function formatParticipant (data) {
+  let participant = getParticipant()
+  data.map(obj => {
+    participant[obj.name] = obj.value
+  })
+  participant.codco = parseInt(participant.codco)
+  participant.datnaiss = moment(participant.datnaiss, 'DD/MM/YYYY').format()
+  return participant
+}
+
+itemConnection.on('submit', '.panel.connection form', function (event) {
+  event.preventDefault()
+  postLogin({
+    username: $('.username', this).val(),
+    password: $('.password', this).val()
+  }).then(user => {
+    afterLogin(user, false)
+  }).catch(() => {
+    upFlashbag(i18n.trans('security.bad_credentials'))
+  })
+})
+
+itemConnection.on('submit', '.panel.reset form', function (event) {
+  event.preventDefault()
+  resetLogin({
+    email: $('.username', this).val()
+  }).then(() => {
+    upFlashbag(i18n.trans('security.check_inbox'))
+  })
+})
+
+itemConnection.on('submit', '.panel.registration form', function (event) {
+  event.preventDefault()
+  const data = $(this).serializeArray()
+  const participant = formatParticipant(data)
+  const validatedDate = validateDate(participant.datnaiss)
+  const validatedPhone = validatePhone(participant.tel, participant.mobil)
+  const validatedPro = validatePro(participant.societe, participant.tvaintra)
+  if (validatedDate) {
+    if (validatedPro) {
+      if (validatedPhone) {
+        postRegister({
+          client: {
+            ...participant,
+            rue: participant.adresse
+          }
+        }).then(user => {
+          postLogin({
+            username: user.email,
+            password: participant.password
+          }).then(user => {
+            afterLogin(user, true)
+          }).catch(() => {
+            upFlashbag(i18n.trans('security.user_exist'))
+          })
+        }).catch(error => {
+          upFlashbag(error)
+        })
+      } else {
+        upFlashbag(i18n.trans('form.message.phone_invalid'))
+      }
+    } else {
+      upFlashbag(i18n.trans('form.message.pro_invalid'))
+    }
+  } else {
+    upFlashbag(i18n.trans('form.message.date_invalid'))
+  }
+})
+
+itemConnection.on('click', 'a', function (event) {
+  event.preventDefault()
+  $('a', itemConnection).removeClass('active')
+  $(this).addClass('active')
+  const which = $(this).attr('href').substring(1)
+  switch (which) {
+    case 'connection':
+    case 'registration':
+      $('.panel', itemConnection).hide()
+      $(`.panel.${which}`, itemConnection).show()
+      _client = getParticipant()
+      updateYouFormRender()
+      break
+    case 'reset':
+      $('.panel.reset', itemConnection).show()
+      break
+    case 'continue':
+      getLogin().then(user => afterLogin(user, false))
+      break
+    case 'disconnect':
+      getLogout()
+      break
+  }
+  changeItem(itemConnection)
+})
+
+function validateDate (date) {
+  return moment(date).isValid()
+}
+
+function validatePhone (phone, mobile) {
+  return !(phone === '' && mobile === '')
+}
+
+function validatePro (societe, tvaintra) {
+  return (societe === '' && tvaintra === '') || (societe !== '' && tvaintra !== '')
+}
+
+/*
+
+JUSQU'ICI TOUT FONCTIONNE :)
+
+*/
+
+itemCard.on('click', '.continue', function (event) {
+  event.preventDefault()
+  changeItem(itemShipping)
+})
+
+itemCard.on('click', '.modify-you', function (event) {
+  event.preventDefault()
+  _client = _you
+  $('.panel', itemCard).hide()
+  $(`.panel.you`, itemCard).show()
+  updateYouFormRender()
+  changeItem(itemCard)
+})
+
+itemShipping.on('change', '.select.adliv', function (event) {
   event.preventDefault()
   const data = $(this).val()
   let selectedVal = data
   _delivery.destliv = selectedVal
-  if (selectedVal === 'Roche' ||  selectedVal === 'Font' || selectedVal === 'myAdd') {
+  if (selectedVal === 'Roche' || selectedVal === 'Font' || selectedVal === 'myAdd') {
     _delivery.adliv.adresse = _you.adresse
     _delivery.adliv.zipcode = _you.cp
     _delivery.adliv.city = _you.ville
-    $(`.panel.adliv`, itemOrder).removeClass('active')
+    $(`.panel.adliv`, itemShipping).removeClass('active')
   } else {
-    $(`.panel.adliv`, itemOrder).addClass('active')
+    $(`.panel.adliv`, itemShipping).addClass('active')
   }
   if (selectedVal === 'myAdd' || selectedVal === 'Other') {
-    $(`.panel.countryliv`, itemOrder).addClass('active')
+    $(`.panel.countryliv`, itemShipping).addClass('active')
   } else {
-    $(`.panel.countryliv`, itemOrder).removeClass('active')
+    $(`.panel.countryliv`, itemShipping).removeClass('active')
   }
   if (selectedVal === 'Roche' || selectedVal === 'Font') {
     _delivery.paysliv = 'FR'
   }
-  changeItem(itemOrder)
+  changeItem(itemShipping)
 })
 
 itemPayment.on('click', '.button.submit.process-order', function (event) {
   _delivery.cartId = _cartId
-  console.log(_cartId)
   event.preventDefault()
   postOrder(_delivery).then(res => {
     let result = $('.result', itemValidation).html()
@@ -142,42 +304,37 @@ itemPayment.on('click', '.button.submit.process-order', function (event) {
   })
 })
 
-itemOrder.on('change', '.select.country', function (event) {
+itemShipping.on('change', '.select.country', function (event) {
   event.preventDefault()
   const data = $(this).val()
   _delivery.paysliv = data
-  console.log(_delivery)
 })
 
 itemPayment.on('change', '.select.modpaie', function (event) {
   event.preventDefault()
   const data = $(this).val()
   _delivery.modpaie = data
-  console.log(data)
-  console.log(_delivery)
 })
 
-itemOrder.on('submit', '.panel.adliv form', function (event) {
+itemShipping.on('submit', '.panel.adliv form', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
   let dataVal = data
   _delivery.adliv.adresse = dataVal[0].value
   _delivery.adliv.zipcode = dataVal[1].value
   _delivery.adliv.city = dataVal[2].value
-  console.log(_delivery)
 })
 
-itemOrder.on('submit', '.panel.adliv form', function (event) {
+itemShipping.on('submit', '.panel.adliv form', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
   let dataVal = data
   _delivery.adliv.adresse = dataVal[0].value
   _delivery.adliv.zipcode = dataVal[1].value
   _delivery.adliv.city = dataVal[2].value
-  console.log(_delivery)
 })
 
-itemOrder.on('click', '.button.payment', function (event) {
+itemShipping.on('click', '.button.payment', function (event) {
   event.preventDefault()
   if (_delivery.destliv === 'myAdd') {
     var country = _delivery.paysliv
@@ -188,11 +345,9 @@ itemOrder.on('click', '.button.payment', function (event) {
     var zipcode = _delivery.adliv.zipcode
     var destliv = _delivery.destliv
   }
-  if (checkZipcode(country, zipcode, destliv)) {    
+  if (checkZipcode(country, zipcode, destliv)) {
     if (valideDeliveryForm() === true) {
       getData(_cartId, _delivery.destliv, _delivery.paysliv).then(data => {
-        console.log(data)
-        console.log(_delivery)
         _cartInfo = data
         updateCartRender()
         updateDeliveryRender()
@@ -219,204 +374,32 @@ function valideDeliveryForm () {
   return true
 }
 
-itemOrder.on('click', '.button.gift', function (event) {
+itemShipping.on('click', '.button.gift', function (event) {
   event.preventDefault()
-  $(`.panel.gift`, itemOrder).addClass('active')
-  changeItem(itemOrder)
+  $(`.panel.gift`, itemShipping).addClass('active')
+  changeItem(itemShipping)
 })
 
-itemOrder.on('click', '.button.reset_gift', function (event) {
+itemShipping.on('click', '.button.reset_gift', function (event) {
   event.preventDefault()
   delete _delivery.memocmd
-  $(`.input.note`, itemOrder).value = ''
-  console.log(_delivery)
-  changeItem(itemOrder)
+  $(`.input.note`, itemShipping).value = ''
+  changeItem(itemShipping)
 })
 
-itemOrder.on('submit', '.form.gift', function (event) {
+itemShipping.on('submit', '.form.gift', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
   let dataVal = data
   _delivery.memocmd = dataVal[0].value
-  $(`.panel.gift`, itemOrder).removeClass('active')
-  changeItem(itemOrder)
-  console.log(_delivery)
+  $(`.panel.gift`, itemShipping).removeClass('active')
+  changeItem(itemShipping)
 })
 
-itemOrder.on('submit', '.form.tvaintra', function (event) {
+itemShipping.on('submit', '.form.tvaintra', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
   let dataVal = data
   _delivery.tvaintra = dataVal[0].value
-  changeItem(itemOrder)
-  console.log(_delivery)
+  changeItem(itemShipping)
 })
-
-itemOrder.on('click', 'a', function (event) {
-  event.preventDefault()
-  $('a', itemOrder).removeClass('active')
-  $(this).addClass('active')
-  const which = $(this).attr('href').substring(1)
-  switch (which) {
-    case 'connection':
-    case 'registration':
-      $('.panel', itemOrder).hide()
-      $(`.panel.${which}`, itemOrder).show()
-      _client = getParticipant()
-      updateYouFormRender()
-      break
-    case 'continue':
-      getLogin().then(user => afterLogin(user))
-      break
-    case 'disconnect':
-      getLogout()
-      break
-  }
-  changeItem(itemPayment)
-})
-
-itemPayment.on('click', 'a', function (event) {
-  event.preventDefault()
-  $('a', itemPayment).removeClass('active')
-  $(this).addClass('active')
-  const which = $(this).attr('href').substring(1)
-  switch (which) {
-    case 'connection':
-    case 'registration':
-      $('.panel', itemPayment).hide()
-      $(`.panel.${which}`, itemPayment).show()
-      _client = getParticipant()
-      updateYouFormRender()
-      break
-    case 'continue':
-      getLogin().then(user => afterLogin(user))
-      break
-    case 'disconnect':
-      getLogout()
-      break
-  }
-  changeItem(itemOrder)
-})
-
-itemCart.on('click', 'a.button.continue', function (event) {
-  event.preventDefault()
-  $('a', itemCart).removeClass('active')
-  $(this).addClass('active')
-  const which = $(this).attr('href').substring(1)
-  switch (which) {
-    case 'connection':
-    case 'registration':
-      $('.item.cart', itemCart).hide()
-      $(`.panel.${which}`, itemCart).show()
-      _client = getParticipant()
-      updateYouFormRender()
-      break
-    case 'continue':
-      getLogin().then(user => afterLogin(user))
-      break
-    case 'disconnect':
-      getLogout()
-      break
-  }
-  changeItem(itemConnection)
-})
-
-function afterLogin (user) {
-  _delivery = getDelivery()
-  _delivery.codcli = user.codcli
-  console.log(_delivery)
-  _you = user
-  console.log(_you)
-  updateYouRender()
-  updateCartRender()
-  changeItem(itemOrder)
-}
-
-function formatParticipant (data) {
-  let client = getParticipant()
-  data.map(obj => {
-    client[obj.name] = obj.value
-  })
-  client.codco = parseInt(client.codco)
-  client.datnaiss = moment(client.datnaiss, 'DD/MM/YYYY').format()
-  return client
-}
-
-itemConnection.on('submit', '.panel.connection form', function (event) {
-  event.preventDefault()
-  postLogin({
-    username: $('.username', this).val(),
-    password: $('.password', this).val()
-  }).then(user => {
-    afterLogin(user)
-  })
-})
-
-itemConnection.on('submit', '.panel.registration form', function (event) {
-  event.preventDefault()
-  const data = $(this).serializeArray()
-  const client = formatParticipant(data)
-  console.log(client)
-  postRegister({
-    client: client
-  }).then(user => {
-    postLogin({
-      username: client.email,
-      password: client.password
-    }).then(user => {
-      afterLogin(user)
-    })
-  }).catch(error => {
-    $('.catch-message', itemConnection).html(error)
-  })
-})
-
-itemConnection.on('click', 'a', function (event) {
-  event.preventDefault()
-  $('a', itemConnection).removeClass('active')
-  $(this).addClass('active')
-  const which = $(this).attr('href').substring(1)
-  switch (which) {
-    case 'connection':
-    case 'registration':
-      $('.panel', itemConnection).hide()
-      $(`.panel.${which}`, itemConnection).show()
-      _client = getParticipant()
-      updateYouFormRender()
-      break
-    case 'continue':
-      getLogin().then(user => afterLogin(user))
-      break
-    case 'disconnect':
-      getLogout()
-      break
-  }
-  changeItem(itemConnection)
-})
-
-itemOrder.on('click', '.modify-you', function (event) {
-  event.preventDefault()
-  _client = _you
-  $('.panel', itemOrder).hide()
-  $(`.panel.you`, itemOrder).show()
-  updateYouFormRender()
-  changeItem(itemOrder)
-})
-
-// itemOrder.on('submit', '.form.input.button.submit') {
-//   event.preventDefault()
-//   const data = $(this).serializeArray()
-//   const client = formatParticipant(data)
-//   postRegister({
-//     client: client
-//   }).then(user => {
-//     postLogin({
-//       username: client.email,
-//       password: client.password
-//     }).then(user => {
-//       afterLogin(user)
-//     })
-//   }).catch(error => {
-//     $('.catch-message', itemConnection).html(error)
-//   })
-// }
