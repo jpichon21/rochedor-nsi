@@ -15,7 +15,7 @@ import {
 
 /* Cart */
 
-const _cartId = parseInt($('.cart-data').html(), 10)
+const _cartId = parseInt($('.cart-data').html())
 
 /* Translations */
 
