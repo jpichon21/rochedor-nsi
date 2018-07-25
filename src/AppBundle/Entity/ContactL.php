@@ -72,7 +72,7 @@ class ContactL
     {
         $this->col = '';
         $this->colt = '';
-        $this->colrel = '';
+        $this->colrel = 0;
         $this->coltyp = '';
         $this->jscol = '';
     }

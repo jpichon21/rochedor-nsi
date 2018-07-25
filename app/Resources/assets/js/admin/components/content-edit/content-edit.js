@@ -33,8 +33,8 @@ export class ContentEdit extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    this.props.dispatch(setTitle(`Modification de la page ${(nextProps.page) ? nextProps.page.title : ''}`))
-    if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully'&& nextProps.status !== 'Page updated') || nextProps.error) {
+    this.props.dispatch(setTitle(`Modification d'un contenu`))
+    if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully' && nextProps.status !== 'Page updated') || nextProps.error) {
       this.setState({alertOpen: true})
     }
     if (nextProps.page !== null && this.props.page !== null) {
@@ -100,7 +100,7 @@ export class ContentEdit extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu goBack='/content-list' title={'Modification de la page'} localeHandler={this.onLocaleChange} locales={this.state.locales} locale={this.props.page.locale} />
+        <AppMenu goBack='/content-list' title={`Modification d'un contenu`} localeHandler={this.onLocaleChange} locales={this.state.locales} locale={this.props.page.locale} />
         <Snackbar
           open={this.state.snackbarOpen}
           autoHideDuration={4000}

@@ -58,7 +58,7 @@ export class NewsList extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Actualités de la page d\'accueil'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
+        <AppMenu title={'Liste des nouveautés'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
         <div className={classes.container}>
           <Paper className={classes.paper}>
             {

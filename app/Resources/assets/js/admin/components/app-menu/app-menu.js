@@ -149,23 +149,23 @@ class AppMenu extends React.Component {
             </NavLink>
             <NavLink to='/content-list' className={classes.link}>
               <MenuItem onClick={this.handleCloseMenu}>
-                Pages de contenus
+                Liste des contenus
               </MenuItem>
             </NavLink>
             <Divider className={classes.divider} />
             <NavLink to='/news-list' className={classes.link}>
               <MenuItem onClick={this.handleCloseMenu}>
-                Nouveautés accueil
+                Liste des nouveautés
               </MenuItem>
             </NavLink>
             <NavLink to='/page-list' className={classes.link}>
               <MenuItem onClick={this.handleCloseMenu}>
-                Données référencement
+                Liste des pages
               </MenuItem>
             </NavLink>
             <NavLink to='/speaker-list' className={classes.link}>
               <MenuItem onClick={this.handleCloseMenu}>
-                Listes des intervenants
+                Liste des intervenants
               </MenuItem>
             </NavLink>
             <Divider className={classes.divider} />

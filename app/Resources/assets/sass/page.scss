@@ -126,7 +126,7 @@
         margin-bottom: 20px;
         letter-spacing: 2px;
         text-transform: uppercase;
-        color: #faf28e;
+        color: $roche-yellow;
       }
       p {
         font-family: 'Lato', sans-serif;
@@ -140,6 +140,9 @@
         color: $roche-yellow;
         text-decoration: none;
         border-bottom: 1px $roche-yellow solid;
+      }
+      strong {
+        font-weight: 700;
       }
       hr {
         margin: 20px 0;
@@ -230,10 +233,12 @@
         background: #0f0f0f;
       }
       .textarea {
+        padding: 10px 20px;
+        line-height: 20px;
         min-width: 100%;
         max-width: 100%;
-        min-height: 80px;
-        max-height: 80px;
+        min-height: 110px;
+        max-height: 110px;
       }
       .button {
         padding: 0 20px;
@@ -243,7 +248,7 @@
         text-transform: uppercase;
         letter-spacing: 1.4px;
         color: $roche-yellow;
-        border: 1px #faf28e solid;
+        border: 1px $roche-yellow solid;
         background: none;
         box-sizing: border-box;
         outline: none;
@@ -270,6 +275,9 @@
         position: relative;
         margin: 20px 0;
         padding: 30px 30px 0px 20px;
+        hr {
+          margin: 10px 0 30px;
+        }
         &.active {
           display: block;
         }
@@ -284,11 +292,14 @@
           opacity: 0.5;
           z-index: -99999;
         }
+        .option {
+          display: inline-block;
+          margin: 0 20px 30px 0;
+          font-size: 14px;
+        }
       }
-      .catch-message {
-        color: red;
-        line-height: 50px;
-        font-size: 14px;
+      .g-recaptcha {
+        margin-bottom: 20px;
       }
       [class*=pure-g] {
         padding: 10px 0;

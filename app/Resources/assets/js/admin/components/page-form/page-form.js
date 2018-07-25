@@ -10,6 +10,7 @@ import { SortableContainer, SortableElement, arrayMove, SortableHandle } from 'r
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import SaveIcon from '@material-ui/icons/Save'
 import OnDemandVideoIcon from '@material-ui/icons/OndemandVideo'
+import FontDownloadIcon from '@material-ui/icons/FontDownload'
 import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { withStyles } from '@material-ui/core/styles'
@@ -39,7 +40,6 @@ import {
   ExpansionPanelSummary,
   ExpansionPanelActions,
   Divider,
-  Popover,
   IconButton,
   CircularProgress,
   Select,
@@ -106,7 +106,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
             }}
             editorState={context.state.page.content.sections[indexSection].bodyRaw}
             onEditorStateChange={editorState => context.handleChangeTextArea(editorState, indexSection)}
-            toolbarCustomButtons={[<CustomOption addDocument={event => { context.handleChangeDocumentUpload(event, indexSection) }} />]}
+            toolbarCustomButtons={[<CustomOption indexSection={indexSection} addDocument={(event, indexSection) => { context.handleChangeDocumentUpload(event, indexSection) }} />]}
             toolbar={{
               options: ['inline', 'blockType', 'textAlign', 'link'],
               inline: {
@@ -181,35 +181,27 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                                       id='tooltip-controlled'
                                       leaveDelay={300}
                                       placement='bottom'
-                                      title='Sélectionner une vidéo'
+                                      title='Ajouter une légende'
+                                    >
+                                      <IconButton
+                                        color={slide.images[tile.id].alt === '' ? 'primary' : 'secondary'}
+                                        onClick={event => { context.handleChangeImageAlt(event, `${indexSection}-${indexSlide}-${indexImage}`) }}>
+                                        <FontDownloadIcon />
+                                      </IconButton>
+                                    </Tooltip>
+                                    <Tooltip
+                                      enterDelay={300}
+                                      id='tooltip-controlled'
+                                      leaveDelay={300}
+                                      placement='bottom'
+                                      title='Ajouter une vidéo'
                                     >
                                       <IconButton
                                         color={slide.images[tile.id].video === '' ? 'primary' : 'secondary'}
-                                        onClick={event => { context.handleOpenPopover(event, `${indexSection}-${indexSlide}-${indexImage}`) }}>
+                                        onClick={event => { context.handleChangeImageVideo(event, `${indexSection}-${indexSlide}-${indexImage}`) }}>
                                         <OnDemandVideoIcon />
                                       </IconButton>
                                     </Tooltip>
-                                    <Popover
-                                      open={context.state.popoverOpened === `${indexSection}-${indexSlide}-${indexImage}`}
-                                      anchorEl={context.state.anchorPopover}
-                                      onClose={context.handleClosePopover}>
-                                      <Tooltip
-                                        enterDelay={300}
-                                        id='tooltip-controlled'
-                                        leaveDelay={300}
-                                        placement='bottom'
-                                        title="Renseigner l'url de la vidéo choisie"
-                                      >
-                                        <TextField
-                                          className={classes.popover}
-                                          autoComplete='off'
-                                          InputLabelProps={{shrink: true}}
-                                          name='page.title'
-                                          label='URL Vidéo'
-                                          value={context.state.page.content.sections[indexSection].slides[indexSlide].images[indexImage].video}
-                                          onChange={(event) => { context.handleChangePopover(event, indexSection, indexSlide, indexImage) }} />
-                                      </Tooltip>
-                                    </Popover>
                                   </div>
                                 )
                             }
@@ -328,15 +320,21 @@ export class PageForm extends React.Component {
         isUploading: false
       },
       anchorVersion: null,
-      page: this.props.page
+      page: this.props.page,
+      noticeBlockquote: true,
+      noticeVideo: true,
+      noticeId: '0-0-0',
+      AlertBlockquoteOpen: false,
+      AlertVideoOpen: false,
+      AlertAltOpen: false
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleOpenPopover = this.handleOpenPopover.bind(this)
-    this.handleClosePopover = this.handleClosePopover.bind(this)
+    this.handleChangeImageVideo = this.handleChangeImageVideo.bind(this)
+    this.handleChangeImageAlt = this.handleChangeImageAlt.bind(this)
     this.handleCloseVersion = this.handleCloseVersion.bind(this)
-    this.handleChangePopover = this.handleChangePopover.bind(this)
+    this.handleChangeVideo = this.handleChangeVideo.bind(this)
     this.handleOpenLayoutMenu = this.handleOpenLayoutMenu.bind(this)
     this.handleCloseLayoutMenu = this.handleCloseLayoutMenu.bind(this)
     this.handleChangeLayoutMenu = this.handleChangeLayoutMenu.bind(this)
@@ -360,6 +358,12 @@ export class PageForm extends React.Component {
     this.handleConvertFromHTML = this.handleConvertFromHTML.bind(this)
     this.handleSortSections = this.handleSortSections.bind(this)
     this.handleExpandSection = this.handleExpandSection.bind(this)
+    this.handleOpenAlertBlockquote = this.handleOpenAlertBlockquote.bind(this)
+    this.handleCloseAlertBlockquote = this.handleCloseAlertBlockquote.bind(this)
+    this.handleOpenAlertVideo = this.handleOpenAlertVideo.bind(this)
+    this.handleCloseAlertVideo = this.handleCloseAlertVideo.bind(this)
+    this.handleOpenAlertAlt = this.handleOpenAlertAlt.bind(this)
+    this.handleCloseAlertAlt = this.handleCloseAlertAlt.bind(this)
   }
 
   handleSortSections ({ oldIndex, newIndex }) {
@@ -459,17 +463,17 @@ export class PageForm extends React.Component {
     }
   }
 
-  handleOpenPopover (event, indexPopover) {
+  handleChangeImageVideo (event, indexPopover) {
+    this.handleOpenAlertVideo()
     this.setState({
-      anchorPopover: event.currentTarget,
-      popoverOpened: indexPopover
+      noticeId: indexPopover
     })
   }
 
-  handleClosePopover () {
+  handleChangeImageAlt (event, indexPopover) {
+    this.handleOpenAlertAlt()
     this.setState({
-      anchorPopover: null,
-      popoverOpened: false
+      noticeId: indexPopover
     })
   }
 
@@ -481,8 +485,13 @@ export class PageForm extends React.Component {
     this.setState({anchorVersion: event.currentTarget})
   }
 
-  handleChangePopover (event, indexSection, indexSlide, indexImage) {
+  handleChangeVideo (event, indexSection, indexSlide, indexImage) {
     const state = immutable.set(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}.images.${indexImage}.video`, event.target.value)
+    this.setState(state)
+  }
+
+  handleChangeAlt (event, indexSection, indexSlide, indexImage) {
+    const state = immutable.set(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}.images.${indexImage}.alt`, event.target.value)
     this.setState(state)
   }
 
@@ -585,6 +594,7 @@ export class PageForm extends React.Component {
   }
 
   handleChangeDocumentUpload (event, indexSection) {
+    console.log(indexSection)
     this.setState({
       fileUploading: {
         isUploading: true,
@@ -592,6 +602,8 @@ export class PageForm extends React.Component {
         indexSection: indexSection
       }
     })
+    console.log(indexSection)
+    console.log(this.state.fileUploading)
     this.props.dispatch(uploadFile(event.target.files[0])).then((res) => {
       this.setState({
         fileUploading: {
@@ -602,9 +614,11 @@ export class PageForm extends React.Component {
   }
 
   handleAddDocument (linkToDocument, indexSection) {
+    console.log('handleAddDocument')
     const oldEditorState = this.state.page.content.sections[indexSection].bodyRaw
     const oldEditorStateSelection = oldEditorState.getSelection()
     if (!oldEditorStateSelection.isCollapsed()) {
+      console.log('isCollapsed')
       const editorState = RichUtils.toggleLink(
         oldEditorState,
         oldEditorStateSelection,
@@ -642,6 +656,8 @@ export class PageForm extends React.Component {
         this.setState(state)
       }
       if (fileUploading.type === 'document') {
+        console.log(fileUploading)
+        window.alert(nextProps.uploadStatus.path)
         this.handleAddDocument(nextProps.uploadStatus.path, fileUploading.indexSection)
       }
       this.setState(prevState => {
@@ -666,9 +682,49 @@ export class PageForm extends React.Component {
     })
   }
 
+  handleOpenAlertBlockquote () {
+    this.setState({ AlertBlockquoteOpen: true })
+  }
+
+  handleCloseAlertBlockquote () {
+    this.setState({ AlertBlockquoteOpen: false })
+  }
+
+  handleOpenAlertVideo () {
+    this.setState({ AlertVideoOpen: true })
+  }
+
+  handleCloseAlertVideo () {
+    this.setState({ AlertVideoOpen: false })
+  }
+
+  handleOpenAlertAlt () {
+    this.setState({ AlertAltOpen: true })
+  }
+
+  handleCloseAlertAlt () {
+    this.setState({ AlertAltOpen: false })
+  }
+
   render () {
+    document.addEventListener('click', event => {
+      const element = event.target
+      if (
+        element &&
+        element.classList.contains('rdw-dropdownoption-default') &&
+        element.textContent === 'Citation' &&
+        this.state.noticeBlockquote
+      ) {
+        this.setState({ noticeBlockquote: false })
+        this.handleOpenAlertBlockquote()
+      }
+    })
     const { classes } = this.props
     const versions = this.props.versions
+    const noticeIds = this.state.noticeId.split('-')
+    const noticeIndexSection = noticeIds[0]
+    const noticeIndexSlide = noticeIds[1]
+    const noticeIndexImage = noticeIds[2]
     const parents = (this.props.parents.length > 0)
       ? this.props.parents.map((p, k) => {
         return (
@@ -678,6 +734,72 @@ export class PageForm extends React.Component {
       : null
     return (
       <div className={classes.container}>
+        <Dialog open={this.state.fileUploading.isUploading &&
+          this.state.fileUploading.type === 'image'}>
+          <DialogTitle>Image</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <p>Merci de patienter pendant le chargement de votre image...</p>
+              <CircularProgress />
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
+        <Dialog
+          open={this.state.AlertBlockquoteOpen}
+          onClose={this.handleCloseAlertBlockquote}>
+          <DialogTitle>Citation</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <p>La citation doit être renseignée en <em>italique</em><br />L'auteur doit être renseigné en <strong>gras</strong> et police romaine</p>
+              <p>Exemple :<br /><em>La foi, c'est une confiance, la gratuité d'une amitié.</em> <strong>Florin Callerand</strong></p>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseAlertBlockquote} color='primary' autoFocus>J'ai compris !</Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={this.state.AlertVideoOpen}
+          onClose={this.handleCloseAlertVideo}>
+          <DialogTitle>Vidéo</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <p>Vous êtes sur le point de renseigner l'URL de la vidéo. Ceci ne dispense pas d'ajouter une image !</p><br />
+              <TextField
+                autoComplete='off'
+                InputLabelProps={{ shrink: true }}
+                name='page.title'
+                label='URL Vidéo'
+                value={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].video}
+                onChange={(event) => { this.handleChangeVideo(event, noticeIndexSection, noticeIndexSlide, noticeIndexImage) }} />
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseAlertVideo} color='secondary' autoFocus>Annuler</Button>
+            <Button onClick={this.handleCloseAlertVideo} color='primary' autoFocus>Valider</Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={this.state.AlertAltOpen}
+          onClose={this.handleCloseAlertAlt}>
+          <DialogTitle>Légende</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <p>Vous êtes sur le point de renseigner la légende de l'image.</p><br />
+              <TextField
+                autoComplete='off'
+                InputLabelProps={{ shrink: true }}
+                name='page.title'
+                label='Légende'
+                value={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].alt}
+                onChange={(event) => { this.handleChangeAlt(event, noticeIndexSection, noticeIndexSlide, noticeIndexImage) }} />
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseAlertAlt} color='secondary' autoFocus>Annuler</Button>
+            <Button onClick={this.handleCloseAlertAlt} color='primary' autoFocus>Valider</Button>
+          </DialogActions>
+        </Dialog>
         <Typography variant='display1' className={classes.title}>
           SEO
         </Typography>
@@ -772,21 +894,31 @@ export class PageForm extends React.Component {
             !this.props.edit &&
             this.props.parents.length > 0 &&
             this.state.page.locale !== 'fr' &&
-            <FormControl style={{ minWidth: 200 }}>
-              <InputLabel htmlFor={'parent'} shrink>Page parente</InputLabel>
-              <Select
-                id={'parent'}
-                placeholder={'Page parente'}
-                className={classes.option}
-                value={this.state.parentKey}
-                onChange={this.handleParent}
-                inputProps={{
-                  name: 'parent_key',
-                  id: 'parent_key'
-                }}>
-                {parents}
-              </Select>
-            </FormControl>
+            <Tooltip
+              enterDelay={300}
+              id='tooltip-controlled'
+              leaveDelay={100}
+              onClose={this.handleTooltipClose}
+              onOpen={this.handleTooltipOpen}
+              open={this.state.open}
+              placement='bottom'
+              title='Renseigner la traduction française associée'
+            >
+              <FormControl style={{ width: '100%' }}>
+                <InputLabel htmlFor={'parent'} shrink>Page parente</InputLabel>
+                <Select
+                  id={'parent'}
+                  className={classes.textfield}
+                  value={this.state.parentKey}
+                  onChange={this.handleParent}
+                  inputProps={{
+                    name: 'parent_key',
+                    id: 'parent_key'
+                  }}>
+                  {parents}
+                </Select>
+              </FormControl>
+            </Tooltip>
           }
         </form>
         <Typography variant='display1' className={classes.title}>
@@ -912,7 +1044,7 @@ export class PageForm extends React.Component {
                 aria-labelledby='alert-dialog-title'
                 aria-describedby='alert-dialog-description'>
                 <DialogTitle id='alert-dialog-title'>
-                  {'Êtes-vous sure?'}
+                  {'Êtes-vous sûr ?'}
                 </DialogTitle>
                 <DialogContent>
                   <DialogContentText id='alert-dialog-description'>

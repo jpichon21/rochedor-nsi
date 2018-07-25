@@ -1,0 +1,19 @@
+<mjml>
+  <mj-body background-color='#333333'>
+    <mj-section>
+      <mj-column>
+        <mj-image width='90' src='http://lrdo.logomotion.fr/dist/img/logo.png' />
+        <mj-text color='#faf28e' align='center'>
+          <h1>Communauté de la Roche d'Or</h1>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column background-color='#ffffff' padding='20px 15px'>
+        <mj-text font-size='14px' line-height='22px'>
+          Coucou
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

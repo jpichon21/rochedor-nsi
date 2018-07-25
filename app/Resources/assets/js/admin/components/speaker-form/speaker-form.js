@@ -21,7 +21,7 @@ export class SpeakerForm extends React.Component {
         name: '',
         title: {fr: '', en: '', es: '', de: '', it: ''},
         description: { fr: '', en: '', es: '', de: '', it: '' },
-        image: 'http://via.placeholder.com/340x200',
+        image: 'http://via.placeholder.com/340x200'
       },
       alertOpen: false,
       status: '',
@@ -120,7 +120,6 @@ export class SpeakerForm extends React.Component {
   handleClose () {
     this.setState({status: '', alertOpen: false})
   }
-
 
   handleChangeFileUpload (event) {
     this.setState({
@@ -362,7 +361,7 @@ export class SpeakerForm extends React.Component {
                     aria-labelledby='alert-dialog-title'
                     aria-describedby='alert-dialog-description'>
                     <DialogTitle id='alert-dialog-title'>
-                      {'Êtes-vous sure?'}
+                      {'Êtes-vous sûr ?'}
                     </DialogTitle>
                     <DialogContent>
                       <DialogContentText id='alert-dialog-description'>

@@ -70,10 +70,10 @@ export class ContentList extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Liste des Contenus'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
+        <AppMenu title={'Liste des contenus'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
         <div className={classes.container}>
           <Typography variant='headline' className={classes.title}>
-            La communauté et les Maisons
+            La communauté et les maisons
           </Typography>
           <Paper className={classes.list}>
             {
@@ -105,7 +105,7 @@ export class ContentList extends React.Component {
             }
           </Paper>
           <Typography variant='headline' className={classes.title}>
-            Les Retraites
+            Les retraites
           </Typography>
           <Paper className={classes.list}>
             {
@@ -134,7 +134,7 @@ export class ContentList extends React.Component {
             }
           </Paper>
           <Typography variant='headline' className={classes.title}>
-            Informations Pratiques
+            Informations pratiques
           </Typography>
           <Paper className={classes.list}>
             {
@@ -166,7 +166,7 @@ export class ContentList extends React.Component {
             }
           </Paper>
           <Typography variant='headline' className={classes.title}>
-            Nous Soutenir
+            Nous soutenir
           </Typography>
           <Paper className={classes.list}>
             {
