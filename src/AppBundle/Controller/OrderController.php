@@ -526,14 +526,14 @@ class OrderController extends Controller
         $cookies = $request->cookies;
         $session = new Session();
         
-        $countrys = $this->tpaysRepository->findAllCountry();
+        $countries = $this->tpaysRepository->findAllCountry();
         $cartId = $session->get('cart');
         $page = $this->pageService->getContentFromRequest($request);
         $availableLocales = $this->pageService->getAvailableLocales($page);
         return $this->render('order/order.html.twig', [
             'cart' => $this->cartRepository->find($cartId),
             'page' => $page,
-            'countrys' => $countrys,
+            'countries' => $countries,
             'availableLocales' => $availableLocales
         ]);
     }
