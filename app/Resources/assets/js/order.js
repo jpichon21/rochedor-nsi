@@ -11,6 +11,9 @@ import {
   postOrder,
   checkZipcode
 } from './order-api.js'
+
+/* Infos */
+
 const _infos = JSON.parse($('.infos-json').html())
 
 /* Translations */
@@ -23,11 +26,9 @@ moment.locale(_translations.locale)
 /* Variables */
 
 let _you = {}
-let _registered = []
 let _delivery = {}
 let _cartInfo = {}
 let _client = {}
-let _clients = []
 
 const itemConnection = $('.item.connection')
 const itemOrder = $('.item.order')
@@ -63,19 +64,6 @@ $('.item-clients').on('click', '.button.radio', function (event) {
   event.preventDefault()
   $(this).toggleClass('checked')
 })
-
-/* Variables */
-
-let _you = {}
-let _delivery = {}
-let _cartInfo = {}
-let _client = {}
-
-const itemConnection = $('.item.connection')
-const itemOrder = $('.item.order')
-const itemValidation = $('.item.validation')
-const itemCart = $('.item.cart')
-const itemPayment = $('.item.payment')
 
 /* Renders */
 

@@ -1577,6 +1577,8 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
       <segment>
         <source>form.suprmessage.gift</source>
         <target>Supprimer le message</target>
+      </segment>
+    </unit>
     <unit id="znn8YMw" name="security.user_exist">
       <segment>
         <source>security.user_exist</source>
