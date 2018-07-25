@@ -1,0 +1,381 @@
+{% set bodyClass = "page" %}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset("assets/css/pure-css-grids.css") }}">
+<link rel="stylesheet" href="{{ asset("assets/css/calendar-registration.css") }}">
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="left">
+        <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
+        {% if page.content.intro %}
+        <div class="intro">
+            {{ 'order.registration.intro'|trans({'%link%': path('calendar-' ~ app.request.locale)}) | raw }}
+        </div>
+        {% endif %}
+        <div class="dropdown">
+            <div class="item cart">
+                <h2>{{ 'order.registration.cart.title.1' | trans | raw }}</h2>
+                {% if cart %}
+                    {% for line in cart.cartLines %}
+                    <div>
+                    {{ line.product.produitcourt }} - {{ line.product.prix }} - {{ line.quantity }} - <a href="{{ path('cart-remove', {'cartLine': line.id}) }}">{{ 'cart.remove'|trans }}</a>
+                    </div>
+                    {% endfor %}
+                <a href="#register" class="button continue">{{ 'form.continue' | trans | raw }}</a>
+                {% else %}
+                {{ 'cart.empty'|trans }}
+                {% endif %}
+            </div>
+            <div class="item connection">
+                <h2>{{ 'order.registration.one.title' | trans | raw }}</h2>
+                {% if app.user %}
+                <p>{{ 'order.registration.one.body.connected' | trans({ '%name%': app.user.prenom ~ ' ' ~ app.user.nom }) | raw }}</p>
+                <div class="pure-g">
+                    <div class="pure-u-1-3">
+                        <a href="#continue" class="button continue">{{ 'form.continue' | trans | raw }}</a>
+                    </div>
+                    <div class="pure-u-1-3">
+                        <a href="#disconnect" class="button disconnect">{{ 'form.disconnect' | trans | raw }}</a>
+                    </div>
+                </div>
+                {% else %}
+                <p>{{ 'order.registration.one.body.disconnected' | trans | raw }}</p>
+                <div class="pure-g">
+                    <div class="pure-u-4-24">
+                        <a href="#connection" class="button yes">{{ 'form.yes' | trans | raw }}</a>
+                    </div>
+                    <div class="pure-u-4-24">
+                        <a href="#registration" class="button no">{{ 'form.no' | trans | raw }}</a>
+                    </div>
+                </div>
+                <div class="panel connection">
+                    <h3>{{ 'calendar.registration.one.title.connection' | trans | raw }}</h3>
+                    <form class="pure-g connection">
+                        <div class="pure-u-10-24">
+                            <input autocomplete="off" class="input username" required type="text" name="username" placeholder="{{ 'form.username' | trans | raw }}">
+                        </div>
+                        <div class="pure-u-10-24">
+                            <input class="input password" required type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
+                        </div>
+                        <div class="pure-u-4-24">
+                            <input class="button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                        </div>
+                    </form>
+                </div>
+                <div class="panel registration">
+                    <h3>{{ 'calendar.registration.one.title.registration' | trans | raw }}</h3>
+                    <form class="pure-g you-form-render"></form>
+                </div>
+                {% endif %}
+            </div>
+            <div class="item order">
+                <h2>{{ 'order.registration.two.title' | trans | raw }}</h2>
+                <h3>{{ 'order.registration.two.title.you' | trans | raw }}</h3>
+                <div class="you-render"></div>
+                <div class="panel you">
+                    <h3>{{ 'calendar.registration.two.title.modify.you' | trans | raw }}</h3>
+                    <form class="pure-g you-form-render"></form>
+                </div>
+                    <h3>{{ 'order.registration.choose.adliv' | trans | raw }}</h3>
+                    <select class="select adliv">
+                        <option selected disabled value="">{{ 'form.choose.adliv' | trans | raw }}</option>
+                        <option value="myAdd">{{ 'select.ad.myadd' | trans | raw }}</option>
+                        <option value="Roche">{{ 'select.ad.roche' | trans | raw }}</option>
+                        <option value="Font">{{ 'select.ad.font' | trans | raw }}</option>
+                        <option value="Other">{{ 'select.ad.other' | trans | raw }}</option>
+                    </select>
+                    <div class = "panel adliv">
+                        <form>
+                            <h3>{{ 'order.choose.adliv' | trans | raw }}</h3>
+                            <div class="pure-u-1-3">
+                                <input class="input adresse" required type="text" name="adresse" placeholder="{{ 'form.adresse' | trans | raw }}">
+                            </div>
+                            <div class="pure-u-1-3">
+                                <input class="input zipcode" required type="text" name="zipcode" placeholder="{{ 'form.zipcode' | trans | raw }}">
+                            </div>
+                            <div class="pure-u-1-3">
+                                <input class="input city" required type="text" name="city" placeholder="{{ 'form.city' | trans | raw }}">
+                            </div>
+                            <div class="pure-u-4-24">
+                                <input class="button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                            </div>
+                        </form>
+                    </div>
+                    <div class = "panel countryliv">
+                        <h3>{{ 'order.registration.choose.country' | trans | raw }}</h3>
+                        <select class="select country">
+                            <option selected disabled value="">{{ 'form.choose.country' | trans | raw }}</option>
+
+                            {% for country in countrys %}
+                            <option value={{country.CodPays}}>{{country.nompays | trans | raw }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <h3>{{ 'order.registration.choose.gift' | trans | raw }}</h3>
+                    <p>{{ 'order.gift.text' | trans | raw }}</p>
+                        <form class="form gift">
+                            <div class="pure-u-1-1">
+                                <input class="input note" required type="textarea" name="note" placeholder="{{ 'form.gift' | trans | raw }}">
+                            </div>
+                            <div class="pure-u-4-24">
+                                <input class="button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                            </div>
+                        </form>
+                        <div class="pure-u-4-24">
+                                <a href="#payment" class="button payment">{{ 'form.payment' | trans | raw }}</a>
+                        </div>
+            </div>
+            <div class="item payment">
+                <h3>{{ 'order.choose.modpaie' | trans | raw }}</h3>
+                <div class="pure-u-2-3">
+                    <a href="#order" class="button order">{{ 'go.to.order' | trans | raw }}</a>
+                </div>
+                <select class="select modpaie">
+                    <option selected disabled value="">{{ 'form.choose.modpaie' | trans | raw }}</option>
+                    <option value="PBX">{{ 'select.cb' | trans | raw }}</option>
+                    <option value="PAYPAL">{{ 'select.paypal' | trans | raw }}</option>
+                </select>
+                <div class="pure-u-4-24">
+                    <input class="button submit process-order" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                </div>
+            </div>
+            <div class="item validation">
+                <h2>{{ 'calendar.registration.three.title' | trans | raw }}</h2>
+                <div class="result">
+                    {{ 'calendar.registration.three.body' | trans | raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hole">
+    </div>
+    <div class="right">
+        <h3>{{ 'order.summary.title.clients' | trans | raw }}</h3>
+        {% if cart %}
+            {% for line in cart.cartLines %}
+            <div>
+            <p>{{ line.product.produitcourt }} - {{ line.product.prix }} € - {{ line.quantity }} </p>
+            </div>
+            {% endfor %}
+        {% else %}
+        {{ 'cart.empty'|trans }}
+        {% endif %}
+        <div class="clients-render"></div>
+        <div class="catch-message"></div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+<script type="text/json" class="infos-json">
+    {{ page | json_encode() | raw }}
+</script>
+<script type="text/json" class="translations-json">
+    {
+        "locale": "{{ app.request.locale }}",
+        "transport": {
+            "perso": "{{ 'form.transport.perso' | trans }}",
+            "train": "{{ 'form.transport.train' | trans }}",
+            "avion": "{{ 'form.transport.avion' | trans }}",
+            "bus": "{{ 'form.transport.bus' | trans }}"
+        },
+        "message": {
+            "verify_transport": "{{ 'form.message.verify_transport' | trans }}",
+            "parent_must_be_adult": "{{ 'form.message.parent_must_be_adult' | trans }}",
+            "must_be_a_child": "{{ 'form.message.must_be_a_child' | trans }}",
+            "date_invalid": "{{ 'form.message.date_invalid' | trans }}"
+        }
+    }
+</script>
+<script type="text/template" class="you-template">
+    <div class="you">
+        <p><%= you.prenom %> <%= you.nom %><br>
+            <%= you.adresse %> <%= you.cp %> <%= you.ville %> <%= you.pays %></p>
+        <a href="#" data-id="<%= you.codcli %>" class="modify-you button">{{ 'form.modify' | trans | raw }}</a>
+        <a href="#" class="button radio hidden <%= (you.check) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
+    </div>
+</script>
+<script type="text/template" class="cart-template">
+    <p>poid total: <%= cartInfo.weight %> g<br></p>
+    <p>frais de port : <%= cartInfo.portprice %> €<br></p>
+    <p>prix total HT : <%= cartInfo.totalPrice %> €<br></p>
+    <p>prix total TTC: <%= cartInfo.priceIT %> €<br></p>
+    <p>prix de la TVA: <%= cartInfo.vatCost %> €<br></p>
+</script>
+<script type="text/template" class="registered-template">
+    <% if (registered.length) { %>
+        <% for (var i = 0; i < registered.length; i++) { %>
+        <% var him = registered[i] %>
+            <div class="him">
+                <p><%= him.prenom %> <%= him.nom %><br>
+                    <%= him.adresse %> <%= him.cp %> <%= him.ville %> <%= him.pays %></p>
+                <a href="#" data-id="<%= him.codcli %>" class="modify-him button">{{ 'form.modify' | trans | raw }}</a>
+                <a href="#" data-id="<%= him.codcli %>" class="participate-him button radio <%= (him.check) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
+            </div>
+        <% } %>
+    <% } else { %>
+        <p>{{ 'form.no_clients' | trans }}</p>
+    <% } %>
+</script>
+<script type="text/template" class="you-form-template">
+    <input type="hidden" value="<%= client.codcli %>" name="codcli">
+    <input type="hidden" value=<%= client.check %> name="check">
+    <div class="pure-u-1-3">
+        <select class="select civil" required name="civil">
+            <option <%= (client.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
+            <option <%= (client.civil == 'M.') ? 'selected' : '' %> value="M.">M.</option>
+            <option <%= (client.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
+            <option <%= (client.civil == 'Mlle') ? 'selected' : '' %> value="Mlle">Mlle</option>
+            <option <%= (client.civil == 'Père') ? 'selected' : '' %> value="Père">Père</option>
+            <option <%= (client.civil == 'Frère') ? 'selected' : '' %> value="Frère">Frère</option>
+            <option <%= (client.civil == 'Soeur') ? 'selected' : '' %> value="Soeur">Soeur</option>
+        </select>
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input prenom" required type="text" value="<%= client.prenom %>" name="prenom" placeholder="{{ 'form.surname' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input nom" required type="text" value="<%= client.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
+    </div>
+    <div class="pure-u-1">
+        <textarea class="textarea adresse" required name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= client.adresse %></textarea>
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input cp" required type="text" value="<%= client.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input ville" required type="text" value="<%= client.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input rue" required type="text" value="<%= client.rue %>" name="rue" placeholder="{{ 'form.street' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input pays" type="text" value="<%= client.pays %>" name="pays" placeholder="{{ 'form.country' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input class="input tel" type="number" value="<%= client.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input class="input mobil" type="number" value="<%= client.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input autocomplete="off" class="input email" required type="email" value="<%= client.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input class="input password" required type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input class="input profession" type="text" value="<%= client.societe %>" name="societe" placeholder="{{ 'form.societe' | trans | raw }}">
+    </div>
+    <div class="pure-u-1 notAtThisMoment">
+        <textarea class="textarea memo" name="memocli" placeholder="{{ 'form.memo' | trans | raw }}"><%= client.memo %></textarea>
+    </div>
+    <div class="pure-u-4-24">
+        <input class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
+    </div>
+    <div class="pure-u-20-24">
+        <div class="catch-message"></div>
+    </div>
+</script>
+<script type="text/template" class="him-form-template">
+    <input type="hidden" value="<%= client.codcli %>" name="codcli">
+    <input type="hidden" value=<%= client.check %> name="check">
+    <div class="pure-u-1-2">
+        <select class="select coltyp" required name="coltyp">
+            <option <%= (client.coltyp == '') ? 'selected' : '' %> disabled value="">{{ 'form.relation' | trans | raw }}</option>
+            <option <%= (client.coltyp == 'accom') ? 'selected' : '' %> value="accom">Vient avec</option>
+            <option <%= (client.coltyp == 'conjo') ? 'selected' : '' %> value="conjo">Conjoint</option>
+            <option <%= (client.coltyp == 'enfan') ? 'selected' : '' %> value="enfan">Enfant de</option>
+        </select>
+    </div>
+    <div class="pure-u-1-2">
+        <select class="select colp" required name="colp">
+            <option <%= (client.colp == '') ? 'selected' : '' %> disabled value="">{{ 'form.colp' | trans | raw }}</option>
+            <option <%= (client.colp == you.codcli) ? 'selected' : '' %> value="<%= you.codcli %>"><%= you.prenom + ' ' + you.nom %></option>
+            <% for (var i = 0; i < registered.length; i++) { %>
+                <% var him = registered[i] %>
+                <% if (client.codcli != him.codcli) { %>
+                <option <%= (client.colp == him.codcli) ? 'selected' : '' %> value="<%= him.codcli %>"><%= him.prenom + ' ' + him.nom %></option>
+                <% } %>
+            <% } %>
+        </select>
+    </div>
+    <div class="pure-u-1-3">
+        <select class="select civil" required name="civil">
+            <option <%= (client.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
+            <option <%= (client.civil == 'M.') ? 'selected' : '' %> value="M.">M.</option>
+            <option <%= (client.civil == 'Mme') ? 'selected' : '' %> value="Mme">Mme</option>
+            <option <%= (client.civil == 'Mlle') ? 'selected' : '' %> value="Mlle">Mlle</option>
+            <option <%= (client.civil == 'Père') ? 'selected' : '' %> value="Père">Père</option>
+            <option <%= (client.civil == 'Frère') ? 'selected' : '' %> value="Frère">Frère</option>
+            <option <%= (client.civil == 'Soeur') ? 'selected' : '' %> value="Soeur">Soeur</option>
+        </select>
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input prenom" required type="text" value="<%= client.prenom %>" name="prenom" placeholder="{{ 'form.surname' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input nom" required type="text" value="<%= client.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
+    </div>
+    <div class="pure-u-1">
+        <textarea class="textarea adresse" required name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= client.adresse %></textarea>
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input cp" required type="text" value="<%= client.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input ville" required type="text" value="<%= client.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input pays" type="text" value="<%= client.pays %>" name="pays" placeholder="{{ 'form.country' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input tel" type="number" value="<%= client.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input mobil" type="number" value="<%= client.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input autocomplete="off" class="input email" type="email" value="<%= client.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input class="input datnaiss" required type="text" value="<%= (client.datnaiss !== '') ? moment(client.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input class="input profession" type="text" value="<%= client.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
+    </div>
+    <div class="pure-u-1">
+        <select class="select transport" required name="transport" "<%= client.transport %>">
+            <option <%= (client.transport == '') ? 'selected' : '' %> disabled value="">{{ 'form.transport' | trans | raw }}</option>
+            <option <%= (client.transport == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
+            <option <%= (client.transport == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
+            <option <%= (client.transport == 'avion') ? 'selected' : '' %> value="avion">{{ 'form.transport.avion' | trans | raw }}</option>
+            <option <%= (client.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
+            <option <%= (client.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
+        </select>
+    </div>
+    <div class="pure-u-1">
+        <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= client.memo %></textarea>
+    </div>
+    <div class="pure-u-4-24">
+        <input class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
+    </div>
+    <div class="pure-u-20-24">
+        <div class="catch-message"></div>
+    </div>
+</script>
+<script type="text/template" class="delivery-form-template">
+    <div class="pure-u-1-3">
+        <input class="input adresse" required type="text" value="<%= delivery.adliv.adresse %>" name="adresse" placeholder="{{ 'form.adresse' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input zipcode" required type="text" value="<%= delivery.adliv.zipcode %>" name="zipcode" placeholder="{{ 'form.zipcode' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input class="input city" required type="text" value="<%= delivery.adliv.city %>" name="zipcode" placeholder="{{ 'form.zipcode' | trans | raw }}">
+    </div>
+</script>
+<script src="{{ asset("assets/js/order-command.js") }}"></script>
+{% endblock %}

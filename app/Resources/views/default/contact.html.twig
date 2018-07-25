@@ -1,0 +1,93 @@
+{% set bodyClass = "page" %}
+{% set bodyBackground = page.background %}
+{% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
+{% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/pure-css-grids.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/page.css') }}">
+<script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="left">
+        <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
+        {% if page.content.intro %}
+        <div class="intro">
+            {{ page.content.intro | raw }}
+        </div>
+        {% endif %}
+        <div class="dropdown">
+            {% for section in page.content.sections %}
+            <div class="item {% if loop.first %}first{% endif %}">
+                <h2>{{ section.title }}</h2>
+                {{ section.body | raw }}
+            </div>
+            {% endfor %}
+            <div class="item">
+                <h2>{{ 'form.contact.title' | trans }}</h2>
+                <div class="panel active">
+                    <div class="pure-g">
+                        {{ form_start(form) }}
+                        <div class="pure-u-1-2">
+                            {{ form_widget(form.name) }}
+                        </div>
+                        <div class="pure-u-1-2">
+                            {{ form_widget(form.surname) }}
+                        </div>
+                        <div class="pure-u-1-2">
+                            {{ form_widget(form.address) }}
+                        </div>
+                        <div class="pure-u-1-2">
+                            {{ form_widget(form.city) }}
+                        </div>
+                        <div class="pure-u-1-2">
+                            {{ form_widget(form.zipcode) }}
+                        </div>
+                        <div class="pure-u-1-2">
+                            {{ form_widget(form.email) }}
+                        </div>
+                        <div class="pure-u-1-1">
+                            {{ form_widget(form.body) }}
+                        </div>
+                        <div class="pure-u-1-1">
+                            <div class="g-recaptcha" data-sitekey="6LdgnGQUAAAAAESq67I0B4rPaMuWpmRgZ__z4ddj"></div>
+                        </div>
+                        <div class="pure-u-4-24">
+                            {{ form_widget(form.submit) }}
+                        </div>
+                        <div class="pure-u-20-24">
+                            <div class="catch-message"></div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hole">
+    </div>
+    <div class="right">
+        {% for section in page.content['sections'] %}
+        <div class="carousel {% if loop.first %}active{% endif %}">
+            <div class="slides">
+                {% for slide in section.slides %}
+                <div class="slide {% if loop.first %}active{% endif %}">
+                    {% include 'parts/carousel/layout-' ~ slide.layout ~ '.html.twig'
+                    with { 'images': slide.images } %}
+                </div>
+                {% endfor %}
+            </div>
+            {% if section.slides|length > 1 %}
+            <div class="prev"></div>
+            <div class="next"></div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset("assets/js/page.js") }}"></script>
+<script src="{{ asset("assets/js/form.js") }}"></script>
+{% endblock %}

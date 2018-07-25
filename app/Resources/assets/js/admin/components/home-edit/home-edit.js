@@ -68,7 +68,7 @@ export class HomeEdit extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={`Modification de la page d'accueil`} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
+        <AppMenu title={`Page d'accueil`} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
         <Snackbar
             open={this.state.snackbarOpen}
             autoHideDuration={4000}

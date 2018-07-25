@@ -18,7 +18,9 @@ const participant = {
   colp: '',
   transport: '',
   memo: '',
-  check: false
+  check: false,
+  aut16: 0,
+  datAut16: null
 }
 
 const delivery = {

@@ -22,6 +22,7 @@ use AppBundle\Entity\Page;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\ContactRepository;
+use AppBundle\Repository\TpaysRepository;
 use AppBundle\Service\Mailer;
 use AppBundle\Service\PageService;
 
@@ -93,12 +94,14 @@ class CalendarController extends Controller
     public function __construct(
         CalendarRepository $calendarRepository,
         ContactRepository $contactRepository,
+        TpaysRepository $tpaysRepository,
         Mailer $mailer,
         Translator $translator,
         PageService $pageService
     ) {
         $this->calendarRepository = $calendarRepository;
         $this->contactRepository = $contactRepository;
+        $this->tpaysRepository = $tpaysRepository;
         $this->mailer = $mailer;
         $this->translator = $translator;
         $this->pageService = $pageService;
@@ -119,6 +122,15 @@ class CalendarController extends Controller
         $page = $this->pageService->getContentFromRequest($request);
         $availableLocales = $this->pageService->getAvailableLocales($page);
 
+        $countriesJSON = array();
+        $countries = $this->tpaysRepository->findAllCountry();
+        foreach ($countries as $country) {
+            $countriesJSON[] = array(
+                'codpays' => $country->getCodpays(),
+                'nompays' => $country->getNompays()
+            );
+        }
+
         if ($id) {
             $activity = $this->getCalendarAction($id);
             if ($activity) {
@@ -129,17 +141,26 @@ class CalendarController extends Controller
                     return $this->render('default/calendar-registration.html.twig', [
                         'page' => $page,
                         'activity' => $activity,
+                        'countries' => $countriesJSON,
                         'availableLocales' => $availableLocales
                     ]);
                 }
                 return $this->render('default/calendar-registration-error.html.twig', [
-                    'page' => $page,
+                    'page' => array(
+                        'title' => $page->getTitle(),
+                        'subTitle' => $page->getSubTitle(),
+                        'content' => array('intro' => $this->translator->trans('calendar.registration.error.date'))
+                    ),
                     'availableLocales' => $availableLocales
                 ]);
             }
         }
         return $this->render('default/calendar-registration-error.html.twig', [
-            'page' => $page,
+            'page' => array(
+                'title' => $page->getTitle(),
+                'subTitle' => $page->getSubTitle(),
+                'content' => array('intro' => $this->translator->trans('calendar.registration.error.empty'))
+            ),
             'availableLocales' => $availableLocales
         ]);
     }
@@ -283,7 +304,11 @@ class CalendarController extends Controller
         ->setMobil($attendee['mobil'])
         ->setEmail($attendee['email'])
         ->setDatnaiss(new \DateTime($attendee['datnaiss']))
-        ->setProfession($attendee['profession']);
+        ->setProfession($attendee['profession'])
+        ->setAut16($attendee['aut16']);
+        if ($attendee['aut16'] == 1) {
+            $contact->setDataut16(new \DateTime($attendee['datAut16']));
+        }
         return $contact;
     }
 
@@ -298,19 +323,22 @@ class CalendarController extends Controller
 
     private function validAttendees($attendees)
     {
-        foreach ($attendees as $attendee) {
-            if ($this->isChild($attendee['datnaiss'])) {
-                if (!$this->hasParent($attendee, $attendees)) {
-                    return false;
-                }
-            }
-        }
+        // foreach ($attendees as $attendee) {
+        //     if ($this->isChild($attendee['datnaiss'])) {
+        //         if (!$this->hasParent($attendee, $attendees)) {
+        //             return false;
+        //         }
+        //     }
+        // }
         return true;
     }
     
     private function hasParent($child, $attendees)
     {
         if ($child['coltyp'] !== 'enfan') {
+            if (isset($child['autpar'])) {
+                return true;
+            }
             return false;
         }
         foreach ($attendees as $attendee) {

@@ -20,6 +20,21 @@ const _cartId = parseInt($('.cart-data').html(), 10)
 
 moment.locale(_translations.locale)
 
+/* Variables */
+
+let _you = {}
+let _registered = []
+let _delivery = {}
+let _cartInfo = {}
+let _client = {}
+let _clients = []
+
+const itemConnection = $('.item.connection')
+const itemOrder = $('.item.order')
+const itemValidation = $('.item.validation')
+const itemCart = $('.item.cart')
+const itemPayment = $('.item.payment')
+
 /* Dropdowns */
 
 function changeItem (elmt) {
@@ -33,7 +48,7 @@ function changeItem (elmt) {
 
 $(document).ready(function () {
   setTimeout(function () {
-    changeItem($('.dropdown .item:first'))
+    changeItem(itemCart)
   }, 500)
 })
 

@@ -167,7 +167,7 @@ class ShopSecurityController extends Controller
     }
 
     /**
-    * @Route("/shop/password-request", name="password-request", requirements={"methods": "POST"})
+    * @Route("/shop/password-request", name="shop-password-request", requirements={"methods": "POST"})
     */
     public function passwordRequestAction(Request $request, ClientRepository $repository)
     {
@@ -200,7 +200,9 @@ class ShopSecurityController extends Controller
         return new JsonResponse(['status' => 'ok', 'message' => 'The email has been sent']);
     }
     /**
-    * @Route("/{_locale}/shop/password-reset/{token}", name="password-reset", requirements={"methods": "{GET, POST}"})
+    * @Route("/{_locale}/shop/password-reset/{token}",
+    *   name="shop-password-reset",
+    *   requirements={"methods": "{GET, POST}"})
     */
     public function passwordResetAction(
         Request $request,
