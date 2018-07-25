@@ -2,6 +2,7 @@ import $ from 'jquery'
 import moment from 'moment'
 import { getParticipant, getDelivery } from './sample'
 import { placePayment } from './cart.js'
+import I18n from './i18n'
 import {
   getLogin,
   getLogout,
@@ -12,16 +13,17 @@ import {
   checkZipcode
 } from './order-api.js'
 
-/* Infos */
+/* Cart */
 
-const _infos = JSON.parse($('.infos-json').html())
+const _cartId = parseInt($('.cart-data').html(), 10)
 
 /* Translations */
 
-const _translations = JSON.parse($('.translations-json').html())
-const _cartId = parseInt($('.cart-data').html(), 10)
+let i18n = new I18n()
 
-moment.locale(_translations.locale)
+const _locale = $('.locale-json').html()
+
+moment.locale(_locale)
 
 /* Variables */
 
@@ -75,10 +77,6 @@ const youFormTemplate = _.template($('.you-form-template').html())
 function updateYouRender () {
   $('.you-render').html(youTemplate({ you: _you }))
 }
-
-// function updateClientsRender () {
-//   $('.clients-render').html(cartTemplate({ delivery: _delivery, translations: _translations, cartInfo: _cartInfo }))
-// }
 
 function updateCartRender () {
   $('.cart-render').html(cartTemplate({ cartInfo: _cartInfo }))
