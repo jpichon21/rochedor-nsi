@@ -38,6 +38,19 @@ export const postRegister = (data) => {
     })
 }
 
+export const postEditCli = (data) => {
+  return window.fetch('/shop/edit', {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify(data)
+  })
+    .then(res => {
+      if (!res.ok) { res.json().then(res => { throw res.error }) }
+      return res.json()
+    })
+}
+
 export const getLogout = () => {
   return window.fetch('/logout', {
     headers: { 'Content-Type': 'application/json' },
