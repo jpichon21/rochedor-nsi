@@ -169,6 +169,66 @@ class ShopSecurityController extends Controller
         ]);
     }
 
+  /**
+    * @Route("/shop/edit", name="shop-edit", requirements={"methods": "POST"})
+    */
+    public function editAction(
+        Request $request,
+        ClientRepository $repository,
+        UserPasswordEncoderInterface $encoder
+    ) {
+        $clientReq = $request->get('client');
+        if (!$clientReq) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'You must provide client object']);
+        }
+        
+        $client = $repository->findClient($clientReq['codcli']);
+        $password = $encoder->encodePassword($client, $clientReq['password']);
+
+        $client
+        ->setCivil($clientReq['civil'])
+        ->setNom($clientReq['nom'])
+        ->setPrenom($clientReq['prenom'])
+        ->setRue($clientReq['rue'])
+        ->setAdresse($clientReq['adresse'])
+        ->setCp($clientReq['cp'])
+        ->setVille($clientReq['ville'])
+        ->setPays($clientReq['pays'])
+        ->setTel($clientReq['tel'])
+        ->setMobil($clientReq['mobil'])
+        ->setEmail($clientReq['email']);
+        if ($password != '') {
+            $client->setPassword($password);
+        }
+        $client->setSociete($clientReq['societe'])
+        ->setTvaintra($clientReq['tvaintra'])
+        ->setMemocli($clientReq['memocli'])
+        ->setEnregcli(new \DateTime('now'));
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($client);
+        $em->flush();
+
+        return new JsonResponse([
+            'codcli' => $client->getCodcli(),
+            'civil' => $client->getCivil(),
+            'nom' => $client->getNom(),
+            'prenom' => $client->getPrenom(),
+            'rue' => $client->getRue(),
+            'adresse' => $client->getAdresse(),
+            'cp' => $client->getCp(),
+            'ville' => $client->getVille(),
+            'pays' => $client->getPays(),
+            'tel' => $client->getTel(),
+            'mobil' => $client->getMobil(),
+            'email' => $client->getEmail(),
+            'societe' => $client->getSociete(),
+            'tvaintra' => $client->getTvaintra(),
+            'memocli' => $client->getMemocli(),
+            'enregcli' => $client->getEnregcli()
+        ]);
+    }
+
     /**
     * @Route("/shop/password-request", name="shop-password-request", requirements={"methods": "POST"})
     */

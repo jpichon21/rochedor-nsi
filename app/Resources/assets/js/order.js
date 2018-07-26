@@ -12,6 +12,7 @@ import {
   resetLogin,
   postLogin,
   postOrder,
+  postEditCli,
   checkZipcode
 } from './order-api.js'
 
