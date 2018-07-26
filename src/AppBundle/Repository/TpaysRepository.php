@@ -67,13 +67,13 @@ class TpaysRepository
         FROM AppBundle\Entity\Tpays tp 
         WHERE tp.nompays=:country');
         $query->setParameter('country', $country["nompays"]);
-        $results =  $query->getResult();
+        $results =  $query->getOneOrNullResult();
 
-        if ($results[0]['zipcodes'] === null) {
+        if ($results['zipcodes'] === null) {
             return true;
         }
-        
-        foreach ($results[0]['zipcodes'] as $k => $result) {
+
+        foreach ($results['zipcodes'] as $k => $result) {
             if ($zipcode >= $result[0] && $zipcode <= $result[1]) {
                 return true;
             }

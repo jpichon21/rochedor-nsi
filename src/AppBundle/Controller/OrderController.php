@@ -141,6 +141,8 @@ class OrderController extends Controller
     public function xhrCheckZipcode(Request $request, $country, $zipcode, $destliv)
     {
         $value = $this->tpaysRepository->checkZipcode($country, $zipcode, $destliv);
+        dump($value);
+        exit;
         if ($value === true) {
             return ['status' => 'ok'];
         } else {
