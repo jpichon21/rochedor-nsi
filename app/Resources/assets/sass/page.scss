@@ -212,6 +212,11 @@
           color: $roche-yellow;
           opacity: 1;
         }
+        &:disabled {
+          border: 1px solid #ffffff;
+          color: #ffffff;
+          opacity: 0.5;
+        }
         &.submit {
           margin-top: 10px;
         }
@@ -223,6 +228,9 @@
         background-position: calc(100% - 20px) center;
         background-repeat: no-repeat;
         -webkit-appearance: none;
+        &:disabled {
+          background-image: url('../img/arrow-select-white.png');
+        }
         &.white {
           color: #ffffff;
           background-image: url('../img/arrow-select-white.png');

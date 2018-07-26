@@ -1383,8 +1383,7 @@
     <unit id="JwRE9Ox" name="order.registration.choose.gift">
       <segment>
         <source>order.registration.choose.gift</source>
-        <target>
-Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.</target>
+        <target>Cadeau</target>
       </segment>
     </unit>
     <unit id="7o3eWsz" name="order.choose.modpaie">
@@ -1528,7 +1527,7 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
     <unit id="u6sNBSu" name="order.gift.text">
       <segment>
         <source>order.gift.text</source>
-        <target>Entrer votre message personnalisé</target>
+        <target>Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.</target>
       </segment>
     </unit>
     <unit id="kkp4fpp" name="order.registration.one.body.connected">

@@ -1,17 +1,22 @@
 @import './variables';
 @import './page';
 
-.dropdown {
-  .item {
-    h2 {
-      cursor: default;
-    }
-    &.connection {
-      .button {
-        &.active {
-          background: $roche-yellow;
-          color: #000000;
+.content {
+    .dropdown {
+    .item {
+      h2 {
+        cursor: default;
+      }
+      &.connection {
+        .button {
+          &.active {
+            background: $roche-yellow;
+            color: #000000;
+          }
         }
+      }
+      .select-adliv {
+        margin-bottom: 0;
       }
     }
   }

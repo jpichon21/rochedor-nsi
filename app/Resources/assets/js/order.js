@@ -79,6 +79,7 @@ const youTemplate = _.template($('.you-template').html())
 const cartTemplate = _.template($('.cart-template').html())
 const deliveryTemplate = _.template($('.delivery-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
+const adlivFormTemplate = _.template($('.adliv-form-template').html())
 
 function updateYouRender () {
   $('.you-render').html(youTemplate({
@@ -114,6 +115,13 @@ function updateYouFormRender () {
   }))
 }
 
+function adlivUpdateFormRender () {
+  $('.adliv-form-render').html(adlivFormTemplate({
+    delivery: _delivery,
+    countries: _countries
+  }))
+}
+
 updateCartRender()
 updateDeliveryRender()
 
@@ -125,6 +133,7 @@ function afterLogin (user, bypass) {
   _you = user
   updateYouRender()
   updateCartRender()
+  adlivUpdateForm('myAdd')
   if (bypass) {
     changeItem(itemShipping)
   } else {
@@ -284,29 +293,47 @@ itemCard.on('submit', '.panel.modify form', function (event) {
   })
 })
 
-itemShipping.on('change', '.select.adliv', function (event) {
+itemShipping.on('change', '.select-adliv', function (event) {
   event.preventDefault()
-  const data = $(this).val()
-  let selectedVal = data
-  _delivery.destliv = selectedVal
-  if (selectedVal === 'Roche' || selectedVal === 'Font' || selectedVal === 'myAdd') {
+  const selected = $(this).val()
+  adlivUpdateForm(selected)
+})
+
+function adlivUpdateForm (destliv) {
+  if (
+    destliv === 'Roche' ||
+    destliv === 'Font' ||
+    destliv === 'myAdd'
+  ) {
     _delivery.adliv.adresse = _you.adresse
     _delivery.adliv.zipcode = _you.cp
     _delivery.adliv.city = _you.ville
-    $(`.panel.adliv`, itemShipping).removeClass('active')
-  } else {
-    $(`.panel.adliv`, itemShipping).addClass('active')
   }
-  if (selectedVal === 'myAdd' || selectedVal === 'Other') {
-    $(`.panel.countryliv`, itemShipping).addClass('active')
-  } else {
-    $(`.panel.countryliv`, itemShipping).removeClass('active')
+  if (destliv === 'myAdd') {
+    _delivery.paysliv = _you.pays
   }
-  if (selectedVal === 'Roche' || selectedVal === 'Font') {
+  if (destliv === 'Other') {
+    _delivery.adliv.adresse = ''
+    _delivery.adliv.zipcode = ''
+    _delivery.adliv.city = ''
+    _delivery.paysliv = ''
+  }
+  if (destliv === 'Roche') {
+    _delivery.adliv.adresse = '1 Chemin du Muenot'
+    _delivery.adliv.zipcode = '25000'
+    _delivery.adliv.city = 'Besançon'
     _delivery.paysliv = 'FR'
   }
+  if (destliv === 'Font') {
+    _delivery.adliv.adresse = 'Route de Riunoguès'
+    _delivery.adliv.zipcode = '66480'
+    _delivery.adliv.city = 'Maureillas Las Illas'
+    _delivery.paysliv = 'FR'
+  }
+  _delivery.destliv = destliv
+  adlivUpdateFormRender()
   changeItem(itemShipping)
-})
+}
 
 itemPayment.on('click', '.button.submit.process-order', function (event) {
   _delivery.cartId = _cartId
