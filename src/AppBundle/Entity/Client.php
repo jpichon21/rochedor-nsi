@@ -104,9 +104,16 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="Societe", type="string", length=40, nullable=false)
+     * @ORM\Column(name="Societe", type="string", length=40, nullable=true)
      */
     private $societe;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tvaIntra", type="string", length=255, nullable=true)
+     */
+    private $tvaintra;
 
     /**
      * @var string
@@ -517,6 +524,30 @@ class Client implements UserInterface, \Serializable
     public function getSociete()
     {
         return $this->societe;
+    }
+
+    /**
+     * Set tvaintra.
+     *
+     * @param string $tvaintra
+     *
+     * @return Client
+     */
+    public function setTvaintra($tvaintra)
+    {
+        $this->tvaintra = $tvaintra;
+
+        return $this;
+    }
+
+    /**
+     * Get tvaintra.
+     *
+     * @return string
+     */
+    public function getTvaintra()
+    {
+        return $this->tvaintra;
     }
 
     /**

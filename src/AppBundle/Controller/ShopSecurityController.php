@@ -101,6 +101,7 @@ class ShopSecurityController extends Controller
             'mobil' => $client->getMobil(),
             'email' => $client->getEmail(),
             'societe' => $client->getSociete(),
+            'tvaintra' => $client->getTvaintra(),
             'memocli' => $client->getMemocli(),
             'enregcli' => $client->getEnregcli()
         ]);
@@ -140,6 +141,7 @@ class ShopSecurityController extends Controller
         ->setEmail($clientReq['email'])
         ->setPassword($password)
         ->setSociete($clientReq['societe'])
+        ->setTvaintra($clientReq['tvaintra'])
         ->setMemocli($clientReq['memocli'])
         ->setEnregcli(new \DateTime('now'));
 
@@ -161,6 +163,7 @@ class ShopSecurityController extends Controller
             'mobil' => $client->getMobil(),
             'email' => $client->getEmail(),
             'societe' => $client->getSociete(),
+            'tvaintra' => $client->getTvaintra(),
             'memocli' => $client->getMemocli(),
             'enregcli' => $client->getEnregcli()
         ]);
@@ -188,7 +191,11 @@ class ShopSecurityController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($client);
         $em->flush();
-        $link = $this->generateUrl('password-reset', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+        $link = $this->generateUrl(
+            'shop-password-reset',
+            array('token' => $token),
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
         $this->mailer->send(
             $email,
             $this->translator->trans('security.reset_password_request.subject'),

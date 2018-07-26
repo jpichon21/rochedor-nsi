@@ -11,6 +11,20 @@ export const postLogin = (data) => {
     })
 }
 
+export const resetLogin = (data) => {
+  return window.fetch('/shop/password-request', {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify(data)
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.message }
+      return res.data
+    })
+}
+
 export const postRegister = (data) => {
   return window.fetch('/shop/register', {
     headers: { 'Content-Type': 'application/json' },
