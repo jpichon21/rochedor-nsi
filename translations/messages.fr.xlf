@@ -1287,7 +1287,7 @@
     <unit id="S_61BVF" name="order.registration.two.title.you">
       <segment>
         <source>order.registration.two.title.you</source>
-        <target>Vous</target>
+        <target>Vos informations</target>
       </segment>
     </unit>
     <unit id="biPtN4s" name="order.registration.choose.adliv">
@@ -1798,7 +1798,7 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
     <unit id="bgD9EK8" name="form.update">
       <segment>
         <source>form.update</source>
-        <target>Mettre à jour</target>
+        <target>Modifier vos informations</target>
       </segment>
     </unit>
     <unit id="FEBnXbm" name="form.tvaintra">
@@ -1823,6 +1823,12 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
       <segment>
         <source>order.registration.three.title.you</source>
         <target>Choisissez une adresse de livraison</target>
+      </segment>
+    </unit>
+    <unit id="TTOaJf7" name="form.message.pro_invalid">
+      <segment>
+        <source>form.message.pro_invalid</source>
+        <target>Le numéro de TVA ou le nom de la société est incomplet</target>
       </segment>
     </unit>
   </file>

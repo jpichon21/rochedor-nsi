@@ -170,9 +170,9 @@ class ShopSecurityController extends Controller
     }
 
   /**
-    * @Route("/shop/edit", name="shop-edit", requirements={"methods": "POST"})
+    * @Route("/shop/editcli", name="shop-editcli", requirements={"methods": "POST"})
     */
-    public function editAction(
+    public function editCliAction(
         Request $request,
         ClientRepository $repository,
         UserPasswordEncoderInterface $encoder
@@ -197,7 +197,7 @@ class ShopSecurityController extends Controller
         ->setTel($clientReq['tel'])
         ->setMobil($clientReq['mobil'])
         ->setEmail($clientReq['email']);
-        if ($password != '') {
+        if ($password !== '') {
             $client->setPassword($password);
         }
         $client->setSociete($clientReq['societe'])

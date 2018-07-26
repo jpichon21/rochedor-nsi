@@ -1,6 +1,7 @@
 const participant = {
   nom: '',
   prenom: '',
+  codcli: '',
   codco: '',
   ident: '',
   civil: '',

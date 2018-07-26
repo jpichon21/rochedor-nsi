@@ -39,7 +39,7 @@ export const postRegister = (data) => {
 }
 
 export const postEditCli = (data) => {
-  return window.fetch('/shop/edit', {
+  return window.fetch('/shop/editcli', {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',

@@ -137,7 +137,7 @@ function formatParticipant (data) {
   data.map(obj => {
     participant[obj.name] = obj.value
   })
-  participant.codco = parseInt(participant.codco)
+  participant.codcli = parseInt(participant.codcli)
   participant.datnaiss = moment(participant.datnaiss, 'DD/MM/YYYY').format()
   return participant
 }
@@ -268,9 +268,18 @@ function validateClient (event, context, callback) {
 
 itemCard.on('submit', '.panel.modify form', function (event) {
   validateClient(event, $(this), user => {
-    $(`.panel.modify`).slideUp(800, function () {
-      $(this).hide()
-      changeItem(itemCard)
+    postEditCli({
+      client: {
+        ...user,
+        rue: user.adresse
+      }
+    }).then(() => {
+      $(`.panel.modify`).slideUp(800, function () {
+        $(this).hide()
+        changeItem(itemCard)
+      })
+    }).catch(error => {
+      upFlashbag(error)
     })
   })
 })
