@@ -36,7 +36,7 @@ const _countries = JSON.parse($('.countries-json').html())
 
 let _you = {}
 let _delivery = {}
-let _cartInfo = {}
+let total = {}
 
 const itemConnection = $('.item.connection')
 const itemCard = $('.item.card')
@@ -76,8 +76,8 @@ $('.item-clients').on('click', '.button.radio', function (event) {
 /* Renders */
 
 const youTemplate = _.template($('.you-template').html())
-const cartTemplate = _.template($('.cart-template').html())
 const deliveryTemplate = _.template($('.delivery-template').html())
+const totalTemplate = _.template($('.total-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
 const adlivFormTemplate = _.template($('.adliv-form-template').html())
 
@@ -87,16 +87,16 @@ function updateYouRender () {
   }))
 }
 
-function updateCartRender () {
-  $('.cart-render').html(cartTemplate({
-    cartInfo: _cartInfo
-  }))
-}
-
 function updateDeliveryRender () {
   $('.delivery-render').html(deliveryTemplate({
     delivery: _delivery,
     you: _you
+  }))
+}
+
+function updateCartRender () {
+  $('.total-render').html(totalTemplate({
+    total: total
   }))
 }
 
@@ -122,8 +122,11 @@ function adlivUpdateFormRender () {
   }))
 }
 
-updateCartRender()
-updateDeliveryRender()
+getData(_cartId, 'myAdd', 'FR').then(data => {
+  total = data
+  updateCartRender()
+  updateDeliveryRender()
+})
 
 /* Actions */
 
@@ -392,7 +395,7 @@ itemShipping.on('click', '.continue', function (event) {
   formGift.submit()
   valideDelivery(_delivery).then(delivery => {
     getData(_cartId, delivery.destliv, delivery.paysliv).then(data => {
-      _cartInfo = data
+      total = data
       updateCartRender()
       updateDeliveryRender()
       changeItem(itemPayment)
@@ -422,7 +425,7 @@ itemPayment.on('click', '.button.submit.process-order', function (event) {
     result = result.replace('%entry_number%', res)
     $('.result', itemValidation).html(result)
     placePayment(_delivery.modpaie,
-      _cartInfo.consumerPriceIT,
+      total.consumerPriceIT,
       result.refcom,
       'truc',
       `Commande sur le site La Roche D'Or`,
@@ -435,7 +438,7 @@ itemPayment.on('click', '.button.submit.process-order', function (event) {
   })
 })
 
-itemPayment.on('change', '.select.modpaie', function (event) {
+itemPayment.on('change', '.select-modpaie', function (event) {
   event.preventDefault()
   const data = $(this).val()
   _delivery.modpaie = data

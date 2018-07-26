@@ -1479,13 +1479,13 @@
     <unit id="lYDi7RY" name="cart.emptydelivery">
       <segment>
         <source>cart.emptydelivery</source>
-        <target>Aucune adresse de facturation</target>
+        <target>Aucune</target>
       </segment>
     </unit>
     <unit id="OVd0vdP" name="form.message.recap_delivery">
       <segment>
         <source>form.message.recap_delivery</source>
-        <target>Récapitulatif livraison</target>
+        <target>Livraison</target>
       </segment>
     </unit>
     <unit id="2nyW22." name="form.message.recap_cartInfo">
@@ -1791,7 +1791,7 @@
     <unit id="r6YZYDf" name="order.summary.title.cart">
       <segment>
         <source>order.summary.title.cart</source>
-        <target>Votre panier</target>
+        <target>Panier</target>
       </segment>
     </unit>
     <unit id="bgD9EK8" name="form.update">
@@ -1828,6 +1828,60 @@
       <segment>
         <source>form.message.pro_invalid</source>
         <target>Le numéro de TVA ou le nom de la société est incomplet</target>
+      </segment>
+    </unit>
+    <unit id="X0QCe2q" name="order.registration.four.title">
+      <segment>
+        <source>order.registration.four.title</source>
+        <target>Paiement</target>
+      </segment>
+    </unit>
+    <unit id="MXXtuv8" name="order.registration.three.title.modify.you">
+      <segment>
+        <source>order.registration.three.title.modify.you</source>
+        <target>Paiement</target>
+      </segment>
+    </unit>
+    <unit id="0Xx9cxJ" name="order.registration.two.title.modify.you">
+      <segment>
+        <source>order.registration.two.title.modify.you</source>
+        <target>Modifier</target>
+      </segment>
+    </unit>
+    <unit id="3mncFIM" name="order.registration.five.title">
+      <segment>
+        <source>order.registration.five.title</source>
+        <target>Confirmation</target>
+      </segment>
+    </unit>
+    <unit id="MlYjC4s" name="order.registration.five.body">
+      <segment>
+        <source>order.registration.five.body</source>
+        <target>Félicitations, votre commande à été confirmée !</target>
+      </segment>
+    </unit>
+    <unit id="YQKEE1i" name="order.summary.title.delivery">
+      <segment>
+        <source>order.summary.title.delivery</source>
+        <target>Livraison</target>
+      </segment>
+    </unit>
+    <unit id="vmEWF6k" name="order.summary.title.total">
+      <segment>
+        <source>order.summary.title.total</source>
+        <target>Total</target>
+      </segment>
+    </unit>
+    <unit id="uYqiG8u" name="order.summary.body.delivery">
+      <segment>
+        <source>order.summary.body.delivery</source>
+        <target><![CDATA[Veuillez confirmer votre adresse de livraison.<br>Les prix indiqués ci-dessus sont estimés sur une livraison valable en France Métropolitaine.]]></target>
+      </segment>
+    </unit>
+    <unit id="1z0.Gk7" name="order.summary.body.total">
+      <segment>
+        <source>order.summary.body.total</source>
+        <target>Veuillez confirmer votre adresse de livraison</target>
       </segment>
     </unit>
   </file>
