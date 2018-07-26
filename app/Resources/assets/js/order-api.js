@@ -108,7 +108,7 @@ export const checkZipcode = (zipcode, country, destliv) => {
   })
     .then(res => res.json())
     .then(res => {
-      if (res.status !== 'ok') { throw res.message }
+      if (res.status !== 'ok') { throw res.error }
       return res.data
     })
 }

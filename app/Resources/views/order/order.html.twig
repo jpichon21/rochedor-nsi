@@ -253,7 +253,7 @@
                     <% disableCountry = true %>
                 <% } %>
             <% } %>
-            <select class="select country" <%= (delivery.destliv == 'Roche' || delivery.destliv == 'Font' || disableCountry) ? 'disabled' : '' %>>
+            <select class="select country" <%= (delivery.destliv == 'Roche' || delivery.destliv == 'Font' || disableCountry) ? 'disabled' : '' %> required name="paysliv">
                 <option <%= !disableCountry ? 'selected' : '' %> disabled value="">{{ 'form.country' | trans | raw }}</option>
                 <% for (var i = 0; i < countries.length; i++) { %>
                     <% var country = countries[i] %>

@@ -232,12 +232,6 @@ function validatePro (societe, tvaintra) {
   return (societe === '' && tvaintra === '') || (societe !== '' && tvaintra !== '')
 }
 
-/*
-
-JUSQU'ICI TOUT FONCTIONNE :)
-
-*/
-
 itemCard.on('click', '.continue', function (event) {
   event.preventDefault()
   changeItem(itemShipping)
@@ -300,40 +294,129 @@ itemShipping.on('change', '.select-adliv', function (event) {
 })
 
 function adlivUpdateForm (destliv) {
-  if (
-    destliv === 'Roche' ||
-    destliv === 'Font' ||
-    destliv === 'myAdd'
-  ) {
-    _delivery.adliv.adresse = _you.adresse
-    _delivery.adliv.zipcode = _you.cp
-    _delivery.adliv.city = _you.ville
-  }
-  if (destliv === 'myAdd') {
-    _delivery.paysliv = _you.pays
-  }
-  if (destliv === 'Other') {
-    _delivery.adliv.adresse = ''
-    _delivery.adliv.zipcode = ''
-    _delivery.adliv.city = ''
-    _delivery.paysliv = ''
-  }
-  if (destliv === 'Roche') {
-    _delivery.adliv.adresse = '1 Chemin du Muenot'
-    _delivery.adliv.zipcode = '25000'
-    _delivery.adliv.city = 'Besançon'
-    _delivery.paysliv = 'FR'
-  }
-  if (destliv === 'Font') {
-    _delivery.adliv.adresse = 'Route de Riunoguès'
-    _delivery.adliv.zipcode = '66480'
-    _delivery.adliv.city = 'Maureillas Las Illas'
-    _delivery.paysliv = 'FR'
+  switch (destliv) {
+    case 'myAdd':
+      _delivery.adliv.adresse = _you.adresse
+      _delivery.adliv.zipcode = _you.cp
+      _delivery.adliv.city = _you.ville
+      _delivery.paysliv = _you.pays
+      break
+    case 'Roche':
+      _delivery.adliv.adresse = '1 Chemin du Muenot'
+      _delivery.adliv.zipcode = '25000'
+      _delivery.adliv.city = 'Besançon'
+      _delivery.paysliv = 'FR'
+      break
+    case 'Font':
+      _delivery.adliv.adresse = 'Route de Riunoguès'
+      _delivery.adliv.zipcode = '66480'
+      _delivery.adliv.city = 'Maureillas Las Illas'
+      _delivery.paysliv = 'FR'
+      break
+    case 'Other':
+      _delivery.adliv.adresse = ''
+      _delivery.adliv.zipcode = ''
+      _delivery.adliv.city = ''
+      _delivery.paysliv = ''
+      break
   }
   _delivery.destliv = destliv
   adlivUpdateFormRender()
   changeItem(itemShipping)
 }
+
+function formatForm (data) {
+  let form = {}
+  data.map(obj => {
+    form[obj.name] = obj.value
+  })
+  return form
+}
+
+const formAdliv = $('form.adliv', itemShipping)
+const formGift = $('form.gift', itemShipping)
+
+formGift.on('submit', function (event) {
+  event.preventDefault()
+  const data = $(this).serializeArray()
+  const gift = formatForm(data)
+  _delivery.memocmd = gift.note
+})
+
+formAdliv.on('submit', function (event) {
+  event.preventDefault()
+  const data = $(this).serializeArray()
+  const delivery = formatForm(data)
+  switch (_delivery.destliv) {
+    case 'myAdd':
+      _delivery.paysliv = delivery.paysliv
+      break
+    case 'Font':
+    case 'Roche':
+      _delivery.adliv.adresse = _you.adresse
+      _delivery.adliv.zipcode = _you.cp
+      _delivery.adliv.city = _you.ville
+      _delivery.paysliv = _you.pays
+      break
+    case 'Other':
+      _delivery.adliv.adresse = delivery.adresse
+      _delivery.adliv.zipcode = delivery.zipcode
+      _delivery.adliv.city = delivery.city
+      _delivery.paysliv = delivery.paysliv
+      break
+  }
+})
+
+function noEmptyFields (data) {
+  let flag = true
+  if (data.zipcode === undefined) { flag = false }
+  if (data.adresse === undefined) { flag = false }
+  if (data.city === undefined) { flag = false }
+  if (data.paysliv === undefined) { flag = false }
+  return flag
+}
+
+function valideDelivery (delivery) {
+  return new Promise((resolve, reject) => {
+    if (noEmptyFields({ ...delivery.adliv, paysliv: delivery.paysliv })) {
+      checkZipcode(delivery.paysliv, delivery.adliv.zipcode, delivery.destliv).then(() => {
+        resolve(delivery)
+      }).catch(() => {
+        reject(i18n.trans('form.message.zipcode_invalid'))
+      })
+    } else {
+      reject(i18n.trans('form.message.delivery_invalid'))
+    }
+  })
+}
+
+itemShipping.on('click', '.continue', function (event) {
+  event.preventDefault()
+  formAdliv.submit()
+  formGift.submit()
+  valideDelivery(_delivery).then(delivery => {
+    getData(_cartId, delivery.destliv, delivery.paysliv).then(data => {
+      _cartInfo = data
+      updateCartRender()
+      updateDeliveryRender()
+      changeItem(itemPayment)
+    }).catch(error => {
+      if (error) {
+        upFlashbag(error)
+      }
+    })
+  }).catch(error => {
+    if (error) {
+      upFlashbag(error)
+    }
+  })
+})
+
+/*
+
+JUSQU'ICI TOUT FONCTIONNE :)
+
+*/
 
 itemPayment.on('click', '.button.submit.process-order', function (event) {
   _delivery.cartId = _cartId
@@ -356,102 +439,8 @@ itemPayment.on('click', '.button.submit.process-order', function (event) {
   })
 })
 
-itemShipping.on('change', '.select.country', function (event) {
-  event.preventDefault()
-  const data = $(this).val()
-  _delivery.paysliv = data
-})
-
 itemPayment.on('change', '.select.modpaie', function (event) {
   event.preventDefault()
   const data = $(this).val()
   _delivery.modpaie = data
-})
-
-itemShipping.on('submit', '.panel.adliv form', function (event) {
-  event.preventDefault()
-  const data = $(this).serializeArray()
-  let dataVal = data
-  _delivery.adliv.adresse = dataVal[0].value
-  _delivery.adliv.zipcode = dataVal[1].value
-  _delivery.adliv.city = dataVal[2].value
-})
-
-itemShipping.on('submit', '.panel.adliv form', function (event) {
-  event.preventDefault()
-  const data = $(this).serializeArray()
-  let dataVal = data
-  _delivery.adliv.adresse = dataVal[0].value
-  _delivery.adliv.zipcode = dataVal[1].value
-  _delivery.adliv.city = dataVal[2].value
-})
-
-itemShipping.on('click', '.button.payment', function (event) {
-  event.preventDefault()
-  if (_delivery.destliv === 'myAdd') {
-    var country = _delivery.paysliv
-    var zipcode = _you.cp
-    var destliv = _delivery.destliv
-  } else {
-    var country = _delivery.paysliv
-    var zipcode = _delivery.adliv.zipcode
-    var destliv = _delivery.destliv
-  }
-  if (checkZipcode(country, zipcode, destliv)) {
-    if (valideDeliveryForm() === true) {
-      getData(_cartId, _delivery.destliv, _delivery.paysliv).then(data => {
-        _cartInfo = data
-        updateCartRender()
-        updateDeliveryRender()
-        changeItem(itemPayment)
-      }).catch(error => {
-        $('.right .catch-message').html(error)
-      })
-    } else {
-      $('.right .catch-message').html('erreur de formulaire')
-    }
-  } else {
-    $('.right .catch-message').html('erreur de zipcode')
-  }
-})
-
-function valideDeliveryForm () {
-  if (_delivery.adliv.adresse === '' ||
-    _delivery.adliv.zipcode === '' ||
-    _delivery.adliv.city === '' ||
-    _delivery.destliv === '' ||
-    _delivery.paysliv === '') {
-    return false
-  }
-  return true
-}
-
-itemShipping.on('click', '.button.gift', function (event) {
-  event.preventDefault()
-  $(`.panel.gift`, itemShipping).addClass('active')
-  changeItem(itemShipping)
-})
-
-itemShipping.on('click', '.button.reset_gift', function (event) {
-  event.preventDefault()
-  delete _delivery.memocmd
-  $(`.input.note`, itemShipping).value = ''
-  changeItem(itemShipping)
-})
-
-itemShipping.on('submit', '.form.gift', function (event) {
-  event.preventDefault()
-  const data = $(this).serializeArray()
-  let dataVal = data
-  _delivery.memocmd = dataVal[0].value
-  $(`.panel.gift`, itemShipping).removeClass('active')
-  changeItem(itemShipping)
-})
-
-itemShipping.on('submit', '.form.tvaintra', function (event) {
-  event.preventDefault()
-  const data = $(this).serializeArray()
-  let dataVal = data
-  _delivery.tvaintra = dataVal[0].value
-  changeItem(itemShipping)
 })
