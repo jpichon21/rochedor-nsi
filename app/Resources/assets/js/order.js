@@ -368,17 +368,13 @@ formAdliv.on('submit', function (event) {
 })
 
 function noEmptyFields (data) {
-  let flag = true
-  if (data.zipcode === undefined) { flag = false }
-  if (data.adresse === undefined) { flag = false }
-  if (data.city === undefined) { flag = false }
-  if (data.paysliv === undefined) { flag = false }
-  return flag
+  const emptyFileds = data.filter(obj => obj === undefined || obj === '')
+  return emptyFileds.length === 0
 }
 
 function valideDelivery (delivery) {
   return new Promise((resolve, reject) => {
-    if (noEmptyFields({ ...delivery.adliv, paysliv: delivery.paysliv })) {
+    if (noEmptyFields([delivery.adliv.adresse, delivery.adliv.zipcode, delivery.adliv.city, delivery.paysliv])) {
       checkZipcode(delivery.paysliv, delivery.adliv.zipcode, delivery.destliv).then(() => {
         resolve(delivery)
       }).catch(() => {
