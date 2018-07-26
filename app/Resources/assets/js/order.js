@@ -36,7 +36,6 @@ const _countries = JSON.parse($('.countries-json').html())
 let _you = {}
 let _delivery = {}
 let _cartInfo = {}
-let _client = {}
 
 const itemConnection = $('.item.connection')
 const itemCard = $('.item.card')
@@ -101,7 +100,7 @@ function updateDeliveryRender () {
 
 function updateYouFormRender () {
   $('.you-form-render').html(youFormTemplate({
-    client: _client,
+    client: _you,
     countries: _countries,
     civilites: [
       i18n.trans('form.civilite.mr'),
@@ -164,41 +163,25 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
 })
 
 itemConnection.on('submit', '.panel.registration form', function (event) {
-  event.preventDefault()
-  const data = $(this).serializeArray()
-  const participant = formatParticipant(data)
-  const validatedDate = validateDate(participant.datnaiss)
-  const validatedPhone = validatePhone(participant.tel, participant.mobil)
-  const validatedPro = validatePro(participant.societe, participant.tvaintra)
-  if (validatedDate) {
-    if (validatedPro) {
-      if (validatedPhone) {
-        postRegister({
-          client: {
-            ...participant,
-            rue: participant.adresse
-          }
-        }).then(user => {
-          postLogin({
-            username: user.email,
-            password: participant.password
-          }).then(user => {
-            afterLogin(user, true)
-          }).catch(() => {
-            upFlashbag(i18n.trans('security.user_exist'))
-          })
-        }).catch(error => {
-          upFlashbag(error)
-        })
-      } else {
-        upFlashbag(i18n.trans('form.message.phone_invalid'))
+  validateClient(event, $(this), participant => {
+    postRegister({
+      client: {
+        ...participant,
+        rue: participant.adresse
       }
-    } else {
-      upFlashbag(i18n.trans('form.message.pro_invalid'))
-    }
-  } else {
-    upFlashbag(i18n.trans('form.message.date_invalid'))
-  }
+    }).then(user => {
+      postLogin({
+        username: user.email,
+        password: participant.password
+      }).then(user => {
+        afterLogin(user, true)
+      }).catch(() => {
+        upFlashbag(i18n.trans('security.user_exist'))
+      })
+    }).catch(error => {
+      upFlashbag(error)
+    })
+  })
 })
 
 itemConnection.on('click', 'a', function (event) {
@@ -211,7 +194,7 @@ itemConnection.on('click', 'a', function (event) {
     case 'registration':
       $('.panel', itemConnection).hide()
       $(`.panel.${which}`, itemConnection).show()
-      _client = getParticipant()
+      _you = getParticipant()
       updateYouFormRender()
       break
     case 'reset':
@@ -252,11 +235,43 @@ itemCard.on('click', '.continue', function (event) {
 
 itemCard.on('click', '.modify-you', function (event) {
   event.preventDefault()
-  _client = _you
   $('.panel', itemCard).hide()
-  $(`.panel.you`, itemCard).show()
+  $(`.panel.modify`, itemCard).show()
   updateYouFormRender()
   changeItem(itemCard)
+})
+
+function validateClient (event, context, callback) {
+  event.preventDefault()
+  const data = context.serializeArray()
+  const participant = formatParticipant(data)
+  const validatedDate = validateDate(participant.datnaiss)
+  const validatedPhone = validatePhone(participant.tel, participant.mobil)
+  const validatedPro = validatePro(participant.societe, participant.tvaintra)
+  if (validatedDate) {
+    if (validatedPro) {
+      if (validatedPhone) {
+        _you = participant
+        callback(participant)
+        updateYouRender()
+      } else {
+        upFlashbag(i18n.trans('form.message.phone_invalid'))
+      }
+    } else {
+      upFlashbag(i18n.trans('form.message.pro_invalid'))
+    }
+  } else {
+    upFlashbag(i18n.trans('form.message.date_invalid'))
+  }
+}
+
+itemCard.on('submit', '.panel.modify form', function (event) {
+  validateClient(event, $(this), user => {
+    $(`.panel.modify`).slideUp(800, function () {
+      $(this).hide()
+      changeItem(itemCard)
+    })
+  })
 })
 
 itemShipping.on('change', '.select.adliv', function (event) {

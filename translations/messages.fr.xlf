@@ -1281,13 +1281,13 @@
     <unit id="al9WFPE" name="order.registration.two.title">
       <segment>
         <source>order.registration.two.title</source>
-        <target>Commande</target>
+        <target>Fiche client</target>
       </segment>
     </unit>
     <unit id="S_61BVF" name="order.registration.two.title.you">
       <segment>
         <source>order.registration.two.title.you</source>
-        <target>Votre fiche client</target>
+        <target>Vous</target>
       </segment>
     </unit>
     <unit id="biPtN4s" name="order.registration.choose.adliv">
@@ -1787,6 +1787,42 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
       <segment>
         <source>calendar.registration.error.date</source>
         <target><![CDATA[Désolé, cette retraite n'est plus disponible. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="r6YZYDf" name="order.summary.title.cart">
+      <segment>
+        <source>order.summary.title.cart</source>
+        <target>Votre panier</target>
+      </segment>
+    </unit>
+    <unit id="bgD9EK8" name="form.update">
+      <segment>
+        <source>form.update</source>
+        <target>Mettre à jour</target>
+      </segment>
+    </unit>
+    <unit id="FEBnXbm" name="form.tvaintra">
+      <segment>
+        <source>form.tvaintra</source>
+        <target>TVA Intracommunautaire</target>
+      </segment>
+    </unit>
+    <unit id="xAoi438" name="form.memocli">
+      <segment>
+        <source>form.memocli</source>
+        <target>Mémo</target>
+      </segment>
+    </unit>
+    <unit id="DHrPEzE" name="order.registration.three.title">
+      <segment>
+        <source>order.registration.three.title</source>
+        <target>Livraison</target>
+      </segment>
+    </unit>
+    <unit id="PB4LNL8" name="order.registration.three.title.you">
+      <segment>
+        <source>order.registration.three.title.you</source>
+        <target>Choisissez une adresse de livraison</target>
       </segment>
     </unit>
   </file>
