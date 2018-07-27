@@ -371,7 +371,7 @@ formAdliv.on('submit', function (event) {
   const delivery = formatForm(data)
   switch (_delivery.destliv) {
     case 'myAdd':
-      _delivery.paysliv = delivery.paysliv
+      _delivery.paysliv = delivery.paysliv !== undefined ? delivery.paysliv : _you.pays
       break
     case 'Font':
     case 'Roche':
