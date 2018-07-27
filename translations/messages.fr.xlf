@@ -1884,5 +1884,47 @@
         <target>Veuillez confirmer votre adresse de livraison</target>
       </segment>
     </unit>
+    <unit id="jYuAOdP" name="table.header.product">
+      <segment>
+        <source>table.header.product</source>
+        <target>Produit</target>
+      </segment>
+    </unit>
+    <unit id="yrwV99j" name="table.header.price">
+      <segment>
+        <source>table.header.price</source>
+        <target>Prix</target>
+      </segment>
+    </unit>
+    <unit id="xZHRyZP" name="table.header.quantity">
+      <segment>
+        <source>table.header.quantity</source>
+        <target>Quantité</target>
+      </segment>
+    </unit>
+    <unit id="UUICu91" name="table.header.delete">
+      <segment>
+        <source>table.header.delete</source>
+        <target>Supprimer</target>
+      </segment>
+    </unit>
+    <unit id="5ehaNxD" name="table.header.label">
+      <segment>
+        <source>table.header.label</source>
+        <target>Libellé</target>
+      </segment>
+    </unit>
+    <unit id="22SyQzP" name="table.header.total">
+      <segment>
+        <source>table.header.total</source>
+        <target>Total</target>
+      </segment>
+    </unit>
+    <unit id="HXv5iUO" name="table.header.weight">
+      <segment>
+        <source>table.header.weight</source>
+        <target>Poids</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -154,9 +154,26 @@
     <div class="right">
         <h3>{{ 'order.summary.title.cart' | trans | raw }}</h3>
         {% if cart %}
-        {% for line in cart.cartLines %}
-        <p>{{ line.product.produitcourt }} - {{ line.product.prix }} - {{ line.quantity }} - <a href="{{ path('cart-remove', {'cartLine': line.id}) }}">{{ 'cart.remove'|trans }}</a></p>
-        {% endfor %}
+        <table class="table" border="0" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr>
+                    <th class="first">{{ 'table.header.product' | trans }}</th>
+                    <th>{{ 'table.header.price' | trans }}</th>
+                    <th>{{ 'table.header.quantity' | trans }}</th>
+                    <th class="last">{{ 'table.header.delete' | trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for line in cart.cartLines %}
+                <tr>
+                    <td class="first">{{ line.product.produitcourt }}</td>
+                    <td>{{ line.product.prix }}</td>
+                    <td>{{ line.quantity }}</td>
+                    <td class="last"><a href="{{ path('cart-remove', { 'cartLine': line.id }) }}">{{ 'cart.remove'|trans }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         {% else %}
         <p>{{ 'cart.empty'|trans }}</p>
         {% endif %}
@@ -209,13 +226,62 @@
 <script type="text/template" class="total-template">
     <h3>{{ 'order.summary.title.total' | trans}}</h3>
     <% if (total.consumerPrice) { %>
-        <p>poid total: <%= total.totalWeight %> g<br></p>
-        <p>poid des article: <%= total.weightOrder %> g<br></p>
-        <p>poid de l'emballage : <%= total.packagingWeight %> g<br></p>
-        <p>frais de port : <%= total.portPriceIT %> €<br></p>
-        <p>prix total HT : <%= total.consumerPrice %> €<br></p>
-        <p>prix total TTC: <%= total.consumerPriceIT %> €<br></p>
-        <p>prix de la TVA: <%= total.vat %> €<br></p>
+    <div class="pure-g">
+        <div class="pure-u-11-24">
+            <table class="table" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th class="first">{{ 'table.header.weight' | trans }}</th>
+                        <th class="last">{{ 'table.header.total' | trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="first">Poid des articles</td>
+                        <td class="last"><%= total.weightOrder %> g</td>
+                    </tr>
+                    <tr>
+                        <td class="first">Poid de l'emballage</td>
+                        <td class="last"><%= total.packagingWeight %> g</td>
+                    </tr>
+                    <tr>
+                        <td class="first">Poid total</td>
+                        <td class="last"><%= total.totalWeight %> g</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pure-u-2-24">
+        </div>
+        <div class="pure-u-11-24">
+            <table class="table" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th class="first">{{ 'table.header.price' | trans }}</th>
+                        <th class="last">{{ 'table.header.total' | trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="first">Frais de port</td>
+                        <td class="last"><%= total.portPriceIT %> €</td>
+                    </tr>
+                    <tr>
+                        <td class="first">Prix total HT</td>
+                        <td class="last"><%= total.consumerPrice %> €</td>
+                    </tr>
+                    <tr>
+                        <td class="first">Prix de la TVA</td>
+                        <td class="last"><%= total.vat %> €</td>
+                    </tr>
+                    <tr class="ttc">
+                        <td class="first">Prix total TTC</td>
+                        <td class="last"><%= total.consumerPriceIT %> €</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
     <% } else { %>
     <p>{{ 'order.summary.body.total' | trans }}</p>
     <% } %>
