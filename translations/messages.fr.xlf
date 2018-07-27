@@ -1932,5 +1932,23 @@
         <target>Supprimer</target>
       </segment>
     </unit>
+    <unit id="jZKU8Dt" name="order-error.title.small">
+      <segment>
+        <source>order-error.title.small</source>
+        <target>Les éditions</target>
+      </segment>
+    </unit>
+    <unit id="mCVIY4Y" name="order-error.title.big">
+      <segment>
+        <source>order-error.title.big</source>
+        <target>De la Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="hGp5Jrt" name="order-error.text">
+      <segment>
+        <source>order-error.text</source>
+        <target><![CDATA[Vous n'avez pas d'ouvrage dans votre panier. Nous vous invitons a les découvrir en cliquant sur ce <a href="%link%">lien</a>.]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>
