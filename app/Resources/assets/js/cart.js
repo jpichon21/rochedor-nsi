@@ -17,7 +17,8 @@ export function placePayment (
   objectName,
   itemName,
   email,
-  locale
+  locale,
+  reallocal
 ) {
   if (method === 'PBX') {
     const date = new Date()

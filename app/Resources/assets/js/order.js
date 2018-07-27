@@ -478,7 +478,8 @@ itemPayment.on('click', '.button.submit.process-order', function (event) {
         'truc',
         `Commande sur le site La Roche D'Or`,
         _you.email,
-        paysparsed
+        paysparsed,
+        _delivery.paysliv
       )
       changeItem(itemValidation)
     }).catch(error => {

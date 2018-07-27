@@ -351,8 +351,11 @@ class OrderController extends Controller
      *
      * @Route("/{_locale}/order/payment-return/{method}/{status}", name="order_payment_return")
      */
-    public function paymentReturnAction($method, $status, Request $request)
+    public function paymentReturnAction($method, $status, Request $request, PaypalService $paypalService)
     {
+        if ($status === 'sucess') {
+            $this->paymentNotifyAction($method, $request, $paypalService);
+        }
         return $this->render('order/payment-return.html.twig', ['status' => $status, 'method' => $method]);
     }
 
