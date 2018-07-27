@@ -554,6 +554,18 @@ class OrderController extends Controller
         }
 
         $cartId = $session->get('cart');
+        $cart = $this->cartRepository->find($cartId);
+        
+        if ($cartId === null) {
+            return $this->render('order/order-error.html.twig', [
+            ]);
+        }
+
+        if (empty($cart->getCartlines()->getValues())) {
+            return $this->render('order/order-error.html.twig', [
+            ]);
+        }
+        
         $page = $this->pageService->getContentFromRequest($request);
         $availableLocales = $this->pageService->getAvailableLocales($page);
         return $this->render('order/order.html.twig', [

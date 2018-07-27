@@ -1,0 +1,21 @@
+{% set bodyClass = "page" %}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/page.css') }}">
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="left">
+        <h1><small>{{ 'order-error.title.small' | trans | raw }} </small>{{ 'order-error.title.big' | trans | raw }}</h1>
+
+        <div class="intro">
+            {{ 'order-error.text' | trans({'%link%': path('collections-' ~ app.request.locale)}) | raw }}
+        </div>
+
+    </div>
+    <div class="hole">
+    </div>
+    <div class="right">
+    </div>
+</div>
+{% endblock %}
