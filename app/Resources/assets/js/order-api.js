@@ -112,3 +112,15 @@ export const checkZipcode = (zipcode, country, destliv) => {
       return res.data
     })
 }
+
+export const checkVat = (number, country) => {
+  return window.fetch(`/xhr/order/vat/${number}/${country}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.error }
+      return res.data
+    })
+}

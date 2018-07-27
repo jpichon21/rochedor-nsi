@@ -13,6 +13,7 @@ import {
   postLogin,
   postOrder,
   postEditCli,
+  checkVat,
   checkZipcode
 } from './order-api.js'
 
@@ -235,6 +236,16 @@ function validatePro (societe, tvaintra) {
   return (societe === '' && tvaintra === '') || (societe !== '' && tvaintra !== '')
 }
 
+function validateTvaintra (tvaintra, country) {
+  return new Promise((resolve, reject) => {
+    checkVat(tvaintra, country).then(() => {
+      resolve()
+    }).catch(() => {
+      reject(i18n.trans('form.message.zipcode_invalid'))
+    })
+  })
+}
+
 itemCard.on('click', '.continue', function (event) {
   event.preventDefault()
   changeItem(itemShipping)
@@ -258,9 +269,15 @@ function validateClient (event, context, callback) {
   if (validatedDate) {
     if (validatedPro) {
       if (validatedPhone) {
-        _you = participant
-        callback(participant)
-        updateYouRender()
+        if (participant.tvaintra !== '') {
+          validateTvaintra(participant.tvaintra, participant.pays).then(() => {
+            callback(participant)
+          }).catch(() => {
+            upFlashbag(i18n.trans('form.message.tvaintra_invalid'))
+          })
+        } else {
+          callback(participant)
+        }
       } else {
         upFlashbag(i18n.trans('form.message.phone_invalid'))
       }
@@ -279,7 +296,9 @@ itemCard.on('submit', '.panel.modify form', function (event) {
         ...user,
         rue: user.adresse
       }
-    }).then(() => {
+    }).then(user => {
+      _you = user
+      updateYouRender()
       $(`.panel.modify`).slideUp(800, function () {
         $(this).hide()
         changeItem(itemCard)

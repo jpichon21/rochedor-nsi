@@ -133,6 +133,24 @@ class OrderController extends Controller
     }
 
 
+    /**
+     * @Rest\Get("/xhr/order/vat/{vat}/{countryCode}", name="get_vat")
+     * @Rest\View()
+    */
+    public function xhrTestVAT(Request $request, $vat, $countryCode)
+    {
+
+        $client = new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl");
+        $result = $client->checkVat(array(
+          'countryCode' => $countryCode,
+          'vatNumber' => $vat
+        ));
+        if ($result->{'valid'}) {
+            return ['status' => 'ok'];
+        }
+        
+        return ['status' => 'ko','error' => 'your tvaIntra didnt exist'];
+    }
 
     /**
      * @Rest\Get("/xhr/order/zipcode/{country}/{zipcode}/{destliv}", name="get_zipcode")
