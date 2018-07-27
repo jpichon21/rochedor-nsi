@@ -200,8 +200,6 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
 
 itemConnection.on('click', 'a', function (event) {
   event.preventDefault()
-  $('a', itemConnection).removeClass('active')
-  $(this).addClass('active')
   const which = $(this).attr('href').substring(1)
   switch (which) {
     case 'connection':

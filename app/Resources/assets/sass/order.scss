@@ -7,14 +7,6 @@
       h2 {
         cursor: default;
       }
-      &.connection {
-        .button {
-          &.active {
-            background: $roche-yellow;
-            color: #000000;
-          }
-        }
-      }
       .select-adliv,
       .select-modpaie {
         margin-bottom: 0;
@@ -30,7 +22,7 @@
 .delivery-render {
   margin-bottom: 40px;
   b {
-    color: $roche-yellow;
+    color: $roche-orange;
   }
 }
 .you-render {
@@ -47,7 +39,8 @@
 .table {
   width: 100%;
   margin-bottom: 40px;
-  color: $roche-yellow;
+  font-family: 'Lato', sans-serif;
+  color: $roche-orange;
   thead {
     font-size: 12px;
     font-weight: 500;
@@ -60,7 +53,7 @@
       text-align: center;
       text-transform: none;
       letter-spacing: 0;
-      border-bottom: 1px #575432 solid;
+      border-bottom: 1px #f1d8c3 solid;
       &.first {
         padding-left: 0;
         text-align: left;
@@ -82,15 +75,14 @@
         td {
           padding-top: 40px;
           font-size: 16px;
-          font-weight: 100;
           text-transform: uppercase;
-          color: $roche-yellow;
+          color: $roche-orange;
         }
       }
       td {
         padding: 15px 15px 0 15px;
         font-size: 14px;
-        color: #ffffff;
+        color: #000000;
         text-align: center;
         a {
           color: inherit;
