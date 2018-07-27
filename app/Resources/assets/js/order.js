@@ -276,7 +276,13 @@ function validateClient (event, context, callback) {
             upFlashbag(i18n.trans('form.message.tvaintra_invalid'))
           })
         } else {
-          callback(participant)
+          return new Promise((resolve, reject) => {
+            checkZipcode(participant.pays, participant.cp, 'myAdd').then(() => {
+              resolve(callback(participant))
+            }).catch(() => {
+              upFlashbag(i18n.trans('form.message.zipcode_invalid'))
+            })
+          })
         }
       } else {
         upFlashbag(i18n.trans('form.message.phone_invalid'))
