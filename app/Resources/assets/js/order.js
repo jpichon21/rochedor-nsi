@@ -296,9 +296,10 @@ itemCard.on('submit', '.panel.modify form', function (event) {
         ...user,
         rue: user.adresse
       }
-    }).then(user => {
-      _you = user
+    }).then(client => {
+      _you = client
       updateYouRender()
+      adlivUpdateForm('myAdd')
       $(`.panel.modify`).slideUp(800, function () {
         $(this).hide()
         changeItem(itemCard)
@@ -344,7 +345,6 @@ function adlivUpdateForm (destliv) {
   }
   _delivery.destliv = destliv
   adlivUpdateFormRender()
-  changeItem(itemShipping)
 }
 
 function formatForm (data) {
@@ -369,23 +369,14 @@ formAdliv.on('submit', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
   const delivery = formatForm(data)
-  switch (_delivery.destliv) {
-    case 'myAdd':
-      _delivery.paysliv = delivery.paysliv !== undefined ? delivery.paysliv : _you.pays
-      break
-    case 'Font':
-    case 'Roche':
-      _delivery.adliv.adresse = _you.adresse
-      _delivery.adliv.zipcode = _you.cp
-      _delivery.adliv.city = _you.ville
-      _delivery.paysliv = _you.pays
-      break
-    case 'Other':
-      _delivery.adliv.adresse = delivery.adresse
-      _delivery.adliv.zipcode = delivery.zipcode
-      _delivery.adliv.city = delivery.city
-      _delivery.paysliv = delivery.paysliv
-      break
+  if (_delivery.destliv === 'Other') {
+    _delivery.adliv.adresse = delivery.adresse
+    _delivery.adliv.zipcode = delivery.zipcode
+    _delivery.adliv.city = delivery.city
+    _delivery.paysliv = delivery.paysliv
+  }
+  if (_delivery.destliv === 'myAdd' && delivery.paysliv !== undefined) {
+    _delivery.paysliv = delivery.paysliv
   }
 })
 
