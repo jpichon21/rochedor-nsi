@@ -14,7 +14,9 @@ import {
   postOrder,
   postEditCli,
   checkVat,
-  checkZipcode
+  checkZipcode,
+  getPBXCode,
+  getPaypalCode
 } from './order-api.js'
 
 /* Cart */
@@ -441,25 +443,47 @@ itemShipping.on('click', '.continue', function (event) {
 JUSQU'ICI TOUT FONCTIONNE :)
 
 */
+function getPaysParsed (modpaie, pays) {
+  if (modpaie === 'PBX') {
+    return new Promise((resolve, reject) => {
+      getPBXCode(pays).then((data) => {
+        resolve(data)
+      }).catch(() => {
+        reject(i18n.trans('form.message.zipcode_invalid'))
+      })
+    })
+  } else {
+    return new Promise((resolve, reject) => {
+      getPaypalCode(pays).then((data) => {
+        resolve(data)
+      }).catch(() => {
+        reject(i18n.trans('form.message.zipcode_invalid'))
+      })
+    })
+  }
+}
 
 itemPayment.on('click', '.button.submit.process-order', function (event) {
   _delivery.cartId = _cartId
   event.preventDefault()
-  postOrder(_delivery).then(res => {
-    let result = $('.result', itemValidation).html()
-    result = result.replace('%entry_number%', res)
-    $('.result', itemValidation).html(result)
-    placePayment(_delivery.modpaie,
-      total.consumerPriceIT,
-      result.refcom,
-      'truc',
-      `Commande sur le site La Roche D'Or`,
-      _you.email,
-      _delivery.paysliv.toLowerCase()
-    )
-    changeItem(itemValidation)
-  }).catch(error => {
-    $('.right .catch-message').html(error)
+  getPaysParsed(_delivery.modpaie, _delivery.paysliv).then(paysparsed => {
+    postOrder(_delivery).then(res => {
+      console.log(paysparsed)
+      let result = $('.result', itemValidation).html()
+      result = result.replace('%entry_number%', res)
+      $('.result', itemValidation).html(result)
+      placePayment(_delivery.modpaie,
+        total.consumerPriceIT,
+        result.refcom,
+        'truc',
+        `Commande sur le site La Roche D'Or`,
+        _you.email,
+        paysparsed
+      )
+      changeItem(itemValidation)
+    }).catch(error => {
+      $('.right .catch-message').html(error)
+    })
   })
 })
 

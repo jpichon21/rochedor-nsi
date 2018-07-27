@@ -132,6 +132,23 @@ class OrderController extends Controller
         return $this->shippingRepository->findGoodPort($weight, $country, $destliv);
     }
 
+    /**
+     * @Rest\Get("/xhr/order/pbx/{country}", name="get_pbxcode")
+     * @Rest\View()
+    */
+    public function xhrGetPBXCode(Request $request, $country)
+    {
+        return ['status' => 'ok' , 'data' => $this->tpaysRepository->findPBXCode($country)];
+    }
+
+    /**
+     * @Rest\Get("/xhr/order/paypal/{country}", name="get_paypalcode")
+     * @Rest\View()
+    */
+    public function xhrGetPaypalCode(Request $request, $country)
+    {
+        return ['status' => 'ok' , 'data' => $this->tpaysRepository->findPaypalCode($country) ];
+    }
 
     /**
      * @Rest\Get("/xhr/order/vat/{vat}/{countryCode}", name="get_vat")
