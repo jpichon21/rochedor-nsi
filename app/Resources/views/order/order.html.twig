@@ -204,9 +204,16 @@
     <h3>{{'order.summary.title.delivery' | trans}}</h3>
     <% if (delivery.adliv) { %>
         <p><b>Adresse de facturation</b><br>
-            <%= you.prenom %> <%= you.nom %> <%= you.adresse %> <%= you.cp %> <%= you.ville %> (<%= you.pays %>)</p>
+            <%= you.prenom %> <%= you.nom %>
+            <%= ' — ' %>
+            <%= you.adresse %> <%= you.cp %> <%= you.ville %> (<%= you.pays %>)</p>
         <p><b>Adresse de livraison</b><br>
-            <%= you.prenom %> <%= you.nom %> <%= delivery.adliv.adresse %> <%= delivery.adliv.zipcode %> <%= delivery.adliv.city %> (<%= delivery.paysliv %>)</p>
+            <%= delivery.destliv === 'Roche' ? "Retrait à La Roche d'Or" : '' %>
+            <%= delivery.destliv === 'Font' ? "Retrait aux Fontanilles" : '' %>
+            <%= delivery.destliv === 'myAdd' ? (you.prenom + ' ' + you.nom) : '' %>
+            <%= delivery.destliv === 'Other' ? (you.prenom + ' ' + you.nom) : '' %>
+            <%= ' — ' %>
+            <%= delivery.adliv.adresse %> <%= delivery.adliv.zipcode %> <%= delivery.adliv.city %> (<%= delivery.paysliv %>)</p>
     <% } else { %>
         <p>{{ 'order.summary.body.delivery' | trans | raw }}</p>
     <% } %>
