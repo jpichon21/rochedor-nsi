@@ -1875,7 +1875,7 @@
     <unit id="uYqiG8u" name="order.summary.body.delivery">
       <segment>
         <source>order.summary.body.delivery</source>
-        <target><![CDATA[Veuillez confirmer votre adresse de livraison.<br>Les prix indiqués ci-dessus sont estimés sur une livraison valable en France Métropolitaine.]]></target>
+        <target><![CDATA[Veuillez confirmer votre adresse de livraison.<br>Les informations indiquées ci-dessous sont estimées sur une livraison valable en France Métropolitaine.]]></target>
       </segment>
     </unit>
     <unit id="1z0.Gk7" name="order.summary.body.total">
@@ -1924,6 +1924,12 @@
       <segment>
         <source>table.header.weight</source>
         <target>Poids</target>
+      </segment>
+    </unit>
+    <unit id="W5bVwVH" name="main.remove">
+      <segment>
+        <source>main.remove</source>
+        <target>Supprimer</target>
       </segment>
     </unit>
   </file>
