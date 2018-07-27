@@ -169,7 +169,7 @@
                     <td class="first">{{ line.product.produitcourt }}</td>
                     <td>{{ line.product.prix }}</td>
                     <td>{{ line.quantity }}</td>
-                    <td class="last"><a href="{{ path('cart-remove', { 'cartLine': line.id }) }}">{{ 'cart.remove'|trans }}</a></td>
+                    <td class="last"><a href="{{ path('cart-remove', { 'cartLine': line.id }) }}">{{ 'main.remove' | trans }}</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -203,22 +203,17 @@
 <script type="text/template" class="delivery-template">
     <h3>{{'order.summary.title.delivery' | trans}}</h3>
     <% if (delivery.adliv) { %>
-        <p>adresse de facturation : <%= you.adresse %> <%= you.cp %> <%= you.ville %> </p>
-        <% if (delivery.destliv === "Roche") { %>
-            <p>retrait a la Roche d'Or</p>
-        <% } %> 
-        <% if (delivery.destliv === "Font") { %>
-            <p>retrait aux Fontanilles</p>
-        <% } %>
-        <% if (delivery.destliv === "Other") { %>
-            <p>adresse de livraison : <%= delivery.adliv.adresse %> <%= delivery.adliv.zipcode %> <%= delivery.adliv.city %> </p>
-        <% } %>
-        <% if (delivery.destliv === "myAdd") { %>
-            <p>adresse de livraison : <%= delivery.adliv.adresse %> <%= delivery.adliv.zipcode %> <%= delivery.adliv.city %> </p>
-        <% } %>
-        <% if (delivery.memocmd) { %>
-            <p>Message cadeaux : <%= delivery.note %></p>
-        <% } %>
+        <p><b>Adresse de facturation</b><br>
+            <%= you.prenom %> <%= you.nom %>
+            <%= ' — ' %>
+            <%= you.adresse %> <%= you.cp %> <%= you.ville %> (<%= you.pays %>)</p>
+        <p><b>Adresse de livraison</b><br>
+            <%= delivery.destliv === 'Roche' ? "Retrait à La Roche d'Or" : '' %>
+            <%= delivery.destliv === 'Font' ? "Retrait aux Fontanilles" : '' %>
+            <%= delivery.destliv === 'myAdd' ? (you.prenom + ' ' + you.nom) : '' %>
+            <%= delivery.destliv === 'Other' ? (you.prenom + ' ' + you.nom) : '' %>
+            <%= ' — ' %>
+            <%= delivery.adliv.adresse %> <%= delivery.adliv.zipcode %> <%= delivery.adliv.city %> (<%= delivery.paysliv %>)</p>
     <% } else { %>
         <p>{{ 'order.summary.body.delivery' | trans | raw }}</p>
     <% } %>

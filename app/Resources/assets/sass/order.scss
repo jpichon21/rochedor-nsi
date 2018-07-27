@@ -29,6 +29,9 @@
 }
 .delivery-render {
   margin-bottom: 40px;
+  b {
+    color: $roche-yellow;
+  }
 }
 .you-render {
   .you {
@@ -77,6 +80,7 @@
       }
       &.ttc {
         td {
+          padding-top: 40px;
           font-size: 16px;
           font-weight: 100;
           text-transform: uppercase;
