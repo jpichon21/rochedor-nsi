@@ -124,3 +124,27 @@ export const checkVat = (number, country) => {
       return res.data
     })
 }
+
+export const getPBXCode = (country) => {
+  return window.fetch(`/xhr/order/pbx/${country}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.error }
+      return res.data
+    })
+}
+
+export const getPaypalCode = (country) => {
+  return window.fetch(`/xhr/order/paypal/${country}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.error }
+      return res.data
+    })
+}

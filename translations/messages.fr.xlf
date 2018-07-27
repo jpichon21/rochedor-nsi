@@ -1950,5 +1950,29 @@
         <target><![CDATA[Vous n'avez pas d'ouvrage dans votre panier. Nous vous invitons a les découvrir en cliquant sur ce <a href="%link%">lien</a>.]]></target>
       </segment>
     </unit>
+    <unit id="9pr9CAk" name="order-return.title.small">
+      <segment>
+        <source>order-return.title.small</source>
+        <target>Les édition</target>
+      </segment>
+    </unit>
+    <unit id="5RoUp_p" name="order-return.title.big">
+      <segment>
+        <source>order-return.title.big</source>
+        <target>De la Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="ruQIhH0" name="success">
+      <segment>
+        <source>success</source>
+        <target>Votre commande c'est dérouler avec succes</target>
+      </segment>
+    </unit>
+    <unit id="ygD8z7Q" name="error">
+      <segment>
+        <source>error</source>
+        <target>Une erreur est survenue lors de votre commande</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

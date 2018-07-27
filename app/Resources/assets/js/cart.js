@@ -17,7 +17,8 @@ export function placePayment (
   objectName,
   itemName,
   email,
-  locale
+  locale,
+  reallocal
 ) {
   if (method === 'PBX') {
     const date = new Date()
@@ -37,7 +38,7 @@ export function placePayment (
       PBX_RETOUR: 'Amount:M;Ref:R;Auto:A;Erreur:E;Trans:T;Pays:I',
       PBX_HASH: 'SHA512',
       PBX_TIME: date.toISOString(),
-      PBX_LANGUE: PBX_LOCALE[locale]
+      PBX_LANGUE: locale
     }
     const url = Object.keys(params).map(function (k) {
       return k + '=' + params[k]
