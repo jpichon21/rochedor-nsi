@@ -56,6 +56,33 @@ i {
   .editions-only {
     display: none;
   }
+  .cart {
+    position: absolute;
+    top: 20px;
+    right: 200px;
+    padding: 0 20px;
+    line-height: 30px;
+    font-size: 12px;
+    color: #000000;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px #000000 solid;
+    z-index: 1;
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: -8px;
+      right: -8px;
+      color: #ffffff;
+      border-radius: 20px;
+      font-size: 10px;
+      background-color: $roche-orange;
+    }
+  }
   .languages {
     position: absolute;
     top: 20px;

@@ -1,4 +1,12 @@
 <div class="header">
+    {% if cartCount is defined %}
+    <a href="{{ path('order-' ~ app.request.locale) }}" class="cart">
+        {{ 'menu.cart' | trans }}
+        {% if cartCount > 0 %}
+        <span>{{ cartCount }}</span>
+        {% endif %}
+    </a>
+    {% endif %}
     <div class="languages">
         <ul class="available">
             {% if availableLocales is defined %}
