@@ -44,7 +44,6 @@ let total = {}
 const itemConnection = $('.item.connection')
 const itemCard = $('.item.card')
 const itemShipping = $('.item.shipping')
-const itemValidation = $('.item.validation')
 const itemPayment = $('.item.payment')
 
 /* Dropdowns */
@@ -427,11 +426,6 @@ itemShipping.on('click', '.continue', function (event) {
   })
 })
 
-/*
-
-JUSQU'ICI TOUT FONCTIONNE :)
-
-*/
 function getPaysParsed (modpaie, pays) {
   if (modpaie === 'PBX') {
     return new Promise((resolve, reject) => {

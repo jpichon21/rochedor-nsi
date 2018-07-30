@@ -1269,13 +1269,13 @@
     <unit id="i2JGptw" name="order.registration.one.title">
       <segment>
         <source>order.registration.one.title</source>
-        <target>Connexion</target>
+        <target>Connexion/Inscription</target>
       </segment>
     </unit>
     <unit id="BxI_rwF" name="order.registration.one.body.disconnected">
       <segment>
         <source>order.registration.one.body.disconnected</source>
-        <target>Avez vous déja effectuer une commande sur notre site ?</target>
+        <target>Avez-vous déjà commandé aux Editions Roche d'Or ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
       </segment>
     </unit>
     <unit id="al9WFPE" name="order.registration.two.title">
@@ -1533,7 +1533,7 @@
     <unit id="kkp4fpp" name="order.registration.one.body.connected">
       <segment>
         <source>order.registration.one.body.connected</source>
-        <target>Avez déjà effectuer une commande sur le site web la Roche d'Or</target>
+        <target><![CDATA[Vous êtes connecté en tant que <i>%name%</i>, voulez-vous continuer ?]]></target>
       </segment>
     </unit>
     <unit id="JdLwAci" name="form.gift">
@@ -1984,6 +1984,24 @@
       <segment>
         <source>menu.cart</source>
         <target>Panier</target>
+      </segment>
+    </unit>
+    <unit id="EY4TYVa" name="order.registration.one.title.connection">
+      <segment>
+        <source>order.registration.one.title.connection</source>
+        <target>Connection</target>
+      </segment>
+    </unit>
+    <unit id="xglinNC" name="order.registration.one.title.registration">
+      <segment>
+        <source>order.registration.one.title.registration</source>
+        <target>Inscription</target>
+      </segment>
+    </unit>
+    <unit id="l0nR41K" name="form.message.delivery_invalid">
+      <segment>
+        <source>form.message.delivery_invalid</source>
+        <target>Tous les champs de "Adresse de livraison" sont obligatoires</target>
       </segment>
     </unit>
   </file>
