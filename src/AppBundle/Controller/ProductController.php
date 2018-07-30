@@ -13,7 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Repository\CalendarRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use FOS\RestBundle\Controller\Annotations\Get;
@@ -22,6 +21,7 @@ use AppBundle\Repository\ProductRepository;
 use AppBundle\Repository\CartRepository;
 use AppBundle\Entity\Produit;
 use AppBundle\Service\PageService;
+use AppBundle\Service\CartService;
 
 /**
  * @Route("/{_locale}")
@@ -35,11 +35,6 @@ class ProductController extends Controller
     private $productRepository;
 
     /**
-     * @var CartRepository
-     */
-    private $cartRepository;
-
-    /**
      * @var Translator
      */
     private $translator;
@@ -49,16 +44,23 @@ class ProductController extends Controller
      */
     private $pageService;
 
+    /**
+     * @var CartService
+     */
+    private $cartService;
+
     public function __construct(
         ProductRepository $productRepository,
         CartRepository $cartRepository,
         Translator $translator,
-        PageService $pageService
+        PageService $pageService,
+        CartService $cartService
     ) {
         $this->productRepository = $productRepository;
         $this->cartRepository = $cartRepository;
         $this->translator = $translator;
         $this->pageService = $pageService;
+        $this->cartService = $cartService;
     }
 
     /**
@@ -79,7 +81,7 @@ class ProductController extends Controller
                 'product' => $product,
                 'availableLocales' => $availableLocales,
                 'page' => $contentDocument,
-                'cartCount' => $this->getCartCount()
+                'cartCount' => $this->cartService->getCartCount()
             ]
         );
     }
@@ -102,7 +104,7 @@ class ProductController extends Controller
                 'products' => $products,
                 'availableLocales' => $availableLocales,
                 'page' => $contentDocument,
-                'cartCount' => $this->getCartCount()
+                'cartCount' => $this->cartService->getCartCount()
             ]
         );
     }
@@ -158,23 +160,8 @@ class ProductController extends Controller
                 'themes' => $themes,
                 'productsCategorized' => $productsCategorized,
                 'products' => $products,
-                'cartCount' => $this->getCartCount()
+                'cartCount' => $this->cartService->getCartCount()
             ]
         );
-    }
-
-    private function getCartCount()
-    {
-        $session = new Session();
-        $cartId = $session->get('cart');
-        $cart = $this->cartRepository->find($cartId);
-        $count = 0;
-        if ($cart === null) {
-            return null;
-        }
-        foreach ($cart->getCartlines() as $line) {
-            $count += $line->getQuantity();
-        }
-        return $count;
     }
 }
