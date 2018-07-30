@@ -1974,5 +1974,17 @@
         <target>Une erreur est survenue lors de votre commande</target>
       </segment>
     </unit>
+    <unit id="_nSW5K6" name="collection">
+      <segment>
+        <source>collection</source>
+        <target>Collection</target>
+      </segment>
+    </unit>
+    <unit id="aVKbZqS" name="menu.cart">
+      <segment>
+        <source>menu.cart</source>
+        <target>Panier</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

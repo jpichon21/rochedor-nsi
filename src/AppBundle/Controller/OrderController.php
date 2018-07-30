@@ -34,6 +34,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use SensioLabs\Security\Exception\HttpException;
 use AppBundle\Service\PaypalService;
 use AppBundle\Service\PageService;
+use AppBundle\Service\CartService;
 
 class OrderController extends Controller
 {
@@ -97,6 +98,11 @@ class OrderController extends Controller
      */
     private $em;
 
+    /**
+     * @var CartService
+     */
+    private $cartService;
+
     public function __construct(
         CommandeRepository $commandeRepository,
         ProductRepository $productRepository,
@@ -108,7 +114,8 @@ class OrderController extends Controller
         Translator $translator,
         LoggerInterface $logger,
         EntityManagerInterface $em,
-        PageService $pageService
+        PageService $pageService,
+        CartService $cartService
     ) {
         $this->commandeRepository = $commandeRepository;
         $this->productRepository = $productRepository;
@@ -121,6 +128,7 @@ class OrderController extends Controller
         $this->logger = $logger;
         $this->em = $em;
         $this->pageService = $pageService;
+        $this->cartService = $cartService;
     }
 
     /**
@@ -354,7 +362,11 @@ class OrderController extends Controller
         if ($status === 'sucess') {
             $this->paymentNotifyAction($method, $request, $paypalService);
         }
-        return $this->render('order/payment-return.html.twig', ['status' => $status, 'method' => $method]);
+        return $this->render('order/payment-return.html.twig', [
+            'status' => $status,
+            'method' => $method,
+            'cartCount' => $this->getCartCount()
+        ]);
     }
 
     /**
@@ -576,11 +588,13 @@ class OrderController extends Controller
         
         if ($cartId === null) {
             return $this->render('order/order-error.html.twig', [
+                'cartCount' => $this->cartService->getCartCount()
             ]);
         }
 
         if (empty($cart->getCartlines()->getValues())) {
             return $this->render('order/order-error.html.twig', [
+                'cartCount' => $this->cartService->getCartCount()
             ]);
         }
         
@@ -590,7 +604,8 @@ class OrderController extends Controller
             'cart' => $this->cartRepository->find($cartId),
             'page' => $page,
             'countries' => $countriesJSON,
-            'availableLocales' => $availableLocales
+            'availableLocales' => $availableLocales,
+            'cartCount' => $this->cartService->getCartCount()
         ]);
     }
 }
