@@ -2004,5 +2004,23 @@
         <target>Tous les champs de "Adresse de livraison" sont obligatoires</target>
       </segment>
     </unit>
+    <unit id="cHFGXVz" name="order.choose.payment">
+      <segment>
+        <source>order.choose.payment</source>
+        <target>Mode de paiement</target>
+      </segment>
+    </unit>
+    <unit id="oydHg8c" name="order.error.title">
+      <segment>
+        <source>order.error.title</source>
+        <target><![CDATA[<small>Les Editions </small>Roche d'Or]]></target>
+      </segment>
+    </unit>
+    <unit id="5BOTPxB" name="order.error.text">
+      <segment>
+        <source>order.error.text</source>
+        <target><![CDATA[Votre panier est vide. Vous pouvez ajouter un article depuis les <a href="%link%">collections</a>.]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -17,7 +17,7 @@ body {
   height: 100vh;
   overflow: hidden;
   background-size: cover;
-  background-position: center;
+  background-position: top;
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -308,7 +308,7 @@ i {
     width: 100%;
     flex-direction: column;
     background-size: cover;
-    background-position: center;
+    background-position: top;
     background-attachment: fixed;
     transition: 0.5s;
     &:before {

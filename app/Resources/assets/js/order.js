@@ -446,8 +446,7 @@ function getPaysParsed (modpaie, pays) {
   }
 }
 
-itemPayment.on('click', '.button.submit.process-order', function (event) {
-  _delivery.cartId = _cartId
+itemPayment.on('submit', 'form.payment', function (event) {
   event.preventDefault()
   getPaysParsed(_delivery.modpaie, _delivery.paysliv).then(paysparsed => {
     postOrder(_delivery).then(res => {
@@ -466,7 +465,9 @@ itemPayment.on('click', '.button.submit.process-order', function (event) {
       )
       changeItem(itemValidation)
     }).catch(error => {
-      $('.right .catch-message').html(error)
+      if (error) {
+        upFlashbag(error)
+      }
     })
   })
 })

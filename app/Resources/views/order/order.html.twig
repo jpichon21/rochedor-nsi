@@ -132,17 +132,24 @@
             </div>
             <div class="item payment">
                 <h2>{{ 'order.registration.four.title' | trans | raw }}</h2>
-                <div class="pure-g">
-                    <div class="pure-u-1-2">
-                        <select class="select select-modpaie">
-                            <option selected disabled value="">{{ 'form.choose.modpaie' | trans | raw }}</option>
-                            <option value="PBX">{{ 'select.cb' | trans | raw }}</option>
-                            <option value="PAYPAL">{{ 'select.paypal' | trans | raw }}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="pure-u-4-24">
-                    <input class="input button submit process-order" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                <div class="panel payment active">
+                    <form class="form payment">
+                        <h3>{{ 'order.choose.payment' | trans | raw }}</h3>    
+                        <div class="pure-g">
+                            <div class="pure-u-1-2">
+                                <select class="select select-modpaie" required>
+                                    <option selected disabled value="">{{ 'form.choose.modpaie' | trans | raw }}</option>
+                                    <option value="PBX">{{ 'select.cb' | trans | raw }}</option>
+                                    <option value="PAYPAL">{{ 'select.paypal' | trans | raw }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="pure-g">
+                            <div class="pure-u-4-24">
+                                <input class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="item validation">

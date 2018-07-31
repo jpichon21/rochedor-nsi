@@ -40,6 +40,11 @@ h2 {
         }
       }
     }
+    .sub-menu {
+      &:before {
+        background: linear-gradient(to bottom, #ececec 0px, transparent 100%);
+      }
+    }
   }
   .languages {
     ul li a {
@@ -523,6 +528,13 @@ h2 {
 }
 
 .content {
+  .intro {
+    color: #000000;
+    a {
+      color: $roche-orange;
+      border-bottom: 1px $roche-orange solid;
+    }
+  }
   .dropdown {
     &:after {
       background: #000000;
