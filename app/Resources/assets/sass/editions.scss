@@ -40,10 +40,10 @@ h2 {
         }
       }
     }
-    .sub-menu {
-      &:before {
-        background: linear-gradient(to bottom, #ececec 0px, transparent 100%);
-      }
+  }
+  .sub-menu {
+    &:before {
+      background: linear-gradient(to bottom, transparent 0%, #ececec 1px, transparent 100%);
     }
   }
   .languages {

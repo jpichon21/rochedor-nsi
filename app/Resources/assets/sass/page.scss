@@ -1,25 +1,6 @@
 @import './carousel';
 @import './variables';
 
-.header {
-  .right {
-    .sub-menu {
-      left: 0;
-      right: 0;
-      padding: 0 40px;
-      &:before {
-        content: '';
-        position: absolute;
-        top: 1px;
-        bottom: -50px;
-        left: 0;
-        right: 0;
-        background: linear-gradient(to bottom, #000000 0px, transparent 100%);
-      }
-    }
-  }
-}
-
 .content {
   .intro {
     font-size: 14px;
