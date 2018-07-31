@@ -1707,7 +1707,7 @@
     <unit id="oXrCtEF" name="form.reset">
       <segment>
         <source>form.reset</source>
-        <target>Effacer</target>
+        <target>form.reinit</target>
       </segment>
     </unit>
     <unit id="reTt_sP" name="form.message.child_must_come_with_adult">
@@ -2062,6 +2062,12 @@
       <segment>
         <source>table.label.consumerPriceIT</source>
         <target>Total TTC</target>
+      </segment>
+    </unit>
+    <unit id="thE5KNk" name="form.reinit">
+      <segment>
+        <source>form.reinit</source>
+        <target>Réinitialiser</target>
       </segment>
     </unit>
   </file>
