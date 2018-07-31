@@ -1302,9 +1302,9 @@
         <target>Livraison</target>
       </segment>
     </unit>
-    <unit id="EuDIPVk" name="select.ad.myadd">
+    <unit id="EuDIPVk" name="select.ad.myAd">
       <segment>
-        <source>select.ad.myadd</source>
+        <source>select.ad.myAd</source>
         <target>Mon adresse</target>
       </segment>
     </unit>
