@@ -2022,5 +2022,47 @@
         <target><![CDATA[Votre panier est vide. Vous pouvez ajouter un article depuis les <a href="%link%">collections</a>.]]></target>
       </segment>
     </unit>
+    <unit id="DwQUHDv" name="table.label.weightOrder">
+      <segment>
+        <source>table.label.weightOrder</source>
+        <target>Poids des articles</target>
+      </segment>
+    </unit>
+    <unit id="G1UnR4o" name="table.label.packagingWeight">
+      <segment>
+        <source>table.label.packagingWeight</source>
+        <target>Poids de l'emballage</target>
+      </segment>
+    </unit>
+    <unit id="lRTS5zO" name="table.label.totalWeight">
+      <segment>
+        <source>table.label.totalWeight</source>
+        <target>Poids total</target>
+      </segment>
+    </unit>
+    <unit id="0DVHmKT" name="table.label.totalPriceIT">
+      <segment>
+        <source>table.label.totalPriceIT</source>
+        <target>Montant des achats TTC</target>
+      </segment>
+    </unit>
+    <unit id="VlB_08Z" name="table.label.vat">
+      <segment>
+        <source>table.label.vat</source>
+        <target>Dont TVA</target>
+      </segment>
+    </unit>
+    <unit id="NL2xyyC" name="table.label.portPriceIT">
+      <segment>
+        <source>table.label.portPriceIT</source>
+        <target>Frais d'expédition</target>
+      </segment>
+    </unit>
+    <unit id="oc7G9Ky" name="table.label.consumerPriceIT">
+      <segment>
+        <source>table.label.consumerPriceIT</source>
+        <target>Total TTC</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

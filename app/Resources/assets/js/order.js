@@ -39,7 +39,7 @@ const _countries = JSON.parse($('.countries-json').html())
 
 let _you = {}
 let _delivery = {}
-let total = {}
+let _total = {}
 
 const itemConnection = $('.item.connection')
 const itemCard = $('.item.card')
@@ -98,7 +98,7 @@ function updateDeliveryRender () {
 
 function updateCartRender () {
   $('.total-render').html(totalTemplate({
-    total: total
+    total: _total
   }))
 }
 
@@ -125,7 +125,8 @@ function adlivUpdateFormRender () {
 }
 
 getData(_cartId, 'myAdd', 'FR').then(data => {
-  total = data
+  console.log(data)
+  _total = data
   updateCartRender()
   updateDeliveryRender()
 })
@@ -410,7 +411,7 @@ itemShipping.on('click', '.continue', function (event) {
   formGift.submit()
   valideDelivery(_delivery).then(delivery => {
     getData(_cartId, delivery.destliv, delivery.paysliv).then(data => {
-      total = data
+      _total = data
       updateCartRender()
       updateDeliveryRender()
       changeItem(itemPayment)
@@ -450,20 +451,15 @@ itemPayment.on('submit', 'form.payment', function (event) {
   event.preventDefault()
   getPaysParsed(_delivery.modpaie, _delivery.paysliv).then(paysparsed => {
     postOrder(_delivery).then(res => {
-      console.log(paysparsed)
-      let result = $('.result', itemValidation).html()
-      result = result.replace('%entry_number%', res)
-      $('.result', itemValidation).html(result)
       placePayment(_delivery.modpaie,
-        total.consumerPriceIT,
-        result.refcom,
+        _total.consumerPriceIT,
+        res.refcom,
         'truc',
         `Commande sur le site La Roche D'Or`,
         _you.email,
         paysparsed,
         _delivery.paysliv
       )
-      changeItem(itemValidation)
     }).catch(error => {
       if (error) {
         upFlashbag(error)

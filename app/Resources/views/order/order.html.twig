@@ -240,15 +240,15 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="first">Poid des articles</td>
+                        <td class="first">{{ 'table.label.weightOrder' | trans }}</td>
                         <td class="last"><%= total.weightOrder %> g</td>
                     </tr>
                     <tr>
-                        <td class="first">Poid de l'emballage</td>
+                        <td class="first">{{ 'table.label.packagingWeight' | trans }}</td>
                         <td class="last"><%= total.packagingWeight %> g</td>
                     </tr>
                     <tr>
-                        <td class="first">Poid total</td>
+                        <td class="first">{{ 'table.label.totalWeight' | trans }}</td>
                         <td class="last"><%= total.totalWeight %> g</td>
                     </tr>
                 </tbody>
@@ -266,19 +266,19 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="first">Frais de port</td>
-                        <td class="last"><%= total.portPriceIT %> €</td>
+                        <td class="first">{{ 'table.label.totalPriceIT' | trans }}</td>
+                        <td class="last"><%= total.totalPriceIT %> €</td>
                     </tr>
                     <tr>
-                        <td class="first">Prix total HT</td>
-                        <td class="last"><%= total.consumerPrice %> €</td>
-                    </tr>
-                    <tr>
-                        <td class="first">Prix de la TVA</td>
+                        <td class="first">{{ 'table.label.vat' | trans }}</td>
                         <td class="last"><%= total.vat %> €</td>
                     </tr>
+                    <tr>
+                        <td class="first">{{ 'table.label.portPriceIT' | trans }}</td>
+                        <td class="last"><%= total.portPriceIT %> €</td>
+                    </tr>
                     <tr class="ttc">
-                        <td class="first">Prix total TTC</td>
+                        <td class="first">{{ 'table.label.consumerPriceIT' | trans }}</td>
                         <td class="last"><%= total.consumerPriceIT %> €</td>
                     </tr>
                 </tbody>
