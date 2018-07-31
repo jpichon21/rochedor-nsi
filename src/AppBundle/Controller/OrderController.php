@@ -137,7 +137,7 @@ class OrderController extends Controller
     */
     public function xhrTestWeight(Request $request, $weight, $country, $destliv)
     {
-        return $this->shippingRepository->findGoodPort($weight, $country, $destliv);
+        return $this->shippingRepository->findShipping($weight, $country, $destliv);
     }
 
     /**
@@ -282,15 +282,15 @@ class OrderController extends Controller
                 $i++;
             }
         }
-        $portPriceData = $this->shippingRepository->findGoodPort($totalWeight, $country, $destliv);
-        $packagingWeight = $portPriceData['suplementWeight'];
-        $portPriceIT = $portPriceData['price'];
+        $shippingPriceData = $this->shippingRepository->findShipping($totalWeight, $country, $destliv);
+        $packagingWeight = $shippingPriceData['suplementWeight'];
+        $shippingPriceIT = $shippingPriceData['price'];
         $data['packagingWeight'] = $packagingWeight;
         $data['weightOrder'] = $totalWeight;
         $data['totalWeight'] = $totalWeight + $packagingWeight;
-        $data['portPriceIT'] = $portPriceIT;
-        $data['consumerPriceIT'] = $data['portPriceIT'] + $data['totalPriceIT'];
-        $data['consumerPrice'] = $data['portPriceIT'] + $data['totalPrice'];
+        $data['shippingPriceIT'] = $shippingPriceIT;
+        $data['consumerPriceIT'] = $data['shippingPriceIT'] + $data['totalPriceIT'];
+        $data['consumerPrice'] = $data['shippingPriceIT'] + $data['totalPrice'];
 
         $data['vat'] = round($data['totalPriceIT'] - $data['totalPrice'], 2);
         return $data;
@@ -365,7 +365,7 @@ class OrderController extends Controller
         return $this->render('order/payment-return.html.twig', [
             'status' => $status,
             'method' => $method,
-            'cartCount' => $this->getCartCount()
+            'cartCount' => $this->cartService->getCartCount()
         ]);
     }
 
@@ -459,7 +459,7 @@ class OrderController extends Controller
         }
 
         $weight = $data['weightOrder'];
-        $portPrice = $data['portPriceIT'];
+        $shippingPrice = $data['shippingPriceIT'];
         $amountHT = $data['consumerPrice'];
         $promo = 0;
         $priceit = $data['consumerPriceIT'];
@@ -486,7 +486,7 @@ class OrderController extends Controller
         $order->setTtc($priceit);
         $order->setTva($vat);
         $order->setPoids($weight);
-        $order->setPort($portPrice);
+        $order->setPort($shippingPrice);
         $order->setPromo($promo);
         $order->setDatliv($datliv);
         $order->setPaysip($paysip);

@@ -45,7 +45,7 @@ class ShippingRepository
     }
 
 
-    public function findGoodWeight($weight, $country)
+    public function findWeight($weight, $country)
     {
         $query = $this->entityManager
         ->createQuery('SELECT p
@@ -76,10 +76,10 @@ class ShippingRepository
         exit;
     }
 
-    public function findGoodPort($weight, $country, $name)
+    public function findShipping($weight, $country, $name)
     {
 
-        $supplementWeight =  $this->findGoodWeight($weight, $country);
+        $supplementWeight =  $this->findWeight($weight, $country);
         $weight = $weight + $supplementWeight;
         $result['suplementWeight'] = $supplementWeight;
 
