@@ -47,10 +47,9 @@ export function placePayment (
     const key = Buffer(environment.pbx_key, 'hex')
     const ider = Sha512.hmac(key)
     const id = ider.finalize(url)
-    window.open(environment.pbx_url + '?' + encodedUrl + '&PBX_HMAC=' + id.toString('hex').toUpperCase())
+    window.location.href = environment.pbx_url + '?' + encodedUrl + '&PBX_HMAC=' + id.toString('hex').toUpperCase()
   }
   if (method === 'PAYPAL') {
-    console.log('PAYPAL')
     const params = {
       amount: amount,
       cmd: '_xclick',
@@ -65,12 +64,9 @@ export function placePayment (
       email: email,
       lc: lang
     }
-    console.log(params)
     const url = Object.keys(params).map(function (k) {
       return encodeURIComponent(k) + '=' + encodeURIComponent(params[k])
     }).join('&')
-    console.log(url)
-    window.open(environment.pp_url + '?' + url)
-    console.log('window opened!')
+    window.location.href = environment.pp_url + '?' + url
   }
 }

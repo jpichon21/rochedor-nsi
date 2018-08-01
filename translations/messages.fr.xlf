@@ -2070,5 +2070,23 @@
         <target>Réinitialiser</target>
       </segment>
     </unit>
+    <unit id="AOdX9Pe" name="order-return.title">
+      <segment>
+        <source>order-return.title</source>
+        <target><![CDATA[Les Editions <small>de la Roche d'Or</small>]]></target>
+      </segment>
+    </unit>
+    <unit id="bI8gjQ5" name="order-return.success">
+      <segment>
+        <source>order-return.success</source>
+        <target><![CDATA[Votre commande a bien été enregistrée. Vous recevrez un mail de confirmation dans quelques minutes. Retour aux <a href="%link%">collections</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="VbHIGnV" name="order-return.cancel">
+      <segment>
+        <source>order-return.cancel</source>
+        <target><![CDATA[Un problème est survenu lors de votre commande. Veuillez retourner au <a href="%link%">panier</a>.]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>
