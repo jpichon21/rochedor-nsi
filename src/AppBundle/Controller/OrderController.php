@@ -359,7 +359,7 @@ class OrderController extends Controller
      */
     public function paymentReturnAction($method, $status, Request $request, PaypalService $paypalService)
     {
-        if ($status === 'sucess') {
+        if ($status === 'success') {
             $this->paymentNotifyAction($method, $request, $paypalService);
         }
         return $this->render('order/payment-return.html.twig', [
