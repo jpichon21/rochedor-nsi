@@ -125,7 +125,7 @@ export const checkVat = (number, country) => {
     })
 }
 
-export const getPBXCode = (country) => {
+export const getPBXCode = country => {
   return window.fetch(`/xhr/order/pbx/${country}`, {
     method: 'GET',
     credentials: 'include'
@@ -137,7 +137,7 @@ export const getPBXCode = (country) => {
     })
 }
 
-export const getPaypalCode = (country) => {
+export const getPaypalCode = country => {
   return window.fetch(`/xhr/order/paypal/${country}`, {
     method: 'GET',
     credentials: 'include'

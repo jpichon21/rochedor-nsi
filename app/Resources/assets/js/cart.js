@@ -1,8 +1,6 @@
 const { environment } = require(`./environment.${process.env.NODE_ENV}`)
 const Sha512 = require('sha512')
 const Buffer = require('buffer').Buffer
-const PBX_LOCALE = {'fr': 'FRA', 'en': 'GBR', 'de': 'DEU', 'it': 'ITA'}
-const PAYPAL_LOCALE = {'fr': 'fr_FR', 'en': 'en_US', 'de': 'de_DE', 'it': 'it_IT'}
 
 function host () {
   const host = window.location.hostname
@@ -17,8 +15,8 @@ export function placePayment (
   objectName,
   itemName,
   email,
-  locale,
-  reallocal
+  lang,
+  locale
 ) {
   if (method === 'PBX') {
     const date = new Date()
@@ -38,7 +36,7 @@ export function placePayment (
       PBX_RETOUR: 'Amount:M;Ref:R;Auto:A;Erreur:E;Trans:T;Pays:I',
       PBX_HASH: 'SHA512',
       PBX_TIME: date.toISOString(),
-      PBX_LANGUE: locale
+      PBX_LANGUE: lang
     }
     const url = Object.keys(params).map(function (k) {
       return k + '=' + params[k]
@@ -65,7 +63,7 @@ export function placePayment (
       business: environment.pp_email,
       notify_url: `${host()}/${locale}/order/payment-notify/paypal`,
       email: email,
-      lc: PAYPAL_LOCALE[locale]
+      lc: lang
     }
     console.log(params)
     const url = Object.keys(params).map(function (k) {

@@ -305,7 +305,6 @@ class OrderController extends Controller
 
     /**
      * @Rest\Post("/order/delivery", name="post_delivery")
-
      * @Rest\View()
     */
     public function xhrPostAddrDeliveryAction(Request $request)
@@ -348,9 +347,8 @@ class OrderController extends Controller
         if (!isset($delivery['cartId'])) {
             return ['status' => 'ko', 'message' => 'You must provide a client with a delivery cartid'];
         }
-        // if ($this->registerOrder($delivery, $cartId, $locale)) {
         if ($order = $this->registerOrder($delivery, $cartId, $locale)) {
-            return ['status' => 'ok', 'order' => $order];
+            return ['status' => 'ok', 'data' => $order];
         }
         return ['status' => 'ko', 'message' => 'an error as occured'];
     }
@@ -367,7 +365,7 @@ class OrderController extends Controller
         return $this->render('order/payment-return.html.twig', [
             'status' => $status,
             'method' => $method,
-            'cartCount' => $this->getCartCount()
+            'cartCount' => $this->cartService->getCartCount()
         ]);
     }
 

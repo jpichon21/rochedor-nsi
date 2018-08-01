@@ -21,19 +21,19 @@ import {
 
 /* Cart */
 
-const _cartId = parseInt($('.cart-data').html())
+const _cartId = parseInt($('.cart-json').html().trim())
 
 /* Translations */
 
 let i18n = new I18n()
 
-const _locale = $('.locale-json').html()
+const _locale = $('.locale-json').html().trim()
 
 moment.locale(_locale)
 
 /* Countries */
 
-const _countries = JSON.parse($('.countries-json').html())
+const _countries = JSON.parse($('.countries-json').html().trim())
 
 /* Variables */
 
@@ -136,6 +136,7 @@ getData(_cartId, 'myAdd', 'FR').then(data => {
 function afterLogin (user, bypass) {
   _delivery = getDelivery()
   _delivery.codcli = user.codcli
+  _delivery.cartId = parseInt(_cartId)
   _you = user
   updateYouRender()
   updateCartRender()
@@ -430,7 +431,7 @@ itemShipping.on('click', '.continue', function (event) {
 function getPaysParsed (modpaie, pays) {
   if (modpaie === 'PBX') {
     return new Promise((resolve, reject) => {
-      getPBXCode(pays).then((data) => {
+      getPBXCode(pays).then(data => {
         resolve(data)
       }).catch(() => {
         reject(i18n.trans('form.message.zipcode_invalid'))
@@ -438,7 +439,7 @@ function getPaysParsed (modpaie, pays) {
     })
   } else {
     return new Promise((resolve, reject) => {
-      getPaypalCode(pays).then((data) => {
+      getPaypalCode(pays).then(data => {
         resolve(data)
       }).catch(() => {
         reject(i18n.trans('form.message.zipcode_invalid'))
@@ -451,14 +452,15 @@ itemPayment.on('submit', 'form.payment', function (event) {
   event.preventDefault()
   getPaysParsed(_delivery.modpaie, _delivery.paysliv).then(paysparsed => {
     postOrder(_delivery).then(res => {
-      placePayment(_delivery.modpaie,
-        _total.consumerPriceIT,
+      placePayment(
+        res.modpaie,
+        res.ttc,
         res.refcom,
         'truc',
-        `Commande sur le site La Roche D'Or`,
+        'Commande sur le site La Roche D\'Or',
         _you.email,
         paysparsed,
-        _delivery.paysliv
+        _locale
       )
     }).catch(error => {
       if (error) {
