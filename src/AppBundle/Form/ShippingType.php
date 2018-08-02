@@ -19,10 +19,9 @@ class ShippingType extends AbstractType
         $builder
         ->add('name')
         ->add('weight')
-        ->add('country')
         ->add('price')
         ->add(
-            'relatedcountries',
+            'countries',
             CollectionType::class,
             [
             'entry_type' => TextType::class,
@@ -35,14 +34,6 @@ class ShippingType extends AbstractType
             'required' => true,
             'by_reference' => false
             ]
-        )
-        ->add(
-            'maximalWeight',
-            CheckboxType::class,
-            array(
-            'label'    => 'Limit max',
-            'required' => false,
-            )
         );
     }
     

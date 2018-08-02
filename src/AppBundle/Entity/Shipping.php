@@ -38,13 +38,6 @@ class Shipping
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=255)
-     */
-    private $country;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=false)
      */
     private $price;
@@ -53,16 +46,9 @@ class Shipping
     /**
      * @var array
      *
-     * @ORM\Column(name="relatedcountries", type="array")
+     * @ORM\Column(name="countries", type="array")
      */
-    private $relatedcountries;
-
-    /**
-    * @var int
-    *
-    * @ORM\Column(name="maximal_weight", type="boolean")
-     */
-    private $maximalWeight;
+    private $countries;
 
     /**
      * Get id.
@@ -123,30 +109,6 @@ class Shipping
     }
 
     /**
-     * Set country.
-     *
-     * @param string $country
-     *
-     * @return Shipping
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * Get country.
-     *
-     * @return string
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
      * Set price.
      *
      * @param string $price
@@ -171,50 +133,26 @@ class Shipping
     }
 
     /**
-     * Set relatedcountries.
+     * Set countries.
      *
-     * @param array $relatedcountries
+     * @param array $countries
      *
      * @return Tax
     */
-    public function setRelatedcountries($relatedcountries)
+    public function setCountries($countries)
     {
-        $this->relatedcountries = $relatedcountries;
+        $this->countries = $countries;
 
         return $this;
     }
 
     /**
-     * Get relatedcountries.
+     * Get countries.
      *
      * @return array
     */
-    public function getRelatedcountries()
+    public function getCountries()
     {
-        return $this->relatedcountries;
-    }
-
-            /**
-     * Set maximalWeight.
-     *
-     * @param int $maximalWeight
-     *
-     * @return Packaging
-     */
-    public function setMaximalWeight($maximalWeight)
-    {
-        $this->maximalWeight = $maximalWeight;
-
-        return $this;
-    }
-
-    /**
-     * Get maximalWeight.
-     *
-     * @return int
-     */
-    public function getMaximalWeight()
-    {
-        return $this->maximalWeight;
+        return $this->countries;
     }
 }

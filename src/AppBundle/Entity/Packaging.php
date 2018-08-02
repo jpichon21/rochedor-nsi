@@ -42,13 +42,6 @@ class Packaging
      */
     private $international;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="maximal_boundary", type="boolean")
-     */
-    private $maximalBoundary;
-
 
     /**
      * Get id.
@@ -130,29 +123,5 @@ class Packaging
     public function getInternational()
     {
         return $this->international;
-    }
-
-        /**
-     * Set maximalBoundary.
-     *
-     * @param int $maximalBoundary
-     *
-     * @return Packaging
-     */
-    public function setMaximalBoundary($maximalBoundary)
-    {
-        $this->maximalBoundary = $maximalBoundary;
-
-        return $this;
-    }
-
-    /**
-     * Get maximalBoundary.
-     *
-     * @return int
-     */
-    public function getMaximalBoundary()
-    {
-        return $this->maximalBoundary;
     }
 }

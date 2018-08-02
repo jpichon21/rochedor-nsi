@@ -132,12 +132,12 @@ class OrderController extends Controller
     }
 
     /**
-     * @Rest\Get("/xhr/order/Weight/{weight}/{country}/{destliv}", name="get_weight")
+     * @Rest\Get("/xhr/order/weight/{weight}/{country}", name="get_weight")
      * @Rest\View()
     */
-    public function xhrTestWeight(Request $request, $weight, $country, $destliv)
+    public function xhrTestWeight(Request $request, $weight, $country)
     {
-        return $this->shippingRepository->findShipping($weight, $country, $destliv);
+        return $this->findShipping($weight, $country);
     }
 
     /**
@@ -276,14 +276,13 @@ class OrderController extends Controller
                                                         - $data['product'][$k]['price'], 2);
                 
                 $data['totalPriceIT'] = round($data['totalPriceIT'] + $priceIncludeTaxes, 2);
-                
                 $totalWeight = $totalWeight + $product->getPoids();
                 
                 $i++;
             }
         }
-        $shippingPriceData = $this->shippingRepository->findShipping($totalWeight, $country, $destliv);
-        $packagingWeight = $shippingPriceData['suplementWeight'];
+        $shippingPriceData = $this->findShipping($totalWeight, $country);
+        $packagingWeight = $shippingPriceData['supplementWeight'];
         $shippingPriceIT = $shippingPriceData['price'];
         $data['packagingWeight'] = $packagingWeight;
         $data['weightOrder'] = $totalWeight;
@@ -294,6 +293,17 @@ class OrderController extends Controller
 
         $data['vat'] = round($data['totalPriceIT'] - $data['totalPrice'], 2);
         return $data;
+    }
+
+    private function findShipping($weight, $country)
+    {
+        if ($country === 'Font' || $country === 'Roche') {
+            return ['supplementWeight' => 0, 'price' => 0];
+        }
+        $supplementWeight = $this->shippingRepository->findWeight($weight, $country);
+        $weight += $supplementWeight;
+        $price = $this->shippingRepository->findShipping($weight, $country);
+        return ['supplementWeight' => $supplementWeight, 'price' => $price['price']];
     }
     
     private function getProductPrice($product, $taxrate)
