@@ -264,7 +264,7 @@ class OrderController extends Controller
                         $priceIncludeTaxes = $this->getProductPrice($product, $tax->getRate());
                     }
                     
-                    $data['product'][$k]['price'] = $product->getPrixht();
+                    $data['product'][$k]['price'] = intval($product->getPrixht());
                 }
 
                 $data['totalPrice'] = round($data['totalPrice'] + $data['product'][$k]['price'], 2);
@@ -288,7 +288,7 @@ class OrderController extends Controller
         $data['packagingWeight'] = $packagingWeight;
         $data['weightOrder'] = $totalWeight;
         $data['totalWeight'] = $totalWeight + $packagingWeight;
-        $data['shippingPriceIT'] = $shippingPriceIT;
+        $data['shippingPriceIT'] = intval($shippingPriceIT);
         $data['consumerPriceIT'] = $data['shippingPriceIT'] + $data['totalPriceIT'];
         $data['consumerPrice'] = $data['shippingPriceIT'] + $data['totalPrice'];
 

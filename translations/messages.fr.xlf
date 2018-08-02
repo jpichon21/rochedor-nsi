@@ -2052,9 +2052,9 @@
         <target>Dont TVA</target>
       </segment>
     </unit>
-    <unit id="NL2xyyC" name="table.label.portPriceIT">
+    <unit id="NL2xyyC" name="table.label.shippingPriceIT">
       <segment>
-        <source>table.label.portPriceIT</source>
+        <source>table.label.shippingPriceIT</source>
         <target>Frais d'expédition</target>
       </segment>
     </unit>
