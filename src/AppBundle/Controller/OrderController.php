@@ -264,7 +264,7 @@ class OrderController extends Controller
                         $priceIncludeTaxes = $this->getProductPrice($product, $tax->getRate());
                     }
                     
-                    $data['product'][$k]['price'] = $product->getPrixht();
+                    $data['product'][$k]['price'] = intval($product->getPrixht());
                 }
 
                 $data['totalPrice'] = round($data['totalPrice'] + $data['product'][$k]['price'], 2);
@@ -287,7 +287,7 @@ class OrderController extends Controller
         $data['packagingWeight'] = $packagingWeight;
         $data['weightOrder'] = $totalWeight;
         $data['totalWeight'] = $totalWeight + $packagingWeight;
-        $data['shippingPriceIT'] = $shippingPriceIT;
+        $data['shippingPriceIT'] = intval($shippingPriceIT);
         $data['consumerPriceIT'] = $data['shippingPriceIT'] + $data['totalPriceIT'];
         $data['consumerPrice'] = $data['shippingPriceIT'] + $data['totalPrice'];
 
@@ -313,7 +313,6 @@ class OrderController extends Controller
 
     /**
      * @Rest\Post("/order/delivery", name="post_delivery")
-
      * @Rest\View()
     */
     public function xhrPostAddrDeliveryAction(Request $request)
@@ -356,9 +355,8 @@ class OrderController extends Controller
         if (!isset($delivery['cartId'])) {
             return ['status' => 'ko', 'message' => 'You must provide a client with a delivery cartid'];
         }
-        // if ($this->registerOrder($delivery, $cartId, $locale)) {
         if ($order = $this->registerOrder($delivery, $cartId, $locale)) {
-            return ['status' => 'ok', 'order' => $order];
+            return ['status' => 'ok', 'data' => $order];
         }
         return ['status' => 'ko', 'message' => 'an error as occured'];
     }
@@ -369,7 +367,7 @@ class OrderController extends Controller
      */
     public function paymentReturnAction($method, $status, Request $request, PaypalService $paypalService)
     {
-        if ($status === 'sucess') {
+        if ($status === 'success') {
             $this->paymentNotifyAction($method, $request, $paypalService);
         }
         return $this->render('order/payment-return.html.twig', [

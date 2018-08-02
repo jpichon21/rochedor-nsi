@@ -132,23 +132,24 @@
             </div>
             <div class="item payment">
                 <h2>{{ 'order.registration.four.title' | trans | raw }}</h2>
-                <div class="pure-g">
-                    <div class="pure-u-1-2">
-                        <select class="select select-modpaie">
-                            <option selected disabled value="">{{ 'form.choose.modpaie' | trans | raw }}</option>
-                            <option value="PBX">{{ 'select.cb' | trans | raw }}</option>
-                            <option value="PAYPAL">{{ 'select.paypal' | trans | raw }}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="pure-u-4-24">
-                    <input class="input button submit process-order" type="submit" value="{{ 'form.ok' | trans | raw }}">
-                </div>
-            </div>
-            <div class="item validation">
-                <h2>{{ 'order.registration.five.title' | trans | raw }}</h2>
-                <div class="result">
-                    <p>{{ 'order.registration.five.body' | trans | raw }}</p>
+                <div class="panel payment active">
+                    <form class="form payment">
+                        <h3>{{ 'order.choose.payment' | trans | raw }}</h3>    
+                        <div class="pure-g">
+                            <div class="pure-u-1-2">
+                                <select class="select select-modpaie" required>
+                                    <option selected disabled value="">{{ 'form.choose.modpaie' | trans | raw }}</option>
+                                    <option value="PBX">{{ 'select.cb' | trans | raw }}</option>
+                                    <option value="PAYPAL">{{ 'select.paypal' | trans | raw }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="pure-g">
+                            <div class="pure-u-4-24">
+                                <input class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -189,20 +190,20 @@
 {% block javascripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
-<script type="text/json" class="locale-json">
+<script type="application/json" class="locale-json">
     {{ currentLocale }}
+</script>
+<script type="application/json" class="countries-json">
+    {{ countries | json_encode() | raw }}
+</script>
+<script type="application/json" class="cart-json">
+    {% if cart %}{{ cart.id }}{% endif %}
 </script>
 <script type="text/template" class="you-template">
     <div class="you">
         <p><%= you.prenom %> <%= you.nom %><br>
             <%= you.adresse %> <%= you.cp %> <%= you.ville %> (<%= you.pays %>)</p>
     </div>
-</script>
-<script type="text/json" class="countries-json">
-    {{ countries | json_encode() | raw }}
-</script>
-<script type="text/data" class="cart-data">
-    {% if cart %}{{ cart.id }}{% endif %}
 </script>
 <script type="text/template" class="delivery-template">
     <h3>{{'order.summary.title.delivery' | trans}}</h3>
@@ -236,15 +237,15 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="first">Poid des articles</td>
+                        <td class="first">{{ 'table.label.weightOrder' | trans }}</td>
                         <td class="last"><%= total.weightOrder %> g</td>
                     </tr>
                     <tr>
-                        <td class="first">Poid de l'emballage</td>
+                        <td class="first">{{ 'table.label.packagingWeight' | trans }}</td>
                         <td class="last"><%= total.packagingWeight %> g</td>
                     </tr>
                     <tr>
-                        <td class="first">Poid total</td>
+                        <td class="first">{{ 'table.label.totalWeight' | trans }}</td>
                         <td class="last"><%= total.totalWeight %> g</td>
                     </tr>
                 </tbody>
@@ -262,20 +263,20 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="first">Frais de port</td>
-                        <td class="last"><%= total.portPriceIT %> €</td>
+                        <td class="first">{{ 'table.label.totalPriceIT' | trans }}</td>
+                        <td class="last"><%= parseFloat(total.totalPriceIT).toFixed(2) %> €</td>
                     </tr>
                     <tr>
-                        <td class="first">Prix total HT</td>
-                        <td class="last"><%= total.consumerPrice %> €</td>
+                        <td class="first">{{ 'table.label.vat' | trans }}</td>
+                        <td class="last"><%= parseFloat(total.vat).toFixed(2) %> €</td>
                     </tr>
                     <tr>
-                        <td class="first">Prix de la TVA</td>
-                        <td class="last"><%= total.vat %> €</td>
+                        <td class="first">{{ 'table.label.shippingPriceIT' | trans }}</td>
+                        <td class="last"><%= parseFloat(total.shippingPriceIT).toFixed(2) %> €</td>
                     </tr>
                     <tr class="ttc">
-                        <td class="first">Prix total TTC</td>
-                        <td class="last"><%= total.consumerPriceIT %> €</td>
+                        <td class="first">{{ 'table.label.consumerPriceIT' | trans }}</td>
+                        <td class="last"><%= parseFloat(total.consumerPriceIT).toFixed(2) %> €</td>
                     </tr>
                 </tbody>
             </table>
@@ -397,7 +398,7 @@
         <textarea class="textarea memocli" name="memocli" placeholder="{{ 'form.memocli' | trans | raw }}"><%= client.memocli %></textarea>
     </div>
     <div class="pure-u-6-24">
-        <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reset' | trans | raw }}">
+        <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reinit' | trans | raw }}">
     </div>
     <div class="pure-u-4-24">
         <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">

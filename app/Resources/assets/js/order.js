@@ -21,30 +21,29 @@ import {
 
 /* Cart */
 
-const _cartId = parseInt($('.cart-data').html())
+const _cartId = parseInt($('.cart-json').html().trim())
 
 /* Translations */
 
 let i18n = new I18n()
 
-const _locale = $('.locale-json').html()
+const _locale = $('.locale-json').html().trim()
 
 moment.locale(_locale)
 
 /* Countries */
 
-const _countries = JSON.parse($('.countries-json').html())
+const _countries = JSON.parse($('.countries-json').html().trim())
 
 /* Variables */
 
 let _you = {}
 let _delivery = {}
-let total = {}
+let _total = {}
 
 const itemConnection = $('.item.connection')
 const itemCard = $('.item.card')
 const itemShipping = $('.item.shipping')
-const itemValidation = $('.item.validation')
 const itemPayment = $('.item.payment')
 
 /* Dropdowns */
@@ -99,7 +98,7 @@ function updateDeliveryRender () {
 
 function updateCartRender () {
   $('.total-render').html(totalTemplate({
-    total: total
+    total: _total
   }))
 }
 
@@ -125,8 +124,8 @@ function adlivUpdateFormRender () {
   }))
 }
 
-getData(_cartId, 'myAd', 'FR').then(data => {
-  total = data
+getData(_cartId, 'myAdd', 'FR').then(data => {
+  _total = data
   updateCartRender()
   updateDeliveryRender()
 })
@@ -136,6 +135,7 @@ getData(_cartId, 'myAd', 'FR').then(data => {
 function afterLogin (user, bypass) {
   _delivery = getDelivery()
   _delivery.codcli = user.codcli
+  _delivery.cartId = parseInt(_cartId)
   _you = user
   updateYouRender()
   updateCartRender()
@@ -411,7 +411,7 @@ itemShipping.on('click', '.continue', function (event) {
   formGift.submit()
   valideDelivery(_delivery).then(delivery => {
     getData(_cartId, delivery.destliv, delivery.paysliv).then(data => {
-      total = data
+      _total = data
       updateCartRender()
       updateDeliveryRender()
       changeItem(itemPayment)
@@ -427,15 +427,10 @@ itemShipping.on('click', '.continue', function (event) {
   })
 })
 
-/*
-
-JUSQU'ICI TOUT FONCTIONNE :)
-
-*/
 function getPaysParsed (modpaie, pays) {
   if (modpaie === 'PBX') {
     return new Promise((resolve, reject) => {
-      getPBXCode(pays).then((data) => {
+      getPBXCode(pays).then(data => {
         resolve(data)
       }).catch(() => {
         reject(i18n.trans('form.message.zipcode_invalid'))
@@ -443,7 +438,7 @@ function getPaysParsed (modpaie, pays) {
     })
   } else {
     return new Promise((resolve, reject) => {
-      getPaypalCode(pays).then((data) => {
+      getPaypalCode(pays).then(data => {
         resolve(data)
       }).catch(() => {
         reject(i18n.trans('form.message.zipcode_invalid'))
@@ -452,27 +447,24 @@ function getPaysParsed (modpaie, pays) {
   }
 }
 
-itemPayment.on('click', '.button.submit.process-order', function (event) {
-  _delivery.cartId = _cartId
+itemPayment.on('submit', 'form.payment', function (event) {
   event.preventDefault()
   getPaysParsed(_delivery.modpaie, _delivery.paysliv).then(paysparsed => {
     postOrder(_delivery).then(res => {
-      console.log(paysparsed)
-      let result = $('.result', itemValidation).html()
-      result = result.replace('%entry_number%', res)
-      $('.result', itemValidation).html(result)
-      placePayment(_delivery.modpaie,
-        total.consumerPriceIT,
-        result.refcom,
+      placePayment(
+        res.modpaie,
+        res.ttc,
+        res.refcom,
         'truc',
-        `Commande sur le site La Roche D'Or`,
+        'Commande sur le site La Roche D\'Or',
         _you.email,
         paysparsed,
-        _delivery.paysliv
+        _locale
       )
-      changeItem(itemValidation)
     }).catch(error => {
-      $('.right .catch-message').html(error)
+      if (error) {
+        upFlashbag(error)
+      }
     })
   })
 })

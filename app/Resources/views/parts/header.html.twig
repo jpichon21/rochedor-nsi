@@ -54,8 +54,13 @@
         </ul>
     </div>
     <div class="logo">
-        <a class="normal" href="/"><img src="{{ asset('assets/img/logo.png') }}" alt="La Roche d'Or"></a>
-        <a class="editions" href="/"><img src="{{ asset('assets/img/logo-editions.png') }}" alt="Les Editions Roche d'Or"></a>
+        <a class="normal" href="/">
+            <img src="{{ asset('assets/img/logo.png') }}" alt="La Roche d'Or">
+        </a>
+        <a class="editions" href="/">
+            <img src="{{ asset('assets/img/logo-editions.png') }}" alt="Les Editions Roche d'Or">
+            <span>Les Editions<br>de la Roche d'Or</span>
+        </a>
     </div>
     <div class="right">
         <ul class="menu">
@@ -69,7 +74,7 @@
             <li><a href="#">{{ 'menu.four.three' | trans | raw }}</a></li>
             <li><a href="#">{{ 'menu.four.four' | trans | raw }}</a></li>
         </ul>
-        <ul class="sub-menu editions" data-menu="qzsedr">
+        <ul class="sub-menu" data-menu="qzsedr">
             <div class="blank"></div>
             <div class="blank"></div>
             <li><a href="#">{{ 'menu.five.one' | trans | raw }}</a></li>

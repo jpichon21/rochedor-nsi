@@ -1269,13 +1269,13 @@
     <unit id="i2JGptw" name="order.registration.one.title">
       <segment>
         <source>order.registration.one.title</source>
-        <target>Connexion</target>
+        <target>Connexion/Inscription</target>
       </segment>
     </unit>
     <unit id="BxI_rwF" name="order.registration.one.body.disconnected">
       <segment>
         <source>order.registration.one.body.disconnected</source>
-        <target>Avez vous déja effectuer une commande sur notre site ?</target>
+        <target>Avez-vous déjà commandé aux Editions Roche d'Or ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
       </segment>
     </unit>
     <unit id="al9WFPE" name="order.registration.two.title">
@@ -1533,7 +1533,7 @@
     <unit id="kkp4fpp" name="order.registration.one.body.connected">
       <segment>
         <source>order.registration.one.body.connected</source>
-        <target>Avez déjà effectuer une commande sur le site web la Roche d'Or</target>
+        <target><![CDATA[Vous êtes connecté en tant que <i>%name%</i>, voulez-vous continuer ?]]></target>
       </segment>
     </unit>
     <unit id="JdLwAci" name="form.gift">
@@ -1707,7 +1707,7 @@
     <unit id="oXrCtEF" name="form.reset">
       <segment>
         <source>form.reset</source>
-        <target>Effacer</target>
+        <target>form.reinit</target>
       </segment>
     </unit>
     <unit id="reTt_sP" name="form.message.child_must_come_with_adult">
@@ -1984,6 +1984,108 @@
       <segment>
         <source>menu.cart</source>
         <target>Panier</target>
+      </segment>
+    </unit>
+    <unit id="EY4TYVa" name="order.registration.one.title.connection">
+      <segment>
+        <source>order.registration.one.title.connection</source>
+        <target>Connection</target>
+      </segment>
+    </unit>
+    <unit id="xglinNC" name="order.registration.one.title.registration">
+      <segment>
+        <source>order.registration.one.title.registration</source>
+        <target>Inscription</target>
+      </segment>
+    </unit>
+    <unit id="l0nR41K" name="form.message.delivery_invalid">
+      <segment>
+        <source>form.message.delivery_invalid</source>
+        <target>Tous les champs de "Adresse de livraison" sont obligatoires</target>
+      </segment>
+    </unit>
+    <unit id="cHFGXVz" name="order.choose.payment">
+      <segment>
+        <source>order.choose.payment</source>
+        <target>Mode de paiement</target>
+      </segment>
+    </unit>
+    <unit id="oydHg8c" name="order.error.title">
+      <segment>
+        <source>order.error.title</source>
+        <target><![CDATA[<small>Les Editions </small>Roche d'Or]]></target>
+      </segment>
+    </unit>
+    <unit id="5BOTPxB" name="order.error.text">
+      <segment>
+        <source>order.error.text</source>
+        <target><![CDATA[Votre panier est vide. Vous pouvez ajouter un article depuis les <a href="%link%">collections</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="DwQUHDv" name="table.label.weightOrder">
+      <segment>
+        <source>table.label.weightOrder</source>
+        <target>Poids des articles</target>
+      </segment>
+    </unit>
+    <unit id="G1UnR4o" name="table.label.packagingWeight">
+      <segment>
+        <source>table.label.packagingWeight</source>
+        <target>Poids de l'emballage</target>
+      </segment>
+    </unit>
+    <unit id="lRTS5zO" name="table.label.totalWeight">
+      <segment>
+        <source>table.label.totalWeight</source>
+        <target>Poids total</target>
+      </segment>
+    </unit>
+    <unit id="0DVHmKT" name="table.label.totalPriceIT">
+      <segment>
+        <source>table.label.totalPriceIT</source>
+        <target>Montant des achats TTC</target>
+      </segment>
+    </unit>
+    <unit id="VlB_08Z" name="table.label.vat">
+      <segment>
+        <source>table.label.vat</source>
+        <target>Dont TVA</target>
+      </segment>
+    </unit>
+    <unit id="NL2xyyC" name="table.label.shippingPriceIT">
+      <segment>
+        <source>table.label.shippingPriceIT</source>
+        <target>Frais d'expédition</target>
+      </segment>
+    </unit>
+    <unit id="oc7G9Ky" name="table.label.consumerPriceIT">
+      <segment>
+        <source>table.label.consumerPriceIT</source>
+        <target>Total TTC</target>
+      </segment>
+    </unit>
+    <unit id="thE5KNk" name="form.reinit">
+      <segment>
+        <source>form.reinit</source>
+        <target>Réinitialiser</target>
+      </segment>
+    </unit>
+    <unit id="AOdX9Pe" name="order-return.title">
+      <segment>
+        <source>order-return.title</source>
+        <target><![CDATA[Les Editions <small>de la Roche d'Or</small>]]></target>
+      </segment>
+    </unit>
+    <unit id="bI8gjQ5" name="order-return.success">
+      <segment>
+        <source>order-return.success</source>
+        <target><![CDATA[Votre commande a bien été enregistrée. Vous recevrez un mail de confirmation dans quelques minutes. Retour aux <a href="%link%">collections</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="VbHIGnV" name="order-return.cancel">
+      <segment>
+        <source>order-return.cancel</source>
+        <target><![CDATA[Un problème est survenu lors de votre commande. Veuillez retourner au <a href="%link%">panier</a>.]]></target>
       </segment>
     </unit>
   </file>
