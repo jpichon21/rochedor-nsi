@@ -53,9 +53,9 @@ class Shipping
     /**
      * @var array
      *
-     * @ORM\Column(name="relatedcountrys", type="array")
+     * @ORM\Column(name="relatedcountries", type="array")
      */
-    private $relatedcountrys;
+    private $relatedcountries;
 
     /**
     * @var int
@@ -171,27 +171,27 @@ class Shipping
     }
 
     /**
-     * Set relatedcountrys.
+     * Set relatedcountries.
      *
-     * @param array $relatedcountrys
+     * @param array $relatedcountries
      *
      * @return Tax
     */
-    public function setRelatedcountrys($relatedcountrys)
+    public function setRelatedcountries($relatedcountries)
     {
-        $this->relatedcountrys = $relatedcountrys;
+        $this->relatedcountries = $relatedcountries;
 
         return $this;
     }
 
     /**
-     * Get relatedcountrys.
+     * Get relatedcountries.
      *
      * @return array
     */
-    public function getRelatedcountrys()
+    public function getRelatedcountries()
     {
-        return $this->relatedcountrys;
+        return $this->relatedcountries;
     }
 
             /**

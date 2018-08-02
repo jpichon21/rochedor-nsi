@@ -91,7 +91,7 @@ class ShippingRepository
         $queryWeight = $this->entityManager
         ->createQuery('SELECT MAX(s.weight)
         FROM AppBundle\Entity\Shipping s 
-        WHERE s.relatedcountrys LIKE :country ');
+        WHERE s.relatedcountries LIKE :country ');
         $queryWeight->setParameters(['country' => '%'.$country.'%']);
         if ($queryWeight->getResult()[0][1] != null) {
             $maximalWeight = $queryWeight->getResult()[0][1];
@@ -109,7 +109,7 @@ class ShippingRepository
         $query = $this->entityManager
         ->createQuery('SELECT s.price
         FROM AppBundle\Entity\Shipping s 
-        WHERE s.relatedcountrys LIKE :country
+        WHERE s.relatedcountries LIKE :country
         AND :weight < s.weight
         ORDER BY s.price asc');
         $query->setParameters(['country' => '%'.$country.'%', 'weight' => $weight]);
@@ -122,7 +122,7 @@ class ShippingRepository
             $query = $this->entityManager
             ->createQuery('SELECT s.price
             FROM AppBundle\Entity\Shipping s 
-            WHERE s.relatedcountrys LIKE :country
+            WHERE s.relatedcountries LIKE :country
             AND s.maximalWeight = 1');
             $query->setParameters(['country' => '%'.$country.'%']);
             $query->setMaxResults(1);
