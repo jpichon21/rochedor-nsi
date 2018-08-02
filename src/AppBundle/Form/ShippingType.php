@@ -22,7 +22,7 @@ class ShippingType extends AbstractType
         ->add('country')
         ->add('price')
         ->add(
-            'relatedcountrys',
+            'relatedcountries',
             CollectionType::class,
             [
             'entry_type' => TextType::class,

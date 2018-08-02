@@ -125,7 +125,6 @@ function adlivUpdateFormRender () {
 }
 
 getData(_cartId, 'myAdd', 'FR').then(data => {
-  console.log(data)
   _total = data
   updateCartRender()
   updateDeliveryRender()
@@ -140,7 +139,7 @@ function afterLogin (user, bypass) {
   _you = user
   updateYouRender()
   updateCartRender()
-  adlivUpdateForm('myAdd')
+  adlivUpdateForm('myAd')
   if (bypass) {
     changeItem(itemShipping)
   } else {
@@ -278,7 +277,7 @@ function validateClient (event, context, callback) {
           })
         } else {
           return new Promise((resolve, reject) => {
-            checkZipcode(participant.pays, participant.cp, 'myAdd').then(() => {
+            checkZipcode(participant.pays, participant.cp, 'myAd').then(() => {
               resolve(callback(participant))
             }).catch(() => {
               upFlashbag(i18n.trans('form.message.zipcode_invalid'))
@@ -306,7 +305,7 @@ itemCard.on('submit', '.panel.modify form', function (event) {
     }).then(client => {
       _you = client
       updateYouRender()
-      adlivUpdateForm('myAdd')
+      adlivUpdateForm('myAd')
       $(`.panel.modify`).slideUp(800, function () {
         $(this).hide()
         changeItem(itemCard)
@@ -325,7 +324,7 @@ itemShipping.on('change', '.select-adliv', function (event) {
 
 function adlivUpdateForm (destliv) {
   switch (destliv) {
-    case 'myAdd':
+    case 'myAd':
       _delivery.adliv.adresse = _you.adresse
       _delivery.adliv.zipcode = _you.cp
       _delivery.adliv.city = _you.ville
@@ -382,7 +381,7 @@ formAdliv.on('submit', function (event) {
     _delivery.adliv.city = delivery.city
     _delivery.paysliv = delivery.paysliv
   }
-  if (_delivery.destliv === 'myAdd' && delivery.paysliv !== undefined) {
+  if (_delivery.destliv === 'myAd' && delivery.paysliv !== undefined) {
     _delivery.paysliv = delivery.paysliv
   }
 })

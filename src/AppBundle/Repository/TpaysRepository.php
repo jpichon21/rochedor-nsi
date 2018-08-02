@@ -52,25 +52,27 @@ class TpaysRepository
             return true;
         }
 
-        if (strlen($country) === 2) {
-            $query = $this->entityManager
-            ->createQuery('SELECT tp.nompays 
-            FROM AppBundle\Entity\Tpays tp 
-            WHERE tp.codpays=:country');
-            $query->setParameter('country', $country);
-            $result =  $query->getOneOrNullResult();
-            $country = $result;
+        if (strlen($country) !== 2) {
+            return false;
         }
+ 
+        $query = $this->entityManager
+        ->createQuery('SELECT tp.nompays 
+        FROM AppBundle\Entity\Tpays tp 
+        WHERE tp.codpays=:country');
+        $query->setParameter('country', $country);
+        $result =  $query->getOneOrNullResult();
+        $country = $result;
  
         $query = $this->entityManager
         ->createQuery('SELECT tp.zipcodes 
         FROM AppBundle\Entity\Tpays tp 
         WHERE tp.nompays=:country');
-        $query->setParameter('country', $country["nompays"]);
+        $query->setParameter('country', $country['nompays']);
         $results =  $query->getOneOrNullResult();
 
         if ($results['zipcodes'] === null) {
-            return true;
+            return false;
         }
 
         foreach ($results['zipcodes'] as $k => $result) {

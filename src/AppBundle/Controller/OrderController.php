@@ -137,7 +137,7 @@ class OrderController extends Controller
     */
     public function xhrTestWeight(Request $request, $weight, $country, $destliv)
     {
-        return $this->shippingRepository->findGoodPort($weight, $country, $destliv);
+        return $this->shippingRepository->findShipping($weight, $country, $destliv);
     }
 
     /**
@@ -187,7 +187,7 @@ class OrderController extends Controller
         if ($value === true) {
             return ['status' => 'ok'];
         } else {
-            return ['status' => 'ko','error' => 'your zipcode didnt exist'];
+            return ['status' => 'ko','error' => 'your zipcode doesn\'t exist'];
         }
     }
 
@@ -248,51 +248,49 @@ class OrderController extends Controller
                 $tax = $this->productRepository->findTax($product->getCodPrd(), $country);
                 $product = $cartline->getProduct();
 
+                $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;
+                
                 if ($product->getTypprd() === Produit::TYP_BOOK) {
                     $priceIncludeTaxes = $product->getPrix();
-                    $data['totalPrice'] = round($data['totalPrice'] + $product->getPrix(), 2);
-                    $data['totalPriceIT'] = round($data['totalPriceIT'] + $priceIncludeTaxes, 2);
-                    $data['product'][$k]['codprd'] = $product->getCodprd();
-                    $data['product'][$k]['quantity'] = $cartline->getQuantity();
-                    $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;
-                    $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
-                    $data['product'][$k]['price'] = round($product->getPrixht()
-                    * (1+($data['product'][$k]['productTaxRate']/100)), 2);
-                    $data['product'][$k]['name'] = $product->getProduitcourt();
-                    $data['product'][$k]['vatProduct'] = round($data['product'][$k]['priceIT']
-                                                    - $data['product'][$k]['price'], 2);
-                    $totalWeight = $totalWeight + $product->getPoids();
+                    
+                    $data['product'][$k]['price'] = round(
+                        $product->getPrix() / (1 + ($data['product'][$k]['productTaxRate']/100)),
+                        2
+                    );
                 } else {
                     if ($tax === null || $tax->getRate() === 0) {
                         $priceIncludeTaxes = $product->getPrixht();
                     } else {
                         $priceIncludeTaxes = $this->getProductPrice($product, $tax->getRate());
                     }
-                    $data['totalPrice'] = round($data['totalPrice'] + $product->getPrixht(), 2);
-                    $data['totalPriceIT'] = round($data['totalPriceIT'] + $priceIncludeTaxes, 2);
-                    $data['product'][$k]['codprd'] = $product->getCodprd();
-                    $data['product'][$k]['quantity'] = $cartline->getQuantity();
-                    $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;
-                    $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
+                    
                     $data['product'][$k]['price'] = $product->getPrixht();
-                    $data['product'][$k]['name'] = $product->getProduitcourt();
-                    $data['product'][$k]['vatProduct'] = round($data['product'][$k]['priceIT']
-                                                        - $data['product'][$k]['price'], 2);
-                    $totalWeight = $totalWeight + $product->getPoids();
                 }
+
+                $data['totalPrice'] = round($data['totalPrice'] + $data['product'][$k]['price'], 2);
+                $data['product'][$k]['codprd'] = $product->getCodprd();
+                $data['product'][$k]['quantity'] = $cartline->getQuantity();
+                $data['product'][$k]['name'] = $product->getProduitcourt();
+                $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
+                $data['product'][$k]['vatProduct'] = round($data['product'][$k]['priceIT']
+                                                        - $data['product'][$k]['price'], 2);
+                
+                $data['totalPriceIT'] = round($data['totalPriceIT'] + $priceIncludeTaxes, 2);
+                
+                $totalWeight = $totalWeight + $product->getPoids();
                 
                 $i++;
             }
         }
-        $portPriceData = $this->shippingRepository->findGoodPort($totalWeight, $country, $destliv);
-        $packagingWeight = $portPriceData['suplementWeight'];
-        $portPriceIT = $portPriceData['price'];
+        $shippingPriceData = $this->shippingRepository->findShipping($totalWeight, $country, $destliv);
+        $packagingWeight = $shippingPriceData['suplementWeight'];
+        $shippingPriceIT = $shippingPriceData['price'];
         $data['packagingWeight'] = $packagingWeight;
         $data['weightOrder'] = $totalWeight;
         $data['totalWeight'] = $totalWeight + $packagingWeight;
-        $data['portPriceIT'] = $portPriceIT;
-        $data['consumerPriceIT'] = $data['portPriceIT'] + $data['totalPriceIT'];
-        $data['consumerPrice'] = $data['portPriceIT'] + $data['totalPrice'];
+        $data['shippingPriceIT'] = $shippingPriceIT;
+        $data['consumerPriceIT'] = $data['shippingPriceIT'] + $data['totalPriceIT'];
+        $data['consumerPrice'] = $data['shippingPriceIT'] + $data['totalPrice'];
 
         $data['vat'] = round($data['totalPriceIT'] - $data['totalPrice'], 2);
         return $data;
@@ -459,7 +457,7 @@ class OrderController extends Controller
         }
 
         $weight = $data['weightOrder'];
-        $portPrice = $data['portPriceIT'];
+        $shippingPrice = $data['shippingPriceIT'];
         $amountHT = $data['consumerPrice'];
         $promo = 0;
         $priceit = $data['consumerPriceIT'];
@@ -486,7 +484,7 @@ class OrderController extends Controller
         $order->setTtc($priceit);
         $order->setTva($vat);
         $order->setPoids($weight);
-        $order->setPort($portPrice);
+        $order->setPort($shippingPrice);
         $order->setPromo($promo);
         $order->setDatliv($datliv);
         $order->setPaysip($paysip);

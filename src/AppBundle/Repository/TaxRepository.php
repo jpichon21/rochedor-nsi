@@ -17,16 +17,6 @@ class TaxRepository extends \Doctrine\ORM\EntityRepository
     private $repository;
     
     /**
-    * @var EntityManagerInterface
-    */
-    private $entityManager;
-    
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
-    
-    /**
     * Find Produit by its Id
     *
     * @param int productId
