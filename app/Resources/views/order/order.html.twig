@@ -264,19 +264,19 @@
                 <tbody>
                     <tr>
                         <td class="first">{{ 'table.label.totalPriceIT' | trans }}</td>
-                        <td class="last"><%= total.totalPriceIT %> €</td>
+                        <td class="last"><%= parseFloat(total.totalPriceIT).toFixed(2) %> €</td>
                     </tr>
                     <tr>
                         <td class="first">{{ 'table.label.vat' | trans }}</td>
-                        <td class="last"><%= total.vat %> €</td>
+                        <td class="last"><%= parseFloat(total.vat).toFixed(2) %> €</td>
                     </tr>
                     <tr>
                         <td class="first">{{ 'table.label.portPriceIT' | trans }}</td>
-                        <td class="last"><%= total.portPriceIT %> €</td>
+                        <td class="last"><%= parseFloat(total.portPriceIT).toFixed(2) %> €</td>
                     </tr>
                     <tr class="ttc">
                         <td class="first">{{ 'table.label.consumerPriceIT' | trans }}</td>
-                        <td class="last"><%= total.consumerPriceIT %> €</td>
+                        <td class="last"><%= parseFloat(total.consumerPriceIT).toFixed(2) %> €</td>
                     </tr>
                 </tbody>
             </table>
