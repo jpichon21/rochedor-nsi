@@ -357,9 +357,19 @@ class OrderController extends Controller
      */
     public function paymentReturnAction($method, $status, Request $request, PaypalService $paypalService)
     {
+        $session = new Session();
+        $cartId = $session->get('cart');
+        $cart = $this->cartRepository->find($cartId);
+
+        $this->em->remove($cart);
+        $this->em->flush();
+        
+        $session->remove('cart');
+
         if ($status === 'success') {
             $this->paymentNotifyAction($method, $request, $paypalService);
         }
+
         return $this->render('order/payment-return.html.twig', [
             'status' => $status,
             'method' => $method,
@@ -416,13 +426,8 @@ class OrderController extends Controller
     {
         
         $user = $this->getUser();
-        // $em = $this->getDoctrine()->getManager();
-        // $user = $this->getDoctrine()->getRepository('AppBundle:Contact')->findByCodco($codcli);
         $codcli = $user->getCodcli();
-        
-
         $cart = $this->cartRepository->find($delivery['cartId']);
-        // $cart = $this->getCart($cartId);
 
         $datCom = new \DateTime();
         $modpaie = $delivery['modpaie'];
@@ -516,12 +521,6 @@ class OrderController extends Controller
         }
         $this->notifyClient($order, $locale, $user);
         return $order;
-    }
-    
-    private function getCart($id)
-    {
-        $cart = $this->cartRepository->find($id);
-        return $cart;
     }
 
     private function getAdLiv($adliv, $user)

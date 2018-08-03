@@ -29,14 +29,18 @@ class Cartline
     private $quantity;
 
     /**
-    * @var AppBundle\Entity\Produit
-    * @ORM\ManyToOne(targetEntity="Produit")
-    * @ORM\JoinColumn(name="CodPrd", referencedColumnName="CodPrd")
+     * @var AppBundle\Entity\Produit
+     *
+     * @ORM\ManyToOne(targetEntity="Produit")
+     * @ORM\JoinColumn(name="CodPrd", referencedColumnName="CodPrd")
     */
     private $product;
 
     /**
-    * @ORM\ManyToOne(targetEntity="Cart")
+     * @var \AppBundle\Entity\Cart
+     *
+     * @ORM\ManyToOne(targetEntity="Cart", inversedBy="cartlines")
+     * @ORM\JoinColumn(name="cart", referencedColumnName="id")
     */
     private $cart;
 
