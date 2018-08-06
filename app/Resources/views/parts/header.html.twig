@@ -1,39 +1,41 @@
 <div class="header">
-    {% if cartCount is defined %}
-    <a href="{{ path('order-' ~ app.request.locale) }}" class="cart">
-        {{ 'menu.cart' | trans }}
-        {% if cartCount > 0 %}
-        <span>{{ cartCount }}</span>
+    <div class="options">
+        {% if cartCount is defined %}
+        <a href="{{ path('order-' ~ app.request.locale) }}" class="cart">
+            {{ 'menu.cart' | trans }}
+            {% if cartCount > 0 %}
+            <span>{{ cartCount }}</span>
+            {% endif %}
+        </a>
         {% endif %}
-    </a>
-    {% endif %}
-    <div class="languages">
-        <ul class="available">
-            {% if availableLocales is defined %}
-            {% for locale, url in availableLocales %}
-            {% if locale != app.request.locale %}
-            <li><a href={{ url }}>{{ locale }}</a></li>
-            {% endif %}
-            {% endfor %}
-            {% else %}
-            {% set route = app.request.attributes.get('_route') %}
-            {% set route_params = app.request.attributes.get('_route_params') %}
-            {% set params = route_params|merge(app.request.query.all) %}
-            {% for locale in locales %}
-            {% if locale != app.request.locale %}
-            <li><a href="{{ path(route, params|merge({ _locale: locale })) }}">{{ locale }}</a></li>
-            {% endif %}
-            {% endfor %}
-            {% endif %}
-        </ul>
-        <ul class="current">
-            <li><a href={{ currentPath }}>{{ currentLocale }}</a></li>
+        <div class="languages">
+            <ul class="available">
+                {% if availableLocales is defined %}
+                {% for locale, url in availableLocales %}
+                {% if locale != app.request.locale %}
+                <li><a href={{ url }}>{{ locale }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                {% set route = app.request.attributes.get('_route') %}
+                {% set route_params = app.request.attributes.get('_route_params') %}
+                {% set params = route_params|merge(app.request.query.all) %}
+                {% for locale in locales %}
+                {% if locale != app.request.locale %}
+                <li><a href="{{ path(route, params|merge({ _locale: locale })) }}">{{ locale }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+            </ul>
+            <ul class="current">
+                <li><a href={{ currentPath }}>{{ currentLocale }}</a></li>
+            </ul>
+        </div>
+        <ul class="zoom">
+            <li class="minus">A -</li>
+            <li class="plus">A +</li>
         </ul>
     </div>
-    <ul class="zoom">
-        <li class="minus">A -</li>
-        <li class="plus">A +</li>
-    </ul>
     <div class="left">
         <ul class="menu">
             <li data-menu="vgbhnj">{{ 'menu.one' | trans | raw }}</li>

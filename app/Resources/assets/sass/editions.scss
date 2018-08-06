@@ -46,20 +46,22 @@ h2 {
       background: linear-gradient(to bottom, transparent 0%, #ececec 1px, transparent 100%);
     }
   }
-  .languages {
-    ul li a {
-      color: #000000;
+  .options {
+    .languages {
+      ul li a {
+        color: #000000;
+      }
+      .current li {
+        border-color: #000000;
+      }
+      .available li {
+        border-color: rgba(0, 0, 0, 0.2);
+      }
     }
-    .current li {
+    .zoom li {
+      color: #000000;
       border-color: #000000;
     }
-    .available li {
-      border-color: rgba(0, 0, 0, 0.2);
-    }
-  }
-  .zoom li {
-    color: #000000;
-    border-color: #000000;
   }
   .logo {
     .normal {
