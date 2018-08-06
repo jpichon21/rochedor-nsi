@@ -334,14 +334,6 @@ class CalendarController extends Controller
         }
         return false;
     }
-
-    private function isChild(string $datnaiss)
-    {
-        $datnaiss = new \DateTime($datnaiss);
-        $now = new \DateTime();
-        $diff = $datnaiss->diff($now);
-        return ($diff->y <= $this::YEARS_CHILD);
-    }
     
     private function isAdult(string $datnaiss)
     {
