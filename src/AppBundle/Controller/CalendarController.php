@@ -177,9 +177,6 @@ class CalendarController extends Controller
         if (!$attendees || !$activityId) {
             return ['status' => 'ko', 'message' => 'You must provide attendees object and activityId'];
         }
-        if (!$this->validAttendees($attendees)) {
-            return ['status' => 'ko', 'message' => 'The relations between attendees is not auhtorized'];
-        }
         if (!$calL = $this->registerAttendees($attendees, $activityId)) {
             return ['status' => 'ko', 'message' => 'The registration has failed'];
         }
@@ -319,18 +316,6 @@ class CalendarController extends Controller
         $ref .= $now->format('y');
         $ref .= '-'.str_pad($count, 5, '0', STR_PAD_LEFT);
         return $ref;
-    }
-
-    private function validAttendees($attendees)
-    {
-        // foreach ($attendees as $attendee) {
-        //     if ($this->isChild($attendee['datnaiss'])) {
-        //         if (!$this->hasParent($attendee, $attendees)) {
-        //             return false;
-        //         }
-        //     }
-        // }
-        return true;
     }
     
     private function hasParent($child, $attendees)
