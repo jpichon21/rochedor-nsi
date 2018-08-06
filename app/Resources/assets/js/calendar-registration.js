@@ -250,9 +250,7 @@ function validateParticipant (participant) {
         } else {
           if (participant.coltyp === 'enfan' || participant.coltyp === 'accom') {
             const people = [..._registered, _you]
-            const filtered = people.filter(person => {
-              return person.codco === parseInt(participant.colp)
-            })
+            const filtered = people.filter(person => person.codco === parseInt(participant.colp))
             const parent = filtered.shift()
             if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
               upConfirmbox(i18n.trans('form.message.does_child_have_autpar')).then(() => {
@@ -303,13 +301,17 @@ function callbackSubmit (event, context, action, callback) {
   })
 }
 
-itemParticipants.on('submit', '.panel.you form', function (event) {
+const panelYouFrom = $('.panel.you form')
+const panelModifyForm = $('.panel.modify form')
+const panelAddForm = $('.panel.add form')
+
+panelYouFrom.on('submit', function (event) {
   callbackSubmit(event, $(this), 'you', function (res) {
     _you = res
   })
 })
 
-itemParticipants.on('submit', '.panel.modify form', function (event) {
+panelModifyForm.on('submit', function (event) {
   callbackSubmit(event, $(this), 'modify', function (res) {
     _registered = _registered.map(obj => {
       if (obj.codco === res.codco) { return res }
@@ -318,16 +320,33 @@ itemParticipants.on('submit', '.panel.modify form', function (event) {
   })
 })
 
-itemParticipants.on('submit', '.panel.add form', function (event) {
+panelAddForm.on('submit', function (event) {
   callbackSubmit(event, $(this), 'add', function (res) {
     _registered.push(res)
   })
 })
 
+panelAddForm.on('change', '.select.colp', function () {
+  const coltyp = $(this).closest('form').find('.select.coltyp').val()
+  const colp = $(this).val()
+  const people = [..._registered, _you]
+  if (coltyp === 'conjo' || coltyp === 'enfan') {
+    const filtered = people.filter(person => person.codco === parseInt(colp))
+    const person = filtered.shift()
+    let participant = getParticipant()
+    participant.coltyp = coltyp
+    participant.colp = colp
+    participant.adresse = person.adresse
+    participant.cp = person.cp
+    participant.ville = person.ville
+    participant.pays = person.pays
+    _participant = participant
+    updateHimFormRender()
+  }
+})
+
 function updateParticipants () {
-  _participants = _registered.filter(participant => {
-    return participant.check
-  })
+  _participants = _registered.filter(participant => participant.check)
   _participants.push(_you)
   updateParticipantsRender()
 }
@@ -361,9 +380,7 @@ itemParticipants.on('click', '.modify-you', function (event) {
 itemParticipants.on('click', '.modify-him', function (event) {
   event.preventDefault()
   const selected = parseInt($(this).attr('data-id'))
-  const participants = _registered.filter(registered => {
-    return registered.codco === selected
-  })
+  const participants = _registered.filter(registered => registered.codco === selected)
   _participant = participants.shift()
   $('.panel', itemParticipants).hide()
   $(`.panel.modify`, itemParticipants).show()
