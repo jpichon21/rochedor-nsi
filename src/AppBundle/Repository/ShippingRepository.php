@@ -54,104 +54,80 @@ class ShippingRepository
         ORDER BY p.boundary asc');
         $query->setParameters(['weight' => $weight]);
         $query->setMaxResults(1);
-        
-        if ($query->getOneOrNullResult() === null) {
-            $query2 = $this->entityManager
-            ->createQuery('SELECT p
-            FROM AppBundle\Entity\Packaging p 
-            WHERE p.maximalBoundary = 1');
-            $query2->setMaxResults(1);
-            if ($country === "FR") {
-                return $query2->getResult()[0]->getFrance();
-            } else {
-                return $query2->getResult()[0]->getInternational();
-            }
+        $result = $query->getOneOrNullResult();
+        if ($result === null) {
+            $query = $this->entityManager
+                ->createQuery('SELECT p
+                FROM AppBundle\Entity\Packaging p 
+                ORDER BY p.boundary DESC');
+            $query->setMaxResults(1);
+            $result = $query->getOneOrNullResult();
         }
-
         if ($country === "FR") {
-            return $query->getResult()[0]->getFrance();
+            return $result->getFrance();
         } else {
-            return $query->getResult()[0]->getInternational();
+            return $result->getInternational();
         }
-        exit;
     }
 
-    public function findShipping($weight, $country, $name)
+    public function findShipping($weight, $country)
     {
-
-        $supplementWeight =  $this->findWeight($weight, $country);
-        $weight = $weight + $supplementWeight;
-        $result['suplementWeight'] = $supplementWeight;
-
-        if ($name === "Font" || $name === "Roche") {
-            return ['suplementWeight' => 0, 'price' => 0];
-        }
-
-        $maximalWeight = 0;
-        $queryWeight = $this->entityManager
-        ->createQuery('SELECT MAX(s.weight)
-        FROM AppBundle\Entity\Shipping s 
-        WHERE s.relatedcountries LIKE :country ');
-        $queryWeight->setParameters(['country' => '%'.$country.'%']);
-        if ($queryWeight->getResult()[0][1] != null) {
-            $maximalWeight = $queryWeight->getResult()[0][1];
-        } else {
-            $countryWeight = "HF";
-            $queryWeight2 = $this->entityManager
-            ->createQuery('SELECT MAX(s.weight)
-            FROM AppBundle\Entity\Shipping s 
-            WHERE s.country = :countryWeight');
-            $queryWeight2->setParameters(['countryWeight' => $countryWeight]);
-            $maximalWeight = $queryWeight2->getResult()[0][1];
-        }
-
-
-        $query = $this->entityManager
-        ->createQuery('SELECT s.price
-        FROM AppBundle\Entity\Shipping s 
-        WHERE s.relatedcountries LIKE :country
-        AND :weight < s.weight
-        ORDER BY s.price asc');
-        $query->setParameters(['country' => '%'.$country.'%', 'weight' => $weight]);
-        $query->setMaxResults(1);
         
-        if ($query->getOneOrNullResult() != null) {
-            $result ['price'] = $query->getOneOrNullResult()['price'];
+        // Try to find the matching weight's price for the requested country
+        $query = $this->entityManager->createQuery(
+            'SELECT s.price 
+            FROM AppBundle\Entity\Shipping s 
+            WHERE s.countries LIKE :country AND s.weight > :weight 
+            ORDER BY s.weight'
+        )
+        ->setParameters(['country' => '%'.$country.'%', 'weight' => $weight])
+        ->setMaxResults(1);
+        $result = $query->getOneOrNullResult();
+        if ($result) {
             return $result;
-        } elseif ($weight > $maximalWeight) {
-            $query = $this->entityManager
-            ->createQuery('SELECT s.price
+        }
+
+
+        // Try to find the maximum weight's price for the requested country
+        $query = $this->entityManager->createQuery(
+            'SELECT s.price 
             FROM AppBundle\Entity\Shipping s 
-            WHERE s.relatedcountries LIKE :country
-            AND s.maximalWeight = 1');
-            $query->setParameters(['country' => '%'.$country.'%']);
-            $query->setMaxResults(1);
-            
-            if ($query->getOneOrNullResult() != null) {
-                $result ['price'] = $query->getOneOrNullResult()['price'];
-                return $result;
-            } else {
-                $country ="HF";
-                $query = $this->entityManager
-                ->createQuery('SELECT s.price
-                FROM AppBundle\Entity\Shipping s 
-                WHERE s.country LIKE :country
-                AND s.maximalWeight = 1');
-                $query->setParameters(['country' => $country]);
-                $result ['price'] = $query->getOneOrNullResult()['price'];
-                return $result;
-            }
-        } else {
-            $country = "HF";
-            $query = $this->entityManager
-            ->createQuery('SELECT s.price
+            WHERE s.countries LIKE :country
+            ORDER BY s.weight DESC'
+        )
+        ->setParameter('country', '%'.$country.'%')
+        ->setMaxResults(1);
+        $result = $query->getOneOrNullResult();
+        if ($result) {
+            return $result;
+        }
+
+
+        // Try to find the matching weight's price for outter (empty countries array)
+        $query = $this->entityManager->createQuery(
+            'SELECT s.price 
             FROM AppBundle\Entity\Shipping s 
-            WHERE s.country = :country
-            AND :weight < s.weight
-            ORDER BY s.price asc');
-            $query->setParameters(['country' => $country, 'weight' => $weight]);
-            $query->setMaxResults(1);
-            $result ['price'] = $query->getOneOrNullResult()['price'];
+            WHERE s.countries LIKE :country AND s.weight > :weight 
+            ORDER BY s.weight'
+        )
+        ->setParameters(['country' => 'a:0:{}', 'weight' => $weight])
+        ->setMaxResults(1);
+        $result = $query->getOneOrNullResult();
+        if ($result) {
+            return $result;
+        }
+
+        // Try to find the matching weight's price for outter (empty array)
+        $query = $this->entityManager->createQuery(
+            'SELECT s.price 
+            FROM AppBundle\Entity\Shipping s 
+            WHERE s.countries LIKE :country
+            ORDER BY s.weight DESC'
+        )
+        ->setParameter('country', 'a:0:{}')
+        ->setMaxResults(1);
+        $result = $query->getOneOrNullResult();
+        if ($result) {
             return $result;
         }
     }

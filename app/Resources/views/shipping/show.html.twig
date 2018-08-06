@@ -18,20 +18,12 @@
                 <td>{{ shipping.weight }}</td>
             </tr>
             <tr>
-                <th>Country</th>
-                <td>{{ shipping.country}}</td>
-            </tr>
-            <tr>
                 <th>Price</th>
                 <td>{{ shipping.price}}</td>
             </tr>
             <tr>
-                <th>Related Countries</th>
-                <td>{% if shipping.relatedCountries %}{{ shipping.relatedCountries|join(', ') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Maximal Weight</th>
-                <td>{{ shipping.maximalWeight}}</td>
+                <th>Countries</th>
+                <td>{% if shipping.countries %}{{ shipping.countries|join(', ') }}{% endif %}</td>
             </tr>
         </tbody>
     </table>
