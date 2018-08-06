@@ -241,76 +241,80 @@ function validatePhone (phone, mobile) {
   return !(phone === '' && mobile === '')
 }
 
-function validateParticipant (participant) {
+function validateChild (participant) {
   return new Promise((resolve, reject) => {
-    if (validatePhone(participant.tel, participant.mobil)) {
-      if (validateDate(participant.datnaiss)) {
-        if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
-          resolve(participant)
-        } else {
-          if (participant.coltyp === 'enfan' || participant.coltyp === 'accom') {
-            const people = [..._registered, _you]
-            const filtered = people.filter(person => {
-              return person.codco === parseInt(participant.colp)
+    if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
+      resolve(participant)
+    } else {
+      if (participant.coltyp === 'enfan' || participant.coltyp === 'accom') {
+        const people = [..._registered, _you]
+        const filtered = people.filter(person => person.codco === parseInt(participant.colp))
+        const parent = filtered.shift()
+        if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
+          upConfirmbox(i18n.trans('form.message.does_child_have_autpar')).then(() => {
+            resolve({
+              ...participant,
+              aut16: 1,
+              datAut16: moment().format()
             })
-            const parent = filtered.shift()
-            if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
-              upConfirmbox(i18n.trans('form.message.does_child_have_autpar')).then(() => {
-                resolve({
-                  ...participant,
-                  aut16: 1,
-                  datAut16: moment().format()
-                })
-              }).catch(() => {
-                reject(i18n.trans('form.message.child_must_have_autpar'))
-              })
-            } else {
-              reject(i18n.trans('form.message.parent_must_be_adult'))
-            }
-          } else {
-            reject(i18n.trans('form.message.child_must_come_with_adult'))
-          }
+          }).catch(() => {
+            reject(i18n.trans('form.message.child_must_have_autpar'))
+          })
+        } else {
+          reject(i18n.trans('form.message.parent_must_be_adult'))
         }
       } else {
-        reject(i18n.trans('form.message.date_invalid'))
+        reject(i18n.trans('form.message.child_must_come_with_adult'))
       }
-    } else {
-      reject(i18n.trans('form.message.phone_invalid'))
     }
   })
 }
 
-function callbackSubmit (event, context, action, callback) {
+function callbackSubmit (event, context, action, phoneControl, callback) {
   event.preventDefault()
   const data = context.serializeArray()
-  const participantFormated = formatParticipant(data)
-  validateParticipant(participantFormated).then(participantValidated => {
-    postParticipant(participantValidated).then(res => {
-      const participantUpdated = { ...participantValidated, ...res }
-      callback(participantUpdated)
-      updateYouRender()
-      updateRegisteredRender()
-      updateParticipants()
-      $(`.panel.${action}`).slideUp(800, function () {
-        $(this).hide()
-        changeItem(itemParticipants)
+  const participant = formatParticipant(data)
+  const validatedDate = validateDate(participant.datnaiss)
+  const validatedPhone = phoneControl ? validatePhone(participant.tel, participant.mobil) : true
+  if (validatedDate) {
+    if (validatedPhone) {
+      validateChild(participant).then(participantValidated => {
+        postParticipant(participantValidated).then(res => {
+          const participantUpdated = { ...participantValidated, ...res }
+          callback(participantUpdated)
+          updateYouRender()
+          updateRegisteredRender()
+          updateParticipants()
+          $(`.panel.${action}`).slideUp(800, function () {
+            $(this).hide()
+            changeItem(itemParticipants)
+          })
+        })
+      }).catch(error => {
+        if (error) {
+          upFlashbag(error)
+        }
       })
-    })
-  }).catch(error => {
-    if (error) {
-      upFlashbag(error)
+    } else {
+      upFlashbag(i18n.trans('form.message.phone_invalid'))
     }
-  })
+  } else {
+    upFlashbag(i18n.trans('form.message.date_invalid'))
+  }
 }
 
-itemParticipants.on('submit', '.panel.you form', function (event) {
-  callbackSubmit(event, $(this), 'you', function (res) {
+const panelYouFrom = $('.panel.you form')
+const panelHimForm = $('.panel.him form')
+const panelAddForm = $('.panel.add form')
+
+panelYouFrom.on('submit', function (event) {
+  callbackSubmit(event, $(this), 'you', true, function (res) {
     _you = res
   })
 })
 
-itemParticipants.on('submit', '.panel.modify form', function (event) {
-  callbackSubmit(event, $(this), 'modify', function (res) {
+panelHimForm.on('submit', function (event) {
+  callbackSubmit(event, $(this), 'modify', false, function (res) {
     _registered = _registered.map(obj => {
       if (obj.codco === res.codco) { return res }
       return obj
@@ -318,16 +322,33 @@ itemParticipants.on('submit', '.panel.modify form', function (event) {
   })
 })
 
-itemParticipants.on('submit', '.panel.add form', function (event) {
-  callbackSubmit(event, $(this), 'add', function (res) {
+panelAddForm.on('submit', function (event) {
+  callbackSubmit(event, $(this), 'add', false, function (res) {
     _registered.push(res)
   })
 })
 
+panelAddForm.on('change', '.select.colp', function () {
+  const coltyp = $(this).closest('form').find('.select.coltyp').val()
+  const colp = $(this).val()
+  const people = [..._registered, _you]
+  if (coltyp === 'conjo' || coltyp === 'enfan') {
+    const filtered = people.filter(person => person.codco === parseInt(colp))
+    const person = filtered.shift()
+    let participant = getParticipant()
+    participant.coltyp = coltyp
+    participant.colp = colp
+    participant.adresse = person.adresse
+    participant.cp = person.cp
+    participant.ville = person.ville
+    participant.pays = person.pays
+    _participant = participant
+    updateHimFormRender()
+  }
+})
+
 function updateParticipants () {
-  _participants = _registered.filter(participant => {
-    return participant.check
-  })
+  _participants = _registered.filter(participant => participant.check)
   _participants.push(_you)
   updateParticipantsRender()
 }
@@ -344,50 +365,38 @@ itemParticipants.on('click', '.participate-him', function (event) {
   updateParticipants()
 })
 
-itemParticipants.on('click', '.modify-you', function (event) {
+function modifyClick (event, action, callUpdater, callFunction) {
   event.preventDefault()
-  _participant = _you
+  callFunction()
+  callUpdater()
   $('.panel', itemParticipants).hide()
-  $(`.panel.you`, itemParticipants).show()
-  updateYouFormRender()
+  $(`.panel.${action}`, itemParticipants).show()
   changeItem(itemParticipants)
   setTimeout(() => {
     const content = document.querySelector('.content')
-    const panel = content.querySelector('.panel.you')
+    const panel = content.querySelector(`.panel.${action}`)
     content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
   }, 200)
+}
+
+itemParticipants.on('click', '.modify-you', function (event) {
+  modifyClick(event, 'you', updateYouFormRender, () => {
+    _participant = _you
+  })
 })
 
 itemParticipants.on('click', '.modify-him', function (event) {
-  event.preventDefault()
-  const selected = parseInt($(this).attr('data-id'))
-  const participants = _registered.filter(registered => {
-    return registered.codco === selected
+  modifyClick(event, 'him', updateHimFormRender, () => {
+    const selected = parseInt($(this).attr('data-id'))
+    const participants = _registered.filter(registered => registered.codco === selected)
+    _participant = participants.shift()
   })
-  _participant = participants.shift()
-  $('.panel', itemParticipants).hide()
-  $(`.panel.modify`, itemParticipants).show()
-  updateHimFormRender()
-  changeItem(itemParticipants)
-  setTimeout(() => {
-    const content = document.querySelector('.content')
-    const panel = content.querySelector('.panel.modify')
-    content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
-  }, 200)
 })
 
 itemParticipants.on('click', '.add-participant', function (event) {
-  event.preventDefault()
-  _participant = getParticipant()
-  $('.panel', itemParticipants).hide()
-  $(`.panel.add`, itemParticipants).show()
-  updateHimFormRender()
-  changeItem(itemParticipants)
-  setTimeout(() => {
-    const content = document.querySelector('.content')
-    const panel = content.querySelector('.panel.add')
-    content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
-  }, 200)
+  modifyClick(event, 'add', updateHimFormRender, () => {
+    _participant = getParticipant()
+  })
 })
 
 function validateTransports () {

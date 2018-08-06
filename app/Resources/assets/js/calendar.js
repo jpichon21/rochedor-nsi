@@ -2,6 +2,8 @@ import $ from 'jquery'
 import moment from 'moment'
 import 'clndr'
 
+const retreatsData = JSON.parse($('.retreats-data').html())
+
 /* Filters */
 
 $('.filter')
@@ -41,11 +43,17 @@ $('.filter')
 
 moment.locale('fr')
 
-const dateToday = moment().format('LL')
-const dateOneYear = moment().add(1, 'y').format('LL')
+const lastRetreat = retreatsData[retreatsData.length - 1]
+const dateLastRetreat = lastRetreat.dateOut
 
-$('.date-in span').text(dateToday)
-$('.date-out span').text(dateOneYear)
+const dateBegin = moment().format('LL')
+const dateEnd = moment(dateLastRetreat).format('LL')
+
+$('.date-in span').text(dateBegin)
+$('.date-out span').text(dateEnd)
+
+$('.date-in').addClass('active')
+$('.date-out').addClass('active')
 
 $('.calendar-in').clndr({
   moment: moment,
@@ -93,11 +101,11 @@ function updateRetreats (data) {
   }))
 }
 
-const retreatsData = JSON.parse($('.retreats-data').html())
 retreatsData.map(retreat => {
   retreat.dateIn = moment(retreat.dateIn)
   retreat.dateOut = moment(retreat.dateOut)
 })
+
 updateRetreats(retreatsData)
 
 function applyFilters (filters) {
@@ -178,11 +186,11 @@ $('.filter-raz').on('click', function (event) {
   $('.date-in')
     .removeClass('active')
     .find('span')
-    .text(dateToday)
+    .text(dateBegin)
   $('.date-out')
     .removeClass('active')
     .find('span')
-    .text(dateOneYear)
+    .text(dateEnd)
   $('.filter-keywords').find('input')
     .val('')
     .trigger('keyup')

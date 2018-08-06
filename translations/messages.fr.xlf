@@ -1131,7 +1131,7 @@
     <unit id="Cr.q521" name="form.message.date_invalid">
       <segment>
         <source>form.message.date_invalid</source>
-        <target>La date que vous avez saisi est invalide</target>
+        <target>La date que vous avez saisie est invalide</target>
       </segment>
     </unit>
     <unit id="RJ.6oSN" name="form.no_participants">
@@ -1179,13 +1179,13 @@
     <unit id="kzkX1MK" name="security.bad_credentials">
       <segment>
         <source>security.bad_credentials</source>
-        <target>Les identifiants que vous avez saisi sont erronés</target>
+        <target>Les identifiants que vous avez saisis sont erronés</target>
       </segment>
     </unit>
     <unit id="rHsOKUn" name="security.check_inbox">
       <segment>
         <source>security.check_inbox</source>
-        <target>Veuillez vérifier votre boîte email</target>
+        <target>Un mail vient de vous être envoyé pour terminer la réinitialisation de votre mot de passe.</target>
       </segment>
     </unit>
     <unit id="hmTi4mf" name="news.last_posts.title">
@@ -1685,6 +1685,12 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
       <segment>
         <source>calendar.registration.error.date</source>
         <target><![CDATA[Désolé, cette retraite n'est plus disponible. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="7OkaL_L" name="form.email.please">
+      <segment>
+        <source>form.email.please</source>
+        <target>Indiquer votre email</target>
       </segment>
     </unit>
   </file>
