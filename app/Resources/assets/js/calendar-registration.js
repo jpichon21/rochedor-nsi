@@ -302,7 +302,7 @@ function callbackSubmit (event, context, action, callback) {
 }
 
 const panelYouFrom = $('.panel.you form')
-const panelModifyForm = $('.panel.modify form')
+const panelHimForm = $('.panel.him form')
 const panelAddForm = $('.panel.add form')
 
 panelYouFrom.on('submit', function (event) {
@@ -311,7 +311,7 @@ panelYouFrom.on('submit', function (event) {
   })
 })
 
-panelModifyForm.on('submit', function (event) {
+panelHimForm.on('submit', function (event) {
   callbackSubmit(event, $(this), 'modify', function (res) {
     _registered = _registered.map(obj => {
       if (obj.codco === res.codco) { return res }
@@ -363,48 +363,38 @@ itemParticipants.on('click', '.participate-him', function (event) {
   updateParticipants()
 })
 
-itemParticipants.on('click', '.modify-you', function (event) {
+function modifyClick (event, action, callUpdater, callFunction) {
   event.preventDefault()
-  _participant = _you
+  callFunction()
+  callUpdater()
   $('.panel', itemParticipants).hide()
-  $(`.panel.you`, itemParticipants).show()
-  updateYouFormRender()
+  $(`.panel.${action}`, itemParticipants).show()
   changeItem(itemParticipants)
   setTimeout(() => {
     const content = document.querySelector('.content')
-    const panel = content.querySelector('.panel.you')
+    const panel = content.querySelector(`.panel.${action}`)
     content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
   }, 200)
+}
+
+itemParticipants.on('click', '.modify-you', function (event) {
+  modifyClick(event, 'you', updateYouFormRender, () => {
+    _participant = _you
+  })
 })
 
 itemParticipants.on('click', '.modify-him', function (event) {
-  event.preventDefault()
-  const selected = parseInt($(this).attr('data-id'))
-  const participants = _registered.filter(registered => registered.codco === selected)
-  _participant = participants.shift()
-  $('.panel', itemParticipants).hide()
-  $(`.panel.modify`, itemParticipants).show()
-  updateHimFormRender()
-  changeItem(itemParticipants)
-  setTimeout(() => {
-    const content = document.querySelector('.content')
-    const panel = content.querySelector('.panel.modify')
-    content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
-  }, 200)
+  modifyClick(event, 'him', updateHimFormRender, () => {
+    const selected = parseInt($(this).attr('data-id'))
+    const participants = _registered.filter(registered => registered.codco === selected)
+    _participant = participants.shift()
+  })
 })
 
 itemParticipants.on('click', '.add-participant', function (event) {
-  event.preventDefault()
-  _participant = getParticipant()
-  $('.panel', itemParticipants).hide()
-  $(`.panel.add`, itemParticipants).show()
-  updateHimFormRender()
-  changeItem(itemParticipants)
-  setTimeout(() => {
-    const content = document.querySelector('.content')
-    const panel = content.querySelector('.panel.add')
-    content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
-  }, 200)
+  modifyClick(event, 'add', updateHimFormRender, () => {
+    _participant = getParticipant()
+  })
 })
 
 function validateTransports () {
