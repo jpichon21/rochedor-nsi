@@ -241,39 +241,31 @@ function validatePhone (phone, mobile) {
   return !(phone === '' && mobile === '')
 }
 
-function validateParticipant (participant) {
+function validateChild (participant) {
   return new Promise((resolve, reject) => {
-    if (validatePhone(participant.tel, participant.mobil)) {
-      if (validateDate(participant.datnaiss)) {
-        if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
-          resolve(participant)
+    if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
+      resolve(participant)
+    } else {
+      if (participant.coltyp === 'enfan' || participant.coltyp === 'accom') {
+        const people = [..._registered, _you]
+        const filtered = people.filter(person => person.codco === parseInt(participant.colp))
+        const parent = filtered.shift()
+        if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
+          upConfirmbox(i18n.trans('form.message.does_child_have_autpar')).then(() => {
+            resolve({
+              ...participant,
+              aut16: 1,
+              datAut16: moment().format()
+            })
+          }).catch(() => {
+            reject(i18n.trans('form.message.child_must_have_autpar'))
+          })
         } else {
-          if (participant.coltyp === 'enfan' || participant.coltyp === 'accom') {
-            const people = [..._registered, _you]
-            const filtered = people.filter(person => person.codco === parseInt(participant.colp))
-            const parent = filtered.shift()
-            if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
-              upConfirmbox(i18n.trans('form.message.does_child_have_autpar')).then(() => {
-                resolve({
-                  ...participant,
-                  aut16: 1,
-                  datAut16: moment().format()
-                })
-              }).catch(() => {
-                reject(i18n.trans('form.message.child_must_have_autpar'))
-              })
-            } else {
-              reject(i18n.trans('form.message.parent_must_be_adult'))
-            }
-          } else {
-            reject(i18n.trans('form.message.child_must_come_with_adult'))
-          }
+          reject(i18n.trans('form.message.parent_must_be_adult'))
         }
       } else {
-        reject(i18n.trans('form.message.date_invalid'))
+        reject(i18n.trans('form.message.child_must_come_with_adult'))
       }
-    } else {
-      reject(i18n.trans('form.message.phone_invalid'))
     }
   })
 }
@@ -281,24 +273,34 @@ function validateParticipant (participant) {
 function callbackSubmit (event, context, action, callback) {
   event.preventDefault()
   const data = context.serializeArray()
-  const participantFormated = formatParticipant(data)
-  validateParticipant(participantFormated).then(participantValidated => {
-    postParticipant(participantValidated).then(res => {
-      const participantUpdated = { ...participantValidated, ...res }
-      callback(participantUpdated)
-      updateYouRender()
-      updateRegisteredRender()
-      updateParticipants()
-      $(`.panel.${action}`).slideUp(800, function () {
-        $(this).hide()
-        changeItem(itemParticipants)
+  const participant = formatParticipant(data)
+  const validatedDate = validateDate(participant.datnaiss)
+  const validatedPhone = validatePhone(participant.tel, participant.mobil)
+  if (validatedDate) {
+    if (validatedPhone) {
+      validateChild(participant).then(participantValidated => {
+        postParticipant(participantValidated).then(res => {
+          const participantUpdated = { ...participantValidated, ...res }
+          callback(participantUpdated)
+          updateYouRender()
+          updateRegisteredRender()
+          updateParticipants()
+          $(`.panel.${action}`).slideUp(800, function () {
+            $(this).hide()
+            changeItem(itemParticipants)
+          })
+        })
+      }).catch(error => {
+        if (error) {
+          upFlashbag(error)
+        }
       })
-    })
-  }).catch(error => {
-    if (error) {
-      upFlashbag(error)
+    } else {
+      upFlashbag(i18n.trans('form.message.phone_invalid'))
     }
-  })
+  } else {
+    upFlashbag(i18n.trans('form.message.date_invalid'))
+  }
 }
 
 const panelYouFrom = $('.panel.you form')
