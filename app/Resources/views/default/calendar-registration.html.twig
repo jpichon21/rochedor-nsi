@@ -100,9 +100,7 @@
                 <h2>{{ 'calendar.registration.three.title' | trans | raw }}</h2>
                 <div class="result">
                     {{ 'calendar.registration.three.header' | trans | raw }}
-                    <span style="text-align: center;">
-                        <p>{{ activity.libact }}<br>{{ 'filter.inner.date.in' | trans | raw }} {{ activity.datdeb | localizeddate('medium', 'none', app.request.locale ) }} {{ 'filter.inner.date.out' | trans | lower | raw }} {{ activity.datfin | localizeddate('medium', 'none', app.request.locale ) }} ({{ activity.sitact }})</p>
-                    </span>
+                    <p class="text-center">{{ activity.libact }}<br>{{ 'filter.inner.date.in' | trans | raw }} {{ activity.datdeb | localizeddate('medium', 'none', app.request.locale ) }} {{ 'filter.inner.date.out' | trans | lower | raw }} {{ activity.datfin | localizeddate('medium', 'none', app.request.locale ) }} ({{ activity.sitact }})</p>
                     {{ 'calendar.registration.three.body' | trans | raw }}     
                     <div class="pure-g">
                         <div class="pure-u-1-3">
