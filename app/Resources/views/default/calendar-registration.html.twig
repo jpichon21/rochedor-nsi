@@ -285,16 +285,16 @@
         <input autocomplete="nope" class="input nom" required type="text" value="<%= participant.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
     </div>
     <div class="pure-u-1">
-        <textarea class="textarea adresse" required name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= participant.adresse %></textarea>
+        <textarea class="textarea adresse" name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= participant.adresse %></textarea>
     </div>
     <div class="pure-u-1-3">
-        <input autocomplete="nope" class="input cp" required type="text" value="<%= participant.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
+        <input autocomplete="nope" class="input cp" type="text" value="<%= participant.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input autocomplete="nope" class="input ville" required type="text" value="<%= participant.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
+        <input autocomplete="nope" class="input ville" type="text" value="<%= participant.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <select class="select pays <%= (participant.pays != '') ? 'white' : '' %>" required name="pays">
+        <select class="select pays <%= (participant.pays != '') ? 'white' : '' %>" name="pays">
             <option <%= (participant.pays == '') ? 'selected' : '' %> disabled value="">{{ 'form.country' | trans | raw }}</option>
             <% for (var i = 0; i < countries.length; i++) { %>
                 <% var country = countries[i] %>

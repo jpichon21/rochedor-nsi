@@ -270,12 +270,12 @@ function validateChild (participant) {
   })
 }
 
-function callbackSubmit (event, context, action, callback) {
+function callbackSubmit (event, context, action, phoneControl, callback) {
   event.preventDefault()
   const data = context.serializeArray()
   const participant = formatParticipant(data)
   const validatedDate = validateDate(participant.datnaiss)
-  const validatedPhone = validatePhone(participant.tel, participant.mobil)
+  const validatedPhone = phoneControl ? validatePhone(participant.tel, participant.mobil) : true
   if (validatedDate) {
     if (validatedPhone) {
       validateChild(participant).then(participantValidated => {
@@ -308,13 +308,13 @@ const panelHimForm = $('.panel.him form')
 const panelAddForm = $('.panel.add form')
 
 panelYouFrom.on('submit', function (event) {
-  callbackSubmit(event, $(this), 'you', function (res) {
+  callbackSubmit(event, $(this), 'you', true, function (res) {
     _you = res
   })
 })
 
 panelHimForm.on('submit', function (event) {
-  callbackSubmit(event, $(this), 'modify', function (res) {
+  callbackSubmit(event, $(this), 'modify', false, function (res) {
     _registered = _registered.map(obj => {
       if (obj.codco === res.codco) { return res }
       return obj
@@ -323,7 +323,7 @@ panelHimForm.on('submit', function (event) {
 })
 
 panelAddForm.on('submit', function (event) {
-  callbackSubmit(event, $(this), 'add', function (res) {
+  callbackSubmit(event, $(this), 'add', false, function (res) {
     _registered.push(res)
   })
 })
