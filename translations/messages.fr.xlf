@@ -1131,7 +1131,7 @@
     <unit id="Cr.q521" name="form.message.date_invalid">
       <segment>
         <source>form.message.date_invalid</source>
-        <target>La date que vous avez saisi est invalide</target>
+        <target>La date que vous avez saisie est invalide</target>
       </segment>
     </unit>
     <unit id="RJ.6oSN" name="form.no_participants">
@@ -1179,7 +1179,7 @@
     <unit id="kzkX1MK" name="security.bad_credentials">
       <segment>
         <source>security.bad_credentials</source>
-        <target>Les identifiants que vous avez saisi sont erronés</target>
+        <target>Les identifiants que vous avez saisis sont erronés</target>
       </segment>
     </unit>
     <unit id="rHsOKUn" name="security.check_inbox">
