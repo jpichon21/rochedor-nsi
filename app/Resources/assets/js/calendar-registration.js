@@ -171,6 +171,8 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
     email: $('.username', this).val()
   }).then(() => {
     upFlashbag(i18n.trans('security.check_inbox'))
+  }).catch((err) => {
+    upFlashbag(i18n.trans(err))
   })
 })
 

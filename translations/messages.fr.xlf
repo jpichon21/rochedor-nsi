@@ -1702,5 +1702,11 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
         <target><![CDATA[<p>Nous vous remercions de l’attention que vous portez à la Roche d’Or. Votre demande d’inscription est prise en compte sous le numéro :</p><p><center><br>%entry_number%</br></center></p>]]></target>
       </segment>
     </unit>
+    <unit id="x9GINwp" name="Email not found">
+      <segment>
+        <source>Email not found</source>
+        <target>Adresse email non trouvée</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
