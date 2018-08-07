@@ -1,0 +1,329 @@
+{% set bodyClass = "page" %}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset("assets/css/pure-css-grids.css") }}">
+<link rel="stylesheet" href="{{ asset("assets/css/gift.css") }}">
+{% endblock %}
+{% block content %}
+<div class="popup">
+    <div class="overlay"></div>
+    <div class="box">
+        <div class="message"></div>
+        <div class="button continue">{{ 'continue' | trans }}</div>
+        <div class="button yes">{{ 'main.yes' | trans }}</div>
+        <div class="button no">{{ 'main.no' | trans }}</div>
+    </div>
+</div>
+<div class="content">
+    <div class="left">
+        <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
+        <div class="intro">
+            {{ 'gift.intro'|trans({'%link%': path('gift-' ~ app.request.locale)}) | raw }}
+        </div>
+        <div class="dropdown">
+            <div class="item connection">
+                <h2>{{ 'gift.one.title' | trans | raw }}</h2>
+                {% if app.user %}
+                <p>{{ 'gift.one.body.connected' | trans({ '%name%': app.user.prenom ~ ' ' ~ app.user.nom }) | raw }}</p>
+                <div class="pure-g">
+                    <div class="pure-u-1-3">
+                        <a href="#continue" class="button continue">{{ 'form.continue' | trans | raw }}</a>
+                    </div>
+                    <div class="pure-u-1-3">
+                        <a href="#disconnect" class="button disconnect">{{ 'form.disconnect' | trans | raw }}</a>
+                    </div>
+                </div>
+                {% else %}
+                <p>{{ 'gift.one.body.disconnected' | trans | raw }}</p>
+                <div class="pure-g">
+                    <div class="pure-u-4-24">
+                        <a href="#connection" class="button yes">{{ 'form.yes' | trans | raw }}</a>
+                    </div>
+                    <div class="pure-u-4-24">
+                        <a href="#registration" class="button no">{{ 'form.no' | trans | raw }}</a>
+                    </div>
+                </div>
+                <div class="panel connection">
+                    <h3>{{ 'gift.one.title.connection' | trans | raw }}</h3>
+                    <form class="pure-g connection">
+                        <div class="pure-u-1-2">
+                            <input autocomplete="nope" class="input username" required type="text" name="username" placeholder="{{ 'form.username' | trans | raw }}">
+                        </div>
+                        <div class="pure-u-1-2">
+                            <input autocomplete="nope" class="input password" required type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
+                        </div>
+                        <div class="pure-u-4-24">
+                            <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                        </div>
+                    </form>
+                    <a class="option" href="#reset">{{ 'form.password.reset'|trans }}</a>
+                </div>
+                <div class="panel registration">
+                    <h3>{{ 'gift.one.title.registration' | trans | raw }}</h3>
+                    <form class="pure-g you-form-render"></form>
+                </div>
+                <div class="panel reset">
+                    <h3>{{ 'form.password.reset'|trans|raw }}</h3>
+                    <form class="pure-g reset">
+                        <div class="pure-u-1">
+                            <input autocomplete="nope" class="input username" required type="text" name="username" placeholder="{{ 'form.email.please' | trans | raw }}">
+                        </div>
+                        <div class="pure-u-4-24">
+                            <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                        </div>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+            <div class="item participants">
+                <h2>{{ 'gift.two.title' | trans | raw }}</h2>
+                <h3>{{ 'gift.two.title.you' | trans | raw }}</h3>
+                <div class="you-render"></div>
+                <h3>{{ 'gift.two.title.registered' | trans | raw }}</h3>
+                <div class="registered-render"></div>
+                <a href="#" class="add-participant">{{ 'gift.two.add_participant' | trans | raw }}</a>
+                <a href="#" class="validate-participants button">{{ 'gift.two.validate_participants' | trans | raw }}</a>
+                <div class="panel you">
+                    <h3>{{ 'gift.two.title.modify.you' | trans | raw }}</h3>
+                    <form class="pure-g you-form-render"></form>
+                </div>
+                <div class="panel add">
+                    <h3>{{ 'gift.two.title.registration' | trans | raw }}</h3>
+                    <form class="pure-g him-form-render"></form>
+                </div>
+                <div class="panel him">
+                    <h3>{{ 'gift.two.title.modify.him' | trans | raw }}</h3>
+                    <form class="pure-g him-form-render"></form>
+                </div>
+            </div>
+            <div class="item validation">
+                <h2>{{ 'gift.three.title' | trans | raw }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="hole">
+    </div>
+    <div class="right">
+        <h2>{{ 'gift.summary.title' | trans | raw }}</h2>
+        <h3>{{ 'gift.summary.title.amount' | trans | raw }}</h3>
+        <div class="amount-render"><p>{{ 'gift.summary.no_amount' | trans }}</p></div>
+        <h3>{{ 'gift.summary.title.donator' | trans | raw }}</h3>
+        <div class="donator-render"><p>{{ 'gift.summary.no_donator' | trans }}</p></div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+<script type="text/json" class="countries-json">
+    {{ countries | json_encode() | raw }}
+</script>
+<script type="text/json" class="locale-json">
+    {{ currentLocale }}
+</script>
+<script type="text/template" class="you-template">
+    <div class="you">
+        <p><%= you.prenom %> <%= you.nom %><br>
+            <%= you.adresse %> <%= you.cp %> <%= you.ville %> (<%= you.pays %>)</p>
+        <a href="#" data-id="<%= you.codco %>" class="modify-you button">{{ 'form.modify' | trans | raw }}</a>
+        <a href="#" class="button radio hidden <%= (you.check) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
+    </div>
+</script>
+<script type="text/template" class="participants-template">
+    <% if (participants.length) { %>
+        <% for (var i = 0; i < participants.length; i++) { %>
+        <% var him = participants[i] %>
+            <div class="him">
+                <p><%= him.prenom %> <%= him.nom %><br>
+                    <%= him.adresse %> <%= him.cp %> <%= him.ville %> (<%= him.pays %>)<br>
+                    <%= transports[him.transport] %></p>
+            </div>
+        <% } %>
+    <% } else { %>
+        <p>{{ 'form.no_participants' | trans }}</p>
+    <% } %>
+</script>
+<script type="text/template" class="registered-template">
+    <% if (registered.length) { %>
+        <% for (var i = 0; i < registered.length; i++) { %>
+        <% var him = registered[i] %>
+            <div class="him">
+                <p><%= him.prenom %> <%= him.nom %><br>
+                    <%= him.adresse %> <%= him.cp %> <%= him.ville %> (<%= him.pays %>)</p>
+                <a href="#" data-id="<%= him.codco %>" class="modify-him button">{{ 'form.modify' | trans | raw }}</a>
+                <a href="#" data-id="<%= him.codco %>" class="participate-him button radio <%= (him.check) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
+            </div>
+        <% } %>
+    <% } else { %>
+        <p>{{ 'form.no_participants' | trans }}</p>
+    <% } %>
+</script>
+<script type="text/template" class="you-form-template">
+    <input autocomplete="nope" type="hidden" value="<%= participant.codco %>" name="codco">
+    <input autocomplete="nope" type="hidden" value=<%= participant.check %> name="check">
+    <div class="pure-u-1-3">
+        <select class="select civil <%= (participant.civil != '') ? 'white' : '' %>" required name="civil">
+            <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
+            <% for (var i = 0; i < civilites.length; i++) { %>
+                <option <%= (participant.civil == civilites[i]) ? 'selected' : '' %> value="<%= civilites[i] %>"><%= civilites[i] %></option>
+            <% } %>
+        </select>
+    </div>
+    <div class="pure-u-1-3">
+        <input autocomplete="nope" class="input prenom" required type="text" value="<%= participant.prenom %>" name="prenom" placeholder="{{ 'form.surname' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input autocomplete="nope" class="input nom" required type="text" value="<%= participant.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
+    </div>
+    <div class="pure-u-1">
+        <textarea class="textarea adresse" required name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= participant.adresse %></textarea>
+    </div>
+    <div class="pure-u-1-3">
+        <input autocomplete="nope" class="input cp" required type="text" value="<%= participant.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input autocomplete="nope" class="input ville" required type="text" value="<%= participant.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <select class="select pays <%= (participant.pays != '') ? 'white' : '' %>" required name="pays">
+            <option <%= (participant.pays == '') ? 'selected' : '' %> disabled value="">{{ 'form.country' | trans | raw }}</option>
+            <% for (var i = 0; i < countries.length; i++) { %>
+                <% var country = countries[i] %>
+                <option <%= (participant.pays == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
+            <% } %>
+        </select>
+    </div>
+    <div class="pure-u-1-2">
+        <input autocomplete="nope" class="input tel" type="text" pattern="([0-9][\s]?)+" value="<%= participant.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input autocomplete="nope" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= participant.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input autocomplete="nope" class="input email" required type="email" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input autocomplete="nope" class="input password" type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input autocomplete="nope" class="input datnaiss" required type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value="<%= (participant.datnaiss !== '') ? moment(participant.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input autocomplete="nope" class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
+    </div>
+    <div class="pure-u-1">
+        <hr>
+    </div>
+    <div class="pure-u-1">
+        <select class="select transport <%= (participant.transport != '') ? 'white' : '' %>" required name="transport">
+            <option <%= (participant.transport == '') ? 'selected' : '' %> disabled value="">{{ 'form.transport' | trans | raw }}</option>
+            <option <%= (participant.transport == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
+            <option <%= (participant.transport == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
+            <option <%= (participant.transport == 'avion') ? 'selected' : '' %> value="avion">{{ 'form.transport.avion' | trans | raw }}</option>
+            <option <%= (participant.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
+        </select>
+    </div>
+    <div class="pure-u-1">
+        <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= participant.memo %></textarea>
+    </div>
+    <div class="pure-u-6-24">
+        <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reset' | trans | raw }}">
+    </div>
+    <div class="pure-u-4-24">
+        <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
+    </div>
+</script>
+<script type="text/template" class="him-form-template">
+    <input autocomplete="nope" type="hidden" value="<%= participant.codco %>" name="codco">
+    <input autocomplete="nope" type="hidden" value=<%= participant.check %> name="check">
+    <div class="pure-u-1-2">
+        <select class="select coltyp <%= (participant.coltyp != '') ? 'white' : '' %>" required name="coltyp">
+            <option <%= (participant.coltyp == '') ? 'selected' : '' %> disabled value="">{{ 'form.relation' | trans | raw }}</option>
+            <option <%= (participant.coltyp == 'accom') ? 'selected' : '' %> value="accom">Vient avec</option>
+            <option <%= (participant.coltyp == 'conjo') ? 'selected' : '' %> value="conjo">Conjoint</option>
+            <option <%= (participant.coltyp == 'enfan') ? 'selected' : '' %> value="enfan">Enfant de</option>
+        </select>
+    </div>
+    <div class="pure-u-1-2">
+        <select class="select colp <%= (participant.colp != '') ? 'white' : '' %>" required name="colp">
+            <option <%= (participant.colp == '') ? 'selected' : '' %> disabled value="">{{ 'form.colp' | trans | raw }}</option>
+            <option <%= (participant.colp == you.codco) ? 'selected' : '' %> value="<%= you.codco %>"><%= you.prenom + ' ' + you.nom %></option>
+            <% for (var i = 0; i < registered.length; i++) { %>
+                <% var him = registered[i] %>
+                <% if (participant.codco != him.codco) { %>
+                <option <%= (participant.colp == him.codco) ? 'selected' : '' %> value="<%= him.codco %>"><%= him.prenom + ' ' + him.nom %></option>
+                <% } %>
+            <% } %>
+        </select>
+    </div>
+    <div class="pure-u-1-3">
+        <select class="select civil <%= (participant.civil != '') ? 'white' : '' %>" required name="civil">
+            <option <%= (participant.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
+            <% for (var i = 0; i < civilites.length; i++) { %>
+                <option <%= (participant.civil == civilites[i]) ? 'selected' : '' %> value="<%= civilites[i] %>"><%= civilites[i] %></option>
+            <% } %>
+        </select>
+    </div>
+    <div class="pure-u-1-3">
+        <input autocomplete="nope" class="input prenom" required type="text" value="<%= participant.prenom %>" name="prenom" placeholder="{{ 'form.surname' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input autocomplete="nope" class="input nom" required type="text" value="<%= participant.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
+    </div>
+    <div class="pure-u-1">
+        <textarea class="textarea adresse" name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= participant.adresse %></textarea>
+    </div>
+    <div class="pure-u-1-3">
+        <input autocomplete="nope" class="input cp" type="text" value="<%= participant.cp %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input autocomplete="nope" class="input ville" type="text" value="<%= participant.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <select class="select pays <%= (participant.pays != '') ? 'white' : '' %>" name="pays">
+            <option <%= (participant.pays == '') ? 'selected' : '' %> disabled value="">{{ 'form.country' | trans | raw }}</option>
+            <% for (var i = 0; i < countries.length; i++) { %>
+                <% var country = countries[i] %>
+                <option <%= (participant.pays == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
+            <% } %>
+        </select>
+    </div>
+    <div class="pure-u-1-3">
+        <input autocomplete="nope" class="input tel" type="text" pattern="([0-9][\s]?)+" value="<%= participant.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input autocomplete="nope" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= participant.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-3">
+        <input autocomplete="nope" class="input email" type="email" value="<%= participant.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input autocomplete="nope" class="input datnaiss" required type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value="<%= (participant.datnaiss !== '') ? moment(participant.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input autocomplete="nope" class="input profession" type="text" value="<%= participant.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
+    </div>
+    <div class="pure-u-1">
+        <hr>
+    </div>
+    <div class="pure-u-1">
+        <select class="select transport <%= (participant.transport != '') ? 'white' : '' %>" required name="transport">
+            <option <%= (participant.transport == '') ? 'selected' : '' %> disabled value="">{{ 'form.transport' | trans | raw }}</option>
+            <option <%= (participant.transport == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
+            <option <%= (participant.transport == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
+            <option <%= (participant.transport == 'avion') ? 'selected' : '' %> value="avion">{{ 'form.transport.avion' | trans | raw }}</option>
+            <option <%= (participant.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
+        </select>
+    </div>
+    <div class="pure-u-1">
+        <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= participant.memo %></textarea>
+    </div>
+    <div class="pure-u-6-24">
+        <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reset' | trans | raw }}">
+    </div>
+    <div class="pure-u-4-24">
+        <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
+    </div>
+</script>
+<script src="{{ asset("assets/js/gift.js") }}"></script>
+{% endblock %}

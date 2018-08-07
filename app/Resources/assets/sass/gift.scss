@@ -1,0 +1,45 @@
+@import './variables';
+@import './page';
+
+.dropdown {
+  .item {
+    h2 {
+      cursor: default;
+    }
+    &.connection {
+      .button {
+        &.active {
+          background: $roche-yellow;
+          color: #000000;
+        }
+      }
+    }
+  }
+}
+.add-participant {
+  display: table;
+  font-size: 14px;
+}
+.validate-participants {
+  display: inline-block;
+  margin: 30px 0 10px;
+}
+.you-render,
+.registered-render {
+  .you,
+  .him {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    p {
+      flex: 1;
+      margin: 0;
+    }
+    .button {
+      margin-left: 10px;
+      &.hidden {
+        visibility: hidden
+      }
+    }
+  }
+}

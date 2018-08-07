@@ -77,54 +77,54 @@
                     <h3>{{ 'calendar.registration.two.title.modify.you' | trans | raw }}</h3>
                     <form class="pure-g you-form-render"></form>
                 </div>
-                    <h3>{{ 'order.registration.choose.adliv' | trans | raw }}</h3>
-                    <select class="select adliv">
-                        <option selected disabled value="">{{ 'form.choose.adliv' | trans | raw }}</option>
-                        <option value="myAdd">{{ 'select.ad.myadd' | trans | raw }}</option>
-                        <option value="Roche">{{ 'select.ad.roche' | trans | raw }}</option>
-                        <option value="Font">{{ 'select.ad.font' | trans | raw }}</option>
-                        <option value="Other">{{ 'select.ad.other' | trans | raw }}</option>
-                    </select>
-                    <div class = "panel adliv">
-                        <form>
-                            <h3>{{ 'order.choose.adliv' | trans | raw }}</h3>
-                            <div class="pure-u-1-3">
-                                <input class="input adresse" required type="text" name="adresse" placeholder="{{ 'form.adresse' | trans | raw }}">
-                            </div>
-                            <div class="pure-u-1-3">
-                                <input class="input zipcode" required type="text" name="zipcode" placeholder="{{ 'form.zipcode' | trans | raw }}">
-                            </div>
-                            <div class="pure-u-1-3">
-                                <input class="input city" required type="text" name="city" placeholder="{{ 'form.city' | trans | raw }}">
-                            </div>
-                            <div class="pure-u-4-24">
-                                <input class="button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
-                            </div>
-                        </form>
-                    </div>
-                    <div class = "panel countryliv">
-                        <h3>{{ 'order.registration.choose.country' | trans | raw }}</h3>
-                        <select class="select country">
-                            <option selected disabled value="">{{ 'form.choose.country' | trans | raw }}</option>
-
-                            {% for country in countrys %}
-                            <option value={{country.CodPays}}>{{country.nompays | trans | raw }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <h3>{{ 'order.registration.choose.gift' | trans | raw }}</h3>
-                    <p>{{ 'order.gift.text' | trans | raw }}</p>
-                        <form class="form gift">
-                            <div class="pure-u-1-1">
-                                <input class="input note" required type="textarea" name="note" placeholder="{{ 'form.gift' | trans | raw }}">
-                            </div>
-                            <div class="pure-u-4-24">
-                                <input class="button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
-                            </div>
-                        </form>
-                        <div class="pure-u-4-24">
-                                <a href="#payment" class="button payment">{{ 'form.payment' | trans | raw }}</a>
+                <h3>{{ 'order.registration.choose.adliv' | trans | raw }}</h3>
+                <select class="select adliv">
+                    <option selected disabled value="">{{ 'form.choose.adliv' | trans | raw }}</option>
+                    <option value="myAdd">{{ 'select.ad.myadd' | trans | raw }}</option>
+                    <option value="Roche">{{ 'select.ad.roche' | trans | raw }}</option>
+                    <option value="Font">{{ 'select.ad.font' | trans | raw }}</option>
+                    <option value="Other">{{ 'select.ad.other' | trans | raw }}</option>
+                </select>
+                <div class = "panel adliv">
+                    <form>
+                        <h3>{{ 'order.choose.adliv' | trans | raw }}</h3>
+                        <div class="pure-u-1-3">
+                            <input class="input adresse" required type="text" name="adresse" placeholder="{{ 'form.adresse' | trans | raw }}">
                         </div>
+                        <div class="pure-u-1-3">
+                            <input class="input zipcode" required type="text" name="zipcode" placeholder="{{ 'form.zipcode' | trans | raw }}">
+                        </div>
+                        <div class="pure-u-1-3">
+                            <input class="input city" required type="text" name="city" placeholder="{{ 'form.city' | trans | raw }}">
+                        </div>
+                        <div class="pure-u-4-24">
+                            <input class="button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                        </div>
+                    </form>
+                </div>
+                <div class = "panel countryliv">
+                    <h3>{{ 'order.registration.choose.country' | trans | raw }}</h3>
+                    <select class="select country">
+                        <option selected disabled value="">{{ 'form.choose.country' | trans | raw }}</option>
+
+                        {% for country in countrys %}
+                        <option value={{country.CodPays}}>{{country.nompays | trans | raw }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <h3>{{ 'order.registration.choose.gift' | trans | raw }}</h3>
+                <p>{{ 'order.gift.text' | trans | raw }}</p>
+                <form class="form gift">
+                    <div class="pure-u-1-1">
+                        <input class="input note" required type="textarea" name="note" placeholder="{{ 'form.gift' | trans | raw }}">
+                    </div>
+                    <div class="pure-u-4-24">
+                        <input class="button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                    </div>
+                </form>
+                <div class="pure-u-4-24">
+                    <a href="#payment" class="button payment">{{ 'form.payment' | trans | raw }}</a>
+                </div>
             </div>
             <div class="item payment">
                 <h3>{{ 'order.choose.modpaie' | trans | raw }}</h3>
