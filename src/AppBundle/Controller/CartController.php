@@ -94,7 +94,7 @@ class CartController extends Controller
         $this->em->flush();
         $session = new Session();
         $session->getFlashBag()->add('info', 'cart.product.removed');
-        return $this->redirectToRoute('cart-'.$request->getLocale());
+        return $this->redirectToRoute('order-'.$request->getLocale());
     }
 
     /**

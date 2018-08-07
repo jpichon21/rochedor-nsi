@@ -32,7 +32,7 @@ class ClientRepository
     public function findClient($clientId)
     {
         $query = $this->entityManager
-        ->createQuery('SELECT c FROM AppBundle\Entity\Client c WHERE c.codco=:clientId');
+        ->createQuery('SELECT c FROM AppBundle\Entity\Client c WHERE c.codcli=:clientId');
         $query->setParameter('clientId', $clientId);
         return $query->getOneOrNullResult();
     }

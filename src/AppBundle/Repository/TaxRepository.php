@@ -10,4 +10,31 @@ namespace AppBundle\Repository;
  */
 class TaxRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    /**
+    * @var EntityRepository
+    */
+    private $repository;
+    
+    /**
+    * Find Produit by its Id
+    *
+    * @param int productId
+    * @return Produit
+    */
+    public function findTax($productId, $country)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT t.name, t.rate, t.countries 
+        FROM AppBundle\Entity\Tax t 
+        INNER JOIN AppBundle\Entity\Produit p
+        WHERE p.codprd=:productId');
+        $query->setParameter('productId', $productId);
+        $results =  $query->getResult();
+        foreach ($results as $k => $result) {
+            if (in_array($country, $result['countries'])) {
+                return $result;
+            }
+        }
+    }
 }

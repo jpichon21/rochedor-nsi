@@ -1,38 +1,49 @@
 import $ from 'jquery'
 import moment from 'moment'
 import { getParticipant, getDelivery } from './sample'
-import { placePayment } from './cart.js'
+import { placePayment } from './cart'
+import { upFlashbag } from './popup'
+import I18n from './i18n'
 import {
-  postParticipant,
   getLogin,
   getLogout,
-  getRegistered,
   getData,
   postRegister,
+  resetLogin,
   postLogin,
-  postOrder
+  postOrder,
+  postEditCli,
+  checkVat,
+  checkZipcode,
+  getPBXCode,
+  getPaypalCode
 } from './order-api.js'
-const _infos = JSON.parse($('.infos-json').html())
+
+/* Cart */
+
+const _cartId = parseInt($('.cart-json').html().trim())
 
 /* Translations */
 
-const _translations = JSON.parse($('.translations-json').html())
+let i18n = new I18n()
 
-moment.locale(_translations.locale)
+const _locale = $('.locale-json').html().trim()
+
+moment.locale(_locale)
+
+/* Countries */
+
+const _countries = JSON.parse($('.countries-json').html().trim())
 
 /* Variables */
 
 let _you = {}
-let _registered = []
 let _delivery = {}
-let _cartInfo = {}
-let _client = {}
-let _clients = []
+let _total = {}
 
 const itemConnection = $('.item.connection')
-const itemOrder = $('.item.order')
-const itemValidation = $('.item.validation')
-const itemCart = $('.item.cart')
+const itemCard = $('.item.card')
+const itemShipping = $('.item.shipping')
 const itemPayment = $('.item.payment')
 
 /* Dropdowns */
@@ -48,7 +59,7 @@ function changeItem (elmt) {
 
 $(document).ready(function () {
   setTimeout(function () {
-    changeItem(itemCart)
+    changeItem(itemConnection)
   }, 500)
 })
 
@@ -67,222 +78,83 @@ $('.item-clients').on('click', '.button.radio', function (event) {
 /* Renders */
 
 const youTemplate = _.template($('.you-template').html())
-const deliveryFormTemplate = _.template($('.delivery-form-template').html())
-const registeredTemplate = _.template($('.registered-template').html())
-const cartTemplate = _.template($('.cart-template').html())
+const deliveryTemplate = _.template($('.delivery-template').html())
+const totalTemplate = _.template($('.total-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
-const himFormTemplate = _.template($('.him-form-template').html())
+const adlivFormTemplate = _.template($('.adliv-form-template').html())
 
 function updateYouRender () {
-  $('.you-render').html(youTemplate({ you: _you }))
+  $('.you-render').html(youTemplate({
+    you: _you
+  }))
 }
 
-function updateRegisteredRender () {
-  $('.registered-render').html(registeredTemplate({ registered: _registered }))
+function updateDeliveryRender () {
+  $('.delivery-render').html(deliveryTemplate({
+    delivery: _delivery,
+    you: _you
+  }))
 }
 
 function updateCartRender () {
-  $('.clients-render').html(cartTemplate({ clients: _delivery, translations: _translations, cartInfo: _cartInfo }))
+  $('.total-render').html(totalTemplate({
+    total: _total
+  }))
 }
 
 function updateYouFormRender () {
-  $('.you-form-render').html(youFormTemplate({ client: _client }))
+  $('.you-form-render').html(youFormTemplate({
+    client: _you,
+    countries: _countries,
+    civilites: [
+      i18n.trans('form.civilite.mr'),
+      i18n.trans('form.civilite.mme'),
+      i18n.trans('form.civilite.mlle'),
+      i18n.trans('form.civilite.frere'),
+      i18n.trans('form.civilite.pere'),
+      i18n.trans('form.civilite.soeur')
+    ]
+  }))
 }
 
-function updateHimFormRender () {
-  $('.him-form-render').html(himFormTemplate({ client: _client, registered: _registered, you: _you }))
+function adlivUpdateFormRender () {
+  $('.adliv-form-render').html(adlivFormTemplate({
+    delivery: _delivery,
+    countries: _countries
+  }))
 }
 
-function updateDeliveryFormRender () {
-  $('.delivery-form-render').html(deliveryFormTemplate({ delivery: _delivery, registered: _registered, you: _you }))
-}
-
-updateCartRender()
+getData(_cartId, 'myAdd', 'FR').then(data => {
+  _total = data
+  updateCartRender()
+  updateDeliveryRender()
+})
 
 /* Actions */
-itemOrder.on('change', '.select.adliv', function (event) {
-  event.preventDefault()
-  const data = $(this).val()
-  let selectedVal = data
-  _delivery.destliv = data
-  if (selectedVal === 'Roche' || selectedVal === 'Font' || selectedVal === 'myAdd') {
-    _delivery.adliv.adresse = _you.adresse
-    _delivery.adliv.zipcode = _you.cp
-    _delivery.adliv.city = _you.ville
-    $(`.panel.adliv`, itemOrder).removeClass('active')
-  } else {
-    $(`.panel.adliv`, itemOrder).addClass('active')
-  }
-  if (selectedVal === 'myAdd' || selectedVal === 'Other') {
-    $(`.panel.countryliv`, itemOrder).addClass('active')
-  } else {
-    $(`.panel.countryliv`, itemOrder).removeClass('active')
-  }
-  if (selectedVal === 'Roche' || selectedVal === 'Font') {
-    _delivery.paysliv = 'FR'
-  }
-  changeItem(itemOrder)
-})
 
-itemPayment.on('click', '.button.submit.process-order', function (event) {
-  event.preventDefault()
-  postOrder(_delivery).then(res => {
-    let result = $('.result', itemValidation).html()
-    result = result.replace('%entry_number%', res)
-    $('.result', itemValidation).html(result)
-    placePayment(_delivery.modpaie, _cartInfo.priceIT, '18-00065', 'truc', `Commande sur le site La Roche D'Or`, _you.email, 'fr')
-    changeItem(itemValidation)
-  }).catch(error => {
-    $('.right .catch-message').html(error)
-  })
-})
-
-itemOrder.on('change', '.select.country', function (event) {
-  event.preventDefault()
-  const data = $(this).val()
-  _delivery.paysliv = data
-  console.log(_delivery)
-})
-
-itemPayment.on('change', '.select.modpaie', function (event) {
-  event.preventDefault()
-  const data = $(this).val()
-  _delivery.modpaie = data
-  console.log(data)
-  console.log(_delivery)
-})
-
-itemOrder.on('submit', '.panel.adliv form', function (event) {
-  event.preventDefault()
-  const data = $(this).serializeArray()
-  let dataVal = data
-  _delivery.adliv.adresse = dataVal[0].value
-  _delivery.adliv.zipcode = dataVal[1].value
-  _delivery.adliv.city = dataVal[2].value
-  console.log(_delivery)
-})
-
-itemOrder.on('submit', '.panel.adliv form', function (event) {
-  event.preventDefault()
-  const data = $(this).serializeArray()
-  let dataVal = data
-  _delivery.adliv.adresse = dataVal[0].value
-  _delivery.adliv.zipcode = dataVal[1].value
-  _delivery.adliv.city = dataVal[2].value
-  console.log(_delivery)
-})
-
-itemOrder.on('click', '.button.payment', function (event) {
-  event.preventDefault()
-  if (valideDeliveryForm()) {
-    getData(_delivery.cartId, _delivery.destliv, _delivery.paysliv).then(data => {
-      console.log(data)
-      _cartInfo = data
-      updateCartRender()
-      changeItem(itemPayment)
-    }).catch(error => {
-      $('.right .catch-message').html(error)
-    })
-  }
-})
-
-itemOrder.on('submit', '.form.gift', function (event) {
-  event.preventDefault()
-  const data = $(this).serializeArray()
-  let dataVal = data
-  _delivery.memocmd = dataVal[0].value
-  console.log(_delivery)
-})
-
-itemOrder.on('click', 'a', function (event) {
-  event.preventDefault()
-  $('a', itemOrder).removeClass('active')
-  $(this).addClass('active')
-  const which = $(this).attr('href').substring(1)
-  switch (which) {
-    case 'connection':
-    case 'registration':
-      $('.panel', itemOrder).hide()
-      $(`.panel.${which}`, itemOrder).show()
-      _client = getParticipant()
-      updateYouFormRender()
-      break
-    case 'continue':
-      getLogin().then(user => afterLogin(user))
-      break
-    case 'disconnect':
-      getLogout()
-      break
-  }
-  changeItem(itemPayment)
-})
-
-itemPayment.on('click', 'a', function (event) {
-  event.preventDefault()
-  $('a', itemPayment).removeClass('active')
-  $(this).addClass('active')
-  const which = $(this).attr('href').substring(1)
-  switch (which) {
-    case 'connection':
-    case 'registration':
-      $('.panel', itemPayment).hide()
-      $(`.panel.${which}`, itemPayment).show()
-      _client = getParticipant()
-      updateYouFormRender()
-      break
-    case 'continue':
-      getLogin().then(user => afterLogin(user))
-      break
-    case 'disconnect':
-      getLogout()
-      break
-  }
-  changeItem(itemOrder)
-})
-
-itemCart.on('click', 'a', function (event) {
-  event.preventDefault()
-  $('a', itemCart).removeClass('active')
-  $(this).addClass('active')
-  const which = $(this).attr('href').substring(1)
-  switch (which) {
-    case 'connection':
-    case 'registration':
-      $('.item.cart', itemCart).hide()
-      $(`.panel.${which}`, itemCart).show()
-      _client = getParticipant()
-      updateYouFormRender()
-      break
-    case 'continue':
-      getLogin().then(user => afterLogin(user))
-      break
-    case 'disconnect':
-      getLogout()
-      break
-  }
-  changeItem(itemConnection)
-})
-
-function afterLogin (user) {
-  const delivery = getDelivery()
-  _delivery = delivery
+function afterLogin (user, bypass) {
+  _delivery = getDelivery()
   _delivery.codcli = user.codcli
-  console.log(_delivery)
+  _delivery.cartId = parseInt(_cartId)
   _you = user
-  console.log(_you)
   updateYouRender()
   updateCartRender()
-  changeItem(itemOrder)
+  adlivUpdateForm('myAd')
+  if (bypass) {
+    changeItem(itemShipping)
+  } else {
+    changeItem(itemCard)
+  }
 }
 
 function formatParticipant (data) {
-  let client = getParticipant()
+  let participant = getParticipant()
   data.map(obj => {
-    client[obj.name] = obj.value
+    participant[obj.name] = obj.value
   })
-  client.codco = parseInt(client.codco)
-  client.datnaiss = moment(client.datnaiss, 'DD/MM/YYYY').format()
-  return client
+  participant.codcli = parseInt(participant.codcli)
+  participant.datnaiss = moment(participant.datnaiss, 'DD/MM/YYYY').format()
+  return participant
 }
 
 itemConnection.on('submit', '.panel.connection form', function (event) {
@@ -291,44 +163,59 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
     username: $('.username', this).val(),
     password: $('.password', this).val()
   }).then(user => {
-    afterLogin(user)
+    afterLogin(user, false)
+  }).catch(() => {
+    upFlashbag(i18n.trans('security.bad_credentials'))
+  })
+})
+
+itemConnection.on('submit', '.panel.reset form', function (event) {
+  event.preventDefault()
+  resetLogin({
+    email: $('.username', this).val()
+  }).then(() => {
+    upFlashbag(i18n.trans('security.check_inbox'))
   })
 })
 
 itemConnection.on('submit', '.panel.registration form', function (event) {
-  event.preventDefault()
-  const data = $(this).serializeArray()
-  const client = formatParticipant(data)
-  console.log(client)
-  postRegister({
-    client: client
-  }).then(user => {
-    postLogin({
-      username: client.email,
-      password: client.password
+  validateClient(event, $(this), participant => {
+    postRegister({
+      client: {
+        ...participant,
+        rue: participant.adresse
+      }
     }).then(user => {
-      afterLogin(user)
+      postLogin({
+        username: user.email,
+        password: participant.password
+      }).then(user => {
+        afterLogin(user, true)
+      }).catch(() => {
+        upFlashbag(i18n.trans('security.user_exist'))
+      })
+    }).catch(error => {
+      upFlashbag(error)
     })
-  }).catch(error => {
-    $('.catch-message', itemConnection).html(error)
   })
 })
 
 itemConnection.on('click', 'a', function (event) {
   event.preventDefault()
-  $('a', itemConnection).removeClass('active')
-  $(this).addClass('active')
   const which = $(this).attr('href').substring(1)
   switch (which) {
     case 'connection':
     case 'registration':
       $('.panel', itemConnection).hide()
       $(`.panel.${which}`, itemConnection).show()
-      _client = getParticipant()
+      _you = getParticipant()
       updateYouFormRender()
       break
+    case 'reset':
+      $('.panel.reset', itemConnection).show()
+      break
     case 'continue':
-      getLogin().then(user => afterLogin(user))
+      getLogin().then(user => afterLogin(user, false))
       break
     case 'disconnect':
       getLogout()
@@ -341,139 +228,249 @@ function validateDate (date) {
   return moment(date).isValid()
 }
 
-function validateParticipant (client) {
-  if (validateDate(client.datnaiss)) {
-    if (moment().diff(moment(client.datnaiss), 'years') >= 16) {
-      return { success: true }
-    } else {
-      if (client.coltyp === 'enfan') {
-        const people = [..._registered, _you]
-        const filtered = people.filter(person => {
-          return person.codco === parseInt(client.colp)
-        })
-        const parent = filtered.shift()
-        if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
-          return { success: true }
+function validatePhone (phone, mobile) {
+  return !(phone === '' && mobile === '')
+}
+
+function validatePro (societe, tvaintra) {
+  return (societe === '' && tvaintra === '') || (societe !== '' && tvaintra !== '')
+}
+
+function validateTvaintra (tvaintra, country) {
+  return new Promise((resolve, reject) => {
+    checkVat(tvaintra, country).then(() => {
+      resolve()
+    }).catch(() => {
+      reject(i18n.trans('form.message.zipcode_invalid'))
+    })
+  })
+}
+
+itemCard.on('click', '.continue', function (event) {
+  event.preventDefault()
+  changeItem(itemShipping)
+})
+
+itemCard.on('click', '.modify-you', function (event) {
+  event.preventDefault()
+  $('.panel', itemCard).hide()
+  $(`.panel.modify`, itemCard).show()
+  updateYouFormRender()
+  changeItem(itemCard)
+})
+
+function validateClient (event, context, callback) {
+  event.preventDefault()
+  const data = context.serializeArray()
+  const participant = formatParticipant(data)
+  const validatedDate = validateDate(participant.datnaiss)
+  const validatedPhone = validatePhone(participant.tel, participant.mobil)
+  const validatedPro = validatePro(participant.societe, participant.tvaintra)
+  if (validatedDate) {
+    if (validatedPro) {
+      if (validatedPhone) {
+        if (participant.tvaintra !== '') {
+          validateTvaintra(participant.tvaintra, participant.pays).then(() => {
+            callback(participant)
+          }).catch(() => {
+            upFlashbag(i18n.trans('form.message.tvaintra_invalid'))
+          })
         } else {
-          return { error: _translations.message.parent_must_be_adult }
+          return new Promise((resolve, reject) => {
+            checkZipcode(participant.pays, participant.cp, 'myAd').then(() => {
+              resolve(callback(participant))
+            }).catch(() => {
+              upFlashbag(i18n.trans('form.message.zipcode_invalid'))
+            })
+          })
         }
       } else {
-        return { error: _translations.message.must_be_a_child }
+        upFlashbag(i18n.trans('form.message.phone_invalid'))
       }
+    } else {
+      upFlashbag(i18n.trans('form.message.pro_invalid'))
     }
   } else {
-    return { error: _translations.message.date_invalid }
+    upFlashbag(i18n.trans('form.message.date_invalid'))
   }
 }
 
-function callbackSubmit (event, context, action, callback) {
-  event.preventDefault()
-  const data = context.serializeArray()
-  const client = formatParticipant(data)
-  const validate = validateParticipant(client)
-  if (validate.success) {
-    postParticipant(client).then(res => {
-      const participantUpdated = { ...client, ...res }
-      callback(participantUpdated)
+itemCard.on('submit', '.panel.modify form', function (event) {
+  validateClient(event, $(this), user => {
+    postEditCli({
+      client: {
+        ...user,
+        rue: user.adresse
+      }
+    }).then(client => {
+      _you = client
       updateYouRender()
-      updateRegisteredRender()
-      updateParticipants()
-      $('.right .catch-message').html('')
-      $(`.panel.${action}`).slideUp(800, function () {
+      adlivUpdateForm('myAd')
+      $(`.panel.modify`).slideUp(800, function () {
         $(this).hide()
-        changeItem(itemOrder)
+        changeItem(itemCard)
+      })
+    }).catch(error => {
+      upFlashbag(error)
+    })
+  })
+})
+
+itemShipping.on('change', '.select-adliv', function (event) {
+  event.preventDefault()
+  const selected = $(this).val()
+  adlivUpdateForm(selected)
+})
+
+function adlivUpdateForm (destliv) {
+  switch (destliv) {
+    case 'myAd':
+      _delivery.adliv.adresse = _you.adresse
+      _delivery.adliv.zipcode = _you.cp
+      _delivery.adliv.city = _you.ville
+      _delivery.paysliv = _you.pays
+      break
+    case 'Roche':
+      _delivery.adliv.adresse = '1 Chemin du Muenot'
+      _delivery.adliv.zipcode = '25000'
+      _delivery.adliv.city = 'Besançon'
+      _delivery.paysliv = 'FR'
+      break
+    case 'Font':
+      _delivery.adliv.adresse = 'Route de Riunoguès'
+      _delivery.adliv.zipcode = '66480'
+      _delivery.adliv.city = 'Maureillas Las Illas'
+      _delivery.paysliv = 'FR'
+      break
+    case 'Other':
+      _delivery.adliv.adresse = ''
+      _delivery.adliv.zipcode = ''
+      _delivery.adliv.city = ''
+      _delivery.paysliv = ''
+      break
+  }
+  _delivery.destliv = destliv
+  adlivUpdateFormRender()
+}
+
+function formatForm (data) {
+  let form = {}
+  data.map(obj => {
+    form[obj.name] = obj.value
+  })
+  return form
+}
+
+const formAdliv = $('form.adliv', itemShipping)
+const formGift = $('form.gift', itemShipping)
+
+formGift.on('submit', function (event) {
+  event.preventDefault()
+  const data = $(this).serializeArray()
+  const gift = formatForm(data)
+  _delivery.memocmd = gift.note
+})
+
+formAdliv.on('submit', function (event) {
+  event.preventDefault()
+  const data = $(this).serializeArray()
+  const delivery = formatForm(data)
+  if (_delivery.destliv === 'Other') {
+    _delivery.adliv.adresse = delivery.adresse
+    _delivery.adliv.zipcode = delivery.zipcode
+    _delivery.adliv.city = delivery.city
+    _delivery.paysliv = delivery.paysliv
+  }
+  if (_delivery.destliv === 'myAd' && delivery.paysliv !== undefined) {
+    _delivery.paysliv = delivery.paysliv
+  }
+})
+
+function noEmptyFields (data) {
+  const emptyFileds = data.filter(obj => obj === undefined || obj === '')
+  return emptyFileds.length === 0
+}
+
+function valideDelivery (delivery) {
+  return new Promise((resolve, reject) => {
+    if (noEmptyFields([delivery.adliv.adresse, delivery.adliv.zipcode, delivery.adliv.city, delivery.paysliv])) {
+      checkZipcode(delivery.paysliv, delivery.adliv.zipcode, delivery.destliv).then(() => {
+        resolve(delivery)
+      }).catch(() => {
+        reject(i18n.trans('form.message.zipcode_invalid'))
+      })
+    } else {
+      reject(i18n.trans('form.message.delivery_invalid'))
+    }
+  })
+}
+
+itemShipping.on('click', '.continue', function (event) {
+  event.preventDefault()
+  formAdliv.submit()
+  formGift.submit()
+  valideDelivery(_delivery).then(delivery => {
+    getData(_cartId, delivery.destliv, delivery.paysliv).then(data => {
+      _total = data
+      updateCartRender()
+      updateDeliveryRender()
+      changeItem(itemPayment)
+    }).catch(error => {
+      if (error) {
+        upFlashbag(error)
+      }
+    })
+  }).catch(error => {
+    if (error) {
+      upFlashbag(error)
+    }
+  })
+})
+
+function getPaysParsed (modpaie, pays) {
+  if (modpaie === 'PBX') {
+    return new Promise((resolve, reject) => {
+      getPBXCode(pays).then(data => {
+        resolve(data)
+      }).catch(() => {
+        reject(i18n.trans('form.message.zipcode_invalid'))
       })
     })
   } else {
-    $('.catch-message', itemOrder).html(validate.error)
-  }
-}
-
-itemOrder.on('submit', '.panel.you form', function (event) {
-  callbackSubmit(event, $(this), 'you', function (res) {
-    _you = res
-  })
-})
-
-itemOrder.on('submit', '.panel.modify form', function (event) {
-  callbackSubmit(event, $(this), 'modify', function (res) {
-    _registered = _registered.map(obj => {
-      if (obj.codco === res.codco) { return res }
-      return obj
+    return new Promise((resolve, reject) => {
+      getPaypalCode(pays).then(data => {
+        resolve(data)
+      }).catch(() => {
+        reject(i18n.trans('form.message.zipcode_invalid'))
+      })
     })
-  })
-})
-
-itemOrder.on('submit', '.panel.add form', function (event) {
-  callbackSubmit(event, $(this), 'add', function (res) {
-    _registered.push(res)
-  })
-})
-
-function updateParticipants () {
-  console.log(_registered)
-  _clients = _registered.filter(client => {
-    console.log(client)
-    return client.check
-  })
-  _clients.push(_you)
-  updateCartRender()
-  updateDeliveryFormRender()
-}
-
-itemOrder.on('click', '.participate-him', function (event) {
-  event.preventDefault()
-  const id = parseInt($(this).attr('data-id'))
-  _registered = _registered.map(client => {
-    if (client.codco === id) {
-      client.check = !client.check
-    }
-    return client
-  })
-  updateParticipants()
-})
-
-itemOrder.on('click', '.modify-you', function (event) {
-  event.preventDefault()
-  _client = _you
-  $('.panel', itemOrder).hide()
-  $(`.panel.you`, itemOrder).show()
-  updateYouFormRender()
-  changeItem(itemOrder)
-})
-
-function validateTransports () {
-  let validate = true
-  _clients.map(client => {
-    if (client.transport === '') { validate = false }
-  })
-  return validate
-}
-
-function valideDeliveryForm () {
-  if (_delivery.adliv.adresse === '' ||
-    _delivery.adliv.zipcode === '' ||
-    _delivery.adliv.city === '' ||
-    _delivery.destliv === '' ||
-    _delivery.paysliv === '') {
-    return false
   }
-  return true
 }
 
-itemOrder.on('click', '.validate-clients', function (event) {
+itemPayment.on('submit', 'form.payment', function (event) {
   event.preventDefault()
-  const validate = validateTransports()
-  if (validate) {
-    postRegistered(_clients, _infos.idact).then(res => {
-      let result = $('.result', itemValidation).html()
-      result = result.replace('%entry_number%', res)
-      $('.result', itemValidation).html(result)
-      changeItem(itemValidation)
+  getPaysParsed(_delivery.modpaie, _delivery.paysliv).then(paysparsed => {
+    postOrder(_delivery).then(res => {
+      placePayment(
+        res.modpaie,
+        res.ttc,
+        res.refcom,
+        'truc',
+        'Commande sur le site La Roche D\'Or',
+        _you.email,
+        paysparsed,
+        _locale
+      )
     }).catch(error => {
-      $('.right .catch-message').html(error)
+      if (error) {
+        upFlashbag(error)
+      }
     })
-  } else {
-    $('.right .catch-message').html(_translations.message.verify_transport)
-  }
+  })
+})
+
+itemPayment.on('change', '.select-modpaie', function (event) {
+  event.preventDefault()
+  const data = $(this).val()
+  _delivery.modpaie = data
 })

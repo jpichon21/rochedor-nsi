@@ -37,14 +37,9 @@ class Cart
     private $created;
 
     /**
-     * @var string|null
+     * @var \Doctrine\Common\Collections\ArrayCollection
      *
-     * @ORM\Column(name="notes", type="text", nullable=true)
-     */
-    private $notes;
-
-    /**
-    * @ORM\OneToMany(targetEntity="Cartline", mappedBy="cart")
+     * @ORM\OneToMany(targetEntity="Cartline", mappedBy="cart", cascade={"remove"})
     */
     private $cartlines;
 

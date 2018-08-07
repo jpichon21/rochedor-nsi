@@ -27,12 +27,14 @@ use AppBundle\Repository\ProductRepository;
 use AppBundle\Repository\CartRepository;
 use AppBundle\Repository\ShippingRepository;
 use AppBundle\Repository\TpaysRepository;
+use AppBundle\Repository\ClientRepository;
 use AppBundle\Service\Mailer;
 use Psr\Log\LoggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use SensioLabs\Security\Exception\HttpException;
 use AppBundle\Service\PaypalService;
 use AppBundle\Service\PageService;
+use AppBundle\Service\CartService;
 
 class OrderController extends Controller
 {
@@ -81,51 +83,158 @@ class OrderController extends Controller
      */
     private $shippingRepository;
 
-        /**
+    /**
      * @var CartRepository
      */
     private $cartRepository;
+
+    /**
+     * @var ClientRepository
+     */
+    private $clientRepository;
 
     /**
      * @var EntityManagerInterface
      */
     private $em;
 
+    /**
+     * @var CartService
+     */
+    private $cartService;
+
     public function __construct(
         CommandeRepository $commandeRepository,
         ProductRepository $productRepository,
         CartRepository $cartRepository,
+        ClientRepository $clientRepository,
         ShippingRepository $shippingRepository,
         TpaysRepository $tpaysRepository,
         Mailer $mailer,
         Translator $translator,
         LoggerInterface $logger,
         EntityManagerInterface $em,
-        PageService $pageService
+        PageService $pageService,
+        CartService $cartService
     ) {
         $this->commandeRepository = $commandeRepository;
         $this->productRepository = $productRepository;
         $this->tpaysRepository = $tpaysRepository;
         $this->cartRepository = $cartRepository;
+        $this->clientRepository = $clientRepository;
         $this->shippingRepository = $shippingRepository;
         $this->mailer = $mailer;
         $this->translator = $translator;
         $this->logger = $logger;
         $this->em = $em;
         $this->pageService = $pageService;
+        $this->cartService = $cartService;
     }
 
     /**
-     * @Rest\Get("/xhr/order/taxes/{cart_id}/{country}", name="get_taxes")
+     * @Rest\Get("/xhr/order/weight/{weight}/{country}", name="get_weight")
      * @Rest\View()
     */
-    public function xhrGetTaxes(Request $request, $cart_id, $country)
+    public function xhrTestWeight(Request $request, $weight, $country)
     {
-        $data = $this->getCartPrices($cart_id, $country);
-        return ['status' => 'ok','data' => $data];
+        return $this->findShipping($weight, $country);
+    }
+
+    /**
+     * @Rest\Get("/xhr/order/pbx/{country}", name="get_pbxcode")
+     * @Rest\View()
+    */
+    public function xhrGetPBXCode(Request $request, $country)
+    {
+        return ['status' => 'ok' , 'data' => $this->tpaysRepository->findPBXCode($country)];
+    }
+
+    /**
+     * @Rest\Get("/xhr/order/paypal/{country}", name="get_paypalcode")
+     * @Rest\View()
+    */
+    public function xhrGetPaypalCode(Request $request, $country)
+    {
+        return ['status' => 'ok' , 'data' => $this->tpaysRepository->findPaypalCode($country) ];
+    }
+
+    /**
+     * @Rest\Get("/xhr/order/vat/{vat}/{countryCode}", name="get_vat")
+     * @Rest\View()
+    */
+    public function xhrTestVAT(Request $request, $vat, $countryCode)
+    {
+
+        $client = new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl");
+        $result = $client->checkVat(array(
+          'countryCode' => $countryCode,
+          'vatNumber' => $vat
+        ));
+        if ($result->{'valid'}) {
+            return ['status' => 'ok'];
+        }
+        
+        return ['status' => 'ko','error' => 'your tvaIntra didnt exist'];
+    }
+
+    /**
+     * @Rest\Get("/xhr/order/zipcode/{country}/{zipcode}/{destliv}", name="get_zipcode")
+     * @Rest\View()
+    */
+    public function xhrCheckZipcode(Request $request, $country, $zipcode, $destliv)
+    {
+        $value = $this->tpaysRepository->checkZipcode($country, $zipcode, $destliv);
+        if ($value === true) {
+            return ['status' => 'ok'];
+        } else {
+            return ['status' => 'ko','error' => 'your zipcode doesn\'t exist'];
+        }
+    }
+
+    /**
+     * @Rest\Get("/xhr/order/taxes/{cart_id}/{country}/{destliv}", name="get_taxes")
+     * @Rest\View()
+    */
+    public function xhrGetTaxes(Request $request, $cart_id, $country, $destliv)
+    {
+        if ($data = $this->getCartPrices($cart_id, $country, $destliv)) {
+            return ['status' => 'ok','data' => $data];
+        } else {
+            return ['status' => 'ko','error' => 'you must delive a good form'];
+        }
     }
     
-    private function getCartPrices($cart_id, $country)
+
+    /**
+     * @Rest\Post("xhr/order/client", name="post_client")
+     * @Rest\View()
+     */
+    public function xhrPostClientAction(Request $request)
+    {
+        $client = $request->get('client');
+        if (!$client) {
+            return ['status' => 'ko', 'message' => 'You must provide a client object'];
+        }
+        $em = $this->getDoctrine()->getManager();
+        $customer = $this->clientRepository->findClient($client['codcli']);
+        $customer->setNom($client['nom'])
+        ->setPrenom($client['prenom'])
+        ->setCivil($client['civil'])
+        ->setAdresse($client['adresse'])
+        ->setCp($client['cp'])
+        ->setVille($client['ville'])
+        ->setPays($client['pays'])
+        ->setTel($client['tel'])
+        ->setMobil($client['mobil'])
+        ->setEmail($client['email'])
+        ->setSociete($client['societe']);
+        $em->persist($customer);
+        $em->flush();
+        return ['status' => 'ok', 'data' => $customer];
+    }
+
+
+    private function getCartPrices($cart_id, $country, $destliv)
     {
         $cart = $this->cartRepository->find($cart_id);
         $data = [];
@@ -139,44 +248,62 @@ class OrderController extends Controller
                 $tax = $this->productRepository->findTax($product->getCodPrd(), $country);
                 $product = $cartline->getProduct();
 
+                $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;
+                
                 if ($product->getTypprd() === Produit::TYP_BOOK) {
                     $priceIncludeTaxes = $product->getPrix();
-                    $data['totalPrice'] = round($data['totalPrice'] + $product->getPrix(), 2);
-                    $data['totalPriceIT'] = round($data['totalPriceIT'] + $priceIncludeTaxes, 2);
-                    $data['product'][$k]['codprd'] = $product->getCodprd();
-                    $data['product'][$k]['quantity'] = $cartline->getQuantity();
-                    $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;
-                    $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
-                    $data['product'][$k]['price'] = round($product->getPrixht() * (1+($tax->getRate()/100)), 2);
-                    $data['product'][$k]['name'] = $product->getProduitcourt();
-                    $data['product'][$k]['vatProduct'] = round($data['product'][$k]['priceIT']
-                                                    - $data['product'][$k]['price'], 2);
-                    $totalWeight = $totalWeight + $product->getPoids();
+                    
+                    $data['product'][$k]['price'] = round(
+                        $product->getPrix() / (1 + ($data['product'][$k]['productTaxRate']/100)),
+                        2
+                    );
                 } else {
                     if ($tax === null || $tax->getRate() === 0) {
                         $priceIncludeTaxes = $product->getPrixht();
                     } else {
                         $priceIncludeTaxes = $this->getProductPrice($product, $tax->getRate());
                     }
-                    $data['totalPrice'] = round($data['totalPrice'] + $product->getPrixht(), 2);
-                    $data['totalPriceIT'] = round($data['totalPriceIT'] + $priceIncludeTaxes, 2);
-                    $data['product'][$k]['codprd'] = $product->getCodprd();
-                    $data['product'][$k]['quantity'] = $cartline->getQuantity();
-                    $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;
-                    $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
-                    $data['product'][$k]['price'] = $product->getPrixht();
-                    $data['product'][$k]['name'] = $product->getProduitcourt();
-                    $data['product'][$k]['vatProduct'] = round($data['product'][$k]['priceIT']
-                                                        - $data['product'][$k]['price'], 2);
-                    $totalWeight = $totalWeight + $product->getPoids();
+                    
+                    $data['product'][$k]['price'] = intval($product->getPrixht());
                 }
+
+                $data['totalPrice'] = round($data['totalPrice'] + $data['product'][$k]['price'], 2);
+                $data['product'][$k]['codprd'] = $product->getCodprd();
+                $data['product'][$k]['quantity'] = $cartline->getQuantity();
+                $data['product'][$k]['name'] = $product->getProduitcourt();
+                $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
+                $data['product'][$k]['vatProduct'] = round($data['product'][$k]['priceIT']
+                                                        - $data['product'][$k]['price'], 2);
+                
+                $data['totalPriceIT'] = round($data['totalPriceIT'] + $priceIncludeTaxes, 2);
+                $totalWeight = $totalWeight + $product->getPoids();
                 
                 $i++;
             }
         }
+        $shippingPriceData = $this->findShipping($totalWeight, $country);
+        $packagingWeight = $shippingPriceData['supplementWeight'];
+        $shippingPriceIT = $shippingPriceData['price'];
+        $data['packagingWeight'] = $packagingWeight;
         $data['weightOrder'] = $totalWeight;
+        $data['totalWeight'] = $totalWeight + $packagingWeight;
+        $data['shippingPriceIT'] = intval($shippingPriceIT);
+        $data['consumerPriceIT'] = $data['shippingPriceIT'] + $data['totalPriceIT'];
+        $data['consumerPrice'] = $data['shippingPriceIT'] + $data['totalPrice'];
+
         $data['vat'] = round($data['totalPriceIT'] - $data['totalPrice'], 2);
         return $data;
+    }
+
+    private function findShipping($weight, $country)
+    {
+        if ($country === 'Font' || $country === 'Roche') {
+            return ['supplementWeight' => 0, 'price' => 0];
+        }
+        $supplementWeight = $this->shippingRepository->findWeight($weight, $country);
+        $weight += $supplementWeight;
+        $price = $this->shippingRepository->findShipping($weight, $country);
+        return ['supplementWeight' => $supplementWeight, 'price' => $price['price']];
     }
     
     private function getProductPrice($product, $taxrate)
@@ -186,7 +313,6 @@ class OrderController extends Controller
 
     /**
      * @Rest\Post("/order/delivery", name="post_delivery")
-
      * @Rest\View()
     */
     public function xhrPostAddrDeliveryAction(Request $request)
@@ -229,20 +355,36 @@ class OrderController extends Controller
         if (!isset($delivery['cartId'])) {
             return ['status' => 'ko', 'message' => 'You must provide a client with a delivery cartid'];
         }
-        // if ($this->registerOrder($delivery, $cartId, $locale)) {
         if ($order = $this->registerOrder($delivery, $cartId, $locale)) {
-            return ['status' => 'ok'];
+            return ['status' => 'ok', 'data' => $order];
         }
-        return ['status' => 'ko', 'message' => 'an error as occured', 'order' => $order];
+        return ['status' => 'ko', 'message' => 'an error as occured'];
     }
 
     /**
      *
      * @Route("/{_locale}/order/payment-return/{method}/{status}", name="order_payment_return")
      */
-    public function paymentReturnAction($method, $status, Request $request)
+    public function paymentReturnAction($method, $status, Request $request, PaypalService $paypalService)
     {
-        return $this->render('order/payment-return.html.twig', ['status' => $status, 'method' => $method]);
+        $session = new Session();
+        $cartId = $session->get('cart');
+        $cart = $this->cartRepository->find($cartId);
+
+        $this->em->remove($cart);
+        $this->em->flush();
+        
+        $session->remove('cart');
+
+        if ($status === 'success') {
+            $this->paymentNotifyAction($method, $request, $paypalService);
+        }
+
+        return $this->render('order/payment-return.html.twig', [
+            'status' => $status,
+            'method' => $method,
+            'cartCount' => $this->cartService->getCartCount()
+        ]);
     }
 
     /**
@@ -294,20 +436,15 @@ class OrderController extends Controller
     {
         
         $user = $this->getUser();
-        // $em = $this->getDoctrine()->getManager();
-        // $user = $this->getDoctrine()->getRepository('AppBundle:Contact')->findByCodco($codcli);
         $codcli = $user->getCodcli();
-        
-
         $cart = $this->cartRepository->find($delivery['cartId']);
-        // $cart = $this->getCart($cartId);
 
         $datCom = new \DateTime();
         $modpaie = $delivery['modpaie'];
         $modliv = $delivery['modliv'];
         $paysliv = $delivery['paysliv'];
 
-        $data = $this->getCartPrices($delivery['cartId'], $delivery['paysliv']);
+        $data = $this->getCartPrices($delivery['cartId'], $delivery['paysliv'], $delivery['destliv']);
 
         $datpaie = new \DateTime();
         $validpaie = $delivery['validpaie'];
@@ -335,10 +472,10 @@ class OrderController extends Controller
         }
 
         $weight = $data['weightOrder'];
-        $portPrice = $this->shippingRepository->findGoodPort($weight, $paysliv, $destliv);
-        $amountHT = $data['totalPrice'];
+        $shippingPrice = $data['shippingPriceIT'];
+        $amountHT = $data['consumerPrice'];
         $promo = 0;
-        $priceit = $data['totalPriceIT'];
+        $priceit = $data['consumerPriceIT'];
         $vat = $data['vat'];
 
         $datliv = new \Datetime($delivery['datliv']);
@@ -362,7 +499,7 @@ class OrderController extends Controller
         $order->setTtc($priceit);
         $order->setTva($vat);
         $order->setPoids($weight);
-        $order->setPort($portPrice);
+        $order->setPort($shippingPrice);
         $order->setPromo($promo);
         $order->setDatliv($datliv);
         $order->setPaysip($paysip);
@@ -394,12 +531,6 @@ class OrderController extends Controller
         }
         $this->notifyClient($order, $locale, $user);
         return $order;
-    }
-    
-    private function getCart($id)
-    {
-        $cart = $this->cartRepository->find($id);
-        return $cart;
     }
 
     private function getAdLiv($adliv, $user)
@@ -450,15 +581,38 @@ class OrderController extends Controller
         $cookies = $request->cookies;
         $session = new Session();
         
-        $countrys = $this->tpaysRepository->findAllCountry();
+        $countriesJSON = array();
+        $countries = $this->tpaysRepository->findAllCountry();
+        foreach ($countries as $country) {
+            $countriesJSON[] = array(
+                'codpays' => $country->getCodpays(),
+                'nompays' => $country->getNompays()
+            );
+        }
+
         $cartId = $session->get('cart');
+        $cart = $this->cartRepository->find($cartId);
+        
+        if ($cartId === null) {
+            return $this->render('order/order-error.html.twig', [
+                'cartCount' => $this->cartService->getCartCount()
+            ]);
+        }
+
+        if (empty($cart->getCartlines()->getValues())) {
+            return $this->render('order/order-error.html.twig', [
+                'cartCount' => $this->cartService->getCartCount()
+            ]);
+        }
+        
         $page = $this->pageService->getContentFromRequest($request);
         $availableLocales = $this->pageService->getAvailableLocales($page);
         return $this->render('order/order.html.twig', [
             'cart' => $this->cartRepository->find($cartId),
             'page' => $page,
-            'countrys' => $countrys,
-            'availableLocales' => $availableLocales
+            'countries' => $countriesJSON,
+            'availableLocales' => $availableLocales,
+            'cartCount' => $this->cartService->getCartCount()
         ]);
     }
 }

@@ -1272,25 +1272,25 @@
     <unit id="i2JGptw" name="order.registration.one.title">
       <segment>
         <source>order.registration.one.title</source>
-        <target>Connexion</target>
+        <target>Connexion/Inscription</target>
       </segment>
     </unit>
     <unit id="BxI_rwF" name="order.registration.one.body.disconnected">
       <segment>
         <source>order.registration.one.body.disconnected</source>
-        <target>Avez vous déja effectuer une commande sur notre site ?</target>
+        <target>Avez-vous déjà commandé aux Editions Roche d'Or ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
       </segment>
     </unit>
     <unit id="al9WFPE" name="order.registration.two.title">
       <segment>
         <source>order.registration.two.title</source>
-        <target>Commande</target>
+        <target>Fiche client</target>
       </segment>
     </unit>
     <unit id="S_61BVF" name="order.registration.two.title.you">
       <segment>
         <source>order.registration.two.title.you</source>
-        <target>Votre fiche client</target>
+        <target>Vos informations</target>
       </segment>
     </unit>
     <unit id="biPtN4s" name="order.registration.choose.adliv">
@@ -1305,9 +1305,9 @@
         <target>Livraison</target>
       </segment>
     </unit>
-    <unit id="EuDIPVk" name="select.ad.myadd">
+    <unit id="EuDIPVk" name="select.ad.myAd">
       <segment>
-        <source>select.ad.myadd</source>
+        <source>select.ad.myAd</source>
         <target>Mon adresse</target>
       </segment>
     </unit>
@@ -1386,8 +1386,7 @@
     <unit id="JwRE9Ox" name="order.registration.choose.gift">
       <segment>
         <source>order.registration.choose.gift</source>
-        <target>
-Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.</target>
+        <target>Cadeau</target>
       </segment>
     </unit>
     <unit id="7o3eWsz" name="order.choose.modpaie">
@@ -1478,6 +1477,108 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
       <segment>
         <source>editions.technicalreview.poids</source>
         <target>Poids</target>
+      </segment>
+    </unit>
+    <unit id="lYDi7RY" name="cart.emptydelivery">
+      <segment>
+        <source>cart.emptydelivery</source>
+        <target>Aucune</target>
+      </segment>
+    </unit>
+    <unit id="OVd0vdP" name="form.message.recap_delivery">
+      <segment>
+        <source>form.message.recap_delivery</source>
+        <target>Livraison</target>
+      </segment>
+    </unit>
+    <unit id="2nyW22." name="form.message.recap_cartInfo">
+      <segment>
+        <source>form.message.recap_cartInfo</source>
+        <target>Récapitulatif panier</target>
+      </segment>
+    </unit>
+    <unit id="C8Akz4x" name="cart.emptycart">
+      <segment>
+        <source>cart.emptycart</source>
+        <target>Panier vide</target>
+      </segment>
+    </unit>
+    <unit id="1e765_n" name="form.street">
+      <segment>
+        <source>form.street</source>
+        <target>Rue</target>
+      </segment>
+    </unit>
+    <unit id="oirGR28" name="form.societe">
+      <segment>
+        <source>form.societe</source>
+        <target>Société</target>
+      </segment>
+    </unit>
+    <unit id="Sc.pDDq" name="order.summary.title.clients">
+      <segment>
+        <source>order.summary.title.clients</source>
+        <target>Récapitulatif produit</target>
+      </segment>
+    </unit>
+    <unit id="CJ0FDoz" name="its.a.gift">
+      <segment>
+        <source>its.a.gift</source>
+        <target>Cadeau</target>
+      </segment>
+    </unit>
+    <unit id="u6sNBSu" name="order.gift.text">
+      <segment>
+        <source>order.gift.text</source>
+        <target>Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.</target>
+      </segment>
+    </unit>
+    <unit id="kkp4fpp" name="order.registration.one.body.connected">
+      <segment>
+        <source>order.registration.one.body.connected</source>
+        <target><![CDATA[Vous êtes connecté en tant que <i>%name%</i>, voulez-vous continuer ?]]></target>
+      </segment>
+    </unit>
+    <unit id="JdLwAci" name="form.gift">
+      <segment>
+        <source>form.gift</source>
+        <target>Message</target>
+      </segment>
+    </unit>
+    <unit id="HLmsseT" name="form.payment">
+      <segment>
+        <source>form.payment</source>
+        <target>Paiement</target>
+      </segment>
+    </unit>
+    <unit id="f3pcw8k" name="go.to.order">
+      <segment>
+        <source>go.to.order</source>
+        <target>Retour à la livraison</target>
+      </segment>
+    </unit>
+    <unit id="zPY3e8P" name="form.its.a.gift">
+      <segment>
+        <source>form.its.a.gift</source>
+        <target>Cadeau</target>
+      </segment>
+    </unit>
+    <unit id="p3KOArL" name="form.validate.gift">
+      <segment>
+        <source>form.validate.gift</source>
+        <target>Valider le message</target>
+      </segment>
+    </unit>
+    <unit id="GHT1Oe_" name="form.no_clients">
+      <segment>
+        <source>form.no_clients</source>
+        <target>form.no_clients</target>
+      </segment>
+    </unit>
+    <unit id="Yenhfq6" name="form.suprmessage.gift">
+      <segment>
+        <source>form.suprmessage.gift</source>
+        <target>Supprimer le message</target>
       </segment>
     </unit>
     <unit id="znn8YMw" name="security.user_exist">
@@ -1609,7 +1710,7 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
     <unit id="oXrCtEF" name="form.reset">
       <segment>
         <source>form.reset</source>
-        <target>Effacer</target>
+        <target>form.reinit</target>
       </segment>
     </unit>
     <unit id="reTt_sP" name="form.message.child_must_come_with_adult">
@@ -1700,6 +1801,306 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
       <segment>
         <source>calendar.registration.three.header</source>
         <target><![CDATA[<p>Nous vous remercions de l’attention que vous portez à la Roche d’Or. Votre demande d’inscription est prise en compte sous le numéro :</p><p><center><br>%entry_number%</br></center></p>]]></target>
+      </segment>
+    </unit>
+    <unit id="r6YZYDf" name="order.summary.title.cart">
+      <segment>
+        <source>order.summary.title.cart</source>
+        <target>Panier</target>
+      </segment>
+    </unit>
+    <unit id="bgD9EK8" name="form.update">
+      <segment>
+        <source>form.update</source>
+        <target>Modifier vos informations</target>
+      </segment>
+    </unit>
+    <unit id="FEBnXbm" name="form.tvaintra">
+      <segment>
+        <source>form.tvaintra</source>
+        <target>TVA Intracommunautaire</target>
+      </segment>
+    </unit>
+    <unit id="xAoi438" name="form.memocli">
+      <segment>
+        <source>form.memocli</source>
+        <target>Mémo</target>
+      </segment>
+    </unit>
+    <unit id="DHrPEzE" name="order.registration.three.title">
+      <segment>
+        <source>order.registration.three.title</source>
+        <target>Livraison</target>
+      </segment>
+    </unit>
+    <unit id="PB4LNL8" name="order.registration.three.title.you">
+      <segment>
+        <source>order.registration.three.title.you</source>
+        <target>Choisissez une adresse de livraison</target>
+      </segment>
+    </unit>
+    <unit id="TTOaJf7" name="form.message.pro_invalid">
+      <segment>
+        <source>form.message.pro_invalid</source>
+        <target>Le numéro de TVA ou le nom de la société est incomplet</target>
+      </segment>
+    </unit>
+    <unit id="X0QCe2q" name="order.registration.four.title">
+      <segment>
+        <source>order.registration.four.title</source>
+        <target>Paiement</target>
+      </segment>
+    </unit>
+    <unit id="MXXtuv8" name="order.registration.three.title.modify.you">
+      <segment>
+        <source>order.registration.three.title.modify.you</source>
+        <target>Paiement</target>
+      </segment>
+    </unit>
+    <unit id="0Xx9cxJ" name="order.registration.two.title.modify.you">
+      <segment>
+        <source>order.registration.two.title.modify.you</source>
+        <target>Modifier</target>
+      </segment>
+    </unit>
+    <unit id="3mncFIM" name="order.registration.five.title">
+      <segment>
+        <source>order.registration.five.title</source>
+        <target>Confirmation</target>
+      </segment>
+    </unit>
+    <unit id="MlYjC4s" name="order.registration.five.body">
+      <segment>
+        <source>order.registration.five.body</source>
+        <target>Félicitations, votre commande à été confirmée !</target>
+      </segment>
+    </unit>
+    <unit id="YQKEE1i" name="order.summary.title.delivery">
+      <segment>
+        <source>order.summary.title.delivery</source>
+        <target>Livraison</target>
+      </segment>
+    </unit>
+    <unit id="vmEWF6k" name="order.summary.title.total">
+      <segment>
+        <source>order.summary.title.total</source>
+        <target>Total</target>
+      </segment>
+    </unit>
+    <unit id="uYqiG8u" name="order.summary.body.delivery">
+      <segment>
+        <source>order.summary.body.delivery</source>
+        <target><![CDATA[Veuillez confirmer votre adresse de livraison.<br>Les informations indiquées ci-dessous sont estimées sur une livraison valable en France Métropolitaine.]]></target>
+      </segment>
+    </unit>
+    <unit id="1z0.Gk7" name="order.summary.body.total">
+      <segment>
+        <source>order.summary.body.total</source>
+        <target>Veuillez confirmer votre adresse de livraison</target>
+      </segment>
+    </unit>
+    <unit id="jYuAOdP" name="table.header.product">
+      <segment>
+        <source>table.header.product</source>
+        <target>Produit</target>
+      </segment>
+    </unit>
+    <unit id="yrwV99j" name="table.header.price">
+      <segment>
+        <source>table.header.price</source>
+        <target>Prix</target>
+      </segment>
+    </unit>
+    <unit id="xZHRyZP" name="table.header.quantity">
+      <segment>
+        <source>table.header.quantity</source>
+        <target>Quantité</target>
+      </segment>
+    </unit>
+    <unit id="UUICu91" name="table.header.delete">
+      <segment>
+        <source>table.header.delete</source>
+        <target>Supprimer</target>
+      </segment>
+    </unit>
+    <unit id="5ehaNxD" name="table.header.label">
+      <segment>
+        <source>table.header.label</source>
+        <target>Libellé</target>
+      </segment>
+    </unit>
+    <unit id="22SyQzP" name="table.header.total">
+      <segment>
+        <source>table.header.total</source>
+        <target>Total</target>
+      </segment>
+    </unit>
+    <unit id="HXv5iUO" name="table.header.weight">
+      <segment>
+        <source>table.header.weight</source>
+        <target>Poids</target>
+      </segment>
+    </unit>
+    <unit id="W5bVwVH" name="main.remove">
+      <segment>
+        <source>main.remove</source>
+        <target>Supprimer</target>
+      </segment>
+    </unit>
+    <unit id="jZKU8Dt" name="order-error.title.small">
+      <segment>
+        <source>order-error.title.small</source>
+        <target>Les éditions</target>
+      </segment>
+    </unit>
+    <unit id="mCVIY4Y" name="order-error.title.big">
+      <segment>
+        <source>order-error.title.big</source>
+        <target>De la Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="hGp5Jrt" name="order-error.text">
+      <segment>
+        <source>order-error.text</source>
+        <target><![CDATA[Vous n'avez pas d'ouvrage dans votre panier. Nous vous invitons a les découvrir en cliquant sur ce <a href="%link%">lien</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="9pr9CAk" name="order-return.title.small">
+      <segment>
+        <source>order-return.title.small</source>
+        <target>Les édition</target>
+      </segment>
+    </unit>
+    <unit id="5RoUp_p" name="order-return.title.big">
+      <segment>
+        <source>order-return.title.big</source>
+        <target>De la Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="ruQIhH0" name="success">
+      <segment>
+        <source>success</source>
+        <target>Votre commande c'est dérouler avec succes</target>
+      </segment>
+    </unit>
+    <unit id="ygD8z7Q" name="error">
+      <segment>
+        <source>error</source>
+        <target>Une erreur est survenue lors de votre commande</target>
+      </segment>
+    </unit>
+    <unit id="_nSW5K6" name="collection">
+      <segment>
+        <source>collection</source>
+        <target>Collection</target>
+      </segment>
+    </unit>
+    <unit id="aVKbZqS" name="menu.cart">
+      <segment>
+        <source>menu.cart</source>
+        <target>Panier</target>
+      </segment>
+    </unit>
+    <unit id="EY4TYVa" name="order.registration.one.title.connection">
+      <segment>
+        <source>order.registration.one.title.connection</source>
+        <target>Connection</target>
+      </segment>
+    </unit>
+    <unit id="xglinNC" name="order.registration.one.title.registration">
+      <segment>
+        <source>order.registration.one.title.registration</source>
+        <target>Inscription</target>
+      </segment>
+    </unit>
+    <unit id="l0nR41K" name="form.message.delivery_invalid">
+      <segment>
+        <source>form.message.delivery_invalid</source>
+        <target>Tous les champs de "Adresse de livraison" sont obligatoires</target>
+      </segment>
+    </unit>
+    <unit id="cHFGXVz" name="order.choose.payment">
+      <segment>
+        <source>order.choose.payment</source>
+        <target>Mode de paiement</target>
+      </segment>
+    </unit>
+    <unit id="oydHg8c" name="order.error.title">
+      <segment>
+        <source>order.error.title</source>
+        <target><![CDATA[<small>Les Editions </small>Roche d'Or]]></target>
+      </segment>
+    </unit>
+    <unit id="5BOTPxB" name="order.error.text">
+      <segment>
+        <source>order.error.text</source>
+        <target><![CDATA[Votre panier est vide. Vous pouvez ajouter un article depuis les <a href="%link%">collections</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="DwQUHDv" name="table.label.weightOrder">
+      <segment>
+        <source>table.label.weightOrder</source>
+        <target>Poids des articles</target>
+      </segment>
+    </unit>
+    <unit id="G1UnR4o" name="table.label.packagingWeight">
+      <segment>
+        <source>table.label.packagingWeight</source>
+        <target>Poids de l'emballage</target>
+      </segment>
+    </unit>
+    <unit id="lRTS5zO" name="table.label.totalWeight">
+      <segment>
+        <source>table.label.totalWeight</source>
+        <target>Poids total</target>
+      </segment>
+    </unit>
+    <unit id="0DVHmKT" name="table.label.totalPriceIT">
+      <segment>
+        <source>table.label.totalPriceIT</source>
+        <target>Montant des achats TTC</target>
+      </segment>
+    </unit>
+    <unit id="VlB_08Z" name="table.label.vat">
+      <segment>
+        <source>table.label.vat</source>
+        <target>Dont TVA</target>
+      </segment>
+    </unit>
+    <unit id="NL2xyyC" name="table.label.shippingPriceIT">
+      <segment>
+        <source>table.label.shippingPriceIT</source>
+        <target>Frais d'expédition</target>
+      </segment>
+    </unit>
+    <unit id="oc7G9Ky" name="table.label.consumerPriceIT">
+      <segment>
+        <source>table.label.consumerPriceIT</source>
+        <target>Total TTC</target>
+      </segment>
+    </unit>
+    <unit id="thE5KNk" name="form.reinit">
+      <segment>
+        <source>form.reinit</source>
+        <target>Réinitialiser</target>
+      </segment>
+    </unit>
+    <unit id="AOdX9Pe" name="order-return.title">
+      <segment>
+        <source>order-return.title</source>
+        <target><![CDATA[Les Editions <small>de la Roche d'Or</small>]]></target>
+      </segment>
+    </unit>
+    <unit id="bI8gjQ5" name="order-return.success">
+      <segment>
+        <source>order-return.success</source>
+        <target><![CDATA[Votre commande a bien été enregistrée. Vous recevrez un mail de confirmation dans quelques minutes. Retour aux <a href="%link%">collections</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="VbHIGnV" name="order-return.cancel">
+      <segment>
+        <source>order-return.cancel</source>
+        <target><![CDATA[Un problème est survenu lors de votre commande. Veuillez retourner au <a href="%link%">panier</a>.]]></target>
       </segment>
     </unit>
   </file>

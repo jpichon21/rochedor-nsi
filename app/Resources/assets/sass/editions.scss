@@ -14,7 +14,6 @@ h2 {
   font-weight: 200;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #000000;
   small {
     display: block;
     margin-bottom: 5px;
@@ -42,20 +41,27 @@ h2 {
       }
     }
   }
-  .languages {
-    ul li a {
-      color: #000000;
-    }
-    .current li {
-      border-color: #000000;
-    }
-    .available li {
-      border-color: rgba(0, 0, 0, 0.2);
+  .sub-menu {
+    &:before {
+      background: linear-gradient(to bottom, transparent 0%, #ececec 1px, transparent 100%);
     }
   }
-  .zoom li {
-    color: #000000;
-    border-color: #000000;
+  .options {
+    .languages {
+      ul li a {
+        color: #000000;
+      }
+      .current li {
+        border-color: #000000;
+      }
+      .available li {
+        border-color: rgba(0, 0, 0, 0.2);
+      }
+    }
+    .zoom li {
+      color: #000000;
+      border-color: #000000;
+    }
   }
   .logo {
     .normal {
@@ -63,12 +69,34 @@ h2 {
     }
     .editions {
       display: block;
+      text-decoration: none;
       img {
-        bottom: -60px;
-        margin-left: -70px;
+        bottom: -25px;
+        margin-left: -45px;
+      }
+      span {
+        position: absolute;
+        top: 150px;
+        width: 100%;
+        font-size: 12px;
+        font-weight: 100;
+        line-height: 16px;
+        color: #000000;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        animation-delay: 2s;
+        animation-duration: 0.8s;
+        animation-fill-mode: forwards;
+        animation-name: downElement;
       }
     }
   }
+}
+
+@keyframes downElement {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 .footer {
@@ -421,6 +449,7 @@ h2 {
   }
   .thumbnails {
     display: flex;
+    margin-bottom: 40px;
     padding-top: 10px;
     div {
       flex: 1;
@@ -520,5 +549,121 @@ h2 {
         }
       }
     }
+  }
+}
+
+.content {
+  .intro {
+    color: #000000;
+    a {
+      color: $roche-orange;
+      border-bottom: 1px $roche-orange solid;
+    }
+  }
+  .dropdown {
+    &:after {
+      background: #000000;
+    }
+    .item {
+      color: #000000;
+      &:after,
+      &:before {
+        background-color: #000000;
+      }
+      &.active {
+        color: #000000;
+        &:before {
+          background-color: $roche-orange;
+        }
+        &:after {
+          background: linear-gradient(to bottom, $roche-orange 0%, $roche-orange 25%,#000000 100%);
+        }
+        h2 {
+          color: $roche-orange;
+        }
+      }
+      h3 {
+        color: #000000;
+      }
+      a {
+        color: $roche-orange;
+        border-bottom: 1px #ffb170 solid;
+      }
+      hr {
+        border-bottom: 1px #000000 solid;
+      }
+      blockquote {
+        color: #000000;
+        &:before {
+          background: linear-gradient(to bottom, $roche-orange 0%, #232323 25%, #232323 75%, #000000 100%);
+        }
+      }
+      .input,
+      .select,
+      .textarea {
+        color: $roche-orange;
+        border: 1px solid #000000;
+        &::placeholder {
+          color: #000000;
+        }
+        &:disabled {
+          border: 1px solid #cccccc;
+          color: $roche-orange;
+        }
+      }
+      .select {
+        color: #000000;
+        background-image: url('../img/arrow-select-black.png');
+        &:disabled {
+          background-image: url('../img/arrow-select-grey.png');
+          border: 1px solid #cccccc;
+        }
+        &.white {
+          color: $roche-orange;
+          background-image: url('../img/arrow-select-orange.png');
+        }
+      }
+      option {
+        color: $roche-orange;
+        background: #ffffff;
+      }
+      .button {
+        color: $roche-orange;
+        border: 1px $roche-orange solid;
+        &.submit {
+          color: $roche-orange;
+          border-color: $roche-orange;
+        }
+      }
+      .panel {
+        &:before {
+          background: #ffffff;
+        }
+      }
+    }
+  }
+  > {
+    .right {
+      h2, h3 {
+        color: $roche-orange;
+      }
+      p {
+        color: #000000;
+      }
+    }
+  }
+}
+
+.popup {
+  .overlay {
+    background: rgba(195, 195, 195, 0.5);
+  }
+  .box {
+    color: $roche-orange;
+    background-color: #ffffff;
+  }
+  .button {
+    color: $roche-orange;
+    border: 1px $roche-orange solid;
   }
 }

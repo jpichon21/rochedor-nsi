@@ -8,13 +8,9 @@
 {% block content %}
 <div class="content">
     <div class="left">
-        <h1>{{ 'order-return.title' | trans | raw }}</h1>
+        <h1>{{ 'order.error.title' | trans | raw }}</h1>
         <div class="intro">
-            {% if status == 'success' %}
-            {{ 'order-return.success' | trans({'%link%': path('collections-' ~ app.request.locale)}) | raw }}
-            {% elseif status == 'cancel' %}
-            {{ 'order-return.cancel' | trans({'%link%': path('order-' ~ app.request.locale)}) | raw }}
-            {% endif %}
+            {{ 'order.error.text' | trans({'%link%': path('collections-' ~ app.request.locale)}) | raw }}
         </div>
     </div>
     <div class="hole">

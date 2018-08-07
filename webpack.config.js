@@ -33,6 +33,7 @@ Encore
   .addStyleEntry('css/calendar-registration', './app/Resources/assets/sass/calendar-registration.scss')
   .addStyleEntry('css/editions', './app/Resources/assets/sass/editions.scss')
   .addStyleEntry('css/carousel', './app/Resources/assets/sass/carousel.scss')
+  .addStyleEntry('css/order', './app/Resources/assets/sass/order.scss')
   .addStyleEntry('css/Draft/Draft', './app/Resources/assets/css/Draft.css')
   .addStyleEntry('css/Draft/Editor', './app/Resources/assets/css/Editor.css')
   .addStyleEntry('css/pure-css-grids', './node_modules/purecss/build/grids-min.css')

@@ -66,7 +66,7 @@
         {{ product.pageprd }}
       </div>
       <div class="actions">
-        <a class="button" href="{{ path('cart-add', {'productId': product.codprd}) }}">{{ 'editions.addtocart' | trans }}</a>
+        <a class="button addToCart" href="{{ path('cart-add', {'productId': product.codprd}) }}">{{ 'editions.addtocart' | trans }}</a>
         {% if product.urlbook != '' %}
         <div class="choice">{{ 'editions.or' | trans }}</div>
         <a class="button" href="{{ product.urlbook }}">{{ 'editions.ebookversion' | trans }}</a>
