@@ -201,7 +201,7 @@
         <input autocomplete="nope" class="input ville" required type="text" value="<%= participant.ville %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <select class="select pays <%= (participant.pays != '') ? 'white' : '' %>" required name="pays">
+        <select class="select pays <%= (participant.pays != '') ? 'white' : '' %>" required name="pays" placeholder="sdfsdf">
             <option <%= (participant.pays == '') ? 'selected' : '' %> disabled value="">{{ 'form.country' | trans | raw }}</option>
             <% for (var i = 0; i < countries.length; i++) { %>
                 <% var country = countries[i] %>
@@ -243,7 +243,7 @@
         <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= participant.memo %></textarea>
     </div>
     <div class="pure-u-6-24">
-        <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reset' | trans | raw }}">
+        <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reinit' | trans | raw }}">
     </div>
     <div class="pure-u-4-24">
         <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
@@ -335,7 +335,7 @@
         <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= participant.memo %></textarea>
     </div>
     <div class="pure-u-6-24">
-        <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reset' | trans | raw }}">
+        <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reinit' | trans | raw }}">
     </div>
     <div class="pure-u-4-24">
         <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
