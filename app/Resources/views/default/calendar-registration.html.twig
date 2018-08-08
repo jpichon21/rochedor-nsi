@@ -13,7 +13,7 @@
         <div class="intro">
             {{ 'calendar.registration.intro'|trans({'%link%': path('calendar-' ~ app.request.locale)}) | raw }}
         </div>
-        <div class="dropdown">
+        <div class="dropdown without-link">
             <div class="item connection">
                 <h2>{{ 'calendar.registration.one.title' | trans | raw }}</h2>
                 {% if app.user %}
