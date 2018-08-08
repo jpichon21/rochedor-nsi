@@ -241,7 +241,7 @@ class CalendarController extends Controller
         $calendar['sitact'] = $this::SITES[array_search($calendar['sitact'], $this::SITES)]['name'];
         return $calendar;
     }
-
+    
     private function registerAttendees($attendees, $activityId)
     {
         $em = $this->getDoctrine()->getManager();
@@ -378,7 +378,22 @@ class CalendarController extends Controller
         if ($refs === null) {
             return null;
         }
-        return $this->calendarRepository->findAttendees(array_column($refs, 'reflcal'), $contact->getCodco());
+
+        // Find both parents and last registration's contacts
+        $parents = $this->calendarRepository->findParents($contact->getCodco());
+        $linked = $this->calendarRepository->findAttendees(array_column($refs, 'reflcal'), $contact->getCodco());
+        
+        $keys = [$contact->getCodCo()];
+        $contacts = [];
+        // Filter contacts to only return unique entries
+        foreach (array_merge($parents, $linked) as $contact) {
+            if (!in_array($contact['codco'], $keys)) {
+                $keys[] = $contact['codco'];
+                $contacts[] = $contact;
+            }
+        }
+
+        return $contacts;
     }
 
     public function getDataCalendarAction(CalendarRepository $calendarRepo)
