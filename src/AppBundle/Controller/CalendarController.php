@@ -261,6 +261,10 @@ class CalendarController extends Controller
                     ->setColtyp($a['coltyp']);
                     $em->persist($contactl);
                 }
+                if ($a['aut16'] == 1) {
+                    $contact->setDataut16(new \DateTime($a['datAut16']));
+                    $em->persist($contact);
+                }
                 $calendar = $this->calendarRepository->findCalendar($activityId);
                 $site = $calendar['sitact'];
                 $registrationCount = (int) $this->calendarRepository->findRegistrationCount($site)['valeurn'] + 1;
@@ -307,9 +311,6 @@ class CalendarController extends Controller
         ->setDatnaiss(new \DateTime($attendee['datnaiss']))
         ->setProfession($attendee['profession'])
         ->setAut16($attendee['aut16']);
-        if ($attendee['aut16'] == 1) {
-            $contact->setDataut16(new \DateTime($attendee['datAut16']));
-        }
         return $contact;
     }
 
