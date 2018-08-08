@@ -291,6 +291,10 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
             $(this).hide()
             changeItem(itemParticipants)
           })
+        }).catch(error => {
+          if (error) {
+            upFlashbag(error)
+          }
         })
       }).catch(error => {
         if (error) {
