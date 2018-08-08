@@ -4,14 +4,12 @@ import { getParticipant } from './sample'
 import { upFlashbag, upConfirmbox } from './popup'
 import I18n from './i18n'
 import {
-  postParticipant,
+  postRegister,
   getLogin,
   getLogout,
   postLogin,
-  resetLogin,
-  getRegistered,
-  postRegistered,
-  postRegister } from './gift-api.js'
+  resetLogin } from './gift-api.js'
+import { callbackify } from 'util';
 
 /* Translations */
 
@@ -28,13 +26,15 @@ const _countries = JSON.parse($('.countries-json').html())
 /* Variables */
 
 let _you = {}
-let _registered = []
-let _participant = {}
-let _participants = []
+let _amount = 0
+let _allocation = ''
+let _modpaie = ''
 
 const itemConnection = $('.item.connection')
-const itemParticipants = $('.item.participants')
-const itemValidation = $('.item.validation')
+const itemCard = $('.item.card')
+const itemAmount = $('.item.amount')
+const itemAllocation = $('.item.allocation')
+const itemPayment = $('.item.payment')
 
 /* Dropdowns */
 
@@ -63,54 +63,16 @@ $('.registered-render').on('click', '.button.radio', function (event) {
 /* Renders */
 
 const youTemplate = _.template($('.you-template').html())
-const registeredTemplate = _.template($('.registered-template').html())
-const participantsTemplate = _.template($('.participants-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
-const himFormTemplate = _.template($('.him-form-template').html())
 
 function updateYouRender () {
   $('.you-render').html(youTemplate({ you: _you }))
 }
 
-function updateRegisteredRender () {
-  $('.registered-render').html(registeredTemplate({
-    registered: _registered
-  }))
-}
-
-function updateParticipantsRender () {
-  $('.participants-render').html(participantsTemplate({
-    participants: _participants,
-    transports: {
-      'perso': i18n.trans('form.transport.perso'),
-      'train': i18n.trans('form.transport.train'),
-      'avion': i18n.trans('form.transport.avion'),
-      'bus': i18n.trans('form.transport.bus')
-    }
-  }))
-}
-
 function updateYouFormRender () {
   $('.you-form-render').html(youFormTemplate({
-    participant: _participant,
-    countries: _countries,
-    civilites: [
-      i18n.trans('form.civilite.mr'),
-      i18n.trans('form.civilite.mme'),
-      i18n.trans('form.civilite.mlle'),
-      i18n.trans('form.civilite.frere'),
-      i18n.trans('form.civilite.pere'),
-      i18n.trans('form.civilite.soeur')
-    ]
-  }))
-}
-
-function updateHimFormRender () {
-  $('.him-form-render').html(himFormTemplate({
-    participant: _participant,
-    countries: _countries,
-    registered: _registered,
     you: _you,
+    countries: _countries,
     civilites: [
       i18n.trans('form.civilite.mr'),
       i18n.trans('form.civilite.mme'),
@@ -124,19 +86,15 @@ function updateHimFormRender () {
 
 /* Actions */
 
-function afterLogin (user) {
+function afterLogin (user, bypass) {
   const participant = getParticipant()
   _you = { ...participant, ...user }
-  _participants = [_you]
   updateYouRender()
-  getRegistered().then(registered => {
-    _registered = registered.map(obj => {
-      return { ...participant, ...obj }
-    })
-    updateRegisteredRender()
-    updateParticipantsRender()
-    changeItem(itemParticipants)
-  })
+  if (bypass) {
+    changeItem(itemAmount)
+  } else {
+    changeItem(itemCard)
+  }
 }
 
 function formatParticipant (data) {
@@ -155,7 +113,7 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
     username: $('.username', this).val(),
     password: $('.password', this).val()
   }).then(user => {
-    afterLogin(user)
+    afterLogin(user, false)
   }).catch(() => {
     upFlashbag(i18n.trans('security.bad_credentials'))
   })
@@ -171,8 +129,21 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
 })
 
 itemConnection.on('submit', '.panel.registration form', function (event) {
+  callbackRegister(event, $(this), user => {
+    postLogin({
+      username: user.username,
+      password: user.password
+    }).then(user => {
+      afterLogin(user, true)
+    }).catch(() => {
+      upFlashbag(i18n.trans('security.user_exist'))
+    })
+  })
+})
+
+const callbackRegister = (event, context, callbackFunc) => {
   event.preventDefault()
-  const data = $(this).serializeArray()
+  const data = context.serializeArray()
   const participant = formatParticipant(data)
   const validatedDate = validateDate(participant.datnaiss)
   const validatedPhone = validatePhone(participant.tel, participant.mobil)
@@ -181,16 +152,9 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
       postRegister({
         contact: participant
       }).then(user => {
-        postLogin({
-          username: user.username,
+        callbackFunc({
+          ...user,
           password: participant.password
-        }).then(user => {
-          afterLogin({
-            ...user,
-            transport: participant.transport
-          })
-        }).catch(() => {
-          upFlashbag(i18n.trans('security.user_exist'))
         })
       }).catch(error => {
         upFlashbag(error)
@@ -201,26 +165,24 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
   } else {
     upFlashbag(i18n.trans('form.message.date_invalid'))
   }
-})
+}
 
 itemConnection.on('click', 'a', function (event) {
   event.preventDefault()
-  $('a', itemConnection).removeClass('active')
-  $(this).addClass('active')
   const which = $(this).attr('href').substring(1)
   switch (which) {
     case 'connection':
     case 'registration':
       $('.panel', itemConnection).hide()
       $(`.panel.${which}`, itemConnection).show()
-      _participant = getParticipant()
+      _you = getParticipant()
       updateYouFormRender()
       break
     case 'reset':
       $('.panel.reset', itemConnection).show()
       break
     case 'continue':
-      getLogin().then(user => afterLogin(user))
+      getLogin().then(user => afterLogin(user, false))
       break
     case 'disconnect':
       getLogout()
@@ -237,196 +199,24 @@ function validatePhone (phone, mobile) {
   return !(phone === '' && mobile === '')
 }
 
-function validateChild (participant) {
-  return new Promise((resolve, reject) => {
-    if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
-      resolve(participant)
-    } else {
-      if (participant.coltyp === 'enfan' || participant.coltyp === 'accom') {
-        const people = [..._registered, _you]
-        const filtered = people.filter(person => person.codco === parseInt(participant.colp))
-        const parent = filtered.shift()
-        if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
-          upConfirmbox(i18n.trans('form.message.does_child_have_autpar')).then(() => {
-            resolve({
-              ...participant,
-              aut16: 1,
-              datAut16: moment().format()
-            })
-          }).catch(() => {
-            reject(i18n.trans('form.message.child_must_have_autpar'))
-          })
-        } else {
-          reject(i18n.trans('form.message.parent_must_be_adult'))
-        }
-      } else {
-        reject(i18n.trans('form.message.child_must_come_with_adult'))
-      }
-    }
-  })
-}
-
-function callbackSubmit (event, context, action, phoneControl, callback) {
+itemCard.on('click', '.continue', function (event) {
   event.preventDefault()
-  const data = context.serializeArray()
-  const participant = formatParticipant(data)
-  const validatedDate = validateDate(participant.datnaiss)
-  const validatedPhone = phoneControl ? validatePhone(participant.tel, participant.mobil) : true
-  if (validatedDate) {
-    if (validatedPhone) {
-      validateChild(participant).then(participantValidated => {
-        postParticipant(participantValidated).then(res => {
-          const participantUpdated = { ...participantValidated, ...res }
-          callback(participantUpdated)
-          updateYouRender()
-          updateRegisteredRender()
-          updateParticipants()
-          $(`.panel.${action}`).slideUp(800, function () {
-            $(this).hide()
-            changeItem(itemParticipants)
-          })
-        })
-      }).catch(error => {
-        if (error) {
-          upFlashbag(error)
-        }
-      })
-    } else {
-      upFlashbag(i18n.trans('form.message.phone_invalid'))
-    }
-  } else {
-    upFlashbag(i18n.trans('form.message.date_invalid'))
-  }
-}
-
-const panelYouFrom = $('.panel.you form')
-const panelHimForm = $('.panel.him form')
-const panelAddForm = $('.panel.add form')
-
-panelYouFrom.on('submit', function (event) {
-  callbackSubmit(event, $(this), 'you', true, function (res) {
-    _you = res
-  })
+  changeItem(itemAmount)
 })
 
-panelHimForm.on('submit', function (event) {
-  callbackSubmit(event, $(this), 'modify', false, function (res) {
-    _registered = _registered.map(obj => {
-      if (obj.codco === res.codco) { return res }
-      return obj
+itemCard.on('click', '.modify-you', function (event) {
+  event.preventDefault()
+  $('.panel', itemCard).hide()
+  $(`.panel.modify`, itemCard).show()
+  updateYouFormRender()
+  changeItem(itemCard)
+})
+
+itemCard.on('submit', '.panel.modify form', function (event) {
+  callbackRegister(event, $(this), user => {
+    afterLogin(user, false)
+    $(`.panel.modify`).slideUp(800, function () {
+      $(this).hide()
     })
   })
-})
-
-panelAddForm.on('submit', function (event) {
-  callbackSubmit(event, $(this), 'add', false, function (res) {
-    _registered.push(res)
-  })
-})
-
-panelAddForm.on('change', '.select.colp', function () {
-  const coltyp = $(this).closest('form').find('.select.coltyp').val()
-  const colp = $(this).val()
-  const people = [..._registered, _you]
-  if (coltyp === 'conjo' || coltyp === 'enfan') {
-    const filtered = people.filter(person => person.codco === parseInt(colp))
-    const person = filtered.shift()
-    let participant = getParticipant()
-    participant.coltyp = coltyp
-    participant.colp = colp
-    participant.adresse = person.adresse
-    participant.cp = person.cp
-    participant.ville = person.ville
-    participant.pays = person.pays
-    _participant = participant
-    updateHimFormRender()
-  }
-})
-
-function updateParticipants () {
-  _participants = _registered.filter(participant => participant.check)
-  _participants.push(_you)
-  updateParticipantsRender()
-}
-
-itemParticipants.on('click', '.participate-him', function (event) {
-  event.preventDefault()
-  const id = parseInt($(this).attr('data-id'))
-  _registered = _registered.map(participant => {
-    if (participant.codco === id) {
-      participant.check = !participant.check
-    }
-    return participant
-  })
-  updateParticipants()
-})
-
-function modifyClick (event, action, callUpdater, callFunction) {
-  event.preventDefault()
-  callFunction()
-  callUpdater()
-  $('.panel', itemParticipants).hide()
-  $(`.panel.${action}`, itemParticipants).show()
-  changeItem(itemParticipants)
-  setTimeout(() => {
-    const content = document.querySelector('.content')
-    const panel = content.querySelector(`.panel.${action}`)
-    content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
-  }, 200)
-}
-
-itemParticipants.on('click', '.modify-you', function (event) {
-  modifyClick(event, 'you', updateYouFormRender, () => {
-    _participant = _you
-  })
-})
-
-itemParticipants.on('click', '.modify-him', function (event) {
-  modifyClick(event, 'him', updateHimFormRender, () => {
-    const selected = parseInt($(this).attr('data-id'))
-    const participants = _registered.filter(registered => registered.codco === selected)
-    _participant = participants.shift()
-  })
-})
-
-itemParticipants.on('click', '.add-participant', function (event) {
-  modifyClick(event, 'add', updateHimFormRender, () => {
-    _participant = getParticipant()
-  })
-})
-
-function validateTransports () {
-  const whoAreWeWaiting = _participants.filter(participant => participant.transport === '')
-  if (whoAreWeWaiting.length > 0) {
-    return {
-      whoAreWeWaitingRender: () => {
-        let html = ''
-        whoAreWeWaiting.map(who => {
-          html += '<li>' + who.prenom + ' ' + who.nom + '</li>'
-        })
-        return html
-      }
-    }
-  }
-  return { success: true }
-}
-
-itemParticipants.on('click', '.validate-participants', function (event) {
-  event.preventDefault()
-  const validate = validateTransports()
-  if (validate.success) {
-    postRegistered(_participants, _infos.idact).then(res => {
-      let result = $('.result', itemValidation).html()
-      result = result.replace('%entry_number%', res)
-      $('.result', itemValidation).html(result)
-      changeItem(itemValidation)
-    }).catch(error => {
-      upFlashbag(error)
-    })
-  } else {
-    upFlashbag(
-      i18n.trans('form.message.verify_transport') +
-      '<ul>' + validate.whoAreWeWaitingRender() + '</ul>'
-    )
-  }
 })
