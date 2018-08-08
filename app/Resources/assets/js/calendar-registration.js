@@ -2,6 +2,7 @@ import $ from 'jquery'
 import moment from 'moment'
 import { getParticipant } from './sample'
 import { upFlashbag, upConfirmbox } from './popup'
+import { upLoader, downLoader } from './loader'
 import I18n from './i18n'
 import {
   postParticipant,
@@ -137,6 +138,7 @@ function afterLogin (user) {
     _registered = registered.map(obj => {
       return { ...participant, ...obj }
     })
+    downLoader()
     updateRegisteredRender()
     updateParticipantsRender()
     changeItem(itemParticipants)
@@ -155,29 +157,35 @@ function formatParticipant (data) {
 
 itemConnection.on('submit', '.panel.connection form', function (event) {
   event.preventDefault()
+  upLoader()
   postLogin({
     username: $('.username', this).val(),
     password: $('.password', this).val()
   }).then(user => {
     afterLogin(user)
   }).catch(() => {
+    downLoader()
     upFlashbag(i18n.trans('security.bad_credentials'))
   })
 })
 
 itemConnection.on('submit', '.panel.reset form', function (event) {
   event.preventDefault()
+  upLoader()
   resetLogin({
     email: $('.username', this).val()
   }).then(() => {
+    downLoader()
     upFlashbag(i18n.trans('security.check_inbox'))
   }).catch((err) => {
+    downLoader()
     upFlashbag(i18n.trans(err))
   })
 })
 
 itemConnection.on('submit', '.panel.registration form', function (event) {
   event.preventDefault()
+  upLoader()
   const data = $(this).serializeArray()
   const participant = formatParticipant(data)
   const validatedDate = validateDate(participant.datnaiss)
@@ -196,15 +204,19 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
             transport: participant.transport
           })
         }).catch(() => {
+          downLoader()
           upFlashbag(i18n.trans('security.user_exist'))
         })
       }).catch(error => {
+        downLoader()
         upFlashbag(error)
       })
     } else {
+      downLoader()
       upFlashbag(i18n.trans('form.message.phone_invalid'))
     }
   } else {
+    downLoader()
     upFlashbag(i18n.trans('form.message.date_invalid'))
   }
 })
@@ -274,6 +286,7 @@ function validateChild (participant) {
 
 function callbackSubmit (event, context, action, phoneControl, callback) {
   event.preventDefault()
+  upLoader()
   const data = context.serializeArray()
   const participant = formatParticipant(data)
   const validatedDate = validateDate(participant.datnaiss)
@@ -283,6 +296,7 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
       validateChild(participant).then(participantValidated => {
         postParticipant(participantValidated).then(res => {
           const participantUpdated = { ...participantValidated, ...res }
+          downLoader()
           callback(participantUpdated)
           updateYouRender()
           updateRegisteredRender()
@@ -294,13 +308,16 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
         })
       }).catch(error => {
         if (error) {
+          downLoader()
           upFlashbag(error)
         }
       })
     } else {
+      downLoader()
       upFlashbag(i18n.trans('form.message.phone_invalid'))
     }
   } else {
+    downLoader()
     upFlashbag(i18n.trans('form.message.date_invalid'))
   }
 }
@@ -421,12 +438,15 @@ itemParticipants.on('click', '.validate-participants', function (event) {
   event.preventDefault()
   const validate = validateTransports()
   if (validate.success) {
+    upLoader()
     postRegistered(_participants, _infos.idact).then(res => {
       let result = $('.result', itemValidation).html()
       result = result.replace('%entry_number%', res)
       $('.result', itemValidation).html(result)
+      downLoader()
       changeItem(itemValidation)
     }).catch(error => {
+      downLoader()
       upFlashbag(error)
     })
   } else {

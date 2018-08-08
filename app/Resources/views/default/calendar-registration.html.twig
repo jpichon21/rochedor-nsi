@@ -5,15 +5,8 @@
 <link rel="stylesheet" href="{{ asset("assets/css/calendar-registration.css") }}">
 {% endblock %}
 {% block content %}
-<div class="popup">
-    <div class="overlay"></div>
-    <div class="box">
-        <div class="message"></div>
-        <div class="button continue">{{ 'continue' | trans }}</div>
-        <div class="button yes">{{ 'main.yes' | trans }}</div>
-        <div class="button no">{{ 'main.no' | trans }}</div>
-    </div>
-</div>
+{% include 'parts/loader.html.twig' %}
+{% include 'parts/popup.html.twig' %}
 <div class="content">
     <div class="left">
         <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
