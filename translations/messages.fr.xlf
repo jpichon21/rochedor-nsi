@@ -1486,6 +1486,12 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
         <target>L'adresse mail utilisée est déjà enregistrée.</target>
       </segment>
     </unit>
+    <unit id="znn8YMm" name="user.security_child">
+      <segment>
+        <source>user.security_child</source>
+        <target>L'adresse mail utilisée est déjà enregistrée.</target>
+      </segment>
+    </unit>
     <unit id="lDOm6tr" name="form.contact.title">
       <segment>
         <source>form.contact.title</source>

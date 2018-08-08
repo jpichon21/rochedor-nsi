@@ -195,8 +195,8 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
             ...user,
             transport: participant.transport
           })
-        }).catch(() => {
-          upFlashbag(i18n.trans('security.user_exist'))
+        }).catch((err) => {
+          upFlashbag(i18n.trans(err))
         })
       }).catch(error => {
         upFlashbag(error)
