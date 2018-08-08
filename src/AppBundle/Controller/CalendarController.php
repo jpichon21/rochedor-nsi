@@ -177,6 +177,10 @@ class CalendarController extends Controller
         if (!$attendees || !$activityId) {
             return ['status' => 'ko', 'message' => 'You must provide attendees object and activityId'];
         }
+        if (!$this->validAttendees($attendees)) {
+            return ['status' => 'ko', 'message' => 'Missing major tutor for a child'];
+        }
+
         if (!$calL = $this->registerAttendees($attendees, $activityId)) {
             return ['status' => 'ko', 'message' => 'The registration has failed'];
         }
@@ -335,6 +339,38 @@ class CalendarController extends Controller
         return false;
     }
     
+    private function validAttendees($attendees)
+    {
+        foreach ($attendees as $attendee) {
+            if ($this->isChild($attendee['datnaiss'])) {
+                if (!$this->hisWithAdult($attendee, $attendees)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    private function hisWithAdult($child, $attendees)
+    {
+        foreach ($attendees as $attendee) {
+            $adult = $this->isAdult($attendee['datnaiss']);
+            if ((int) $attendee['codco'] === (int) $child['colp'] && $adult) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private function isChild(string $datnaiss)
+    {
+        $datnaiss = new \DateTime($datnaiss);
+        $now = new \DateTime();
+        $diff = $datnaiss->diff($now);
+        return ($diff->y <= $this::YEARS_CHILD);
+    }
+
+
     private function isAdult(string $datnaiss)
     {
         $datnaiss = new \DateTime($datnaiss);
