@@ -196,12 +196,18 @@ class CalendarController extends Controller
     public function xhrPostAttendeeAction(Request $request)
     {
         $attendee = $request->get('attendee');
+        // dump($attendee);
+        // exit;
+
         if (!$attendee) {
             return ['status' => 'ko', 'message' => 'You must provide attendee object'];
         }
         if ($attendee['email'] != '') {
-            if ($this->contactRepository->findContactByEmail($attendee['email'])) {
-                return new JsonResponse(['status' => 'ko', 'message' => 'security.user_exist']);
+            $contact = $this->contactRepository->findContactByEmail($attendee['email']);
+            if ($contact) {
+                if ($contact->getCodco() != $attendee['codco']) {
+                    return new JsonResponse(['status' => 'ko', 'message' => 'security.user_exist']);
+                }
             }
         }
         if (isset($attendee['codco'])) {

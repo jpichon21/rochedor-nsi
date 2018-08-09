@@ -189,7 +189,8 @@ class SecurityController extends Controller
             'email' => $contact->getEmail(),
             'societe' => $contact->getSociete(),
             'profession' => $contact->getProfession(),
-            'datnaiss' => $contact->getDatnaiss()
+            'datnaiss' => $contact->getDatnaiss(),
+            'you' => true
         ]);
     }
 
