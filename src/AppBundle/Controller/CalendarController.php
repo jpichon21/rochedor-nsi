@@ -196,8 +196,19 @@ class CalendarController extends Controller
     public function xhrPostAttendeeAction(Request $request)
     {
         $attendee = $request->get('attendee');
+        // dump($attendee);
+        // exit;
+
         if (!$attendee) {
             return ['status' => 'ko', 'message' => 'You must provide attendee object'];
+        }
+        if ($attendee['email'] != '') {
+            $contact = $this->contactRepository->findContactByEmail($attendee['email']);
+            if ($contact) {
+                if ($contact->getCodco() != $attendee['codco']) {
+                    return new JsonResponse(['status' => 'ko', 'message' => 'security.user_exist']);
+                }
+            }
         }
         if (isset($attendee['codco'])) {
             $contact = $this->calendarRepository->findContact($attendee['codco']);
@@ -275,7 +286,18 @@ class CalendarController extends Controller
                 ->setLcal($contact->getCodco())
                 ->setTyplcal('coIns')
                 ->setReflcal($refLcal)
-                ->setJslcal(json_encode(['Arriv' => ['Transport' => $a['transport'], 'Memo' => $a['memo']]]));
+                ->setJslcal(json_encode(
+                    [
+                        'Arriv' => [
+                                    'Transport' => $a['transport'],
+                                    'Navette' => $a['navette'],
+                                    'Lieu' => $a['Lieu'],
+                                    'Heure' => $a['Heure'],
+                                    'Mn' => $a['Mn'],
+                                    'Memo' => $a['memo']
+                                   ]
+                    ]
+                ));
                 $em->persist($calL);
             }
         }
@@ -344,7 +366,7 @@ class CalendarController extends Controller
     {
         foreach ($attendees as $attendee) {
             if ($this->isChild($attendee['datnaiss'])) {
-                if (!$this->hisWithAdult($attendee, $attendees)) {
+                if (!$this->isWithAdult($attendee, $attendees)) {
                     return false;
                 }
             }
@@ -352,7 +374,7 @@ class CalendarController extends Controller
         return true;
     }
     
-    private function hisWithAdult($child, $attendees)
+    private function isWithAdult($child, $attendees)
     {
         foreach ($attendees as $attendee) {
             $adult = $this->isAdult($attendee['datnaiss']);

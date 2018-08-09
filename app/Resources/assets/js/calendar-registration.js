@@ -179,7 +179,7 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
     upFlashbag(i18n.trans('security.check_inbox'))
   }).catch((err) => {
     downLoader()
-    upFlashbag(i18n.trans(err))
+    upFlashbag(i18n.trans(`${err}`))
   })
 })
 
@@ -203,13 +203,13 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
             ...user,
             transport: participant.transport
           })
-        }).catch(() => {
+        }).catch(err => {
           downLoader()
-          upFlashbag(i18n.trans('security.user_exist'))
+          upFlashbag(i18n.trans(`${err}`))
         })
       }).catch(error => {
         downLoader()
-        upFlashbag(error)
+        upFlashbag(i18n.trans(`${error}`))
       })
     } else {
       downLoader()
@@ -304,6 +304,7 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
   event.preventDefault()
   upLoader()
   const data = context.serializeArray()
+
   const participant = formatParticipant(data)
   const validatedDate = validateDate(participant.datnaiss)
   const validatedPhone = phoneControl ? validatePhone(participant.tel, participant.mobil) : true
@@ -321,11 +322,15 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
             $(this).hide()
             changeItem(itemParticipants)
           })
+        }).catch(error => {
+          if (error) {
+            upFlashbag(i18n.trans(`${error}`))
+          }
         })
       }).catch(error => {
         if (error) {
           downLoader()
-          upFlashbag(error)
+          upFlashbag(i18n.trans(`${error}`))
         }
       })
     } else {
@@ -338,11 +343,11 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
   }
 }
 
-const panelYouFrom = $('.panel.you form')
+const panelYouForm = $('.panel.you form')
 const panelHimForm = $('.panel.him form')
 const panelAddForm = $('.panel.add form')
 
-panelYouFrom.on('submit', function (event) {
+panelYouForm.on('submit', function (event) {
   callbackSubmit(event, $(this), 'you', true, function (res) {
     _you = res
   })

@@ -22,7 +22,7 @@ use AppBundle\Service\PageService;
 
 class SecurityController extends Controller
 {
-
+    const YEARS_ADULT = 18;
     /**
      * @var Mailer
      */
@@ -142,9 +142,13 @@ class SecurityController extends Controller
         if (!$contactReq) {
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide contact object']);
         }
-        
+ 
+        if (!$this->isAdult($contactReq['datnaiss'])) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'user.security_child']);
+        }
+
         if ($repository->findContactByEmail($contactReq['email'])) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'Email already in use']);
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.user_exist']);
         }
 
         $contact = new Contact();
@@ -185,7 +189,8 @@ class SecurityController extends Controller
             'email' => $contact->getEmail(),
             'societe' => $contact->getSociete(),
             'profession' => $contact->getProfession(),
-            'datnaiss' => $contact->getDatnaiss()
+            'datnaiss' => $contact->getDatnaiss(),
+            'you' => true
         ]);
     }
 
@@ -317,5 +322,13 @@ class SecurityController extends Controller
     public function logoutAction(Request $request)
     {
         return new JsonResponse(['status' => 'ok']);
+    }
+
+    private function isAdult(string $datnaiss)
+    {
+        $datnaiss = new \DateTime($datnaiss);
+        $now = new \DateTime();
+        $diff = $datnaiss->diff($now);
+        return ($diff->y >= $this::YEARS_ADULT);
     }
 }
