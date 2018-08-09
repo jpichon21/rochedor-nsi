@@ -280,7 +280,18 @@ class CalendarController extends Controller
                 ->setLcal($contact->getCodco())
                 ->setTyplcal('coIns')
                 ->setReflcal($refLcal)
-                ->setJslcal(json_encode(['Arriv' => ['Transport' => $a['transport'], 'Memo' => $a['memo']]]));
+                ->setJslcal(json_encode(
+                    [
+                        'Arriv' => [
+                                    'Transport' => $a['transport'],
+                                    'Navette' => $a['navette'],
+                                    'Lieu' => $a['Lieu'],
+                                    'Heure' => $a['Heure'],
+                                    'Mn' => $a['Mn'],
+                                    'Memo' => $a['memo']
+                                   ]
+                    ]
+                ));
                 $em->persist($calL);
             }
         }
