@@ -321,7 +321,7 @@ panelYouForm.on('submit', function (event) {
 })
 
 panelHimForm.on('submit', function (event) {
-  callbackSubmit(event, $(this), 'modify', false, function (res) {
+  callbackSubmit(event, $(this), 'him', false, function (res) {
     _registered = _registered.map(obj => {
       if (obj.codco === res.codco) { return res }
       return obj
