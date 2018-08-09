@@ -2,6 +2,7 @@
 @import './variables';
 @import './zoom';
 @import './popup';
+@import './loader';
 
 html {
   background-color: #000000;
@@ -47,6 +48,10 @@ i {
 .mfp-title {
   padding-top: 10px;
   font-size: 14px;
+}
+
+.hidden {
+  display: none !important;
 }
 
 .text-center {

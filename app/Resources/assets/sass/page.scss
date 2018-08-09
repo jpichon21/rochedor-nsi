@@ -119,6 +119,10 @@
         letter-spacing: 2px;
         text-transform: uppercase;
         cursor: pointer;
+        
+      }
+      @at-root .content .dropdown.without-link .item h2 {
+          cursor: default;
       }
       h3 {
         font-size: 12px;
