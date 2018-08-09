@@ -1714,5 +1714,29 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
         <target>Réinitialiser</target>
       </segment>
     </unit>
+    <unit id="l4mKCBH" name="form.arriv">
+      <segment>
+        <source>form.arriv</source>
+        <target>Arrivée (hh:mm)</target>
+      </segment>
+    </unit>
+    <unit id="krijuC." name="form.navette">
+      <segment>
+        <source>form.navette</source>
+        <target>j'utiliserai la navette communautaire</target>
+      </segment>
+    </unit>
+    <unit id="QoRcuhX" name="form.lieu">
+      <segment>
+        <source>form.lieu</source>
+        <target>lieu d'arrivée</target>
+      </segment>
+    </unit>
+    <unit id="dJfmInP" name="form.lieu.viotte">
+      <segment>
+        <source>form.lieu.viotte</source>
+        <target>Viotte</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

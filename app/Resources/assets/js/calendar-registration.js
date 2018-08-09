@@ -247,6 +247,22 @@ itemConnection.on('click', 'a', function (event) {
   changeItem(itemConnection)
 })
 
+itemParticipants.on('click', '.button.radio.navette', function (event) {
+  $(this).toggleClass('checked')
+  $(this).siblings('.checkbox').val($(this).hasClass('checked'))
+  $(this).siblings('.lieu, .arriv').toggleClass('hidden')
+  changeItem(itemParticipants)
+})
+
+itemParticipants.on('change', '.transport', function (event) {
+  if ($(this).val() === 'train') {
+    $('.navette-wrapper').removeClass('hidden')
+  } else {
+    $('.navette-wrapper').addClass('hidden')
+  }
+  changeItem(itemParticipants)
+})
+
 function validateDate (date) {
   return moment(date).isValid()
 }
