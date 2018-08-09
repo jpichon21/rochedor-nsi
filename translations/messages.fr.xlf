@@ -1489,7 +1489,7 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
     <unit id="znn8YMm" name="user.security_child">
       <segment>
         <source>user.security_child</source>
-        <target>L'adresse mail utilisée est déjà enregistrée.</target>
+        <target>Seul les personnes de plus 18 ans sont autorisé à s'inscrire.</target>
       </segment>
     </unit>
     <unit id="lDOm6tr" name="form.contact.title">

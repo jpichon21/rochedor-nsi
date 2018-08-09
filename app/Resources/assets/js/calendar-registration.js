@@ -172,7 +172,7 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
   }).then(() => {
     upFlashbag(i18n.trans('security.check_inbox'))
   }).catch((err) => {
-    upFlashbag(i18n.trans(err))
+    upFlashbag(i18n.trans(`${err}`))
   })
 })
 
@@ -195,11 +195,11 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
             ...user,
             transport: participant.transport
           })
-        }).catch((err) => {
-          upFlashbag(i18n.trans(err))
+        }).catch(err => {
+          upFlashbag(i18n.trans(`${err}`))
         })
       }).catch(error => {
-        upFlashbag(error)
+        upFlashbag(i18n.trans(`${error}`))
       })
     } else {
       upFlashbag(i18n.trans('form.message.phone_invalid'))
