@@ -349,7 +349,7 @@ class CalendarController extends Controller
     {
         foreach ($attendees as $attendee) {
             if ($this->isChild($attendee['datnaiss'])) {
-                if (!$this->hisWithAdult($attendee, $attendees)) {
+                if (!$this->isWithAdult($attendee, $attendees)) {
                     return false;
                 }
             }
@@ -357,7 +357,7 @@ class CalendarController extends Controller
         return true;
     }
     
-    private function hisWithAdult($child, $attendees)
+    private function isWithAdult($child, $attendees)
     {
         foreach ($attendees as $attendee) {
             $adult = $this->isAdult($attendee['datnaiss']);
