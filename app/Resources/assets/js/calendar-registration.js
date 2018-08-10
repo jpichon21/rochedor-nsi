@@ -252,7 +252,7 @@ itemParticipants.on('change', '.transport', function () {
   changeItem(itemParticipants)
 })
 
-itemParticipants.on('click', '.radio', function () {
+itemParticipants.on('click', '.navette', function () {
   const boolean = $(this).toggleClass('checked').hasClass('checked')
   $('.navette-wrapper .checkbox', itemParticipants).val(boolean)
   $('.lieu-wrapper, .arriv-wrapper', itemParticipants).toggleClass('hidden', !boolean)
