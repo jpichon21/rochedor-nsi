@@ -1486,7 +1486,7 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
         <target>L'adresse mail utilisée est déjà enregistrée.</target>
       </segment>
     </unit>
-    <unit id="znn8YMm" name="user.security_child">
+    <unit id="d6YHTZi" name="user.security_child">
       <segment>
         <source>user.security_child</source>
         <target>Seul les personnes de plus 18 ans sont autorisé à s'inscrire.</target>
@@ -1742,6 +1742,12 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
       <segment>
         <source>form.lieu.viotte</source>
         <target>Viotte</target>
+      </segment>
+    </unit>
+    <unit id="qm_COTU" name="form.cancel">
+      <segment>
+        <source>form.cancel</source>
+        <target>Annuler</target>
       </segment>
     </unit>
   </file>

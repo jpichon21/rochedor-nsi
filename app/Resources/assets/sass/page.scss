@@ -216,7 +216,7 @@
           color: $roche-yellow;
           opacity: 1;
         }
-        &.submit {
+        &.submit, &.button {
           margin-top: 10px;
         }
       }

@@ -362,6 +362,27 @@ panelHimForm.on('submit', function (event) {
   })
 })
 
+panelHimForm.on('click', '.cancel', function (event) {
+  event.preventDefault()
+  $('.panel.him').slideUp(800, function () {
+    $(this).hide()
+  })
+})
+
+panelYouForm.on('click', '.cancel', function (event) {
+  event.preventDefault()
+  $('.panel.you').slideUp(800, function () {
+    $(this).hide()
+  })
+})
+
+panelAddForm.on('click', '.cancel', function (event) {
+  event.preventDefault()
+  $('.panel.cancel').slideUp(800, function () {
+    $(this).hide()
+  })
+})
+
 panelAddForm.on('submit', function (event) {
   callbackSubmit(event, $(this), 'add', false, function (res) {
     _registered.push(res)

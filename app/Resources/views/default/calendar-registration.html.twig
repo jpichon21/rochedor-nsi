@@ -247,6 +247,10 @@
     <div class="pure-u-6-24">
         <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reinit' | trans | raw }}">
     </div>
+    <div class="pure-u-8-24"></div>
+    <div class="pure-u-6-24">
+        <a href="#" class="button cancel input">{{ 'form.cancel' | trans | raw }}</a>
+    </div>
     <div class="pure-u-4-24">
         <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
     </div>
@@ -348,9 +352,13 @@
     <div class="pure-u-6-24">
         <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reinit' | trans | raw }}">
     </div>
-    <div class="pure-u-4-24">
-        <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
+    <div class="pure-u-8-24"></div>
+    <div class="pure-u-6-24">
+        <a href="#" class="button cancel input">{{ 'form.cancel' | trans | raw }}</a>
     </div>
+    <div class="pure-u-4-24">
+            <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
+        </div>
 </script>
 <script src="{{ asset("assets/js/calendar-registration.js") }}"></script>
 {% endblock %}
