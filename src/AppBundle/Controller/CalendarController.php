@@ -196,8 +196,6 @@ class CalendarController extends Controller
     public function xhrPostAttendeeAction(Request $request)
     {
         $attendee = $request->get('attendee');
-        // dump($attendee);
-        // exit;
 
         if (!$attendee) {
             return ['status' => 'ko', 'message' => 'You must provide attendee object'];
@@ -212,12 +210,6 @@ class CalendarController extends Controller
         }
         if (isset($attendee['codco'])) {
             $contact = $this->calendarRepository->findContact($attendee['codco']);
-        } else {
-            $contact = $this->contactRepository->findContactByInfos(
-                $attendee['nom'],
-                $attendee['prenom'],
-                $attendee['datnaiss']
-            );
         }
         if ($contact === null) {
             $contact = new Contact();
