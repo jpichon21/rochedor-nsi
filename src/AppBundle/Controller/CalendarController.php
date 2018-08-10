@@ -281,13 +281,13 @@ class CalendarController extends Controller
                 ->setJslcal(json_encode(
                     [
                         'Arriv' => [
-                                    'Transport' => $a['transport'],
-                                    'Navette' => $a['navette'],
-                                    'Lieu' => $a['Lieu'],
-                                    'Heure' => $a['Heure'],
-                                    'Mn' => $a['Mn'],
-                                    'Memo' => $a['memo']
-                                   ]
+                            'Transport' => $a['transport'],
+                            'Navette' => (array_key_exists('navette', $a)) ? ($a['navette']) : '',
+                            'Lieu' => $a['lieu'],
+                            'Heure' => explode(':', $a['arriv'])[0],
+                            'Mn' => explode(':', $a['arriv'])[1],
+                            'Memo' => $a['memo']
+                        ]
                     ]
                 ));
                 $em->persist($calL);
