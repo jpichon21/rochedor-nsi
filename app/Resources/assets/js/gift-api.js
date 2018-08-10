@@ -38,6 +38,19 @@ export const postRegister = (data) => {
     })
 }
 
+export const postModify = (data) => {
+  return window.fetch('/modify', {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify(data)
+  })
+    .then(res => {
+      if (!res.ok) { res.json().then(res => { throw res.error }) }
+      return res.json()
+    })
+}
+
 export const postParticipant = (data) => {
   return window.fetch('/xhr/calendar/attendee', {
     headers: { 'Content-Type': 'application/json' },
