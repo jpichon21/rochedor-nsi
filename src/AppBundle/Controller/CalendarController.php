@@ -410,19 +410,13 @@ class CalendarController extends Controller
 
     private function getAttendees(Contact $contact)
     {
-        $refs = $this->calendarRepository->findRegisteredRefs($contact->getCodco());
-        if ($refs === null) {
-            return null;
-        }
-
-        // Find both parents and last registration's contacts
+        // Find only parents as we don't want to display other contacts anymore
         $parents = $this->calendarRepository->findParents($contact->getCodco());
-        $linked = $this->calendarRepository->findAttendees(array_column($refs, 'reflcal'), $contact->getCodco());
         
         $keys = [$contact->getCodCo()];
         $contacts = [];
         // Filter contacts to only return unique entries
-        foreach (array_merge($parents, $linked) as $contact) {
+        foreach ($parents as $contact) {
             if (!in_array($contact['codco'], $keys)) {
                 $keys[] = $contact['codco'];
                 $contacts[] = $contact;
