@@ -232,14 +232,18 @@
             <option <%= (participant.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
         </select>
     </div>
-     <div class="pure-u-1-2 navette-wrapper hidden">
-        <a href="#" class="navette button radio input">{{ 'form.navette' | trans | raw }}</a>
-        <input class="input navette hidden checkbox" value="<%= participant.navette %>" name="navette" type="checkbox">
-        <select class="select lieu hidden <%= (participant.lieu != '') ? 'white' : '' %>" name="lieu">
+    <div class="pure-u-1-1 navette-wrapper hidden">
+        <a href="#" class="input button radio navette">{{ 'form.navette' | trans | raw }}</a>
+        <input class="hidden checkbox navette" value="<%= participant.navette %>" name="navette" type="checkbox">
+    </div>
+    <div class="pure-u-1-2 lieu-wrapper hidden">
+        <select class="select lieu <%= (participant.lieu != '') ? 'white' : '' %>" name="lieu">
             <option <%= (participant.lieu == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
             <option <%= (participant.lieu == 'viotte') ? 'selected' : '' %> value="viotte">{{ 'form.lieu.viotte' | trans | raw }}</option>
         </select>
-        <input autocomplete="nope" class="input arriv hidden" value="<%= participant.arriv %>" name="arriv" type="text" pattern="[0-2][0-9]:[0-5][0-9]" placeholder="{{ 'form.arriv' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2 arriv-wrapper hidden">
+        <input autocomplete="nope" class="input arriv" value="<%= participant.arriv %>" name="arriv" type="text" pattern="[0-2][0-9]:[0-5][0-9]" placeholder="{{ 'form.arriv' | trans | raw }}">
     </div>
     <div class="pure-u-1">
         <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= participant.memo %></textarea>
@@ -333,14 +337,18 @@
             <option <%= (participant.transport == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
         </select>
     </div>
-    <div class="pure-u-1-2 navette-wrapper hidden">
-        <a href="#" class="navette button radio input">{{ 'form.navette' | trans | raw }}</a>
-        <input class="input navette hidden checkbox" value="<%= participant.navette %>" name="navette" type="checkbox">
-        <select class="select lieu hidden <%= (participant.lieu != '') ? 'white' : '' %>" name="lieu">
+    <div class="pure-u-1-1 navette-wrapper hidden">
+        <a href="#" class="input button radio navette">{{ 'form.navette' | trans | raw }}</a>
+        <input class="hidden checkbox navette" value="<%= participant.navette %>" name="navette" type="checkbox">
+    </div>
+    <div class="pure-u-1-2 lieu-wrapper hidden">
+        <select class="select lieu <%= (participant.lieu != '') ? 'white' : '' %>" name="lieu">
             <option <%= (participant.lieu == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
             <option <%= (participant.lieu == 'viotte') ? 'selected' : '' %> value="viotte">{{ 'form.lieu.viotte' | trans | raw }}</option>
         </select>
-        <input autocomplete="nope" class="input arriv hidden" value="<%= participant.arriv %>" name="arriv" type="text" pattern="[0-2][0-9]:[0-5][0-9]" placeholder="{{ 'form.arriv' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2 arriv-wrapper hidden">
+        <input autocomplete="nope" class="input arriv" value="<%= participant.arriv %>" name="arriv" type="text" pattern="[0-2][0-9]:[0-5][0-9]" placeholder="{{ 'form.arriv' | trans | raw }}">
     </div>
     <div class="pure-u-1">
         <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= participant.memo %></textarea>
