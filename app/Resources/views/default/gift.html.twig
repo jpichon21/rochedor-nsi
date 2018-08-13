@@ -172,8 +172,8 @@
     </div>
     <div class="right">
         <h2>{{ 'gift.summary.title' | trans | raw }}</h2>
-        <h3>{{ 'gift.summary.title.amount' | trans | raw }}</h3>
-        <div class="amount-render"><p>{{ 'gift.summary.no_amount' | trans }}</p></div>
+        <h3>{{ 'gift.summary.title.gift' | trans | raw }}</h3>
+        <div class="amount-render"></div>
         <h3>{{ 'gift.summary.title.donator' | trans | raw }}</h3>
         <div class="you-render"><p>{{ 'gift.summary.no_donator' | trans }}</p></div>
     </div>
@@ -192,6 +192,27 @@
     <div class="you">
         <p><%= you.prenom %> <%= you.nom %><br>
             <%= you.adresse %> <%= you.cp %> <%= you.ville %> (<%= you.pays %>)</p>
+    </div>
+</script>
+<script type="text/template" class="amount-template">
+    <div class="pure-g">
+        <div class="pure-u-2-3">
+            <table class="table" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th class="first">{{ 'table.header.allocation' | trans }}</th>
+                        <th class="last">{{ 'table.header.amount' | trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="first"><% if (allocation.name) { %><%= allocation.name %><% } else { %>{{ 'gift.summary.no_allocation' | trans }}<% } %>
+                        </td>
+                        <td class="last"><%= amount %> €</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </script>
 <script type="text/template" class="you-form-template">

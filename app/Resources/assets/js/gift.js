@@ -26,7 +26,7 @@ const _countries = JSON.parse($('.countries-json').html())
 
 let _you = {}
 let _amount = 0
-let _allocation = ''
+let _allocation = {}
 let _modpaie = ''
 
 const itemConnection = $('.item.connection')
@@ -56,6 +56,7 @@ $(document).ready(function () {
 
 const youTemplate = _.template($('.you-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
+const amountTemplate = _.template($('.amount-template').html())
 
 function updateYouRender () {
   $('.you-render').html(youTemplate({ you: _you }))
@@ -75,6 +76,15 @@ function updateYouFormRender () {
     ]
   }))
 }
+
+function updateAmountRender () {
+  $('.amount-render').html(amountTemplate({
+    amount: _amount,
+    allocation: _allocation
+  }))
+}
+
+updateAmountRender()
 
 /* Actions */
 
@@ -230,16 +240,21 @@ $('.panel.amount').on('focus', '.input.amount', function (event) {
 itemAmount.on('submit', '.panel.amount form', function (event) {
   event.preventDefault()
   _amount = $('.panel.amount .input.amount').val()
+  updateAmountRender()
   changeItem(itemAllocation)
 })
 
 itemAllocation.on('change', '.select-allocation', function (event) {
   event.preventDefault()
-  _allocation = $(this).val()
+  _allocation = {
+    name: $(this).find('option:selected').text(),
+    value: $(this).val()
+  }
 })
 
 itemAllocation.on('submit', '.panel.allocation form', function (event) {
   event.preventDefault()
+  updateAmountRender()
   changeItem(itemPayment)
 })
 
@@ -253,7 +268,7 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
   console.log({
     you: _you,
     amount: _amount,
-    allocation: _allocation,
+    allocation: _allocation.value,
     modpaie: _modpaie
   })
 })

@@ -2256,7 +2256,31 @@
     <unit id="OeUNsZo" name="gift.summary.no_donator">
       <segment>
         <source>gift.summary.no_donator</source>
-        <target>Veuillez vous connecter</target>
+        <target>Veuillez vous inscrire/connecter</target>
+      </segment>
+    </unit>
+    <unit id="4XPU9m_" name="gift.summary.title.gift">
+      <segment>
+        <source>gift.summary.title.gift</source>
+        <target>Don</target>
+      </segment>
+    </unit>
+    <unit id="inaP6or" name="table.header.allocation">
+      <segment>
+        <source>table.header.allocation</source>
+        <target>Affectation</target>
+      </segment>
+    </unit>
+    <unit id="ohZm8Ru" name="table.header.amount">
+      <segment>
+        <source>table.header.amount</source>
+        <target>Montant</target>
+      </segment>
+    </unit>
+    <unit id="u1hXRA0" name="gift.summary.no_allocation">
+      <segment>
+        <source>gift.summary.no_allocation</source>
+        <target>Aucune affectation</target>
       </segment>
     </unit>
   </file>
