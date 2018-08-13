@@ -117,6 +117,29 @@
             </div>
              <div class="item allocation">
                 <h2>{{ 'gift.four.title' | trans | raw }}</h2>
+                <div class="panel allocation active">
+                    <form class="form allocation">
+                        <h3>{{ 'gift.choose.allocation' | trans | raw }}</h3>
+                        <div class="pure-g">
+                            <div class="pure-u-1-2">
+                                <select class="select select-allocation" required>
+                                    <option selected disabled value="">{{ 'form.choose.allocation' | trans }}</option>
+                                    <option value="Libre">{{ 'select.allocation.libre' | trans }}</option>
+                                    <option value="SoutTx">{{ 'select.allocation.souttx' | trans }}</option>
+                                    <option value="VieCom">{{ 'select.allocation.viecom' | trans }}</option>
+                                    <option value="Itin">{{ 'select.allocation.itin' | trans }}</option>
+                                    <option value="RochTx">{{ 'select.allocation.rochtx' | trans }}</option>
+                                    <option value="FontTx">{{ 'select.allocation.fonttx' | trans }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="pure-g">
+                            <div class="pure-u-4-24">
+                                <input class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
              <div class="item payment">
                 <h2>{{ 'gift.five.title' | trans | raw }}</h2>

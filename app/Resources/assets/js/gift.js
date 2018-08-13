@@ -232,3 +232,28 @@ itemAmount.on('submit', '.panel.amount form', function (event) {
   _amount = $('.panel.amount .input.amount').val()
   changeItem(itemAllocation)
 })
+
+itemAllocation.on('change', '.select-allocation', function (event) {
+  event.preventDefault()
+  _allocation = $(this).val()
+})
+
+itemAllocation.on('submit', '.panel.allocation form', function (event) {
+  event.preventDefault()
+  changeItem(itemPayment)
+})
+
+itemPayment.on('change', '.select-modpaie', function (event) {
+  event.preventDefault()
+  _modpaie = $(this).val()
+})
+
+itemPayment.on('submit', '.panel.payment form', function (event) {
+  event.preventDefault()
+  console.log({
+    you: _you,
+    amount: _amount,
+    allocation: _allocation,
+    modpaie: _modpaie
+  })
+})
