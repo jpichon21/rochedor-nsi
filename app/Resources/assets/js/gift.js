@@ -5,6 +5,7 @@ import { upFlashbag } from './popup'
 import I18n from './i18n'
 import {
   postRegister,
+  postModify,
   getLogin,
   getLogout,
   postLogin,
@@ -131,32 +132,21 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
 })
 
 itemConnection.on('submit', '.panel.registration form', function (event) {
-  callbackRegister(event, $(this), user => {
-    postLogin({
-      username: user.username,
-      password: user.password
-    }).then(user => {
-      afterLogin(user, true)
-    }).catch(() => {
-      upFlashbag(i18n.trans('security.user_exist'))
-    })
-  })
-})
-
-const callbackRegister = (event, context, callbackFunc) => {
   event.preventDefault()
-  const data = context.serializeArray()
+  const data = $(this).serializeArray()
   const participant = formatParticipant(data)
-  const validatedDate = validateDate(participant.datnaiss)
-  const validatedPhone = validatePhone(participant.tel, participant.mobil)
-  if (validatedDate) {
-    if (validatedPhone) {
+  if (validateDate(participant.datnaiss)) {
+    if (validatePhone(participant.tel, participant.mobil)) {
       postRegister({
         contact: participant
       }).then(user => {
-        callbackFunc({
-          ...user,
-          password: participant.password
+        postLogin({
+          username: user.username,
+          password: user.password
+        }).then(user => {
+          afterLogin(user, true)
+        }).catch(() => {
+          upFlashbag(i18n.trans('security.user_exist'))
         })
       }).catch(error => {
         upFlashbag(error)
@@ -167,7 +157,7 @@ const callbackRegister = (event, context, callbackFunc) => {
   } else {
     upFlashbag(i18n.trans('form.message.date_invalid'))
   }
-}
+})
 
 itemConnection.on('click', 'a', function (event) {
   event.preventDefault()
@@ -215,13 +205,27 @@ itemCard.on('click', '.modify-you', function (event) {
 })
 
 itemCard.on('submit', '.panel.modify form', function (event) {
-  callbackRegister(event, $(this), user => {
-    console.log(user)
-    afterLogin(user, false)
-    $('.panel.modify').slideUp(800, function () {
-      $(this).hide()
-    })
-  })
+  event.preventDefault()
+  const data = $(this).serializeArray()
+  const participant = formatParticipant(data)
+  if (validateDate(participant.datnaiss)) {
+    if (validatePhone(participant.tel, participant.mobil)) {
+      postModify({
+        contact: participant
+      }).then(user => {
+        afterLogin({ ...user, password: participant.password }, false)
+        $('.panel.modify').slideUp(800, function () {
+          $(this).hide()
+        })
+      }).catch(error => {
+        upFlashbag(error)
+      })
+    } else {
+      upFlashbag(i18n.trans('form.message.phone_invalid'))
+    }
+  } else {
+    upFlashbag(i18n.trans('form.message.date_invalid'))
+  }
 })
 
 $('.panel.amount').on('click', '.button.radio', function (event) {
