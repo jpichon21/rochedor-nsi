@@ -17,7 +17,7 @@ body {
   height: 100vh;
   overflow: hidden;
   background-size: cover;
-  background-position: center;
+  background-position: top;
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -49,6 +49,10 @@ i {
   font-size: 14px;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .header {
   position: relative;
   display: flex;
@@ -56,66 +60,104 @@ i {
   .editions-only {
     display: none;
   }
-  .languages {
+  .options {
     position: absolute;
     top: 20px;
-    right: 140px;
+    right: 40px;
     z-index: 1;
-    ul {
+    .cart,
+    .zoom,
+    .languages {
       float: left;
-      li {
+      margin-left: 22px;
+    }
+    .cart {
+      position: relative;
+      padding: 0 20px;
+      line-height: 30px;
+      font-size: 12px;
+      color: #000000;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px #000000 solid;
+      z-index: 1;
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        top: -7px;
+        right: -7px;
+        color: #ffffff;
+        border-radius: 18px;
+        font-size: 10px;
+        background-color: $roche-orange;
+      }
+    }
+    .languages {
+      ul {
         float: left;
-        margin-left:  -1px;
-        a {
-          display: block;
-          width:  30px;
-          line-height: 30px;
-          font-size: 12px;
-          color: $roche-yellow;
-          text-align: center;
-          text-transform: uppercase;
-          text-decoration: none;
+        li {
+          float: left;
+          margin-right: -1px;
+          a {
+            display: block;
+            width:  30px;
+            line-height: 30px;
+            font-size: 12px;
+            color: $roche-yellow;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: none;
+          }
+        }
+      }
+      &:hover {
+        .available {
+          max-width: 130px;
+          visibility: visible;
+          opacity: 1;
+          transition:
+            opacity 0.2s linear,
+            max-width 0.2s linear;
+        }
+      }
+      .current {
+        li {
+          border: 1px $roche-yellow solid;
+        }
+      }
+      .available {
+        max-width: 0;
+        height: 32px;
+        visibility: hidden;
+        overflow: hidden;
+        opacity: 0;
+        transition:
+          visibility 0s 0.2s,
+          opacity 0.2s linear,
+          max-width 0.2s linear;
+        li {
+          border: 1px rgba(255, 243, 141, 0.2) solid;
         }
       }
     }
-    &:hover {
-      .available {
-        visibility: visible;
-        opacity: 1;
-        transition: opacity 0.2s linear;
-      }
-    }
-    .current {
+    .zoom {
       li {
+        float: left;
+        width:  30px;
+        margin-left:  -1px;
+        line-height: 30px;
+        font-size: 12px;
+        color: $roche-yellow;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none;
         border: 1px $roche-yellow solid;
+        cursor: pointer;
       }
-    }
-    .available {
-      li {
-        border: 1px rgba(255, 243, 141, 0.2) solid;
-      }
-      visibility: hidden;
-      opacity: 0;
-      transition: visibility 0s 0.2s, opacity 0.2s linear;
-    }
-  }
-  .zoom {
-    position: absolute;
-    top: 20px;
-    right: 50px;
-    z-index: 1;
-    li {
-      float: left;
-      width:  30px;
-      margin-left:  -1px;
-      line-height: 30px;
-      font-size: 12px;
-      color: $roche-yellow;
-      text-align: center;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: 1px $roche-yellow solid;
-      cursor: pointer;
     }
   }
   .left,
@@ -182,10 +224,6 @@ i {
         }
       }
     }
-    .sub-menu {
-      left: 40px;
-      right: 0;
-    }
   }
   .right {
     padding-right: 40px;
@@ -202,10 +240,6 @@ i {
           right: -100px;
         }
       }
-    }
-    .sub-menu {
-      left: 0;
-      right: 40px;
     }
   }
   .logo {
@@ -243,8 +277,20 @@ i {
     display: flex;
     visibility: hidden;
     position: absolute;
+    left: 0;
+    right: 0;
+    padding: 0 40px;
     opacity: 0;
     transition: visibility 0s 0.2s, opacity 0.2s linear;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 1px;
+      left: 0;
+      right: 0;
+      bottom: -50px;
+      background: linear-gradient(to bottom, transparent 0%, #000000 1px, transparent 100%);
+    }
     &.active {
       visibility: visible;
       opacity: 1;
@@ -281,7 +327,7 @@ i {
     width: 100%;
     flex-direction: column;
     background-size: cover;
-    background-position: center;
+    background-position: top;
     background-attachment: fixed;
     transition: 0.5s;
     &:before {

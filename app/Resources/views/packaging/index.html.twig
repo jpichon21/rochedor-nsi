@@ -1,0 +1,45 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block body %}
+    <h1>Packagings list</h1>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Boundary</th>
+                    <th scope="col">France</th>
+                    <th scope="col">International</th>
+                    <th scope="col">Maximal Boundary</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for packaging in packagings %}
+                <tr>
+                    <td><a href="{{ path('admin_packaging_show', { 'id': packaging.id }) }}">{{ packaging.id }}</a></td>
+                    <td>{{ packaging.boundary }}</td>
+                    <td>{{ packaging.france }}</td>
+                    <td>{{ packaging.international }}</td>
+                    <td>{{ packaging.maximalBoundary }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('admin_packaging_show', { 'id': packaging.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('admin_packaging_edit', { 'id': packaging.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <ul>
+        <li>
+            <a href="{{ path('admin_packaging_new') }}">Create a new Packaging</a>
+        </li>
+    </ul>
+{% endblock %}

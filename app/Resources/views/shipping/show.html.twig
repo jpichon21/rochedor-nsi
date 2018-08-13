@@ -1,0 +1,44 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block body %}
+    <h1>Packaging</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ shipping.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ shipping.name }}</td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td>{{ shipping.weight }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ shipping.price}}</td>
+            </tr>
+            <tr>
+                <th>Countries</th>
+                <td>{% if shipping.countries %}{{ shipping.countries|join(', ') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_shipping_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_shipping_edit', { 'id': shipping.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -28,6 +28,27 @@ class Tpays
      */
     private $codpays;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CodPaysPBX", type="string", length=3)
+     */
+    private $codpayspbx;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CodPaysPaypal", type="string", length=5)
+     */
+    private $codpayspaypal;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="zipcodes", type="array")
+    */
+    private $zipcodes;
+
     public function getNompays()
     {
         return $this->nompays;
@@ -36,5 +57,29 @@ class Tpays
     public function getCodpays()
     {
         return $this->codpays;
+    }
+
+    /**
+     * Set zipcodes.
+     *
+     * @param array $zipcodes
+     *
+     * @return Tax
+    */
+    public function setZipcode($zipcodes)
+    {
+        $this->zipcodes = $zipcodes;
+
+        return $this;
+    }
+
+    /**
+     * Get zipcodes.
+     *
+     * @return array
+    */
+    public function getZipcodes()
+    {
+        return $this->zipcodes;
     }
 }
