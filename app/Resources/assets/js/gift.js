@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import moment from 'moment'
 import { getParticipant } from './sample'
-import { upFlashbag, upConfirmbox } from './popup'
+import { upFlashbag } from './popup'
 import I18n from './i18n'
 import {
   postRegister,
@@ -9,7 +9,6 @@ import {
   getLogout,
   postLogin,
   resetLogin } from './gift-api.js'
-import { callbackify } from 'util';
 
 /* Translations */
 
@@ -51,13 +50,6 @@ $(document).ready(function () {
   setTimeout(function () {
     changeItem(itemConnection)
   }, 500)
-})
-
-/* Button Radio */
-
-$('.registered-render').on('click', '.button.radio', function (event) {
-  event.preventDefault()
-  $(this).toggleClass('checked')
 })
 
 /* Renders */
@@ -207,16 +199,36 @@ itemCard.on('click', '.continue', function (event) {
 itemCard.on('click', '.modify-you', function (event) {
   event.preventDefault()
   $('.panel', itemCard).hide()
-  $(`.panel.modify`, itemCard).show()
+  $('.panel.modify', itemCard).show()
   updateYouFormRender()
   changeItem(itemCard)
 })
 
 itemCard.on('submit', '.panel.modify form', function (event) {
   callbackRegister(event, $(this), user => {
+    console.log(user)
     afterLogin(user, false)
-    $(`.panel.modify`).slideUp(800, function () {
+    $('.panel.modify').slideUp(800, function () {
       $(this).hide()
     })
   })
+})
+
+$('.panel.amount').on('click', '.button.radio', function (event) {
+  event.preventDefault()
+  $('.panel.amount .button.radio').removeClass('checked')
+  const amount = $(this).addClass('checked').attr('href').substring(1)
+  $('.panel.amount .input.amount').val(amount)
+})
+
+$('.panel.amount').on('focus', '.input.amount', function (event) {
+  event.preventDefault()
+  $('.panel.amount .button.radio').removeClass('checked')
+  $(this).val('')
+})
+
+itemAmount.on('submit', '.panel.amount form', function (event) {
+  event.preventDefault()
+  _amount = $('.panel.amount .input.amount').val()
+  changeItem(itemAllocation)
 })

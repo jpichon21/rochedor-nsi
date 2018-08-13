@@ -89,10 +89,33 @@
                     <form class="pure-g you-form-render"></form>
                 </div>
             </div>
-             <div class="item validation">
+             <div class="item amount">
                 <h2>{{ 'gift.three.title' | trans | raw }}</h2>
+                <div class="panel amount active">
+                    <h3>{{ 'gift.amount' | trans | raw }}</h3>
+                    <form class="pure-g">
+                        <div class="pure-u-1-4">
+                            <a href="#50" class="input button radio">50</a>
+                        </div>
+                        <div class="pure-u-1-4">
+                            <a href="#100" class="input button radio">100</a>
+                        </div>
+                        <div class="pure-u-1-4">
+                            <a href="#150" class="input button radio">150</a>
+                        </div>
+                        <div class="pure-u-1-4">
+                            <a href="#300" class="input button radio">300</a>
+                        </div>
+                        <div class="pure-u-1-1">
+                            <input class="input amount" required type="text" pattern="([0-9])+" name="amount" placeholder="{{ 'form.other' | trans | raw }}">
+                        </div>
+                        <div class="pure-u-4-24">
+                            <input class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                        </div>
+                    </form>
+                </div>
             </div>
-             <div class="item validation">
+             <div class="item allocation">
                 <h2>{{ 'gift.four.title' | trans | raw }}</h2>
             </div>
              <div class="item payment">
