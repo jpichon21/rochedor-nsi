@@ -415,6 +415,18 @@ itemParticipants.on('click', '.participate-him', function (event) {
   const id = parseInt($(this).attr('data-id'))
   _registered = _registered.map(participant => {
     if (participant.codco === id) {
+      if (!participant.check) {
+        if (validateParticipant(participant) !== true) {
+          upFlashbag(i18n.trans('form.message.participant_not_valid'))
+          modifyClick(event, 'him', updateHimFormRender, () => {
+            const selected = parseInt($(this).attr('data-id'))
+            const participants = _registered.filter(registered => registered.codco === selected)
+            _participant = participants.shift()
+          })
+          $(this).removeClass('checked')
+          return participant
+        }
+      }
       participant.check = !participant.check
     }
     return participant
@@ -456,26 +468,10 @@ itemParticipants.on('click', '.add-participant', function (event) {
   })
 })
 
-function validateTransports () {
-  const whoAreWeWaiting = _participants.filter(participant => participant.transport === '')
-  if (whoAreWeWaiting.length > 0) {
-    return {
-      whoAreWeWaitingRender: () => {
-        let html = ''
-        whoAreWeWaiting.map(who => {
-          html += '<li>' + who.prenom + ' ' + who.nom + '</li>'
-        })
-        return html
-      }
-    }
-  }
-  return { success: true }
-}
-
 itemParticipants.on('click', '.validate-participants', function (event) {
   event.preventDefault()
-  const validate = validateTransports()
-  if (validate.success) {
+  const validate = validateParticipants()
+  if (validate === true) {
     upLoader()
     postRegistered(_participants, _infos.idact).then(res => {
       let result = $('.result', itemValidation).html()
@@ -488,9 +484,56 @@ itemParticipants.on('click', '.validate-participants', function (event) {
       upFlashbag(error)
     })
   } else {
-    upFlashbag(
-      i18n.trans('form.message.verify_transport') +
-      '<ul>' + validate.whoAreWeWaitingRender() + '</ul>'
-    )
+    upFlashbag(validate)
   }
 })
+
+function validateParticipants () {
+  let message = ''
+  for (let p of _participants) {
+    const validate = validateParticipant(p)
+    if (validate !== true) {
+      message += `${p.nom} ${p.prenom} ${validate} <br>`
+    }
+    if (message !== '') {
+      return message
+    }
+    return true
+  }
+}
+
+function validateParticipant (participant) {
+  if (participant['colp'] === '' && participant['codco'] !== _you.codco) {
+    return i18n.trans('form.message.not_accompanied')
+  }
+
+  if (participant['transport'] === '') {
+    return i18n.trans('form.message.no_transport')
+  }
+
+  if (isYoung(participant) && !isWithAdult(participant)) {
+    return i18n.trans('form.message.not_with_an_adult')
+  }
+  return true
+}
+
+function isWithAdult (participant) {
+  for (let p of _participants) {
+    if (p.codco === participant.codp && isAdult(p)) {
+      return true
+    }
+  }
+  return false
+}
+
+function isAdult (participant) {
+  const now = new moment()
+  const bdate = new moment(participant.datnaiss, moment.ISO_8601)
+  return (now.diff(bdate, 'years') > 18)
+}
+
+function isYoung (participant) {
+  const now = new moment()
+  const bdate = new moment(participant.datnaiss, moment.ISO_8601)
+  return (now.diff(bdate, 'years') <= 16)
+}
