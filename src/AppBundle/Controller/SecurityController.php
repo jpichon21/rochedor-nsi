@@ -190,6 +190,67 @@ class SecurityController extends Controller
     }
 
     /**
+    * @Route("/modify", name="modify", requirements={"methods": "POST"})
+    */
+    public function modifyAction(
+        Request $request,
+        ContactRepository $repository,
+        UserPasswordEncoderInterface $encoder
+    ) {
+        $contactReq = $request->get('contact');
+        
+        if (!$contactReq) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'You must provide contact object']);
+        }
+
+        $contact = $repository->findContactByEmail($contactReq['email']);
+        
+        if ($contact->getCodco() != $contactReq['codco']) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'Email already in use']);
+        }
+
+        $password = $encoder->encodePassword($contact, $contactReq['password']);
+
+        $contact->setNom($contactReq['nom'])
+        ->setPrenom($contactReq['prenom'])
+        ->setCivil($contactReq['civil'])
+        ->setAdresse($contactReq['adresse'])
+        ->setCp($contactReq['cp'])
+        ->setVille($contactReq['ville'])
+        ->setPays($contactReq['pays'])
+        ->setTel($contactReq['tel'])
+        ->setMobil($contactReq['mobil'])
+        ->setEmail($contactReq['email'])
+        ->setDatnaiss(new \DateTime($contactReq['datnaiss']))
+        ->setPassword($password)
+        ->setUsername($contactReq['email'])
+        ->setProfession($contactReq['profession']);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($contact);
+        $em->flush();
+
+        return new JsonResponse([
+            'username' => $contact->getUsername(),
+            'roles' => $contact->getRoles(),
+            'codco' => $contact->getCodco(),
+            'ident' => $contact->getIdent(),
+            'nom' => $contact->getNom(),
+            'prenom' => $contact->getPrenom(),
+            'adresse' => $contact->getAdresse(),
+            'cp' => $contact->getCp(),
+            'ville' => $contact->getVille(),
+            'pays' => $contact->getPays(),
+            'tel' => $contact->getTel(),
+            'mobil' => $contact->getMobil(),
+            'email' => $contact->getEmail(),
+            'societe' => $contact->getSociete(),
+            'profession' => $contact->getProfession(),
+            'datnaiss' => $contact->getDatnaiss()
+        ]);
+    }
+
+    /**
     * @Route("/{_locale}/register-form", name="register-form", requirements={"methods": "{GET, POST}"})
     */
     public function registerFormAction(
