@@ -52,22 +52,6 @@ export const postModify = (data) => {
     })
 }
 
-export const postParticipant = (data) => {
-  return window.fetch('/xhr/calendar/attendee', {
-    headers: { 'Content-Type': 'application/json' },
-    method: 'POST',
-    credentials: 'include',
-    body: JSON.stringify({
-      attendee: data
-    })
-  })
-    .then(res => res.json())
-    .then(res => {
-      if (res.status !== 'ok') { throw res.message }
-      return res.data
-    })
-}
-
 export const getLogout = () => {
   return window.fetch('/logout', {
     headers: { 'Content-Type': 'application/json' },
@@ -90,28 +74,33 @@ export const getLogin = () => {
     })
 }
 
-export const getRegistered = () => {
-  return window.fetch('/xhr/calendar/attendees', {
-    headers: { 'Content-Type': 'application/json' },
+export const getCountryCode = (country, method) => {
+  return window.fetch(`/xhr/tpays/code/${country}`, {
     method: 'GET',
     credentials: 'include'
   })
     .then(res => res.json())
     .then(res => {
-      if (res.status !== 'ok') { throw res.message }
-      return res.data
+      if (res.status !== 'ok') { throw res.error }
+      return (method === 'PBX') ? res.data['codpayspbx'] : res.data['codpayspaypal']
     })
 }
 
-export const postRegistered = (data, id) => {
-  return window.fetch('/xhr/calendar/attendees', {
+export const postGift = (amount, allocation, method, memo) => {
+  return window.fetch(`/xhr/gift/create`, {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',
-    body: JSON.stringify({
-      attendees: data,
-      activityId: id
-    })
+    body: JSON.stringify(
+      {
+        'gift': {
+          'mntdon': amount,
+          'destdon': allocation,
+          'moddon': method,
+          'memodon': memo
+        }
+      }
+    )
   })
     .then(res => res.json())
     .then(res => {
