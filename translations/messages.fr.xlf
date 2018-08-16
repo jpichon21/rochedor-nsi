@@ -2295,10 +2295,16 @@
         <target><![CDATA[Votre don a bien été enregistré. Vous recevrez un mail de confirmation dans quelques minutes.<br>Retour à la page des <a href="%link%">dons</a>.]]></target>
       </segment>
     </unit>
-    <unit id="0yLloTj" name="gift-return.cancel">
+    <unit id="Xx1TBfK" name="gift-return.cancel">
       <segment>
         <source>gift-return.cancel</source>
         <target><![CDATA[Le paiement a été annulé et votre n'a pas été enregistré.<br>Retour à la page des <a href="%link%">dons</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="rkAB_hq" name="form.gift.note">
+      <segment>
+        <source>form.gift.note</source>
+        <target>Vous pouvez laisser un message à notre attention</target>
       </segment>
     </unit>
   </file>

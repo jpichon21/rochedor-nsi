@@ -34,6 +34,7 @@ let _you = {}
 let _amount = 0
 let _allocation = {}
 let _modpaie = ''
+let _note = ''
 
 const itemConnection = $('.item.connection')
 const itemCard = $('.item.card')
@@ -261,6 +262,11 @@ itemAllocation.on('change', '.select-allocation', function (event) {
   }
 })
 
+itemAllocation.on('change', '.gift-note', function (event) {
+  event.preventDefault()
+  _note = $(this).val()
+})
+
 itemAllocation.on('submit', '.panel.allocation form', function (event) {
   event.preventDefault()
   updateAmountRender()
@@ -275,7 +281,7 @@ itemPayment.on('change', '.select-modpaie', function (event) {
 itemPayment.on('submit', '.panel.payment form', function (event) {
   event.preventDefault()
   getPaysParsed(_modpaie, _you.pays).then(country => {
-    postGift(_amount, _allocation.value, _modpaie, '').then(data => {
+    postGift(_amount, _allocation.value, _modpaie, _note).then(data => {
       placePayment(
         _modpaie,
         _amount,
@@ -334,7 +340,7 @@ function placePayment (
     const encodedUrl = Object.keys(params).map(function (k) {
       return encodeURIComponent(k) + '=' + encodeURIComponent(params[k])
     }).join('&')
-    const key = Buffer(environment.pbx_key, 'hex')
+    const key = Buffer.from(environment.pbx_key, 'hex')
     const ider = Sha512.hmac(key)
     const id = ider.finalize(url)
     window.location.href = environment.pbx_url + '?' + encodedUrl + '&PBX_HMAC=' + id.toString('hex').toUpperCase()
