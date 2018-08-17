@@ -249,6 +249,11 @@ class CalendarController extends Controller
     private function registerAttendees($attendees, $activityId)
     {
         $em = $this->getDoctrine()->getManager();
+        $calendar = $this->calendarRepository->findCalendar($activityId);
+        $site = $calendar['sitact'];
+        $registrationCount = (int) $this->calendarRepository->findRegistrationCount($site)['valeurn'] + 1;
+        $refLcal = $this->refCal($registrationCount, $site);
+        $this->calendarRepository->updateRegistrationCounter($site, $registrationCount);
         foreach ($attendees as $a) {
             if ($contact = $this->contactRepository->findContact($a['codco'])) {
                 $contact = $this->setContact($contact, $a);
@@ -268,11 +273,6 @@ class CalendarController extends Controller
                     $contact->setDataut16(new \DateTime($a['datAut16']));
                     $em->persist($contact);
                 }
-                $calendar = $this->calendarRepository->findCalendar($activityId);
-                $site = $calendar['sitact'];
-                $registrationCount = (int) $this->calendarRepository->findRegistrationCount($site)['valeurn'] + 1;
-                $refLcal = $this->refCal($registrationCount, $site);
-                $this->calendarRepository->updateRegistrationCounter($site, $registrationCount);
                 $calL = new CalL();
                 $calL->setCodcal($activityId)
                 ->setLcal($contact->getCodco())
