@@ -24,30 +24,30 @@ class Tax
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=20)
      */
     private $name;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="rate", type="float")
+     * @ORM\Column(name="rate", type="decimal", precision=10, scale=2)
      */
     private $rate;
 
     /**
-     * @var array
+     * @var string
      *
-     * @ORM\Column(name="countries", type="array")
+     * @ORM\Column(name="countries", type="json", length=65535)
      */
     private $countries;
 
-    /**
-     * @var array
-     *
-     * @ORM\Column(name="zipcodes", type="array")
-     */
-    private $zipcodes;
+    public function __construct()
+    {
+        $this->name = '';
+        $this->rate = 0;
+    }
+
 
     /**
      * Get id.
@@ -110,7 +110,7 @@ class Tax
     /**
      * Set countries.
      *
-     * @param array $countries
+     * @param json $countries
      *
      * @return Tax
      */
@@ -124,48 +124,10 @@ class Tax
     /**
      * Get countries.
      *
-     * @return array
+     * @return string
      */
     public function getCountries()
     {
         return $this->countries;
-    }
-
-    /**
-     * Set zipcodes.
-     *
-     * @param array $zipcodes
-     *
-     * @return Tax
-     */
-    public function setZipcode($zipcodes)
-    {
-        $this->zipcodes = $zipcodes;
-
-        return $this;
-    }
-
-    /**
-     * Get zipcodes.
-     *
-     * @return array
-     */
-    public function getZipcodes()
-    {
-        return $this->zipcodes;
-    }
-        
-    /**
-     * Set zipcodes.
-     *
-     * @param array $zipcodes
-     *
-     * @return Tax
-     */
-    public function setZipcodes($zipcodes)
-    {
-        $this->zipcodes = $zipcodes;
-
-        return $this;
     }
 }

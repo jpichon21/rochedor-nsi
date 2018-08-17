@@ -32,21 +32,6 @@ class TaxType extends AbstractType
             'required' => true,
             'by_reference' => false
             ]
-        )
-        ->add(
-            'zipcodes',
-            CollectionType::class,
-            [
-            'entry_type' => TextType::class,
-            'allow_add' => true,
-            'allow_delete' => true,
-            'prototype' => true,
-            'attr' => array(
-                'class' => 'collection',
-            ),
-            'required' => true,
-            'by_reference' => false
-            ]
         );
     }
     
