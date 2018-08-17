@@ -260,7 +260,7 @@ itemParticipants.on('click', '.navette', function () {
 })
 
 function validateDate (date) {
-  return moment(date).isValid()
+  return moment(date).isValid() && moment(date).isBefore(new Date())
 }
 
 function validatePhone (phone, mobile) {
@@ -300,7 +300,6 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
   event.preventDefault()
   upLoader()
   const data = context.serializeArray()
-
   const participant = formatParticipant(data)
   const validatedDate = validateDate(participant.datnaiss)
   const validatedPhone = phoneControl ? validatePhone(participant.tel, participant.mobil) : true
@@ -498,8 +497,8 @@ function validateParticipants () {
     if (message !== '') {
       return message
     }
-    return true
   }
+  return true
 }
 
 function validateParticipant (participant) {

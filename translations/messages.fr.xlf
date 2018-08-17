@@ -1774,5 +1774,11 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
         <target>Ce participant n'est pas valide.</target>
       </segment>
     </unit>
+    <unit id="mhgfyic" name="form.message.participant_not_valid">
+      <segment>
+        <source>form.message.participant_not_valid</source>
+        <target>Ce participant n'est pas valide.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
