@@ -37,7 +37,7 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="Produitcourt", type="string", length=80, nullable=false)
+     * @ORM\Column(name="Produit", type="string", length=80, nullable=false)
      */
     private $produitcourt;
 
@@ -93,7 +93,7 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="Editeur", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Editeur", type="string", length=40, nullable=true)
      */
     private $editeur;
 
@@ -268,7 +268,7 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="Themes", type="text", nullable=false)
+     * @ORM\Column(name="Themes", type="text", length=150, nullable=false)
      */
     private $themes;
 
