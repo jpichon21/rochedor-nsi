@@ -197,7 +197,7 @@ class CalendarRepository
         $query = $this->entityManager->createQuery(
             'SELECT DISTINCT co.nom, co.prenom, co.codco, co.ident, co.civil,
             co.civil2, co.adresse, co.cp, co.ville, co.pays, co.tel,
-            co.mobil, co.email, co.profession, co.datnaiss, col.coltyp, col.colt
+            co.mobil, co.email, co.profession, co.datnaiss, col.coltyp, col.colt, col.colp
             FROM AppBundle\Entity\ContactL col
             JOIN AppBundle\Entity\Contact co WITH co.codco=col.col
             WHERE col.colp =:contactId'

@@ -100,4 +100,20 @@ class ContactRepository
         $query->setParameters(['token' => $token, 'now' => new \DateTime()]);
         return $query->getOneOrNullResult();
     }
+
+    /**
+     * Find linked Contacts
+     *
+     * @param int $contactId
+     * @return Collection
+     */
+    public function findLinkedContacts($contactId)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT c FROM AppBundle\Entity\Contact c
+        JOIN AppBundle\Entity\ContactL l WITH c.codco=l.col
+        WHERE l.colp=:contactId')
+        ->setParameter('contactId', $contactId);
+        return $query->getResult();
+    }
 }

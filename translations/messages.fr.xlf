@@ -1486,6 +1486,12 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
         <target>L'adresse mail utilisée est déjà enregistrée.</target>
       </segment>
     </unit>
+    <unit id="d6YHTZi" name="user.security_child">
+      <segment>
+        <source>user.security_child</source>
+        <target>Seul les personnes de plus 18 ans sont autorisé à s'inscrire.</target>
+      </segment>
+    </unit>
     <unit id="lDOm6tr" name="form.contact.title">
       <segment>
         <source>form.contact.title</source>
@@ -1712,6 +1718,66 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
       <segment>
         <source>form.reinit</source>
         <target>Réinitialiser</target>
+      </segment>
+    </unit>
+    <unit id="l4mKCBH" name="form.arriv">
+      <segment>
+        <source>form.arriv</source>
+        <target>Arrivée (hh:mm)</target>
+      </segment>
+    </unit>
+    <unit id="krijuC." name="form.navette">
+      <segment>
+        <source>form.navette</source>
+        <target>j'utiliserai la navette communautaire</target>
+      </segment>
+    </unit>
+    <unit id="QoRcuhX" name="form.lieu">
+      <segment>
+        <source>form.lieu</source>
+        <target>lieu d'arrivée</target>
+      </segment>
+    </unit>
+    <unit id="dJfmInP" name="form.lieu.viotte">
+      <segment>
+        <source>form.lieu.viotte</source>
+        <target>Viotte</target>
+      </segment>
+    </unit>
+    <unit id="qm_COTU" name="form.cancel">
+      <segment>
+        <source>form.cancel</source>
+        <target>Annuler</target>
+      </segment>
+    </unit>
+    <unit id=".55gGPd" name="form.message.not_with_an_adult">
+      <segment>
+        <source>form.message.not_with_an_adult</source>
+        <target>n'est pas accompagné d'un adulte</target>
+      </segment>
+    </unit>
+    <unit id="ch5nrMQ" name="form.message.not_accompanied">
+      <segment>
+        <source>form.message.not_accompanied</source>
+        <target>n'est pas accompagné</target>
+      </segment>
+    </unit>
+    <unit id="dSfs_7v" name="form.message.no_transport">
+      <segment>
+        <source>form.message.no_transport</source>
+        <target>n'a pas de mode de transport</target>
+      </segment>
+    </unit>
+    <unit id="REqCb2s" name="participant_not_valid">
+      <segment>
+        <source>participant_not_valid</source>
+        <target>Ce participant n'est pas valide.</target>
+      </segment>
+    </unit>
+    <unit id="mhgfyic" name="form.message.participant_not_valid">
+      <segment>
+        <source>form.message.participant_not_valid</source>
+        <target>Ce participant n'est pas valide.</target>
       </segment>
     </unit>
   </file>

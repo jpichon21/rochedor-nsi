@@ -177,6 +177,10 @@ class CalendarController extends Controller
         if (!$attendees || !$activityId) {
             return ['status' => 'ko', 'message' => 'You must provide attendees object and activityId'];
         }
+        if (!$this->validAttendees($attendees)) {
+            return ['status' => 'ko', 'message' => 'Missing major tutor for a child'];
+        }
+
         if (!$calL = $this->registerAttendees($attendees, $activityId)) {
             return ['status' => 'ko', 'message' => 'The registration has failed'];
         }
@@ -192,17 +196,20 @@ class CalendarController extends Controller
     public function xhrPostAttendeeAction(Request $request)
     {
         $attendee = $request->get('attendee');
+
         if (!$attendee) {
             return ['status' => 'ko', 'message' => 'You must provide attendee object'];
         }
+        if ($attendee['email'] != '') {
+            $contact = $this->contactRepository->findContactByEmail($attendee['email']);
+            if ($contact) {
+                if ($contact->getCodco() != $attendee['codco']) {
+                    return new JsonResponse(['status' => 'ko', 'message' => 'security.user_exist']);
+                }
+            }
+        }
         if (isset($attendee['codco'])) {
             $contact = $this->calendarRepository->findContact($attendee['codco']);
-        } else {
-            $contact = $this->contactRepository->findContactByInfos(
-                $attendee['nom'],
-                $attendee['prenom'],
-                $attendee['datnaiss']
-            );
         }
         if ($contact === null) {
             $contact = new Contact();
@@ -238,7 +245,7 @@ class CalendarController extends Controller
         $calendar['sitact'] = $this::SITES[array_search($calendar['sitact'], $this::SITES)]['name'];
         return $calendar;
     }
-
+    
     private function registerAttendees($attendees, $activityId)
     {
         $em = $this->getDoctrine()->getManager();
@@ -257,6 +264,10 @@ class CalendarController extends Controller
                     ->setColtyp($a['coltyp']);
                     $em->persist($contactl);
                 }
+                if ($a['aut16'] == 1) {
+                    $contact->setDataut16(new \DateTime($a['datAut16']));
+                    $em->persist($contact);
+                }
                 $calendar = $this->calendarRepository->findCalendar($activityId);
                 $site = $calendar['sitact'];
                 $registrationCount = (int) $this->calendarRepository->findRegistrationCount($site)['valeurn'] + 1;
@@ -267,7 +278,18 @@ class CalendarController extends Controller
                 ->setLcal($contact->getCodco())
                 ->setTyplcal('coIns')
                 ->setReflcal($refLcal)
-                ->setJslcal(json_encode(['Arriv' => ['Transport' => $a['transport'], 'Memo' => $a['memo']]]));
+                ->setJslcal(json_encode(
+                    [
+                        'Arriv' => [
+                            'Transport' => $a['transport'],
+                            'Navette' => (array_key_exists('navette', $a)) ? ($a['navette']) : '',
+                            'Lieu' => $a['lieu'],
+                            'Heure' => ($a['arriv'] !== '') ? explode(':', $a['arriv'])[0]: '',
+                            'Mn' => ($a['arriv'] !== '') ? explode(':', $a['arriv'])[1]: '',
+                            'Memo' => $a['memo']
+                        ]
+                    ]
+                ));
                 $em->persist($calL);
             }
         }
@@ -303,9 +325,6 @@ class CalendarController extends Controller
         ->setDatnaiss(new \DateTime($attendee['datnaiss']))
         ->setProfession($attendee['profession'])
         ->setAut16($attendee['aut16']);
-        if ($attendee['aut16'] == 1) {
-            $contact->setDataut16(new \DateTime($attendee['datAut16']));
-        }
         return $contact;
     }
 
@@ -335,6 +354,38 @@ class CalendarController extends Controller
         return false;
     }
     
+    private function validAttendees($attendees)
+    {
+        foreach ($attendees as $attendee) {
+            if ($this->isChild($attendee['datnaiss'])) {
+                if (!$this->isWithAdult($attendee, $attendees)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    private function isWithAdult($child, $attendees)
+    {
+        foreach ($attendees as $attendee) {
+            $adult = $this->isAdult($attendee['datnaiss']);
+            if ((int) $attendee['codco'] === (int) $child['colp'] && $adult) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private function isChild(string $datnaiss)
+    {
+        $datnaiss = new \DateTime($datnaiss);
+        $now = new \DateTime();
+        $diff = $datnaiss->diff($now);
+        return ($diff->y <= $this::YEARS_CHILD);
+    }
+
+
     private function isAdult(string $datnaiss)
     {
         $datnaiss = new \DateTime($datnaiss);
@@ -351,11 +402,20 @@ class CalendarController extends Controller
 
     private function getAttendees(Contact $contact)
     {
-        $refs = $this->calendarRepository->findRegisteredRefs($contact->getCodco());
-        if ($refs === null) {
-            return null;
+        // Find only parents as we don't want to display other contacts anymore
+        $parents = $this->calendarRepository->findParents($contact->getCodco());
+        
+        $keys = [$contact->getCodCo()];
+        $contacts = [];
+        // Filter contacts to only return unique entries
+        foreach ($parents as $contact) {
+            if (!in_array($contact['codco'], $keys)) {
+                $keys[] = $contact['codco'];
+                $contacts[] = $contact;
+            }
         }
-        return $this->calendarRepository->findAttendees(array_column($refs, 'reflcal'), $contact->getCodco());
+
+        return $contacts;
     }
 
     public function getDataCalendarAction(CalendarRepository $calendarRepo)
