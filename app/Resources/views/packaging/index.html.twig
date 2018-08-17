@@ -7,10 +7,10 @@
             <thead>
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Boundary</th>
+                    <th scope="col">Limit</th>
                     <th scope="col">France</th>
                     <th scope="col">International</th>
-                    <th scope="col">Maximal Boundary</th>
+                    <th scope="col">Maximal Limit</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -18,10 +18,10 @@
             {% for packaging in packagings %}
                 <tr>
                     <td><a href="{{ path('admin_packaging_show', { 'id': packaging.id }) }}">{{ packaging.id }}</a></td>
-                    <td>{{ packaging.boundary }}</td>
+                    <td>{{ packaging.limit }}</td>
                     <td>{{ packaging.france }}</td>
                     <td>{{ packaging.international }}</td>
-                    <td>{{ packaging.maximalBoundary }}</td>
+                    <td>{{ packaging.maximalLimit }}</td>
                     <td>
                         <ul>
                             <li>

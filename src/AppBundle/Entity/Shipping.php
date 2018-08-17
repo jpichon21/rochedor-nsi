@@ -24,14 +24,14 @@ class Shipping
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=20)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="weight", type="integer", length=255)
+     * @ORM\Column(name="weight", type="integer", length=11)
      */
     private $weight;
 
@@ -46,10 +46,17 @@ class Shipping
     /**
      * @var array
      *
-     * @ORM\Column(name="countries", type="array")
+     * @ORM\Column(name="countries", type="json", length=65535)
      */
     private $countries;
 
+    public function __construct()
+    {
+        $this->name = '';
+        $this->weight = 0;
+        $this->price = 0;
+        $this->countries = [];
+    }
     /**
      * Get id.
      *

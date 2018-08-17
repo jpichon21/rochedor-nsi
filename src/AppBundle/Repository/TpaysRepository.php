@@ -65,17 +65,17 @@ class TpaysRepository
         $country = $result;
  
         $query = $this->entityManager
-        ->createQuery('SELECT tp.zipcodes 
+        ->createQuery('SELECT tp.codpostaux 
         FROM AppBundle\Entity\Tpays tp 
         WHERE tp.nompays=:country');
         $query->setParameter('country', $country['nompays']);
         $results =  $query->getOneOrNullResult();
 
-        if ($results['zipcodes'] === null) {
+        if ($results['codpostaux'] === null) {
             return false;
         }
 
-        foreach ($results['zipcodes'] as $k => $result) {
+        foreach ($results['codpostaux'] as $k => $result) {
             if ($zipcode >= $result[0] && $zipcode <= $result[1]) {
                 return true;
             }

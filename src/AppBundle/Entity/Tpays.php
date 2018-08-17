@@ -45,9 +45,18 @@ class Tpays
     /**
      * @var array
      *
-     * @ORM\Column(name="zipcodes", type="array")
+     * @ORM\Column(name="CodPostaux", type="json", length=65535)
     */
-    private $zipcodes;
+    private $codpostaux;
+
+    public function __construct()
+    {
+        $this->nompays = '';
+        $this->codpays = '';
+        $this->codpayspbx = '';
+        $this->codpayspaypal = '';
+        $this->codpostaux = [];
+    }
 
     public function getNompays()
     {
@@ -60,26 +69,26 @@ class Tpays
     }
 
     /**
-     * Set zipcodes.
+     * Set codpostaux.
      *
-     * @param array $zipcodes
+     * @param array $codpostaux
      *
      * @return Tax
     */
-    public function setZipcode($zipcodes)
+    public function setZipcode($codpostaux)
     {
-        $this->zipcodes = $zipcodes;
+        $this->codpostaux = $codpostaux;
 
         return $this;
     }
 
     /**
-     * Get zipcodes.
+     * Get codpostaux.
      *
      * @return array
     */
-    public function getZipcodes()
+    public function getCodpostaux()
     {
-        return $this->zipcodes;
+        return $this->codpostaux;
     }
 }
