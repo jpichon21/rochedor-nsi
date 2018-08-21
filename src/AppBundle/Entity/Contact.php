@@ -312,7 +312,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=256, nullable=true)
+     * @ORM\Column(name="password", type="string", length=60, nullable=true)
      * @Assert\Length(
      *      min = 8,
      *      minMessage = "validation.password.length"
@@ -337,7 +337,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255, nullable=true)
+     * @ORM\Column(name="username", type="string", length=255, nullable=true, unique=true)
      * @Expose
      */
     private $username;
@@ -401,14 +401,14 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var array
      *
-     * @ORM\Column(name="roles", type="array", nullable=true)
+     * @ORM\Column(name="roles", type="json", nullable=true, options={"default" : "[""ROLE_USER""]"})
      */
     private $roles;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="reset_token", type="string", nullable=true)
+     * @ORM\Column(name="reset_token", type="string", nullable=true, length=50)
      */
     private $resetToken;
 
