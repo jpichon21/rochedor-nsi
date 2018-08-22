@@ -523,7 +523,7 @@ function validateParticipant (participant) {
 
 function isWithAdult (participant) {
   for (let p of _participants) {
-    if (p.codco === participant.codp && isAdult(p)) {
+    if (parseInt(p.codco) === parseInt(participant.colp) && isAdult(p)) {
       return true
     }
   }
