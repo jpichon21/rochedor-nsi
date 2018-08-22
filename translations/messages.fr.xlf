@@ -802,7 +802,7 @@
       </notes>
       <segment>
         <source>form.label.password_repeat</source>
-        <target>Répeter</target>
+        <target>Répéter</target>
       </segment>
     </unit>
     <unit id="I.9xUE5" name="security.reset.token_not_found">
