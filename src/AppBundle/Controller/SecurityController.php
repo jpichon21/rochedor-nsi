@@ -19,6 +19,7 @@ use AppBundle\Service\Mailer;
 use AppBundle\Entity\Contact;
 use AppBundle\Form\RegisterType;
 use AppBundle\Service\PageService;
+use AppBundle\Service\ContactService;
 
 class SecurityController extends Controller
 {
@@ -136,7 +137,8 @@ class SecurityController extends Controller
     public function registerAction(
         Request $request,
         ContactRepository $repository,
-        UserPasswordEncoderInterface $encoder
+        UserPasswordEncoderInterface $encoder,
+        ContactService $contactService
     ) {
         $contactReq = $request->get('contact');
         if (!$contactReq) {
@@ -172,6 +174,7 @@ class SecurityController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($contact);
         $em->flush();
+        $contactService->queryDuplicate($contact->getCodco());
 
         return new JsonResponse([
             'username' => $contact->getUsername(),
@@ -200,7 +203,8 @@ class SecurityController extends Controller
     public function registerFormAction(
         Request $request,
         ContactRepository $repository,
-        UserPasswordEncoderInterface $encoder
+        UserPasswordEncoderInterface $encoder,
+        ContactService $contactService
     ) {
         $contact = new Contact();
         $form = $this->createForm(RegisterType::class, $contact);
@@ -217,6 +221,7 @@ class SecurityController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($contact);
             $em->flush();
+            $contactService->queryDuplicate($contact->getCodco());
             return $this->redirectToRoute('password_register_success');
         }
         return $this->render('security/register.html.twig', array(

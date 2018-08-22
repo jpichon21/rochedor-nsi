@@ -25,6 +25,7 @@ use AppBundle\Repository\ContactRepository;
 use AppBundle\Repository\TpaysRepository;
 use AppBundle\Service\Mailer;
 use AppBundle\Service\PageService;
+use AppBundle\Service\ContactService;
 
 /**
  * @Route("/{_locale}")
@@ -193,7 +194,7 @@ class CalendarController extends Controller
      * @Security("has_role('ROLE_USER')")
      * @Rest\View()
      */
-    public function xhrPostAttendeeAction(Request $request)
+    public function xhrPostAttendeeAction(Request $request, ContactService $contactService)
     {
         $attendee = $request->get('attendee');
 
@@ -211,7 +212,7 @@ class CalendarController extends Controller
         if (isset($attendee['codco'])) {
             $contact = $this->calendarRepository->findContact($attendee['codco']);
         }
-        if ($contact === null) {
+        if (!isset($contact)) {
             $contact = new Contact();
         }
 
@@ -220,6 +221,7 @@ class CalendarController extends Controller
         $contact = $this->setContact($contact, $attendee);
         $em->persist($contact);
         $em->flush();
+        $contactService->queryDuplicate($contact->getCodco());
         return ['status' => 'ok', 'data' => $contact];
     }
 
