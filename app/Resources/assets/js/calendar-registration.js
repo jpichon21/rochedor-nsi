@@ -190,6 +190,11 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
   const participant = formatParticipant(data)
   const validatedDate = validateDate(participant.datnaiss)
   const validatedPhone = validatePhone(participant.tel, participant.mobil)
+  if (participant.password.length < 6) {
+    downLoader()
+    upFlashbag(i18n.trans('security.password_too_small'))
+    return
+  }
   if (validatedDate) {
     if (validatedPhone) {
       postRegister({
