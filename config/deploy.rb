@@ -5,7 +5,8 @@ require 'mina/git'
 account = 'rochedor'
 
 set :repository, 'git@gitlab.com:logomotion/rochedor-nsi'
-set :branch, 'master'
+set :branch, 'dev' if ENV['on'] == 'dev'
+set :branch, 'staging' if ENV['on'] == 'staging'
 
 set :domain, 'rochedor.fr'
 set :user, 'root'
