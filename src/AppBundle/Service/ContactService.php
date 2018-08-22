@@ -45,6 +45,7 @@ class ContactService
         ));
         $result = curl_exec($c);
         $this->logger->info(json_encode(curl_getinfo($c)));
+        $this->logger->info(json_encode($data));
         $this->logger->info($result);
     }
 }
