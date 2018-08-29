@@ -225,7 +225,7 @@ class CalendarController extends Controller
      */
     public function xhrGetLastAttendeesAction()
     {
-        $attendees = $this->getAttendees($this->getUser());
+        $attendees = $this->getParents($this->getUser());
         return ['status' => 'ok', 'data' => $attendees];
     }
 
@@ -353,16 +353,7 @@ class CalendarController extends Controller
 
     private function getParents(Contact $contact)
     {
-        return $this->calendarRepository->findParents($contact->getCodco());
-    }
-
-    private function getAttendees(Contact $contact)
-    {
-        $refs = $this->calendarRepository->findRegisteredRefs($contact->getCodco());
-        if ($refs === null) {
-            return null;
-        }
-        return $this->calendarRepository->findAttendees(array_column($refs, 'reflcal'), $contact->getCodco());
+        return $this->contactRepository->findParents($contact->getCodco());
     }
 
     public function getDataCalendarAction(CalendarRepository $calendarRepo)
