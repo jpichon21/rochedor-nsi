@@ -197,16 +197,17 @@ class CalendarController extends Controller
         }
         if (isset($attendee['codco'])) {
             $contact = $this->calendarRepository->findContact($attendee['codco']);
-        } else {
-            $contact = $this->contactRepository->findContactByInfos(
-                $attendee['nom'],
-                $attendee['prenom'],
-                $attendee['datnaiss']
-            );
         }
-        if ($contact === null) {
+        if (!isset($contact)) {
             $contact = new Contact();
         }
+        if (isset($attendee['username'])) {
+            if (!$this->contactRepository->isUsernameUnique($attendee['username'], $contact->getCodco())) {
+                return ['status' => 'ko', 'message' => 'security.username_exists'];
+            }
+        }
+
+
 
         $em = $this->getDoctrine()->getManager();
         $this->setContact($contact, $attendee);
@@ -244,6 +245,11 @@ class CalendarController extends Controller
         $em = $this->getDoctrine()->getManager();
         foreach ($attendees as $a) {
             if ($contact = $this->contactRepository->findContact($a['codco'])) {
+                if (isset($a['username'])) {
+                    if (!$this->contactRepository->isUsernameUnique($a['username'], $a['codco'])) {
+                        return ['status' => 'ko', 'message' => 'security.username_exists'];
+                    }
+                }
                 $contact = $this->setContact($contact, $a);
                 $em->persist($contact);
 
@@ -300,6 +306,7 @@ class CalendarController extends Controller
         ->setTel($attendee['tel'])
         ->setMobil($attendee['mobil'])
         ->setEmail($attendee['email'])
+        ->setUsername(isset($attendee['username']) ? $attendee['username'] : null)
         ->setDatnaiss(new \DateTime($attendee['datnaiss']))
         ->setProfession($attendee['profession'])
         ->setAut16($attendee['aut16']);

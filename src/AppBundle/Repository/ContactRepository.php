@@ -72,18 +72,40 @@ class ContactRepository
     }
 
     /**
-    * Find Contact by its email
+    * Find Contact by its username
     *
-    * @param string $email
+    * @param string $username
     * @return Contact
     */
-    public function findContactByEmail($email)
+    public function findContactByUsername($username)
     {
         $query = $this->entityManager
-        ->createQuery('SELECT c FROM AppBundle\Entity\Contact c WHERE c.email=:email OR c.username=:email');
-        $query->setParameter('email', $email);
+        ->createQuery('SELECT c FROM AppBundle\Entity\Contact c WHERE c.username=:username OR c.username=:username');
+        $query->setParameter('username', $username);
         $query->setMaxResults(1);
         return $query->getOneOrNullResult();
+    }
+
+    /**
+     * Check if username is unique
+     *
+     * @param string $username
+     * @param int $codco
+     * @return boolean
+     */
+    public function isUsernameUnique($username, $codco = null)
+    {
+        $c = $this->findContactByUsername($username);
+        if ($c === null) {
+            return true;
+        }
+        if ($codco === null) {
+            return false;
+        }
+        if ($c->getCodco() !== $codco) {
+            return false;
+        }
+        return true;
     }
 
     /**

@@ -143,8 +143,8 @@ class SecurityController extends Controller
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide contact object']);
         }
         
-        if ($repository->findContactByEmail($contactReq['email'])) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'Email already in use']);
+        if ($repository->findContactByUsername($contactReq['username'])) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'Username already in use']);
         }
 
         $contact = new Contact();
@@ -162,7 +162,7 @@ class SecurityController extends Controller
         ->setEmail($contactReq['email'])
         ->setDatnaiss(new \DateTime($contactReq['datnaiss']))
         ->setPassword($password)
-        ->setUsername($contactReq['email'])
+        ->setUsername($contactReq['username'])
         ->setProfession($contactReq['profession']);
 
         $em = $this->getDoctrine()->getManager();

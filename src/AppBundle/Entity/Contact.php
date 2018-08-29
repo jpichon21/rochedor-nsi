@@ -14,7 +14,7 @@ use JMS\Serializer\Annotation\Expose;
  *
  * @ORM\Table(name="contact", indexes={@ORM\Index(name="CodB", columns={"CodB"})})
  * @ORM\Entity
- * @UniqueEntity("email", message="validation.email.already_used")
+ * @UniqueEntity("username", message="validation.username.already_used")
  * @ExclusionPolicy("all")
  */
 class Contact implements UserInterface, \Serializable

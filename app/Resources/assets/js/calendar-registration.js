@@ -305,12 +305,12 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
             $(this).hide()
             changeItem(itemParticipants)
           })
+        }).catch(error => {
+          if (error) {
+            downLoader()
+            upFlashbag(i18n.trans(error))
+          }
         })
-      }).catch(error => {
-        if (error) {
-          downLoader()
-          upFlashbag(error)
-        }
       })
     } else {
       downLoader()

@@ -738,7 +738,7 @@
       </notes>
       <segment>
         <source>form.username</source>
-        <target>Email</target>
+        <target>Nom d'utilisateur</target>
       </segment>
     </unit>
     <unit id="bThUzo_" name="form.modify">
@@ -1712,6 +1712,12 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
       <segment>
         <source>form.reinit</source>
         <target>Réinitialiser</target>
+      </segment>
+    </unit>
+    <unit id="fCR5IGy" name="security.username_exists">
+      <segment>
+        <source>security.username_exists</source>
+        <target>Ce nom d'utilisateur est déjà utilisé</target>
       </segment>
     </unit>
   </file>
