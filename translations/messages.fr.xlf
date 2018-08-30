@@ -1,1854 +1,1865 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff
-	xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="fr">
-	<file id="messages.fr">
-		<unit id="XLjEtrS" name="menu.one">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:20</note>
-			</notes>
-			<segment>
-				<source>menu.one</source>
-				<target>La communauté et les maisons</target>
-			</segment>
-		</unit>
-		<unit id="td1g_X_" name="menu.two">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:21</note>
-			</notes>
-			<segment>
-				<source>menu.two</source>
-				<target>Les retraites</target>
-			</segment>
-		</unit>
-		<unit id="_QTPx9b" name="menu.three">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:22</note>
-			</notes>
-			<segment>
-				<source>menu.three</source>
-				<target>Le calendrier</target>
-			</segment>
-		</unit>
-		<unit id="QokeGaI" name="menu.one.one">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:25</note>
-			</notes>
-			<segment>
-				<source>menu.one.one</source>
-				<target>
-					<![CDATA[La <br>communauté]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="DY.PFaX" name="menu.one.two">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:26</note>
-			</notes>
-			<segment>
-				<source>menu.one.two</source>
-				<target>
-					<![CDATA[Les <br>fondateurs]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="ABGsIRc" name="menu.one.three">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:27</note>
-			</notes>
-			<segment>
-				<source>menu.one.three</source>
-				<target>
-					<![CDATA[La <br>Roche d'Or]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="5vJ0eNt" name="menu.one.four">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:28</note>
-			</notes>
-			<segment>
-				<source>menu.one.four</source>
-				<target>
-					<![CDATA[Les <br>Fontanilles]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="TfDK6ic" name="menu.two.one">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:31</note>
-			</notes>
-			<segment>
-				<source>menu.two.one</source>
-				<target>
-					<![CDATA[Venir <br>en retraite]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="zFwSu3O" name="menu.two.two">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:32</note>
-			</notes>
-			<segment>
-				<source>menu.two.two</source>
-				<target>
-					<![CDATA[Retraites <br>à la Roche d'Or]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="OipSnvA" name="menu.two.three">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:33</note>
-			</notes>
-			<segment>
-				<source>menu.two.three</source>
-				<target>
-					<![CDATA[Retraites <br>aux Fontanilles]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="NEzhIK_" name="menu.two.four">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:34</note>
-			</notes>
-			<segment>
-				<source>menu.two.four</source>
-				<target>
-					<![CDATA[Les <br>intervenants]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="d2ahr5A" name="menu.four">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:42</note>
-			</notes>
-			<segment>
-				<source>menu.four</source>
-				<target>Informations pratiques</target>
-			</segment>
-		</unit>
-		<unit id="yImul.f" name="menu.five">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:43</note>
-			</notes>
-			<segment>
-				<source>menu.five</source>
-				<target>Les Éditions Roche d'Or</target>
-			</segment>
-		</unit>
-		<unit id="Uu.vp07" name="menu.six">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:44</note>
-			</notes>
-			<segment>
-				<source>menu.six</source>
-				<target>Nous soutenir</target>
-			</segment>
-		</unit>
-		<unit id="Ne9wirQ" name="menu.four.one">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:47</note>
-			</notes>
-			<segment>
-				<source>menu.four.one</source>
-				<target>
-					<![CDATA[Infos pratiques<br> de la Roche d'Or]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="t9xDnqi" name="menu.four.two">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:48</note>
-			</notes>
-			<segment>
-				<source>menu.four.two</source>
-				<target>
-					<![CDATA[Infos pratiques<br> des Fontanilles]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="xm3Wl2D" name="menu.four.three">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:49</note>
-			</notes>
-			<segment>
-				<source>menu.four.three</source>
-				<target>
-					<![CDATA[Accueil<br> des enfants]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="ADfxTyP" name="menu.four.four">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:50</note>
-			</notes>
-			<segment>
-				<source>menu.four.four</source>
-				<target>
-					<![CDATA[Liens<br> amis]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="rehny29" name="menu.five.one">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:55</note>
-			</notes>
-			<segment>
-				<source>menu.five.one</source>
-				<target>
-					<![CDATA[Les Editions<br> Roche d'Or]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="JQrk3we" name="menu.five.two">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:56</note>
-			</notes>
-			<segment>
-				<source>menu.five.two</source>
-				<target>
-					<![CDATA[Les<br> Nouveautés]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="Vvb_xEv" name="menu.five.three">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:57</note>
-			</notes>
-			<segment>
-				<source>menu.five.three</source>
-				<target>
-					<![CDATA[Les<br> Collections]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="aY4iGkg" name="menu.six.one">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:65</note>
-			</notes>
-			<segment>
-				<source>menu.six.one</source>
-				<target>
-					<![CDATA[Donner<br> du temps]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="nrz9.5B" name="menu.six.two">
-			<notes>
-				<note priority="1">app/Resources/views/parts/header.html.twig:66</note>
-			</notes>
-			<segment>
-				<source>menu.six.two</source>
-				<target>
-					<![CDATA[Faire<br> un don]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="_xIh0pv" name="filter.title.site">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:16</note>
-			</notes>
-			<segment>
-				<source>filter.title.site</source>
-				<target>Sites</target>
-			</segment>
-		</unit>
-		<unit id="6EbXPX3" name="filter.title.type">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:21</note>
-			</notes>
-			<segment>
-				<source>filter.title.type</source>
-				<target>Types</target>
-			</segment>
-		</unit>
-		<unit id="YBxvI.S" name="filter.title.intervenants">
-			<notes>
-				<note priority="1">obsolete</note>
-			</notes>
-			<segment>
-				<source>filter.title.intervenants</source>
-				<target>Intervenants</target>
-			</segment>
-		</unit>
-		<unit id="4A1GNtj" name="filter.title.traductions">
-			<notes>
-				<note priority="1">obsolete</note>
-			</notes>
-			<segment>
-				<source>filter.title.traductions</source>
-				<target>Traductions</target>
-			</segment>
-		</unit>
-		<unit id="ZsqTtfH" name="filter.inner.default">
-			<notes>
-				<note priority="1">app/Resources/views/parts/filter.html.twig:8</note>
-			</notes>
-			<segment>
-				<source>filter.inner.default</source>
-				<target>Sélectionner</target>
-			</segment>
-		</unit>
-		<unit id="WJZTCIa" name="filter.inner.selection.singular">
-			<notes>
-				<note priority="1">app/Resources/views/parts/filter.html.twig:12</note>
-			</notes>
-			<segment>
-				<source>filter.inner.selection.singular</source>
-				<target>sélection</target>
-			</segment>
-		</unit>
-		<unit id="TRhsePV" name="filter.inner.selection.plural">
-			<notes>
-				<note priority="1">app/Resources/views/parts/filter.html.twig:16</note>
-			</notes>
-			<segment>
-				<source>filter.inner.selection.plural</source>
-				<target>sélections</target>
-			</segment>
-		</unit>
-		<unit id="FM0PXMD" name="filter.inner.date.in">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:25</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:128</note>
-			</notes>
-			<segment>
-				<source>filter.inner.date.in</source>
-				<target>Du</target>
-			</segment>
-		</unit>
-		<unit id="gGyMDWm" name="filter.inner.date.out">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:28</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:128</note>
-			</notes>
-			<segment>
-				<source>filter.inner.date.out</source>
-				<target>Au</target>
-			</segment>
-		</unit>
-		<unit id="pbylFh8" name="filter.inner.submit">
-			<notes>
-				<note priority="1">obsolete</note>
-			</notes>
-			<segment>
-				<source>filter.inner.submit</source>
-				<target>Ok</target>
-			</segment>
-		</unit>
-		<unit id="wY2f8rr" name="filter.title.keyword">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:43</note>
-			</notes>
-			<segment>
-				<source>filter.title.keyword</source>
-				<target>Retraites</target>
-			</segment>
-		</unit>
-		<unit id=".0VN0jX" name="filter.inner.keyword">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:44</note>
-			</notes>
-			<segment>
-				<source>filter.inner.keyword</source>
-				<target>Mot clé</target>
-			</segment>
-		</unit>
-		<unit id="Q6jhgTg" name="retreats.table.head.dates">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:52</note>
-			</notes>
-			<segment>
-				<source>retreats.table.head.dates</source>
-				<target>Date</target>
-			</segment>
-		</unit>
-		<unit id="DLoeleR" name="retreats.table.head.site">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:53</note>
-			</notes>
-			<segment>
-				<source>retreats.table.head.site</source>
-				<target>Site</target>
-			</segment>
-		</unit>
-		<unit id="udKCrOO" name="retreats.table.head.event">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:54</note>
-			</notes>
-			<segment>
-				<source>retreats.table.head.event</source>
-				<target>Évènement</target>
-			</segment>
-		</unit>
-		<unit id="z44_LRk" name="retreats.table.head.speakers">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:55</note>
-			</notes>
-			<segment>
-				<source>retreats.table.head.speakers</source>
-				<target>Intervenant</target>
-			</segment>
-		</unit>
-		<unit id="fdtdIAj" name="retreats.table.head.type">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:56</note>
-			</notes>
-			<segment>
-				<source>retreats.table.head.type</source>
-				<target>Type</target>
-			</segment>
-		</unit>
-		<unit id="MUpvFuZ" name="retreats.table.head.duration">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:57</note>
-			</notes>
-			<segment>
-				<source>retreats.table.head.duration</source>
-				<target>Durée</target>
-			</segment>
-		</unit>
-		<unit id="33juit3" name="retreats.table.head.translations">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:58</note>
-			</notes>
-			<segment>
-				<source>retreats.table.head.translations</source>
-				<target>Trad.</target>
-			</segment>
-		</unit>
-		<unit id="7tmJeqV" name="retreats.table.head.selections">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:59</note>
-			</notes>
-			<segment>
-				<source>retreats.table.head.selections</source>
-				<target>Sélections</target>
-			</segment>
-		</unit>
-		<unit id="3_6XCKH" name="filter.title.speakers">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:35</note>
-			</notes>
-			<segment>
-				<source>filter.title.speakers</source>
-				<target>Intervenants</target>
-			</segment>
-		</unit>
-		<unit id="JtjutUk" name="filter.title.translations">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar.html.twig:40</note>
-			</notes>
-			<segment>
-				<source>filter.title.translations</source>
-				<target>Traductions</target>
-			</segment>
-		</unit>
-		<unit id="XneOvFD" name="admin.title">
-			<notes>
-				<note priority="1">app/Resources/views/admin/index.html.twig:6</note>
-			</notes>
-			<segment>
-				<source>admin.title</source>
-				<target>Tableau de bord</target>
-			</segment>
-		</unit>
-		<unit id="JUG1sw_" name="calendar.registration.one.title">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:20</note>
-			</notes>
-			<segment>
-				<source>calendar.registration.one.title</source>
-				<target>Connexion/Inscription</target>
-			</segment>
-		</unit>
-		<unit id="X6w.m5l" name="calendar.registration.two.title">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:93</note>
-			</notes>
-			<segment>
-				<source>calendar.registration.two.title</source>
-				<target>Participants</target>
-			</segment>
-		</unit>
-		<unit id="UzRFO5C" name="calendar.registration.three.title">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:106</note>
-			</notes>
-			<segment>
-				<source>calendar.registration.three.title</source>
-				<target>Validation</target>
-			</segment>
-		</unit>
-		<unit id="YR9sNBD" name="calendar.registration.three.body">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:107</note>
-			</notes>
-			<segment>
-				<source>calendar.registration.three.body</source>
-				<target>
-					<![CDATA[
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="fr">
+  <file id="messages.fr">
+    <unit id="XLjEtrS" name="menu.one">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:20</note>
+      </notes>
+      <segment>
+        <source>menu.one</source>
+        <target>La communauté et les maisons</target>
+      </segment>
+    </unit>
+    <unit id="td1g_X_" name="menu.two">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>menu.two</source>
+        <target>Les retraites</target>
+      </segment>
+    </unit>
+    <unit id="_QTPx9b" name="menu.three">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:22</note>
+      </notes>
+      <segment>
+        <source>menu.three</source>
+        <target>Le calendrier</target>
+      </segment>
+    </unit>
+    <unit id="QokeGaI" name="menu.one.one">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:25</note>
+      </notes>
+      <segment>
+        <source>menu.one.one</source>
+        <target><![CDATA[
+					La <br>communauté
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="DY.PFaX" name="menu.one.two">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:26</note>
+      </notes>
+      <segment>
+        <source>menu.one.two</source>
+        <target><![CDATA[
+					Les <br>fondateurs
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="ABGsIRc" name="menu.one.three">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:27</note>
+      </notes>
+      <segment>
+        <source>menu.one.three</source>
+        <target><![CDATA[
+					La <br>Roche d'Or
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="5vJ0eNt" name="menu.one.four">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:28</note>
+      </notes>
+      <segment>
+        <source>menu.one.four</source>
+        <target><![CDATA[
+					Les <br>Fontanilles
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="TfDK6ic" name="menu.two.one">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:31</note>
+      </notes>
+      <segment>
+        <source>menu.two.one</source>
+        <target><![CDATA[
+					Venir <br>en retraite
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="zFwSu3O" name="menu.two.two">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:32</note>
+      </notes>
+      <segment>
+        <source>menu.two.two</source>
+        <target><![CDATA[
+					Retraites <br>à la Roche d'Or
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="OipSnvA" name="menu.two.three">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:33</note>
+      </notes>
+      <segment>
+        <source>menu.two.three</source>
+        <target><![CDATA[
+					Retraites <br>aux Fontanilles
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="NEzhIK_" name="menu.two.four">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:34</note>
+      </notes>
+      <segment>
+        <source>menu.two.four</source>
+        <target><![CDATA[
+					Les <br>intervenants
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="d2ahr5A" name="menu.four">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:42</note>
+      </notes>
+      <segment>
+        <source>menu.four</source>
+        <target>Informations pratiques</target>
+      </segment>
+    </unit>
+    <unit id="yImul.f" name="menu.five">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:43</note>
+      </notes>
+      <segment>
+        <source>menu.five</source>
+        <target>Les Éditions Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="Uu.vp07" name="menu.six">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:44</note>
+      </notes>
+      <segment>
+        <source>menu.six</source>
+        <target>Nous soutenir</target>
+      </segment>
+    </unit>
+    <unit id="Ne9wirQ" name="menu.four.one">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:47</note>
+      </notes>
+      <segment>
+        <source>menu.four.one</source>
+        <target><![CDATA[
+					Infos pratiques<br> de la Roche d'Or
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="t9xDnqi" name="menu.four.two">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:48</note>
+      </notes>
+      <segment>
+        <source>menu.four.two</source>
+        <target><![CDATA[
+					Infos pratiques<br> des Fontanilles
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="xm3Wl2D" name="menu.four.three">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:49</note>
+      </notes>
+      <segment>
+        <source>menu.four.three</source>
+        <target><![CDATA[
+					Accueil<br> des enfants
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="ADfxTyP" name="menu.four.four">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:50</note>
+      </notes>
+      <segment>
+        <source>menu.four.four</source>
+        <target><![CDATA[
+					Liens<br> amis
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="rehny29" name="menu.five.one">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:55</note>
+      </notes>
+      <segment>
+        <source>menu.five.one</source>
+        <target><![CDATA[
+					Les Editions<br> Roche d'Or
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="JQrk3we" name="menu.five.two">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:56</note>
+      </notes>
+      <segment>
+        <source>menu.five.two</source>
+        <target><![CDATA[
+					Les<br> Nouveautés
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="Vvb_xEv" name="menu.five.three">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:57</note>
+      </notes>
+      <segment>
+        <source>menu.five.three</source>
+        <target><![CDATA[
+					Les<br> Collections
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="aY4iGkg" name="menu.six.one">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:65</note>
+      </notes>
+      <segment>
+        <source>menu.six.one</source>
+        <target><![CDATA[
+					Donner<br> du temps
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="nrz9.5B" name="menu.six.two">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:66</note>
+      </notes>
+      <segment>
+        <source>menu.six.two</source>
+        <target><![CDATA[
+					Faire<br> un don
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="_xIh0pv" name="filter.title.site">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:16</note>
+      </notes>
+      <segment>
+        <source>filter.title.site</source>
+        <target>Sites</target>
+      </segment>
+    </unit>
+    <unit id="6EbXPX3" name="filter.title.type">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>filter.title.type</source>
+        <target>Types</target>
+      </segment>
+    </unit>
+    <unit id="YBxvI.S" name="filter.title.intervenants">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>filter.title.intervenants</source>
+        <target>Intervenants</target>
+      </segment>
+    </unit>
+    <unit id="4A1GNtj" name="filter.title.traductions">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>filter.title.traductions</source>
+        <target>Traductions</target>
+      </segment>
+    </unit>
+    <unit id="ZsqTtfH" name="filter.inner.default">
+      <notes>
+        <note priority="1">app/Resources/views/parts/filter.html.twig:8</note>
+      </notes>
+      <segment>
+        <source>filter.inner.default</source>
+        <target>Sélectionner</target>
+      </segment>
+    </unit>
+    <unit id="WJZTCIa" name="filter.inner.selection.singular">
+      <notes>
+        <note priority="1">app/Resources/views/parts/filter.html.twig:12</note>
+      </notes>
+      <segment>
+        <source>filter.inner.selection.singular</source>
+        <target>sélection</target>
+      </segment>
+    </unit>
+    <unit id="TRhsePV" name="filter.inner.selection.plural">
+      <notes>
+        <note priority="1">app/Resources/views/parts/filter.html.twig:16</note>
+      </notes>
+      <segment>
+        <source>filter.inner.selection.plural</source>
+        <target>sélections</target>
+      </segment>
+    </unit>
+    <unit id="FM0PXMD" name="filter.inner.date.in">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:25</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:128</note>
+      </notes>
+      <segment>
+        <source>filter.inner.date.in</source>
+        <target>Du</target>
+      </segment>
+    </unit>
+    <unit id="gGyMDWm" name="filter.inner.date.out">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:28</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:128</note>
+      </notes>
+      <segment>
+        <source>filter.inner.date.out</source>
+        <target>Au</target>
+      </segment>
+    </unit>
+    <unit id="pbylFh8" name="filter.inner.submit">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>filter.inner.submit</source>
+        <target>Ok</target>
+      </segment>
+    </unit>
+    <unit id="wY2f8rr" name="filter.title.keyword">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:43</note>
+      </notes>
+      <segment>
+        <source>filter.title.keyword</source>
+        <target>Retraites</target>
+      </segment>
+    </unit>
+    <unit id=".0VN0jX" name="filter.inner.keyword">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:44</note>
+      </notes>
+      <segment>
+        <source>filter.inner.keyword</source>
+        <target>Mot clé</target>
+      </segment>
+    </unit>
+    <unit id="Q6jhgTg" name="retreats.table.head.dates">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:52</note>
+      </notes>
+      <segment>
+        <source>retreats.table.head.dates</source>
+        <target>Date</target>
+      </segment>
+    </unit>
+    <unit id="DLoeleR" name="retreats.table.head.site">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:53</note>
+      </notes>
+      <segment>
+        <source>retreats.table.head.site</source>
+        <target>Site</target>
+      </segment>
+    </unit>
+    <unit id="udKCrOO" name="retreats.table.head.event">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:54</note>
+      </notes>
+      <segment>
+        <source>retreats.table.head.event</source>
+        <target>Évènement</target>
+      </segment>
+    </unit>
+    <unit id="z44_LRk" name="retreats.table.head.speakers">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:55</note>
+      </notes>
+      <segment>
+        <source>retreats.table.head.speakers</source>
+        <target>Intervenant</target>
+      </segment>
+    </unit>
+    <unit id="fdtdIAj" name="retreats.table.head.type">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:56</note>
+      </notes>
+      <segment>
+        <source>retreats.table.head.type</source>
+        <target>Type</target>
+      </segment>
+    </unit>
+    <unit id="MUpvFuZ" name="retreats.table.head.duration">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:57</note>
+      </notes>
+      <segment>
+        <source>retreats.table.head.duration</source>
+        <target>Durée</target>
+      </segment>
+    </unit>
+    <unit id="33juit3" name="retreats.table.head.translations">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:58</note>
+      </notes>
+      <segment>
+        <source>retreats.table.head.translations</source>
+        <target>Trad.</target>
+      </segment>
+    </unit>
+    <unit id="7tmJeqV" name="retreats.table.head.selections">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:59</note>
+      </notes>
+      <segment>
+        <source>retreats.table.head.selections</source>
+        <target>Sélections</target>
+      </segment>
+    </unit>
+    <unit id="3_6XCKH" name="filter.title.speakers">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:35</note>
+      </notes>
+      <segment>
+        <source>filter.title.speakers</source>
+        <target>Intervenants</target>
+      </segment>
+    </unit>
+    <unit id="JtjutUk" name="filter.title.translations">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar.html.twig:40</note>
+      </notes>
+      <segment>
+        <source>filter.title.translations</source>
+        <target>Traductions</target>
+      </segment>
+    </unit>
+    <unit id="XneOvFD" name="admin.title">
+      <notes>
+        <note priority="1">app/Resources/views/admin/index.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>admin.title</source>
+        <target>Tableau de bord</target>
+      </segment>
+    </unit>
+    <unit id="JUG1sw_" name="calendar.registration.one.title">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:20</note>
+      </notes>
+      <segment>
+        <source>calendar.registration.one.title</source>
+        <target>Connexion/Inscription</target>
+      </segment>
+    </unit>
+    <unit id="X6w.m5l" name="calendar.registration.two.title">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:93</note>
+      </notes>
+      <segment>
+        <source>calendar.registration.two.title</source>
+        <target>Participants</target>
+      </segment>
+    </unit>
+    <unit id="UzRFO5C" name="calendar.registration.three.title">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:106</note>
+      </notes>
+      <segment>
+        <source>calendar.registration.three.title</source>
+        <target>Validation</target>
+      </segment>
+    </unit>
+    <unit id="YR9sNBD" name="calendar.registration.three.body">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:107</note>
+      </notes>
+      <segment>
+        <source>calendar.registration.three.body</source>
+        <target><![CDATA[
+					
         <p>Une réponse à votre demande vous sera transmise prochainement par e-mail ou par courrier postal si vous ne disposez pas d'une adresse e-mail. Cette réponse dépend essentiellement des places encore disponibles et de notre capacité à vous accueillir dans les meilleures conditions.</p><p><i>Protection des données personnelles: la Roche d'Or s'engage à être le seul et unique destinataire des informations que vous venez de lui communiquer. Pour plus d'information, merci de vous reporter à notre politique de confidentialité qui prend en compte les exigences de la réglementation européenne sur la protection des données (RGPD)</i></p>
-        ]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="wbVpZSG" name="calendar.registration.one.title.connection">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:31</note>
-			</notes>
-			<segment>
-				<source>calendar.registration.one.title.connection</source>
-				<target>Connexion</target>
-			</segment>
-		</unit>
-		<unit id="Hu7hGnb" name="calendar.registration.one.title.registration">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:45</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:101</note>
-			</notes>
-			<segment>
-				<source>calendar.registration.one.title.registration</source>
-				<target>Inscription</target>
-			</segment>
-		</unit>
-		<unit id="79GaqZh" name="calendar.registration.summary.title">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:116</note>
-			</notes>
-			<segment>
-				<source>calendar.registration.summary.title</source>
-				<target>Récapitulatif</target>
-			</segment>
-		</unit>
-		<unit id="hyo40Kt" name="calendar.registration.summary.title.retreat">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:117</note>
-			</notes>
-			<segment>
-				<source>calendar.registration.summary.title.retreat</source>
-				<target>Retraite</target>
-			</segment>
-		</unit>
-		<unit id="cf8D8wL" name="calendar.registration.summary.title.participants">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:119</note>
-			</notes>
-			<segment>
-				<source>calendar.registration.summary.title.participants</source>
-				<target>Participants</target>
-			</segment>
-		</unit>
-		<unit id="UuuHLxt" name="calendar.registration.one.body">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:21</note>
-			</notes>
-			<segment>
-				<source>calendar.registration.one.body</source>
-				<target>Vous êtes connecté en tant que %name%, voulez-vous continuer ?</target>
-			</segment>
-		</unit>
-		<unit id="rvJRHqu" name="main.yes">
-			<notes>
-				<note priority="1">obsolete</note>
-			</notes>
-			<segment>
-				<source>main.yes</source>
-				<target>Oui</target>
-			</segment>
-		</unit>
-		<unit id="AzlF5AX" name="main.no">
-			<notes>
-				<note priority="1">obsolete</note>
-			</notes>
-			<segment>
-				<source>main.no</source>
-				<target>Non</target>
-			</segment>
-		</unit>
-		<unit id="V8UBB12" name="form.id">
-			<notes>
-				<note priority="1">obsolete</note>
-			</notes>
-			<segment>
-				<source>form.id</source>
-				<target>Utilisateur</target>
-			</segment>
-		</unit>
-		<unit id="yjqmSBK" name="form.password">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:37</note>
-			</notes>
-			<segment>
-				<source>form.password</source>
-				<target>Mot de passe</target>
-			</segment>
-		</unit>
-		<unit id="3NTTDax" name="form.ok">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:40</note>
-			</notes>
-			<segment>
-				<source>form.ok</source>
-				<target>Ok</target>
-			</segment>
-		</unit>
-		<unit id="JfsNCsD" name="form.civility.mr">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:49</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:158</note>
-			</notes>
-			<segment>
-				<source>form.civility.mr</source>
-				<target>Mr</target>
-			</segment>
-		</unit>
-		<unit id="xsDsRUV" name="form.civility.mme">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:50</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:159</note>
-			</notes>
-			<segment>
-				<source>form.civility.mme</source>
-				<target>Mme</target>
-			</segment>
-		</unit>
-		<unit id="drTwRMd" name="form.surname">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:54</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:163</note>
-			</notes>
-			<segment>
-				<source>form.surname</source>
-				<target>Prénom</target>
-			</segment>
-		</unit>
-		<unit id="eqR0LZq" name="form.name">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:57</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:166</note>
-			</notes>
-			<segment>
-				<source>form.name</source>
-				<target>Nom</target>
-			</segment>
-		</unit>
-		<unit id="DOAWeTf" name="form.address">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:60</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:169</note>
-			</notes>
-			<segment>
-				<source>form.address</source>
-				<target>Adresse</target>
-			</segment>
-		</unit>
-		<unit id="ziUr.Qg" name="form.zipcode">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:63</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:172</note>
-			</notes>
-			<segment>
-				<source>form.zipcode</source>
-				<target>Code postal</target>
-			</segment>
-		</unit>
-		<unit id="XUsHqAd" name="form.city">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:66</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:175</note>
-			</notes>
-			<segment>
-				<source>form.city</source>
-				<target>Ville</target>
-			</segment>
-		</unit>
-		<unit id="f95h2nt" name="form.country">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:69</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:178</note>
-			</notes>
-			<segment>
-				<source>form.country</source>
-				<target>Pays</target>
-			</segment>
-		</unit>
-		<unit id="vLNMGXN" name="form.phone">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:72</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:181</note>
-			</notes>
-			<segment>
-				<source>form.phone</source>
-				<target>Téléphone</target>
-			</segment>
-		</unit>
-		<unit id="uD_aUux" name="form.mobile">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:75</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:184</note>
-			</notes>
-			<segment>
-				<source>form.mobile</source>
-				<target>Mobile</target>
-			</segment>
-		</unit>
-		<unit id="3IGOm9D" name="form.email">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:78</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:187</note>
-			</notes>
-			<segment>
-				<source>form.email</source>
-				<target>Email</target>
-			</segment>
-		</unit>
-		<unit id="2G58i_f" name="form.birthday">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:81</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:190</note>
-			</notes>
-			<segment>
-				<source>form.birthday</source>
-				<target>Naissance (jj/mm/aaaa)</target>
-			</segment>
-		</unit>
-		<unit id="P7A68ag" name="form.profession">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:84</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:193</note>
-			</notes>
-			<segment>
-				<source>form.profession</source>
-				<target>Profession</target>
-			</segment>
-		</unit>
-		<unit id="kohqA_C" name="form.submit">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:87</note>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:196</note>
-			</notes>
-			<segment>
-				<source>form.submit</source>
-				<target>Ok</target>
-			</segment>
-		</unit>
-		<unit id="UN_T7Q7" name="calendar.registration.two.title.you">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:94</note>
-			</notes>
-			<segment>
-				<source>calendar.registration.two.title.you</source>
-				<target>Vous</target>
-			</segment>
-		</unit>
-		<unit id="__z09IL" name="calendar.registration.two.title.registered">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:96</note>
-			</notes>
-			<segment>
-				<source>calendar.registration.two.title.registered</source>
-				<target>Inscrits avec vous</target>
-			</segment>
-		</unit>
-		<unit id="mfItNzY" name="calendar.registration.two.add_participant">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:98</note>
-			</notes>
-			<segment>
-				<source>calendar.registration.two.add_participant</source>
-				<target>+ Ajouter un participant</target>
-			</segment>
-		</unit>
-		<unit id="mV4kdh." name="calendar.registration.two.validate_participants">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:99</note>
-			</notes>
-			<segment>
-				<source>calendar.registration.two.validate_participants</source>
-				<target>Valider l'inscription</target>
-			</segment>
-		</unit>
-		<unit id="B0VCgO_" name="form.username">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:34</note>
-			</notes>
-			<segment>
-				<source>form.username</source>
-				<target>Nom d'utilisateur</target>
-			</segment>
-		</unit>
-		<unit id="bThUzo_" name="form.modify">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:149</note>
-			</notes>
-			<segment>
-				<source>form.modify</source>
-				<target>Modifier</target>
-			</segment>
-		</unit>
-		<unit id="kDOH2ki" name="form.participate">
-			<notes>
-				<note priority="1">app/Resources/views/default/calendar-registration.html.twig:150</note>
-			</notes>
-			<segment>
-				<source>form.participate</source>
-				<target>Participera</target>
-			</segment>
-		</unit>
-		<unit id="YWzPHVB" name="calendar.notify.attendee.subject">
-			<segment>
-				<source>calendar.notify.attendee.subject</source>
-				<target>Demande d'inscription</target>
-			</segment>
-		</unit>
-		<unit id="jbjkLYq" name="news.title">
-			<segment>
-				<source>news.title</source>
-				<target>Nouveauté</target>
-			</segment>
-		</unit>
-		<unit id="Qx5vJC1" name="news.button.discover">
-			<segment>
-				<source>news.button.discover</source>
-				<target>Découvrir le produit</target>
-			</segment>
-		</unit>
-		<unit id="RmsDr53" name="form.label.password">
-			<notes>
-				<note priority="1">app/Resources/views/security/login.html.twig:15</note>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:51</note>
-			</notes>
-			<segment>
-				<source>form.label.password</source>
-				<target>Mot de passe</target>
-			</segment>
-		</unit>
-		<unit id="LJQqtt5" name="security.reset_password_request.subject">
-			<notes>
-				<note priority="1">src/AppBundle/Controller/SecurityController.php:225</note>
-			</notes>
-			<segment>
-				<source>security.reset_password_request.subject</source>
-				<target>Réinitialisation de mot de passe</target>
-			</segment>
-		</unit>
-		<unit id="Y4ieqkz" name="form.label.password_repeat">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:52</note>
-			</notes>
-			<segment>
-				<source>form.label.password_repeat</source>
-				<target>Répéter</target>
-			</segment>
-		</unit>
-		<unit id="I.9xUE5" name="security.reset.token_not_found">
-			<notes>
-				<note priority="1">app/Resources/views/security/register.html.twig:14</note>
-				<note priority="1">app/Resources/views/security/password-reset.html.twig:14</note>
-			</notes>
-			<segment>
-				<source>security.reset.token_not_found</source>
-				<target>Cette demande de réinitialisation n'est plus valide on n'existe pas.</target>
-			</segment>
-		</unit>
-		<unit id="cUuO.r4" name="security.password_reset_success_message">
-			<notes>
-				<note priority="1">app/Resources/views/security/password-reset-success.html.twig:6</note>
-			</notes>
-			<segment>
-				<source>security.password_reset_success_message</source>
-				<target>Votre nouveau mot de passe a été enregistré, vous pouvez désormais vous connecter avec votre nouveau mot de passe.</target>
-			</segment>
-		</unit>
-		<unit id="OF6XF6p" name="form.label.email">
-			<notes>
-				<note priority="1">app/Resources/views/security/login.html.twig:13</note>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:40</note>
-			</notes>
-			<segment>
-				<source>form.label.email</source>
-				<target>Adresse email</target>
-			</segment>
-		</unit>
-		<unit id="otIm1Q." name="form.label.connection">
-			<notes>
-				<note priority="1">app/Resources/views/security/login.html.twig:17</note>
-			</notes>
-			<segment>
-				<source>form.label.connection</source>
-				<target>Connexion</target>
-			</segment>
-		</unit>
-		<unit id="_zkUWKW" name="form.label.lastname">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:22</note>
-			</notes>
-			<segment>
-				<source>form.label.lastname</source>
-				<target>Nom</target>
-			</segment>
-		</unit>
-		<unit id="Bnb8Fxq" name="form.label.firstname">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:23</note>
-			</notes>
-			<segment>
-				<source>form.label.firstname</source>
-				<target>Prénom</target>
-			</segment>
-		</unit>
-		<unit id="nWzdT1I" name="form.label.gender">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:24</note>
-			</notes>
-			<segment>
-				<source>form.label.gender</source>
-				<target>Civilité</target>
-			</segment>
-		</unit>
-		<unit id="lJ9kDJr" name="form.label.male">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:26</note>
-			</notes>
-			<segment>
-				<source>form.label.male</source>
-				<target>M.</target>
-			</segment>
-		</unit>
-		<unit id="xvipkdQ" name="form.label.female">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:26</note>
-			</notes>
-			<segment>
-				<source>form.label.female</source>
-				<target>Mme</target>
-			</segment>
-		</unit>
-		<unit id="yeuJugN" name="form.label.miss">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:26</note>
-			</notes>
-			<segment>
-				<source>form.label.miss</source>
-				<target>Mlle</target>
-			</segment>
-		</unit>
-		<unit id="UOJWY3C" name="form.label.father">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:26</note>
-			</notes>
-			<segment>
-				<source>form.label.father</source>
-				<target>Père</target>
-			</segment>
-		</unit>
-		<unit id="NDJSbka" name="form.label.sister">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:26</note>
-			</notes>
-			<segment>
-				<source>form.label.sister</source>
-				<target>Soeur</target>
-			</segment>
-		</unit>
-		<unit id="cX.x2TJ" name="form.label.brother">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:26</note>
-			</notes>
-			<segment>
-				<source>form.label.brother</source>
-				<target>Frère</target>
-			</segment>
-		</unit>
-		<unit id="fpwiOEp" name="form.label.address">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:34</note>
-			</notes>
-			<segment>
-				<source>form.label.address</source>
-				<target>Adresse</target>
-			</segment>
-		</unit>
-		<unit id="YCgup4i" name="form.label.zipcode">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:35</note>
-			</notes>
-			<segment>
-				<source>form.label.zipcode</source>
-				<target>Code postal</target>
-			</segment>
-		</unit>
-		<unit id="uHJcphH" name="form.label.city">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:36</note>
-			</notes>
-			<segment>
-				<source>form.label.city</source>
-				<target>Ville</target>
-			</segment>
-		</unit>
-		<unit id="FgNmpx1" name="form.label.country">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:37</note>
-			</notes>
-			<segment>
-				<source>form.label.country</source>
-				<target>Pays</target>
-			</segment>
-		</unit>
-		<unit id="WfF5F2." name="form.label.phone">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:38</note>
-			</notes>
-			<segment>
-				<source>form.label.phone</source>
-				<target>Téléphone</target>
-			</segment>
-		</unit>
-		<unit id="Ovness." name="form.label.mobile">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:39</note>
-			</notes>
-			<segment>
-				<source>form.label.mobile</source>
-				<target>Mobile</target>
-			</segment>
-		</unit>
-		<unit id="CiLuyEH" name="form.label.birthday">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:41</note>
-			</notes>
-			<segment>
-				<source>form.label.birthday</source>
-				<target>Date de naissance</target>
-			</segment>
-		</unit>
-		<unit id="1GEr2LD" name="form.label.job">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:54</note>
-			</notes>
-			<segment>
-				<source>form.label.job</source>
-				<target>Profession</target>
-			</segment>
-		</unit>
-		<unit id="XohImNo" name="password">
-			<notes>
-				<note priority="1">src/AppBundle/Form/RegisterType.php:21</note>
-			</notes>
-			<segment>
-				<source>password</source>
-				<target>Mot de passe</target>
-			</segment>
-		</unit>
-		<unit id="1cJDMNG" name="security.register">
-			<segment>
-				<source>security.register</source>
-				<target>Inscription</target>
-			</segment>
-		</unit>
-		<unit id="N_ACgte" name="calendar.registration.intro">
-			<segment>
-				<source>calendar.registration.intro</source>
-				<target>
-					<![CDATA[Vous êtes sur le point de vous inscrire à une retraite. Complétez les informations suivantes si vous souhaitez continuer, sinon retourner au <a href="%link%">calendrier</a>.]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="EHnUJsc" name="calendar.registration.two.title.modify">
-			<segment>
-				<source>calendar.registration.two.title.modify</source>
-				<target>Modifier un participant</target>
-			</segment>
-		</unit>
-		<unit id="g5egomQ" name="calendar.registration.two.title.registration">
-			<segment>
-				<source>calendar.registration.two.title.registration</source>
-				<target>Ajouter un participant</target>
-			</segment>
-		</unit>
-		<unit id="s5pfV6x" name="calendar.registration.one.body.connected">
-			<segment>
-				<source>calendar.registration.one.body.connected</source>
-				<target>
-					<![CDATA[Vous êtes connecté en tant que <i>%name%</i>, voulez-vous continuer ?]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="L5.6B.Q" name="form.yes">
-			<segment>
-				<source>form.yes</source>
-				<target>Oui</target>
-			</segment>
-		</unit>
-		<unit id="dS5kpgF" name="form.no">
-			<segment>
-				<source>form.no</source>
-				<target>Non</target>
-			</segment>
-		</unit>
-		<unit id="UfVO5kV" name="calendar.registration.one.body.disconnected">
-			<segment>
-				<source>calendar.registration.one.body.disconnected</source>
-				<target>Avez-vous déjà participé à une retraite à la Roche d'Or ou aux Fontanilles ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
-			</segment>
-		</unit>
-		<unit id="Hp62ZON" name="form.continue">
-			<segment>
-				<source>form.continue</source>
-				<target>Continuer</target>
-			</segment>
-		</unit>
-		<unit id="9iZriSj" name="form.disconnect">
-			<segment>
-				<source>form.disconnect</source>
-				<target>Se déconnecter</target>
-			</segment>
-		</unit>
-		<unit id="wYBophx" name="calendar.registration.two.title.modify.you">
-			<segment>
-				<source>calendar.registration.two.title.modify.you</source>
-				<target>Modifier votre fiche</target>
-			</segment>
-		</unit>
-		<unit id="PtppaFL" name="calendar.registration.two.title.modify.him">
-			<segment>
-				<source>calendar.registration.two.title.modify.him</source>
-				<target>Modifier un participant</target>
-			</segment>
-		</unit>
-		<unit id="kswmam." name="form.transport">
-			<segment>
-				<source>form.transport</source>
-				<target>Vous viendrez</target>
-			</segment>
-		</unit>
-		<unit id="g8r0.vw" name="form.memo">
-			<segment>
-				<source>form.memo</source>
-				<target>Commentaire</target>
-			</segment>
-		</unit>
-		<unit id="qZI9mI2" name="form.transport.perso">
-			<segment>
-				<source>form.transport.perso</source>
-				<target>Viendra par ses propres moyens</target>
-			</segment>
-		</unit>
-		<unit id="qeUDh4t" name="form.transport.train">
-			<segment>
-				<source>form.transport.train</source>
-				<target>Viendra en train</target>
-			</segment>
-		</unit>
-		<unit id="tjBn22A" name="form.transport.avion">
-			<segment>
-				<source>form.transport.avion</source>
-				<target>Viendra en avion</target>
-			</segment>
-		</unit>
-		<unit id="l5g0cdb" name="form.transport.bus">
-			<segment>
-				<source>form.transport.bus</source>
-				<target>Viendra en bus</target>
-			</segment>
-		</unit>
-		<unit id="lTZDt9R" name="form.label.submit">
-			<segment>
-				<source>form.label.submit</source>
-				<target>Ok</target>
-			</segment>
-		</unit>
-		<unit id="fF5Ilm0" name="form.message.verify_transport">
-			<segment>
-				<source>form.message.verify_transport</source>
-				<target>Veuillez préciser le mode de transport pour les participants suivants :</target>
-			</segment>
-		</unit>
-		<unit id="0uJUpBY" name="form.message.parent_must_be_adult">
-			<segment>
-				<source>form.message.parent_must_be_adult</source>
-				<target>Les enfants doivent être accompagnés par une personne de plus de 18 ans</target>
-			</segment>
-		</unit>
-		<unit id="Cr.q521" name="form.message.date_invalid">
-			<segment>
-				<source>form.message.date_invalid</source>
-				<target>La date que vous avez saisie est invalide</target>
-			</segment>
-		</unit>
-		<unit id="RJ.6oSN" name="form.no_participants">
-			<segment>
-				<source>form.no_participants</source>
-				<target>Aucun participant</target>
-			</segment>
-		</unit>
-		<unit id="Ux7laCX" name="form.civil">
-			<segment>
-				<source>form.civil</source>
-				<target>Civilité</target>
-			</segment>
-		</unit>
-		<unit id="vJZGASh" name="form.relation">
-			<segment>
-				<source>form.relation</source>
-				<target>Relation</target>
-			</segment>
-		</unit>
-		<unit id="mKcWSOI" name="form.colp">
-			<segment>
-				<source>form.colp</source>
-				<target>Organisateur</target>
-			</segment>
-		</unit>
-		<unit id="edrUzMC" name="calendar.days">
-			<segment>
-				<source>calendar.days</source>
-				<target>j</target>
-			</segment>
-		</unit>
-		<unit id="A9HWtXN" name="filter.raz.button">
-			<segment>
-				<source>filter.raz.button</source>
-				<target>Effacer les filtres</target>
-			</segment>
-		</unit>
-		<unit id="cvwzHYX" name="form.password.reset">
-			<segment>
-				<source>form.password.reset</source>
-				<target>Réinitialiser le mot de passe</target>
-			</segment>
-		</unit>
-		<unit id="kzkX1MK" name="security.bad_credentials">
-			<segment>
-				<source>security.bad_credentials</source>
-				<target>Les identifiants que vous avez saisis sont erronés</target>
-			</segment>
-		</unit>
-		<unit id="rHsOKUn" name="security.check_inbox">
-			<segment>
-				<source>security.check_inbox</source>
-				<target>Un mail vient de vous être envoyé pour terminer la réinitialisation de votre mot de passe.</target>
-			</segment>
-		</unit>
-		<unit id="hmTi4mf" name="news.last_posts.title">
-			<segment>
-				<source>news.last_posts.title</source>
-				<target>__news.last_posts.title</target>
-			</segment>
-		</unit>
-		<unit id="Rmhs3fL" name="editions.seeallproducts">
-			<segment>
-				<source>editions.seeallproducts</source>
-				<target>Voir toute la collection</target>
-			</segment>
-		</unit>
-		<unit id="PR.7mhC" name="editions.filters.title">
-			<segment>
-				<source>editions.filters.title</source>
-				<target>Affiner votre recherche</target>
-			</segment>
-		</unit>
-		<unit id="bYGmESp" name="editions.filter.collections.title">
-			<segment>
-				<source>editions.filter.collections.title</source>
-				<target>Par collections</target>
-			</segment>
-		</unit>
-		<unit id="JDutJpY" name="editions.filter.collections.choose">
-			<segment>
-				<source>editions.filter.collections.choose</source>
-				<target>Choisir une collection</target>
-			</segment>
-		</unit>
-		<unit id="aoxcH.V" name="editions.filter.themes.title">
-			<segment>
-				<source>editions.filter.themes.title</source>
-				<target>Par thèmes</target>
-			</segment>
-		</unit>
-		<unit id="yskUgvU" name="cart.remove">
-			<segment>
-				<source>cart.remove</source>
-				<target>__cart.remove</target>
-			</segment>
-		</unit>
-		<unit id="RoCT1_f" name="cart.empty">
-			<segment>
-				<source>cart.empty</source>
-				<target>__cart.empty</target>
-			</segment>
-		</unit>
-		<unit id="rgQWz6f" name="editions.author">
-			<segment>
-				<source>editions.author</source>
-				<target>Auteur</target>
-			</segment>
-		</unit>
-		<unit id="kwCXg0T" name="editions.collection">
-			<segment>
-				<source>editions.collection</source>
-				<target>Collection</target>
-			</segment>
-		</unit>
-		<unit id="zfUdmv." name="editions.addtocart">
-			<segment>
-				<source>editions.addtocart</source>
-				<target>Ajouter au panier</target>
-			</segment>
-		</unit>
-		<unit id="YxhvXIb" name="editions.ebookversion">
-			<segment>
-				<source>editions.ebookversion</source>
-				<target>Version ebook</target>
-			</segment>
-		</unit>
-		<unit id="Csu2uYK" name="order.registration.cart.title.1">
-			<segment>
-				<source>order.registration.cart.title.1</source>
-				<target>Votre Panier</target>
-			</segment>
-		</unit>
-		<unit id="i2JGptw" name="order.registration.one.title">
-			<segment>
-				<source>order.registration.one.title</source>
-				<target>Connexion</target>
-			</segment>
-		</unit>
-		<unit id="BxI_rwF" name="order.registration.one.body.disconnected">
-			<segment>
-				<source>order.registration.one.body.disconnected</source>
-				<target>Avez vous déja effectuer une commande sur notre site ?</target>
-			</segment>
-		</unit>
-		<unit id="al9WFPE" name="order.registration.two.title">
-			<segment>
-				<source>order.registration.two.title</source>
-				<target>Commande</target>
-			</segment>
-		</unit>
-		<unit id="S_61BVF" name="order.registration.two.title.you">
-			<segment>
-				<source>order.registration.two.title.you</source>
-				<target>Votre fiche client</target>
-			</segment>
-		</unit>
-		<unit id="biPtN4s" name="order.registration.choose.adliv">
-			<segment>
-				<source>order.registration.choose.adliv</source>
-				<target>Votre adresse de livraison</target>
-			</segment>
-		</unit>
-		<unit id="TKTwy0K" name="form.choose.adliv">
-			<segment>
-				<source>form.choose.adliv</source>
-				<target>Livraison</target>
-			</segment>
-		</unit>
-		<unit id="EuDIPVk" name="select.ad.myadd">
-			<segment>
-				<source>select.ad.myadd</source>
-				<target>Mon adresse</target>
-			</segment>
-		</unit>
-		<unit id="rznIWfL" name="select.ad.roche">
-			<segment>
-				<source>select.ad.roche</source>
-				<target>La Roche d'Or</target>
-			</segment>
-		</unit>
-		<unit id="8QjWF9b" name="select.ad.font">
-			<segment>
-				<source>select.ad.font</source>
-				<target>Les Fontanilles</target>
-			</segment>
-		</unit>
-		<unit id="MlxM03H" name="select.ad.other">
-			<segment>
-				<source>select.ad.other</source>
-				<target>Autre Adresse</target>
-			</segment>
-		</unit>
-		<unit id="GDNiQhU" name="order.choose.adliv">
-			<segment>
-				<source>order.choose.adliv</source>
-				<target>Adresse de livraison</target>
-			</segment>
-		</unit>
-		<unit id="xiX_zBW" name="form.adresse">
-			<segment>
-				<source>form.adresse</source>
-				<target>Adresse</target>
-			</segment>
-		</unit>
-		<unit id="CDqJj5g" name="order.registration.choose.country">
-			<segment>
-				<source>order.registration.choose.country</source>
-				<target>Choisir mon pays de livraison</target>
-			</segment>
-		</unit>
-		<unit id="qnrYsFN" name="form.choose.country">
-			<segment>
-				<source>form.choose.country</source>
-				<target>Pays</target>
-			</segment>
-		</unit>
-		<unit id="UxPpNQd" name="country.fr">
-			<segment>
-				<source>country.fr</source>
-				<target>France</target>
-			</segment>
-		</unit>
-		<unit id="Q6zSrRK" name="country.en">
-			<segment>
-				<source>country.en</source>
-				<target>Royaume Unis</target>
-			</segment>
-		</unit>
-		<unit id="ruZtiTw" name="country.de">
-			<segment>
-				<source>country.de</source>
-				<target>Allemagne</target>
-			</segment>
-		</unit>
-		<unit id="rZWRGQp" name="country.it">
-			<segment>
-				<source>country.it</source>
-				<target>Italie</target>
-			</segment>
-		</unit>
-		<unit id="lWwH1W0" name="country.es">
-			<segment>
-				<source>country.es</source>
-				<target>Espagne</target>
-			</segment>
-		</unit>
-		<unit id="JwRE9Ox" name="order.registration.choose.gift">
-			<segment>
-				<source>order.registration.choose.gift</source>
-				<target>
+        
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="wbVpZSG" name="calendar.registration.one.title.connection">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:31</note>
+      </notes>
+      <segment>
+        <source>calendar.registration.one.title.connection</source>
+        <target>Connexion</target>
+      </segment>
+    </unit>
+    <unit id="Hu7hGnb" name="calendar.registration.one.title.registration">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:45</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:101</note>
+      </notes>
+      <segment>
+        <source>calendar.registration.one.title.registration</source>
+        <target>Inscription</target>
+      </segment>
+    </unit>
+    <unit id="79GaqZh" name="calendar.registration.summary.title">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:116</note>
+      </notes>
+      <segment>
+        <source>calendar.registration.summary.title</source>
+        <target>Récapitulatif</target>
+      </segment>
+    </unit>
+    <unit id="hyo40Kt" name="calendar.registration.summary.title.retreat">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:117</note>
+      </notes>
+      <segment>
+        <source>calendar.registration.summary.title.retreat</source>
+        <target>Retraite</target>
+      </segment>
+    </unit>
+    <unit id="cf8D8wL" name="calendar.registration.summary.title.participants">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:119</note>
+      </notes>
+      <segment>
+        <source>calendar.registration.summary.title.participants</source>
+        <target>Participants</target>
+      </segment>
+    </unit>
+    <unit id="UuuHLxt" name="calendar.registration.one.body">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>calendar.registration.one.body</source>
+        <target>Vous êtes connecté en tant que %name%, voulez-vous continuer ?</target>
+      </segment>
+    </unit>
+    <unit id="rvJRHqu" name="main.yes">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>main.yes</source>
+        <target>Oui</target>
+      </segment>
+    </unit>
+    <unit id="AzlF5AX" name="main.no">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>main.no</source>
+        <target>Non</target>
+      </segment>
+    </unit>
+    <unit id="V8UBB12" name="form.id">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>form.id</source>
+        <target>Utilisateur</target>
+      </segment>
+    </unit>
+    <unit id="yjqmSBK" name="form.password">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:37</note>
+      </notes>
+      <segment>
+        <source>form.password</source>
+        <target>Mot de passe</target>
+      </segment>
+    </unit>
+    <unit id="3NTTDax" name="form.ok">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:40</note>
+      </notes>
+      <segment>
+        <source>form.ok</source>
+        <target>Ok</target>
+      </segment>
+    </unit>
+    <unit id="JfsNCsD" name="form.civility.mr">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:49</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:158</note>
+      </notes>
+      <segment>
+        <source>form.civility.mr</source>
+        <target>Mr</target>
+      </segment>
+    </unit>
+    <unit id="xsDsRUV" name="form.civility.mme">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:50</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:159</note>
+      </notes>
+      <segment>
+        <source>form.civility.mme</source>
+        <target>Mme</target>
+      </segment>
+    </unit>
+    <unit id="drTwRMd" name="form.surname">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:54</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:163</note>
+      </notes>
+      <segment>
+        <source>form.surname</source>
+        <target>Prénom</target>
+      </segment>
+    </unit>
+    <unit id="eqR0LZq" name="form.name">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:57</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:166</note>
+      </notes>
+      <segment>
+        <source>form.name</source>
+        <target>Nom</target>
+      </segment>
+    </unit>
+    <unit id="DOAWeTf" name="form.address">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:60</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:169</note>
+      </notes>
+      <segment>
+        <source>form.address</source>
+        <target>Adresse</target>
+      </segment>
+    </unit>
+    <unit id="ziUr.Qg" name="form.zipcode">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:63</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:172</note>
+      </notes>
+      <segment>
+        <source>form.zipcode</source>
+        <target>Code postal</target>
+      </segment>
+    </unit>
+    <unit id="XUsHqAd" name="form.city">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:66</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:175</note>
+      </notes>
+      <segment>
+        <source>form.city</source>
+        <target>Ville</target>
+      </segment>
+    </unit>
+    <unit id="f95h2nt" name="form.country">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:69</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:178</note>
+      </notes>
+      <segment>
+        <source>form.country</source>
+        <target>Pays</target>
+      </segment>
+    </unit>
+    <unit id="vLNMGXN" name="form.phone">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:72</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:181</note>
+      </notes>
+      <segment>
+        <source>form.phone</source>
+        <target>Téléphone</target>
+      </segment>
+    </unit>
+    <unit id="uD_aUux" name="form.mobile">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:75</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:184</note>
+      </notes>
+      <segment>
+        <source>form.mobile</source>
+        <target>Mobile</target>
+      </segment>
+    </unit>
+    <unit id="3IGOm9D" name="form.email">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:78</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:187</note>
+      </notes>
+      <segment>
+        <source>form.email</source>
+        <target>Email</target>
+      </segment>
+    </unit>
+    <unit id="2G58i_f" name="form.birthday">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:81</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:190</note>
+      </notes>
+      <segment>
+        <source>form.birthday</source>
+        <target>Naissance (jj/mm/aaaa)</target>
+      </segment>
+    </unit>
+    <unit id="P7A68ag" name="form.profession">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:84</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:193</note>
+      </notes>
+      <segment>
+        <source>form.profession</source>
+        <target>Profession</target>
+      </segment>
+    </unit>
+    <unit id="kohqA_C" name="form.submit">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:87</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:196</note>
+      </notes>
+      <segment>
+        <source>form.submit</source>
+        <target>Ok</target>
+      </segment>
+    </unit>
+    <unit id="UN_T7Q7" name="calendar.registration.two.title.you">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:94</note>
+      </notes>
+      <segment>
+        <source>calendar.registration.two.title.you</source>
+        <target>Vous</target>
+      </segment>
+    </unit>
+    <unit id="__z09IL" name="calendar.registration.two.title.registered">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:96</note>
+      </notes>
+      <segment>
+        <source>calendar.registration.two.title.registered</source>
+        <target>Inscrits avec vous</target>
+      </segment>
+    </unit>
+    <unit id="mfItNzY" name="calendar.registration.two.add_participant">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:98</note>
+      </notes>
+      <segment>
+        <source>calendar.registration.two.add_participant</source>
+        <target>+ Ajouter un participant</target>
+      </segment>
+    </unit>
+    <unit id="mV4kdh." name="calendar.registration.two.validate_participants">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:99</note>
+      </notes>
+      <segment>
+        <source>calendar.registration.two.validate_participants</source>
+        <target>Valider l'inscription</target>
+      </segment>
+    </unit>
+    <unit id="B0VCgO_" name="form.username">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:34</note>
+      </notes>
+      <segment>
+        <source>form.username</source>
+        <target>Nom d'utilisateur</target>
+      </segment>
+    </unit>
+    <unit id="bThUzo_" name="form.modify">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:149</note>
+      </notes>
+      <segment>
+        <source>form.modify</source>
+        <target>Modifier</target>
+      </segment>
+    </unit>
+    <unit id="kDOH2ki" name="form.participate">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:150</note>
+      </notes>
+      <segment>
+        <source>form.participate</source>
+        <target>Participera</target>
+      </segment>
+    </unit>
+    <unit id="YWzPHVB" name="calendar.notify.attendee.subject">
+      <segment>
+        <source>calendar.notify.attendee.subject</source>
+        <target>Demande d'inscription</target>
+      </segment>
+    </unit>
+    <unit id="jbjkLYq" name="news.title">
+      <segment>
+        <source>news.title</source>
+        <target>Nouveauté</target>
+      </segment>
+    </unit>
+    <unit id="Qx5vJC1" name="news.button.discover">
+      <segment>
+        <source>news.button.discover</source>
+        <target>Découvrir le produit</target>
+      </segment>
+    </unit>
+    <unit id="RmsDr53" name="form.label.password">
+      <notes>
+        <note priority="1">app/Resources/views/security/login.html.twig:15</note>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:51</note>
+      </notes>
+      <segment>
+        <source>form.label.password</source>
+        <target>Mot de passe</target>
+      </segment>
+    </unit>
+    <unit id="LJQqtt5" name="security.reset_password_request.subject">
+      <notes>
+        <note priority="1">src/AppBundle/Controller/SecurityController.php:225</note>
+      </notes>
+      <segment>
+        <source>security.reset_password_request.subject</source>
+        <target>Réinitialisation de mot de passe</target>
+      </segment>
+    </unit>
+    <unit id="Y4ieqkz" name="form.label.password_repeat">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:52</note>
+      </notes>
+      <segment>
+        <source>form.label.password_repeat</source>
+        <target>Répéter</target>
+      </segment>
+    </unit>
+    <unit id="I.9xUE5" name="security.reset.token_not_found">
+      <notes>
+        <note priority="1">app/Resources/views/security/register.html.twig:14</note>
+        <note priority="1">app/Resources/views/security/password-reset.html.twig:14</note>
+      </notes>
+      <segment>
+        <source>security.reset.token_not_found</source>
+        <target>Cette demande de réinitialisation n'est plus valide on n'existe pas.</target>
+      </segment>
+    </unit>
+    <unit id="cUuO.r4" name="security.password_reset_success_message">
+      <notes>
+        <note priority="1">app/Resources/views/security/password-reset-success.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>security.password_reset_success_message</source>
+        <target>Votre nouveau mot de passe a été enregistré, vous pouvez désormais vous connecter avec votre nouveau mot de passe.</target>
+      </segment>
+    </unit>
+    <unit id="OF6XF6p" name="form.label.email">
+      <notes>
+        <note priority="1">app/Resources/views/security/login.html.twig:13</note>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:40</note>
+      </notes>
+      <segment>
+        <source>form.label.email</source>
+        <target>Adresse email</target>
+      </segment>
+    </unit>
+    <unit id="otIm1Q." name="form.label.connection">
+      <notes>
+        <note priority="1">app/Resources/views/security/login.html.twig:17</note>
+      </notes>
+      <segment>
+        <source>form.label.connection</source>
+        <target>Connexion</target>
+      </segment>
+    </unit>
+    <unit id="_zkUWKW" name="form.label.lastname">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:22</note>
+      </notes>
+      <segment>
+        <source>form.label.lastname</source>
+        <target>Nom</target>
+      </segment>
+    </unit>
+    <unit id="Bnb8Fxq" name="form.label.firstname">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:23</note>
+      </notes>
+      <segment>
+        <source>form.label.firstname</source>
+        <target>Prénom</target>
+      </segment>
+    </unit>
+    <unit id="nWzdT1I" name="form.label.gender">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:24</note>
+      </notes>
+      <segment>
+        <source>form.label.gender</source>
+        <target>Civilité</target>
+      </segment>
+    </unit>
+    <unit id="lJ9kDJr" name="form.label.male">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:26</note>
+      </notes>
+      <segment>
+        <source>form.label.male</source>
+        <target>M.</target>
+      </segment>
+    </unit>
+    <unit id="xvipkdQ" name="form.label.female">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:26</note>
+      </notes>
+      <segment>
+        <source>form.label.female</source>
+        <target>Mme</target>
+      </segment>
+    </unit>
+    <unit id="yeuJugN" name="form.label.miss">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:26</note>
+      </notes>
+      <segment>
+        <source>form.label.miss</source>
+        <target>Mlle</target>
+      </segment>
+    </unit>
+    <unit id="UOJWY3C" name="form.label.father">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:26</note>
+      </notes>
+      <segment>
+        <source>form.label.father</source>
+        <target>Père</target>
+      </segment>
+    </unit>
+    <unit id="NDJSbka" name="form.label.sister">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:26</note>
+      </notes>
+      <segment>
+        <source>form.label.sister</source>
+        <target>Soeur</target>
+      </segment>
+    </unit>
+    <unit id="cX.x2TJ" name="form.label.brother">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:26</note>
+      </notes>
+      <segment>
+        <source>form.label.brother</source>
+        <target>Frère</target>
+      </segment>
+    </unit>
+    <unit id="fpwiOEp" name="form.label.address">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:34</note>
+      </notes>
+      <segment>
+        <source>form.label.address</source>
+        <target>Adresse</target>
+      </segment>
+    </unit>
+    <unit id="YCgup4i" name="form.label.zipcode">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:35</note>
+      </notes>
+      <segment>
+        <source>form.label.zipcode</source>
+        <target>Code postal</target>
+      </segment>
+    </unit>
+    <unit id="uHJcphH" name="form.label.city">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:36</note>
+      </notes>
+      <segment>
+        <source>form.label.city</source>
+        <target>Ville</target>
+      </segment>
+    </unit>
+    <unit id="FgNmpx1" name="form.label.country">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:37</note>
+      </notes>
+      <segment>
+        <source>form.label.country</source>
+        <target>Pays</target>
+      </segment>
+    </unit>
+    <unit id="WfF5F2." name="form.label.phone">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:38</note>
+      </notes>
+      <segment>
+        <source>form.label.phone</source>
+        <target>Téléphone</target>
+      </segment>
+    </unit>
+    <unit id="Ovness." name="form.label.mobile">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:39</note>
+      </notes>
+      <segment>
+        <source>form.label.mobile</source>
+        <target>Mobile</target>
+      </segment>
+    </unit>
+    <unit id="CiLuyEH" name="form.label.birthday">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:41</note>
+      </notes>
+      <segment>
+        <source>form.label.birthday</source>
+        <target>Date de naissance</target>
+      </segment>
+    </unit>
+    <unit id="1GEr2LD" name="form.label.job">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:54</note>
+      </notes>
+      <segment>
+        <source>form.label.job</source>
+        <target>Profession</target>
+      </segment>
+    </unit>
+    <unit id="XohImNo" name="password">
+      <notes>
+        <note priority="1">src/AppBundle/Form/RegisterType.php:21</note>
+      </notes>
+      <segment>
+        <source>password</source>
+        <target>Mot de passe</target>
+      </segment>
+    </unit>
+    <unit id="1cJDMNG" name="security.register">
+      <segment>
+        <source>security.register</source>
+        <target>Inscription</target>
+      </segment>
+    </unit>
+    <unit id="N_ACgte" name="calendar.registration.intro">
+      <segment>
+        <source>calendar.registration.intro</source>
+        <target><![CDATA[
+					Vous êtes sur le point de vous inscrire à une retraite. Complétez les informations suivantes si vous souhaitez continuer, sinon retourner au <a href="%link%">calendrier</a>.
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="EHnUJsc" name="calendar.registration.two.title.modify">
+      <segment>
+        <source>calendar.registration.two.title.modify</source>
+        <target>Modifier un participant</target>
+      </segment>
+    </unit>
+    <unit id="g5egomQ" name="calendar.registration.two.title.registration">
+      <segment>
+        <source>calendar.registration.two.title.registration</source>
+        <target>Ajouter un participant</target>
+      </segment>
+    </unit>
+    <unit id="s5pfV6x" name="calendar.registration.one.body.connected">
+      <segment>
+        <source>calendar.registration.one.body.connected</source>
+        <target><![CDATA[
+					Vous êtes connecté en tant que <i>%name%</i>, voulez-vous continuer ?
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="L5.6B.Q" name="form.yes">
+      <segment>
+        <source>form.yes</source>
+        <target>Oui</target>
+      </segment>
+    </unit>
+    <unit id="dS5kpgF" name="form.no">
+      <segment>
+        <source>form.no</source>
+        <target>Non</target>
+      </segment>
+    </unit>
+    <unit id="UfVO5kV" name="calendar.registration.one.body.disconnected">
+      <segment>
+        <source>calendar.registration.one.body.disconnected</source>
+        <target>Avez-vous déjà participé à une retraite à la Roche d'Or ou aux Fontanilles ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
+      </segment>
+    </unit>
+    <unit id="Hp62ZON" name="form.continue">
+      <segment>
+        <source>form.continue</source>
+        <target>Continuer</target>
+      </segment>
+    </unit>
+    <unit id="9iZriSj" name="form.disconnect">
+      <segment>
+        <source>form.disconnect</source>
+        <target>Se déconnecter</target>
+      </segment>
+    </unit>
+    <unit id="wYBophx" name="calendar.registration.two.title.modify.you">
+      <segment>
+        <source>calendar.registration.two.title.modify.you</source>
+        <target>Modifier votre fiche</target>
+      </segment>
+    </unit>
+    <unit id="PtppaFL" name="calendar.registration.two.title.modify.him">
+      <segment>
+        <source>calendar.registration.two.title.modify.him</source>
+        <target>Modifier un participant</target>
+      </segment>
+    </unit>
+    <unit id="kswmam." name="form.transport">
+      <segment>
+        <source>form.transport</source>
+        <target>Vous viendrez</target>
+      </segment>
+    </unit>
+    <unit id="g8r0.vw" name="form.memo">
+      <segment>
+        <source>form.memo</source>
+        <target>Commentaire</target>
+      </segment>
+    </unit>
+    <unit id="qZI9mI2" name="form.transport.perso">
+      <segment>
+        <source>form.transport.perso</source>
+        <target>Viendra par ses propres moyens</target>
+      </segment>
+    </unit>
+    <unit id="qeUDh4t" name="form.transport.train">
+      <segment>
+        <source>form.transport.train</source>
+        <target>Viendra en train</target>
+      </segment>
+    </unit>
+    <unit id="tjBn22A" name="form.transport.avion">
+      <segment>
+        <source>form.transport.avion</source>
+        <target>Viendra en avion</target>
+      </segment>
+    </unit>
+    <unit id="l5g0cdb" name="form.transport.bus">
+      <segment>
+        <source>form.transport.bus</source>
+        <target>Viendra en bus</target>
+      </segment>
+    </unit>
+    <unit id="lTZDt9R" name="form.label.submit">
+      <segment>
+        <source>form.label.submit</source>
+        <target>Ok</target>
+      </segment>
+    </unit>
+    <unit id="fF5Ilm0" name="form.message.verify_transport">
+      <segment>
+        <source>form.message.verify_transport</source>
+        <target>Veuillez préciser le mode de transport pour les participants suivants :</target>
+      </segment>
+    </unit>
+    <unit id="0uJUpBY" name="form.message.parent_must_be_adult">
+      <segment>
+        <source>form.message.parent_must_be_adult</source>
+        <target>Les enfants doivent être accompagnés par une personne de plus de 18 ans</target>
+      </segment>
+    </unit>
+    <unit id="Cr.q521" name="form.message.date_invalid">
+      <segment>
+        <source>form.message.date_invalid</source>
+        <target>La date que vous avez saisie est invalide</target>
+      </segment>
+    </unit>
+    <unit id="RJ.6oSN" name="form.no_participants">
+      <segment>
+        <source>form.no_participants</source>
+        <target>Aucun participant</target>
+      </segment>
+    </unit>
+    <unit id="Ux7laCX" name="form.civil">
+      <segment>
+        <source>form.civil</source>
+        <target>Civilité</target>
+      </segment>
+    </unit>
+    <unit id="vJZGASh" name="form.relation">
+      <segment>
+        <source>form.relation</source>
+        <target>Relation</target>
+      </segment>
+    </unit>
+    <unit id="mKcWSOI" name="form.colp">
+      <segment>
+        <source>form.colp</source>
+        <target>Organisateur</target>
+      </segment>
+    </unit>
+    <unit id="edrUzMC" name="calendar.days">
+      <segment>
+        <source>calendar.days</source>
+        <target>j</target>
+      </segment>
+    </unit>
+    <unit id="A9HWtXN" name="filter.raz.button">
+      <segment>
+        <source>filter.raz.button</source>
+        <target>Effacer les filtres</target>
+      </segment>
+    </unit>
+    <unit id="cvwzHYX" name="form.password.reset">
+      <segment>
+        <source>form.password.reset</source>
+        <target>Réinitialiser le mot de passe</target>
+      </segment>
+    </unit>
+    <unit id="kzkX1MK" name="security.bad_credentials">
+      <segment>
+        <source>security.bad_credentials</source>
+        <target>Les identifiants que vous avez saisis sont erronés</target>
+      </segment>
+    </unit>
+    <unit id="rHsOKUn" name="security.check_inbox">
+      <segment>
+        <source>security.check_inbox</source>
+        <target>Un mail vient de vous être envoyé pour terminer la réinitialisation de votre mot de passe.</target>
+      </segment>
+    </unit>
+    <unit id="hmTi4mf" name="news.last_posts.title">
+      <segment>
+        <source>news.last_posts.title</source>
+        <target>__news.last_posts.title</target>
+      </segment>
+    </unit>
+    <unit id="Rmhs3fL" name="editions.seeallproducts">
+      <segment>
+        <source>editions.seeallproducts</source>
+        <target>Voir toute la collection</target>
+      </segment>
+    </unit>
+    <unit id="PR.7mhC" name="editions.filters.title">
+      <segment>
+        <source>editions.filters.title</source>
+        <target>Affiner votre recherche</target>
+      </segment>
+    </unit>
+    <unit id="bYGmESp" name="editions.filter.collections.title">
+      <segment>
+        <source>editions.filter.collections.title</source>
+        <target>Par collections</target>
+      </segment>
+    </unit>
+    <unit id="JDutJpY" name="editions.filter.collections.choose">
+      <segment>
+        <source>editions.filter.collections.choose</source>
+        <target>Choisir une collection</target>
+      </segment>
+    </unit>
+    <unit id="aoxcH.V" name="editions.filter.themes.title">
+      <segment>
+        <source>editions.filter.themes.title</source>
+        <target>Par thèmes</target>
+      </segment>
+    </unit>
+    <unit id="yskUgvU" name="cart.remove">
+      <segment>
+        <source>cart.remove</source>
+        <target>__cart.remove</target>
+      </segment>
+    </unit>
+    <unit id="RoCT1_f" name="cart.empty">
+      <segment>
+        <source>cart.empty</source>
+        <target>__cart.empty</target>
+      </segment>
+    </unit>
+    <unit id="rgQWz6f" name="editions.author">
+      <segment>
+        <source>editions.author</source>
+        <target>Auteur</target>
+      </segment>
+    </unit>
+    <unit id="kwCXg0T" name="editions.collection">
+      <segment>
+        <source>editions.collection</source>
+        <target>Collection</target>
+      </segment>
+    </unit>
+    <unit id="zfUdmv." name="editions.addtocart">
+      <segment>
+        <source>editions.addtocart</source>
+        <target>Ajouter au panier</target>
+      </segment>
+    </unit>
+    <unit id="YxhvXIb" name="editions.ebookversion">
+      <segment>
+        <source>editions.ebookversion</source>
+        <target>Version ebook</target>
+      </segment>
+    </unit>
+    <unit id="Csu2uYK" name="order.registration.cart.title.1">
+      <segment>
+        <source>order.registration.cart.title.1</source>
+        <target>Votre Panier</target>
+      </segment>
+    </unit>
+    <unit id="i2JGptw" name="order.registration.one.title">
+      <segment>
+        <source>order.registration.one.title</source>
+        <target>Connexion</target>
+      </segment>
+    </unit>
+    <unit id="BxI_rwF" name="order.registration.one.body.disconnected">
+      <segment>
+        <source>order.registration.one.body.disconnected</source>
+        <target>Avez vous déja effectuer une commande sur notre site ?</target>
+      </segment>
+    </unit>
+    <unit id="al9WFPE" name="order.registration.two.title">
+      <segment>
+        <source>order.registration.two.title</source>
+        <target>Commande</target>
+      </segment>
+    </unit>
+    <unit id="S_61BVF" name="order.registration.two.title.you">
+      <segment>
+        <source>order.registration.two.title.you</source>
+        <target>Votre fiche client</target>
+      </segment>
+    </unit>
+    <unit id="biPtN4s" name="order.registration.choose.adliv">
+      <segment>
+        <source>order.registration.choose.adliv</source>
+        <target>Votre adresse de livraison</target>
+      </segment>
+    </unit>
+    <unit id="TKTwy0K" name="form.choose.adliv">
+      <segment>
+        <source>form.choose.adliv</source>
+        <target>Livraison</target>
+      </segment>
+    </unit>
+    <unit id="EuDIPVk" name="select.ad.myadd">
+      <segment>
+        <source>select.ad.myadd</source>
+        <target>Mon adresse</target>
+      </segment>
+    </unit>
+    <unit id="rznIWfL" name="select.ad.roche">
+      <segment>
+        <source>select.ad.roche</source>
+        <target>La Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="8QjWF9b" name="select.ad.font">
+      <segment>
+        <source>select.ad.font</source>
+        <target>Les Fontanilles</target>
+      </segment>
+    </unit>
+    <unit id="MlxM03H" name="select.ad.other">
+      <segment>
+        <source>select.ad.other</source>
+        <target>Autre Adresse</target>
+      </segment>
+    </unit>
+    <unit id="GDNiQhU" name="order.choose.adliv">
+      <segment>
+        <source>order.choose.adliv</source>
+        <target>Adresse de livraison</target>
+      </segment>
+    </unit>
+    <unit id="xiX_zBW" name="form.adresse">
+      <segment>
+        <source>form.adresse</source>
+        <target>Adresse</target>
+      </segment>
+    </unit>
+    <unit id="CDqJj5g" name="order.registration.choose.country">
+      <segment>
+        <source>order.registration.choose.country</source>
+        <target>Choisir mon pays de livraison</target>
+      </segment>
+    </unit>
+    <unit id="qnrYsFN" name="form.choose.country">
+      <segment>
+        <source>form.choose.country</source>
+        <target>Pays</target>
+      </segment>
+    </unit>
+    <unit id="UxPpNQd" name="country.fr">
+      <segment>
+        <source>country.fr</source>
+        <target>France</target>
+      </segment>
+    </unit>
+    <unit id="Q6zSrRK" name="country.en">
+      <segment>
+        <source>country.en</source>
+        <target>Royaume Unis</target>
+      </segment>
+    </unit>
+    <unit id="ruZtiTw" name="country.de">
+      <segment>
+        <source>country.de</source>
+        <target>Allemagne</target>
+      </segment>
+    </unit>
+    <unit id="rZWRGQp" name="country.it">
+      <segment>
+        <source>country.it</source>
+        <target>Italie</target>
+      </segment>
+    </unit>
+    <unit id="lWwH1W0" name="country.es">
+      <segment>
+        <source>country.es</source>
+        <target>Espagne</target>
+      </segment>
+    </unit>
+    <unit id="JwRE9Ox" name="order.registration.choose.gift">
+      <segment>
+        <source>order.registration.choose.gift</source>
+        <target>
 Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.</target>
-			</segment>
-		</unit>
-		<unit id="7o3eWsz" name="order.choose.modpaie">
-			<segment>
-				<source>order.choose.modpaie</source>
-				<target>Choisir mon mode de paiment</target>
-			</segment>
-		</unit>
-		<unit id="CIlu59y" name="form.choose.modpaie">
-			<segment>
-				<source>form.choose.modpaie</source>
-				<target>Mode de paiement</target>
-			</segment>
-		</unit>
-		<unit id="D210X6f" name="select.cb">
-			<segment>
-				<source>select.cb</source>
-				<target>Carte Bancaire</target>
-			</segment>
-		</unit>
-		<unit id="BtZ0NwJ" name="select.paypal">
-			<segment>
-				<source>select.paypal</source>
-				<target>Paypal</target>
-			</segment>
-		</unit>
-		<unit id="Pox7Osf" name="editions.or">
-			<segment>
-				<source>editions.or</source>
-				<target>Ou</target>
-			</segment>
-		</unit>
-		<unit id="6yPWKi5" name="editions.technicalreview.annee">
-			<segment>
-				<source>editions.technicalreview.annee</source>
-				<target>editions.technicalreview.annee</target>
-			</segment>
-		</unit>
-		<unit id="rT63a4z" name="editions.technicalreview.isbn">
-			<segment>
-				<source>editions.technicalreview.isbn</source>
-				<target>ISBN</target>
-			</segment>
-		</unit>
-		<unit id="MyEvwMh" name="editions.technicalreview">
-			<segment>
-				<source>editions.technicalreview</source>
-				<target>Fiche technique</target>
-			</segment>
-		</unit>
-		<unit id="OA2.mJ3" name="editions.technicalreview.dateparution">
-			<segment>
-				<source>editions.technicalreview.dateparution</source>
-				<target>Date de parution</target>
-			</segment>
-		</unit>
-		<unit id="QOhaDtz" name="editions.technicalreview.dimensions">
-			<segment>
-				<source>editions.technicalreview.dimensions</source>
-				<target>Dimensions</target>
-			</segment>
-		</unit>
-		<unit id="K4k3lnA" name="editions.technicalreview.editeur">
-			<segment>
-				<source>editions.technicalreview.editeur</source>
-				<target>Editeur</target>
-			</segment>
-		</unit>
-		<unit id="M3yf8iz" name="editions.technicalreview.ean">
-			<segment>
-				<source>editions.technicalreview.ean</source>
-				<target>EAN</target>
-			</segment>
-		</unit>
-		<unit id="gik7lYM" name="editions.technicalreview.nbpage">
-			<segment>
-				<source>editions.technicalreview.nbpage</source>
-				<target>Nb. de page</target>
-			</segment>
-		</unit>
-		<unit id="SsON85Z" name="editions.technicalreview.rubrique">
-			<segment>
-				<source>editions.technicalreview.rubrique</source>
-				<target>Collection</target>
-			</segment>
-		</unit>
-		<unit id="Pbmdis9" name="editions.technicalreview.poids">
-			<segment>
-				<source>editions.technicalreview.poids</source>
-				<target>Poids</target>
-			</segment>
-		</unit>
-		<unit id="znn8YMw" name="security.user_exist">
-			<segment>
-				<source>security.user_exist</source>
-				<target>L'adresse mail utilisée est déjà enregistrée.</target>
-			</segment>
-		</unit>
-		<unit id="d6YHTZi" name="user.security_child">
-			<segment>
-				<source>user.security_child</source>
-				<target>Seul les personnes de plus 18 ans sont autorisé à s'inscrire.</target>
-			</segment>
-		</unit>
-		<unit id="lDOm6tr" name="form.contact.title">
-			<segment>
-				<source>form.contact.title</source>
-				<target>Formulaire de contact</target>
-			</segment>
-		</unit>
-		<unit id="jBsBTZU" name="form.body">
-			<segment>
-				<source>form.body</source>
-				<target>Message</target>
-			</segment>
-		</unit>
-		<unit id="N7xyN0P" name="form.send">
-			<segment>
-				<source>form.send</source>
-				<target>Envoyer</target>
-			</segment>
-		</unit>
-		<unit id="06a7tU5" name="title.connection">
-			<segment>
-				<source>title.connection</source>
-				<target>Connexion</target>
-			</segment>
-		</unit>
-		<unit id="KaXjE7S" name="form.title.connection">
-			<segment>
-				<source>form.title.connection</source>
-				<target>Formulaire de connexion</target>
-			</segment>
-		</unit>
-		<unit id="k3DuK7A" name="form.validate">
-			<segment>
-				<source>form.validate</source>
-				<target>Valider</target>
-			</segment>
-		</unit>
-		<unit id="yJYpS55" name="form.title.registration">
-			<segment>
-				<source>form.title.registration</source>
-				<target>Formulaire d'inscription</target>
-			</segment>
-		</unit>
-		<unit id="ILWuW.c" name="form.password.repeat">
-			<segment>
-				<source>form.password.repeat</source>
-				<target>Répéter mot de passe</target>
-			</segment>
-		</unit>
-		<unit id="7HI7BgF" name="contact.submit.success">
-			<segment>
-				<source>contact.submit.success</source>
-				<target>
-					<![CDATA[Votre message a bien été pris en compte. Il sera traité dans les plus brefs délais. Vous recevrez une confirmation d'envoi dans les prochaines minutes. Retour à la <a href="/">page d'accueil</a>.]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="PnnB3aX" name="contact.ro.foradmin.subject">
-			<segment>
-				<source>contact.ro.foradmin.subject</source>
-				<target>[RO] Nouveau message de</target>
-			</segment>
-		</unit>
-		<unit id="aXfD6Ri" name="contact.ro.forclient.subject">
-			<segment>
-				<source>contact.ro.forclient.subject</source>
-				<target>Votre message à la Roche d'Or</target>
-			</segment>
-		</unit>
-		<unit id="CnKFeFj" name="contact.font.forclient.subject">
-			<segment>
-				<source>contact.font.forclient.subject</source>
-				<target>Votre message aux Fontanilles</target>
-			</segment>
-		</unit>
-		<unit id="Rd5R24U" name="contact.font.foradmin.subject">
-			<segment>
-				<source>contact.font.foradmin.subject</source>
-				<target>[FT] Nouveau message de</target>
-			</segment>
-		</unit>
-		<unit id="zRLk9BZ" name="form.please.recaptcha">
-			<segment>
-				<source>form.please.recaptcha</source>
-				<target>Merci de cocher la case "Je ne suis pas un robot"</target>
-			</segment>
-		</unit>
-		<unit id="EvNMn7e" name="security.reset.intro">
-			<segment>
-				<source>security.reset.intro</source>
-				<target>Veuillez renseigner votre nouveau mot de passe dans le formulaire ci-dessous</target>
-			</segment>
-		</unit>
-		<unit id="GaSM3XU" name="security.reset.title">
-			<segment>
-				<source>security.reset.title</source>
-				<target>
-					<![CDATA[<small>Réinitialiser </small>Votre mot de passe]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="4lbujnr" name="continue">
-			<segment>
-				<source>continue</source>
-				<target>Continuer</target>
-			</segment>
-		</unit>
-		<unit id="pcWhXux" name="homepage">
-			<segment>
-				<source>homepage</source>
-				<target>Accueil</target>
-			</segment>
-		</unit>
-		<unit id="PG6DQU." name="return.to.calendar">
-			<segment>
-				<source>return.to.calendar</source>
-				<target>return.to.calendar</target>
-			</segment>
-		</unit>
-		<unit id="UVJ5Die" name="calendar">
-			<segment>
-				<source>calendar</source>
-				<target>Calendrier</target>
-			</segment>
-		</unit>
-		<unit id="oXrCtEF" name="form.reset">
-			<segment>
-				<source>form.reset</source>
-				<target>form.reinit</target>
-			</segment>
-		</unit>
-		<unit id="reTt_sP" name="form.message.child_must_come_with_adult">
-			<segment>
-				<source>form.message.child_must_come_with_adult</source>
-				<target>Les personnes de moins de 16 ans doivent être accompagnées d'un adulte</target>
-			</segment>
-		</unit>
-		<unit id="gWaJq50" name="form.message.child_must_have_autpar">
-			<segment>
-				<source>form.message.child_must_have_autpar</source>
-				<target>Tous les enfants doivent être en possession d'un accord parental ou tutorial</target>
-			</segment>
-		</unit>
-		<unit id="38v6mFF" name="form.civilite.mr">
-			<segment>
-				<source>form.civilite.mr</source>
-				<target>M.</target>
-			</segment>
-		</unit>
-		<unit id="eGbXcnm" name="form.civilite.mme">
-			<segment>
-				<source>form.civilite.mme</source>
-				<target>Mme</target>
-			</segment>
-		</unit>
-		<unit id="6mFCpN5" name="form.civilite.mlle">
-			<segment>
-				<source>form.civilite.mlle</source>
-				<target>Mlle</target>
-			</segment>
-		</unit>
-		<unit id="vBzG3A3" name="form.civilite.pere">
-			<segment>
-				<source>form.civilite.pere</source>
-				<target>Père</target>
-			</segment>
-		</unit>
-		<unit id="2cYcREU" name="form.civilite.frere">
-			<segment>
-				<source>form.civilite.frere</source>
-				<target>Frère</target>
-			</segment>
-		</unit>
-		<unit id="_MsfZra" name="form.civilite.soeur">
-			<segment>
-				<source>form.civilite.soeur</source>
-				<target>Soeur</target>
-			</segment>
-		</unit>
-		<unit id="59StlEF" name="form.message.phone_invalid">
-			<segment>
-				<source>form.message.phone_invalid</source>
-				<target>Vous devez saisir au moins un numéro de téléphone</target>
-			</segment>
-		</unit>
-		<unit id="LVTrH3N" name="form.message.does_child_have_autpar">
-			<segment>
-				<source>form.message.does_child_have_autpar</source>
-				<target>L'enfant que vous inscrivez dispose-t'il d'un accord parental ou tutorial ?</target>
-			</segment>
-		</unit>
-		<unit id="LLzWehQ" name="calendar.registration.error">
-			<segment>
-				<source>calendar.registration.error</source>
-				<target>calendar.registration.error</target>
-			</segment>
-		</unit>
-		<unit id="E_Qadzd" name="calendar.registration.error.empty">
-			<segment>
-				<source>calendar.registration.error.empty</source>
-				<target>
-					<![CDATA[Désolé, mais cette retraite n'existe plus. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="n6oIkhX" name="calendar.registration.error.date">
-			<segment>
-				<source>calendar.registration.error.date</source>
-				<target>
-					<![CDATA[Désolé, cette retraite n'est plus disponible. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="7OkaL_L" name="form.email.please">
-			<segment>
-				<source>form.email.please</source>
-				<target>Indiquer votre email</target>
-			</segment>
-		</unit>
-		<unit id="NrmWOmd" name="calendar.registration.three.header">
-			<segment>
-				<source>calendar.registration.three.header</source>
-				<target>
-					<![CDATA[<p>Nous vous remercions de l’attention que vous portez à la Roche d’Or. Votre demande d’inscription est prise en compte sous le numéro :</p><p><center><br>%entry_number%</br></center></p>]]>
-				</target>
-			</segment>
-		</unit>
-		<unit id="x9GINwp" name="Email not found">
-			<segment>
-				<source>Email not found</source>
-				<target>Adresse email non trouvée</target>
-			</segment>
-		</unit>
-		<unit id="thE5KNk" name="form.reinit">
-			<segment>
-				<source>form.reinit</source>
-				<target>Réinitialiser</target>
-			</segment>
-		</unit>
-		<unit id="l4mKCBH" name="form.arriv">
-			<segment>
-				<source>form.arriv</source>
-				<target>Arrivée (hh:mm)</target>
-			</segment>
-		</unit>
-		<unit id="krijuC." name="form.navette">
-			<segment>
-				<source>form.navette</source>
-				<target>j'utiliserai la navette communautaire</target>
-			</segment>
-		</unit>
-		<unit id="QoRcuhX" name="form.lieu">
-			<segment>
-				<source>form.lieu</source>
-				<target>lieu d'arrivée</target>
-			</segment>
-		</unit>
-		<unit id="dJfmInP" name="form.lieu.viotte">
-			<segment>
-				<source>form.lieu.viotte</source>
-				<target>Viotte</target>
-			</segment>
-		</unit>
-		<unit id="qm_COTU" name="form.cancel">
-			<segment>
-				<source>form.cancel</source>
-				<target>Annuler</target>
-			</segment>
-		</unit>
-		<unit id=".55gGPd" name="form.message.not_with_an_adult">
-			<segment>
-				<source>form.message.not_with_an_adult</source>
-				<target>n'est pas accompagné d'un adulte</target>
-			</segment>
-		</unit>
-		<unit id="ch5nrMQ" name="form.message.not_accompanied">
-			<segment>
-				<source>form.message.not_accompanied</source>
-				<target>n'est pas accompagné</target>
-			</segment>
-		</unit>
-		<unit id="dSfs_7v" name="form.message.no_transport">
-			<segment>
-				<source>form.message.no_transport</source>
-				<target>n'a pas de mode de transport</target>
-			</segment>
-		</unit>
-		<unit id="REqCb2s" name="participant_not_valid">
-			<segment>
-				<source>participant_not_valid</source>
-				<target>Ce participant n'est pas valide.</target>
-			</segment>
-		</unit>
-		<unit id="mhgfyic" name="form.message.participant_not_valid">
-			<segment>
-				<source>form.message.participant_not_valid</source>
-				<target>Ce participant n'est pas valide.</target>
-			</segment>
-		</unit>
-		<unit id="fCR5IGy" name="security.username_exists">
-				<segment>
-					<source>security.username_exists</source>
-					<target>Ce nom d'utilisateur est déjà utilisé</target>
-				</segment>
-			</unit>
-			<unit id="Bs52W.M" name="security.password_request.not_found">
-				<segment>
-					<source>security.password_request.not_found</source>
-					<target>
-						<![CDATA[Nous n'avons pas trouvé vos informations.<br>Orthographe ? Deux noms ? Ordre des noms ?]]>
-					</target>
-				</segment>
-			</unit>
-			<unit id="XB7PsIn" name="security.password_request.missing_infos">
-				<segment>
-					<source>security.password_request.missing_infos</source>
-					<target>Informations manquantes</target>
-				</segment>
-			</unit>
-		</file>
-	</xliff>
+      </segment>
+    </unit>
+    <unit id="7o3eWsz" name="order.choose.modpaie">
+      <segment>
+        <source>order.choose.modpaie</source>
+        <target>Choisir mon mode de paiment</target>
+      </segment>
+    </unit>
+    <unit id="CIlu59y" name="form.choose.modpaie">
+      <segment>
+        <source>form.choose.modpaie</source>
+        <target>Mode de paiement</target>
+      </segment>
+    </unit>
+    <unit id="D210X6f" name="select.cb">
+      <segment>
+        <source>select.cb</source>
+        <target>Carte Bancaire</target>
+      </segment>
+    </unit>
+    <unit id="BtZ0NwJ" name="select.paypal">
+      <segment>
+        <source>select.paypal</source>
+        <target>Paypal</target>
+      </segment>
+    </unit>
+    <unit id="Pox7Osf" name="editions.or">
+      <segment>
+        <source>editions.or</source>
+        <target>Ou</target>
+      </segment>
+    </unit>
+    <unit id="6yPWKi5" name="editions.technicalreview.annee">
+      <segment>
+        <source>editions.technicalreview.annee</source>
+        <target>editions.technicalreview.annee</target>
+      </segment>
+    </unit>
+    <unit id="rT63a4z" name="editions.technicalreview.isbn">
+      <segment>
+        <source>editions.technicalreview.isbn</source>
+        <target>ISBN</target>
+      </segment>
+    </unit>
+    <unit id="MyEvwMh" name="editions.technicalreview">
+      <segment>
+        <source>editions.technicalreview</source>
+        <target>Fiche technique</target>
+      </segment>
+    </unit>
+    <unit id="OA2.mJ3" name="editions.technicalreview.dateparution">
+      <segment>
+        <source>editions.technicalreview.dateparution</source>
+        <target>Date de parution</target>
+      </segment>
+    </unit>
+    <unit id="QOhaDtz" name="editions.technicalreview.dimensions">
+      <segment>
+        <source>editions.technicalreview.dimensions</source>
+        <target>Dimensions</target>
+      </segment>
+    </unit>
+    <unit id="K4k3lnA" name="editions.technicalreview.editeur">
+      <segment>
+        <source>editions.technicalreview.editeur</source>
+        <target>Editeur</target>
+      </segment>
+    </unit>
+    <unit id="M3yf8iz" name="editions.technicalreview.ean">
+      <segment>
+        <source>editions.technicalreview.ean</source>
+        <target>EAN</target>
+      </segment>
+    </unit>
+    <unit id="gik7lYM" name="editions.technicalreview.nbpage">
+      <segment>
+        <source>editions.technicalreview.nbpage</source>
+        <target>Nb. de page</target>
+      </segment>
+    </unit>
+    <unit id="SsON85Z" name="editions.technicalreview.rubrique">
+      <segment>
+        <source>editions.technicalreview.rubrique</source>
+        <target>Collection</target>
+      </segment>
+    </unit>
+    <unit id="Pbmdis9" name="editions.technicalreview.poids">
+      <segment>
+        <source>editions.technicalreview.poids</source>
+        <target>Poids</target>
+      </segment>
+    </unit>
+    <unit id="znn8YMw" name="security.user_exist">
+      <segment>
+        <source>security.user_exist</source>
+        <target>L'adresse mail utilisée est déjà enregistrée.</target>
+      </segment>
+    </unit>
+    <unit id="d6YHTZi" name="user.security_child">
+      <segment>
+        <source>user.security_child</source>
+        <target>Seul les personnes de plus 18 ans sont autorisé à s'inscrire.</target>
+      </segment>
+    </unit>
+    <unit id="lDOm6tr" name="form.contact.title">
+      <segment>
+        <source>form.contact.title</source>
+        <target>Formulaire de contact</target>
+      </segment>
+    </unit>
+    <unit id="jBsBTZU" name="form.body">
+      <segment>
+        <source>form.body</source>
+        <target>Message</target>
+      </segment>
+    </unit>
+    <unit id="N7xyN0P" name="form.send">
+      <segment>
+        <source>form.send</source>
+        <target>Envoyer</target>
+      </segment>
+    </unit>
+    <unit id="06a7tU5" name="title.connection">
+      <segment>
+        <source>title.connection</source>
+        <target>Connexion</target>
+      </segment>
+    </unit>
+    <unit id="KaXjE7S" name="form.title.connection">
+      <segment>
+        <source>form.title.connection</source>
+        <target>Formulaire de connexion</target>
+      </segment>
+    </unit>
+    <unit id="k3DuK7A" name="form.validate">
+      <segment>
+        <source>form.validate</source>
+        <target>Valider</target>
+      </segment>
+    </unit>
+    <unit id="yJYpS55" name="form.title.registration">
+      <segment>
+        <source>form.title.registration</source>
+        <target>Formulaire d'inscription</target>
+      </segment>
+    </unit>
+    <unit id="ILWuW.c" name="form.password.repeat">
+      <segment>
+        <source>form.password.repeat</source>
+        <target>Répéter mot de passe</target>
+      </segment>
+    </unit>
+    <unit id="7HI7BgF" name="contact.submit.success">
+      <segment>
+        <source>contact.submit.success</source>
+        <target><![CDATA[
+					Votre message a bien été pris en compte. Il sera traité dans les plus brefs délais. Vous recevrez une confirmation d'envoi dans les prochaines minutes. Retour à la <a href="/">page d'accueil</a>.
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="PnnB3aX" name="contact.ro.foradmin.subject">
+      <segment>
+        <source>contact.ro.foradmin.subject</source>
+        <target>[RO] Nouveau message de</target>
+      </segment>
+    </unit>
+    <unit id="aXfD6Ri" name="contact.ro.forclient.subject">
+      <segment>
+        <source>contact.ro.forclient.subject</source>
+        <target>Votre message à la Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="CnKFeFj" name="contact.font.forclient.subject">
+      <segment>
+        <source>contact.font.forclient.subject</source>
+        <target>Votre message aux Fontanilles</target>
+      </segment>
+    </unit>
+    <unit id="Rd5R24U" name="contact.font.foradmin.subject">
+      <segment>
+        <source>contact.font.foradmin.subject</source>
+        <target>[FT] Nouveau message de</target>
+      </segment>
+    </unit>
+    <unit id="zRLk9BZ" name="form.please.recaptcha">
+      <segment>
+        <source>form.please.recaptcha</source>
+        <target>Merci de cocher la case "Je ne suis pas un robot"</target>
+      </segment>
+    </unit>
+    <unit id="EvNMn7e" name="security.reset.intro">
+      <segment>
+        <source>security.reset.intro</source>
+        <target>Veuillez renseigner votre nouveau mot de passe dans le formulaire ci-dessous</target>
+      </segment>
+    </unit>
+    <unit id="GaSM3XU" name="security.reset.title">
+      <segment>
+        <source>security.reset.title</source>
+        <target><![CDATA[
+					<small>Réinitialiser </small>Votre mot de passe
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="4lbujnr" name="continue">
+      <segment>
+        <source>continue</source>
+        <target>Continuer</target>
+      </segment>
+    </unit>
+    <unit id="pcWhXux" name="homepage">
+      <segment>
+        <source>homepage</source>
+        <target>Accueil</target>
+      </segment>
+    </unit>
+    <unit id="PG6DQU." name="return.to.calendar">
+      <segment>
+        <source>return.to.calendar</source>
+        <target>return.to.calendar</target>
+      </segment>
+    </unit>
+    <unit id="UVJ5Die" name="calendar">
+      <segment>
+        <source>calendar</source>
+        <target>Calendrier</target>
+      </segment>
+    </unit>
+    <unit id="oXrCtEF" name="form.reset">
+      <segment>
+        <source>form.reset</source>
+        <target>form.reinit</target>
+      </segment>
+    </unit>
+    <unit id="reTt_sP" name="form.message.child_must_come_with_adult">
+      <segment>
+        <source>form.message.child_must_come_with_adult</source>
+        <target>Les personnes de moins de 16 ans doivent être accompagnées d'un adulte</target>
+      </segment>
+    </unit>
+    <unit id="gWaJq50" name="form.message.child_must_have_autpar">
+      <segment>
+        <source>form.message.child_must_have_autpar</source>
+        <target>Tous les enfants doivent être en possession d'un accord parental ou tutorial</target>
+      </segment>
+    </unit>
+    <unit id="38v6mFF" name="form.civilite.mr">
+      <segment>
+        <source>form.civilite.mr</source>
+        <target>M.</target>
+      </segment>
+    </unit>
+    <unit id="eGbXcnm" name="form.civilite.mme">
+      <segment>
+        <source>form.civilite.mme</source>
+        <target>Mme</target>
+      </segment>
+    </unit>
+    <unit id="6mFCpN5" name="form.civilite.mlle">
+      <segment>
+        <source>form.civilite.mlle</source>
+        <target>Mlle</target>
+      </segment>
+    </unit>
+    <unit id="vBzG3A3" name="form.civilite.pere">
+      <segment>
+        <source>form.civilite.pere</source>
+        <target>Père</target>
+      </segment>
+    </unit>
+    <unit id="2cYcREU" name="form.civilite.frere">
+      <segment>
+        <source>form.civilite.frere</source>
+        <target>Frère</target>
+      </segment>
+    </unit>
+    <unit id="_MsfZra" name="form.civilite.soeur">
+      <segment>
+        <source>form.civilite.soeur</source>
+        <target>Soeur</target>
+      </segment>
+    </unit>
+    <unit id="59StlEF" name="form.message.phone_invalid">
+      <segment>
+        <source>form.message.phone_invalid</source>
+        <target>Vous devez saisir au moins un numéro de téléphone</target>
+      </segment>
+    </unit>
+    <unit id="LVTrH3N" name="form.message.does_child_have_autpar">
+      <segment>
+        <source>form.message.does_child_have_autpar</source>
+        <target>L'enfant que vous inscrivez dispose-t'il d'un accord parental ou tutorial ?</target>
+      </segment>
+    </unit>
+    <unit id="LLzWehQ" name="calendar.registration.error">
+      <segment>
+        <source>calendar.registration.error</source>
+        <target>calendar.registration.error</target>
+      </segment>
+    </unit>
+    <unit id="E_Qadzd" name="calendar.registration.error.empty">
+      <segment>
+        <source>calendar.registration.error.empty</source>
+        <target><![CDATA[
+					Désolé, mais cette retraite n'existe plus. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="n6oIkhX" name="calendar.registration.error.date">
+      <segment>
+        <source>calendar.registration.error.date</source>
+        <target><![CDATA[
+					Désolé, cette retraite n'est plus disponible. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="7OkaL_L" name="form.email.please">
+      <segment>
+        <source>form.email.please</source>
+        <target>Indiquer votre email</target>
+      </segment>
+    </unit>
+    <unit id="NrmWOmd" name="calendar.registration.three.header">
+      <segment>
+        <source>calendar.registration.three.header</source>
+        <target><![CDATA[
+					<p>Nous vous remercions de l’attention que vous portez à la Roche d’Or. Votre demande d’inscription est prise en compte sous le numéro :</p><p><center><br>%entry_number%</br></center></p>
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="x9GINwp" name="Email not found">
+      <segment>
+        <source>Email not found</source>
+        <target>Adresse email non trouvée</target>
+      </segment>
+    </unit>
+    <unit id="thE5KNk" name="form.reinit">
+      <segment>
+        <source>form.reinit</source>
+        <target>Réinitialiser</target>
+      </segment>
+    </unit>
+    <unit id="l4mKCBH" name="form.arriv">
+      <segment>
+        <source>form.arriv</source>
+        <target>Arrivée (hh:mm)</target>
+      </segment>
+    </unit>
+    <unit id="krijuC." name="form.navette">
+      <segment>
+        <source>form.navette</source>
+        <target>j'utiliserai la navette communautaire</target>
+      </segment>
+    </unit>
+    <unit id="QoRcuhX" name="form.lieu">
+      <segment>
+        <source>form.lieu</source>
+        <target>lieu d'arrivée</target>
+      </segment>
+    </unit>
+    <unit id="dJfmInP" name="form.lieu.viotte">
+      <segment>
+        <source>form.lieu.viotte</source>
+        <target>Viotte</target>
+      </segment>
+    </unit>
+    <unit id="qm_COTU" name="form.cancel">
+      <segment>
+        <source>form.cancel</source>
+        <target>Annuler</target>
+      </segment>
+    </unit>
+    <unit id=".55gGPd" name="form.message.not_with_an_adult">
+      <segment>
+        <source>form.message.not_with_an_adult</source>
+        <target>n'est pas accompagné d'un adulte</target>
+      </segment>
+    </unit>
+    <unit id="ch5nrMQ" name="form.message.not_accompanied">
+      <segment>
+        <source>form.message.not_accompanied</source>
+        <target>n'est pas accompagné</target>
+      </segment>
+    </unit>
+    <unit id="dSfs_7v" name="form.message.no_transport">
+      <segment>
+        <source>form.message.no_transport</source>
+        <target>n'a pas de mode de transport</target>
+      </segment>
+    </unit>
+    <unit id="REqCb2s" name="participant_not_valid">
+      <segment>
+        <source>participant_not_valid</source>
+        <target>Ce participant n'est pas valide.</target>
+      </segment>
+    </unit>
+    <unit id="mhgfyic" name="form.message.participant_not_valid">
+      <segment>
+        <source>form.message.participant_not_valid</source>
+        <target>Ce participant n'est pas valide.</target>
+      </segment>
+    </unit>
+    <unit id="fCR5IGy" name="security.username_exists">
+      <segment>
+        <source>security.username_exists</source>
+        <target>Ce nom d'utilisateur est déjà utilisé</target>
+      </segment>
+    </unit>
+    <unit id="Bs52W.M" name="security.password_request.not_found">
+      <segment>
+        <source>security.password_request.not_found</source>
+        <target><![CDATA[
+						Nous n'avons pas trouvé vos informations.<br>Orthographe ? Deux noms ? Ordre des noms ?
+					]]></target>
+      </segment>
+    </unit>
+    <unit id="XB7PsIn" name="security.password_request.missing_infos">
+      <segment>
+        <source>security.password_request.missing_infos</source>
+        <target>Informations manquantes</target>
+      </segment>
+    </unit>
+    <unit id="NuG.GrE" name="form.lastname.please">
+      <segment>
+        <source>form.lastname.please</source>
+        <target>Indiquer votre nom de famille</target>
+      </segment>
+    </unit>
+    <unit id="dAXvvgy" name="form.firstname.please">
+      <segment>
+        <source>form.firstname.please</source>
+        <target>Indiquer votre prénom</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>
