@@ -401,7 +401,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var array
      *
-     * @ORM\Column(name="roles", type="array", nullable=true)
+     * @ORM\Column(name="roles", type="json", nullable=true)
      */
     private $roles;
 

@@ -1720,5 +1720,17 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
         <target>Ce nom d'utilisateur est déjà utilisé</target>
       </segment>
     </unit>
+    <unit id="Bs52W.M" name="security.password_request.not_found">
+      <segment>
+        <source>security.password_request.not_found</source>
+        <target><![CDATA[Nous n'avons pas trouvé vos informations.<br>Orthographe ? Deux noms ? Ordre des noms ?]]></target>
+      </segment>
+    </unit>
+    <unit id="XB7PsIn" name="security.password_request.missing_infos">
+      <segment>
+        <source>security.password_request.missing_infos</source>
+        <target>Informations manquantes</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

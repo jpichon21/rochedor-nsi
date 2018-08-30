@@ -40,19 +40,27 @@ class ContactRepository
      /**
     * Find Contact by its personnal infos
     *
+    * @param string $email
     * @param string $lastname
     * @param string $firstname
-    * @param \DateTime $birthdate
     * @return Contact
     */
-    public function findContactByInfos($lastname, $firstname, $birthdate)
+    public function findContactByInfos($email, $lastname, $firstname)
     {
+     
+        $firstname = str_replace(['-', ' '], '', $firstname);
+        $lastname = str_replace(['-', ' '], '', $lastname);
         $query = $this->entityManager
-        ->createQuery('SELECT c FROM AppBundle\Entity\Contact c 
-        WHERE UPPER(c.nom)=UPPER(:lastname) AND UPPER(c.prenom)=UPPER(:firstname) AND c.datnaiss=:birthdate');
-        $query->setParameters(['lastname' => $lastname, 'firstname' => $firstname, 'birthdate' => $birthdate]);
-        $query->setMaxResults(1);
-        return $query->getOneOrNullResult();
+        ->createQuery(
+            'SELECT c FROM AppBundle\Entity\Contact c 
+            WHERE REPLACE(REPLACE(UPPER(c.nom), \'-\', \'\'), \' \', \'\')=UPPER(:lastname)
+            AND REPLACE(REPLACE(UPPER(c.prenom), \'-\', \'\'), \' \', \'\')=UPPER(:firstname)
+            AND c.email=:email
+            AND c.username <> \'\'
+            AND c.username IS NOT NULL'
+        );
+        $query->setParameters(['lastname' => $lastname, 'firstname' => $firstname, 'email' => $email]);
+        return $query->getResult();
     }
     
     /**
