@@ -426,6 +426,7 @@ class Contact implements UserInterface, \Serializable
         $this->letmail = false;
         $this->letpaper = false;
         $this->aut16 = false;
+        $this->typco = 1;
     }
 
 
