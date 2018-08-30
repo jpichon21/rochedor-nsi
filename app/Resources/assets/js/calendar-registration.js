@@ -173,7 +173,9 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
   event.preventDefault()
   upLoader()
   resetLogin({
-    email: $('.username', this).val()
+    email: $('.username', this).val(),
+    lastname: $('.lastname', this).val(),
+    firstname: $('.firstname', this).val()
   }).then(() => {
     downLoader()
     upFlashbag(i18n.trans('security.check_inbox'))

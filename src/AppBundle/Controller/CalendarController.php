@@ -215,6 +215,13 @@ class CalendarController extends Controller
         if (!isset($contact)) {
             $contact = new Contact();
         }
+        if (isset($attendee['username'])) {
+            if (!$this->contactRepository->isUsernameUnique($attendee['username'], $contact->getCodco())) {
+                return ['status' => 'ko', 'message' => 'security.username_exists'];
+            }
+        }
+
+
 
         $em = $this->getDoctrine()->getManager();
         $this->setContact($contact, $attendee);
@@ -233,7 +240,7 @@ class CalendarController extends Controller
      */
     public function xhrGetLastAttendeesAction()
     {
-        $attendees = $this->getAttendees($this->getUser());
+        $attendees = $this->getParents($this->getUser());
         return ['status' => 'ok', 'data' => $attendees];
     }
 
@@ -258,6 +265,11 @@ class CalendarController extends Controller
         $this->calendarRepository->updateRegistrationCounter($site, $registrationCount);
         foreach ($attendees as $a) {
             if ($contact = $this->contactRepository->findContact($a['codco'])) {
+                if (isset($a['username'])) {
+                    if (!$this->contactRepository->isUsernameUnique($a['username'], $a['codco'])) {
+                        return ['status' => 'ko', 'message' => 'security.username_exists'];
+                    }
+                }
                 $contact = $this->setContact($contact, $a);
                 $em->persist($contact);
 
@@ -324,6 +336,7 @@ class CalendarController extends Controller
         ->setTel($attendee['tel'])
         ->setMobil($attendee['mobil'])
         ->setEmail($attendee['email'])
+        ->setUsername(isset($attendee['username']) ? $attendee['username'] : null)
         ->setDatnaiss(new \DateTime($attendee['datnaiss']))
         ->setProfession($attendee['profession'])
         ->setAut16($attendee['aut16']);
@@ -399,25 +412,7 @@ class CalendarController extends Controller
 
     private function getParents(Contact $contact)
     {
-        return $this->calendarRepository->findParents($contact->getCodco());
-    }
-
-    private function getAttendees(Contact $contact)
-    {
-        // Find only parents as we don't want to display other contacts anymore
-        $parents = $this->calendarRepository->findParents($contact->getCodco());
-        
-        $keys = [$contact->getCodCo()];
-        $contacts = [];
-        // Filter contacts to only return unique entries
-        foreach ($parents as $contact) {
-            if (!in_array($contact['codco'], $keys)) {
-                $keys[] = $contact['codco'];
-                $contacts[] = $contact;
-            }
-        }
-
-        return $contacts;
+        return $this->contactRepository->findParents($contact->getCodco());
     }
 
     public function getDataCalendarAction(CalendarRepository $calendarRepo)
