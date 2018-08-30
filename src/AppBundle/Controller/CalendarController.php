@@ -201,14 +201,7 @@ class CalendarController extends Controller
         if (!$attendee) {
             return ['status' => 'ko', 'message' => 'You must provide attendee object'];
         }
-        if ($attendee['email'] != '') {
-            $contact = $this->contactRepository->findContactByEmail($attendee['email']);
-            if ($contact) {
-                if ($contact->getCodco() != $attendee['codco']) {
-                    return new JsonResponse(['status' => 'ko', 'message' => 'security.user_exist']);
-                }
-            }
-        }
+        
         if (isset($attendee['codco'])) {
             $contact = $this->calendarRepository->findContact($attendee['codco']);
         }
