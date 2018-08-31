@@ -1861,5 +1861,11 @@ Pour un cadeau, vous pouvez adresser un message au destinataire de votre achat.<
         <target>Indiquer votre prénom</target>
       </segment>
     </unit>
+    <unit id="Wq4.if_" name="security.password_too_small">
+      <segment>
+        <source>security.password_too_small</source>
+        <target>Votre mot de passe doit faire au moins 6 caractères.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
