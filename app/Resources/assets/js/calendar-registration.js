@@ -111,6 +111,7 @@ function updateYouFormRender () {
 }
 
 function updateHimFormRender () {
+  console.log(_participant)
   $('.him-form-render').html(himFormTemplate({
     participant: _participant,
     countries: _countries,
