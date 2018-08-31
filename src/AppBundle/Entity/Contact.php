@@ -32,7 +32,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var int|null
      *
-     * @ORM\Column(name="CodB", type="integer", nullable=true)
+     * @ORM\Column(name="CodB", type="integer")
      * @Expose
      */
     private $codb;
@@ -40,35 +40,35 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="TypCo", type="boolean", nullable=true)
+     * @ORM\Column(name="TypCo", type="boolean")
      */
     private $typco;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="DivCo", type="string", length=6, nullable=true)
+     * @ORM\Column(name="DivCo", type="string", length=6)
      */
     private $divco;
 
     /**
      * @var int|null
      *
-     * @ORM\Column(name="SelCo", type="integer", nullable=true)
+     * @ORM\Column(name="SelCo", type="integer")
      */
     private $selco;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Ident", type="string", length=256, nullable=true)
+     * @ORM\Column(name="Ident", type="string", length=256)
      */
     private $ident;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Civil", type="string", length=6, nullable=true)
+     * @ORM\Column(name="Civil", type="string", length=6)
      * @Expose
      */
     private $civil;
@@ -76,7 +76,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Civil2", type="string", length=9, nullable=true)
+     * @ORM\Column(name="Civil2", type="string", length=9)
      * @Expose
      */
     private $civil2;
@@ -84,7 +84,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Nom", type="string", length=30, nullable=true)
+     * @ORM\Column(name="Nom", type="string", length=30)
      * @Expose
      */
     private $nom;
@@ -92,7 +92,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Prenom", type="string", length=25, nullable=true)
+     * @ORM\Column(name="Prenom", type="string", length=25)
      * @Expose
      */
     private $prenom;
@@ -100,7 +100,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Adresse", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="Adresse", type="text", length=65535)
      * @Expose
      */
     private $adresse;
@@ -108,7 +108,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="CP", type="string", length=8, nullable=true)
+     * @ORM\Column(name="CP", type="string", length=8)
      * @Expose
      */
     private $cp;
@@ -116,7 +116,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Ville", type="string", length=35, nullable=true)
+     * @ORM\Column(name="Ville", type="string", length=35)
      * @Expose
      */
     private $ville;
@@ -124,7 +124,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Pays", type="string", length=20, nullable=true)
+     * @ORM\Column(name="Pays", type="string", length=20)
      * @Expose
      */
     private $pays;
@@ -132,7 +132,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Tel", type="string", length=20, nullable=true)
+     * @ORM\Column(name="Tel", type="string", length=20)
      * @Expose
      */
     private $tel;
@@ -140,7 +140,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Mobil", type="string", length=20, nullable=true)
+     * @ORM\Column(name="Mobil", type="string", length=20)
      * @Expose
      */
     private $mobil;
@@ -148,7 +148,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="eMail", type="string", length=50, nullable=true)
+     * @ORM\Column(name="eMail", type="string", length=50)
      * @Expose
      */
     private $email;
@@ -156,14 +156,14 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Societe", type="string", length=40, nullable=true)
+     * @ORM\Column(name="Societe", type="string", length=40)
      */
     private $societe;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Profession", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="Profession", type="text", length=65535)
      * @Expose
      */
     private $profession;
@@ -171,14 +171,14 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="mpCo", type="string", length=15, nullable=true)
+     * @ORM\Column(name="mpCo", type="string", length=15)
      */
     private $mpco;
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="DatNaiss", type="date", nullable=true)
+     * @ORM\Column(name="DatNaiss", type="date")
      * @Expose
      */
     private $datnaiss;
@@ -186,133 +186,133 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var int|null
      *
-     * @ORM\Column(name="Zone", type="integer", nullable=true)
+     * @ORM\Column(name="Zone", type="integer")
      */
     private $zone;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Libre", type="string", length=6, nullable=true)
+     * @ORM\Column(name="Libre", type="string", length=6)
      */
     private $libre;
 
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="noLet", type="boolean", nullable=true)
+     * @ORM\Column(name="noLet", type="boolean")
      */
     private $nolet;
 
     /**
      * @var int|null
      *
-     * @ORM\Column(name="RangCo", type="smallint", nullable=true)
+     * @ORM\Column(name="RangCo", type="smallint")
      */
     private $rangco;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="CreatCo", type="string", length=15, nullable=true)
+     * @ORM\Column(name="CreatCo", type="string", length=15)
      */
     private $creatco;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="JSCo", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="JSCo", type="text", length=65535)
      */
     private $jsco;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="ImgCo", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="ImgCo", type="text", length=65535)
      */
     private $imgco;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="MemoCo", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="MemoCo", type="text", length=65535)
      */
     private $memoco;
 
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="aboLet", type="boolean", nullable=true)
+     * @ORM\Column(name="aboLet", type="boolean")
      */
     private $abolet;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Particips", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="Particips", type="text", length=65535)
      */
     private $particips;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="CatCo", type="string", length=1, nullable=true, options={"fixed"=true})
+     * @ORM\Column(name="CatCo", type="string", length=1, options={"fixed"=true})
      */
     private $catco;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="CatCo2", type="string", length=1, nullable=true, options={"fixed"=true})
+     * @ORM\Column(name="CatCo2", type="string", length=1, options={"fixed"=true})
      */
     private $catco2;
 
     /**
      * @var int|null
      *
-     * @ORM\Column(name="Csp", type="integer", nullable=true)
+     * @ORM\Column(name="Csp", type="integer")
      */
     private $csp;
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="DatDem", type="date", nullable=true)
+     * @ORM\Column(name="DatDem", type="date")
      */
     private $datdem;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Infop", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="Infop", type="text", length=65535)
      */
     private $infop;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Infolg", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="Infolg", type="text", length=65535)
      */
     private $infolg;
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="EnregCo", type="datetime", nullable=true)
+     * @ORM\Column(name="EnregCo", type="datetime")
      */
     private $enregco;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="TempCo", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="TempCo", type="text", length=65535)
      */
     private $tempco;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=60, nullable=true)
+     * @ORM\Column(name="password", type="string", length=60)
      * @Assert\Length(
      *      min = 8,
      *      minMessage = "validation.password.length"
@@ -323,21 +323,21 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Region", type="string", length=200, nullable=true)
+     * @ORM\Column(name="Region", type="string", length=200)
      */
     private $region;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="plainPassword", type="string", length=255, nullable=true)
+     * @ORM\Column(name="plainPassword", type="string", length=255)
      */
     private $plainpassword;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255, nullable=true, unique=true)
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
      * @Expose
      */
     private $username;
@@ -373,49 +373,49 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="datLetOca", type="datetime", nullable=true, options={"comment"="Lettre occasionnelle"})
+     * @ORM\Column(name="datLetOca", type="datetime", options={"comment"="Lettre occasionnelle"})
      */
     private $datletoca;
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="datLetPaper", type="datetime", nullable=true, options={"comment"="Lettre annuelle papier"})
+     * @ORM\Column(name="datLetPaper", type="datetime", options={"comment"="Lettre annuelle papier"})
      */
     private $datletpaper;
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="datLetMail", type="datetime", nullable=true, options={"comment"="Lettre annuelle par mail"})
+     * @ORM\Column(name="datLetMail", type="datetime", options={"comment"="Lettre annuelle par mail"})
      */
     private $datletmail;
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="datAut16", type="date", nullable=true)
+     * @ORM\Column(name="datAut16", type="date")
      */
     private $dataut16;
 
     /**
      * @var array
      *
-     * @ORM\Column(name="roles", type="json", nullable=true, length=255)
+     * @ORM\Column(name="roles", type="json", length=255)
      */
     private $roles;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="reset_token", type="string", nullable=true, length=50)
+     * @ORM\Column(name="reset_token", type="string", length=50)
      */
     private $resetToken;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="reset_token_expires_at", type="datetime", nullable=true)
+     * @ORM\Column(name="reset_token_expires_at", type="datetime")
      */
     private $resetTokenExpiresAt;
 
@@ -427,6 +427,53 @@ class Contact implements UserInterface, \Serializable
         $this->letpaper = false;
         $this->aut16 = false;
         $this->typco = 1;
+        $this->codb = 0;
+        $this->typco = 1;
+        $this->divco = '';
+        $this->selco = 0;
+        $this->ident = '';
+        $this->civil = '';
+        $this->civil2 = '';
+        $this->nom = '';
+        $this->prenom = '';
+        $this->adresse = '';
+        $this->cp = '';
+        $this->ville = '';
+        $this->pays = '';
+        $this->tel = '';
+        $this->mobil = '';
+        $this->email = '';
+        $this->societe = '';
+        $this->profession = '';
+        $this->mpco = '';
+        $this->datnaiss = new \DateTime('0000-00-00');
+        $this->zone = 0;
+        $this->libre = '';
+        $this->nolet = 0;
+        $this->rangco = 0;
+        $this->creatco = '';
+        $this->jsco = '';
+        $this->imgco = '';
+        $this->memoco = '';
+        $this->abolet = 0;
+        $this->particips = '';
+        $this->catco = '';
+        $this->catco2 = '';
+        $this->csp = 0;
+        $this->datdem = new \DateTime('0000-00-00');
+        $this->infop = '';
+        $this->infolg = '';
+        $this->enregco = new \DateTime();
+        $this->tempco = '';
+        $this->password = '';
+        $this->region = '';
+        $this->plainpassword = '';
+        $this->username = '';
+        $this->datletoca = new \DateTime('0000-00-00');
+        $this->datletpaper = new \DateTime('0000-00-00');
+        $this->datletmail = new \DateTime('0000-00-00');
+        $this->resetToken = '';
+        $this->resetTokenExpiresAt = null;
     }
 
 
