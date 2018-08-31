@@ -244,7 +244,7 @@ class CalendarController extends Controller
         if (!$calendar) {
             return false;
         }
-        $calendar['sitact'] = $this::SITES[array_search($calendar['sitact'], $this::SITES)]['name'];
+        $calendar['sitact'] = $this::SITES[array_search('Font', array_column($this::SITES, 'sitac'))]['name'];
         return $calendar;
     }
     
