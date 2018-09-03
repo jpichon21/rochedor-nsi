@@ -14,6 +14,11 @@ use AppBundle\Entity\Produit;
  */
 class TpaysRepository
 {
+    const EXCEPTION = [
+        'Roche',
+        'Font',
+    ];
+
     /**
     * @var EntityManagerInterface
     */
@@ -34,5 +39,64 @@ class TpaysRepository
         $query = $this->entityManager
         ->createQuery('SELECT t FROM AppBundle\Entity\Tpays t');
         return $query->getResult();
+    }
+
+    /**
+    * Check Zipcode
+    *
+    * @return Bool
+    */
+    public function checkZipcode($country, $zipcode, $destliv)
+    {
+        if (in_array($destliv, $this::EXCEPTION)) {
+            return true;
+        }
+
+        if (strlen($country) !== 2) {
+            return false;
+        }
+ 
+        $query = $this->entityManager
+        ->createQuery('SELECT tp.nompays 
+        FROM AppBundle\Entity\Tpays tp 
+        WHERE tp.codpays=:country');
+        $query->setParameter('country', $country);
+        $result =  $query->getOneOrNullResult();
+        $country = $result;
+ 
+        $query = $this->entityManager
+        ->createQuery('SELECT tp.codpostaux 
+        FROM AppBundle\Entity\Tpays tp 
+        WHERE tp.nompays=:country');
+        $query->setParameter('country', $country['nompays']);
+        $results =  $query->getOneOrNullResult();
+
+        if ($results['codpostaux'] === null) {
+            return false;
+        }
+
+        foreach ($results['codpostaux'] as $k => $result) {
+            if ($zipcode >= $result[0] && $zipcode <= $result[1]) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    public function findPBXCode($country)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT t.codpayspbx FROM AppBundle\Entity\Tpays t WHERE t.codpays = :country');
+        $query->setParameter('country', $country);
+        return $query->getResult()[0]['codpayspbx'];
+    }
+
+    public function findPaypalCode($country)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT t.codpayspaypal FROM AppBundle\Entity\Tpays t WHERE t.codpays = :country');
+        $query->setParameter('country', $country);
+        return $query->getResult()[0]['codpayspaypal'];
     }
 }

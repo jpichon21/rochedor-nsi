@@ -24,23 +24,16 @@ class Shipping
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=20)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="weight", type="string", length=255)
+     * @ORM\Column(name="weight", type="integer", length=11)
      */
     private $weight;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="country", type="string", length=255)
-     */
-    private $country;
 
     /**
      * @var string
@@ -50,6 +43,20 @@ class Shipping
     private $price;
 
 
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="countries", type="json", length=65535)
+     */
+    private $countries;
+
+    public function __construct()
+    {
+        $this->name = '';
+        $this->weight = 0;
+        $this->price = 0;
+        $this->countries = [];
+    }
     /**
      * Get id.
      *
@@ -109,30 +116,6 @@ class Shipping
     }
 
     /**
-     * Set country.
-     *
-     * @param string $country
-     *
-     * @return Shipping
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * Get country.
-     *
-     * @return string
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
      * Set price.
      *
      * @param string $price
@@ -154,5 +137,29 @@ class Shipping
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Set countries.
+     *
+     * @param array $countries
+     *
+     * @return Tax
+    */
+    public function setCountries($countries)
+    {
+        $this->countries = $countries;
+
+        return $this;
+    }
+
+    /**
+     * Get countries.
+     *
+     * @return array
+    */
+    public function getCountries()
+    {
+        return $this->countries;
     }
 }
