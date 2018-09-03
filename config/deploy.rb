@@ -29,13 +29,13 @@ task :deploy => :environment do
 			command "export SYMFONY_ENV=prod"
 			command "ea-php72 composer.phar install --optimize-autoloader"
 			command "yarn install"
-			command "ea-php72 bin/console doctrine:schema:update --dump-sql > schema-update.sql"
 			command "ea-php72 bin/console assets:install --env=prod"
 			command "chmod +x ./node_modules/.bin/encore"
 			command "./node_modules/.bin/encore production"
 			command "find #{fetch(:deploy_to)} -type d -exec chmod 755 {} +"
 			command "find #{fetch(:deploy_to)} -type f -exec chmod 644 {} +"
 			command "chown -R #{account}:#{account} #{fetch(:deploy_to)}"
+			command "ea-php72 bin/console doctrine:migrations:migrate --dry-run --write-sql -n"
 		end
 	end
 end

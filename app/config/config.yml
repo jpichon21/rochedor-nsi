@@ -137,3 +137,6 @@ nelmio_cors:
           allow_methods: ['OPTIONS', 'POST', 'GET']
           allow_credentials: true
           max_age: 3600
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/doctrine_migrations"
