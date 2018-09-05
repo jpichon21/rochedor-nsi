@@ -2274,5 +2274,23 @@
         <target>Nom</target>
       </segment>
     </unit>
+    <unit id="pjSqg8z" name="form.message.zipcode_invalid">
+      <segment>
+        <source>form.message.zipcode_invalid</source>
+        <target>Le code postal ne correspond pas au pays sélectionné</target>
+      </segment>
+    </unit>
+    <unit id="BzVNXKm" name="form.message.tvaintra_invalid">
+      <segment>
+        <source>form.message.tvaintra_invalid</source>
+        <target>Le numéro de TVA n'est pas valide</target>
+      </segment>
+    </unit>
+    <unit id="W6ukKjO" name="order.notify.client.subject">
+      <segment>
+        <source>order.notify.client.subject</source>
+        <target>Nouvelle commande</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
