@@ -153,7 +153,6 @@ function formatParticipant (data) {
     participant[obj.name] = obj.value
   })
   participant.codcli = parseInt(participant.codcli)
-  participant.datnaiss = moment(participant.datnaiss, 'DD/MM/YYYY').format()
   return participant
 }
 
@@ -226,10 +225,6 @@ itemConnection.on('click', 'a', function (event) {
   changeItem(itemConnection)
 })
 
-function validateDate (date) {
-  return moment(date).isValid()
-}
-
 function validatePhone (phone, mobile) {
   return !(phone === '' && mobile === '')
 }
@@ -265,35 +260,30 @@ function validateClient (event, context, callback) {
   event.preventDefault()
   const data = context.serializeArray()
   const participant = formatParticipant(data)
-  const validatedDate = validateDate(participant.datnaiss)
   const validatedPhone = validatePhone(participant.tel, participant.mobil)
   const validatedPro = validatePro(participant.societe, participant.tvaintra)
-  if (validatedDate) {
-    if (validatedPro) {
-      if (validatedPhone) {
-        if (participant.tvaintra !== '') {
-          validateTvaintra(participant.tvaintra, participant.pays).then(() => {
-            callback(participant)
-          }).catch(() => {
-            upFlashbag(i18n.trans('form.message.tvaintra_invalid'))
-          })
-        } else {
-          return new Promise((resolve, reject) => {
-            checkZipcode(participant.pays, participant.cp, 'myAd').then(() => {
-              resolve(callback(participant))
-            }).catch(() => {
-              upFlashbag(i18n.trans('form.message.zipcode_invalid'))
-            })
-          })
-        }
+  if (validatedPro) {
+    if (validatedPhone) {
+      if (participant.tvaintra !== '') {
+        validateTvaintra(participant.tvaintra, participant.pays).then(() => {
+          callback(participant)
+        }).catch(() => {
+          upFlashbag(i18n.trans('form.message.tvaintra_invalid'))
+        })
       } else {
-        upFlashbag(i18n.trans('form.message.phone_invalid'))
+        return new Promise((resolve, reject) => {
+          checkZipcode(participant.pays, participant.cp, 'myAd').then(() => {
+            resolve(callback(participant))
+          }).catch(() => {
+            upFlashbag(i18n.trans('form.message.zipcode_invalid'))
+          })
+        })
       }
     } else {
-      upFlashbag(i18n.trans('form.message.pro_invalid'))
+      upFlashbag(i18n.trans('form.message.phone_invalid'))
     }
   } else {
-    upFlashbag(i18n.trans('form.message.date_invalid'))
+    upFlashbag(i18n.trans('form.message.pro_invalid'))
   }
 }
 
