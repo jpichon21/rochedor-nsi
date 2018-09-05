@@ -17,3 +17,4 @@ parameters:
     admin_password:
     email_from_name: 
     email_from_address: 
+    kiwi_host:

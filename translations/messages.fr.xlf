@@ -34,7 +34,9 @@
       </notes>
       <segment>
         <source>menu.one.one</source>
-        <target><![CDATA[La <br>communauté]]></target>
+        <target><![CDATA[
+					La <br>communauté
+				]]></target>
       </segment>
     </unit>
     <unit id="DY.PFaX" name="menu.one.two">
@@ -43,7 +45,9 @@
       </notes>
       <segment>
         <source>menu.one.two</source>
-        <target><![CDATA[Les <br>fondateurs]]></target>
+        <target><![CDATA[
+					Les <br>fondateurs
+				]]></target>
       </segment>
     </unit>
     <unit id="ABGsIRc" name="menu.one.three">
@@ -52,7 +56,9 @@
       </notes>
       <segment>
         <source>menu.one.three</source>
-        <target><![CDATA[La <br>Roche d'Or]]></target>
+        <target><![CDATA[
+					La <br>Roche d'Or
+				]]></target>
       </segment>
     </unit>
     <unit id="5vJ0eNt" name="menu.one.four">
@@ -61,7 +67,9 @@
       </notes>
       <segment>
         <source>menu.one.four</source>
-        <target><![CDATA[Les <br>Fontanilles]]></target>
+        <target><![CDATA[
+					Les <br>Fontanilles
+				]]></target>
       </segment>
     </unit>
     <unit id="TfDK6ic" name="menu.two.one">
@@ -70,7 +78,9 @@
       </notes>
       <segment>
         <source>menu.two.one</source>
-        <target><![CDATA[Venir <br>en retraite]]></target>
+        <target><![CDATA[
+					Venir <br>en retraite
+				]]></target>
       </segment>
     </unit>
     <unit id="zFwSu3O" name="menu.two.two">
@@ -79,7 +89,9 @@
       </notes>
       <segment>
         <source>menu.two.two</source>
-        <target><![CDATA[Retraites <br>à la Roche d'Or]]></target>
+        <target><![CDATA[
+					Retraites <br>à la Roche d'Or
+				]]></target>
       </segment>
     </unit>
     <unit id="OipSnvA" name="menu.two.three">
@@ -88,7 +100,9 @@
       </notes>
       <segment>
         <source>menu.two.three</source>
-        <target><![CDATA[Retraites <br>aux Fontanilles]]></target>
+        <target><![CDATA[
+					Retraites <br>aux Fontanilles
+				]]></target>
       </segment>
     </unit>
     <unit id="NEzhIK_" name="menu.two.four">
@@ -97,7 +111,9 @@
       </notes>
       <segment>
         <source>menu.two.four</source>
-        <target><![CDATA[Les <br>intervenants]]></target>
+        <target><![CDATA[
+					Les <br>intervenants
+				]]></target>
       </segment>
     </unit>
     <unit id="d2ahr5A" name="menu.four">
@@ -133,7 +149,9 @@
       </notes>
       <segment>
         <source>menu.four.one</source>
-        <target><![CDATA[Infos pratiques<br> de la Roche d'Or]]></target>
+        <target><![CDATA[
+					Infos pratiques<br> de la Roche d'Or
+				]]></target>
       </segment>
     </unit>
     <unit id="t9xDnqi" name="menu.four.two">
@@ -142,7 +160,9 @@
       </notes>
       <segment>
         <source>menu.four.two</source>
-        <target><![CDATA[Infos pratiques<br> des Fontanilles]]></target>
+        <target><![CDATA[
+					Infos pratiques<br> des Fontanilles
+				]]></target>
       </segment>
     </unit>
     <unit id="xm3Wl2D" name="menu.four.three">
@@ -151,7 +171,9 @@
       </notes>
       <segment>
         <source>menu.four.three</source>
-        <target><![CDATA[Accueil<br> des enfants]]></target>
+        <target><![CDATA[
+					Accueil<br> des enfants
+				]]></target>
       </segment>
     </unit>
     <unit id="ADfxTyP" name="menu.four.four">
@@ -160,7 +182,9 @@
       </notes>
       <segment>
         <source>menu.four.four</source>
-        <target><![CDATA[Liens<br> amis]]></target>
+        <target><![CDATA[
+					Liens<br> amis
+				]]></target>
       </segment>
     </unit>
     <unit id="rehny29" name="menu.five.one">
@@ -169,7 +193,9 @@
       </notes>
       <segment>
         <source>menu.five.one</source>
-        <target><![CDATA[Les Editions<br> Roche d'Or]]></target>
+        <target><![CDATA[
+					Les Editions<br> Roche d'Or
+				]]></target>
       </segment>
     </unit>
     <unit id="JQrk3we" name="menu.five.two">
@@ -178,7 +204,9 @@
       </notes>
       <segment>
         <source>menu.five.two</source>
-        <target><![CDATA[Les<br> Nouveautés]]></target>
+        <target><![CDATA[
+					Les<br> Nouveautés
+				]]></target>
       </segment>
     </unit>
     <unit id="Vvb_xEv" name="menu.five.three">
@@ -187,7 +215,9 @@
       </notes>
       <segment>
         <source>menu.five.three</source>
-        <target><![CDATA[Les<br> Collections]]></target>
+        <target><![CDATA[
+					Les<br> Collections
+				]]></target>
       </segment>
     </unit>
     <unit id="aY4iGkg" name="menu.six.one">
@@ -196,7 +226,9 @@
       </notes>
       <segment>
         <source>menu.six.one</source>
-        <target><![CDATA[Donner<br> du temps]]></target>
+        <target><![CDATA[
+					Donner<br> du temps
+				]]></target>
       </segment>
     </unit>
     <unit id="nrz9.5B" name="menu.six.two">
@@ -205,7 +237,9 @@
       </notes>
       <segment>
         <source>menu.six.two</source>
-        <target><![CDATA[Faire<br> un don]]></target>
+        <target><![CDATA[
+					Faire<br> un don
+				]]></target>
       </segment>
     </unit>
     <unit id="_xIh0pv" name="filter.title.site">
@@ -450,7 +484,11 @@
       </notes>
       <segment>
         <source>calendar.registration.three.body</source>
-        <target><![CDATA[<p>Nous vous remercions d’avoir pris le temps de renseigner le formulaire et de l’attention que vous portez à la Roche d’Or.</p><p>Votre demande d’inscription est prise en compte sous le numéro :</p><p>%entry_number%</p><p>Vous recevrez prochainement une réponse de la Communauté par mail ou par courrier.</p><p>La Roche d’Or s'engage à être le seul destinataire des informations que vous venez de lui communiquer. Vous disposez d'un droit d'accès, de modification, de rectification et de suppression des données qui vous concernent (art. 34 de la loi "Informatiques et Libertés").</p><p>Pour l'exercer, adressez vous à secretariat@rochedor.fr</p>]]></target>
+        <target><![CDATA[
+					
+        <p>Une réponse à votre demande vous sera transmise prochainement par e-mail ou par courrier postal si vous ne disposez pas d'une adresse e-mail. Cette réponse dépend essentiellement des places encore disponibles et de notre capacité à vous accueillir dans les meilleures conditions.</p><p><i>Protection des données personnelles: la Roche d'Or s'engage à être le seul et unique destinataire des informations que vous venez de lui communiquer. Pour plus d'information, merci de vous reporter à notre politique de confidentialité qui prend en compte les exigences de la réglementation européenne sur la protection des données (RGPD)</i></p>
+        
+				]]></target>
       </segment>
     </unit>
     <unit id="wbVpZSG" name="calendar.registration.one.title.connection">
@@ -735,7 +773,7 @@
       </notes>
       <segment>
         <source>form.username</source>
-        <target>Email</target>
+        <target>Nom d'utilisateur</target>
       </segment>
     </unit>
     <unit id="bThUzo_" name="form.modify">
@@ -799,7 +837,7 @@
       </notes>
       <segment>
         <source>form.label.password_repeat</source>
-        <target>Répeter</target>
+        <target>Répéter</target>
       </segment>
     </unit>
     <unit id="I.9xUE5" name="security.reset.token_not_found">
@@ -1011,7 +1049,9 @@
     <unit id="N_ACgte" name="calendar.registration.intro">
       <segment>
         <source>calendar.registration.intro</source>
-        <target><![CDATA[Vous êtes sur le point de vous inscrire à une retraite. Complétez les informations suivantes si vous souhaitez continuer, sinon retourner au <a href="%link%">calendrier</a>.]]></target>
+        <target><![CDATA[
+					Vous êtes sur le point de vous inscrire à une retraite. Complétez les informations suivantes si vous souhaitez continuer, sinon retourner au <a href="%link%">calendrier</a>.
+				]]></target>
       </segment>
     </unit>
     <unit id="EHnUJsc" name="calendar.registration.two.title.modify">
@@ -1029,7 +1069,9 @@
     <unit id="s5pfV6x" name="calendar.registration.one.body.connected">
       <segment>
         <source>calendar.registration.one.body.connected</source>
-        <target><![CDATA[Vous êtes connecté en tant que <i>%name%</i>, voulez-vous continuer ?]]></target>
+        <target><![CDATA[
+					Vous êtes connecté en tant que <i>%name%</i>, voulez-vous continuer ?
+				]]></target>
       </segment>
     </unit>
     <unit id="L5.6B.Q" name="form.yes">
@@ -1131,7 +1173,7 @@
     <unit id="Cr.q521" name="form.message.date_invalid">
       <segment>
         <source>form.message.date_invalid</source>
-        <target>La date que vous avez saisi est invalide</target>
+        <target>La date que vous avez saisie est invalide</target>
       </segment>
     </unit>
     <unit id="RJ.6oSN" name="form.no_participants">
@@ -1179,13 +1221,13 @@
     <unit id="kzkX1MK" name="security.bad_credentials">
       <segment>
         <source>security.bad_credentials</source>
-        <target>Les identifiants que vous avez saisi sont erronés</target>
+        <target>Les identifiants que vous avez saisis sont erronés</target>
       </segment>
     </unit>
     <unit id="rHsOKUn" name="security.check_inbox">
       <segment>
         <source>security.check_inbox</source>
-        <target>Veuillez vérifier votre boîte email</target>
+        <target>Un mail vient de vous être envoyé pour terminer la réinitialisation de votre mot de passe.</target>
       </segment>
     </unit>
     <unit id="hmTi4mf" name="news.last_posts.title">
@@ -1584,6 +1626,12 @@
         <target>L'adresse mail utilisée est déjà enregistrée.</target>
       </segment>
     </unit>
+    <unit id="d6YHTZi" name="user.security_child">
+      <segment>
+        <source>user.security_child</source>
+        <target>Seul les personnes de plus 18 ans sont autorisé à s'inscrire.</target>
+      </segment>
+    </unit>
     <unit id="lDOm6tr" name="form.contact.title">
       <segment>
         <source>form.contact.title</source>
@@ -1635,7 +1683,9 @@
     <unit id="7HI7BgF" name="contact.submit.success">
       <segment>
         <source>contact.submit.success</source>
-        <target><![CDATA[Votre message a bien été pris en compte. Il sera traité dans les plus brefs délais. Vous recevrez une confirmation d'envoi dans les prochaines minutes. Retour à la <a href="/">page d'accueil</a>.]]></target>
+        <target><![CDATA[
+					Votre message a bien été pris en compte. Il sera traité dans les plus brefs délais. Vous recevrez une confirmation d'envoi dans les prochaines minutes. Retour à la <a href="/">page d'accueil</a>.
+				]]></target>
       </segment>
     </unit>
     <unit id="PnnB3aX" name="contact.ro.foradmin.subject">
@@ -1677,7 +1727,9 @@
     <unit id="GaSM3XU" name="security.reset.title">
       <segment>
         <source>security.reset.title</source>
-        <target><![CDATA[<small>Réinitialiser </small>Votre mot de passe]]></target>
+        <target><![CDATA[
+					<small>Réinitialiser </small>Votre mot de passe
+				]]></target>
       </segment>
     </unit>
     <unit id="4lbujnr" name="continue">
@@ -1779,13 +1831,141 @@
     <unit id="E_Qadzd" name="calendar.registration.error.empty">
       <segment>
         <source>calendar.registration.error.empty</source>
-        <target><![CDATA[Désolé, mais cette retraite n'existe plus. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.]]></target>
+        <target><![CDATA[
+					Désolé, mais cette retraite n'existe plus. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.
+				]]></target>
       </segment>
     </unit>
     <unit id="n6oIkhX" name="calendar.registration.error.date">
       <segment>
         <source>calendar.registration.error.date</source>
-        <target><![CDATA[Désolé, cette retraite n'est plus disponible. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.]]></target>
+        <target><![CDATA[
+					Désolé, cette retraite n'est plus disponible. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="7OkaL_L" name="form.email.please">
+      <segment>
+        <source>form.email.please</source>
+        <target>Indiquer votre email</target>
+      </segment>
+    </unit>
+    <unit id="NrmWOmd" name="calendar.registration.three.header">
+      <segment>
+        <source>calendar.registration.three.header</source>
+        <target><![CDATA[
+					<p>Nous vous remercions de l’attention que vous portez à la Roche d’Or. Votre demande d’inscription est prise en compte sous le numéro :</p><p><center><br>%entry_number%</br></center></p>
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="x9GINwp" name="Email not found">
+      <segment>
+        <source>Email not found</source>
+        <target>Adresse email non trouvée</target>
+      </segment>
+    </unit>
+    <unit id="thE5KNk" name="form.reinit">
+      <segment>
+        <source>form.reinit</source>
+        <target>Réinitialiser</target>
+      </segment>
+    </unit>
+    <unit id="l4mKCBH" name="form.arriv">
+      <segment>
+        <source>form.arriv</source>
+        <target>Arrivée (hh:mm)</target>
+      </segment>
+    </unit>
+    <unit id="krijuC." name="form.navette">
+      <segment>
+        <source>form.navette</source>
+        <target>j'utiliserai la navette communautaire</target>
+      </segment>
+    </unit>
+    <unit id="QoRcuhX" name="form.lieu">
+      <segment>
+        <source>form.lieu</source>
+        <target>lieu d'arrivée</target>
+      </segment>
+    </unit>
+    <unit id="dJfmInP" name="form.lieu.viotte">
+      <segment>
+        <source>form.lieu.viotte</source>
+        <target>Viotte</target>
+      </segment>
+    </unit>
+    <unit id="qm_COTU" name="form.cancel">
+      <segment>
+        <source>form.cancel</source>
+        <target>Annuler</target>
+      </segment>
+    </unit>
+    <unit id=".55gGPd" name="form.message.not_with_an_adult">
+      <segment>
+        <source>form.message.not_with_an_adult</source>
+        <target>n'est pas accompagné d'un adulte</target>
+      </segment>
+    </unit>
+    <unit id="ch5nrMQ" name="form.message.not_accompanied">
+      <segment>
+        <source>form.message.not_accompanied</source>
+        <target>n'est pas accompagné</target>
+      </segment>
+    </unit>
+    <unit id="dSfs_7v" name="form.message.no_transport">
+      <segment>
+        <source>form.message.no_transport</source>
+        <target>n'a pas de mode de transport</target>
+      </segment>
+    </unit>
+    <unit id="REqCb2s" name="participant_not_valid">
+      <segment>
+        <source>participant_not_valid</source>
+        <target>Ce participant n'est pas valide.</target>
+      </segment>
+    </unit>
+    <unit id="mhgfyic" name="form.message.participant_not_valid">
+      <segment>
+        <source>form.message.participant_not_valid</source>
+        <target>Ce participant n'est pas valide.</target>
+      </segment>
+    </unit>
+    <unit id="fCR5IGy" name="security.username_exists">
+      <segment>
+        <source>security.username_exists</source>
+        <target>Ce nom d'utilisateur est déjà utilisé</target>
+      </segment>
+    </unit>
+    <unit id="Bs52W.M" name="security.password_request.not_found">
+      <segment>
+        <source>security.password_request.not_found</source>
+        <target><![CDATA[
+						Nous n'avons pas trouvé vos informations.<br>Orthographe ? Deux noms ? Ordre des noms ?
+					]]></target>
+      </segment>
+    </unit>
+    <unit id="XB7PsIn" name="security.password_request.missing_infos">
+      <segment>
+        <source>security.password_request.missing_infos</source>
+        <target>Informations manquantes</target>
+      </segment>
+    </unit>
+    <unit id="NuG.GrE" name="form.lastname.please">
+      <segment>
+        <source>form.lastname.please</source>
+        <target>Indiquer votre nom de famille</target>
+      </segment>
+    </unit>
+    <unit id="dAXvvgy" name="form.firstname.please">
+      <segment>
+        <source>form.firstname.please</source>
+        <target>Indiquer votre prénom</target>
+      </segment>
+    </unit>
+    <unit id="Wq4.if_" name="security.password_too_small">
+      <segment>
+        <source>security.password_too_small</source>
+        <target>Votre mot de passe doit faire au moins 6 caractères.</target>
       </segment>
     </unit>
     <unit id="r6YZYDf" name="order.summary.title.cart">

@@ -19,10 +19,11 @@ use AppBundle\Service\Mailer;
 use AppBundle\Entity\Contact;
 use AppBundle\Form\RegisterType;
 use AppBundle\Service\PageService;
+use AppBundle\Service\ContactService;
 
 class SecurityController extends Controller
 {
-
+    const YEARS_ADULT = 18;
     /**
      * @var Mailer
      */
@@ -136,15 +137,20 @@ class SecurityController extends Controller
     public function registerAction(
         Request $request,
         ContactRepository $repository,
-        UserPasswordEncoderInterface $encoder
+        UserPasswordEncoderInterface $encoder,
+        ContactService $contactService
     ) {
         $contactReq = $request->get('contact');
         if (!$contactReq) {
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide contact object']);
         }
-        
-        if ($repository->findContactByEmail($contactReq['email'])) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'Email already in use']);
+ 
+        if (!$this->isAdult($contactReq['datnaiss'])) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'user.security_child']);
+        }
+
+        if ($repository->findContactByUsername($contactReq['username'])) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);
         }
 
         $contact = new Contact();
@@ -162,12 +168,13 @@ class SecurityController extends Controller
         ->setEmail($contactReq['email'])
         ->setDatnaiss(new \DateTime($contactReq['datnaiss']))
         ->setPassword($password)
-        ->setUsername($contactReq['email'])
+        ->setUsername($contactReq['username'])
         ->setProfession($contactReq['profession']);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($contact);
         $em->flush();
+        $contactService->queryDuplicate($contact->getCodco());
 
         return new JsonResponse([
             'username' => $contact->getUsername(),
@@ -185,7 +192,8 @@ class SecurityController extends Controller
             'email' => $contact->getEmail(),
             'societe' => $contact->getSociete(),
             'profession' => $contact->getProfession(),
-            'datnaiss' => $contact->getDatnaiss()
+            'datnaiss' => $contact->getDatnaiss(),
+            'you' => true
         ]);
     }
 
@@ -195,7 +203,8 @@ class SecurityController extends Controller
     public function registerFormAction(
         Request $request,
         ContactRepository $repository,
-        UserPasswordEncoderInterface $encoder
+        UserPasswordEncoderInterface $encoder,
+        ContactService $contactService
     ) {
         $contact = new Contact();
         $form = $this->createForm(RegisterType::class, $contact);
@@ -212,6 +221,7 @@ class SecurityController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($contact);
             $em->flush();
+            $contactService->queryDuplicate($contact->getCodco());
             return $this->redirectToRoute('password_register_success');
         }
         return $this->render('security/register.html.twig', array(
@@ -225,31 +235,35 @@ class SecurityController extends Controller
     public function passwordRequestAction(Request $request, ContactRepository $repository)
     {
         $email = $request->get('email');
-        if (!$email) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'You must provide email address']);
+        $lastname = $request->get('lastname');
+        $firstname = $request->get('firstname');
+        if (!$email || !$lastname || !$firstname) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.password_request.missing_infos']);
         }
         
-        if (!$contact = $repository->findContactByEmail($email)) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'Email not found']);
+        if (!$contacts = $repository->findContactByInfos($email, $lastname, $firstname)) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.password_request.not_found']);
         }
         $token = sha1(random_bytes(15));
         $expiresAt = new \DateTime();
         $expiresAt->add(new \DateInterval('PT4H'));
-        $contact->setResetToken($token)
-        ->setResetTokenExpiresAt($expiresAt);
-        
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($contact);
-        $em->flush();
-        $link = $this->generateUrl('password-reset', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
-        $this->mailer->send(
-            $email,
-            $this->translator->trans('security.reset_password_request.subject'),
-            $this->renderView(
-                'emails/security-reset-password-request-'.$request->getLocale().'.html.twig',
-                ['link' => $link]
-            )
-        );
+        foreach ($contacts as $contact) {
+            $contact->setResetToken($token)
+            ->setResetTokenExpiresAt($expiresAt);
+            
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contact);
+            $em->flush();
+            $link = $this->generateUrl('password-reset', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+            $this->mailer->send(
+                $email,
+                $this->translator->trans('security.reset_password_request.subject'),
+                $this->renderView(
+                    'emails/security-reset-password-request-'.$request->getLocale().'.html.twig',
+                    ['link' => $link, 'contact' => $contact]
+                )
+            );
+        }
         return new JsonResponse(['status' => 'ok', 'message' => 'The email has been sent']);
     }
     /**
@@ -317,5 +331,13 @@ class SecurityController extends Controller
     public function logoutAction(Request $request)
     {
         return new JsonResponse(['status' => 'ok']);
+    }
+
+    private function isAdult(string $datnaiss)
+    {
+        $datnaiss = new \DateTime($datnaiss);
+        $now = new \DateTime();
+        $diff = $datnaiss->diff($now);
+        return ($diff->y >= $this::YEARS_ADULT);
     }
 }

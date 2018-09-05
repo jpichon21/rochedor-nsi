@@ -18,6 +18,7 @@ const participant = {
   coltyp: '',
   colp: '',
   transport: '',
+  lieu: '',
   memo: '',
   check: false,
   aut16: 0,

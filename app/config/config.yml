@@ -82,6 +82,7 @@ doctrine:
                 group_concat: DoctrineExtensions\Query\Mysql\GroupConcat
                 substring_index: DoctrineExtensions\Query\Mysql\SubstringIndex
                 regexp: DoctrineExtensions\Query\Mysql\Regexp
+                replace: DoctrineExtensions\Query\Mysql\Replace
             datetime_functions:
                 date_format: DoctrineExtensions\Query\Mysql\DateFormat
 stof_doctrine_extensions:
@@ -136,3 +137,6 @@ nelmio_cors:
           allow_methods: ['OPTIONS', 'POST', 'GET']
           allow_credentials: true
           max_age: 3600
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/doctrine_migrations"

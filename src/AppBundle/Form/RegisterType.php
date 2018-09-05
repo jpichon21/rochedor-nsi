@@ -54,7 +54,9 @@ class RegisterType extends AbstractType
             'class' => 'input',
             'placeholder' => 'form.mobile']
         ])
-        ->add('email', EmailType::class, ['attr' => ['class' => 'input' , 'placeholder' => 'form.email']])
+        ->add('email', EmailType::class, [
+            'attr' => ['class' => 'input' , 'placeholder' => 'form.email', 'maxlength' => 40]
+            ])
         ->add('datnaiss', DateType::class, [
             'format' => 'dd/MM/yyyy',
             'widget' => 'single_text',

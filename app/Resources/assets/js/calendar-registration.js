@@ -2,6 +2,7 @@ import $ from 'jquery'
 import moment from 'moment'
 import { getParticipant } from './sample'
 import { upFlashbag, upConfirmbox } from './popup'
+import { upLoader, downLoader } from './loader'
 import I18n from './i18n'
 import {
   postParticipant,
@@ -110,6 +111,7 @@ function updateYouFormRender () {
 }
 
 function updateHimFormRender () {
+  console.log(_participant)
   $('.him-form-render').html(himFormTemplate({
     participant: _participant,
     countries: _countries,
@@ -137,6 +139,7 @@ function afterLogin (user) {
     _registered = registered.map(obj => {
       return { ...participant, ...obj }
     })
+    downLoader()
     updateRegisteredRender()
     updateParticipantsRender()
     changeItem(itemParticipants)
@@ -155,31 +158,46 @@ function formatParticipant (data) {
 
 itemConnection.on('submit', '.panel.connection form', function (event) {
   event.preventDefault()
+  upLoader()
   postLogin({
     username: $('.username', this).val(),
     password: $('.password', this).val()
   }).then(user => {
     afterLogin(user)
   }).catch(() => {
+    downLoader()
     upFlashbag(i18n.trans('security.bad_credentials'))
   })
 })
 
 itemConnection.on('submit', '.panel.reset form', function (event) {
   event.preventDefault()
+  upLoader()
   resetLogin({
-    email: $('.username', this).val()
+    email: $('.username', this).val(),
+    lastname: $('.lastname', this).val(),
+    firstname: $('.firstname', this).val()
   }).then(() => {
+    downLoader()
     upFlashbag(i18n.trans('security.check_inbox'))
+  }).catch((err) => {
+    downLoader()
+    upFlashbag(i18n.trans(`${err}`))
   })
 })
 
 itemConnection.on('submit', '.panel.registration form', function (event) {
   event.preventDefault()
+  upLoader()
   const data = $(this).serializeArray()
   const participant = formatParticipant(data)
   const validatedDate = validateDate(participant.datnaiss)
   const validatedPhone = validatePhone(participant.tel, participant.mobil)
+  if (participant.password.length < 6) {
+    downLoader()
+    upFlashbag(i18n.trans('security.password_too_small'))
+    return
+  }
   if (validatedDate) {
     if (validatedPhone) {
       postRegister({
@@ -193,16 +211,20 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
             ...user,
             transport: participant.transport
           })
-        }).catch(() => {
-          upFlashbag(i18n.trans('security.user_exist'))
+        }).catch(err => {
+          downLoader()
+          upFlashbag(i18n.trans(`${err}`))
         })
       }).catch(error => {
-        upFlashbag(error)
+        downLoader()
+        upFlashbag(i18n.trans(`${error}`))
       })
     } else {
+      downLoader()
       upFlashbag(i18n.trans('form.message.phone_invalid'))
     }
   } else {
+    downLoader()
     upFlashbag(i18n.trans('form.message.date_invalid'))
   }
 })
@@ -231,84 +253,109 @@ itemConnection.on('click', 'a', function (event) {
   changeItem(itemConnection)
 })
 
+itemParticipants.on('change', '.transport', function () {
+  $('.navette-wrapper', itemParticipants).toggleClass('hidden', $(this).val() !== 'train')
+  changeItem(itemParticipants)
+})
+
+itemParticipants.on('click', '.navette', function () {
+  const boolean = $(this).toggleClass('checked').hasClass('checked')
+  $('.navette-wrapper .checkbox', itemParticipants).val(boolean)
+  $('.lieu-wrapper, .arriv-wrapper', itemParticipants).toggleClass('hidden', !boolean)
+  changeItem(itemParticipants)
+})
+
 function validateDate (date) {
-  return moment(date).isValid()
+  return moment(date).isValid() && moment(date).isBefore(new Date())
 }
 
 function validatePhone (phone, mobile) {
   return !(phone === '' && mobile === '')
 }
 
-function validateParticipant (participant) {
+function validateChild (participant) {
   return new Promise((resolve, reject) => {
-    if (validatePhone(participant.tel, participant.mobil)) {
-      if (validateDate(participant.datnaiss)) {
-        if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
-          resolve(participant)
-        } else {
-          if (participant.coltyp === 'enfan' || participant.coltyp === 'accom') {
-            const people = [..._registered, _you]
-            const filtered = people.filter(person => {
-              return person.codco === parseInt(participant.colp)
+    if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
+      resolve(participant)
+    } else {
+      if (participant.coltyp === 'enfan' || participant.coltyp === 'accom') {
+        const people = [..._registered, _you]
+        const filtered = people.filter(person => person.codco === parseInt(participant.colp))
+        const parent = filtered.shift()
+        if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
+          upConfirmbox(i18n.trans('form.message.does_child_have_autpar')).then(() => {
+            resolve({
+              ...participant,
+              aut16: 1,
+              datAut16: moment().format()
             })
-            const parent = filtered.shift()
-            if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
-              upConfirmbox(i18n.trans('form.message.does_child_have_autpar')).then(() => {
-                resolve({
-                  ...participant,
-                  aut16: 1,
-                  datAut16: moment().format()
-                })
-              }).catch(() => {
-                reject(i18n.trans('form.message.child_must_have_autpar'))
-              })
-            } else {
-              reject(i18n.trans('form.message.parent_must_be_adult'))
-            }
-          } else {
-            reject(i18n.trans('form.message.child_must_come_with_adult'))
-          }
+          }).catch(() => {
+            reject(i18n.trans('form.message.child_must_have_autpar'))
+          })
+        } else {
+          reject(i18n.trans('form.message.parent_must_be_adult'))
         }
       } else {
-        reject(i18n.trans('form.message.date_invalid'))
+        reject(i18n.trans('form.message.child_must_come_with_adult'))
       }
-    } else {
-      reject(i18n.trans('form.message.phone_invalid'))
     }
   })
 }
 
-function callbackSubmit (event, context, action, callback) {
+function callbackSubmit (event, context, action, phoneControl, callback) {
   event.preventDefault()
+  upLoader()
   const data = context.serializeArray()
-  const participantFormated = formatParticipant(data)
-  validateParticipant(participantFormated).then(participantValidated => {
-    postParticipant(participantValidated).then(res => {
-      const participantUpdated = { ...participantValidated, ...res }
-      callback(participantUpdated)
-      updateYouRender()
-      updateRegisteredRender()
-      updateParticipants()
-      $(`.panel.${action}`).slideUp(800, function () {
-        $(this).hide()
-        changeItem(itemParticipants)
+  const participant = formatParticipant(data)
+  const validatedDate = validateDate(participant.datnaiss)
+  const validatedPhone = phoneControl ? validatePhone(participant.tel, participant.mobil) : true
+  if (validatedDate) {
+    if (validatedPhone) {
+      validateChild(participant).then(participantValidated => {
+        postParticipant(participantValidated).then(res => {
+          const participantUpdated = { ...participantValidated, ...res }
+          downLoader()
+          callback(participantUpdated)
+          updateYouRender()
+          updateRegisteredRender()
+          updateParticipants()
+          $(`.panel.${action}`).slideUp(800, function () {
+            $(this).hide()
+            changeItem(itemParticipants)
+          })
+        }).catch(error => {
+          if (error) {
+            upFlashbag(i18n.trans(`${error}`))
+          }
+        })
+      }).catch(error => {
+        if (error) {
+          downLoader()
+          upFlashbag(i18n.trans(`${error}`))
+        }
       })
-    })
-  }).catch(error => {
-    if (error) {
-      upFlashbag(error)
+    } else {
+      downLoader()
+      upFlashbag(i18n.trans('form.message.phone_invalid'))
     }
-  })
+  } else {
+    downLoader()
+    upFlashbag(i18n.trans('form.message.date_invalid'))
+  }
 }
 
-itemParticipants.on('submit', '.panel.you form', function (event) {
-  callbackSubmit(event, $(this), 'you', function (res) {
+const panelYouForm = $('.panel.you form')
+const panelHimForm = $('.panel.him form')
+const panelAddForm = $('.panel.add form')
+
+panelYouForm.on('submit', function (event) {
+  callbackSubmit(event, $(this), 'you', true, function (res) {
     _you = res
   })
 })
 
-itemParticipants.on('submit', '.panel.modify form', function (event) {
-  callbackSubmit(event, $(this), 'modify', function (res) {
+panelHimForm.on('submit', function (event) {
+  callbackSubmit(event, $(this), 'him', false, function (res) {
     _registered = _registered.map(obj => {
       if (obj.codco === res.codco) { return res }
       return obj
@@ -316,16 +363,54 @@ itemParticipants.on('submit', '.panel.modify form', function (event) {
   })
 })
 
-itemParticipants.on('submit', '.panel.add form', function (event) {
-  callbackSubmit(event, $(this), 'add', function (res) {
+panelHimForm.on('click', '.cancel', function (event) {
+  event.preventDefault()
+  $('.panel.him').slideUp(800, function () {
+    $(this).hide()
+  })
+})
+
+panelYouForm.on('click', '.cancel', function (event) {
+  event.preventDefault()
+  $('.panel.you').slideUp(800, function () {
+    $(this).hide()
+  })
+})
+
+panelAddForm.on('click', '.cancel', function (event) {
+  event.preventDefault()
+  $('.panel.cancel').slideUp(800, function () {
+    $(this).hide()
+  })
+})
+
+panelAddForm.on('submit', function (event) {
+  callbackSubmit(event, $(this), 'add', false, function (res) {
     _registered.push(res)
   })
 })
 
+panelAddForm.on('change', '.select.colp', function () {
+  const coltyp = $(this).closest('form').find('.select.coltyp').val()
+  const colp = $(this).val()
+  const people = [..._registered, _you]
+  if (coltyp === 'conjo' || coltyp === 'enfan') {
+    const filtered = people.filter(person => person.codco === parseInt(colp))
+    const person = filtered.shift()
+    let participant = getParticipant()
+    participant.coltyp = coltyp
+    participant.colp = colp
+    participant.adresse = person.adresse
+    participant.cp = person.cp
+    participant.ville = person.ville
+    participant.pays = person.pays
+    _participant = participant
+    updateHimFormRender()
+  }
+})
+
 function updateParticipants () {
-  _participants = _registered.filter(participant => {
-    return participant.check
-  })
+  _participants = _registered.filter(participant => participant.check)
   _participants.push(_you)
   updateParticipantsRender()
 }
@@ -335,6 +420,18 @@ itemParticipants.on('click', '.participate-him', function (event) {
   const id = parseInt($(this).attr('data-id'))
   _registered = _registered.map(participant => {
     if (participant.codco === id) {
+      if (!participant.check) {
+        if (validateParticipant(participant) !== true) {
+          upFlashbag(i18n.trans('form.message.participant_not_valid'))
+          modifyClick(event, 'him', updateHimFormRender, () => {
+            const selected = parseInt($(this).attr('data-id'))
+            const participants = _registered.filter(registered => registered.codco === selected)
+            _participant = participants.shift()
+          })
+          $(this).removeClass('checked')
+          return participant
+        }
+      }
       participant.check = !participant.check
     }
     return participant
@@ -342,84 +439,106 @@ itemParticipants.on('click', '.participate-him', function (event) {
   updateParticipants()
 })
 
-itemParticipants.on('click', '.modify-you', function (event) {
+function modifyClick (event, action, callUpdater, callFunction) {
   event.preventDefault()
-  _participant = _you
+  callFunction()
+  callUpdater()
   $('.panel', itemParticipants).hide()
-  $(`.panel.you`, itemParticipants).show()
-  updateYouFormRender()
+  $(`.panel.${action}`, itemParticipants).show()
   changeItem(itemParticipants)
   setTimeout(() => {
     const content = document.querySelector('.content')
-    const panel = content.querySelector('.panel.you')
+    const panel = content.querySelector(`.panel.${action}`)
     content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
   }, 200)
+}
+
+itemParticipants.on('click', '.modify-you', function (event) {
+  modifyClick(event, 'you', updateYouFormRender, () => {
+    _participant = _you
+  })
 })
 
 itemParticipants.on('click', '.modify-him', function (event) {
-  event.preventDefault()
-  const selected = parseInt($(this).attr('data-id'))
-  const participants = _registered.filter(registered => {
-    return registered.codco === selected
+  modifyClick(event, 'him', updateHimFormRender, () => {
+    const selected = parseInt($(this).attr('data-id'))
+    const participants = _registered.filter(registered => registered.codco === selected)
+    _participant = participants.shift()
   })
-  _participant = participants.shift()
-  $('.panel', itemParticipants).hide()
-  $(`.panel.modify`, itemParticipants).show()
-  updateHimFormRender()
-  changeItem(itemParticipants)
-  setTimeout(() => {
-    const content = document.querySelector('.content')
-    const panel = content.querySelector('.panel.modify')
-    content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
-  }, 200)
 })
 
 itemParticipants.on('click', '.add-participant', function (event) {
-  event.preventDefault()
-  _participant = getParticipant()
-  $('.panel', itemParticipants).hide()
-  $(`.panel.add`, itemParticipants).show()
-  updateHimFormRender()
-  changeItem(itemParticipants)
-  setTimeout(() => {
-    const content = document.querySelector('.content')
-    const panel = content.querySelector('.panel.add')
-    content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
-  }, 200)
+  modifyClick(event, 'add', updateHimFormRender, () => {
+    _participant = getParticipant()
+  })
 })
-
-function validateTransports () {
-  const whoAreWeWaiting = _participants.filter(participant => participant.transport === '')
-  if (whoAreWeWaiting.length > 0) {
-    return {
-      whoAreWeWaitingRender: () => {
-        let html = ''
-        whoAreWeWaiting.map(who => {
-          html += '<li>' + who.prenom + ' ' + who.nom + '</li>'
-        })
-        return html
-      }
-    }
-  }
-  return { success: true }
-}
 
 itemParticipants.on('click', '.validate-participants', function (event) {
   event.preventDefault()
-  const validate = validateTransports()
-  if (validate.success) {
+  const validate = validateParticipants()
+  if (validate === true) {
+    upLoader()
     postRegistered(_participants, _infos.idact).then(res => {
       let result = $('.result', itemValidation).html()
       result = result.replace('%entry_number%', res)
       $('.result', itemValidation).html(result)
+      downLoader()
       changeItem(itemValidation)
     }).catch(error => {
+      downLoader()
       upFlashbag(error)
     })
   } else {
-    upFlashbag(
-      i18n.trans('form.message.verify_transport') +
-      '<ul>' + validate.whoAreWeWaitingRender() + '</ul>'
-    )
+    upFlashbag(validate)
   }
 })
+
+function validateParticipants () {
+  let message = ''
+  for (let p of _participants) {
+    const validate = validateParticipant(p)
+    if (validate !== true) {
+      message += `${p.nom} ${p.prenom} ${validate} <br>`
+    }
+    if (message !== '') {
+      return message
+    }
+  }
+  return true
+}
+
+function validateParticipant (participant) {
+  if (participant['colp'] === '' && participant['codco'] !== _you.codco) {
+    return i18n.trans('form.message.not_accompanied')
+  }
+
+  if (participant['transport'] === '') {
+    return i18n.trans('form.message.no_transport')
+  }
+
+  if (isYoung(participant) && !isWithAdult(participant)) {
+    return i18n.trans('form.message.not_with_an_adult')
+  }
+  return true
+}
+
+function isWithAdult (participant) {
+  for (let p of _participants) {
+    if (parseInt(p.codco) === parseInt(participant.colp) && isAdult(p)) {
+      return true
+    }
+  }
+  return false
+}
+
+function isAdult (participant) {
+  const now = new moment()
+  const bdate = new moment(participant.datnaiss, moment.ISO_8601)
+  return (now.diff(bdate, 'years') > 18)
+}
+
+function isYoung (participant) {
+  const now = new moment()
+  const bdate = new moment(participant.datnaiss, moment.ISO_8601)
+  return (now.diff(bdate, 'years') <= 16)
+}
