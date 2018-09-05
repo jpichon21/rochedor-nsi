@@ -1344,7 +1344,7 @@
         <target>Livraison</target>
       </segment>
     </unit>
-    <unit id="EuDIPVk" name="select.ad.myAd">
+    <unit id=".5a_NkK" name="select.ad.myAd">
       <segment>
         <source>select.ad.myAd</source>
         <target>Mon adresse</target>
@@ -2232,7 +2232,7 @@
         <target>Dont TVA</target>
       </segment>
     </unit>
-    <unit id="NL2xyyC" name="table.label.shippingPriceIT">
+    <unit id="1oH_yFe" name="table.label.shippingPriceIT">
       <segment>
         <source>table.label.shippingPriceIT</source>
         <target>Frais d'expédition</target>
@@ -2242,12 +2242,6 @@
       <segment>
         <source>table.label.consumerPriceIT</source>
         <target>Total TTC</target>
-      </segment>
-    </unit>
-    <unit id="thE5KNk" name="form.reinit">
-      <segment>
-        <source>form.reinit</source>
-        <target>Réinitialiser</target>
       </segment>
     </unit>
     <unit id="AOdX9Pe" name="order-return.title">
@@ -2266,6 +2260,18 @@
       <segment>
         <source>order-return.cancel</source>
         <target><![CDATA[Un problème est survenu lors de votre commande. Veuillez retourner au <a href="%link%">panier</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="I45NZDr" name="form.firstname">
+      <segment>
+        <source>form.firstname</source>
+        <target>Prénom</target>
+      </segment>
+    </unit>
+    <unit id="pof_qvc" name="form.lastname">
+      <segment>
+        <source>form.lastname</source>
+        <target>Nom</target>
       </segment>
     </unit>
   </file>

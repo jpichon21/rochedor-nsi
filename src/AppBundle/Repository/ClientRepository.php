@@ -38,18 +38,44 @@ class ClientRepository
     }
 
     /**
-    * Find Client by its email
+    * Find Client by its username
     *
-    * @param string $email
+    * @param string $username
     * @return Client
     */
-    public function findClientByEmail($email)
+    public function findClientByUsername($username)
     {
         $query = $this->entityManager
-        ->createQuery('SELECT c FROM AppBundle\Entity\Client c WHERE c.email=:email');
-        $query->setParameter('email', $email);
+        ->createQuery('SELECT c FROM AppBundle\Entity\Client c WHERE c.username=:username');
+        $query->setParameter('username', $username);
         $query->setMaxResults(1);
         return $query->getOneOrNullResult();
+    }
+
+    /**
+    * Find Client by its personnal infos
+    *
+    * @param string $email
+    * @param string $lastname
+    * @param string $firstname
+    * @return Client
+    */
+    public function findClientByInfos($email, $lastname, $firstname)
+    {
+     
+        $firstname = str_replace(['-', ' '], '', $firstname);
+        $lastname = str_replace(['-', ' '], '', $lastname);
+        $query = $this->entityManager
+        ->createQuery(
+            'SELECT c FROM AppBundle\Entity\Client c 
+            WHERE REPLACE(REPLACE(UPPER(c.nom), \'-\', \'\'), \' \', \'\')=UPPER(:lastname)
+            AND REPLACE(REPLACE(UPPER(c.prenom), \'-\', \'\'), \' \', \'\')=UPPER(:firstname)
+            AND c.email=:email
+            AND c.username <> \'\'
+            AND c.username IS NOT NULL'
+        );
+        $query->setParameters(['lastname' => $lastname, 'firstname' => $firstname, 'email' => $email]);
+        return $query->getResult();
     }
 
     /**

@@ -172,7 +172,9 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
 itemConnection.on('submit', '.panel.reset form', function (event) {
   event.preventDefault()
   resetLogin({
-    email: $('.username', this).val()
+    email: $('.email', this).val(),
+    firstname: $('.firstname', this).val(),
+    lastname: $('.lastname', this).val()
   }).then(() => {
     upFlashbag(i18n.trans('security.check_inbox'))
   })
@@ -187,12 +189,12 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
       }
     }).then(user => {
       postLogin({
-        username: user.email,
+        username: user.username,
         password: participant.password
       }).then(user => {
         afterLogin(user, true)
       }).catch(() => {
-        upFlashbag(i18n.trans('security.user_exist'))
+        upFlashbag(i18n.trans('security.username_exists'))
       })
     }).catch(error => {
       upFlashbag(error)

@@ -72,7 +72,13 @@
                     <h3>{{ 'form.password.reset'|trans|raw }}</h3>
                     <form class="pure-g reset">
                         <div class="pure-u-1">
-                            <input autocomplete="nope" class="input username" required type="text" name="username" placeholder="{{ 'form.username' | trans | raw }}">
+                            <input autocomplete="nope" class="input email" required type="text" name="email" placeholder="{{ 'form.email' | trans | raw }}">
+                        </div>
+                        <div class="pure-u-1">
+                            <input autocomplete="nope" class="input firstname" required type="text" name="firstname" placeholder="{{ 'form.firstname' | trans | raw }}">
+                        </div>
+                        <div class="pure-u-1">
+                            <input autocomplete="nope" class="input lastname" required type="text" name="lastname" placeholder="{{ 'form.lastname' | trans | raw }}">
                         </div>
                         <div class="pure-u-4-24">
                             <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
@@ -379,11 +385,13 @@
     <div class="pure-u-1-2">
         <input autocomplete="nope" class="input email" required type="email" value="<%= client.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
     </div>
+    <% if (!client.codcli) { %>
+    <div class="pure-u-1-2">
+        <input autocomplete="nope" class="input username" required type="username" value="<%= client.username %>" name="username" placeholder="{{ 'form.username' | trans | raw }}">
+    </div>
+    <% } %>
     <div class="pure-u-1-2">
         <input autocomplete="nope" class="input password" type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
-    </div>
-    <div class="pure-u-1-2">
-        <input autocomplete="nope" class="input datnaiss" required type="text" value="<%= (client.datnaiss !== '') ? moment(client.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
         <input autocomplete="nope" class="input societe" type="text" value="<%= client.societe %>" name="societe" placeholder="{{ 'form.societe' | trans | raw }}">

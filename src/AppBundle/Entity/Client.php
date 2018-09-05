@@ -97,7 +97,7 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="eMail", type="string", length=255, nullable=false, unique=true)
+     * @ORM\Column(name="eMail", type="string", length=255, nullable=false)
      */
     private $email;
 
@@ -159,6 +159,13 @@ class Client implements UserInterface, \Serializable
      */
     private $resetTokenExpiresAt;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=255, unique=true, nullable=true)
+     */
+    private $username;
+
 
     public function getRoles()
     {
@@ -181,7 +188,7 @@ class Client implements UserInterface, \Serializable
 
     public function getUsername()
     {
-        return $this->email;
+        return $this->username;
     }
     public function getPassword()
     {
@@ -668,5 +675,19 @@ class Client implements UserInterface, \Serializable
     public function getResetTokenExpiresAt()
     {
         return $this->resetTokenExpiresAt;
+    }
+
+    /**
+     * Set username.
+     *
+     * @param string|null $username
+     *
+     * @return Client
+     */
+    public function setUsername($username = null)
+    {
+        $this->username = $username;
+
+        return $this;
     }
 }
