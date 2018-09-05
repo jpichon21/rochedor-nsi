@@ -24,24 +24,30 @@ class Packaging
     /**
      * @var int
      *
-     * @ORM\Column(name="boundary", type="integer" , nullable=true)
+     * @ORM\Column(name="limit", type="integer", length=11)
      */
-    private $boundary;
+    private $limit;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="france", type="integer")
+     * @ORM\Column(name="france", type="integer", length=11)
      */
     private $france;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="international", type="integer")
+     * @ORM\Column(name="international", type="integer", length=11)
      */
     private $international;
 
+    public function __construct()
+    {
+        $this->limit = 0;
+        $this->france = 0;
+        $this->international = 0;
+    }
 
     /**
      * Get id.
@@ -54,27 +60,27 @@ class Packaging
     }
 
     /**
-     * Set boundary.
+     * Set limit.
      *
-     * @param int $boundary
+     * @param int $limit
      *
      * @return Packaging
      */
-    public function setBoundary($boundary)
+    public function setLimit($limit)
     {
-        $this->boundary = $boundary;
+        $this->limit = $limit;
 
         return $this;
     }
 
     /**
-     * Get boundary.
+     * Get limit.
      *
      * @return int
      */
-    public function getBoundary()
+    public function getLimit()
     {
-        return $this->boundary;
+        return $this->limit;
     }
 
     /**

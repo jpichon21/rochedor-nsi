@@ -10,7 +10,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Rate</th>
                     <th scope="col">Countries</th>
-                    <th scope="col">Zipcodes</th>
+                    <th scope="col">Codpostaux</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -21,7 +21,6 @@
                     <td>{{ tax.name }}</td>
                     <td>{{ tax.rate }}</td>
                     <td>{% if tax.countries %}{{ tax.countries|join(', ') }}{% endif %}</td>
-                    <td>{% if tax.zipcodes %}{{ tax.zipcodes|join(', ') }}{% endif %}</td>
                     <td>
                         <ul>
                             <li>

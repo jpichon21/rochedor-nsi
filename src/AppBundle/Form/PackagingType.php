@@ -17,10 +17,10 @@ class PackagingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('boundary')
+        ->add('limit')
         ->add('france')
         ->add('international')
-        ->add('maximalBoundary', CheckboxType::class, array(
+        ->add('maximalLimit', CheckboxType::class, array(
         'label'    => 'Limit max',
         'required' => false,
         ));
