@@ -1,0 +1,45 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block body %}
+    <h1>Tpays list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nompays</th>
+                <th>Codpays</th>
+                <th>Codpayspbx</th>
+                <th>Codpayspaypal</th>
+                <th>Codpostaux</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tpay in tpays %}
+            <tr>
+                <td><a href="{{ path('crud_tpays_show', { 'codpays': tpay.codpays }) }}">{{ tpay.nompays }}</a></td>
+                <td>{{ tpay.codpays }}</td>
+                <td>{{ tpay.codpayspbx }}</td>
+                <td>{{ tpay.codpayspaypal }}</td>
+                <td>{{ tpay.codpostaux }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('crud_tpays_show', { 'codpays': tpay.codpays }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('crud_tpays_edit', { 'codpays': tpay.codpays }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('crud_tpays_new') }}">Create a new tpay</a>
+        </li>
+    </ul>
+{% endblock %}
