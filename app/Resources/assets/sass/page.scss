@@ -1,25 +1,6 @@
 @import './carousel';
 @import './variables';
 
-.header {
-  .right {
-    .sub-menu {
-      left: 0;
-      right: 0;
-      padding: 0 40px;
-      &:before {
-        content: '';
-        position: absolute;
-        top: 1px;
-        bottom: -50px;
-        left: 0;
-        right: 0;
-        background: linear-gradient(to bottom, #000000 0px, transparent 100%);
-      }
-    }
-  }
-}
-
 .content {
   .intro {
     font-size: 14px;
@@ -219,6 +200,12 @@
         &.submit, &.button {
           margin-top: 10px;
         }
+        &:disabled {
+          border: 1px solid #ffffff;
+          color: #ffffff;
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
       }
       .select {
         color: $roche-yellow;
@@ -227,6 +214,9 @@
         background-position: calc(100% - 20px) center;
         background-repeat: no-repeat;
         -webkit-appearance: none;
+        &:disabled {
+          background-image: url('../img/arrow-select-white.png');
+        }
         &.white {
           color: #ffffff;
           background-image: url('../img/arrow-select-white.png');

@@ -1,0 +1,50 @@
+const Nightmare = require('nightmare')
+const addContext = require('mochawesome/addContext')
+const sinon = require('sinon')
+const request = require('request')
+const chai = require('chai')
+const should = chai.should()
+
+const imgDir = './tests/reports/screenshots/inscription'
+
+describe('Load Page', function () {
+  this.timeout('30s')
+  let nightmare = null
+  beforeEach(() => {
+    nightmare = new Nightmare({ show: true })
+  })
+  describe('La commande doit se dérouler sans erreur', () => {
+    it('Les actions suivantes doivent se derouler sans timout', done => {
+      nightmare
+        .goto('http://127.0.0.1:8001/fr/edition/9')
+        .wait('a.button.addToCart')
+        .click('a.button.addToCart')
+        .goto('http://127.0.0.1:8001/fr/order')
+        .wait('.item.cart.active')
+        .click('a.button.continue')
+        .wait('.panel.connection')
+        .click('.button.yes')
+        .type('.panel.connection .input.username', 'Martin@laposte.net')
+        .type('.panel.connection .input.password', 'Martin')
+        .click('.panel.connection input.button.submit')
+        .select('.select.adliv', 'Other')
+        .wait(6000)
+        .wait('.panel.adliv')
+        .type('.panel.adliv .input.adresse', 'Rue des Martino')
+        .type('.panel.adliv .input.zipcode', '25000')
+        .type('.panel.adliv .input.city', 'Besançon')
+        .click('.panel.adliv input.button.submit')
+        .wait(6000)
+        .wait('.panel.countryliv')
+        .select('.panel.countryliv .select.country', 'FR')
+        .click('a.button.payment')
+        .wait('.item.payment.active')
+        .select('.item.payment .select.modpaie', 'PBX')
+        .click('.button.submit.process-order')
+        .wait(5000000)
+        .end()
+        .then(function (result) { done() })
+        .catch(done)
+    })
+  })
+})

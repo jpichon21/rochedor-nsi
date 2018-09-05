@@ -11,8 +11,35 @@ export const postLogin = (data) => {
     })
 }
 
+export const resetLogin = (data) => {
+  return window.fetch('/shop/password-request', {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify(data)
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.message }
+      return res.data
+    })
+}
+
 export const postRegister = (data) => {
   return window.fetch('/shop/register', {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify(data)
+  })
+    .then(res => {
+      if (!res.ok) { res.json().then(res => { throw res.error }) }
+      return res.json()
+    })
+}
+
+export const postEditCli = (data) => {
+  return window.fetch('/shop/editcli', {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',
@@ -63,13 +90,61 @@ export const postOrder = (data) => {
 }
 
 export const getData = (cartId, paysliv, destliv) => {
-  return window.fetch(`/xhr/order/data/${cartId}/${paysliv}/${destliv}`, {
+  return window.fetch(`/xhr/order/taxes/${cartId}/${destliv}/${paysliv}`, {
     method: 'GET',
     credentials: 'include'
   })
     .then(res => res.json())
     .then(res => {
       if (res.status !== 'ok') { throw res.message }
+      return res.data
+    })
+}
+
+export const checkZipcode = (zipcode, country, destliv) => {
+  return window.fetch(`/xhr/order/zipcode/${zipcode}/${country}/${destliv}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.error }
+      return res.data
+    })
+}
+
+export const checkVat = (number, country) => {
+  return window.fetch(`/xhr/order/vat/${number}/${country}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.error }
+      return res.data
+    })
+}
+
+export const getPBXCode = country => {
+  return window.fetch(`/xhr/order/pbx/${country}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.error }
+      return res.data
+    })
+}
+
+export const getPaypalCode = country => {
+  return window.fetch(`/xhr/order/paypal/${country}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.error }
       return res.data
     })
 }

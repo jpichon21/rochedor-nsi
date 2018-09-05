@@ -1,6 +1,7 @@
 const participant = {
   nom: '',
   prenom: '',
+  codcli: '',
   codco: '',
   ident: '',
   civil: '',
@@ -38,7 +39,7 @@ const delivery = {
   datliv: '',
   paysip: '',
   dateenreg: '',
-  cartId: 1
+  cartId: ''
 }
 
 const clone = (obj) => {
