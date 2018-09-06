@@ -446,7 +446,7 @@ class OrderController extends Controller
 
         $data = $this->getCartPrices($delivery['cartId'], $delivery['paysliv'], $delivery['destliv']);
 
-        $datpaie = new \DateTime();
+        $datpaie = new \DateTime('0000-00-00 00:00:00');
         $validpaie = $delivery['validpaie'];
         $destliv = $delivery['destliv'];
         if ($destliv === "Other") {
