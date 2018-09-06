@@ -391,9 +391,15 @@
         <input autocomplete="nope" class="input username" required type="username" value="<%= client.username %>" name="username" placeholder="{{ 'form.username' | trans | raw }}">
     </div>
     <% } %>
+    <% if (!client.codcli) { %>
     <div class="pure-u-1-2">
         <input autocomplete="nope" class="input password" type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
     </div>
+    <% } else { %>
+    <div class="pure-u-1-2">
+        <input autocomplete="nope" class="input password" type="password" name="password" placeholder="{{ 'form.keep-password' | trans | raw }}">
+    </div>
+    <% } %>
     <div class="pure-u-1-2">
         <input autocomplete="nope" class="input societe" type="text" value="<%= client.societe %>" name="societe" placeholder="{{ 'form.societe' | trans | raw }}">
     </div>

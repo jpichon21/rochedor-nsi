@@ -2292,5 +2292,11 @@
         <target>Nouvelle commande</target>
       </segment>
     </unit>
+    <unit id="vl4wLLv" name="form.keep-password">
+      <segment>
+        <source>form.keep-password</source>
+        <target>Garder l'ancien mot de passe</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
