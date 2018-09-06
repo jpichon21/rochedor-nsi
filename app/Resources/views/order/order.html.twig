@@ -377,10 +377,10 @@
         </select>
     </div>
     <div class="pure-u-1-2">
-        <input autocomplete="nope" class="input tel" type="number" value="<%= client.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
+        <input autocomplete="nope" class="input tel" type="text" pattern="([0-9][\s]?)+" value="<%= client.tel %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input autocomplete="nope" class="input mobil" type="number" value="<%= client.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
+        <input autocomplete="nope" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= client.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
         <input autocomplete="nope" class="input email" required type="email" value="<%= client.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
