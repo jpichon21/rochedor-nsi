@@ -159,29 +159,35 @@ function formatParticipant (data) {
 
 itemConnection.on('submit', '.panel.connection form', function (event) {
   event.preventDefault()
+  upLoader()
   postLogin({
     username: $('.username', this).val(),
     password: $('.password', this).val()
   }).then(user => {
+    downLoader()
     afterLogin(user, false)
   }).catch(() => {
+    downLoader()
     upFlashbag(i18n.trans('security.bad_credentials'))
   })
 })
 
 itemConnection.on('submit', '.panel.reset form', function (event) {
   event.preventDefault()
+  upLoader()
   resetLogin({
     email: $('.email', this).val(),
     firstname: $('.firstname', this).val(),
     lastname: $('.lastname', this).val()
   }).then(() => {
+    downLoader()
     upFlashbag(i18n.trans('security.check_inbox'))
   })
 })
 
 itemConnection.on('submit', '.panel.registration form', function (event) {
   validateClient(event, $(this), participant => {
+    upLoader()
     postRegister({
       client: {
         ...participant,
@@ -192,11 +198,14 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
         username: user.username,
         password: participant.password
       }).then(user => {
+        downLoader()
         afterLogin(user, true)
       }).catch(() => {
+        downLoader()
         upFlashbag(i18n.trans('security.username_exists'))
       })
     }).catch(error => {
+      downLoader()
       upFlashbag(error)
     })
   })
@@ -217,7 +226,11 @@ itemConnection.on('click', 'a', function (event) {
       $('.panel.reset', itemConnection).show()
       break
     case 'continue':
-      getLogin().then(user => afterLogin(user, false))
+      upLoader()
+      getLogin().then(user => {
+        downLoader()
+        afterLogin(user, false)
+      })
       break
     case 'disconnect':
       getLogout()
@@ -301,6 +314,7 @@ function validateClient (event, context, callback) {
 }
 
 itemCard.on('submit', '.panel.modify form', function (event) {
+  upLoader()
   validateClient(event, $(this), user => {
     postEditCli({
       client: {
@@ -308,6 +322,7 @@ itemCard.on('submit', '.panel.modify form', function (event) {
         rue: user.adresse
       }
     }).then(client => {
+      downLoader()
       _you = client
       updateYouRender()
       adlivUpdateForm('myAd')
@@ -316,6 +331,7 @@ itemCard.on('submit', '.panel.modify form', function (event) {
         changeItem(itemCard)
       })
     }).catch(error => {
+      downLoader()
       upFlashbag(error)
     })
   })
@@ -414,18 +430,22 @@ itemShipping.on('click', '.continue', function (event) {
   event.preventDefault()
   formAdliv.submit()
   formGift.submit()
+  upLoader()
   valideDelivery(_delivery).then(delivery => {
     getData(_cartId, delivery.destliv, delivery.paysliv).then(data => {
+      downLoader()
       _total = data
       updateCartRender()
       updateDeliveryRender()
       changeItem(itemPayment)
     }).catch(error => {
+      downLoader()
       if (error) {
         upFlashbag(error)
       }
     })
   }).catch(error => {
+    downLoader()
     if (error) {
       upFlashbag(error)
     }
@@ -454,8 +474,10 @@ function getPaysParsed (modpaie, pays) {
 
 itemPayment.on('submit', 'form.payment', function (event) {
   event.preventDefault()
+  upLoader()
   getPaysParsed(_delivery.modpaie, _delivery.paysliv).then(paysparsed => {
     postOrder(_delivery).then(res => {
+      downLoader()
       placePayment(
         res.modpaie,
         res.ttc,
@@ -467,6 +489,7 @@ itemPayment.on('submit', 'form.payment', function (event) {
         _locale
       )
     }).catch(error => {
+      downLoader()
       if (error) {
         upFlashbag(error)
       }
