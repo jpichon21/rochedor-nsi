@@ -3,6 +3,7 @@ import moment from 'moment'
 import { getParticipant, getDelivery } from './sample'
 import { placePayment } from './cart'
 import { upFlashbag } from './popup'
+import { upLoader, downLoader } from './loader'
 import I18n from './i18n'
 import {
   getLogin,
