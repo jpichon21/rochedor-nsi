@@ -167,12 +167,13 @@ class OrderController extends Controller
 
         $client = new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl");
         $result = $client->checkVat(array(
-          'countryCode' => $countryCode,
-          'vatNumber' => $vat
+            'countryCode' => $countryCode,
+            'vatNumber' => $vat
         ));
-        if ($result->{'valid'}) {
+        if ($result->valid) {
             return ['status' => 'ok'];
         }
+        exit();
         
         return ['status' => 'ko','error' => 'your tvaIntra didnt exist'];
     }
