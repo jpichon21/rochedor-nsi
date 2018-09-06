@@ -243,6 +243,13 @@ function validateTvaintra (tvaintra, country) {
   })
 }
 
+function validatePassword (password) {
+  if (password.length < 8 && password.length !== 0) {
+    return i18n.trans('security.password_too_small')
+  }
+  return true
+}
+
 itemCard.on('click', '.continue', function (event) {
   event.preventDefault()
   changeItem(itemShipping)
@@ -262,6 +269,11 @@ function validateClient (event, context, callback) {
   const participant = formatParticipant(data)
   const validatedPhone = validatePhone(participant.tel, participant.mobil)
   const validatedPro = validatePro(participant.societe, participant.tvaintra)
+  const validatedPassword = validatePassword(participant.password)
+  if (validatedPassword !== true) {
+    upFlashbag(validatedPassword)
+    return
+  }
   if (validatedPro) {
     if (validatedPhone) {
       if (participant.tvaintra !== '') {

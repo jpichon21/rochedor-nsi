@@ -193,39 +193,40 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
   const participant = formatParticipant(data)
   const validatedDate = validateDate(participant.datnaiss)
   const validatedPhone = validatePhone(participant.tel, participant.mobil)
-  if (participant.password.length < 6) {
-    downLoader()
-    upFlashbag(i18n.trans('security.password_too_small'))
-    return
-  }
-  if (validatedDate) {
-    if (validatedPhone) {
-      postRegister({
-        contact: participant
-      }).then(user => {
-        postLogin({
-          username: user.username,
-          password: participant.password
+  const validatedPassword = validatePassword(participant.password)
+  if (validatedPassword === true) {
+    if (validatedDate) {
+      if (validatedPhone) {
+        postRegister({
+          contact: participant
         }).then(user => {
-          afterLogin({
-            ...user,
-            transport: participant.transport
+          postLogin({
+            username: user.username,
+            password: participant.password
+          }).then(user => {
+            afterLogin({
+              ...user,
+              transport: participant.transport
+            })
+          }).catch(err => {
+            downLoader()
+            upFlashbag(i18n.trans(`${err}`))
           })
-        }).catch(err => {
+        }).catch(error => {
           downLoader()
-          upFlashbag(i18n.trans(`${err}`))
+          upFlashbag(i18n.trans(`${error}`))
         })
-      }).catch(error => {
+      } else {
         downLoader()
-        upFlashbag(i18n.trans(`${error}`))
-      })
+        upFlashbag(i18n.trans('form.message.phone_invalid'))
+      }
     } else {
       downLoader()
-      upFlashbag(i18n.trans('form.message.phone_invalid'))
+      upFlashbag(i18n.trans('form.message.date_invalid'))
     }
   } else {
     downLoader()
-    upFlashbag(i18n.trans('form.message.date_invalid'))
+    upFlashbag(validatedPassword)
   }
 })
 
@@ -302,6 +303,13 @@ function validateChild (participant) {
   })
 }
 
+function validatePassword (password) {
+  if (password.length < 8 && password.length !== 0) {
+    return i18n.trans('security.password_too_small')
+  }
+  return true
+}
+
 function callbackSubmit (event, context, action, phoneControl, callback) {
   event.preventDefault()
   upLoader()
@@ -309,38 +317,44 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
   const participant = formatParticipant(data)
   const validatedDate = validateDate(participant.datnaiss)
   const validatedPhone = phoneControl ? validatePhone(participant.tel, participant.mobil) : true
-  if (validatedDate) {
-    if (validatedPhone) {
-      validateChild(participant).then(participantValidated => {
-        postParticipant(participantValidated).then(res => {
-          const participantUpdated = { ...participantValidated, ...res }
-          downLoader()
-          callback(participantUpdated)
-          updateYouRender()
-          updateRegisteredRender()
-          updateParticipants()
-          $(`.panel.${action}`).slideUp(800, function () {
-            $(this).hide()
-            changeItem(itemParticipants)
+  const validatedPassword = validatePassword(participant.password)
+  if (validatedPassword === true) {
+    if (validatedDate) {
+      if (validatedPhone) {
+        validateChild(participant).then(participantValidated => {
+          postParticipant(participantValidated).then(res => {
+            const participantUpdated = { ...participantValidated, ...res }
+            downLoader()
+            callback(participantUpdated)
+            updateYouRender()
+            updateRegisteredRender()
+            updateParticipants()
+            $(`.panel.${action}`).slideUp(800, function () {
+              $(this).hide()
+              changeItem(itemParticipants)
+            })
+          }).catch(error => {
+            if (error) {
+              upFlashbag(i18n.trans(`${error}`))
+            }
           })
         }).catch(error => {
           if (error) {
+            downLoader()
             upFlashbag(i18n.trans(`${error}`))
           }
         })
-      }).catch(error => {
-        if (error) {
-          downLoader()
-          upFlashbag(i18n.trans(`${error}`))
-        }
-      })
+      } else {
+        downLoader()
+        upFlashbag(i18n.trans('form.message.phone_invalid'))
+      }
     } else {
       downLoader()
-      upFlashbag(i18n.trans('form.message.phone_invalid'))
+      upFlashbag(i18n.trans('form.message.date_invalid'))
     }
   } else {
     downLoader()
-    upFlashbag(i18n.trans('form.message.date_invalid'))
+    upFlashbag(validatedPassword)
   }
 }
 

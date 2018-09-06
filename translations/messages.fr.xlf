@@ -1965,7 +1965,7 @@
     <unit id="Wq4.if_" name="security.password_too_small">
       <segment>
         <source>security.password_too_small</source>
-        <target>Votre mot de passe doit faire au moins 6 caractères.</target>
+        <target>Votre mot de passe doit faire au moins 8 caractères.</target>
       </segment>
     </unit>
     <unit id="r6YZYDf" name="order.summary.title.cart">
