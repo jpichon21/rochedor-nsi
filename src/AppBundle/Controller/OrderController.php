@@ -423,7 +423,7 @@ class OrderController extends Controller
             $this->em->persist($order);
             $this->em->flush();
         } else {
-            $order->setDatpaie(new \DateTime())
+            $order->setDatpaie(new \DateTime('0000-00-00'))
             ->setValidpaie('error')
             ->setPaysIP($country);
             $this->em->persist($order);
