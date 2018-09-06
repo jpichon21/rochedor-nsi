@@ -374,10 +374,9 @@ class OrderController extends Controller
         $this->em->remove($cart);
         $this->em->flush();
         
-        $session->remove('cart');
-
+        
         if ($status === 'success') {
-            $this->paymentNotifyAction($method, $request, $paypalService);
+            $session->remove('cart');
         }
 
         return $this->render('order/payment-return.html.twig', [
@@ -408,6 +407,7 @@ class OrderController extends Controller
                 $ref = $request->get('item_number');
                 $status = $request->get('ipn_track_id');
                 $country = $request->get('residence_country');
+                $amount = (floatval($request->get('mc_gross')));
                 $this->logger->info($status);
             } else {
                 $this->logger->alert('Paypal IPN verification failed');
