@@ -3,6 +3,7 @@ import moment from 'moment'
 import { getParticipant, getDelivery } from './sample'
 import { placePayment } from './cart'
 import { upFlashbag } from './popup'
+import { upLoader, downLoader } from './loader'
 import I18n from './i18n'
 import {
   getLogin,
@@ -153,33 +154,40 @@ function formatParticipant (data) {
     participant[obj.name] = obj.value
   })
   participant.codcli = parseInt(participant.codcli)
-  participant.datnaiss = moment(participant.datnaiss, 'DD/MM/YYYY').format()
   return participant
 }
 
 itemConnection.on('submit', '.panel.connection form', function (event) {
   event.preventDefault()
+  upLoader()
   postLogin({
     username: $('.username', this).val(),
     password: $('.password', this).val()
   }).then(user => {
+    downLoader()
     afterLogin(user, false)
   }).catch(() => {
+    downLoader()
     upFlashbag(i18n.trans('security.bad_credentials'))
   })
 })
 
 itemConnection.on('submit', '.panel.reset form', function (event) {
   event.preventDefault()
+  upLoader()
   resetLogin({
-    email: $('.username', this).val()
+    email: $('.email', this).val(),
+    firstname: $('.firstname', this).val(),
+    lastname: $('.lastname', this).val()
   }).then(() => {
+    downLoader()
     upFlashbag(i18n.trans('security.check_inbox'))
   })
 })
 
 itemConnection.on('submit', '.panel.registration form', function (event) {
   validateClient(event, $(this), participant => {
+    upLoader()
     postRegister({
       client: {
         ...participant,
@@ -187,14 +195,17 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
       }
     }).then(user => {
       postLogin({
-        username: user.email,
+        username: user.username,
         password: participant.password
       }).then(user => {
+        downLoader()
         afterLogin(user, true)
       }).catch(() => {
-        upFlashbag(i18n.trans('security.user_exist'))
+        downLoader()
+        upFlashbag(i18n.trans('security.username_exists'))
       })
     }).catch(error => {
+      downLoader()
       upFlashbag(error)
     })
   })
@@ -215,7 +226,11 @@ itemConnection.on('click', 'a', function (event) {
       $('.panel.reset', itemConnection).show()
       break
     case 'continue':
-      getLogin().then(user => afterLogin(user, false))
+      upLoader()
+      getLogin().then(user => {
+        downLoader()
+        afterLogin(user, false)
+      })
       break
     case 'disconnect':
       getLogout()
@@ -223,10 +238,6 @@ itemConnection.on('click', 'a', function (event) {
   }
   changeItem(itemConnection)
 })
-
-function validateDate (date) {
-  return moment(date).isValid()
-}
 
 function validatePhone (phone, mobile) {
   return !(phone === '' && mobile === '')
@@ -246,6 +257,13 @@ function validateTvaintra (tvaintra, country) {
   })
 }
 
+function validatePassword (password) {
+  if (password.length < 8 && password.length !== 0) {
+    return i18n.trans('security.password_too_small')
+  }
+  return true
+}
+
 itemCard.on('click', '.continue', function (event) {
   event.preventDefault()
   changeItem(itemShipping)
@@ -263,39 +281,40 @@ function validateClient (event, context, callback) {
   event.preventDefault()
   const data = context.serializeArray()
   const participant = formatParticipant(data)
-  const validatedDate = validateDate(participant.datnaiss)
   const validatedPhone = validatePhone(participant.tel, participant.mobil)
   const validatedPro = validatePro(participant.societe, participant.tvaintra)
-  if (validatedDate) {
-    if (validatedPro) {
-      if (validatedPhone) {
-        if (participant.tvaintra !== '') {
-          validateTvaintra(participant.tvaintra, participant.pays).then(() => {
-            callback(participant)
-          }).catch(() => {
-            upFlashbag(i18n.trans('form.message.tvaintra_invalid'))
-          })
-        } else {
-          return new Promise((resolve, reject) => {
-            checkZipcode(participant.pays, participant.cp, 'myAd').then(() => {
-              resolve(callback(participant))
-            }).catch(() => {
-              upFlashbag(i18n.trans('form.message.zipcode_invalid'))
-            })
-          })
-        }
+  const validatedPassword = validatePassword(participant.password)
+  if (validatedPassword !== true) {
+    upFlashbag(validatedPassword)
+    return
+  }
+  if (validatedPro) {
+    if (validatedPhone) {
+      if (participant.tvaintra !== '') {
+        validateTvaintra(participant.tvaintra, participant.pays).then(() => {
+          callback(participant)
+        }).catch(() => {
+          upFlashbag(i18n.trans('form.message.tvaintra_invalid'))
+        })
       } else {
-        upFlashbag(i18n.trans('form.message.phone_invalid'))
+        return new Promise((resolve, reject) => {
+          checkZipcode(participant.pays, participant.cp, 'myAd').then(() => {
+            resolve(callback(participant))
+          }).catch(() => {
+            upFlashbag(i18n.trans('form.message.zipcode_invalid'))
+          })
+        })
       }
     } else {
-      upFlashbag(i18n.trans('form.message.pro_invalid'))
+      upFlashbag(i18n.trans('form.message.phone_invalid'))
     }
   } else {
-    upFlashbag(i18n.trans('form.message.date_invalid'))
+    upFlashbag(i18n.trans('form.message.pro_invalid'))
   }
 }
 
 itemCard.on('submit', '.panel.modify form', function (event) {
+  upLoader()
   validateClient(event, $(this), user => {
     postEditCli({
       client: {
@@ -303,6 +322,7 @@ itemCard.on('submit', '.panel.modify form', function (event) {
         rue: user.adresse
       }
     }).then(client => {
+      downLoader()
       _you = client
       updateYouRender()
       adlivUpdateForm('myAd')
@@ -311,6 +331,7 @@ itemCard.on('submit', '.panel.modify form', function (event) {
         changeItem(itemCard)
       })
     }).catch(error => {
+      downLoader()
       upFlashbag(error)
     })
   })
@@ -409,18 +430,22 @@ itemShipping.on('click', '.continue', function (event) {
   event.preventDefault()
   formAdliv.submit()
   formGift.submit()
+  upLoader()
   valideDelivery(_delivery).then(delivery => {
     getData(_cartId, delivery.destliv, delivery.paysliv).then(data => {
+      downLoader()
       _total = data
       updateCartRender()
       updateDeliveryRender()
       changeItem(itemPayment)
     }).catch(error => {
+      downLoader()
       if (error) {
         upFlashbag(error)
       }
     })
   }).catch(error => {
+    downLoader()
     if (error) {
       upFlashbag(error)
     }
@@ -449,8 +474,10 @@ function getPaysParsed (modpaie, pays) {
 
 itemPayment.on('submit', 'form.payment', function (event) {
   event.preventDefault()
+  upLoader()
   getPaysParsed(_delivery.modpaie, _delivery.paysliv).then(paysparsed => {
     postOrder(_delivery).then(res => {
+      downLoader()
       placePayment(
         res.modpaie,
         res.ttc,
@@ -462,6 +489,7 @@ itemPayment.on('submit', 'form.payment', function (event) {
         _locale
       )
     }).catch(error => {
+      downLoader()
       if (error) {
         upFlashbag(error)
       }

@@ -1,4 +1,4 @@
-const { environment } = require(`./environment.${process.env.NODE_ENV}`)
+const { environment } = require(`./environment.${process.env.PAYMENT_ENV}`)
 const Sha512 = require('sha512')
 const Buffer = require('buffer').Buffer
 

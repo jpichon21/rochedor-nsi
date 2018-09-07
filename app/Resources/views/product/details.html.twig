@@ -77,7 +77,7 @@
         <div class="left">
           <div class="line">
             <b>{{ 'editions.technicalreview.dateparution' | trans }}</b>
-            <span>{{ product.dateparution }}</span>
+            <span>{{ product.dateparution|localizeddate('medium', 'none', app.request.locale) }}</span>
           </div>
           <div class="line">
             <b>{{ 'editions.technicalreview.isbn' | trans }}</b>

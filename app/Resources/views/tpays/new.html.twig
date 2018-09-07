@@ -1,9 +1,8 @@
 {% extends 'base-admin.html.twig' %}
 
 {% block body %}
-    <h1>Shipping creation</h1>
-    {% form_theme form 'jquery.collection.html.twig' %}
-     
+    <h1>Tpay creation</h1>
+
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" value="Create" />
@@ -11,8 +10,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('admin_shipping_index') }}">Back to the list</a>
+            <a href="{{ path('crud_tpays_index') }}">Back to the list</a>
         </li>
     </ul>
-
 {% endblock %}

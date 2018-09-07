@@ -14,7 +14,7 @@ security:
         shop_db_provider:
             entity:
                 class: AppBundle:Client
-                property: email
+                property: username
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN

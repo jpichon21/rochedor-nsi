@@ -18,3 +18,4 @@ parameters:
     email_from_name: 
     email_from_address: 
     kiwi_host:
+    payment_env: 'dev'

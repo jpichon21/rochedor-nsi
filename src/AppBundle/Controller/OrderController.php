@@ -167,12 +167,13 @@ class OrderController extends Controller
 
         $client = new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl");
         $result = $client->checkVat(array(
-          'countryCode' => $countryCode,
-          'vatNumber' => $vat
+            'countryCode' => $countryCode,
+            'vatNumber' => $vat
         ));
-        if ($result->{'valid'}) {
+        if ($result->valid) {
             return ['status' => 'ok'];
         }
+        exit();
         
         return ['status' => 'ko','error' => 'your tvaIntra didnt exist'];
     }
@@ -264,7 +265,7 @@ class OrderController extends Controller
                         $priceIncludeTaxes = $this->getProductPrice($product, $tax->getRate());
                     }
                     
-                    $data['product'][$k]['price'] = intval($product->getPrixht());
+                    $data['product'][$k]['price'] = floatval($product->getPrixht());
                 }
 
                 $data['totalPrice'] = round($data['totalPrice'] + $data['product'][$k]['price'], 2);
@@ -287,7 +288,7 @@ class OrderController extends Controller
         $data['packagingWeight'] = $packagingWeight;
         $data['weightOrder'] = $totalWeight;
         $data['totalWeight'] = $totalWeight + $packagingWeight;
-        $data['shippingPriceIT'] = intval($shippingPriceIT);
+        $data['shippingPriceIT'] = $shippingPriceIT;
         $data['consumerPriceIT'] = $data['shippingPriceIT'] + $data['totalPriceIT'];
         $data['consumerPrice'] = $data['shippingPriceIT'] + $data['totalPrice'];
 
@@ -370,14 +371,12 @@ class OrderController extends Controller
         $session = new Session();
         $cartId = $session->get('cart');
         $cart = $this->cartRepository->find($cartId);
-
-        $this->em->remove($cart);
-        $this->em->flush();
         
-        $session->remove('cart');
-
+        
         if ($status === 'success') {
-            $this->paymentNotifyAction($method, $request, $paypalService);
+            $this->em->remove($cart);
+            $this->em->flush();
+            $session->remove('cart');
         }
 
         return $this->render('order/payment-return.html.twig', [
@@ -403,11 +402,14 @@ class OrderController extends Controller
             $country = $request->get('Pays');
             $amount = ($request->get('Amount')/100);
         } elseif ($method === 'paypal') {
-            $paypalService->useSandbox();
+            if ($this->getParameter('payment_env') === 'dev') {
+                $paypalService->useSandbox();
+            }
             if ($paypalService->verifyIPN()) {
                 $ref = $request->get('item_number');
                 $status = $request->get('ipn_track_id');
                 $country = $request->get('residence_country');
+                $amount = (floatval($request->get('mc_gross')));
                 $this->logger->info($status);
             } else {
                 $this->logger->alert('Paypal IPN verification failed');
@@ -423,7 +425,7 @@ class OrderController extends Controller
             $this->em->persist($order);
             $this->em->flush();
         } else {
-            $order->setDatpaie(new \DateTime())
+            $order->setDatpaie(new \DateTime('0000-00-00'))
             ->setValidpaie('error')
             ->setPaysIP($country);
             $this->em->persist($order);
@@ -446,7 +448,7 @@ class OrderController extends Controller
 
         $data = $this->getCartPrices($delivery['cartId'], $delivery['paysliv'], $delivery['destliv']);
 
-        $datpaie = new \DateTime();
+        $datpaie = new \DateTime('0000-00-00 00:00:00');
         $validpaie = $delivery['validpaie'];
         $destliv = $delivery['destliv'];
         if ($destliv === "Other") {
@@ -478,9 +480,7 @@ class OrderController extends Controller
         $priceit = $data['consumerPriceIT'];
         $vat = $data['vat'];
 
-        $datliv = new \Datetime($delivery['datliv']);
         $paysip = $delivery['paysip'];
-        $dateenreg = new \Datetime($delivery['dateenreg']);
 
         $em = $this->getDoctrine()->getManager();
         $order = new Commande;
@@ -501,9 +501,8 @@ class OrderController extends Controller
         $order->setPoids($weight);
         $order->setPort($shippingPrice);
         $order->setPromo($promo);
-        $order->setDatliv($datliv);
         $order->setPaysip($paysip);
-        $order->setDatenreg($dateenreg);
+        $order->setDatenreg(new \Datetime());
         $order->setMemocmd($memoCmd);
     
         $em->persist($order);

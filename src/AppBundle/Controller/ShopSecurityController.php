@@ -120,8 +120,8 @@ class ShopSecurityController extends Controller
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide client object']);
         }
         
-        if ($repository->findClientByEmail($clientReq['email'])) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'Email already in use']);
+        if ($repository->findClientByUsername($clientReq['username'])) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);
         }
 
         $client = new Client();
@@ -131,6 +131,7 @@ class ShopSecurityController extends Controller
         ->setCivil($clientReq['civil'])
         ->setNom($clientReq['nom'])
         ->setPrenom($clientReq['prenom'])
+        ->setUsername($clientReq['username'])
         ->setRue($clientReq['rue'])
         ->setAdresse($clientReq['adresse'])
         ->setCp($clientReq['cp'])
@@ -151,6 +152,7 @@ class ShopSecurityController extends Controller
 
         return new JsonResponse([
             'codcli' => $client->getCodcli(),
+            'username' => $client->getUsername(),
             'civil' => $client->getCivil(),
             'nom' => $client->getNom(),
             'prenom' => $client->getPrenom(),
@@ -235,35 +237,40 @@ class ShopSecurityController extends Controller
     public function passwordRequestAction(Request $request, ClientRepository $repository)
     {
         $email = $request->get('email');
-        if (!$email) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'You must provide email address']);
+        $lastname = $request->get('lastname');
+        $firstname = $request->get('firstname');
+        if (!$email || !$lastname || !$firstname) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.password_request.missing_infos']);
+        }
+
+        if (!$clients = $repository->findClientByInfos($email, $lastname, $firstname)) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.password_request.not_found']);
         }
         
-        if (!$client = $repository->findClientByEmail($email)) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'Email not found']);
-        }
-        $token = sha1(random_bytes(15));
         $expiresAt = new \DateTime();
         $expiresAt->add(new \DateInterval('PT4H'));
-        $client->setResetToken($token)
-        ->setResetTokenExpiresAt($expiresAt);
-        
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($client);
-        $em->flush();
-        $link = $this->generateUrl(
-            'shop-password-reset',
-            array('token' => $token),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-        $this->mailer->send(
-            $email,
-            $this->translator->trans('security.reset_password_request.subject'),
-            $this->renderView(
-                'emails/security-reset-password-request-'.$request->getLocale().'.html.twig',
-                ['link' => $link]
-            )
-        );
+        foreach ($clients as $client) {
+            $token = sha1(random_bytes(15));
+            $client->setResetToken($token)
+            ->setResetTokenExpiresAt($expiresAt);
+            
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($client);
+            $em->flush();
+            $link = $this->generateUrl(
+                'shop-password-reset',
+                array('token' => $token),
+                UrlGeneratorInterface::ABSOLUTE_URL
+            );
+            $this->mailer->send(
+                $email,
+                $this->translator->trans('security.reset_password_request.subject'),
+                $this->renderView(
+                    'emails/security-reset-password-request-'.$request->getLocale().'.html.twig',
+                    ['link' => $link, 'contact' => $client]
+                )
+            );
+        }
         return new JsonResponse(['status' => 'ok', 'message' => 'The email has been sent']);
     }
     /**
