@@ -371,12 +371,11 @@ class OrderController extends Controller
         $session = new Session();
         $cartId = $session->get('cart');
         $cart = $this->cartRepository->find($cartId);
-
-        $this->em->remove($cart);
-        $this->em->flush();
         
         
         if ($status === 'success') {
+            $this->em->remove($cart);
+            $this->em->flush();
             $session->remove('cart');
         }
 
