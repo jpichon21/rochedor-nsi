@@ -110,21 +110,21 @@ class ShippingRepository
             WHERE s.countries LIKE :country AND s.weight > :weight 
             ORDER BY s.weight'
         )
-        ->setParameters(['country' => 'a:0:{}', 'weight' => $weight])
+        ->setParameters(['country' => '[]', 'weight' => $weight])
         ->setMaxResults(1);
         $result = $query->getOneOrNullResult();
         if ($result) {
             return $result;
         }
 
-        // Try to find the matching weight's price for outter (empty array)
+        // Find the maximum weight's price for outter (empty array)
         $query = $this->entityManager->createQuery(
             'SELECT s.price 
             FROM AppBundle\Entity\Shipping s 
             WHERE s.countries LIKE :country
-            ORDER BY s.weight DESC'
+            ORDER BY s.weight DESC, s.price DESC'
         )
-        ->setParameter('country', 'a:0:{}')
+        ->setParameter('country', '[]')
         ->setMaxResults(1);
         $result = $query->getOneOrNullResult();
         if ($result) {

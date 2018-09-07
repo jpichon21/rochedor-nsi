@@ -1344,7 +1344,7 @@
         <target>Livraison</target>
       </segment>
     </unit>
-    <unit id="EuDIPVk" name="select.ad.myAd">
+    <unit id=".5a_NkK" name="select.ad.myAd">
       <segment>
         <source>select.ad.myAd</source>
         <target>Mon adresse</target>
@@ -1431,7 +1431,7 @@
     <unit id="7o3eWsz" name="order.choose.modpaie">
       <segment>
         <source>order.choose.modpaie</source>
-        <target>Choisir mon mode de paiment</target>
+        <target>Choisir mon mode de paiement</target>
       </segment>
     </unit>
     <unit id="CIlu59y" name="form.choose.modpaie">
@@ -1747,7 +1747,7 @@
     <unit id="PG6DQU." name="return.to.calendar">
       <segment>
         <source>return.to.calendar</source>
-        <target>return.to.calendar</target>
+        <target>Retourner au calendrier</target>
       </segment>
     </unit>
     <unit id="UVJ5Die" name="calendar">
@@ -1915,7 +1915,7 @@
     <unit id="dSfs_7v" name="form.message.no_transport">
       <segment>
         <source>form.message.no_transport</source>
-        <target>n'a pas de mode de transport</target>
+        <target>n'a pas de mod de transport</target>
       </segment>
     </unit>
     <unit id="REqCb2s" name="participant_not_valid">
@@ -1965,7 +1965,7 @@
     <unit id="Wq4.if_" name="security.password_too_small">
       <segment>
         <source>security.password_too_small</source>
-        <target>Votre mot de passe doit faire au moins 6 caractères.</target>
+        <target>Votre mot de passe doit faire au moins 8 caractères.</target>
       </segment>
     </unit>
     <unit id="r6YZYDf" name="order.summary.title.cart">
@@ -2169,7 +2169,7 @@
     <unit id="EY4TYVa" name="order.registration.one.title.connection">
       <segment>
         <source>order.registration.one.title.connection</source>
-        <target>Connection</target>
+        <target>Connexion</target>
       </segment>
     </unit>
     <unit id="xglinNC" name="order.registration.one.title.registration">
@@ -2232,7 +2232,7 @@
         <target>Dont TVA</target>
       </segment>
     </unit>
-    <unit id="NL2xyyC" name="table.label.shippingPriceIT">
+    <unit id="1oH_yFe" name="table.label.shippingPriceIT">
       <segment>
         <source>table.label.shippingPriceIT</source>
         <target>Frais d'expédition</target>
@@ -2244,12 +2244,6 @@
         <target>Total TTC</target>
       </segment>
     </unit>
-    <unit id="thE5KNk" name="form.reinit">
-      <segment>
-        <source>form.reinit</source>
-        <target>Réinitialiser</target>
-      </segment>
-    </unit>
     <unit id="AOdX9Pe" name="order-return.title">
       <segment>
         <source>order-return.title</source>
@@ -2259,13 +2253,49 @@
     <unit id="bI8gjQ5" name="order-return.success">
       <segment>
         <source>order-return.success</source>
-        <target><![CDATA[Votre commande a bien été enregistrée. Vous recevrez un mail de confirmation dans quelques minutes. Retour aux <a href="%link%">collections</a>.]]></target>
+        <target><![CDATA[Votre commande a bien été enregistrée.<br>Vous recevrez un mail de confirmation dans quelques minutes.<br>Retour aux <a href="%link%">collections</a>.]]></target>
       </segment>
     </unit>
     <unit id="VbHIGnV" name="order-return.cancel">
       <segment>
         <source>order-return.cancel</source>
-        <target><![CDATA[Un problème est survenu lors de votre commande. Veuillez retourner au <a href="%link%">panier</a>.]]></target>
+        <target><![CDATA[Un problème est survenu lors de votre commande.<br>Veuillez retourner au <a href="%link%">panier</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="I45NZDr" name="form.firstname">
+      <segment>
+        <source>form.firstname</source>
+        <target>Prénom</target>
+      </segment>
+    </unit>
+    <unit id="pof_qvc" name="form.lastname">
+      <segment>
+        <source>form.lastname</source>
+        <target>Nom</target>
+      </segment>
+    </unit>
+    <unit id="pjSqg8z" name="form.message.zipcode_invalid">
+      <segment>
+        <source>form.message.zipcode_invalid</source>
+        <target>Le code postal ne correspond pas au pays sélectionné</target>
+      </segment>
+    </unit>
+    <unit id="BzVNXKm" name="form.message.tvaintra_invalid">
+      <segment>
+        <source>form.message.tvaintra_invalid</source>
+        <target>Le numéro de TVA n'est pas valide</target>
+      </segment>
+    </unit>
+    <unit id="W6ukKjO" name="order.notify.client.subject">
+      <segment>
+        <source>order.notify.client.subject</source>
+        <target>Nouvelle commande</target>
+      </segment>
+    </unit>
+    <unit id="vl4wLLv" name="form.keep-password">
+      <segment>
+        <source>form.keep-password</source>
+        <target>Garder l'ancien mot de passe</target>
       </segment>
     </unit>
   </file>

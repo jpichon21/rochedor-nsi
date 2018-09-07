@@ -284,6 +284,41 @@ class Produit
     public function __construct()
     {
         $this->taxes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->refprd = 0;
+        $this->produitcourt = '';
+        $this->produitlong = '';
+        $this->codrub = 0;
+        $this->codb = 0;
+        $this->isbn = 0;
+        $this->ean = 0;
+        $this->serie = '';
+        $this->auteur = '';
+        $this->editeur = '';
+        $this->typprd = '';
+        $this->dateparution = new \DateTime();
+        $this->prix = 0;
+        $this->prixht = 0;
+        $this->promo = 0;
+        $this->poids = 0;
+        $this->etatprd = '';
+        $this->largeur = 0;
+        $this->hauteur = 0;
+        $this->epaisseur = 0;
+        $this->nbpage = 0;
+        $this->stock = 0;
+        $this->hide = false;
+        $this->adimg = '';
+        $this->adimg2 = '';
+        $this->adimg3 = '';
+        $this->urlbook = '';
+        $this->pageprd = '';
+        $this->memoprd = '';
+        $this->presentation = '';
+        $this->enreg = '';
+        $this->rang = 0;
+        $this->maj = new \DateTime();
+        $this->nouveaute = false;
+        $this->themes = '';
     }
 
     /**

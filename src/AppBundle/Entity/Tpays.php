@@ -91,4 +91,80 @@ class Tpays
     {
         return $this->codpostaux;
     }
+
+    /**
+     * Set nompays.
+     *
+     * @param string $nompays
+     *
+     * @return Tpays
+     */
+    public function setNompays($nompays)
+    {
+        $this->nompays = $nompays;
+
+        return $this;
+    }
+
+    /**
+     * Set codpayspbx.
+     *
+     * @param string $codpayspbx
+     *
+     * @return Tpays
+     */
+    public function setCodpayspbx($codpayspbx)
+    {
+        $this->codpayspbx = $codpayspbx;
+
+        return $this;
+    }
+
+    /**
+     * Get codpayspbx.
+     *
+     * @return string
+     */
+    public function getCodpayspbx()
+    {
+        return $this->codpayspbx;
+    }
+
+    /**
+     * Set codpayspaypal.
+     *
+     * @param string $codpayspaypal
+     *
+     * @return Tpays
+     */
+    public function setCodpayspaypal($codpayspaypal)
+    {
+        $this->codpayspaypal = $codpayspaypal;
+
+        return $this;
+    }
+
+    /**
+     * Get codpayspaypal.
+     *
+     * @return string
+     */
+    public function getCodpayspaypal()
+    {
+        return $this->codpayspaypal;
+    }
+
+    /**
+     * Set codpostaux.
+     *
+     * @param json $codpostaux
+     *
+     * @return Tpays
+     */
+    public function setCodpostaux($codpostaux)
+    {
+        $this->codpostaux = $codpostaux;
+
+        return $this;
+    }
 }
