@@ -170,23 +170,24 @@ class Commande
 
     public function __construct()
     {
-        $this->montant = '';
+        $this->montant = 0;
         $this->modpaie = '';
         $this->modliv = '';
-        $this->datpaie = null;
+        $this->datpaie = new \DateTime('0000-00-00');
         $this->validpaie = '';
         $this->destliv = '';
         $this->adliv = '';
         $this->paysliv = '';
-        $this->ttc = '';
-        $this->tva = '';
-        $this->poids = '';
-        $this->port = '';
-        $this->promo = '';
+        $this->ttc = 0;
+        $this->tva = 0;
+        $this->poids = 0;
+        $this->port = 0;
+        $this->promo = 0;
         $this->textcmd = '';
         $this->memocmd = '';
-        $this->datliv = '';
+        $this->datliv = new \DateTime('0000-00-00');
         $this->paysip = '';
+        $this->datenreg = new \DateTime('0000-00-00');
     }
 
     /**

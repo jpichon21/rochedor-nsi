@@ -481,9 +481,7 @@ class OrderController extends Controller
         $priceit = $data['consumerPriceIT'];
         $vat = $data['vat'];
 
-        $datliv = new \Datetime($delivery['datliv']);
         $paysip = $delivery['paysip'];
-        $dateenreg = new \Datetime($delivery['dateenreg']);
 
         $em = $this->getDoctrine()->getManager();
         $order = new Commande;
@@ -504,9 +502,8 @@ class OrderController extends Controller
         $order->setPoids($weight);
         $order->setPort($shippingPrice);
         $order->setPromo($promo);
-        $order->setDatliv($datliv);
         $order->setPaysip($paysip);
-        $order->setDatenreg($dateenreg);
+        $order->setDatenreg(new \Datetime());
         $order->setMemocmd($memoCmd);
     
         $em->persist($order);
