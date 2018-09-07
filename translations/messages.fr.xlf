@@ -2253,13 +2253,13 @@
     <unit id="bI8gjQ5" name="order-return.success">
       <segment>
         <source>order-return.success</source>
-        <target><![CDATA[Votre commande a bien été enregistrée. Vous recevrez un mail de confirmation dans quelques minutes. Retour aux <a href="%link%">collections</a>.]]></target>
+        <target><![CDATA[Votre commande a bien été enregistrée.<br>Vous recevrez un mail de confirmation dans quelques minutes.<br>Retour aux <a href="%link%">collections</a>.]]></target>
       </segment>
     </unit>
     <unit id="VbHIGnV" name="order-return.cancel">
       <segment>
         <source>order-return.cancel</source>
-        <target><![CDATA[Un problème est survenu lors de votre commande. Veuillez retourner au <a href="%link%">panier</a>.]]></target>
+        <target><![CDATA[Un problème est survenu lors de votre commande.<br>Veuillez retourner au <a href="%link%">panier</a>.]]></target>
       </segment>
     </unit>
     <unit id="I45NZDr" name="form.firstname">
