@@ -31,7 +31,8 @@ task :deploy => :environment do
 			command "yarn install"
 			command "ea-php72 bin/console assets:install --env=prod"
 			command "chmod +x ./node_modules/.bin/encore"
-			command "./node_modules/.bin/encore production"
+			command "./node_modules/.bin/encore production --config-name configDev" if ENV['on'] == 'dev' || ENV['on'] == 'staging'
+			command "./node_modules/.bin/encore production --config-name configProd" if ENV['on'] == 'prod'
 			command "find #{fetch(:deploy_to)} -type d -exec chmod 755 {} +"
 			command "find #{fetch(:deploy_to)} -type f -exec chmod 644 {} +"
 			command "chown -R #{account}:#{account} #{fetch(:deploy_to)}"

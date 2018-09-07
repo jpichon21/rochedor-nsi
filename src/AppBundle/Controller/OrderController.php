@@ -403,7 +403,9 @@ class OrderController extends Controller
             $country = $request->get('Pays');
             $amount = ($request->get('Amount')/100);
         } elseif ($method === 'paypal') {
-            $paypalService->useSandbox();
+            if ($this->getParameter('payment_env') === 'dev') {
+                $paypalService->useSandbox();
+            }
             if ($paypalService->verifyIPN()) {
                 $ref = $request->get('item_number');
                 $status = $request->get('ipn_track_id');
