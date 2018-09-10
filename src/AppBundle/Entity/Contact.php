@@ -472,6 +472,7 @@ class Contact implements UserInterface, \Serializable
         $this->datletoca = new \DateTime('0000-00-00');
         $this->datletpaper = new \DateTime('0000-00-00');
         $this->datletmail = new \DateTime('0000-00-00');
+        $this->dataut16 = new \DateTime('0000-00-00');
         $this->resetToken = '';
         $this->resetTokenExpiresAt = null;
     }
