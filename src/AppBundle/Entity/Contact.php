@@ -419,6 +419,13 @@ class Contact implements UserInterface, \Serializable
      */
     private $resetTokenExpiresAt;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="NewFich", type="boolean", nullable=false)
+     */
+    private $newFich;
+
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
@@ -473,6 +480,7 @@ class Contact implements UserInterface, \Serializable
         $this->datletmail = new \DateTime('0000-00-00');
         $this->dataut16 = new \DateTime('0000-00-00');
         $this->resetToken = '';
+        $this->newFich = true;
         $this->resetTokenExpiresAt = new \DateTime('0000-00-00');
     }
 
@@ -1767,5 +1775,29 @@ class Contact implements UserInterface, \Serializable
     public function getResetTokenExpiresAt()
     {
         return $this->resetTokenExpiresAt;
+    }
+
+    /**
+     * Set newFich.
+     *
+     * @param bool $newFich
+     *
+     * @return Contact
+     */
+    public function setNewFich($newFich)
+    {
+        $this->newFich = $newFich;
+
+        return $this;
+    }
+
+    /**
+     * Get newFich.
+     *
+     * @return bool
+     */
+    public function getNewFich()
+    {
+        return $this->newFich;
     }
 }
