@@ -298,7 +298,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="EnregCo", type="datetime")
+     * @ORM\Column(name="EnregCo", type="datetime", options={"default" : "CURRENT_TIMESTAMP"})
      */
     private $enregco;
 
@@ -323,7 +323,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Region", type="string", length=200)
+     * @ORM\Column(name="Region", type="string", length=50)
      */
     private $region;
 
@@ -337,7 +337,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255, unique=true, nullable=true)
+     * @ORM\Column(name="username", type="string", length=50, unique=true, nullable=true)
      * @Expose
      */
     private $username;
