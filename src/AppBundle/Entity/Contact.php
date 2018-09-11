@@ -337,7 +337,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     * @ORM\Column(name="username", type="string", length=255, unique=true, nullable=true)
      * @Expose
      */
     private $username;
@@ -468,7 +468,6 @@ class Contact implements UserInterface, \Serializable
         $this->password = '';
         $this->region = '';
         $this->plainpassword = '';
-        $this->username = '';
         $this->datletoca = new \DateTime('0000-00-00');
         $this->datletpaper = new \DateTime('0000-00-00');
         $this->datletmail = new \DateTime('0000-00-00');
