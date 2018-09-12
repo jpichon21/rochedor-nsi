@@ -36,7 +36,7 @@ task :deploy => :environment do
 			command "find #{fetch(:deploy_to)} -type d -exec chmod 755 {} +"
 			command "find #{fetch(:deploy_to)} -type f -exec chmod 644 {} +"
 			command "chown -R #{account}:#{account} #{fetch(:deploy_to)}"
-			command "ea-php72 bin/console doctrine:migrations:migrate --dry-run --write-sql -n"
+			command "ea-php72 bin/console doctrine:schema:update --dump-sql"
 		end
 	end
 end
