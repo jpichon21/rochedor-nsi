@@ -22,6 +22,11 @@ use AppBundle\Form\ContactType;
 
 class ContactController extends Controller
 {
+    const SITES = [
+        "ro" => "Roche d'Or",
+        "ft" => "Fontanilles"
+    ];
+
     /**
     * @var Mailer
     */
@@ -43,13 +48,13 @@ class ContactController extends Controller
     }
 
     /**
-    * @Route("/contact-ro", name="contact-ro")
-    * @Route("/kontakt-ro", name="kontakt-ro")
-    * @Route("/contactar-ro", name="contactar-ro")
-    * @Route("/contact-us-ro", name="contact-us-ro")
-    * @Route("/contáctenos-ro", name="contáctenos-ro")
+    * @Route("{_locale}/contact-{site}", name="contact")
+    * @Route("{_locale}/kontakt-{site}", name="kontakt")
+    * @Route("{_locale}/contactar-{site}", name="contactar")
+    * @Route("{_locale}/contact-us-{site}", name="contact-us")
+    * @Route("{_locale}/contactenos-{site}", name="contactenos")
     */
-    public function showContactRo(Request $request)
+    public function showContactRo(Request $request, $site)
     {
         $data = [];
         $form = $this->createForm(ContactType::class, $data);
@@ -57,15 +62,17 @@ class ContactController extends Controller
         $form->handleRequest($request);
         $path = $request->getPathInfo();
         $name = substr($path, 1);
-        $contentDocument = $this->pageService->getContent($name);
+        $page = $this->pageService->getContentFromRequest($request);
+        $availableLocales = $this->pageService->getAvailableLocales($page);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
             $mail = $form->getData();
-            $mail['site'] = "Roche d'Or";
+            $mail['site'] = $this::SITES[$site];
 
             $this->mailer->send(
-                'secretariat@rochedor.fr',
-                $this->translator->trans('contact.ro.foradmin.subject').' '.$mail['name'].' '.$mail['surname'],
+                $this->getParameter('email_contact_address'),
+                $this->translator->trans('contact.'.$site.'.foradmin.subject').' '.$mail['name'].' '.$mail['surname'],
                 $this->renderView('emails/contact/contact-admin.html.twig', [
                     'mail' => $mail
                     ])
@@ -73,72 +80,23 @@ class ContactController extends Controller
                 
             $this->mailer->send(
                 $mail['email'],
-                $this->translator->trans('contact.ro.forclient.subject'),
+                $this->translator->trans('contact.'.$site.'.forclient.subject'),
                 $this->renderView('emails/contact/locale/contact-client-'.$request->getLocale().'.html.twig', [
                     'mail' => $mail
                     ])
             );
 
             return $this->render('default/contact-success.html.twig', array(
-                'page' => $contentDocument,
-                'availableLocales' => $this->pageService->getAvailableLocales($contentDocument)
+                'page' => $page,
+                'availableLocales' => $availableLocales
             ));
         }
 
         return $this->render('default/contact.html.twig', array(
             'form' => $form->createView(),
-            'page' => $contentDocument,
-            'availableLocales' => $this->pageService->getAvailableLocales($contentDocument)
-        ));
-    }
-
-    /**
-    * @Route("/contact-ft", name="contact-ft")
-    * @Route("/kontakt-ft", name="kontakt-ft")
-    * @Route("/contactar-ft", name="contactar-ft")
-    * @Route("/contact-us-ft", name="contact-us-ft")
-    * @Route("/contáctenos-ft", name="contáctenos-ft")
-    */
-    public function showContactFont(Request $request)
-    {
-        
-        $data = [];
-        $form = $this->createForm(ContactType::class, $data);
-
-        $form->handleRequest($request);
-        $path = $request->getPathInfo();
-        $name = substr($path, 1);
-        $contentDocument = $this->pageService->getContent($name);
-        if ($form->isSubmitted() && $form->isValid() && $this->captchaverify($request->get('g-recaptcha-response'))) {
-            $mail = $form->getData();
-            $mail['site'] = "Fontanilles";
-            
-            $this->mailer->send(
-                'secretariat@rochedor.fr',
-                $this->translator->trans('contact.font.foradmin.subject').' '.$mail['name'].' '.$mail['surname'],
-                $this->renderView('emails/contact/contact-admin.html.twig', [
-                    'mail' => $mail
-                    ])
-            );
-                
-            $this->mailer->send(
-                $mail['email'],
-                $this->translator->trans('contact.font.forclient.subject'),
-                $this->renderView('emails/contact/locale/contact-client-'.$request->getLocale().'.html.twig', [
-                    'mail' => $mail
-                    ])
-            );
-
-            return $this->render('default/contact-success.html.twig', array(
-                'page' => $contentDocument,
-                'availableLocales' => $this->pageService->getAvailableLocales($contentDocument)
-            ));
-        }
-
-        return $this->render('default/contact.html.twig', array(
-            'form' => $form->createView(),
-            'page' => $contentDocument,
-            'availableLocales' => $this->pageService->getAvailableLocales($contentDocument)
+            'page' => $page,
+            'recaptcha_key' => $this->getParameter('recaptcha_key'),
+            'availableLocales' => $availableLocales
         ));
     }
 
@@ -151,7 +109,7 @@ class ContactController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, array(
-            'secret' => '6LdgnGQUAAAAAL-S38oSIPzMm85iWCG1vIoZX-mL',
+            'secret' => $this->getParameter('recaptcha_secret'),
             'response' => $recaptcha
         ));
         $response = curl_exec($ch);

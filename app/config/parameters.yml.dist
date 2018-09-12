@@ -17,5 +17,8 @@ parameters:
     admin_password:
     email_from_name: 
     email_from_address: 
+    email_contact_address:
     kiwi_host:
     payment_env: 'dev'
+    recaptcha_secret:
+    recaptcha_key:
