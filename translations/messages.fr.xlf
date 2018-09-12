@@ -1700,16 +1700,16 @@
         <target>Votre message à la Roche d'Or</target>
       </segment>
     </unit>
-    <unit id="CnKFeFj" name="contact.font.forclient.subject">
+    <unit id="CnKFeFj" name="contact.ft.forclient.subject">
       <segment>
-        <source>contact.font.forclient.subject</source>
-        <target>Votre message aux Fontanilles</target>
+        <source>contact.ft.forclient.subject</source>
+        <target>Votre message aux fontanilles</target>
       </segment>
     </unit>
-    <unit id="Rd5R24U" name="contact.font.foradmin.subject">
+    <unit id="Rd5R24U" name="contact.ft.foradmin.subject">
       <segment>
-        <source>contact.font.foradmin.subject</source>
-        <target>[FT] Nouveau message de</target>
+        <source>contact.ft.foradmin.subject</source>
+        <target>[FONTANILLES] Nouveau message de</target>
       </segment>
     </unit>
     <unit id="zRLk9BZ" name="form.please.recaptcha">
