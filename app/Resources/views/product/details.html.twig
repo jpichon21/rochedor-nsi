@@ -111,10 +111,10 @@
           </div>
         </div>
       </div>
-      {% if product.isbn != '' %}
+      {% if product.ean != '' %}
       <svg class="barcode"
-        jsbarcode-format="upc"
-        jsbarcode-value="{{ product.isbn }}">
+        jsbarcode-format="ean13"
+        jsbarcode-value="{{ product.ean }}">
       </svg>
       {% endif %}
     </div>
