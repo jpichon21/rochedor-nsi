@@ -111,7 +111,6 @@ function updateYouFormRender () {
 }
 
 function updateHimFormRender () {
-  console.log(_participant)
   $('.him-form-render').html(himFormTemplate({
     participant: _participant,
     countries: _countries,
@@ -338,6 +337,7 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
             })
           }).catch(error => {
             if (error) {
+              downLoader()
               upFlashbag(i18n.trans(`${error}`))
             }
           })
@@ -385,6 +385,13 @@ panelHimForm.on('click', '.cancel', function (event) {
   $('.panel.him').slideUp(800, function () {
     $(this).hide()
   })
+})
+
+panelHimForm.on('click', '.newfich', function (event) {
+  event.preventDefault()
+  event.stopPropagation()
+  _participant.newfich = !_participant.newfich
+  updateHimFormRender()
 })
 
 panelYouForm.on('click', '.cancel', function (event) {

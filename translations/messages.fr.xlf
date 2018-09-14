@@ -1700,13 +1700,13 @@
         <target>Votre message à la Roche d'Or</target>
       </segment>
     </unit>
-    <unit id="CnKFeFj" name="contact.ft.forclient.subject">
+    <unit id="TI2I87A" name="contact.ft.forclient.subject">
       <segment>
         <source>contact.ft.forclient.subject</source>
         <target>Votre message aux fontanilles</target>
       </segment>
     </unit>
-    <unit id="Rd5R24U" name="contact.ft.foradmin.subject">
+    <unit id="6PBTuta" name="contact.ft.foradmin.subject">
       <segment>
         <source>contact.ft.foradmin.subject</source>
         <target>[FONTANILLES] Nouveau message de</target>
@@ -2296,6 +2296,18 @@
       <segment>
         <source>form.keep-password</source>
         <target>Garder l'ancien mot de passe</target>
+      </segment>
+    </unit>
+    <unit id="SNvVR0E" name="Error: unknown_error">
+      <segment>
+        <source>Error: unknown_error</source>
+        <target>Erreur inconnue</target>
+      </segment>
+    </unit>
+    <unit id="Y4EtXZD" name="form.newfich">
+      <segment>
+        <source>form.newfich</source>
+        <target>Première inscription à une retraite</target>
       </segment>
     </unit>
   </file>

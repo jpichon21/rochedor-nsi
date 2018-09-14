@@ -9,6 +9,9 @@ export const postLogin = (data) => {
       if (!res.ok) { res.json().then(res => { throw res.error }) }
       return res.json()
     })
+    .catch(res => {
+      throw (new Error('unknown_error'))
+    })
 }
 
 export const resetLogin = (data) => {
@@ -23,6 +26,9 @@ export const resetLogin = (data) => {
       if (res.status !== 'ok') { throw res.message }
       return res.data
     })
+    .catch(res => {
+      throw (new Error('unknown_error'))
+    })
 }
 
 export const postRegister = (data) => {
@@ -36,6 +42,9 @@ export const postRegister = (data) => {
     .then(res => {
       if (res.status) { throw res.message }
       return res
+    })
+    .catch(res => {
+      throw (new Error('unknown_error'))
     })
 }
 
@@ -53,6 +62,9 @@ export const postParticipant = (data) => {
       if (res.status !== 'ok') { throw res.message }
       return res.data
     })
+    .catch(res => {
+      throw (new Error('unknown_error'))
+    })
 }
 
 export const getLogout = () => {
@@ -64,6 +76,9 @@ export const getLogout = () => {
     .then(() => {
       window.location.reload()
     })
+    .catch(res => {
+      throw (new Error('unknown_error'))
+    })
 }
 
 export const getLogin = () => {
@@ -74,6 +89,9 @@ export const getLogin = () => {
     .then(res => {
       if (!res.ok) { res.json().then(res => { throw res.message }) }
       return res.json()
+    })
+    .catch(res => {
+      throw (new Error('unknown_error'))
     })
 }
 
@@ -87,6 +105,9 @@ export const getRegistered = () => {
     .then(res => {
       if (res.status !== 'ok') { throw res.message }
       return res.data
+    })
+    .catch(res => {
+      throw (new Error('unknown_error'))
     })
 }
 
@@ -104,5 +125,8 @@ export const postRegistered = (data, id) => {
     .then(res => {
       if (res.status !== 'ok') { throw res.message }
       return res.data
+    })
+    .catch(res => {
+      throw (new Error('unknown_error'))
     })
 }

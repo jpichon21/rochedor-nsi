@@ -219,9 +219,12 @@ class CalendarController extends Controller
         $em = $this->getDoctrine()->getManager();
         $this->setContact($contact, $attendee);
         $contact = $this->setContact($contact, $attendee);
+        $duplicated = $contactService->queryDuplicate($contact->getCodco());
+        if ($duplicated === true) {
+            $contact->setNewFich(false);
+        }
         $em->persist($contact);
         $em->flush();
-        $contactService->queryDuplicate($contact->getCodco());
         return ['status' => 'ok', 'data' => $contact];
     }
 
@@ -323,6 +326,7 @@ class CalendarController extends Controller
     {
         $contact->setNom($attendee['nom'])
         ->setPrenom($attendee['prenom'])
+        ->setNewFich(($attendee['newfich'] === 'true'))
         ->setCivil($attendee['civil'])
         ->setAdresse($attendee['adresse'])
         ->setCp($attendee['cp'])

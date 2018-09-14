@@ -306,6 +306,10 @@
         <input autocomplete="nope" class="input nom" required type="text" value="<%= participant.nom %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
     </div>
     <div class="pure-u-1">
+        <a href="#" class="input newfich button radio <%= (participant.newfich) ? 'checked' : '' %>">{{ 'form.newfich' | trans | raw }}</a>
+        <input type="hidden" name="newfich" value="<%= (participant.newfich) %>">
+    </div>
+    <div class="pure-u-1">
         <textarea class="textarea adresse" name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= participant.adresse %></textarea>
     </div>
     <div class="pure-u-1-3">

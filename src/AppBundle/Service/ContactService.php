@@ -24,28 +24,30 @@ class ContactService
     }
 
      /**
-     * Query kiwi api for contact duplication detection
+     * Query kiwi api for contact duplication detection and return true if a duplicated contact is found
      *
      * @param int $codco
-     * @return void
+     * @return bool
      */
     public function queryDuplicate($codco)
     {
-        $data = json_encode([
+        $action = json_encode([
             'Action' => 'MSG_CoDbl',
             'CodCo' => $codco,
             'nivMin' => 10]);
         $c = curl_init($this->kiwiHost.'/kiwi.php');
         curl_setopt($c, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($c, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($c, CURLOPT_POSTFIELDS, 'Action='.$action);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($c, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($data)
+            'Content-Type: application/x-www-form-urlencoded'
         ));
-        $result = curl_exec($c);
+        $rawResult = curl_exec($c);
         $this->logger->info(json_encode(curl_getinfo($c)));
-        $this->logger->info(json_encode($data));
-        $this->logger->info($result);
+        $this->logger->info(json_encode($action));
+        $this->logger->info($rawResult);
+        $result = json_decode(str_replace('|||JS=retour|||', '', $rawResult), JSON_OBJECT_AS_ARRAY);
+        $this->logger->info(json_encode($result));
+        return (isset($result['backVal']['retour']['listCod']));
     }
 }

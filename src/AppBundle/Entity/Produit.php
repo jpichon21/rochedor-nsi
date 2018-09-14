@@ -252,11 +252,11 @@ class Produit
     private $rang;
 
     /**
-     * @var int
+     * @var \DateTime|null
      *
-     * @ORM\Column(name="Maj", type="datetime", nullable=true)
+     * @ORM\Column(name="Maj", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $maj;
+    private $maj = 'CURRENT_TIMESTAMP';
 
     /**
      * @var int
