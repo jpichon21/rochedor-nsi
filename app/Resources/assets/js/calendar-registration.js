@@ -502,6 +502,7 @@ itemParticipants.on('click', '.validate-participants', function (event) {
   const validate = validateParticipants()
   if (validate === true) {
     upLoader()
+    setParent()
     postRegistered(_participants, _infos.idact).then(res => {
       let result = $('.result', itemValidation).html()
       result = result.replace('%entry_number%', res)
@@ -529,6 +530,19 @@ function validateParticipants () {
     }
   }
   return true
+}
+
+function setParent () {
+  for (let p of _participants) {
+    if (p.coltyp === 'conjo' || p.coltyp === 'enfan') {
+      const parent = _participants.find(element => {
+        return element.codco === parseInt(p.colp)
+      })
+      parent.coltyp = 'paren'
+      parent.colp = parent.codco
+      break
+    }
+  }
 }
 
 function validateParticipant (participant) {

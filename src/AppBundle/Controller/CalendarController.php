@@ -271,16 +271,21 @@ class CalendarController extends Controller
                 $contact = $this->setContact($contact, $a);
                 $em->persist($contact);
 
-                if ($a['coltyp'] === 'enfan' || $a['coltyp'] === 'conjo') {
+                if ($a['coltyp'] === 'enfan' || $a['coltyp'] === 'conjo' || $a['coltyp'] === 'paren') {
                     if (!$contactl = $this->contactRepository->findContactL($contact->getCodco(), $a['colp'])) {
                         $contactl = new ContactL();
                         $contactl->setCol((int) $a['codco']);
                     }
-                    $contactl->setColp((int) $a['colp'])
-                    ->setColt('famil')
+                    if ($a['coltyp'] === 'paren') {
+                        $contactl->setColp((int) $a['codco']);
+                    } else {
+                        $contactl->setColp((int) $a['colp']);
+                    }
+                    $contactl->setColt('famil')
                     ->setColtyp($a['coltyp']);
                     $em->persist($contactl);
                 }
+
                 if ($a['aut16'] == 1) {
                     $contact->setDataut16(new \DateTime($a['datAut16']));
                     $em->persist($contact);
