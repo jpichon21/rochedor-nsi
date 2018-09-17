@@ -340,10 +340,12 @@ class CalendarController extends Controller
         ->setTel($attendee['tel'])
         ->setMobil($attendee['mobil'])
         ->setEmail($attendee['email'])
-        ->setUsername(isset($attendee['username']) ? $attendee['username'] : null)
         ->setDatnaiss(new \DateTime($attendee['datnaiss']))
         ->setProfession($attendee['profession'])
         ->setAut16($attendee['aut16']);
+        if (isset($attendee['username'])) {
+            $contact->setUsername($attendee['username']);
+        }
         return $contact;
     }
 
