@@ -139,7 +139,8 @@ class ContactRepository
             co.mobil, co.email, co.profession, co.datnaiss, col.coltyp, col.colt, col.colp
             FROM AppBundle\Entity\ContactL col
             JOIN AppBundle\Entity\Contact co WITH co.codco=col.col
-            WHERE col.colp =:contactId'
+            WHERE col.colp =:contactId 
+            AND col.colp <> col.col'
         );
         $query->setParameters(['contactId' => $contactId]);
         return $query->getResult();

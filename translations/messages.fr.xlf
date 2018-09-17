@@ -1915,7 +1915,7 @@
     <unit id="dSfs_7v" name="form.message.no_transport">
       <segment>
         <source>form.message.no_transport</source>
-        <target>n'a pas de mod de transport</target>
+        <target>n'a pas de mode de transport</target>
       </segment>
     </unit>
     <unit id="REqCb2s" name="participant_not_valid">

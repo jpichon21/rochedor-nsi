@@ -282,9 +282,20 @@ class CalendarController extends Controller
                         $contactl->setColp((int) $a['colp']);
                     }
                     $contactl->setColt('famil')
+                    ->setColrel(1)
                     ->setColtyp($a['coltyp']);
                     $em->persist($contactl);
                 }
+                if ($a['coltyp'] === 'accom') {
+                    $contactl = new ContactL();
+                    $contactl->setCol((int) $a['codco'])
+                    ->setColp((int) $a['colp'])
+                    ->setColt('accom')
+                    ->setColrel(1)
+                    ->setColtyp($a['coltyp']);
+                    $em->persist($contactl);
+                }
+
 
                 if ($a['aut16'] == 1) {
                     $contact->setDataut16(new \DateTime($a['datAut16']));
