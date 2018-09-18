@@ -534,7 +534,7 @@ function validateParticipants () {
 
 function setParent () {
   for (let p of _participants) {
-    if (p.coltyp === 'conjo' || p.coltyp === 'enfan') {
+    if (p.coltyp === 'conjo' || p.coltyp === 'enfan' || p.coltyp === 'accom') {
       const parent = _participants.find(element => {
         return element.codco === parseInt(p.colp)
       })
