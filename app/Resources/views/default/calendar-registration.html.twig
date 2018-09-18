@@ -141,7 +141,7 @@
         <p><%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
             <%= _.escape(you.adresse) %> <%= _.escape(you.cp) %> <%= _.escape(you.ville) %> (<%= _.escape(you.pays) %>)</p>
         <a href="#" data-id="<%= _.escape(you.codco) %>" class="modify-you button">{{ 'form.modify' | trans | raw }}</a>
-        <a href="#" class="button radio hidden <%= (_.escape(you.check)) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
+        <a href="#" class="button radio hidden <%= (you.check) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
     </div>
 </script>
 <script type="text/template" class="participants-template">
@@ -166,7 +166,7 @@
                 <p><%= _.escape(him.prenom) %> <%= _.escape(him.nom) %><br>
                     <%= _.escape(him.adresse) %> <%= _.escape(him.cp) %> <%= _.escape(him.ville) %> (<%= _.escape(him.pays) %>)</p>
                 <a href="#" data-id="<%= _.escape(him.codco) %>" class="modify-him button">{{ 'form.modify' | trans | raw }}</a>
-                <a href="#" data-id="<%= _.escape(him.codco) %>" class="participate-him button radio <%= (_.escape(him.check)) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
+                <a href="#" data-id="<%= _.escape(him.codco) %>" class="participate-him button radio <%= (him.check) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
             </div>
         <% } %>
     <% } else { %>
@@ -272,7 +272,7 @@
 </script>
 <script type="text/template" class="him-form-template">
     <input autocomplete="nope" type="hidden" value="<%= _.escape(participant.codco) %>" name="codco">
-    <input autocomplete="nope" type="hidden" value=<%= _.escape(participant.check) %> name="check">
+    <input autocomplete="nope" type="hidden" value=<%= participant.check %> name="check">
     <div class="pure-u-1-2">
         <select class="select coltyp <%= (_.escape(participant.coltyp) != '') ? 'white' : '' %>" required name="coltyp">
             <option <%= (_.escape(participant.coltyp) == '') ? 'selected' : '' %> disabled value="">{{ 'form.relation' | trans | raw }}</option>
