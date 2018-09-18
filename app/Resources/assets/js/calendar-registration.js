@@ -394,6 +394,13 @@ panelHimForm.on('click', '.newfich', function (event) {
   updateHimFormRender()
 })
 
+panelAddForm.on('click', '.newfich', function (event) {
+  event.preventDefault()
+  event.stopPropagation()
+  _participant.newfich = !_participant.newfich
+  updateHimFormRender()
+})
+
 panelYouForm.on('click', '.cancel', function (event) {
   event.preventDefault()
   $('.panel.you').slideUp(800, function () {
