@@ -26,9 +26,6 @@ export const resetLogin = (data) => {
       if (res.status !== 'ok') { throw res.message }
       return res.data
     })
-    .catch(res => {
-      throw (new Error('unknown_error'))
-    })
 }
 
 export const postRegister = (data) => {
