@@ -140,9 +140,10 @@ class ContactRepository
             FROM AppBundle\Entity\ContactL col
             JOIN AppBundle\Entity\Contact co WITH co.codco=col.col
             WHERE col.colp =:contactId 
+            AND col.colt <> :accom
             AND col.colp <> col.col'
         );
-        $query->setParameters(['contactId' => $contactId]);
+        $query->setParameters(['contactId' => $contactId, 'accom' => 'accom']);
         return $query->getResult();
     }
 }
