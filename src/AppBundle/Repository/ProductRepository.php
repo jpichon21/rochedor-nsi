@@ -79,7 +79,7 @@ class ProductRepository
     public function findNewProducts()
     {
         $query = $this->entityManager
-        ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.nouveaute=true ORDER BY p.maj DESC');
+        ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.nouveaute=true ORDER BY p.rang ASC');
         $query->setMaxResults(5);
         return $query->getArrayResult();
     }

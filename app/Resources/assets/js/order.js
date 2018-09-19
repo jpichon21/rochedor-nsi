@@ -138,6 +138,7 @@ function afterLogin (user, bypass) {
   _delivery.codcli = user.codcli
   _delivery.cartId = parseInt(_cartId)
   _you = user
+  $('.you-title').addClass('pointer')
   updateYouRender()
   updateCartRender()
   adlivUpdateForm('myAd')
@@ -277,6 +278,12 @@ itemCard.on('click', '.modify-you', function (event) {
   changeItem(itemCard)
 })
 
+itemCard.on('click', '.you-title', function (event) {
+  if (_you.codcli) {
+    changeItem(itemCard)
+  }
+})
+
 function validateClient (event, context, callback) {
   event.preventDefault()
   const data = context.serializeArray()
@@ -285,6 +292,7 @@ function validateClient (event, context, callback) {
   const validatedPro = validatePro(participant.societe, participant.tvaintra)
   const validatedPassword = validatePassword(participant.password)
   if (validatedPassword !== true) {
+    downLoader()
     upFlashbag(validatedPassword)
     return
   }
@@ -294,6 +302,7 @@ function validateClient (event, context, callback) {
         validateTvaintra(participant.tvaintra, participant.pays).then(() => {
           callback(participant)
         }).catch(() => {
+          downLoader()
           upFlashbag(i18n.trans('form.message.tvaintra_invalid'))
         })
       } else {
@@ -301,14 +310,17 @@ function validateClient (event, context, callback) {
           checkZipcode(participant.pays, participant.cp, 'myAd').then(() => {
             resolve(callback(participant))
           }).catch(() => {
+            downLoader()
             upFlashbag(i18n.trans('form.message.zipcode_invalid'))
           })
         })
       }
     } else {
+      downLoader()
       upFlashbag(i18n.trans('form.message.phone_invalid'))
     }
   } else {
+    downLoader()
     upFlashbag(i18n.trans('form.message.pro_invalid'))
   }
 }

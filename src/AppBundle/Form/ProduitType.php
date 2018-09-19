@@ -60,7 +60,6 @@ class ProduitType extends AbstractType
         ->add('presentation')
         ->add('enreg')
         ->add('rang')
-        ->add('maj')
         ->add('nouveaute')
         ->add('themes')
         ->add(

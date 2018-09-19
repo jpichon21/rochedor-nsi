@@ -214,6 +214,7 @@
         background-position: calc(100% - 20px) center;
         background-repeat: no-repeat;
         -webkit-appearance: none;
+        -moz-appearance: none;
         &:disabled {
           background-image: url('../img/arrow-select-white.png');
         }
