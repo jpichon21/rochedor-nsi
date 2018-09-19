@@ -113,7 +113,7 @@
       </div>
       {% if product.isbn != '' %}
       <svg class="barcode"
-        jsbarcode-format="upc"
+        jsbarcode-format="EAN13"
         jsbarcode-value="{{ product.isbn }}">
       </svg>
       {% endif %}
