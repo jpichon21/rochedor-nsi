@@ -22,3 +22,4 @@ yarn-error.log
 /web/uploads/*
 /tests/reports/*
 /web/biblio/*
+.vscode/*
