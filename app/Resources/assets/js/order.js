@@ -138,6 +138,7 @@ function afterLogin (user, bypass) {
   _delivery.codcli = user.codcli
   _delivery.cartId = parseInt(_cartId)
   _you = user
+  $('.you-title').addClass('pointer')
   updateYouRender()
   updateCartRender()
   adlivUpdateForm('myAd')
@@ -275,6 +276,12 @@ itemCard.on('click', '.modify-you', function (event) {
   $(`.panel.modify`, itemCard).show()
   updateYouFormRender()
   changeItem(itemCard)
+})
+
+itemCard.on('click', '.you-title', function (event) {
+  if (_you.codcli) {
+    changeItem(itemCard)
+  }
 })
 
 function validateClient (event, context, callback) {

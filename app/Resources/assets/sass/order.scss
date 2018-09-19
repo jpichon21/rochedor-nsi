@@ -6,6 +6,9 @@
     .item {
       h2 {
         cursor: default;
+        &.pointer {
+          cursor: pointer;
+        }
       }
       .select-adliv,
       .select-modpaie {
