@@ -254,13 +254,6 @@ class Produit
     /**
      * @var int
      *
-     * @ORM\Column(name="Maj", type="datetime", nullable=true)
-     */
-    private $maj;
-
-    /**
-     * @var int
-     *
      * @ORM\Column(name="Nouveaute", type="boolean", nullable=true)
      */
     private $nouveaute;
@@ -316,7 +309,6 @@ class Produit
         $this->presentation = '';
         $this->enreg = '';
         $this->rang = 0;
-        $this->maj = new \DateTime();
         $this->nouveaute = false;
         $this->themes = '';
     }
@@ -599,16 +591,6 @@ class Produit
     public function getRang()
     {
         return $this->rang;
-    }
-
-    /**
-     * Get maj.
-     *
-     * @return \DateTime|null
-     */
-    public function getMaj()
-    {
-        return $this->maj;
     }
 
     /**
@@ -1181,20 +1163,6 @@ class Produit
     public function setRang($rang)
     {
         $this->rang = $rang;
-
-        return $this;
-    }
-
-    /**
-     * Set maj.
-     *
-     * @param \DateTime|null $maj
-     *
-     * @return Produit
-     */
-    public function setMaj($maj = null)
-    {
-        $this->maj = $maj;
 
         return $this;
     }

@@ -13,7 +13,6 @@
                     <th scope="col">Prix</th>
                     <th scope="col">Prixht</th>
                     <th scope="col">Poids</th>
-                    <th scope="col">Maj</th>
                     <th scope="col">Nouveaute</th>
                     <th scope="col">Themes</th>
                     <th scope="col">Actions</th>
@@ -30,7 +29,6 @@
                     <td>{{ produit.prix }}</td>
                     <td>{{ produit.prixht }}</td>
                     <td>{{ produit.poids }}</td>
-                    <td>{% if produit.maj %}{{ produit.maj|date('Y-m-d H:i:s') }}{% endif %}</td>
                     <td>{% if produit.nouveaute %}Yes{% else %}No{% endif %}</td>
                     <td>{{ produit.themes }}</td>
                     <td>
