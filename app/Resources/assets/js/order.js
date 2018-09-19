@@ -292,6 +292,7 @@ function validateClient (event, context, callback) {
   const validatedPro = validatePro(participant.societe, participant.tvaintra)
   const validatedPassword = validatePassword(participant.password)
   if (validatedPassword !== true) {
+    downLoader()
     upFlashbag(validatedPassword)
     return
   }
@@ -301,6 +302,7 @@ function validateClient (event, context, callback) {
         validateTvaintra(participant.tvaintra, participant.pays).then(() => {
           callback(participant)
         }).catch(() => {
+          downLoader()
           upFlashbag(i18n.trans('form.message.tvaintra_invalid'))
         })
       } else {
@@ -308,14 +310,17 @@ function validateClient (event, context, callback) {
           checkZipcode(participant.pays, participant.cp, 'myAd').then(() => {
             resolve(callback(participant))
           }).catch(() => {
+            downLoader()
             upFlashbag(i18n.trans('form.message.zipcode_invalid'))
           })
         })
       }
     } else {
+      downLoader()
       upFlashbag(i18n.trans('form.message.phone_invalid'))
     }
   } else {
+    downLoader()
     upFlashbag(i18n.trans('form.message.pro_invalid'))
   }
 }
