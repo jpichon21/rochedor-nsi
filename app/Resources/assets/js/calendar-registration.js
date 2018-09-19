@@ -304,6 +304,9 @@ function validateChild (participant) {
 }
 
 function validatePassword (password) {
+  if (!password) {
+    return true
+  }
   if (password.length < 8 && password.length !== 0) {
     return i18n.trans('security.password_too_small')
   }

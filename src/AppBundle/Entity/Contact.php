@@ -298,7 +298,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="EnregCo", type="datetime")
+     * @ORM\Column(name="EnregCo", type="datetime", options={"default" : "CURRENT_TIMESTAMP"})
      */
     private $enregco;
 
@@ -323,7 +323,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Region", type="string", length=200)
+     * @ORM\Column(name="Region", type="string", length=50)
      */
     private $region;
 
@@ -337,7 +337,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     * @ORM\Column(name="username", type="string", length=50, unique=true, nullable=true)
      * @Expose
      */
     private $username;
@@ -419,6 +419,13 @@ class Contact implements UserInterface, \Serializable
      */
     private $resetTokenExpiresAt;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="NewFich", type="boolean", nullable=false)
+     */
+    private $newFich;
+
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
@@ -468,12 +475,13 @@ class Contact implements UserInterface, \Serializable
         $this->password = '';
         $this->region = '';
         $this->plainpassword = '';
-        $this->username = '';
         $this->datletoca = new \DateTime('0000-00-00');
         $this->datletpaper = new \DateTime('0000-00-00');
         $this->datletmail = new \DateTime('0000-00-00');
+        $this->dataut16 = new \DateTime('0000-00-00');
         $this->resetToken = '';
-        $this->resetTokenExpiresAt = null;
+        $this->newFich = true;
+        $this->resetTokenExpiresAt = new \DateTime('0000-00-00');
     }
 
 
@@ -1767,5 +1775,29 @@ class Contact implements UserInterface, \Serializable
     public function getResetTokenExpiresAt()
     {
         return $this->resetTokenExpiresAt;
+    }
+
+    /**
+     * Set newFich.
+     *
+     * @param bool $newFich
+     *
+     * @return Contact
+     */
+    public function setNewFich($newFich)
+    {
+        $this->newFich = $newFich;
+
+        return $this;
+    }
+
+    /**
+     * Get newFich.
+     *
+     * @return bool
+     */
+    public function getNewFich()
+    {
+        return $this->newFich;
     }
 }
