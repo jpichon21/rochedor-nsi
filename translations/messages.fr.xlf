@@ -1233,7 +1233,7 @@
     <unit id="hmTi4mf" name="news.last_posts.title">
       <segment>
         <source>news.last_posts.title</source>
-        <target>__news.last_posts.title</target>
+        <target>Les produits à l'honneur</target>
       </segment>
     </unit>
     <unit id="Rmhs3fL" name="editions.seeallproducts">
