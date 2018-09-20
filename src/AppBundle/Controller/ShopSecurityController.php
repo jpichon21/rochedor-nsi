@@ -199,7 +199,7 @@ class ShopSecurityController extends Controller
         ->setTel($clientReq['tel'])
         ->setMobil($clientReq['mobil'])
         ->setEmail($clientReq['email']);
-        if ($password !== '') {
+        if ($clientReq['password'] !== '') {
             $client->setPassword($password);
         }
         $client->setSociete($clientReq['societe'])
