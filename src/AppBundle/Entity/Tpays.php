@@ -22,7 +22,7 @@ class Tpays
     /**
      * @var string
      *
-     * @ORM\Column(name="CodPays", type="integer", length=2, nullable=false)
+     * @ORM\Column(name="CodPays", type="string", length=2, nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
