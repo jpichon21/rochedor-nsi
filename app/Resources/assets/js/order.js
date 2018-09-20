@@ -184,6 +184,10 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
     downLoader()
     upFlashbag(i18n.trans('security.check_inbox'))
   })
+    .catch((err) => {
+      downLoader()
+      upFlashbag(i18n.trans(err))
+    })
 })
 
 itemConnection.on('submit', '.panel.registration form', function (event) {
