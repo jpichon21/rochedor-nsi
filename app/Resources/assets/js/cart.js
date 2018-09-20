@@ -42,7 +42,7 @@ export function placePayment (
       return k + '=' + params[k]
     }).join('&')
     const encodedUrl = Object.keys(params).map(function (k) {
-      return encodeURIComponent(k) + '=' + encodeURIComponent(params[k])
+      return (k) + '=' + (params[k])
     }).join('&')
     const key = Buffer(environment.pbx_key, 'hex')
     const ider = Sha512.hmac(key)
