@@ -499,7 +499,7 @@ class OrderController extends Controller
         $order->setTtc($priceit);
         $order->setTva($vat);
         $order->setPoids($weight);
-        $order->setPort($shippingPrice);
+        $order->setPort(($shippingPrice) ? $shippingPrice : 0);
         $order->setPromo($promo);
         $order->setPaysip($paysip);
         $order->setDatenreg(new \Datetime());
