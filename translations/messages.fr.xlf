@@ -2310,5 +2310,209 @@
         <target>Première inscription à une retraite</target>
       </segment>
     </unit>
+    <unit id="I8rtEKM" name="gift.title">
+      <segment>
+        <source>gift.title</source>
+        <target><![CDATA[Don ponctuel <small>en ligne</small>]]></target>
+      </segment>
+    </unit>
+    <unit id="GQMkF8_" name="gift.intro">
+      <segment>
+        <source>gift.intro</source>
+        <target><![CDATA[Vous êtes sur le point d'effectuer un don ponctuel en ligne. Veuillez compléter le formulaire suivant ou retournez à la <a href="#">page de don</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="0scb9.5" name="gift.one.title">
+      <segment>
+        <source>gift.one.title</source>
+        <target>Connexion/Inscription</target>
+      </segment>
+    </unit>
+    <unit id="oeXVvov" name="gift.one.body.connected">
+      <segment>
+        <source>gift.one.body.connected</source>
+        <target>Vous êtes connecté en tant que %name%, voulez-vous continuer ?</target>
+      </segment>
+    </unit>
+    <unit id="UZ.im44" name="gift.two.title">
+      <segment>
+        <source>gift.two.title</source>
+        <target>Fiche donateur</target>
+      </segment>
+    </unit>
+    <unit id="VAdu1Ue" name="gift.two.title.modify.you">
+      <segment>
+        <source>gift.two.title.modify.you</source>
+        <target>Modifier vos informations</target>
+      </segment>
+    </unit>
+    <unit id="csOG4aQ" name="gift.three.title">
+      <segment>
+        <source>gift.three.title</source>
+        <target>Montant</target>
+      </segment>
+    </unit>
+    <unit id="HFu0ulE" name="gift.amount">
+      <segment>
+        <source>gift.amount</source>
+        <target>Montant de votre don</target>
+      </segment>
+    </unit>
+    <unit id="FdHFVLw" name="form.other">
+      <segment>
+        <source>form.other</source>
+        <target>Autre</target>
+      </segment>
+    </unit>
+    <unit id="GD5xKg." name="gift.four.title">
+      <segment>
+        <source>gift.four.title</source>
+        <target>Affectation</target>
+      </segment>
+    </unit>
+    <unit id="jWH3OC7" name="gift.choose.allocation">
+      <segment>
+        <source>gift.choose.allocation</source>
+        <target>Choisissez une affectation</target>
+      </segment>
+    </unit>
+    <unit id="6tCDwib" name="form.choose.allocation">
+      <segment>
+        <source>form.choose.allocation</source>
+        <target>Affectations</target>
+      </segment>
+    </unit>
+    <unit id="7rO5qFQ" name="select.allocation.libre">
+      <segment>
+        <source>select.allocation.libre</source>
+        <target>En libre affectation</target>
+      </segment>
+    </unit>
+    <unit id="yOQ0eC8" name="select.allocation.souttx">
+      <segment>
+        <source>select.allocation.souttx</source>
+        <target>Appel pressant</target>
+      </segment>
+    </unit>
+    <unit id="otNY7_F" name="select.allocation.viecom">
+      <segment>
+        <source>select.allocation.viecom</source>
+        <target>Vie communautaire</target>
+      </segment>
+    </unit>
+    <unit id="Oblzbpn" name="select.allocation.itin">
+      <segment>
+        <source>select.allocation.itin</source>
+        <target>Soutien aux retraites itinérantes</target>
+      </segment>
+    </unit>
+    <unit id="aJ35vts" name="select.allocation.rochtx">
+      <segment>
+        <source>select.allocation.rochtx</source>
+        <target>Travaux à la Roche d’Or</target>
+      </segment>
+    </unit>
+    <unit id="BQg0VzQ" name="select.allocation.fonttx">
+      <segment>
+        <source>select.allocation.fonttx</source>
+        <target>Travaux au Fontanilles</target>
+      </segment>
+    </unit>
+    <unit id="BvWhpYy" name="gift.five.title">
+      <segment>
+        <source>gift.five.title</source>
+        <target>Paiement</target>
+      </segment>
+    </unit>
+    <unit id="jTQM.5t" name="gift.choose.payment">
+      <segment>
+        <source>gift.choose.payment</source>
+        <target>Choisissez une méthode de paiement</target>
+      </segment>
+    </unit>
+    <unit id="Yj_Ar2s" name="gift.summary.title">
+      <segment>
+        <source>gift.summary.title</source>
+        <target>Récapitulatif</target>
+      </segment>
+    </unit>
+    <unit id=".eHIBlV" name="gift.six.title">
+      <segment>
+        <source>gift.six.title</source>
+        <target>Confirmation</target>
+      </segment>
+    </unit>
+    <unit id="l1p4Zk6" name="gift.summary.title.amount">
+      <segment>
+        <source>gift.summary.title.amount</source>
+        <target>Montant</target>
+      </segment>
+    </unit>
+    <unit id="ekL2bem" name="gift.summary.no_amount">
+      <segment>
+        <source>gift.summary.no_amount</source>
+        <target>Aucun montant</target>
+      </segment>
+    </unit>
+    <unit id="mgYZo6m" name="gift.summary.title.donator">
+      <segment>
+        <source>gift.summary.title.donator</source>
+        <target>Donateur</target>
+      </segment>
+    </unit>
+    <unit id="OeUNsZo" name="gift.summary.no_donator">
+      <segment>
+        <source>gift.summary.no_donator</source>
+        <target>Veuillez vous inscrire/connecter</target>
+      </segment>
+    </unit>
+    <unit id="4XPU9m_" name="gift.summary.title.gift">
+      <segment>
+        <source>gift.summary.title.gift</source>
+        <target>Don</target>
+      </segment>
+    </unit>
+    <unit id="inaP6or" name="table.header.allocation">
+      <segment>
+        <source>table.header.allocation</source>
+        <target>Affectation</target>
+      </segment>
+    </unit>
+    <unit id="ohZm8Ru" name="table.header.amount">
+      <segment>
+        <source>table.header.amount</source>
+        <target>Montant</target>
+      </segment>
+    </unit>
+    <unit id="u1hXRA0" name="gift.summary.no_allocation">
+      <segment>
+        <source>gift.summary.no_allocation</source>
+        <target>Aucune affectation</target>
+      </segment>
+    </unit>
+    <unit id="lC0n7Fk" name="gift-return.title">
+      <segment>
+        <source>gift-return.title</source>
+        <target>gift-return.title</target>
+      </segment>
+    </unit>
+    <unit id="0yLloTj" name="gift-return.success">
+      <segment>
+        <source>gift-return.success</source>
+        <target><![CDATA[Votre don a bien été enregistré. Vous recevrez un mail de confirmation dans quelques minutes.<br>Retour à la page des <a href="%link%">dons</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="Xx1TBfK" name="gift-return.cancel">
+      <segment>
+        <source>gift-return.cancel</source>
+        <target><![CDATA[Le paiement a été annulé et votre n'a pas été enregistré.<br>Retour à la page des <a href="%link%">dons</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="rkAB_hq" name="form.gift.note">
+      <segment>
+        <source>form.gift.note</source>
+        <target>Vous pouvez laisser un message à notre attention</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

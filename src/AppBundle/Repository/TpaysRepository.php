@@ -84,19 +84,11 @@ class TpaysRepository
         return false;
     }
 
-    public function findPBXCode($country)
+    public function findCode($country)
     {
         $query = $this->entityManager
-        ->createQuery('SELECT t.codpayspbx FROM AppBundle\Entity\Tpays t WHERE t.codpays = :country');
+        ->createQuery('SELECT t.codpayspbx, t.codpayspaypal FROM AppBundle\Entity\Tpays t WHERE t.codpays = :country');
         $query->setParameter('country', $country);
-        return $query->getResult()[0]['codpayspbx'];
-    }
-
-    public function findPaypalCode($country)
-    {
-        $query = $this->entityManager
-        ->createQuery('SELECT t.codpayspaypal FROM AppBundle\Entity\Tpays t WHERE t.codpays = :country');
-        $query->setParameter('country', $country);
-        return $query->getResult()[0]['codpayspaypal'];
+        return $query->getOneOrNullResult();
     }
 }

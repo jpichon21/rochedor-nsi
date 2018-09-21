@@ -7,9 +7,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use AppBundle\Repository\TpaysRepository;
 
 /**
- * Tpay controller.
+ * Tpays controller.
  *
  * @Route("crud/tpays")
  */
@@ -133,5 +135,14 @@ class TpaysController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+    
+    /**
+     * @Rest\Get("/xhr/tpays/code/{country}", name="get_country_code")
+     * @Rest\View()
+    */
+    public function xhrGetCountryCode(Request $request, $country, TpaysRepository $repo)
+    {
+        return ['status' => 'ok' , 'data' => $repo->findCode($country)];
     }
 }

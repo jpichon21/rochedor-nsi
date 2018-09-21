@@ -1,0 +1,24 @@
+{% set bodyClass = "page" %}
+{% set bodyBackground = 1 %}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/page.css') }}">
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="left">
+        <h1>{{ 'gift.title' | trans | raw }}</h1>
+        <div class="intro">
+            {% if status == 'success' %}
+            {{ 'gift-return.success' | trans({'%link%': path('gift-' ~ app.request.locale)}) | raw }}
+            {% elseif status == 'cancel' %}
+            {{ 'gift-return.cancel' | trans({'%link%': path('gift-' ~ app.request.locale)}) | raw }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="hole">
+    </div>
+    <div class="right">
+    </div>
+</div>
+{% endblock %}
