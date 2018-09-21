@@ -516,7 +516,7 @@ class OrderController extends Controller
             $codcom = $order->getCodcom();
             $codprd = $cartline->getProduct()->getCodprd();
             $quantity = $cartline->getQuantity();
-            $prix = $cartline->getProduct()->getCodprd();
+            $prix = $cartline->getProduct()->getPrix();
             $remise = 0;
 
             $comprd->setCodcom($codcom);
