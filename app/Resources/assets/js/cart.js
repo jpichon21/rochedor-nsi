@@ -24,7 +24,7 @@ export function placePayment (
       PBX_SITE: environment.pbx_site,
       PBX_RANG: environment.pbx_rang,
       PBX_IDENTIFIANT: environment.pbx_identifiant,
-      PBX_TOTAL: amount * 100,
+      PBX_TOTAL: Math.ceil(amount * 100),
       PBX_DEVISE: 978,
       PBX_CMD: objectId,
       PBX_PORTEUR: email,
