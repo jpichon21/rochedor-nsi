@@ -2514,5 +2514,23 @@
         <target>Vous pouvez laisser un message à notre attention</target>
       </segment>
     </unit>
+    <unit id="Y.q4rE8" name="gift.one.body.disconnected">
+      <segment>
+        <source>gift.one.body.disconnected</source>
+        <target>Avez-vous déjà effectué un don en ligne ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
+      </segment>
+    </unit>
+    <unit id="KXMcVvu" name="gift.one.title.connection">
+      <segment>
+        <source>gift.one.title.connection</source>
+        <target>Connexion</target>
+      </segment>
+    </unit>
+    <unit id="syOOwQX" name="gift.one.title.registration">
+      <segment>
+        <source>gift.one.title.registration</source>
+        <target>Inscription</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
