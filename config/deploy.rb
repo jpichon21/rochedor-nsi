@@ -30,6 +30,7 @@ task :deploy => :environment do
 			command "ea-php72 composer.phar install --optimize-autoloader"
 			command "yarn install"
 			command "ea-php72 bin/console assets:install --env=prod"
+			command "ea-php72 bin/console cache:clear --env=prod"
 			command "chmod +x ./node_modules/.bin/encore"
 			command "./node_modules/.bin/encore production --config-name configDev" if ENV['on'] == 'dev' || ENV['on'] == 'staging'
 			command "./node_modules/.bin/encore production --config-name configProd" if ENV['on'] == 'prod'

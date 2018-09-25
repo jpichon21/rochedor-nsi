@@ -10,12 +10,8 @@ import {
   getLogout,
   postLogin,
   resetLogin,
-  getCountryCode,
   postGift } from './gift-api.js'
 
-const { environment } = require(`./environment.${process.env.NODE_ENV}`)
-const Sha512 = require('sha512')
-const Buffer = require('buffer').Buffer
 /* Translations */
 
 let i18n = new I18n()
@@ -280,99 +276,10 @@ itemPayment.on('change', '.select-modpaie', function (event) {
 
 itemPayment.on('submit', '.panel.payment form', function (event) {
   event.preventDefault()
-  getPaysParsed(_modpaie, _you.pays).then(country => {
-    postGift(_amount, _allocation.value, _modpaie, _note).then(data => {
-      placePayment(
-        _modpaie,
-        _amount,
-        data.refdon,
-        i18n.trans('gift.payment.title'),
-        i18n.trans('gift.payment.title'),
-        _you.email,
-        country,
-        _locale
-      )
-    }).catch(err => {
-      console.error(err)
-    })
+  postGift(_amount, _allocation.value, _modpaie, _note).then(data => {
+    window.location.href = data
+    // downLoader()
+  }).catch(err => {
+    console.error(err)
   })
 })
-
-function host () {
-  const host = window.location.hostname
-  const protocol = window.location.protocol
-  return `${protocol}//${host}`
-}
-
-function placePayment (
-  method,
-  amount,
-  objectId,
-  objectName,
-  itemName,
-  email,
-  lang,
-  locale
-) {
-  if (method === 'PBX') {
-    const date = new Date()
-    const params = {
-      PBX_SITE: environment.pbx_site,
-      PBX_RANG: environment.pbx_rang,
-      PBX_IDENTIFIANT: environment.pbx_identifiant,
-      PBX_TOTAL: amount * 100,
-      PBX_DEVISE: 978,
-      PBX_CMD: objectId,
-      PBX_PORTEUR: email,
-      PBX_REPONDRE_A: `${host()}/${locale}/gift/payment-notify/paybox`,
-      PBX_EFFECTUE: `${host()}/${locale}/gift/payment-return/paybox/success`,
-      PBX_REFUSE: `${host()}/${locale}/gift/payment-return/paybox/error`,
-      PBX_ANNULE: `${host()}/${locale}/gift/payment-return/paybox/cancel`,
-      PBX_ATTENTE: `${host()}/${locale}/gift/payment-return/paybox/waiting`,
-      PBX_RETOUR: 'Amount:M;Ref:R;Auto:A;Erreur:E;Trans:T;Pays:I',
-      PBX_HASH: 'SHA512',
-      PBX_TIME: date.toISOString(),
-      PBX_LANGUE: lang
-    }
-    const url = Object.keys(params).map(function (k) {
-      return k + '=' + params[k]
-    }).join('&')
-    const encodedUrl = Object.keys(params).map(function (k) {
-      return encodeURIComponent(k) + '=' + encodeURIComponent(params[k])
-    }).join('&')
-    const key = Buffer.from(environment.pbx_key, 'hex')
-    const ider = Sha512.hmac(key)
-    const id = ider.finalize(url)
-    window.location.href = environment.pbx_url + '?' + encodedUrl + '&PBX_HMAC=' + id.toString('hex').toUpperCase()
-  }
-  if (method === 'PAYPAL') {
-    const params = {
-      amount: amount,
-      cmd: '_xclick',
-      currency_code: 'EUR',
-      item_name: itemName,
-      item_number: objectId,
-      rm: 0,
-      return: `${host()}/${locale}/gift/payment-return/paypal/success`,
-      cancel_return: `${host()}/${locale}/gift/payment-return/paypal/cancel`,
-      business: environment.pp_email,
-      notify_url: `${host()}/${locale}/gift/payment-notify/paypal`,
-      email: email,
-      lc: lang
-    }
-    const url = Object.keys(params).map(function (k) {
-      return encodeURIComponent(k) + '=' + encodeURIComponent(params[k])
-    }).join('&')
-    window.location.href = environment.pp_url + '?' + url
-  }
-}
-
-function getPaysParsed (modpaie, pays) {
-  return new Promise((resolve, reject) => {
-    getCountryCode(pays, modpaie).then(data => {
-      resolve(data)
-    }).catch(() => {
-      reject(i18n.trans('form.message.zipcode_invalid'))
-    })
-  })
-}

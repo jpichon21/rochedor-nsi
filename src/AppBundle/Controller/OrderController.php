@@ -35,6 +35,7 @@ use SensioLabs\Security\Exception\HttpException;
 use AppBundle\Service\PaypalService;
 use AppBundle\Service\PageService;
 use AppBundle\Service\CartService;
+use AppBundle\Service\PaymentService;
 
 class OrderController extends Controller
 {
@@ -103,6 +104,11 @@ class OrderController extends Controller
      */
     private $cartService;
 
+    /**
+     * @var PaymentService
+     */
+    private $paymentService;
+
     public function __construct(
         CommandeRepository $commandeRepository,
         ProductRepository $productRepository,
@@ -115,7 +121,8 @@ class OrderController extends Controller
         LoggerInterface $logger,
         EntityManagerInterface $em,
         PageService $pageService,
-        CartService $cartService
+        CartService $cartService,
+        PaymentService $paymentService
     ) {
         $this->commandeRepository = $commandeRepository;
         $this->productRepository = $productRepository;
@@ -129,6 +136,7 @@ class OrderController extends Controller
         $this->em = $em;
         $this->pageService = $pageService;
         $this->cartService = $cartService;
+        $this->paymentService = $paymentService;
     }
 
     /**
@@ -138,24 +146,6 @@ class OrderController extends Controller
     public function xhrTestWeight(Request $request, $weight, $country)
     {
         return $this->findShipping($weight, $country);
-    }
-
-    /**
-     * @Rest\Get("/xhr/order/pbx/{country}", name="get_pbxcode")
-     * @Rest\View()
-    */
-    public function xhrGetPBXCode(Request $request, $country)
-    {
-        return ['status' => 'ok' , 'data' => $this->tpaysRepository->findPBXCode($country)];
-    }
-
-    /**
-     * @Rest\Get("/xhr/order/paypal/{country}", name="get_paypalcode")
-     * @Rest\View()
-    */
-    public function xhrGetPaypalCode(Request $request, $country)
-    {
-        return ['status' => 'ok' , 'data' => $this->tpaysRepository->findPaypalCode($country) ];
     }
 
     /**
@@ -356,8 +346,20 @@ class OrderController extends Controller
         if (!isset($delivery['cartId'])) {
             return ['status' => 'ko', 'message' => 'You must provide a client with a delivery cartid'];
         }
+        if (!isset($delivery['modpaie'])) {
+            return ['status' => 'ko', 'data' => 'payment.modpaie_unknown'];
+        }
         if ($order = $this->registerOrder($delivery, $cartId, $locale)) {
-            return ['status' => 'ok', 'data' => $order];
+            $paymentUrl = $this->paymentService->getUrl(
+                $delivery['modpaie'],
+                $order->getTtc(),
+                $order->getRefcom(),
+                $this->translator->trans('order.payment.title'),
+                $this->getUser()->getEmail(),
+                $locale,
+                'order'
+            );
+            return ['status' => 'ok', 'data' => $paymentUrl];
         }
         return ['status' => 'ko', 'message' => 'an error as occured'];
     }

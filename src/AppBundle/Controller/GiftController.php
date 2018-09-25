@@ -21,6 +21,8 @@ use AppBundle\Entity\Don;
 use AppBundle\Repository\DonRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Psr\Log\LoggerInterface;
+use AppBundle\Service\PaymentService;
+use Symfony\Component\Translation\TranslatorInterface as Translator;
 
 class GiftController extends Controller
 {
@@ -58,18 +60,32 @@ class GiftController extends Controller
      */
     private $logger;
 
+    /**
+     * @var PaymentService
+     */
+    private $paymentService;
+
+    /**
+     * @var Translator
+     */
+    private $translator;
+
     public function __construct(
         TpaysRepository $tpaysRepository,
         PageService $pageService,
         EntityManagerInterface $em,
         DonRepository $donRepository,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        PaymentService $paymentService,
+        Translator $translator
     ) {
         $this->tpaysRepository = $tpaysRepository;
         $this->pageService = $pageService;
         $this->em = $em;
         $this->donRepository = $donRepository;
         $this->logger = $logger;
+        $this->paymentService = $paymentService;
+        $this->translator = $translator;
     }
 
     /**
@@ -127,7 +143,20 @@ class GiftController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($don);
         $em->flush();
-        return ['status' => 'ok', 'data' => $don];
+
+        $paymentUrl = $this->paymentService->getUrl(
+            $gift['moddon'],
+            $don->getMntdon(),
+            $don->getRefdon(),
+            $this->translator->trans('gift.payment.title'),
+            $this->getUser()->getEmail(),
+            $request->getLocale(),
+            'gift'
+        );
+        if (!$paymentUrl) {
+            return ['status' => 'ko', 'message' => 'an error as occured'];
+        }
+        return ['status' => 'ok', 'data' => $paymentUrl];
     }
     
     /**

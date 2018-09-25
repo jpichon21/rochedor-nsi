@@ -1,7 +1,6 @@
 import $ from 'jquery'
 import moment from 'moment'
 import { getParticipant, getDelivery } from './sample'
-import { placePayment } from './cart'
 import { upFlashbag } from './popup'
 import { upLoader, downLoader } from './loader'
 import I18n from './i18n'
@@ -15,9 +14,7 @@ import {
   postOrder,
   postEditCli,
   checkVat,
-  checkZipcode,
-  getPBXCode,
-  getPaypalCode
+  checkZipcode
 } from './order-api.js'
 
 /* Cart */
@@ -468,48 +465,16 @@ itemShipping.on('click', '.continue', function (event) {
   })
 })
 
-function getPaysParsed (modpaie, pays) {
-  if (modpaie === 'PBX') {
-    return new Promise((resolve, reject) => {
-      getPBXCode(pays).then(data => {
-        resolve(data)
-      }).catch(() => {
-        reject(i18n.trans('form.message.zipcode_invalid'))
-      })
-    })
-  } else {
-    return new Promise((resolve, reject) => {
-      getPaypalCode(pays).then(data => {
-        resolve(data)
-      }).catch(() => {
-        reject(i18n.trans('form.message.zipcode_invalid'))
-      })
-    })
-  }
-}
-
 itemPayment.on('submit', 'form.payment', function (event) {
   event.preventDefault()
   upLoader()
-  getPaysParsed(_delivery.modpaie, _delivery.paysliv).then(paysparsed => {
-    postOrder(_delivery).then(res => {
-      downLoader()
-      placePayment(
-        res.modpaie,
-        res.ttc,
-        res.refcom,
-        'truc',
-        'Commande sur le site La Roche D\'Or',
-        _you.email,
-        paysparsed,
-        _locale
-      )
-    }).catch(error => {
-      downLoader()
-      if (error) {
-        upFlashbag(error)
-      }
-    })
+  postOrder(_delivery).then(res => {
+    window.location.href = res
+  }).catch(error => {
+    downLoader()
+    if (error) {
+      upFlashbag(error)
+    }
   })
 })
 
