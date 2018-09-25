@@ -23,6 +23,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Psr\Log\LoggerInterface;
 use AppBundle\Service\PaymentService;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
+use SensioLabs\Security\Exception\HttpException;
 
 class GiftController extends Controller
 {
@@ -187,7 +188,7 @@ class GiftController extends Controller
             $country = $request->get('Pays');
             $amount = ($request->get('Amount')/100);
         } elseif ($method === 'paypal') {
-            if ($this->container->getParameter('kernel.environment') === 'dev') {
+            if ($this->getParameter('payment_env') === 'dev') {
                 $paypalService->useSandbox();
             }
             if ($paypalService->verifyIPN()) {
