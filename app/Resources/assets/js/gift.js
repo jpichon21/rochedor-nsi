@@ -2,6 +2,7 @@ import $ from 'jquery'
 import moment from 'moment'
 import { getParticipant } from './sample'
 import { upFlashbag } from './popup'
+import { upLoader, downLoader } from './loader'
 import I18n from './i18n'
 import {
   postRegister,
@@ -112,23 +113,35 @@ function formatParticipant (data) {
   return participant
 }
 
+function validatePassword (password) {
+  if (password.length < 8 && password.length !== 0) {
+    return i18n.trans('security.password_too_small')
+  }
+  return true
+}
+
 itemConnection.on('submit', '.panel.connection form', function (event) {
   event.preventDefault()
+  upLoader()
   postLogin({
     username: $('.username', this).val(),
     password: $('.password', this).val()
   }).then(user => {
+    downLoader()
     afterLogin(user, false)
   }).catch(() => {
+    downLoader()
     upFlashbag(i18n.trans('security.bad_credentials'))
   })
 })
 
 itemConnection.on('submit', '.panel.reset form', function (event) {
   event.preventDefault()
+  upLoader()
   resetLogin({
     email: $('.username', this).val()
   }).then(() => {
+    downLoader()
     upFlashbag(i18n.trans('security.check_inbox'))
   })
 })
@@ -137,6 +150,13 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
   const participant = formatParticipant(data)
+  upLoader()
+  const validatedPassword = validatePassword(participant.password)
+  if (validatedPassword !== true) {
+    downLoader()
+    upFlashbag(validatedPassword)
+    return
+  }
   if (validateDate(participant.datnaiss)) {
     if (validatePhone(participant.tel, participant.mobil)) {
       postRegister({
@@ -146,17 +166,22 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
           username: user.username,
           password: user.password
         }).then(user => {
+          downLoader()
           afterLogin(user, true)
         }).catch(() => {
+          downLoader()
           upFlashbag(i18n.trans('security.user_exist'))
         })
       }).catch(error => {
+        downLoader()
         upFlashbag(error)
       })
     } else {
+      downLoader()
       upFlashbag(i18n.trans('form.message.phone_invalid'))
     }
   } else {
+    downLoader()
     upFlashbag(i18n.trans('form.message.date_invalid'))
   }
 })
@@ -210,22 +235,33 @@ itemCard.on('submit', '.panel.modify form', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
   const participant = formatParticipant(data)
+  upLoader()
+  const validatedPassword = validatePassword(participant.password)
+  if (validatedPassword !== true) {
+    downLoader()
+    upFlashbag(validatedPassword)
+    return
+  }
   if (validateDate(participant.datnaiss)) {
     if (validatePhone(participant.tel, participant.mobil)) {
       postModify({
         contact: participant
       }).then(user => {
+        downLoader()
         afterLogin({ ...user, password: participant.password }, false)
         $('.panel.modify').slideUp(800, function () {
           $(this).hide()
         })
       }).catch(error => {
+        downLoader()
         upFlashbag(error)
       })
     } else {
+      downLoader()
       upFlashbag(i18n.trans('form.message.phone_invalid'))
     }
   } else {
+    downLoader()
     upFlashbag(i18n.trans('form.message.date_invalid'))
   }
 })
@@ -276,10 +312,13 @@ itemPayment.on('change', '.select-modpaie', function (event) {
 
 itemPayment.on('submit', '.panel.payment form', function (event) {
   event.preventDefault()
+  upLoader()
   postGift(_amount, _allocation.value, _modpaie, _note).then(data => {
     window.location.href = data
-    // downLoader()
+    downLoader()
   }).catch(err => {
+    downLoader()
     console.error(err)
   })
 })
+

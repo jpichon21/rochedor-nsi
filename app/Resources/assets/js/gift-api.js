@@ -40,9 +40,9 @@ export const postRegister = (data) => {
 }
 
 export const postModify = (data) => {
-  return window.fetch('/modify', {
+  return window.fetch('/contact-update', {
     headers: { 'Content-Type': 'application/json' },
-    method: 'POST',
+    method: 'PUT',
     credentials: 'include',
     body: JSON.stringify(data)
   })

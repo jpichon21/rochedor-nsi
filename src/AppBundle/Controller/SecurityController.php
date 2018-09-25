@@ -15,6 +15,7 @@ use Symfony\Component\Translation\TranslatorInterface as Translator;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Service\Mailer;
 use AppBundle\Entity\Contact;
 use AppBundle\Form\RegisterType;
@@ -198,28 +199,23 @@ class SecurityController extends Controller
     }
 
     /**
-    * @Route("/modify", name="modify", requirements={"methods": "POST"})
+    * @Route("/contact-update", name="contact-update", requirements={"methods": "PUT"})
+    * @Security("has_role('ROLE_USER')")
     */
-    public function modifyAction(
+    public function updateAction(
         Request $request,
         ContactRepository $repository,
         UserPasswordEncoderInterface $encoder
     ) {
+        $user = $this->getUser();
         $contactReq = $request->get('contact');
         
         if (!$contactReq) {
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide contact object']);
         }
 
-        $contact = $repository->findContactByEmail($contactReq['email']);
         
-        if ($contact->getCodco() != $contactReq['codco']) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'Email already in use']);
-        }
-
-        $password = $encoder->encodePassword($contact, $contactReq['password']);
-
-        $contact->setNom($contactReq['nom'])
+        $user->setNom($contactReq['nom'])
         ->setPrenom($contactReq['prenom'])
         ->setCivil($contactReq['civil'])
         ->setAdresse($contactReq['adresse'])
@@ -230,31 +226,33 @@ class SecurityController extends Controller
         ->setMobil($contactReq['mobil'])
         ->setEmail($contactReq['email'])
         ->setDatnaiss(new \DateTime($contactReq['datnaiss']))
-        ->setPassword($password)
-        ->setUsername($contactReq['email'])
         ->setProfession($contactReq['profession']);
+        if ($contactReq['password'] !== '') {
+            $password = $encoder->encodePassword($user, $contactReq['password']);
+            $user->setPassword($password);
+        }
 
         $em = $this->getDoctrine()->getManager();
-        $em->persist($contact);
+        $em->persist($user);
         $em->flush();
 
         return new JsonResponse([
-            'username' => $contact->getUsername(),
-            'roles' => $contact->getRoles(),
-            'codco' => $contact->getCodco(),
-            'ident' => $contact->getIdent(),
-            'nom' => $contact->getNom(),
-            'prenom' => $contact->getPrenom(),
-            'adresse' => $contact->getAdresse(),
-            'cp' => $contact->getCp(),
-            'ville' => $contact->getVille(),
-            'pays' => $contact->getPays(),
-            'tel' => $contact->getTel(),
-            'mobil' => $contact->getMobil(),
-            'email' => $contact->getEmail(),
-            'societe' => $contact->getSociete(),
-            'profession' => $contact->getProfession(),
-            'datnaiss' => $contact->getDatnaiss()
+            'username' => $user->getUsername(),
+            'roles' => $user->getRoles(),
+            'codco' => $user->getCodco(),
+            'ident' => $user->getIdent(),
+            'nom' => $user->getNom(),
+            'prenom' => $user->getPrenom(),
+            'adresse' => $user->getAdresse(),
+            'cp' => $user->getCp(),
+            'ville' => $user->getVille(),
+            'pays' => $user->getPays(),
+            'tel' => $user->getTel(),
+            'mobil' => $user->getMobil(),
+            'email' => $user->getEmail(),
+            'societe' => $user->getSociete(),
+            'profession' => $user->getProfession(),
+            'datnaiss' => $user->getDatnaiss()
         ]);
     }
 
