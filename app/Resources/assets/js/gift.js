@@ -146,6 +146,13 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
   })
 })
 
+itemConnection.on('click', '.cancel', function (event) {
+  event.preventDefault()
+  $('.panel.registration', itemConnection).slideUp(800, function () {
+    $(this).hide()
+  })
+})
+
 itemConnection.on('submit', '.panel.registration form', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
@@ -163,18 +170,18 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
         contact: participant
       }).then(user => {
         postLogin({
-          username: user.username,
-          password: user.password
+          username: participant.username,
+          password: participant.password
         }).then(user => {
           downLoader()
           afterLogin(user, true)
-        }).catch(() => {
+        }).catch((error) => {
           downLoader()
-          upFlashbag(i18n.trans('security.user_exist'))
+          upFlashbag(i18n.trans(error))
         })
-      }).catch(error => {
+      }).catch((error) => {
         downLoader()
-        upFlashbag(error)
+        upFlashbag(i18n.trans(error))
       })
     } else {
       downLoader()
@@ -229,6 +236,13 @@ itemCard.on('click', '.modify-you', function (event) {
   $('.panel.modify', itemCard).show()
   updateYouFormRender()
   changeItem(itemCard)
+})
+
+itemCard.on('click', '.cancel', function (event) {
+  event.preventDefault()
+  $('.panel.modify', itemCard).slideUp(800, function () {
+    $('.panel', itemCard).hide()
+  })
 })
 
 itemCard.on('submit', '.panel.modify form', function (event) {

@@ -263,6 +263,9 @@
         <input autocomplete="nope" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= you.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
+        <input autocomplete="nope" class="input username" required type="username" value="<%= you.username %>" name="username" placeholder="{{ 'form.username' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
         <input autocomplete="nope" class="input email" required type="email" value="<%= you.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
@@ -274,8 +277,14 @@
     <div class="pure-u-1-2">
         <input autocomplete="nope" class="input profession" type="text" value="<%= you.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
     </div>
+    <div class="pure-u-1-1">
+    </div>
     <div class="pure-u-6-24">
-        <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reset' | trans | raw }}">
+        <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reinit' | trans | raw }}">
+    </div>
+    <div class="pure-u-8-24"></div>
+    <div class="pure-u-6-24">
+        <a href="#" class="button cancel input">{{ 'form.cancel' | trans | raw }}</a>
     </div>
     <div class="pure-u-4-24">
         <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
