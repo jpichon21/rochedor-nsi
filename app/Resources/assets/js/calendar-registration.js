@@ -185,6 +185,13 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
   })
 })
 
+itemConnection.on('click', '.panel.registration .cancel', function (event) {
+  event.preventDefault()
+  $('.panel.registration').slideUp(800, function () {
+    $(this).hide()
+  })
+})
+
 itemConnection.on('submit', '.panel.registration form', function (event) {
   event.preventDefault()
   upLoader()
