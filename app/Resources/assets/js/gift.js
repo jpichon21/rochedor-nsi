@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import moment from 'moment'
-import { getParticipant } from './sample'
+import { getContact } from './sample'
 import { upFlashbag } from './popup'
 import { upLoader, downLoader } from './loader'
 import I18n from './i18n'
@@ -93,8 +93,8 @@ updateAmountRender()
 /* Actions */
 
 function afterLogin (user, bypass) {
-  const participant = getParticipant()
-  _you = { ...participant, ...user }
+  const contact = getContact()
+  _you = { ...contact, ...user }
   updateYouRender()
   if (bypass) {
     changeItem(itemAmount)
@@ -103,14 +103,14 @@ function afterLogin (user, bypass) {
   }
 }
 
-function formatParticipant (data) {
-  let participant = getParticipant()
+function formatContact (data) {
+  let contact = getContact()
   data.map(obj => {
-    participant[obj.name] = obj.value
+    contact[obj.name] = obj.value
   })
-  participant.codco = parseInt(participant.codco)
-  participant.datnaiss = moment(participant.datnaiss, 'DD/MM/YYYY').format()
-  return participant
+  contact.codco = parseInt(contact.codco)
+  contact.datnaiss = moment(contact.datnaiss, 'DD/MM/YYYY').format()
+  return contact
 }
 
 function validatePassword (password) {
@@ -156,22 +156,22 @@ itemConnection.on('click', '.cancel', function (event) {
 itemConnection.on('submit', '.panel.registration form', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
-  const participant = formatParticipant(data)
+  const contact = formatContact(data)
   upLoader()
-  const validatedPassword = validatePassword(participant.password)
+  const validatedPassword = validatePassword(contact.password)
   if (validatedPassword !== true) {
     downLoader()
     upFlashbag(validatedPassword)
     return
   }
-  if (validateDate(participant.datnaiss)) {
-    if (validatePhone(participant.tel, participant.mobil)) {
+  if (validateDate(contact.datnaiss)) {
+    if (validatePhone(contact.tel, contact.mobil)) {
       postRegister({
-        contact: participant
+        contact: contact
       }).then(user => {
         postLogin({
-          username: participant.username,
-          password: participant.password
+          username: contact.username,
+          password: contact.password
         }).then(user => {
           downLoader()
           afterLogin(user, true)
@@ -201,7 +201,7 @@ itemConnection.on('click', 'a', function (event) {
     case 'registration':
       $('.panel', itemConnection).hide()
       $(`.panel.${which}`, itemConnection).show()
-      _you = getParticipant()
+      _you = getContact()
       updateYouFormRender()
       break
     case 'reset':
@@ -248,21 +248,21 @@ itemCard.on('click', '.cancel', function (event) {
 itemCard.on('submit', '.panel.modify form', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
-  const participant = formatParticipant(data)
+  const contact = formatContact(data)
   upLoader()
-  const validatedPassword = validatePassword(participant.password)
+  const validatedPassword = validatePassword(contact.password)
   if (validatedPassword !== true) {
     downLoader()
     upFlashbag(validatedPassword)
     return
   }
-  if (validateDate(participant.datnaiss)) {
-    if (validatePhone(participant.tel, participant.mobil)) {
+  if (validateDate(contact.datnaiss)) {
+    if (validatePhone(contact.tel, contact.mobil)) {
       postModify({
-        contact: participant
+        contact: contact
       }).then(user => {
         downLoader()
-        afterLogin({ ...user, password: participant.password }, false)
+        afterLogin({ ...user, password: contact.password }, false)
         $('.panel.modify').slideUp(800, function () {
           $(this).hide()
         })
