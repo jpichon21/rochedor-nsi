@@ -26,6 +26,7 @@ use AppBundle\Repository\TpaysRepository;
 use AppBundle\Service\Mailer;
 use AppBundle\Service\PageService;
 use AppBundle\Service\ContactService;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/{_locale}")
@@ -92,13 +93,19 @@ class CalendarController extends Controller
      */
     private $pageService;
 
+    /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $encoder;
+
     public function __construct(
         CalendarRepository $calendarRepository,
         ContactRepository $contactRepository,
         TpaysRepository $tpaysRepository,
         Mailer $mailer,
         Translator $translator,
-        PageService $pageService
+        PageService $pageService,
+        UserPasswordEncoderInterface $encoder
     ) {
         $this->calendarRepository = $calendarRepository;
         $this->contactRepository = $contactRepository;
@@ -106,6 +113,7 @@ class CalendarController extends Controller
         $this->mailer = $mailer;
         $this->translator = $translator;
         $this->pageService = $pageService;
+        $this->encoder = $encoder;
     }
 
      /**
@@ -357,6 +365,12 @@ class CalendarController extends Controller
         if (isset($attendee['username'])) {
             $contact->setUsername($attendee['username']);
         }
+
+        if ($attendee['password'] !== '') {
+            $password = $this->encoder->encodePassword($contact, $attendee['password']);
+            $contact->setPassword($password);
+        }
+
         return $contact;
     }
 
