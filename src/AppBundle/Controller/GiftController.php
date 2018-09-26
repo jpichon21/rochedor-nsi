@@ -140,6 +140,7 @@ class GiftController extends Controller
         ->setEnregdon(new \DateTime('0000-00-00 00:00:00'))
         ->setDatdon(new \DateTime())
         ->setValidDon(0)
+        ->setBanqdon(9)
         ->setMondon('€');
         $em = $this->getDoctrine()->getManager();
         $em->persist($don);
