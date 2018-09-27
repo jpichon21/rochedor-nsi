@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import moment from 'moment'
-import { getParticipant, getDelivery } from './sample'
+import { getContact, getDelivery } from './sample'
 import { upFlashbag } from './popup'
 import { upLoader, downLoader } from './loader'
 import I18n from './i18n'
@@ -147,7 +147,7 @@ function afterLogin (user, bypass) {
 }
 
 function formatParticipant (data) {
-  let participant = getParticipant()
+  let participant = getContact()
   data.map(obj => {
     participant[obj.name] = obj.value
   })
@@ -221,7 +221,7 @@ itemConnection.on('click', 'a', function (event) {
     case 'registration':
       $('.panel', itemConnection).hide()
       $(`.panel.${which}`, itemConnection).show()
-      _you = getParticipant()
+      _you = getContact()
       updateYouFormRender()
       break
     case 'reset':
