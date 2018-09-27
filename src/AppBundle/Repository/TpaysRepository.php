@@ -71,6 +71,14 @@ class TpaysRepository
         $query->setParameter('country', $country['nompays']);
         $results =  $query->getOneOrNullResult();
 
+        if ($results === null) {
+            return false;
+        }
+
+        if ($results['codpostaux'] === []) {
+            return true;
+        }
+
         if ($results['codpostaux'] === null) {
             return false;
         }
