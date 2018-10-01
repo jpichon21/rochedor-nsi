@@ -90,11 +90,11 @@ class GiftController extends Controller
     }
 
     /**
-     * @Route("/{_locale}/dons", name="gift-fr")
-     * @Route("/{_locale}/donations", name="gift-en")
-     * @Route("/{_locale}/spenden", name="gift-de")
-     * @Route("/{_locale}/donazioni", name="gift-it")
-     * @Route("/{_locale}/donaciones", name="gift-es")
+     * @Route("/{_locale}/don-ponctuel", name="giftr-fr")
+     * @Route("/{_locale}/one-tiem-donation", name="giftr-en")
+     * @Route("/{_locale}/einmalige-spende", name="giftr-de")
+     * @Route("/{_locale}/donazione-una-tantum", name="giftr-it")
+     * @Route("/{_locale}/donación-de-una-sola-vez", name="giftr-es")
      */
     public function calendarAction(Request $request)
     {
@@ -109,7 +109,7 @@ class GiftController extends Controller
 
         $page = $this->pageService->getContentFromRequest($request);
         $availableLocales = $this->pageService->getAvailableLocales($page);
-        return $this->render('default/gift.html.twig', [
+        return $this->render('default/giftr.html.twig', [
             'page' => $page,
             'availableLocales' => array(),
             'countries' => $countriesJSON

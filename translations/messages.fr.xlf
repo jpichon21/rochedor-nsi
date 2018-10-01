@@ -2319,7 +2319,7 @@
     <unit id="GQMkF8_" name="gift.intro">
       <segment>
         <source>gift.intro</source>
-        <target><![CDATA[Vous êtes sur le point d'effectuer un don ponctuel en ligne. Veuillez compléter le formulaire suivant ou retournez à la <a href="#">page de don</a>.]]></target>
+        <target><![CDATA[Vous êtes sur le point d'effectuer un don ponctuel en ligne. Veuillez compléter le formulaire suivant ou retournez à la <a href="%link%">page de don</a>.]]></target>
       </segment>
     </unit>
     <unit id="0scb9.5" name="gift.one.title">
