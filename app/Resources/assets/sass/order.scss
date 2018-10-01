@@ -4,10 +4,35 @@
 .content {
     .dropdown {
     .item {
+      &.active {
+        h2 {
+          &.pointer {
+            cursor: default;
+          }
+          span {
+            display: none;
+          }
+        }
+      }
       h2 {
         cursor: default;
         &.pointer {
           cursor: pointer;
+          &:hover {
+            span {
+              opacity: 1;
+            }
+          }
+        }
+        span {
+          margin-left: 10px;
+          font-size: 14px;
+          text-transform: none;
+          letter-spacing: normal;
+          color: $roche-orange;
+          border-bottom: 1px #ffb170 solid;
+          opacity: 0;
+          transition: 0.5s;
         }
       }
       .select-adliv,
