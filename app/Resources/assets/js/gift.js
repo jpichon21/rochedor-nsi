@@ -329,10 +329,9 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
   upLoader()
   postGift(_amount, _allocation.value, _modpaie, _note).then(data => {
     window.location.href = data
-    downLoader()
   }).catch(err => {
     downLoader()
+    upFlashbag(err)
     console.error(err)
   })
 })
-
