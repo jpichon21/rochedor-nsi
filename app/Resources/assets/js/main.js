@@ -39,6 +39,8 @@ zoomPlus.onclick = () => { handleClickZoomPlus() }
 
 // Menu
 
+const body = document.querySelector('body')
+const header = document.querySelector('.header')
 const menus = document.querySelectorAll('[data-menu]')
 
 const handleMenuHover = event => {
@@ -51,10 +53,19 @@ const handleMenuHover = event => {
   })
 }
 
+const handleHeaderHover = event => {
+  event.type === 'mouseenter'
+    ? body.classList.add('hover')
+    : body.classList.remove('hover')
+}
+
 menus.forEach(menu => {
   menu.addEventListener('mouseleave', event => handleMenuHover(event))
   menu.addEventListener('mouseenter', event => handleMenuHover(event))
 })
+
+header.addEventListener('mouseleave', event => handleHeaderHover(event))
+header.addEventListener('mouseenter', event => handleHeaderHover(event))
 
 // Selects
 
