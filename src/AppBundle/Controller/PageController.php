@@ -130,7 +130,7 @@ class PageController extends Controller
         }
 
         $route->setName($routeName);
-        $route->setStaticPrefix('/' . $route->getName());
+        $route->setStaticPrefix('/' .$page->getLocale() . '/' . $route->getName());
         
         $route->setDefault(RouteObjectInterface::CONTENT_ID, $this->contentRepository->getContentId($page));
         $route->setDefault('_locale', $page->getLocale());

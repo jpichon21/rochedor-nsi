@@ -126,6 +126,7 @@ cmf_routing:
         persistence:
             orm:
                 enabled: true
+        auto_locale_pattern: true
         locales: ['fr', 'en', 'de', 'it','es']
         generic_controller: AppBundle:Default:showPage
 
