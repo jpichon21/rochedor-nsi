@@ -129,6 +129,7 @@ cmf_routing:
         auto_locale_pattern: true
         locales: ['fr', 'en', 'de', 'it','es']
         generic_controller: AppBundle:Default:showPage
+        route_collection_limit: 200
 
 nelmio_cors:
     paths:

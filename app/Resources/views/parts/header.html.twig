@@ -90,7 +90,7 @@
             <div class="blank"></div>
             <div class="blank"></div>
             <li><a href="#">{{ 'menu.six.one' | trans | raw }}</a></li>
-            <li><a href="{{ path('dons') }}">{{ 'menu.six.two' | trans | raw }}</a></li>
+            {% if routeExists('dons') %}<li><a href="{{ path('dons') }}">{{ 'menu.six.two' | trans | raw }}</a></li>{% endif %}
         </ul>
     </div>
 </div>
