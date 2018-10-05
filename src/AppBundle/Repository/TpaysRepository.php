@@ -37,7 +37,7 @@ class TpaysRepository
     public function findAllCountry()
     {
         $query = $this->entityManager
-        ->createQuery('SELECT t FROM AppBundle\Entity\Tpays t');
+        ->createQuery('SELECT t FROM AppBundle\Entity\Tpays t ORDER BY t.nompays');
         return $query->getResult();
     }
 
