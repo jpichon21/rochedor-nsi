@@ -79,7 +79,7 @@
         <ul class="sub-menu" data-menu="qzsedr">
             <div class="blank"></div>
             <div class="blank"></div>
-            <li><a href="#">{{ 'menu.five.one' | trans | raw }}</a></li>
+            {% if routeExists('editions') %}<li><a href="{{ path('editions') }}">{{ 'menu.five.one' | trans | raw }}</a></li>{% endif %}
             <li><a href="{{ path('collections-news-' ~ currentLocale) }}">{{ 'menu.five.two' | trans | raw }}</a></li>
             <li><a href="{{ path('collections-' ~ currentLocale) }}">{{ 'menu.five.three' | trans | raw }}</a></li>
         </ul>
