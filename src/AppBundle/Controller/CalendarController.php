@@ -129,6 +129,9 @@ class CalendarController extends Controller
         $calendarURL = $this->generateUrl('calendar-'.$request->getLocale());
 
         $page = $this->pageService->getContentFromRequest($request);
+        if (!$page) {
+            throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
+        }
         $availableLocales = $this->pageService->getAvailableLocales($page);
 
         $countriesJSON = array();
@@ -565,6 +568,9 @@ class CalendarController extends Controller
         $retreatsData = $this->getRetreatsData($calendarRepo);
 
         $page = $this->pageService->getContentFromRequest($request);
+        if (!$page) {
+            throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
+        }
         $availableLocales = $this->pageService->getAvailableLocales($page);
         return $this->render('default/calendar.html.twig', [
                 'page' => $page,

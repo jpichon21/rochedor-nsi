@@ -73,6 +73,9 @@ class ProductController extends Controller
     public function showProductAction($id, Request $request)
     {
         $contentDocument = $this->pageService->getContentFromRequest($request);
+        if (!$contentDocument) {
+            throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
+        }
         $availableLocales = $this->pageService->getAvailableLocales($contentDocument);
         $product = $this->productRepository->findProduct($id);
         return $this->render(
@@ -96,6 +99,9 @@ class ProductController extends Controller
     public function showNewProductsAction(Request $request)
     {
         $contentDocument = $this->pageService->getContentFromRequest($request);
+        if (!$contentDocument) {
+            throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
+        }
         $availableLocales = $this->pageService->getAvailableLocales($contentDocument);
         $products = $this->productRepository->findNewProducts();
         return $this->render(
@@ -149,6 +155,9 @@ class ProductController extends Controller
             }
         }
         $contentDocument = $this->pageService->getContentFromRequest($request);
+        if (!$contentDocument) {
+            throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
+        }
         $availableLocales = $this->pageService->getAvailableLocales($contentDocument);
 
         return $this->render(

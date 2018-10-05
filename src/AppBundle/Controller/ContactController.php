@@ -63,6 +63,9 @@ class ContactController extends Controller
         $path = $request->getPathInfo();
         $name = substr($path, 1);
         $page = $this->pageService->getContentFromRequest($request);
+        if (!$page) {
+            throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
+        }
         $availableLocales = $this->pageService->getAvailableLocales($page);
         
 
