@@ -2532,5 +2532,11 @@
         <target>Inscription</target>
       </segment>
     </unit>
+    <unit id="kwp2jus" name="global.page-not-found">
+      <segment>
+        <source>global.page-not-found</source>
+        <target>La page à laquelle vous tentez d'accéder, n'existe plus ou a été déplacée.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
