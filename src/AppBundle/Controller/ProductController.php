@@ -72,18 +72,11 @@ class ProductController extends Controller
      */
     public function showProductAction($id, Request $request)
     {
-        $contentDocument = $this->pageService->getContentFromRequest($request);
-        if (!$contentDocument) {
-            throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
-        }
-        $availableLocales = $this->pageService->getAvailableLocales($contentDocument);
         $product = $this->productRepository->findProduct($id);
         return $this->render(
             'product/details.html.twig',
             [
                 'product' => $product,
-                'availableLocales' => $availableLocales,
-                'page' => $contentDocument,
                 'cartCount' => $this->cartService->getCartCount()
             ]
         );
