@@ -575,7 +575,11 @@ class OrderController extends Controller
     }
      
     /**
-     * @Route("/{_locale}/order", name="order-fr")
+     * @Route("/{_locale}/commande", name="order-fr")
+     * @Route("/{_locale}/order", name="order-en")
+     * @Route("/{_locale}/bestellen", name="order-de")
+     * @Route("/{_locale}/ordine", name="order-it")
+     * @Route("/{_locale}/orden", name="order-es")
      */
     public function orderAction(Request $request)
     {
