@@ -249,9 +249,9 @@ function validatePro (societe, tvaintra) {
   return (societe === '' && tvaintra === '') || (societe !== '' && tvaintra !== '')
 }
 
-function validateTvaintra (tvaintra, country) {
+function validateTvaintra (tvaintra) {
   return new Promise((resolve, reject) => {
-    checkVat(tvaintra, country).then(() => {
+    checkVat(tvaintra).then(() => {
       resolve()
     }).catch(() => {
       reject(i18n.trans('form.message.zipcode_invalid'))
@@ -300,7 +300,7 @@ function validateClient (event, context, callback) {
   if (validatedPro) {
     if (validatedPhone) {
       if (participant.tvaintra !== '') {
-        validateTvaintra(participant.tvaintra, participant.pays).then(() => {
+        validateTvaintra(participant.tvaintra).then(() => {
           callback(participant)
         }).catch(() => {
           downLoader()
