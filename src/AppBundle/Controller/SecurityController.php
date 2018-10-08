@@ -303,10 +303,10 @@ class SecurityController extends Controller
         if (!$contacts = $repository->findContactByInfos($email, $lastname, $firstname)) {
             return new JsonResponse(['status' => 'ko', 'message' => 'security.password_request.not_found']);
         }
-        $token = sha1(random_bytes(15));
         $expiresAt = new \DateTime();
         $expiresAt->add(new \DateInterval('PT4H'));
         foreach ($contacts as $contact) {
+            $token = sha1(random_bytes(15));
             $contact->setResetToken($token)
             ->setResetTokenExpiresAt($expiresAt);
             
