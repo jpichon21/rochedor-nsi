@@ -2538,5 +2538,11 @@
         <target>La page à laquelle vous tentez d'accéder, n'existe plus ou a été déplacée.</target>
       </segment>
     </unit>
+    <unit id="o3R9FHH" name="cart.product.added">
+      <segment>
+        <source>cart.product.added</source>
+        <target>Le produit a été ajouté au panier</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

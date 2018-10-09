@@ -16,11 +16,21 @@
 {% else %}
 <body class="{{ bodyClass|default('') }}" style="{{ bodyBackground|default(0)|constantBackground }}">
 {% endif %}
-    {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
-    {% set currentLocale = app.request.locale %}
-    {% include 'parts/header.html.twig' %}
-    {% block content %}{% endblock %}
-    {% include 'parts/footer.html.twig' %}
+{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+{% set currentLocale = app.request.locale %}
+{% include 'parts/header.html.twig' %}
+{% block content %}{% endblock %}
+{% include 'parts/footer.html.twig' %}
+{% set flashbags = [] %}
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        {% set flashbags = flashbags|merge([message|trans]) %}
+    {% endfor %}
+{% endfor %}
+    <script type="application/json" class="locale-json">{{ currentLocale }}</script>
+    <script>
+        var flashbags = {{ flashbags|json_encode()|raw }}
+    </script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     {% block javascripts %}{% endblock %}
 </body>
