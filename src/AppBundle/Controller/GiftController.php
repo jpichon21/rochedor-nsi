@@ -90,11 +90,11 @@ class GiftController extends Controller
     }
 
     /**
-     * @Route("/{_locale}/don-ponctuel", name="giftr-fr")
-     * @Route("/{_locale}/one-tiem-donation", name="giftr-en")
-     * @Route("/{_locale}/einmalige-spende", name="giftr-de")
-     * @Route("/{_locale}/donazione-una-tantum", name="giftr-it")
-     * @Route("/{_locale}/donación-de-una-sola-vez", name="giftr-es")
+     * @Route("/{_locale}/don-ponctuel", name="gift-fr")
+     * @Route("/{_locale}/one-tiem-donation", name="gift-en")
+     * @Route("/{_locale}/einmalige-spende", name="gift-de")
+     * @Route("/{_locale}/donazione-una-tantum", name="gift-it")
+     * @Route("/{_locale}/donación-de-una-sola-vez", name="gift-es")
      */
     public function calendarAction(Request $request)
     {
