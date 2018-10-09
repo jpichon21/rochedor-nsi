@@ -34,8 +34,7 @@
       </notes>
       <segment>
         <source>menu.one.one</source>
-        <target><![CDATA[
-					La <br>communauté
+        <target><![CDATA[La <br>communauté
 				]]></target>
       </segment>
     </unit>
@@ -45,8 +44,7 @@
       </notes>
       <segment>
         <source>menu.one.two</source>
-        <target><![CDATA[
-					Les <br>fondateurs
+        <target><![CDATA[Les <br>fondateurs
 				]]></target>
       </segment>
     </unit>
@@ -56,8 +54,7 @@
       </notes>
       <segment>
         <source>menu.one.three</source>
-        <target><![CDATA[
-					La <br>Roche d'Or
+        <target><![CDATA[La <br>Roche d'Or
 				]]></target>
       </segment>
     </unit>
@@ -67,8 +64,7 @@
       </notes>
       <segment>
         <source>menu.one.four</source>
-        <target><![CDATA[
-					Les <br>Fontanilles
+        <target><![CDATA[Les <br>Fontanilles
 				]]></target>
       </segment>
     </unit>
@@ -78,8 +74,7 @@
       </notes>
       <segment>
         <source>menu.two.one</source>
-        <target><![CDATA[
-					Venir <br>en retraite
+        <target><![CDATA[Venir <br>en retraite
 				]]></target>
       </segment>
     </unit>
@@ -89,8 +84,7 @@
       </notes>
       <segment>
         <source>menu.two.two</source>
-        <target><![CDATA[
-					Retraites <br>à la Roche d'Or
+        <target><![CDATA[Retraites <br>à la Roche d'Or
 				]]></target>
       </segment>
     </unit>
@@ -100,8 +94,7 @@
       </notes>
       <segment>
         <source>menu.two.three</source>
-        <target><![CDATA[
-					Retraites <br>aux Fontanilles
+        <target><![CDATA[Retraites <br>aux Fontanilles
 				]]></target>
       </segment>
     </unit>
@@ -111,8 +104,7 @@
       </notes>
       <segment>
         <source>menu.two.four</source>
-        <target><![CDATA[
-					Les <br>intervenants
+        <target><![CDATA[Les <br>intervenants
 				]]></target>
       </segment>
     </unit>
@@ -149,8 +141,7 @@
       </notes>
       <segment>
         <source>menu.four.one</source>
-        <target><![CDATA[
-					Infos pratiques<br> de la Roche d'Or
+        <target><![CDATA[Infos pratiques<br> de la Roche d'Or
 				]]></target>
       </segment>
     </unit>
@@ -160,8 +151,7 @@
       </notes>
       <segment>
         <source>menu.four.two</source>
-        <target><![CDATA[
-					Infos pratiques<br> des Fontanilles
+        <target><![CDATA[Infos pratiques<br> des Fontanilles
 				]]></target>
       </segment>
     </unit>
@@ -171,8 +161,7 @@
       </notes>
       <segment>
         <source>menu.four.three</source>
-        <target><![CDATA[
-					Accueil<br> des enfants
+        <target><![CDATA[Accueil<br> des enfants
 				]]></target>
       </segment>
     </unit>
@@ -182,8 +171,7 @@
       </notes>
       <segment>
         <source>menu.four.four</source>
-        <target><![CDATA[
-					Liens<br> amis
+        <target><![CDATA[Liens<br> amis
 				]]></target>
       </segment>
     </unit>
@@ -193,8 +181,7 @@
       </notes>
       <segment>
         <source>menu.five.one</source>
-        <target><![CDATA[
-					Les Editions<br> Roche d'Or
+        <target><![CDATA[Les Editions<br> Roche d'Or
 				]]></target>
       </segment>
     </unit>
@@ -204,8 +191,7 @@
       </notes>
       <segment>
         <source>menu.five.two</source>
-        <target><![CDATA[
-					Les<br> Nouveautés
+        <target><![CDATA[Les<br> Nouveautés
 				]]></target>
       </segment>
     </unit>
@@ -215,8 +201,7 @@
       </notes>
       <segment>
         <source>menu.five.three</source>
-        <target><![CDATA[
-					Les<br> Collections
+        <target><![CDATA[Les<br> Collections
 				]]></target>
       </segment>
     </unit>
@@ -226,8 +211,7 @@
       </notes>
       <segment>
         <source>menu.six.one</source>
-        <target><![CDATA[
-					Donner<br> du temps
+        <target><![CDATA[Donner<br> du temps
 				]]></target>
       </segment>
     </unit>
@@ -237,8 +221,7 @@
       </notes>
       <segment>
         <source>menu.six.two</source>
-        <target><![CDATA[
-					Faire<br> un don
+        <target><![CDATA[Faire<br> un don
 				]]></target>
       </segment>
     </unit>
