@@ -375,9 +375,11 @@ class OrderController extends Controller
         
         
         if ($status === 'success') {
-            $this->em->remove($cart);
-            $this->em->flush();
-            $session->remove('cart');
+            if ($cart) {
+                $this->em->remove($cart);
+                $this->em->flush();
+                $session->remove('cart');
+            }
         }
 
         return $this->render('order/payment-return.html.twig', [
