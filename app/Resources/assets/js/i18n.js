@@ -14,7 +14,9 @@ export default class I18n {
   }
 
   trans (key) {
-    return (this.messages[key]) ? this.messages[key] : key
+    if (this.messages) {
+      return (this.messages[key]) ? this.messages[key] : key
+    }
   }
 
   getMessages () {
