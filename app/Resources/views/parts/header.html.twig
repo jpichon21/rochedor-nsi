@@ -18,6 +18,7 @@
                 {% endfor %}
                 {% else %}
                 {% set route = app.request.attributes.get('_route') %}
+                {% if route %}
                 {% set route_params = app.request.attributes.get('_route_params') %}
                 {% set params = route_params|merge(app.request.query.all) %}
                 {% for locale in locales %}
@@ -25,6 +26,7 @@
                 <li><a href="{{ path(route, params|merge({ _locale: locale })) }}">{{ locale }}</a></li>
                 {% endif %}
                 {% endfor %}
+                {% endif %}
                 {% endif %}
             </ul>
             <ul class="current">

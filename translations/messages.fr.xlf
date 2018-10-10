@@ -2538,5 +2538,31 @@
         <target>La page à laquelle vous tentez d'accéder, n'existe plus ou a été déplacée.</target>
       </segment>
     </unit>
+    <unit id="..asBgy" name="errors.not-found.title">
+      <segment>
+        <source>errors.not-found.title</source>
+        <target>Page introuvable</target>
+      </segment>
+    </unit>
+    <unit id="iPFuef3" name="errors.not-found.intro">
+      <segment>
+        <source>errors.not-found.intro</source>
+        <target><![CDATA[La page à laquelle vous tentez d'accéder n'existe plus.<br>
+<a href="%link%">Retourner à la page d'accueil.</a>]]></target>
+      </segment>
+    </unit>
+    <unit id="o1xwBMD" name="errors.unknown.title">
+      <segment>
+        <source>errors.unknown.title</source>
+        <target>Erreur</target>
+      </segment>
+    </unit>
+    <unit id="8bM_dS3" name="errors.unknown.intro">
+      <segment>
+        <source>errors.unknown.intro</source>
+        <target><![CDATA[Une erreur est survenue.<br>
+<a href="%link%">Retourner à la page d'accueil.</a>]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

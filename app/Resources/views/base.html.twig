@@ -16,7 +16,11 @@
 {% else %}
 <body class="{{ bodyClass|default('') }}" style="{{ bodyBackground|default(0)|constantBackground }}">
 {% endif %}
-    {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+    {% if app.request.attributes.get('_route_params') and app.request.attributes.get('_route') %}
+        {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+    {% else %}
+        {% set currentPath = null %}
+    {% endif %}
     {% set currentLocale = app.request.locale %}
     {% include 'parts/header.html.twig' %}
     {% block content %}{% endblock %}

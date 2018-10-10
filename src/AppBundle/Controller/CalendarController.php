@@ -579,7 +579,7 @@ class CalendarController extends Controller
                 'speakers' => $filters['speakers'],
                 'translations' => $filters['translations'],
                 'retreatsData' => json_encode($retreatsData),
-                'availableLocales' => array()
+                'availableLocales' => $availableLocales
             ]);
     }
 }
