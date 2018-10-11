@@ -4,6 +4,8 @@ namespace AppBundle\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Contact;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class ContactRepository
 {
@@ -144,6 +146,23 @@ class ContactRepository
             AND col.colp <> col.col'
         );
         $query->setParameters(['contactId' => $contactId, 'accom' => 'accom']);
+        return $query->getResult();
+    }
+
+    /**
+     * Find Contact list for cms' backoffice
+     *
+     * @return ArrayCollection
+     */
+    public function findAllUser()
+    {
+        $query = $this->entityManager
+        ->createQuery('
+        SELECT c FROM AppBundle\Entity\Contact c 
+        WHERE c.roles LIKE :role
+        ')
+        ->setParameter('role', '%ROLE_ADMIN%')
+        ->setMaxResults(100);
         return $query->getResult();
     }
 }

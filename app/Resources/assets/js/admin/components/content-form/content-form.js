@@ -50,6 +50,8 @@ import {
   Tooltip,
   Icon
 } from '@material-ui/core'
+import IsAuthorized, { ACTION_CONTENT_EDIT } from '../../isauthorized/isauthorized'
+import Redirect from 'react-router-dom/Redirect'
 
 const DragHandle = SortableHandle(() => <Icon style={{ 'cursor': 'move' }}>sort</Icon>)
 const SortableItem = SortableElement(({ section, indexSection, state, classes, context }) =>
@@ -716,188 +718,190 @@ export class ContentForm extends React.Component {
     const noticeIndexImage = noticeIds[2]
     return (
       <div className={classes.container}>
-        <Dialog open={this.state.fileUploading.isUploading &&
-          this.state.fileUploading.type === 'image'}>
-          <DialogTitle>Image</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              <p>Merci de patienter pendant le chargement de votre image...</p>
-              <CircularProgress />
-            </DialogContentText>
-          </DialogContent>
-        </Dialog>
-        <Dialog
-          open={this.state.AlertBlockquoteOpen}
-          onClose={this.handleCloseAlertBlockquote}>
-          <DialogTitle>Citation</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              <p>La citation doit être renseignée en <em>italique</em><br />L'auteur doit être renseigné en <strong>gras</strong> et police romaine</p>
-              <p>Exemple :<br /><em>La foi, c'est une confiance, la gratuité d'une amitié.</em> <strong>Florin Callerand</strong></p>
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleCloseAlertBlockquote} color='primary' autoFocus>J'ai compris !</Button>
-          </DialogActions>
-        </Dialog>
-        <Dialog
-          open={this.state.AlertVideoOpen}
-          onClose={this.handleCloseAlertVideo}>
-          <DialogTitle>Vidéo</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              <p>Vous êtes sur le point de renseigner l'URL de la vidéo. Ceci ne dispense pas d'ajouter une image !</p><br />
+        <IsAuthorized action={ACTION_CONTENT_EDIT} alternative={<Redirect to={'/content-list'} />}>
+          <Dialog open={this.state.fileUploading.isUploading &&
+            this.state.fileUploading.type === 'image'}>
+            <DialogTitle>Image</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                <p>Merci de patienter pendant le chargement de votre image...</p>
+                <CircularProgress />
+              </DialogContentText>
+            </DialogContent>
+          </Dialog>
+          <Dialog
+            open={this.state.AlertBlockquoteOpen}
+            onClose={this.handleCloseAlertBlockquote}>
+            <DialogTitle>Citation</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                <p>La citation doit être renseignée en <em>italique</em><br />L'auteur doit être renseigné en <strong>gras</strong> et police romaine</p>
+                <p>Exemple :<br /><em>La foi, c'est une confiance, la gratuité d'une amitié.</em> <strong>Florin Callerand</strong></p>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleCloseAlertBlockquote} color='primary' autoFocus>J'ai compris !</Button>
+            </DialogActions>
+          </Dialog>
+          <Dialog
+            open={this.state.AlertVideoOpen}
+            onClose={this.handleCloseAlertVideo}>
+            <DialogTitle>Vidéo</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                <p>Vous êtes sur le point de renseigner l'URL de la vidéo. Ceci ne dispense pas d'ajouter une image !</p><br />
+                <TextField
+                  autoComplete='off'
+                  InputLabelProps={{ shrink: true }}
+                  name='page.title'
+                  label='URL Vidéo'
+                  value={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].video}
+                  onChange={(event) => { this.handleChangeVideo(event, noticeIndexSection, noticeIndexSlide, noticeIndexImage) }} />
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleCloseAlertVideo} color='secondary' autoFocus>Annuler</Button>
+              <Button onClick={this.handleCloseAlertVideo} color='primary' autoFocus>Valider</Button>
+            </DialogActions>
+          </Dialog>
+          <Dialog
+            open={this.state.AlertAltOpen}
+            onClose={this.handleCloseAlertAlt}>
+            <DialogTitle>Légende</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                <p>Vous êtes sur le point de renseigner la légende de l'image.</p><br />
+                <TextField
+                  autoComplete='off'
+                  InputLabelProps={{ shrink: true }}
+                  name='page.title'
+                  label='Légende'
+                  value={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].alt}
+                  onChange={(event) => { this.handleChangeAlt(event, noticeIndexSection, noticeIndexSlide, noticeIndexImage) }} />
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleCloseAlertAlt} color='secondary' autoFocus>Annuler</Button>
+              <Button onClick={this.handleCloseAlertAlt} color='primary' autoFocus>Valider</Button>
+            </DialogActions>
+          </Dialog>
+          <Typography variant='display1' className={classes.title}>
+            Contenu
+          </Typography>
+          <form className={classes.form}>
+            <Tooltip
+              enterDelay={300}
+              id='tooltip-controlled'
+              leaveDelay={100}
+              onClose={this.handleTooltipClose}
+              onOpen={this.handleTooltipOpen}
+              open={this.state.open}
+              placement='bottom'
+              title="Renseigner l'introduction de votre page"
+            >
               <TextField
                 autoComplete='off'
                 InputLabelProps={{ shrink: true }}
-                name='page.title'
-                label='URL Vidéo'
-                value={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].video}
-                onChange={(event) => { this.handleChangeVideo(event, noticeIndexSection, noticeIndexSlide, noticeIndexImage) }} />
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleCloseAlertVideo} color='secondary' autoFocus>Annuler</Button>
-            <Button onClick={this.handleCloseAlertVideo} color='primary' autoFocus>Valider</Button>
-          </DialogActions>
-        </Dialog>
-        <Dialog
-          open={this.state.AlertAltOpen}
-          onClose={this.handleCloseAlertAlt}>
-          <DialogTitle>Légende</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              <p>Vous êtes sur le point de renseigner la légende de l'image.</p><br />
-              <TextField
-                autoComplete='off'
-                InputLabelProps={{ shrink: true }}
-                name='page.title'
-                label='Légende'
-                value={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].alt}
-                onChange={(event) => { this.handleChangeAlt(event, noticeIndexSection, noticeIndexSlide, noticeIndexImage) }} />
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleCloseAlertAlt} color='secondary' autoFocus>Annuler</Button>
-            <Button onClick={this.handleCloseAlertAlt} color='primary' autoFocus>Valider</Button>
-          </DialogActions>
-        </Dialog>
-        <Typography variant='display1' className={classes.title}>
-          Contenu
-        </Typography>
-        <form className={classes.form}>
-          <Tooltip
-            enterDelay={300}
-            id='tooltip-controlled'
-            leaveDelay={100}
-            onClose={this.handleTooltipClose}
-            onOpen={this.handleTooltipOpen}
-            open={this.state.open}
-            placement='bottom'
-            title="Renseigner l'introduction de votre page"
-          >
-            <TextField
-              autoComplete='off'
-              InputLabelProps={{ shrink: true }}
-              className={classes.textfield}
-              fullWidth
-              multiline
-              name='page.content.intro'
-              label='Introduction'
-              value={this.state.page.content.intro}
-              onChange={this.handleInputChange} />
-          </Tooltip>
-          <SortableList distance={50} items={this.state.page.content.sections} onSortEnd={this.handleSortSections} context={this} classes={classes} state={this.state} useDragHandle />
-        </form>
-        <div className={classes.buttons}>
-          {
-            this.props.edit &&
-            (
-              <Fragment>
-                <Tooltip
-                  enterDelay={300}
-                  id='tooltip-controlled'
-                  leaveDelay={300}
-                  onClose={this.handleTooltipClose}
-                  onOpen={this.handleTooltipOpen}
-                  open={this.state.open}
-                  placement='bottom'
-                  title='Revenir à une version antérieur'
-                >
-                  <Button
-                    className={classes.button}
-                    variant='fab'
-                    color='primary'
-                    aria-label='More'
-                    aria-owns={this.state.anchorVersion ? 'long-menu' : null}
-                    aria-haspopup='true'
-                    onClick={this.handleVersionOpen}
+                className={classes.textfield}
+                fullWidth
+                multiline
+                name='page.content.intro'
+                label='Introduction'
+                value={this.state.page.content.intro}
+                onChange={this.handleInputChange} />
+            </Tooltip>
+            <SortableList distance={50} items={this.state.page.content.sections} onSortEnd={this.handleSortSections} context={this} classes={classes} state={this.state} useDragHandle />
+          </form>
+          <div className={classes.buttons}>
+            {
+              this.props.edit &&
+              (
+                <Fragment>
+                  <Tooltip
+                    enterDelay={300}
+                    id='tooltip-controlled'
+                    leaveDelay={300}
+                    onClose={this.handleTooltipClose}
+                    onOpen={this.handleTooltipOpen}
+                    open={this.state.open}
+                    placement='bottom'
+                    title='Revenir à une version antérieur'
                   >
-                    <Icon>history</Icon>
-                  </Button>
-                </Tooltip>
-                <Menu
-                  id='long-menu'
-                  anchorEl={this.state.anchorVersion}
-                  open={Boolean(this.state.anchorVersion)}
-                  onClose={this.handleCloseVersion}
-                  PaperProps={{
-                    style: {
-                      maxHeight: 40 * 4.5,
-                      width: 200
+                    <Button
+                      className={classes.button}
+                      variant='fab'
+                      color='primary'
+                      aria-label='More'
+                      aria-owns={this.state.anchorVersion ? 'long-menu' : null}
+                      aria-haspopup='true'
+                      onClick={this.handleVersionOpen}
+                    >
+                      <Icon>history</Icon>
+                    </Button>
+                  </Tooltip>
+                  <Menu
+                    id='long-menu'
+                    anchorEl={this.state.anchorVersion}
+                    open={Boolean(this.state.anchorVersion)}
+                    onClose={this.handleCloseVersion}
+                    PaperProps={{
+                      style: {
+                        maxHeight: 40 * 4.5,
+                        width: 200
+                      }
+                    }}
+                  >
+                    <MenuItem key={null} selected={this.state.versionCount === null} onClick={event => this.handleVersion(event, null)}>Courante</MenuItem>
+                    {Object.keys(versions).map((key) => (
+                      <MenuItem key={key} selected={key === this.state.versionCount} onClick={event => this.handleVersion(event, key)}>
+                        {moment(versions[key].logged_at).format('DD/MM/YYYY HH:mm:ss')}
+                      </MenuItem>
+                    ))}
                     }
-                  }}
-                >
-                  <MenuItem key={null} selected={this.state.versionCount === null} onClick={event => this.handleVersion(event, null)}>Courante</MenuItem>
-                  {Object.keys(versions).map((key) => (
-                    <MenuItem key={key} selected={key === this.state.versionCount} onClick={event => this.handleVersion(event, key)}>
-                      {moment(versions[key].logged_at).format('DD/MM/YYYY HH:mm:ss')}
-                    </MenuItem>
-                  ))}
-                  }
-                </Menu>
-              </Fragment>
+                  </Menu>
+                </Fragment>
 
-            )
-          }
-          <Tooltip
-            enterDelay={300}
-            id='tooltip-controlled'
-            leaveDelay={300}
-            onClose={this.handleTooltipClose}
-            onOpen={this.handleTooltipOpen}
-            open={this.state.open}
-            placement='bottom'
-            title='Ajouter un volet'
-          >
-            <Button
-              onClick={this.handleAddSection}
-              className={classes.button}
-              variant='fab'
-              color='primary'>
-              <Icon>playlist_add</Icon>
-            </Button>
-          </Tooltip>
-          <Tooltip
-            enterDelay={300}
-            id='tooltip-controlled'
-            leaveDelay={300}
-            onClose={this.handleTooltipClose}
-            onOpen={this.handleTooltipOpen}
-            open={this.state.open}
-            placement='bottom'
-            title='Publier'
-          >
-            <Button
-              disabled={!this.isSubmitEnabled()}
-              onClick={this.handleSubmit}
-              className={classes.button}
-              variant='fab'
-              color='primary'>
-              <SaveIcon />
-            </Button>
-          </Tooltip>
-        </div>
+              )
+            }
+            <Tooltip
+              enterDelay={300}
+              id='tooltip-controlled'
+              leaveDelay={300}
+              onClose={this.handleTooltipClose}
+              onOpen={this.handleTooltipOpen}
+              open={this.state.open}
+              placement='bottom'
+              title='Ajouter un volet'
+            >
+              <Button
+                onClick={this.handleAddSection}
+                className={classes.button}
+                variant='fab'
+                color='primary'>
+                <Icon>playlist_add</Icon>
+              </Button>
+            </Tooltip>
+            <Tooltip
+              enterDelay={300}
+              id='tooltip-controlled'
+              leaveDelay={300}
+              onClose={this.handleTooltipClose}
+              onOpen={this.handleTooltipOpen}
+              open={this.state.open}
+              placement='bottom'
+              title='Publier'
+            >
+              <Button
+                disabled={!this.isSubmitEnabled()}
+                onClick={this.handleSubmit}
+                className={classes.button}
+                variant='fab'
+                color='primary'>
+                <SaveIcon />
+              </Button>
+            </Tooltip>
+          </div>
+        </IsAuthorized>
       </div>
     )
   }

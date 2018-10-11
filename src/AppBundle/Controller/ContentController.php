@@ -17,7 +17,6 @@ use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route as CmfRoute;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider;
 
 /**
  *
@@ -27,123 +26,19 @@ use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider;
  *   basePath="/api"
  * )
  * @SWG\Info(
- * title="Page API documentation",
+ * title="Content API documentation",
  * version="1.0.0"
  * )
  */
-class PageController extends Controller
+class ContentController extends Controller
 {
     private $contentRepository;
-    private $routeProvider;
 
-    public function __construct(ContentRepository $contentRepository, RouteProvider $routeProvider)
+    public function __construct(ContentRepository $contentRepository)
     {
         $this->contentRepository = $contentRepository;
-        $this->routeProvider = $routeProvider;
     }
-    /**
-    * @Rest\Post("/pages")
-    * @Rest\View()
-    * @Security("has_role('ROLE_ADMIN_PAGE_CREATE')")
-    * @ParamConverter("page", converter="fos_rest.request_body")
-    * @SWG\Post(
-    *   path="/pages",
-    *   summary="Add a new page",
-    *   @SWG\Parameter(
-    *          name="body",
-    *          in="body",
-    *          required=true,
-    *          @SWG\Schema(
-    *              @SWG\Property(
-    *                  property="title",
-    *                  type="string"
-    *              ),
-    *              @SWG\Property(
-    *                  property="sub_title",
-    *                  type="string"
-    *              ),
-    *              @SWG\Property(
-    *                  property="description",
-    *                  type="string"
-    *              ),
-    *              @SWG\Property(
-    *                  property="content",
-    *                  type="object"
-    *              ),
-    *              @SWG\Property(
-    *                  property="locale",
-    *                  type="string"
-    *              ),
-    *              @SWG\Property(
-    *                  property="url",
-    *                  type="string"
-    *              )
-    *          )
-    *     ),
-    *   @SWG\Response(
-    *     response=200,
-    *     description="The created page"
-    *   )
-    * )
-    */
-    public function postAction(Page $page)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $parent = null;
-        if ($page->getParentId() != null) {
-            $id = $page->getParentId();
-            $parent = $this->getDoctrine()->getRepository('AppBundle:Page')->find($id);
-            $page->setParent($parent);
-            $page->setImmutableid($this->slugify($parent->getImmutableid()));
-        } else {
-            if ($this->checkImmutability($this->slugify($page->getTitle().'-'.$page->getSubTitle()))) {
-                return new JsonResponse(['message' => 'immutable already-exist'], Response::HTTP_FORBIDDEN);
-            } else {
-                $page->setImmutableid($this->slugify($page->getTitle().'-'.$page->getSubTitle()));
-            }
-        }
-        $em->persist($page);
-
-        if ($page->getLocale() !== "fr" && $parent === null) {
-            return new JsonResponse(['message' => 'Wrong Argument, parent is null'], Response::HTTP_FORBIDDEN);
-        }
-        if ($page->getLocale() !== "fr" && $parent !== null) {
-            if ($parent->getLocale() !== 'fr') {
-                return new JsonResponse(['message' => 'Wrong Argument, parent is not fr'], Response::HTTP_FORBIDDEN);
-            }
-        }
-        if ($page->getLocale() === 'fr' && $parent !== null) {
-            return new JsonResponse(
-                ['message' => 'Wrong Argument, Your parent must be null'],
-                Response::HTTP_FORBIDDEN
-            );
-        }
-        $em->flush();
-        
-        $route = new CmfRoute();
-
-        if (!$page->getUrl()) {
-            $routeName = $this->slugify($page->getTitle().'-'.$page->getSubTitle());
-        } else {
-            $routeName =  $this->slugify($page->getUrl());
-        }
-        if ($this->routeProvider->getRoutesByNames([$routeName])) {
-            return new JsonResponse(['message' => 'Route already exists'], Response::HTTP_FORBIDDEN);
-        }
-
-        $route->setName($routeName);
-        $route->setStaticPrefix('/' .$page->getLocale() . '/' . $route->getName());
-        
-        $route->setDefault(RouteObjectInterface::CONTENT_ID, $this->contentRepository->getContentId($page));
-        $route->setDefault('_locale', $page->getLocale());
-        $route->setContent($page);
-        $em->persist($route);
-        $page->addRoute($route);
-        $em->persist($page);
-        $em->flush();
-
-        return $page;
-    }
+    
     
     private function checkImmutability($immutableid)
     {
@@ -153,12 +48,12 @@ class PageController extends Controller
         }
     }
     /**
-     * @Rest\Get("/pages")
+     * @Rest\Get("/content")
      * @Rest\View()
-     * @Security("has_role('ROLE_ADMIN_PAGE_VIEW')")
+     * @Security("has_role('ROLE_ADMIN_CONTENT_VIEW')")
      * @SWG\Get(
-     *  path="/pages",
-     *      summary="Get requested locale pages' list",
+     *  path="/content",
+     *      summary="Get requested locale content' list",
      *      @SWG\Parameter(
      *          name="locale",
      *          in="query",
@@ -189,11 +84,11 @@ class PageController extends Controller
     }
   
     /**
-     * @Rest\Get("/pages/{id}/{version}", requirements={"version"="\d+"} , defaults={"version" = null})
+     * @Rest\Get("/content/{id}/{version}", requirements={"version"="\d+"} , defaults={"version" = null})
      * @Rest\View()
-     * @Security("has_role('ROLE_ADMIN_PAGE_VIEW')")
+     * @Security("has_role('ROLE_ADMIN_CONTENT_VIEW')")
      * @SWG\Get(
-     *  path="/pages/{id}/{version}",
+     *  path="/content/{id}/{version}",
      *      summary="Get a page",
      *      @SWG\Parameter(
      *          name="id",
@@ -252,7 +147,7 @@ class PageController extends Controller
                 $page->setDescription($oldPage['description']);
             }
             if (isset($oldPage['content'])) {
-                $page->setContent($oldPage['content']);
+                $page->setPage($oldPage['content']);
             }
             if ($page->getRoutes()) {
                 $page->setTempUrl($page->getRoutes()[0]->getName());
@@ -262,50 +157,11 @@ class PageController extends Controller
     }
 
     /**
-     * @Rest\Delete("/pages/{id}")
+     * @Rest\Put("/content/{id}")
      * @Rest\View()
-     * @Security("has_role('ROLE_ADMIN_PAGE_DELETE')")
-     * @SWG\Delete(
-     *  path="/pages/id",
-     *      summary="Delete requested page",
-     *      @SWG\Parameter(
-     *          name="id",
-     *          in="path",
-     *          description="The page id",
-     *          required=true,
-     *          type="string"
-     *      ),
-     *      @SWG\Response(
-     *        response=200,
-     *        description="The page is deleted"
-     *      ),
-     *      @SWG\Response(
-     *        response=404,
-     *        description="Page not found"
-     *      )
-     *    )
-     */
-    public function deleteAction($id)
-    {
-        $data = new Page;
-        $em = $this->getDoctrine()->getManager();
-        $page = $this->getDoctrine()->getRepository('AppBundle:Page')->find($id);
-        if (empty($page)) {
-            return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
-        } else {
-            $page->setParent(null);
-            $em->remove($page);
-            $em->flush();
-        }
-        return new JsonResponse(['message' => 'Deleted successfully'], Response::HTTP_OK);
-    }
-
-    /**
-     * @Rest\Put("/pages/{id}")
-     * @Rest\View()
-     * @Security("has_role('ROLE_ADMIN_PAGE_EDIT')")
+     * @Security("has_role('ROLE_ADMIN_CONTENT_EDIT')")
      * @SWG\Put(
-     *   path="/pages/id",
+     *   path="/content/id",
      *   summary="Edit requested page",
      *   @SWG\Parameter(
      *          name="body",
@@ -350,14 +206,13 @@ class PageController extends Controller
      *   ),
      *   @SWG\Response(
      *     response=404,
-     *     description="Page not found"
+     *     description="Content not found"
      *   )
      * )
      */
     public function putAction($id, Request $request)
     {
 
-        $data = new Page;
         $title = $request->get('title');
         $subTitle = $request->get('sub_title');
         $description = $request->get('description');
@@ -415,11 +270,11 @@ class PageController extends Controller
     }
 
     /**
-     * @Rest\Get("pages/{id}/translations")
+     * @Rest\Get("content/{id}/translations")
      * @Rest\View()
-     * @Security("has_role('ROLE_ADMIN_PAGE_VIEW')")
+     * @Security("has_role('ROLE_ADMIN_CONTENT_VIEW')")
      * @SWG\Get(
-     *  path="/pages/{id}/translations",
+     *  path="/content/{id}/translations",
      *      summary="Get requested page's translatations",
      *      @SWG\Parameter(
      *          name="id",
@@ -451,11 +306,11 @@ class PageController extends Controller
     }
 
     /**
-     * @Rest\Get("pages/{id}/versions")
+     * @Rest\Get("content/{id}/versions")
      * @Rest\View()
-     * @Security("has_role('ROLE_ADMIN_PAGE_VIEW')")
+     * @Security("has_role('ROLE_ADMIN_CONTENT_VIEW')")
      * @SWG\Get(
-     *  path="/pages/{id}/versions",
+     *  path="/content/{id}/versions",
      *      summary="Return all log entries for the selected page",
      *      @SWG\Parameter(
      *          name="id",
@@ -486,29 +341,5 @@ class PageController extends Controller
         }
         $logs = $repo->getLogEntries($page);
         return $logs;
-    }
-
-    /**
-    * Return slugified string
-    *
-    * @param string $string
-    * @param array $replace
-    * @param string $delimiter
-    * @return string Slugified string
-    */
-    private function slugify($string, $replace = array(), $delimiter = '-')
-    {
-        if (!extension_loaded('iconv')) {
-            throw new Exception('iconv module not loaded');
-        }
-        $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
-        if (!empty($replace)) {
-            $clean = str_replace((array) $replace, ' ', $clean);
-        }
-        $clean = preg_replace("/[^a-zA-Z0-9_|+ -]/", '', $clean);
-        $clean = strtolower($clean);
-        $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
-        $clean = trim($clean, $delimiter);
-        return $clean;
     }
 }

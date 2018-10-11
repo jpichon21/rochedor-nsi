@@ -14,3 +14,11 @@ home:
     type: rest
     name_prefix: api_home_
     resource: AppBundle\Controller\HomeController
+user:
+    type: rest
+    name_prefix: api_user_
+    resource: AppBundle\Controller\UserController
+content:
+    type: rest
+    name_prefix: api_content_
+    resource: AppBundle\Controller\ContentController

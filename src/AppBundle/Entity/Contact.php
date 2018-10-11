@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Contact
@@ -35,35 +36,35 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="CodB", type="integer")
      * @Expose
      */
-    private $codb;
+    private $codb = 0;
 
     /**
      * @var bool|null
      *
      * @ORM\Column(name="TypCo", type="boolean")
      */
-    private $typco;
+    private $typco = 1;
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="DivCo", type="string", length=6)
      */
-    private $divco;
+    private $divco = '';
 
     /**
      * @var int|null
      *
      * @ORM\Column(name="SelCo", type="integer")
      */
-    private $selco;
+    private $selco = 0;
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="Ident", type="string", length=256)
      */
-    private $ident;
+    private $ident = '';
 
     /**
      * @var string|null
@@ -71,7 +72,7 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="Civil", type="string", length=6)
      * @Expose
      */
-    private $civil;
+    private $civil = '';
 
     /**
      * @var string|null
@@ -79,15 +80,16 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="Civil2", type="string", length=9)
      * @Expose
      */
-    private $civil2;
+    private $civil2 = '';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="Nom", type="string", length=30)
+     * @Assert\Length(min=3)
      * @Expose
      */
-    private $nom;
+    private $nom = '';
 
     /**
      * @var string|null
@@ -95,7 +97,7 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="Prenom", type="string", length=25)
      * @Expose
      */
-    private $prenom;
+    private $prenom = '';
 
     /**
      * @var string|null
@@ -103,7 +105,7 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="Adresse", type="text", length=65535)
      * @Expose
      */
-    private $adresse;
+    private $adresse = '';
 
     /**
      * @var string|null
@@ -111,7 +113,7 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="CP", type="string", length=8)
      * @Expose
      */
-    private $cp;
+    private $cp = '';
 
     /**
      * @var string|null
@@ -119,7 +121,7 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="Ville", type="string", length=35)
      * @Expose
      */
-    private $ville;
+    private $ville = '';
 
     /**
      * @var string|null
@@ -127,7 +129,7 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="Pays", type="string", length=20)
      * @Expose
      */
-    private $pays;
+    private $pays = '';
 
     /**
      * @var string|null
@@ -135,7 +137,7 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="Tel", type="string", length=20)
      * @Expose
      */
-    private $tel;
+    private $tel = '';
 
     /**
      * @var string|null
@@ -143,7 +145,7 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="Mobil", type="string", length=20)
      * @Expose
      */
-    private $mobil;
+    private $mobil = '';
 
     /**
      * @var string|null
@@ -151,14 +153,14 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="eMail", type="string", length=50)
      * @Expose
      */
-    private $email;
+    private $email = '';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="Societe", type="string", length=40)
      */
-    private $societe;
+    private $societe = '';
 
     /**
      * @var string|null
@@ -166,14 +168,14 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="Profession", type="text", length=65535)
      * @Expose
      */
-    private $profession;
+    private $profession = '';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="mpCo", type="string", length=15)
      */
-    private $mpco;
+    private $mpco = '';
 
     /**
      * @var \DateTime|null
@@ -188,91 +190,91 @@ class Contact implements UserInterface, \Serializable
      *
      * @ORM\Column(name="Zone", type="integer")
      */
-    private $zone;
+    private $zone = 0;
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="Libre", type="string", length=6)
      */
-    private $libre;
+    private $libre = '';
 
     /**
      * @var bool|null
      *
      * @ORM\Column(name="noLet", type="boolean")
      */
-    private $nolet;
+    private $nolet = false;
 
     /**
      * @var int|null
      *
      * @ORM\Column(name="RangCo", type="smallint")
      */
-    private $rangco;
+    private $rangco = 0;
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="CreatCo", type="string", length=15)
      */
-    private $creatco;
+    private $creatco = '';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="JSCo", type="text", length=65535)
      */
-    private $jsco;
+    private $jsco = '';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="ImgCo", type="text", length=65535)
      */
-    private $imgco;
+    private $imgco = '';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="MemoCo", type="text", length=65535)
      */
-    private $memoco;
+    private $memoco = '';
 
     /**
      * @var bool|null
      *
      * @ORM\Column(name="aboLet", type="boolean")
      */
-    private $abolet;
+    private $abolet = false;
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="Particips", type="text", length=65535)
      */
-    private $particips;
+    private $particips = '';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="CatCo", type="string", length=1, options={"fixed"=true})
      */
-    private $catco;
+    private $catco = '';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="CatCo2", type="string", length=1, options={"fixed"=true})
      */
-    private $catco2;
+    private $catco2 = '';
 
     /**
      * @var int|null
      *
      * @ORM\Column(name="Csp", type="integer")
      */
-    private $csp;
+    private $csp = 0;
 
     /**
      * @var \DateTime|null
@@ -286,14 +288,14 @@ class Contact implements UserInterface, \Serializable
      *
      * @ORM\Column(name="Infop", type="text", length=65535)
      */
-    private $infop;
+    private $infop = '';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="Infolg", type="text", length=65535)
      */
-    private $infolg;
+    private $infolg = '';
 
     /**
      * @var \DateTime|null
@@ -307,7 +309,7 @@ class Contact implements UserInterface, \Serializable
      *
      * @ORM\Column(name="TempCo", type="text", length=65535)
      */
-    private $tempco;
+    private $tempco = '';
 
     /**
      * @var string
@@ -325,14 +327,14 @@ class Contact implements UserInterface, \Serializable
      *
      * @ORM\Column(name="Region", type="string", length=50)
      */
-    private $region;
+    private $region = '';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="plainPassword", type="string", length=255)
      */
-    private $plainpassword;
+    private $plainpassword = '';
 
     /**
      * @var string
@@ -347,28 +349,28 @@ class Contact implements UserInterface, \Serializable
      *
      * @ORM\Column(name="letOca", type="boolean", nullable=false, options={"comment"="Lettre occasionnelle"})
      */
-    private $letoca;
+    private $letoca = false;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="letPaper", type="boolean", nullable=false, options={"comment"="Lettre annuelle papier"})
      */
-    private $letpaper;
+    private $letpaper = false;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="letMail", type="boolean", nullable=false, options={"comment"="Lettre annuelle par mail"})
      */
-    private $letmail;
+    private $letmail = false;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="aut16", type="boolean", nullable=false)
      */
-    private $aut16;
+    private $aut16 = false;
 
     /**
      * @var \DateTime|null
@@ -402,8 +404,10 @@ class Contact implements UserInterface, \Serializable
      * @var array
      *
      * @ORM\Column(name="roles", type="json", length=255)
+     * @Type("array")
+     * @Expose
      */
-    private $roles;
+    private $roles = ['ROLE_USER'];
 
     /**
      * @var string
@@ -424,63 +428,17 @@ class Contact implements UserInterface, \Serializable
      *
      * @ORM\Column(name="NewFich", type="boolean", nullable=false)
      */
-    private $newFich;
+    private $newFich = false;
 
     public function __construct()
     {
-        $this->roles = ['ROLE_USER'];
-        $this->letoca = false;
-        $this->letmail = false;
-        $this->letpaper = false;
-        $this->aut16 = false;
-        $this->typco = 1;
-        $this->codb = 0;
-        $this->typco = 1;
-        $this->divco = '';
-        $this->selco = 0;
-        $this->ident = '';
-        $this->civil = '';
-        $this->civil2 = '';
-        $this->nom = '';
-        $this->prenom = '';
-        $this->adresse = '';
-        $this->cp = '';
-        $this->ville = '';
-        $this->pays = '';
-        $this->tel = '';
-        $this->mobil = '';
-        $this->email = '';
-        $this->societe = '';
-        $this->profession = '';
-        $this->mpco = '';
         $this->datnaiss = new \DateTime('0000-00-00');
-        $this->zone = 0;
-        $this->libre = '';
-        $this->nolet = 0;
-        $this->rangco = 0;
-        $this->creatco = '';
-        $this->jsco = '';
-        $this->imgco = '';
-        $this->memoco = '';
-        $this->abolet = 0;
-        $this->particips = '';
-        $this->catco = '';
-        $this->catco2 = '';
-        $this->csp = 0;
         $this->datdem = new \DateTime('0000-00-00');
-        $this->infop = '';
-        $this->infolg = '';
         $this->enregco = new \DateTime();
-        $this->tempco = '';
-        $this->password = '';
-        $this->region = '';
-        $this->plainpassword = '';
         $this->datletoca = new \DateTime('0000-00-00');
         $this->datletpaper = new \DateTime('0000-00-00');
         $this->datletmail = new \DateTime('0000-00-00');
         $this->dataut16 = new \DateTime('0000-00-00');
-        $this->resetToken = '';
-        $this->newFich = true;
         $this->resetTokenExpiresAt = new \DateTime('0000-00-00');
     }
 

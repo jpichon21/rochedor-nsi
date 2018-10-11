@@ -1,27 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { getHome, putHome, setTitle, setLocale, initStatus, getHomeVersions } from '../../actions'
+import { getHome, putHome, setLocale, initStatus, getHomeVersions } from '../../actions'
 import HomeForm from '../home-form/home-form'
 import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
 import { locales } from '../../locales'
-import update from 'immutability-helper'
 import { Snackbar, Button } from '@material-ui/core'
+import IsAuthorized, { ACTION_HOME_VIEW } from '../../isauthorized/isauthorized'
+import Redirect from 'react-router-dom/Redirect'
 
 export class HomeEdit extends React.Component {
-  static defaultProps = {
-    page: {
-      id: null,
-      title: '',
-      sub_title: '',
-      url: '',
-      description: '',
-      locale: 'fr'
-    },
-    locale: 'fr',
-    status: ''
-  }
   constructor (props) {
     super(props)
     this.state = {
@@ -67,9 +56,10 @@ export class HomeEdit extends React.Component {
   render () {
     return (
       <div>
-        <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={`Page d'accueil`} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
-        <Snackbar
+        <IsAuthorized action={ACTION_HOME_VIEW} alternative={<Redirect to={'/'} />}>
+          <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
+          <AppMenu title={`Page d'accueil`} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
+          <Snackbar
             open={this.state.snackbarOpen}
             autoHideDuration={4000}
             onClose={this.handleCloseSnack}
@@ -79,11 +69,12 @@ export class HomeEdit extends React.Component {
             message={<span id='snackbar-fab-message-id'>{this.state.snackbarContent}</span>}
             action={
               <Button color='inherit' size='small' onClick={this.handleCloseSnack}>
-                Ok
+                  Ok
               </Button>
             }
           />
-        <HomeForm home={this.props.home} submitHandler={this.onSubmit} versionHandler={this.onVersionChange} />
+          <HomeForm home={this.props.home} submitHandler={this.onSubmit} versionHandler={this.onVersionChange} />
+        </IsAuthorized>
       </div>
     )
   }
@@ -128,6 +119,19 @@ HomeEdit.defaultProps = {
       ]
     }
   }
+}
+
+mapStateToProps.defaultProps = {
+  page: {
+    id: null,
+    title: '',
+    sub_title: '',
+    url: '',
+    description: '',
+    locale: 'fr'
+  },
+  locale: 'fr',
+  status: ''
 }
 
 export default withRouter(connect(mapStateToProps)(HomeEdit))

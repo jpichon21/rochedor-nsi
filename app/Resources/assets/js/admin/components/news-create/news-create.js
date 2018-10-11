@@ -5,6 +5,8 @@ import NewsForm from '../news-form/news-form'
 import AppMenu from '../app-menu/app-menu'
 import { locales } from '../../locales'
 import Alert from '../alert/alert'
+import IsAuthorized, { ACTION_NEWS_CREATE } from '../../isauthorized/isauthorized'
+import Redirect from 'react-router-dom/Redirect'
 
 export class NewsCreate extends React.Component {
   constructor (props) {
@@ -42,9 +44,11 @@ export class NewsCreate extends React.Component {
   render () {
     return (
       <div>
-        <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu goBack='/news-list' title={'Ajout d\'une nouveauté'} localeHandler={this.onLocaleChange} locales={locales} />
-        <NewsForm submitHandler={this.onSubmit} parents={this.props.parents} />
+        <IsAuthorized action={ACTION_NEWS_CREATE} alternative={<Redirect to={'/news-list'} />}>
+          <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
+          <AppMenu goBack='/news-list' title={'Ajout d\'une nouveauté'} localeHandler={this.onLocaleChange} locales={locales} />
+          <NewsForm submitHandler={this.onSubmit} parents={this.props.parents} />
+        </IsAuthorized>
       </div>
     )
   }

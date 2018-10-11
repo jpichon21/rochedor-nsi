@@ -29,6 +29,7 @@ export default function speakerReducer (state, action) {
     case GET_SPEAKER_VERSIONS:
     case POST_SPEAKER:
     case PUT_SPEAKER:
+    case DELETE_SPEAKER:
     case GET_SPEAKER:
     case SET_SPEAKER_POSTION:
       return {

@@ -53,6 +53,7 @@ import {
   Tooltip,
   Icon
 } from '@material-ui/core'
+import IsAuthorized, { ACTION_PAGE_DELETE } from '../../isauthorized/isauthorized'
 
 const DragHandle = SortableHandle(() => <Icon style={{ 'cursor': 'move' }}>sort</Icon>)
 const SortableItem = SortableElement(({ section, indexSection, state, classes, context }) =>
@@ -1020,24 +1021,26 @@ export class PageForm extends React.Component {
           {
             this.props.edit &&
             <div>
-              <Tooltip
-                enterDelay={300}
-                id='tooltip-controlled'
-                leaveDelay={300}
-                onClose={this.handleTooltipClose}
-                onOpen={this.handleTooltipOpen}
-                open={this.state.open}
-                placement='bottom'
-                title='Supprimer la page'
-              >
-                <Button
-                  onClick={this.handleDelete}
-                  className={classes.button}
-                  variant='fab'
-                  color='secondary'>
-                  <DeleteIcon />
-                </Button>
-              </Tooltip>
+              <IsAuthorized action={ACTION_PAGE_DELETE}>
+                <Tooltip
+                  enterDelay={300}
+                  id='tooltip-controlled'
+                  leaveDelay={300}
+                  onClose={this.handleTooltipClose}
+                  onOpen={this.handleTooltipOpen}
+                  open={this.state.open}
+                  placement='bottom'
+                  title='Supprimer la page'
+                >
+                  <Button
+                    onClick={this.handleDelete}
+                    className={classes.button}
+                    variant='fab'
+                    color='secondary'>
+                    <DeleteIcon />
+                  </Button>
+                </Tooltip>
+              </IsAuthorized>
               <Dialog
                 open={this.state.showDeleteAlert}
                 onClose={this.handleDeleteClose}
