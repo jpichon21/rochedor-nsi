@@ -20,7 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Service\PageService;
 use AppBundle\Form\ContactType;
 
-class ContactController extends Controller
+class ContactFormController extends Controller
 {
     const SITES = [
         "ro" => "Roche d'Or",

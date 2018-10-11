@@ -12,6 +12,7 @@ import DateTimePicker from 'material-ui-pickers/DateTimePicker'
 import SaveIcon from '@material-ui/icons/Save'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { withStyles } from '@material-ui/core/styles'
+import IsAuthorized, { ACTION_NEWS_DELETE } from '../../isauthorized/isauthorized'
 
 moment.locale('fr')
 
@@ -292,24 +293,26 @@ export class NewsForm extends React.Component {
                   ))}
                 }
                 </Menu>
-                <Tooltip
-                  enterDelay={300}
-                  id='tooltip-controlled'
-                  leaveDelay={300}
-                  onClose={this.handleTooltipClose}
-                  onOpen={this.handleTooltipOpen}
-                  open={this.state.open}
-                  placement='bottom'
-                  title='Supprimer'
-                >
-                  <Button
-                    onClick={this.handleDelete}
-                    className={classes.button}
-                    variant='fab'
-                    color='secondary'>
-                    <DeleteIcon />
-                  </Button>
-                </Tooltip>
+                <IsAuthorized action={ACTION_NEWS_DELETE}>
+                  <Tooltip
+                    enterDelay={300}
+                    id='tooltip-controlled'
+                    leaveDelay={300}
+                    onClose={this.handleTooltipClose}
+                    onOpen={this.handleTooltipOpen}
+                    open={this.state.open}
+                    placement='bottom'
+                    title='Supprimer'
+                  >
+                    <Button
+                      onClick={this.handleDelete}
+                      className={classes.button}
+                      variant='fab'
+                      color='secondary'>
+                      <DeleteIcon />
+                    </Button>
+                  </Tooltip>
+                </IsAuthorized>
                 <Dialog
                   open={this.state.showDeleteAlert}
                   onClose={this.handleDeleteClose}

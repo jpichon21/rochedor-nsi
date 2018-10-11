@@ -11,6 +11,8 @@ import { NavLink, Link } from 'react-router-dom'
 import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
 import { locales } from '../../locales'
+import IsAuthorized, { ACTION_NEWS_VIEW, ACTION_NEWS_CREATE, ACTION_NEWS_EDIT } from '../../isauthorized/isauthorized'
+import { Redirect } from 'react-router'
 
 export class NewsList extends React.Component {
   constructor (props) {
@@ -49,54 +51,58 @@ export class NewsList extends React.Component {
     const items = this.props.newsSet.map(news => {
       return (
         <TableRow key={news.id}>
-          <TableCell><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{news.intro}</NavLink></TableCell>
-          <TableCell><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{Moment(news.start).format('DD/MM/YY')}</NavLink></TableCell>
-          <TableCell><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{Moment(news.stop).format('DD/MM/YY')}</NavLink></TableCell>
+          <TableCell><IsAuthorized action={ACTION_NEWS_EDIT} alternative={news.intro}><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{news.intro}</NavLink></IsAuthorized></TableCell>
+          <TableCell><IsAuthorized action={ACTION_NEWS_EDIT} alternative={Moment(news.start).format('DD/MM/YY')}><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{Moment(news.start).format('DD/MM/YY')}</NavLink></IsAuthorized></TableCell>
+          <TableCell><IsAuthorized action={ACTION_NEWS_EDIT} alternative={Moment(news.stop).format('DD/MM/YY')}><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{Moment(news.stop).format('DD/MM/YY')}</NavLink></IsAuthorized></TableCell>
         </TableRow>
       )
     })
     return (
       <div>
-        <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Liste des nouveautés'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
-        <div className={classes.container}>
-          <Paper className={classes.paper}>
-            {
-              this.props.loading
-                ? <CircularProgress size={50} />
-                : (
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Introduction</TableCell>
-                        <TableCell>Début</TableCell>
-                        <TableCell>Fin</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {items}
-                    </TableBody>
-                  </Table>
-                )
-            }
-          </Paper>
-          <div className={classes.buttons}>
-            <Tooltip
-              enterDelay={300}
-              id='tooltip-controlled'
-              leaveDelay={100}
-              onClose={this.handleTooltipClose}
-              onOpen={this.handleTooltipOpen}
-              open={this.state.open}
-              placement='bottom'
-              title='Ajouter une nouveauté'
-            >
-              <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/news-create'}>
-                <AddIcon />
-              </Button>
-            </Tooltip>
+        <IsAuthorized action={ACTION_NEWS_VIEW} alternaative={<Redirect to={'/'} />}>
+          <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
+          <AppMenu title={'Liste des nouveautés'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
+          <div className={classes.container}>
+            <Paper className={classes.paper}>
+              {
+                this.props.loading
+                  ? <CircularProgress size={50} />
+                  : (
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Introduction</TableCell>
+                          <TableCell>Début</TableCell>
+                          <TableCell>Fin</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {items}
+                      </TableBody>
+                    </Table>
+                  )
+              }
+            </Paper>
+            <div className={classes.buttons}>
+              <IsAuthorized action={ACTION_NEWS_CREATE}>
+                <Tooltip
+                  enterDelay={300}
+                  id='tooltip-controlled'
+                  leaveDelay={100}
+                  onClose={this.handleTooltipClose}
+                  onOpen={this.handleTooltipOpen}
+                  open={this.state.open}
+                  placement='bottom'
+                  title='Ajouter une nouveauté'
+                >
+                  <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/news-create'}>
+                    <AddIcon />
+                  </Button>
+                </Tooltip>
+              </IsAuthorized>
+            </div>
           </div>
-        </div>
+        </IsAuthorized>
       </div>
     )
   }

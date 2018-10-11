@@ -5,6 +5,8 @@ import PageForm from '../page-form/page-form'
 import AppMenu from '../app-menu/app-menu'
 import { locales } from '../../locales'
 import Alert from '../alert/alert'
+import IsAuthorized, { ACTION_PAGE_CREATE } from '../../isauthorized/isauthorized'
+import { Redirect } from 'react-router-dom'
 
 export class PageCreate extends React.Component {
   constructor (props) {
@@ -46,9 +48,11 @@ export class PageCreate extends React.Component {
   render () {
     return (
       <div>
-        <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu goBack='/page-list' title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
-        <PageForm submitHandler={this.onSubmit} parents={this.props.parents} />
+        <IsAuthorized action={ACTION_PAGE_CREATE} alternative={<Redirect to={'/page-list'} />}>
+          <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
+          <AppMenu goBack='/page-list' title={'Création de page'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
+          <PageForm submitHandler={this.onSubmit} parents={this.props.parents} />
+        </IsAuthorized>
       </div>
     )
   }

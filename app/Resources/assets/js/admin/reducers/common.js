@@ -69,6 +69,7 @@ export default function commmonReducer (state, action) {
         ...state,
         roles: action.roles,
         username: action.username,
+        fullname: action.name,
         isLogging: false,
         errorLoginMessage: null
       }
@@ -82,7 +83,8 @@ export default function commmonReducer (state, action) {
       return {
         ...state,
         roles: null,
-        username: null
+        username: null,
+        fullname: null
       }
   }
   return state

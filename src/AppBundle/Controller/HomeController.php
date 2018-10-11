@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Gedmo\Loggable;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route as CmfRoute;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
@@ -21,7 +22,9 @@ class HomeController extends Controller
 {
     
     /**
-    * @Rest\Get("/home/{locale}/{version}", requirements={"version"="\d+"} , defaults={"version" = null})")
+    * @Rest\Get("/home/{locale}/{version}",
+    * requirements={"version"="\d+", "locale"="[a-z]{2}"} , defaults={"version" = null})")
+    * @Security("has_role('ROLE_ADMIN_HOME_VIEW')")
     * @SWG\Get(
     *  path="/home/{locale}/{version}",
     *      summary="Get requested home",
@@ -71,14 +74,24 @@ class HomeController extends Controller
         $firstLog = $logs[$countLogs];
         for ($i = ($countLogs); $i >= 0; $i--) {
             if ($logs[$i]->getVersion() <= $version) {
-                $diff = array_diff_key($firstLog->getData(), $logs[$i]->getData());
-                $oldPage = array_merge($diff, $logs[$i]->getData());
+                if ($logs[$i]->getData()) {
+                    $diff = array_diff_key($firstLog->getData(), $logs[$i]->getData());
+                    $oldPage = array_merge($diff, $logs[$i]->getData());
+                }
             }
         }
-        $page->setTitle($oldPage['title']);
-        $page->setSubTitle($oldPage['subTitle']);
-        $page->setDescription($oldPage['description']);
-        $page->setContent($oldPage['content']);
+        if (isset($oldPage['title'])) {
+            $page->setTitle($oldPage['title']);
+        }
+        if (isset($oldPage['subTitle'])) {
+            $page->setSubTitle($oldPage['subTitle']);
+        }
+        if (isset($oldPage['description'])) {
+            $page->setDescription($oldPage['description']);
+        }
+        if (isset($oldPage['content'])) {
+            $page->setContent($oldPage['content']);
+        }
         if ($page->getRoutes()) {
             $page->setTempUrl($page->getRoutes()[0]->getName());
         }
@@ -88,7 +101,7 @@ class HomeController extends Controller
     
     /**
     * @Rest\Put("/home/{id}", requirements={"id"="\d+"})
-    * @Rest\View()
+    * @Security("has_role('ROLE_ADMIN_HOME_EDIT')")
     * @SWG\Put(
     *   path="/home/{id}",
     *   summary="Edit requested home",
@@ -139,6 +152,7 @@ class HomeController extends Controller
     *     description="Page not found"
     *   )
     * )
+    * @Rest\View()
     */
     public function putAction($id, Request $request)
     {
@@ -171,7 +185,8 @@ class HomeController extends Controller
     }
     
     /**
-    * @Rest\Get("home/{id}/versions")
+    * @Rest\Get("home/{id}/versions", requirements={"id"="\d+"})
+    * @Security("has_role('ROLE_ADMIN_HOME_VIEW')")
     * @Rest\View()
     * @SWG\Get(
     *  path="/home/{id}/versions",
