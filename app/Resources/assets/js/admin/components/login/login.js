@@ -39,7 +39,7 @@ export class Login extends React.Component {
   handleSubmit (event) {
     this.props.dispatch(doLogin(this.state.username, this.state.password)).then((res) => {
       if (res.error) {
-        this.setState({error: 'Invalid credentials'})
+        this.setState({error: res.error})
         this.setState({alertOpen: true})
       }
     })

@@ -7,6 +7,7 @@ I18n.setTranslations({
     'News not found': 'Cette nouveauté n\'existe pas',
     'File Exists': 'Le fichier existe déjà',
     'Invalid credentials': 'Identifiants incorrects',
+    'not activated': 'Compte inactif',
     'File too big': 'Ce fichier est trop volumineux (2Mo max)'
   }
 })
