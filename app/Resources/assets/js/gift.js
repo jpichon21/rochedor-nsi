@@ -139,11 +139,17 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
   event.preventDefault()
   upLoader()
   resetLogin({
-    email: $('.username', this).val()
+    email: $('.email', this).val(),
+    firstname: $('.firstname', this).val(),
+    lastname: $('.lastname', this).val()
   }).then(() => {
     downLoader()
     upFlashbag(i18n.trans('security.check_inbox'))
   })
+    .catch((err) => {
+      downLoader()
+      upFlashbag(i18n.trans(err))
+    })
 })
 
 itemConnection.on('click', '.cancel', function (event) {
