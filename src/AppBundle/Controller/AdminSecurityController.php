@@ -55,7 +55,7 @@ class AdminSecurityController extends Controller
         if (!$user->getActive()) {
             return new JsonResponse([
                 'status' => 'not activated'
-            ], 201);
+            ], 401);
         }
 
         return new JsonResponse($user);
