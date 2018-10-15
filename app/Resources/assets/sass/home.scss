@@ -1,3 +1,4 @@
+@import '~include-media/dist/_include-media.scss';
 @import './intro';
 @import './variables';
 
@@ -50,6 +51,7 @@ section {
     width: 50%;
     height: 100vh;
     align-items: center;
+    opacity: 0;
     z-index: 1;
     &.article-1 {
       justify-content: space-between;
@@ -195,9 +197,12 @@ section {
   position: absolute;
   width: 200%;
   height: 100%;
-  background-image: url('../img/background-home-2.jpg');
-  background-size: 100% auto;
+  background-image: url('../img/background-home-desktop.jpg');
+  background-size: 100% 100%;
   z-index: 0;
+  @include media('<large') {
+    background-image: url('../img/background-home-mobile.jpg');
+  }
 }
 
 .overlay-begin {

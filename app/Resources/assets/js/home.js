@@ -23,24 +23,21 @@ var hWindow = updateHeightWindow()
 
 var controller = new ScrollMagic.Controller()
 
-var swipe = new TimelineMax().to('.swipe-background, .swipe-section', 1, { x: '-50%' })
-var begin = new TimelineMax().to('.overlay-begin, .scroll-down', 1, { opacity: 0 })
-
-new ScrollMagic.Scene({
-  triggerElement: '.article-4',
-  triggerHook: 'onLeave',
-  duration: hWindow - 100
-})
-  .setTween(swipe)
+new ScrollMagic.Scene({ triggerElement: '.article-4', triggerHook: 'onLeave', duration: hWindow - 100 })
+  .setTween(new TimelineMax().to('.swipe-background, .swipe-section', 1, { x: '-50%' }))
   .addTo(controller)
 
-new ScrollMagic.Scene({
-  triggerElement: '.article-1',
-  triggerHook: 'onLeave',
-  duration: '500'
-})
-  .setTween(begin)
+new ScrollMagic.Scene({ triggerElement: '.article-1', triggerHook: 'onLeave', duration: hWindow })
+  .setTween(new TimelineMax().to('.overlay-begin, .scroll-down', 1, { opacity: 0 }))
   .addTo(controller)
+
+function myScene (myHook, index) {
+  return new ScrollMagic.Scene({ triggerElement: `.article-${index}`, triggerHook: myHook, duration: hWindow / 3 })
+    .setTween(new TimelineMax().to(`.article-${index}`, 1, { opacity: myHook === 'onCenter' ? 1 : 0, ease: 'linear' }))
+    .addTo(controller)
+}
+
+for (var i = 0; i <= 6; i++) { myScene('onEnter', i); myScene('onCenter', i); myScene('onLeave', i) }
 
 $(window).resize(function () {
   hWindow = updateHeightWindow()
