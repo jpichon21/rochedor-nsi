@@ -2532,5 +2532,11 @@
         <target>Inscription</target>
       </segment>
     </unit>
+    <unit id="mccDfNi" name="gift.summary.reduction">
+      <segment>
+        <source>gift.summary.reduction</source>
+        <target>Si je suis imposable, ce don me revient à %reduction% € après déduction fiscale.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

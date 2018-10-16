@@ -84,11 +84,10 @@ function updateYouFormRender () {
 function updateAmountRender () {
   $('.amount-render').html(amountTemplate({
     amount: _amount,
-    allocation: _allocation
+    allocation: _allocation,
+    reduction: i18n.trans('gift.summary.reduction').replace('%reduction%', parseFloat(_amount * 0.66).toFixed(2))
   }))
 }
-
-updateAmountRender()
 
 /* Actions */
 
