@@ -9,8 +9,9 @@ import 'jquery.easing'
 
 $.scrollify({
   section: 'article',
-  easing: 'easeInOutQuad',
-  scrollSpeed: 2000
+  easing: 'easeInOutCubic',
+  scrollSpeed: 2000,
+  updateHash: false
 })
 
 /* ScrollMagic */
