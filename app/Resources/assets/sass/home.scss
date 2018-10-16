@@ -4,12 +4,15 @@
 
 body {
   height: auto;
+  &:before {
+    z-index: 3;
+  }
 }
 
 .header {
   position: fixed;
   width: 100%;
-  z-index: 3;
+  z-index: 4;
 }
 
 .footer {
