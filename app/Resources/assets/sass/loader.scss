@@ -18,8 +18,8 @@
     opacity: 1;
     transition-delay: 0s;
   }
-  img {
-    width: 50px;
+  svg {
+    position: relative;
     z-index: 1;
   }
   .overlay {
@@ -28,5 +28,17 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 0;
+  }
+}
+.editions {
+  .loader {
+    svg {
+      circle {
+        stroke: $roche-orange;
+      }
+    }
+    .overlay {
+      background: rgba(255, 255, 255, 0.5);
+    }
   }
 }

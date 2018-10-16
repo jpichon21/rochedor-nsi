@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -43,6 +44,7 @@ class PageController extends Controller
     /**
     * @Rest\Post("/pages")
     * @Rest\View()
+    * @Security("has_role('ROLE_ADMIN_PAGE_CREATE')")
     * @ParamConverter("page", converter="fos_rest.request_body")
     * @SWG\Post(
     *   path="/pages",
@@ -130,7 +132,7 @@ class PageController extends Controller
         }
 
         $route->setName($routeName);
-        $route->setStaticPrefix('/' . $route->getName());
+        $route->setStaticPrefix('/' .$page->getLocale() . '/' . $route->getName());
         
         $route->setDefault(RouteObjectInterface::CONTENT_ID, $this->contentRepository->getContentId($page));
         $route->setDefault('_locale', $page->getLocale());
@@ -153,6 +155,7 @@ class PageController extends Controller
     /**
      * @Rest\Get("/pages")
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_PAGE_VIEW')")
      * @SWG\Get(
      *  path="/pages",
      *      summary="Get requested locale pages' list",
@@ -188,6 +191,7 @@ class PageController extends Controller
     /**
      * @Rest\Get("/pages/{id}/{version}", requirements={"version"="\d+"} , defaults={"version" = null})
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_PAGE_VIEW')")
      * @SWG\Get(
      *  path="/pages/{id}/{version}",
      *      summary="Get a page",
@@ -232,14 +236,24 @@ class PageController extends Controller
             $firstLog = $logs[$countLogs];
             for ($i = ($countLogs); $i >= 0; $i--) {
                 if ($logs[$i]->getVersion() <= $version) {
-                    $diff = array_diff_key($firstLog->getData(), $logs[$i]->getData());
-                    $oldPage = array_merge($diff, $logs[$i]->getData());
+                    if ($logs[$i]->getData()) {
+                        $diff = array_diff_key($firstLog->getData(), $logs[$i]->getData());
+                        $oldPage = array_merge($diff, $logs[$i]->getData());
+                    }
                 }
             }
-            $page->setTitle($oldPage['title']);
-            $page->setSubTitle($oldPage['subTitle']);
-            $page->setDescription($oldPage['description']);
-            $page->setContent($oldPage['content']);
+            if (isset($oldPage['title'])) {
+                $page->setTitle($oldPage['title']);
+            }
+            if (isset($oldPage['subTitle'])) {
+                $page->setSubTitle($oldPage['subTitle']);
+            }
+            if (isset($oldPage['description'])) {
+                $page->setDescription($oldPage['description']);
+            }
+            if (isset($oldPage['content'])) {
+                $page->setContent($oldPage['content']);
+            }
             if ($page->getRoutes()) {
                 $page->setTempUrl($page->getRoutes()[0]->getName());
             }
@@ -250,6 +264,7 @@ class PageController extends Controller
     /**
      * @Rest\Delete("/pages/{id}")
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_PAGE_DELETE')")
      * @SWG\Delete(
      *  path="/pages/id",
      *      summary="Delete requested page",
@@ -288,6 +303,7 @@ class PageController extends Controller
     /**
      * @Rest\Put("/pages/{id}")
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_PAGE_EDIT')")
      * @SWG\Put(
      *   path="/pages/id",
      *   summary="Edit requested page",
@@ -401,6 +417,7 @@ class PageController extends Controller
     /**
      * @Rest\Get("pages/{id}/translations")
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_PAGE_VIEW')")
      * @SWG\Get(
      *  path="/pages/{id}/translations",
      *      summary="Get requested page's translatations",
@@ -436,6 +453,7 @@ class PageController extends Controller
     /**
      * @Rest\Get("pages/{id}/versions")
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_PAGE_VIEW')")
      * @SWG\Get(
      *  path="/pages/{id}/versions",
      *      summary="Return all log entries for the selected page",

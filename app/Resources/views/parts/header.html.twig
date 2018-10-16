@@ -18,6 +18,7 @@
                 {% endfor %}
                 {% else %}
                 {% set route = app.request.attributes.get('_route') %}
+                {% if route %}
                 {% set route_params = app.request.attributes.get('_route_params') %}
                 {% set params = route_params|merge(app.request.query.all) %}
                 {% for locale in locales %}
@@ -25,6 +26,7 @@
                 <li><a href="{{ path(route, params|merge({ _locale: locale })) }}">{{ locale }}</a></li>
                 {% endif %}
                 {% endfor %}
+                {% endif %}
                 {% endif %}
             </ul>
             <ul class="current">
@@ -79,7 +81,7 @@
         <ul class="sub-menu" data-menu="qzsedr">
             <div class="blank"></div>
             <div class="blank"></div>
-            <li><a href="#">{{ 'menu.five.one' | trans | raw }}</a></li>
+            {% if routeExists('editions') %}<li><a href="{{ path('editions') }}">{{ 'menu.five.one' | trans | raw }}</a></li>{% endif %}
             <li><a href="{{ path('collections-news-' ~ currentLocale) }}">{{ 'menu.five.two' | trans | raw }}</a></li>
             <li><a href="{{ path('collections-' ~ currentLocale) }}">{{ 'menu.five.three' | trans | raw }}</a></li>
         </ul>
@@ -90,7 +92,7 @@
             <div class="blank"></div>
             <div class="blank"></div>
             <li><a href="#">{{ 'menu.six.one' | trans | raw }}</a></li>
-            <li><a href="{{ path('gift-' ~ currentLocale) }}">{{ 'menu.six.two' | trans | raw }}</a></li>
+            {% if routeExists('dons') %}<li><a href="{{ path('dons') }}">{{ 'menu.six.two' | trans | raw }}</a></li>{% endif %}
         </ul>
     </div>
 </div>

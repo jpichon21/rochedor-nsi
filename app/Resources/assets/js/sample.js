@@ -1,4 +1,4 @@
-const participant = {
+const contact = {
   nom: '',
   prenom: '',
   newfich: false,
@@ -51,6 +51,6 @@ export const getDelivery = () => {
   return delivery
 }
 
-export const getParticipant = () => {
-  return clone(participant)
+export const getContact = () => {
+  return clone(contact)
 }

@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { getNews, putNews, deleteNews, setTitle, setLocale, initStatus } from '../../actions'
 import NewsForm from '../news-form/news-form'
 import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
 import { locales } from '../../locales'
 import { Snackbar, Button } from '@material-ui/core'
+import IsAuthorized, { ACTION_NEWS_EDIT } from '../../isauthorized/isauthorized'
 
 export class NewsEdit extends React.Component {
   constructor (props) {
@@ -71,23 +72,25 @@ export class NewsEdit extends React.Component {
   render () {
     return (
       <div>
-        <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu goBack='/news-list' title={`Modification d'une nouveauté`} localeHandler={this.onLocaleChange} locales={locales} locale={(this.props.news) ? this.props.news.locale : 'fr'} />
-        <Snackbar
-          open={this.state.snackbarOpen}
-          autoHideDuration={4000}
-          onClose={this.handleCloseSnack}
-          ContentProps={{
-            'aria-describedby': 'snackbar-fab-message-id'
-          }}
-          message={<span id='snackbar-fab-message-id'>{this.state.snackbarContent}</span>}
-          action={
-            <Button color='inherit' size='small' onClick={this.handleCloseSnack}>
-              Ok
-            </Button>
-          }
-        />
-        <NewsForm news={this.props.news} submitHandler={this.onSubmit} deleteHandler={this.onDelete} versionHandler={this.onVersionChange} edit />
+        <IsAuthorized action={ACTION_NEWS_EDIT} alternative={<Redirect to={'/news-list'} />}>
+          <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
+          <AppMenu goBack='/news-list' title={`Modification d'une nouveauté`} localeHandler={this.onLocaleChange} locales={locales} locale={(this.props.news) ? this.props.news.locale : 'fr'} />
+          <Snackbar
+            open={this.state.snackbarOpen}
+            autoHideDuration={4000}
+            onClose={this.handleCloseSnack}
+            ContentProps={{
+              'aria-describedby': 'snackbar-fab-message-id'
+            }}
+            message={<span id='snackbar-fab-message-id'>{this.state.snackbarContent}</span>}
+            action={
+              <Button color='inherit' size='small' onClick={this.handleCloseSnack}>
+                Ok
+              </Button>
+            }
+          />
+          <NewsForm news={this.props.news} submitHandler={this.onSubmit} deleteHandler={this.onDelete} versionHandler={this.onVersionChange} edit />
+        </IsAuthorized>
       </div>
     )
   }

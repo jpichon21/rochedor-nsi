@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { doLogin, initStatus } from '../../actions'
-import { TextField, Paper, Button, Typography } from '@material-ui/core'
+import { TextField, Button, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
 import { Redirect } from 'react-router-dom'
@@ -39,7 +39,7 @@ export class Login extends React.Component {
   handleSubmit (event) {
     this.props.dispatch(doLogin(this.state.username, this.state.password)).then((res) => {
       if (res.error) {
-        this.setState({error: 'Invalid credentials'})
+        this.setState({error: res.error})
         this.setState({alertOpen: true})
       }
     })
@@ -56,7 +56,7 @@ export class Login extends React.Component {
     return (
       <div>
         <div className={classes.container}>
-          {this.props.isLoggedIn && <Redirect to={'/content-list'} />}
+          {this.props.isLoggedIn && <Redirect to={'/'} />}
           <Alert open={this.state.alertOpen} content={this.state.error} onClose={this.handleClose} />
           <div className={classes.container}>
             <Typography variant='display1' className={classes.title}>

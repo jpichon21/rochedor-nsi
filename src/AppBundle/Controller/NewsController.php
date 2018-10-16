@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Gedmo\Loggable;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route as CmfRoute;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Swagger\Annotations as SWG;
 
 class NewsController extends Controller
@@ -21,6 +22,7 @@ class NewsController extends Controller
     /**
      * @Rest\Post("/news")
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_NEWS_CREATE')")
      * @ParamConverter("news", converter="fos_rest.request_body")
      * @SWG\Post(
      *   path="/news",
@@ -75,6 +77,7 @@ class NewsController extends Controller
     /**
      * @Rest\Get("/news")
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_NEWS_VIEW')")
      * @SWG\Get(
      *  path="/news",
      *      summary="Get requested locale news' list",
@@ -103,6 +106,7 @@ class NewsController extends Controller
     /**
      * @Rest\Get("/news/{id}/{version}", requirements={"version"="\d+"} , defaults={"version" = null})
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_NEWS_VIEW')")
      * @SWG\Get(
      *  path="/news/{id}/{version}",
      *      summary="Get requested news",
@@ -161,6 +165,7 @@ class NewsController extends Controller
     /**
      * @Rest\Delete("/news/{id}")
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_NEWS_DELETE')")
      * @SWG\Delete(
      *  path="/news/id",
      *      summary="Delete requested news",
@@ -199,6 +204,7 @@ class NewsController extends Controller
     /**
      * @Rest\Put("/news/{id}")
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_NEWS_EDIT')")
      * @SWG\Put(
      *   path="/news/{id}",
      *   summary="Edit requested news",
@@ -279,6 +285,7 @@ class NewsController extends Controller
     /**
      * @Rest\Get("news/{id}/versions")
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_NEWS_VIEW')")
      * @SWG\Get(
      *  path="/news/{id}/versions",
      *      summary="Get requested news' versionss",

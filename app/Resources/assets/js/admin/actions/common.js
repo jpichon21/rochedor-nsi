@@ -62,7 +62,7 @@ export function closeAlert () {
 export function doCheckLogin () {
   return dispatch => {
     dispatch({ type: DO_LOGINCHECK })
-    return window.fetch('/login', {
+    return window.fetch('/api/login', {
       method: 'GET',
       credentials: 'include'
     })
@@ -83,7 +83,7 @@ export function doCheckLogin () {
 export function doLogin (username, password) {
   return dispatch => {
     dispatch({ type: DO_LOGIN, username, password })
-    return window.fetch('/login', {
+    return window.fetch('/api/login', {
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
       credentials: 'include',

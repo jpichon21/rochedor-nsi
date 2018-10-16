@@ -149,21 +149,20 @@ class OrderController extends Controller
     }
 
     /**
-     * @Rest\Get("/xhr/order/vat/{vat}/{countryCode}", name="get_vat")
+     * @Rest\Get("/xhr/order/vat/{vat}", name="get_vat")
      * @Rest\View()
     */
-    public function xhrTestVAT(Request $request, $vat, $countryCode)
+    public function xhrTestVAT(Request $request, $vat)
     {
-
+        $vat = str_replace(' ', '', $vat);
         $client = new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl");
         $result = $client->checkVat(array(
-            'countryCode' => $countryCode,
-            'vatNumber' => $vat
+            'countryCode' => substr($vat, 0, 2),
+            'vatNumber' => substr($vat, 2, 11)
         ));
         if ($result->valid) {
             return ['status' => 'ok'];
         }
-        exit();
         
         return ['status' => 'ko','error' => 'your tvaIntra didnt exist'];
     }
@@ -376,9 +375,11 @@ class OrderController extends Controller
         
         
         if ($status === 'success') {
-            $this->em->remove($cart);
-            $this->em->flush();
-            $session->remove('cart');
+            if ($cart) {
+                $this->em->remove($cart);
+                $this->em->flush();
+                $session->remove('cart');
+            }
         }
 
         return $this->render('order/payment-return.html.twig', [
@@ -575,7 +576,11 @@ class OrderController extends Controller
     }
      
     /**
-     * @Route("/{_locale}/order", name="order-fr")
+     * @Route("/{_locale}/commande", name="order-fr")
+     * @Route("/{_locale}/order", name="order-en")
+     * @Route("/{_locale}/bestellen", name="order-de")
+     * @Route("/{_locale}/ordine", name="order-it")
+     * @Route("/{_locale}/orden", name="order-es")
      */
     public function orderAction(Request $request)
     {
@@ -607,6 +612,9 @@ class OrderController extends Controller
         }
         
         $page = $this->pageService->getContentFromRequest($request);
+        if (!$page) {
+            throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
+        }
         $availableLocales = $this->pageService->getAvailableLocales($page);
         return $this->render('order/order.html.twig', [
             'cart' => $this->cartRepository->find($cartId),

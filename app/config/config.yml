@@ -83,6 +83,7 @@ doctrine:
                 substring_index: DoctrineExtensions\Query\Mysql\SubstringIndex
                 regexp: DoctrineExtensions\Query\Mysql\Regexp
                 replace: DoctrineExtensions\Query\Mysql\Replace
+                JSON_CONTAINS: Syslogic\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonContains
             datetime_functions:
                 date_format: DoctrineExtensions\Query\Mysql\DateFormat
 stof_doctrine_extensions:
@@ -112,7 +113,7 @@ fos_rest:
     format_listener:
         rules:
         - { path: '^/api/file', priorities: [ 'text/html', '*/*'], fallback_format: html, prefer_extension: true }
-        - { path: '^/api', priorities: ['json'], fallback_format: 'json' }
+        - { path: '^/api/(?!login)', priorities: ['json'], fallback_format: 'json' }
         - { path: '^/xhr', priorities: ['json'], fallback_format: 'json' }
         - { path: '/shop/(register|password-request)', priorities: ['json'], fallback_format: 'json' }
         - { path: '^/', priorities: [ 'html', '*/*'], fallback_format: ~, prefer_extension: true }
@@ -126,8 +127,10 @@ cmf_routing:
         persistence:
             orm:
                 enabled: true
+        auto_locale_pattern: true
         locales: ['fr', 'en', 'de', 'it','es']
         generic_controller: AppBundle:Default:showPage
+        route_collection_limit: 200
 
 nelmio_cors:
     paths:

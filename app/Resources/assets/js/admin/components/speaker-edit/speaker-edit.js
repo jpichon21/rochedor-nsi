@@ -4,8 +4,10 @@ import { withRouter } from 'react-router-dom'
 import { setLocale, initStatus } from '../../actions'
 import SpeakerForm from '../speaker-form/speaker-form'
 import AppMenu from '../app-menu/app-menu'
+import IsAuthorized, { ACTION_SPEAKER_EDIT } from '../../isauthorized/isauthorized'
 
 import { locales } from '../../locales'
+import Redirect from 'react-router-dom/Redirect'
 
 export class SpeakerEdit extends React.Component {
   constructor (props) {
@@ -38,8 +40,10 @@ export class SpeakerEdit extends React.Component {
   render () {
     return (
       <div>
-        <AppMenu goBack='/speaker-list' title={`Modification d'un intervenant`} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
-        <SpeakerForm speaker={this.props.speaker} locale={this.props.locale} edit speakerId={this.state.speakerId} />
+        <IsAuthorized action={ACTION_SPEAKER_EDIT} alternative={<Redirect to='/speaker-list' />}>
+          <AppMenu goBack='/speaker-list' title={`Modification d'un intervenant`} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
+          <SpeakerForm speaker={this.props.speaker} locale={this.props.locale} edit speakerId={this.state.speakerId} />
+        </IsAuthorized>
       </div>
     )
   }

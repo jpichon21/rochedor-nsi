@@ -11,10 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Gedmo\Loggable;
 use Swagger\Annotations as SWG;
 
@@ -23,6 +20,7 @@ class SpeakerController extends Controller
      /**
      * @Rest\Post("/speaker")
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_SPEAKER_CREATE')")
      * @ParamConverter("speaker", converter="fos_rest.request_body")
      * @SWG\Post(
     *   path="/speaker",
@@ -73,6 +71,7 @@ class SpeakerController extends Controller
     /**
      * @Rest\Get("/speaker")
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_SPEAKER_VIEW')")
      * @SWG\Get(
      *  path="/speaker",
      *      summary="Get requested speakers'list ordered by position",
@@ -91,6 +90,7 @@ class SpeakerController extends Controller
     /**
      * @Rest\Get("/speaker/{id}/{version}", requirements={"version"="\d+"} , defaults={"version" = null})
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_SPEAKER_VIEW')")
      * @SWG\Get(
      *  path="/speaker/{id}/{version}",
      *      summary="Get a speaker",
@@ -145,6 +145,7 @@ class SpeakerController extends Controller
     /**
      * @Rest\Delete("/speaker/{id}")
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_SPEAKER_DELETE')")
      * @SWG\Delete(
      *  path="/speaker/id",
      *      summary="Delete requested speaker",
@@ -182,6 +183,7 @@ class SpeakerController extends Controller
     /**
      * @Rest\Put("/speaker/{id}")
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_SPEAKER_EDIT')")
      * @SWG\Put(
      *   path="/speaker/{id}",
      *   summary="Edit requester speaker",
@@ -231,8 +233,6 @@ class SpeakerController extends Controller
      */
     public function putAction($id, Request $request)
     {
-
-        $data = new Speaker;
         $name = $request->get('name');
         $title = $request->get('title');
         $description = $request->get('description');
@@ -257,6 +257,7 @@ class SpeakerController extends Controller
     /**
      * @Rest\Get("/speaker/{id}/versions")
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_SPEAKER_VIEW')")
      * @SWG\Get(
      *  path="/speaker/{id}/versions",
      *      summary="Return all log entries for the selected speaker",
@@ -294,6 +295,7 @@ class SpeakerController extends Controller
     /**
      * @Rest\Put("/speaker/{id}/{version}", requirements={"version"="\d+"})
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_SPEAKER_EDIT')")
      * @SWG\Put(
      *  path="/speaker/{id}/versions",
      *      summary="Revert a speaker into the selected version",
@@ -332,6 +334,7 @@ class SpeakerController extends Controller
     /**
      * @Rest\Put("/speaker/{id}/position/{position}", requirements={"position"="\d+"})
      * @Rest\View()
+     * @Security("has_role('ROLE_ADMIN_SPEAKER_EDIT')")
      * @SWG\Put(
      *  path="/speaker/{id}/position/{position}",
      *      summary="Change the position of a speaker and return a list with the new scheduling",

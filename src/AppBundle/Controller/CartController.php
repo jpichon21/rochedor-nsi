@@ -98,21 +98,6 @@ class CartController extends Controller
     }
 
     /**
-     * @Route("/panier", name="cart-fr")
-     * @Route("/cart", name="cart-en")
-     * @Route("/wagen", name="cart-de")
-     * @Route("/carro", name="cart-es")
-     * @Route("/carello", name="cart-it")
-     */
-    public function showAction(Request $request)
-    {
-        $session = new Session();
-        $cartId = $session->get('cart');
-        $cart = $this->cartRepository->find($cartId);
-        return $this->render('cart/show.html.twig', ['cart' => $cart]);
-    }
-
-    /**
      * Add a product to the Cart
      *
      * @param Cart $cart

@@ -37,7 +37,7 @@ class TpaysRepository
     public function findAllCountry()
     {
         $query = $this->entityManager
-        ->createQuery('SELECT t FROM AppBundle\Entity\Tpays t');
+        ->createQuery('SELECT t FROM AppBundle\Entity\Tpays t ORDER BY t.nompays');
         return $query->getResult();
     }
 
@@ -70,6 +70,14 @@ class TpaysRepository
         WHERE tp.nompays=:country');
         $query->setParameter('country', $country['nompays']);
         $results =  $query->getOneOrNullResult();
+
+        if ($results === null) {
+            return false;
+        }
+
+        if ($results['codpostaux'] === []) {
+            return true;
+        }
 
         if ($results['codpostaux'] === null) {
             return false;

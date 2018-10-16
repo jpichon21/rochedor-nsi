@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { hot } from 'react-hot-loader'
 import { HashRouter } from 'react-router-dom'
-import { Route, Switch, Redirect } from 'react-router'
+import { Route, Switch } from 'react-router'
 import { connect } from 'react-redux'
 import PageList from './components/page-list/page-list'
 import PageCreate from './components/page-create/page-create'
@@ -14,15 +14,15 @@ import SpeakerEdit from './components/speaker-edit/speaker-edit'
 import SpeakerCreate from './components/speaker-create/speaker-create'
 import ContentList from './components/content-list/content-list'
 import ContentEdit from './components/content-edit/content-edit'
+import UserList from './components/user-list/user-list'
+import UserEdit from './components/user-edit/user-edit'
+import UserCreate from './components/user-create/user-create'
 import HomeEdit from './components/home-edit/home-edit'
+import HomeAdmin from './components/home-admin/home-admin'
 import Login from './components/login/login'
 import Logout from './components/logout/logout'
 import PrivateRoute from './components/private-route/private-route'
 import { doCheckLogin } from './actions'
-
-const RedirectPageList = () => {
-  return <Redirect to='/content-list' />
-}
 
 export class App extends React.Component {
   constructor () {
@@ -41,7 +41,7 @@ export class App extends React.Component {
         <HashRouter>
           <Fragment>
             <Switch>
-              <Route path='/' exact render={RedirectPageList} />
+              <PrivateRoute path='/' exact component={HomeAdmin} />
               <PrivateRoute path='/page-list' exact component={PageList} />
               <PrivateRoute path='/page-create' exact component={PageCreate} />
               <PrivateRoute path='/page-edit/:pageId' exact component={PageEdit} />
@@ -54,6 +54,9 @@ export class App extends React.Component {
               <PrivateRoute path='/content-list/' exact component={ContentList} />
               <PrivateRoute path='/content-edit/:pageId' exact component={ContentEdit} />
               <PrivateRoute path='/home-edit/' exact component={HomeEdit} />
+              <PrivateRoute path='/user-list/' exact component={UserList} />
+              <PrivateRoute path='/user-edit/:userId' exact component={UserEdit} />
+              <PrivateRoute path='/user-create/' exact component={UserCreate} />
               <PrivateRoute path='/logout' exact component={Logout} />
               <Route path='/login' exact component={Login} />
             </Switch>

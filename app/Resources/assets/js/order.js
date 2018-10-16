@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import moment from 'moment'
-import { getParticipant, getDelivery } from './sample'
+import { getContact, getDelivery } from './sample'
 import { upFlashbag } from './popup'
 import { upLoader, downLoader } from './loader'
 import I18n from './i18n'
@@ -147,7 +147,7 @@ function afterLogin (user, bypass) {
 }
 
 function formatParticipant (data) {
-  let participant = getParticipant()
+  let participant = getContact()
   data.map(obj => {
     participant[obj.name] = obj.value
   })
@@ -221,7 +221,7 @@ itemConnection.on('click', 'a', function (event) {
     case 'registration':
       $('.panel', itemConnection).hide()
       $(`.panel.${which}`, itemConnection).show()
-      _you = getParticipant()
+      _you = getContact()
       updateYouFormRender()
       break
     case 'reset':
@@ -249,9 +249,9 @@ function validatePro (societe, tvaintra) {
   return (societe === '' && tvaintra === '') || (societe !== '' && tvaintra !== '')
 }
 
-function validateTvaintra (tvaintra, country) {
+function validateTvaintra (tvaintra) {
   return new Promise((resolve, reject) => {
-    checkVat(tvaintra, country).then(() => {
+    checkVat(tvaintra).then(() => {
       resolve()
     }).catch(() => {
       reject(i18n.trans('form.message.zipcode_invalid'))
@@ -300,7 +300,7 @@ function validateClient (event, context, callback) {
   if (validatedPro) {
     if (validatedPhone) {
       if (participant.tvaintra !== '') {
-        validateTvaintra(participant.tvaintra, participant.pays).then(() => {
+        validateTvaintra(participant.tvaintra).then(() => {
           callback(participant)
         }).catch(() => {
           downLoader()

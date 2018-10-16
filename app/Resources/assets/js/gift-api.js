@@ -32,10 +32,16 @@ export const postRegister = (data) => {
     credentials: 'include',
     body: JSON.stringify(data)
   })
+    .catch(res => {
+      console.error(res)
+      throw (new Error('unknown_error'))
+    })
     .then(res => res.json())
     .then(res => {
-      if (res.status !== 'ok') { throw res.message }
-      return res.data
+      if (res.status === 'ko') {
+        throw res.message
+      }
+      return res
     })
 }
 

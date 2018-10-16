@@ -32,6 +32,7 @@ import {
   ExpansionPanelSummary,
   Icon
 } from '@material-ui/core'
+import IsAuthorized, { ACTION_HOME_EDIT } from '../../isauthorized/isauthorized'
 
 export class HomeForm extends React.Component {
   constructor (props) {
@@ -422,26 +423,28 @@ export class HomeForm extends React.Component {
             </Fragment>
 
           }
-          <Tooltip
-            enterDelay={300}
-            id='tooltip-controlled'
-            leaveDelay={300}
-            onClose={this.handleTooltipClose}
-            onOpen={this.handleTooltipOpen}
-            open={this.state.open}
-            placement='bottom'
-            title='Publier'
-          >
-            <Button
-              disabled={!this.isSubmitEnabled()}
-              onClick={this.handleSubmit}
-              className={classes.button}
-              variant='fab'
-              text='Publier'
-              color='primary'>
-              <SaveIcon />
-            </Button>
-          </Tooltip>
+          <IsAuthorized action={ACTION_HOME_EDIT}>
+            <Tooltip
+              enterDelay={300}
+              id='tooltip-controlled'
+              leaveDelay={300}
+              onClose={this.handleTooltipClose}
+              onOpen={this.handleTooltipOpen}
+              open={this.state.open}
+              placement='bottom'
+              title='Publier'
+            >
+              <Button
+                disabled={!this.isSubmitEnabled()}
+                onClick={this.handleSubmit}
+                className={classes.button}
+                variant='fab'
+                text='Publier'
+                color='primary'>
+                <SaveIcon />
+              </Button>
+            </Tooltip>
+          </IsAuthorized>
         </div>
       </div>
     )

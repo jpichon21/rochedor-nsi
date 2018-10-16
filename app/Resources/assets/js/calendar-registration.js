@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import moment from 'moment'
-import { getParticipant } from './sample'
+import { getContact } from './sample'
 import { upFlashbag, upConfirmbox } from './popup'
 import { upLoader, downLoader } from './loader'
 import I18n from './i18n'
@@ -130,7 +130,7 @@ function updateHimFormRender () {
 /* Actions */
 
 function afterLogin (user) {
-  const participant = getParticipant()
+  const participant = getContact()
   _you = { ...participant, ...user }
   _participants = [_you]
   updateYouRender()
@@ -146,7 +146,7 @@ function afterLogin (user) {
 }
 
 function formatParticipant (data) {
-  let participant = getParticipant()
+  let participant = getContact()
   data.map(obj => {
     participant[obj.name] = obj.value
   })
@@ -182,6 +182,13 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
   }).catch((err) => {
     downLoader()
     upFlashbag(i18n.trans(`${err}`))
+  })
+})
+
+itemConnection.on('click', '.panel.registration .cancel', function (event) {
+  event.preventDefault()
+  $('.panel.registration').slideUp(800, function () {
+    $(this).hide()
   })
 })
 
@@ -237,7 +244,7 @@ itemConnection.on('click', 'a', function (event) {
     case 'registration':
       $('.panel', itemConnection).hide()
       $(`.panel.${which}`, itemConnection).show()
-      _participant = getParticipant()
+      _participant = getContact()
       updateYouFormRender()
       break
     case 'reset':
@@ -428,7 +435,7 @@ panelAddForm.on('change', '.select.colp', function () {
   if (coltyp === 'conjo' || coltyp === 'enfan') {
     const filtered = people.filter(person => person.codco === parseInt(colp))
     const person = filtered.shift()
-    let participant = getParticipant()
+    let participant = getContact()
     participant.coltyp = coltyp
     participant.colp = colp
     participant.adresse = person.adresse
@@ -500,7 +507,7 @@ itemParticipants.on('click', '.modify-him', function (event) {
 
 itemParticipants.on('click', '.add-participant', function (event) {
   modifyClick(event, 'add', updateHimFormRender, () => {
-    _participant = getParticipant()
+    _participant = getContact()
   })
 })
 

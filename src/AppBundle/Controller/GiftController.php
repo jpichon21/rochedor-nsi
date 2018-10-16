@@ -90,11 +90,11 @@ class GiftController extends Controller
     }
 
     /**
-     * @Route("/{_locale}/dons", name="gift-fr")
-     * @Route("/{_locale}/donations", name="gift-en")
-     * @Route("/{_locale}/spenden", name="gift-de")
-     * @Route("/{_locale}/donazioni", name="gift-it")
-     * @Route("/{_locale}/donaciones", name="gift-es")
+     * @Route("/{_locale}/don-ponctuel", name="gift-fr")
+     * @Route("/{_locale}/one-tiem-donation", name="gift-en")
+     * @Route("/{_locale}/einmalige-spende", name="gift-de")
+     * @Route("/{_locale}/donazione-una-tantum", name="gift-it")
+     * @Route("/{_locale}/donación-de-una-sola-vez", name="gift-es")
      */
     public function calendarAction(Request $request)
     {
@@ -108,8 +108,11 @@ class GiftController extends Controller
         }
 
         $page = $this->pageService->getContentFromRequest($request);
+        if (!$page) {
+            throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
+        }
         $availableLocales = $this->pageService->getAvailableLocales($page);
-        return $this->render('default/gift.html.twig', [
+        return $this->render('default/giftr.html.twig', [
             'page' => $page,
             'availableLocales' => array(),
             'countries' => $countriesJSON
@@ -140,6 +143,7 @@ class GiftController extends Controller
         ->setEnregdon(new \DateTime('0000-00-00 00:00:00'))
         ->setDatdon(new \DateTime())
         ->setValidDon(0)
+        ->setBanqdon(9)
         ->setMondon('€');
         $em = $this->getDoctrine()->getManager();
         $em->persist($don);

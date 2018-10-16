@@ -2319,7 +2319,7 @@
     <unit id="GQMkF8_" name="gift.intro">
       <segment>
         <source>gift.intro</source>
-        <target><![CDATA[Vous êtes sur le point d'effectuer un don ponctuel en ligne. Veuillez compléter le formulaire suivant ou retournez à la <a href="#">page de don</a>.]]></target>
+        <target><![CDATA[Vous êtes sur le point d'effectuer un don ponctuel en ligne. Veuillez compléter le formulaire suivant ou retournez à la <a href="%link%">page de don</a>.]]></target>
       </segment>
     </unit>
     <unit id="0scb9.5" name="gift.one.title">
@@ -2536,6 +2536,44 @@
       <segment>
         <source>gift.summary.reduction</source>
         <target>Si je suis imposable, ce don me revient à %reduction% € après déduction fiscale.</target>
+      </segment>
+    </unit>
+    <unit id="kwp2jus" name="global.page-not-found">
+      <segment>
+        <source>global.page-not-found</source>
+        <target>La page à laquelle vous tentez d'accéder, n'existe plus ou a été déplacée.</target>
+      </segment>
+    </unit>
+    <unit id="..asBgy" name="errors.not-found.title">
+      <segment>
+        <source>errors.not-found.title</source>
+        <target>Page introuvable</target>
+      </segment>
+    </unit>
+    <unit id="iPFuef3" name="errors.not-found.intro">
+      <segment>
+        <source>errors.not-found.intro</source>
+        <target><![CDATA[La page à laquelle vous tentez d'accéder n'existe plus.<br>
+<a href="%link%">Retourner à la page d'accueil.</a>]]></target>
+      </segment>
+    </unit>
+    <unit id="o1xwBMD" name="errors.unknown.title">
+      <segment>
+        <source>errors.unknown.title</source>
+        <target>Erreur</target>
+      </segment>
+    </unit>
+    <unit id="8bM_dS3" name="errors.unknown.intro">
+      <segment>
+        <source>errors.unknown.intro</source>
+        <target><![CDATA[Une erreur est survenue.<br>
+<a href="%link%">Retourner à la page d'accueil.</a>]]></target>
+      </segment>
+    </unit>
+    <unit id="o3R9FHH" name="cart.product.added">
+      <segment>
+        <source>cart.product.added</source>
+        <target>Le produit a été ajouté au panier</target>
       </segment>
     </unit>
   </file>

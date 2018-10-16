@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import moment from 'moment'
-import { getParticipant } from './sample'
+import { getContact } from './sample'
 import { upFlashbag } from './popup'
 import { upLoader, downLoader } from './loader'
 import I18n from './i18n'
@@ -92,8 +92,8 @@ function updateAmountRender () {
 /* Actions */
 
 function afterLogin (user, bypass) {
-  const participant = getParticipant()
-  _you = { ...participant, ...user }
+  const contact = getContact()
+  _you = { ...contact, ...user }
   updateYouRender()
   if (bypass) {
     changeItem(itemAmount)
@@ -102,14 +102,14 @@ function afterLogin (user, bypass) {
   }
 }
 
-function formatParticipant (data) {
-  let participant = getParticipant()
+function formatContact (data) {
+  let contact = getContact()
   data.map(obj => {
-    participant[obj.name] = obj.value
+    contact[obj.name] = obj.value
   })
-  participant.codco = parseInt(participant.codco)
-  participant.datnaiss = moment(participant.datnaiss, 'DD/MM/YYYY').format()
-  return participant
+  contact.codco = parseInt(contact.codco)
+  contact.datnaiss = moment(contact.datnaiss, 'DD/MM/YYYY').format()
+  return contact
 }
 
 function validatePassword (password) {
@@ -138,42 +138,55 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
   event.preventDefault()
   upLoader()
   resetLogin({
-    email: $('.username', this).val()
+    email: $('.email', this).val(),
+    firstname: $('.firstname', this).val(),
+    lastname: $('.lastname', this).val()
   }).then(() => {
     downLoader()
     upFlashbag(i18n.trans('security.check_inbox'))
+  })
+    .catch((err) => {
+      downLoader()
+      upFlashbag(i18n.trans(err))
+    })
+})
+
+itemConnection.on('click', '.cancel', function (event) {
+  event.preventDefault()
+  $('.panel.registration', itemConnection).slideUp(800, function () {
+    $(this).hide()
   })
 })
 
 itemConnection.on('submit', '.panel.registration form', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
-  const participant = formatParticipant(data)
+  const contact = formatContact(data)
   upLoader()
-  const validatedPassword = validatePassword(participant.password)
+  const validatedPassword = validatePassword(contact.password)
   if (validatedPassword !== true) {
     downLoader()
     upFlashbag(validatedPassword)
     return
   }
-  if (validateDate(participant.datnaiss)) {
-    if (validatePhone(participant.tel, participant.mobil)) {
+  if (validateDate(contact.datnaiss)) {
+    if (validatePhone(contact.tel, contact.mobil)) {
       postRegister({
-        contact: participant
+        contact: contact
       }).then(user => {
         postLogin({
-          username: user.username,
-          password: user.password
+          username: contact.username,
+          password: contact.password
         }).then(user => {
           downLoader()
           afterLogin(user, true)
-        }).catch(() => {
+        }).catch((error) => {
           downLoader()
-          upFlashbag(i18n.trans('security.user_exist'))
+          upFlashbag(i18n.trans(error))
         })
-      }).catch(error => {
+      }).catch((error) => {
         downLoader()
-        upFlashbag(error)
+        upFlashbag(i18n.trans(error))
       })
     } else {
       downLoader()
@@ -193,7 +206,7 @@ itemConnection.on('click', 'a', function (event) {
     case 'registration':
       $('.panel', itemConnection).hide()
       $(`.panel.${which}`, itemConnection).show()
-      _you = getParticipant()
+      _you = getContact()
       updateYouFormRender()
       break
     case 'reset':
@@ -230,24 +243,31 @@ itemCard.on('click', '.modify-you', function (event) {
   changeItem(itemCard)
 })
 
+itemCard.on('click', '.cancel', function (event) {
+  event.preventDefault()
+  $('.panel.modify', itemCard).slideUp(800, function () {
+    $('.panel', itemCard).hide()
+  })
+})
+
 itemCard.on('submit', '.panel.modify form', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
-  const participant = formatParticipant(data)
+  const contact = formatContact(data)
   upLoader()
-  const validatedPassword = validatePassword(participant.password)
+  const validatedPassword = validatePassword(contact.password)
   if (validatedPassword !== true) {
     downLoader()
     upFlashbag(validatedPassword)
     return
   }
-  if (validateDate(participant.datnaiss)) {
-    if (validatePhone(participant.tel, participant.mobil)) {
+  if (validateDate(contact.datnaiss)) {
+    if (validatePhone(contact.tel, contact.mobil)) {
       postModify({
-        contact: participant
+        contact: contact
       }).then(user => {
         downLoader()
-        afterLogin({ ...user, password: participant.password }, false)
+        afterLogin({ ...user, password: contact.password }, false)
         $('.panel.modify').slideUp(800, function () {
           $(this).hide()
         })
@@ -314,10 +334,9 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
   upLoader()
   postGift(_amount, _allocation.value, _modpaie, _note).then(data => {
     window.location.href = data
-    downLoader()
   }).catch(err => {
     downLoader()
+    upFlashbag(err)
     console.error(err)
   })
 })
-

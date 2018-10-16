@@ -19,3 +19,7 @@ _translation_webui:
 
 _translation_profiler:
     resource: '@TranslationBundle/Resources/config/routing_symfony_profiler.yml'
+
+_errors:
+    resource: "@TwigBundle/Resources/config/routing/errors.xml"
+    prefix:   /_error
