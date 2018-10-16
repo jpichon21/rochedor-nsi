@@ -37,7 +37,7 @@ function myScene (myHook, index) {
     .addTo(controller)
 }
 
-for (var i = 0; i <= 6; i++) { myScene('onEnter', i); myScene('onCenter', i); myScene('onLeave', i) }
+for (var i = 1; i <= 6; i++) { myScene('onEnter', i); myScene('onCenter', i); myScene('onLeave', i) }
 
 $(window).resize(function () {
   hWindow = updateHeightWindow()
