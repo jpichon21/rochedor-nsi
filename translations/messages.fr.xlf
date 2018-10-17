@@ -2576,5 +2576,29 @@
         <target>Le produit a été ajouté au panier</target>
       </segment>
     </unit>
+    <unit id="ILZzkFr" name="order.accept-terms.title">
+      <segment>
+        <source>order.accept-terms.title</source>
+        <target>Conditions générales de vente</target>
+      </segment>
+    </unit>
+    <unit id="XPYZoBX" name="order.accept-terms.label">
+      <segment>
+        <source>order.accept-terms.label</source>
+        <target>J'accepte les CGV</target>
+      </segment>
+    </unit>
+    <unit id="64plJkn" name="order.accept-terms.link">
+      <segment>
+        <source>order.accept-terms.link</source>
+        <target>Lire les conditions générales de vente.</target>
+      </segment>
+    </unit>
+    <unit id="aKTuNcB" name="footer.terms">
+      <segment>
+        <source>footer.terms</source>
+        <target>Conditions générales de vente</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

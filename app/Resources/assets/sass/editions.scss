@@ -634,6 +634,23 @@ h2 {
           color: $roche-orange;
           border-color: $roche-orange;
         }
+        &.radio {
+          background-image: url('button-radio-black-unchecked.png');
+          color: #000;
+          border-color: #000;
+          float: left;
+          &.checked {
+            background-image: url('button-radio-black-checked.png');
+            color: #000;
+            border-color: #000;
+          }
+        }
+      }
+      .accept-terms-link {
+        display: table !important;
+        width: auto !important;
+        padding-top:15px;
+        margin-bottom: 30px;
       }
       .panel {
         &:before {

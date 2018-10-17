@@ -38,11 +38,13 @@ const _countries = JSON.parse($('.countries-json').html().trim())
 let _you = {}
 let _delivery = {}
 let _total = {}
+let _termsAccepted = false
 
 const itemConnection = $('.item.connection')
 const itemCard = $('.item.card')
 const itemShipping = $('.item.shipping')
 const itemPayment = $('.item.payment')
+const itemTerms = $('.item.terms')
 
 /* Dropdowns */
 
@@ -450,7 +452,7 @@ itemShipping.on('click', '.continue', function (event) {
       _total = data
       updateCartRender()
       updateDeliveryRender()
-      changeItem(itemPayment)
+      changeItem(itemTerms)
     }).catch(error => {
       downLoader()
       if (error) {
@@ -463,6 +465,14 @@ itemShipping.on('click', '.continue', function (event) {
       upFlashbag(error)
     }
   })
+})
+
+itemTerms.on('click', '.accept-terms', function (event) {
+  event.preventDefault()
+  $(this).toggleClass('checked')
+  _termsAccepted = $(this).hasClass('checked')
+  $('.submit', itemPayment).attr('disabled', !_termsAccepted)
+  changeItem(itemPayment)
 })
 
 itemPayment.on('submit', 'form.payment', function (event) {
