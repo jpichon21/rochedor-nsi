@@ -2610,7 +2610,7 @@
       <segment>
         <source>order.accept-terms.disclaimer</source>
         <target><![CDATA[Pour terminer votre commande, vous devez accepter nos conditions générales de ventes.<br>
-<a href="%link%" class="accept-terms-link">Voir les conditions générales de ventes.</a>]]></target>
+<a href="%link%" class="accept-terms-link" target="_blank">Voir les conditions générales de ventes.</a>]]></target>
       </segment>
     </unit>
   </file>
