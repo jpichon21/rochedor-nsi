@@ -12,6 +12,10 @@
       .select-allocation {
         margin-bottom: 0;
       }
+      .secure-link {
+        background: url('lock.png') no-repeat 15px 5px;
+        background-size: 20px;
+      }
     }
   }
 }
