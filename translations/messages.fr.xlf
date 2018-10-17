@@ -2606,5 +2606,12 @@
         <target>Sécurité des données</target>
       </segment>
     </unit>
+    <unit id="mo2Qk4k" name="order.accept-terms.disclaimer">
+      <segment>
+        <source>order.accept-terms.disclaimer</source>
+        <target><![CDATA[Pour terminer votre commande, vous devez accepter nos conditions générales de ventes.<br>
+<a href="%link%" class="accept-terms-link">Voir les conditions générales de ventes.</a>]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

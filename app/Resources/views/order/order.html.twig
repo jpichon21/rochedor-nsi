@@ -139,8 +139,11 @@
                             {% else %}
                                 {% set terms_link = '#' %}
                             {% endif %}
+                            <p>
+                                {# <a class="accept-terms-link" target="_blank" href="{{ terms_link }}">{{ 'order.accept-terms.link' | trans | raw }}</a> #}
+                                {{ 'order.accept-terms.disclaimer' | trans({'%link%': terms_link}) | raw }}
+                            </p>
                             <a href="#" class="accept-terms button radio">{{ 'order.accept-terms.label' | trans | raw }}</a>
-                            <a class="accept-terms-link" target="_blank" href="{{ terms_link }}">{{ 'order.accept-terms.link' | trans | raw }}</a>
                         </div>
                     </div>
                 </div>
