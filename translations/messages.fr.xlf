@@ -2613,5 +2613,14 @@
 <a href="%link%" class="accept-terms-link" target="_blank">Voir les conditions générales de ventes.</a>]]></target>
       </segment>
     </unit>
+    <unit id="WSRB_P4" name="global.tax-code">
+      <segment>
+        <source>global.tax-code</source>
+        <target><![CDATA[Si vous êtes imposable en France et dans les pays européens qui le permettent, vous bénéficiez d'une réduction d'impôt.<br>
+Si vous relevez de la fiscalité française, la réduction est équivalente à 66 % du montant de votre don, dans la limite de 20 % du revenu imposable. L’excédent peut être reporté sur les 5 années suivantes et ouvre droit à la réduction d’impôt dans les mêmes conditions (Article 200 du CGI). Pour accéder au Code Général des Impôts, cliquer <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=
+LEGIARTI000018619914&cidTexte=LEGITEXT000006069577" target="_blank">ICI</a>.<br>
+Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu aux dons et versements consentis au profit d’organismes étrangers établis dans un État membre de l’Union européenne ou dans un État membre de l’Espace économique européen ayant conclu avec la France une convention fiscale comportant une clause d’assistance administrative en vue de lutter contre la fraude ou l’évasion fiscale. Ceci est par exemple le cas pour la Belgique (en citer d’autres)]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>
