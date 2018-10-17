@@ -652,6 +652,13 @@ h2 {
         padding-top:15px;
         margin-bottom: 30px;
       }
+      .secure-link {
+        background: url('lock.png') no-repeat 15px 15px;
+        background: url(http://localhost:8080/assets/images/lock.7c08beee.png) no-repeat 11px 5px;
+        background-size: 20px;
+        border-color: #000;
+        color: #000;
+      }
       .panel {
         &:before {
           background: #ffffff;

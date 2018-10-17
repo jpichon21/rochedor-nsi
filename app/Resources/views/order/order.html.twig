@@ -160,6 +160,16 @@
                             </div>
                         </div>
                         <div class="pure-g">
+                            <div class="pure-u-8-24">
+                                {% if routeExists('securite-donnees') %}
+                                    {% set secure_link = path('securite-donnees') %}
+                                {% else %}
+                                    {% set secure_link = '#' %}
+                                {% endif %}
+                                <a href="{{ secure_link }}" target="_blank" class="button input secure-link">{{ 'global.secure-datas'|trans }}</a>
+                            </div>
+                            <div class="pure-u-12-24">
+                            </div>
                             <div class="pure-u-4-24">
                                 <input class="input button submit" disabled type="submit" value="{{ 'form.ok' | trans | raw }}">
                             </div>

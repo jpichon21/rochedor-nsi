@@ -2600,5 +2600,11 @@
         <target>Conditions générales de vente</target>
       </segment>
     </unit>
+    <unit id="l4A0hfj" name="global.secure-datas">
+      <segment>
+        <source>global.secure-datas</source>
+        <target>Sécurité des données</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
