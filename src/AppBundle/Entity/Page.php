@@ -31,6 +31,11 @@ class Page
         6 => '/assets/img/bg-6.jpg',
         7 => '/assets/img/bg-7.jpg'
     ];
+
+    const TYPE_PAGE = 'page';
+    const TYPE_EDITIONS = 'editions';
+    const TYPE_MINIMAL = 'minimal';
+
     /**
      * @var int
      *
@@ -131,6 +136,12 @@ class Page
      * @Type("int")
      */
     private $parentId;
+
+    /**
+     * @var string
+     * @ORM\Column(name="type", type="string", length=20)
+     */
+    private $type;
 
     public function __construct()
     {
@@ -483,5 +494,29 @@ class Page
     {
         $this->immutableid = $immutableid;
         return $this;
+    }
+
+    /**
+     * Set type.
+     *
+     * @param string $type
+     *
+     * @return Page
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type.
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }
