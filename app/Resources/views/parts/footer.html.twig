@@ -25,6 +25,7 @@
                 <span>Les Editions Roche d'Or</span>
                 <a href="#">Les nouveautés</a>
                 <a href="#">Les collections</a>
+                {% if routeExists('cgv') %}<a href="{{ path('cgv') }}">{{ 'footer.terms'|trans }}</a>{% endif %}
                 <a href="#">Conditions générales de vente</a>
             </div>
             <div class="column">

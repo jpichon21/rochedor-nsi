@@ -129,11 +129,30 @@
                     </div>
                 </div>
             </div>
+            <div class="item terms">
+                <h2>{{ 'order.accept-terms.title' | trans }}</h3>
+                <div class="panel terms active">
+                    <div class="pure-g">
+                        <div class="pure-u-1-2">
+                            {% if routeExists('cgv') %}
+                                {% set terms_link = path('cgv') %}
+                            {% else %}
+                                {% set terms_link = '#' %}
+                            {% endif %}
+                            <p>
+                                {# <a class="accept-terms-link" target="_blank" href="{{ terms_link }}">{{ 'order.accept-terms.link' | trans | raw }}</a> #}
+                                {{ 'order.accept-terms.disclaimer' | trans({'%link%': terms_link}) | raw }}
+                            </p>
+                            <a href="#" class="accept-terms button radio">{{ 'order.accept-terms.label' | trans | raw }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="item payment">
                 <h2>{{ 'order.registration.four.title' | trans | raw }}</h2>
                 <div class="panel payment active">
                     <form class="form payment">
-                        <h3>{{ 'order.choose.payment' | trans | raw }}</h3>    
+                        <h3>{{ 'order.choose.payment' | trans | raw }}</h3>
                         <div class="pure-g">
                             <div class="pure-u-1-2">
                                 <select class="select select-modpaie" required>
@@ -144,8 +163,18 @@
                             </div>
                         </div>
                         <div class="pure-g">
+                            <div class="pure-u-10-24">
+                                {% if routeExists('securite-donnees') %}
+                                    {% set secure_link = path('securite-donnees') %}
+                                {% else %}
+                                    {% set secure_link = '#' %}
+                                {% endif %}
+                                <a href="{{ secure_link }}" target="_blank" class="button input secure-link">{{ 'global.secure-datas'|trans }}</a>
+                            </div>
+                            <div class="pure-u-10-24">
+                            </div>
                             <div class="pure-u-4-24">
-                                <input class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                                <input class="input button submit" disabled type="submit" value="{{ 'form.ok' | trans | raw }}">
                             </div>
                         </div>
                     </form>

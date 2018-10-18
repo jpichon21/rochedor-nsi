@@ -1,10 +1,17 @@
 {% set bodyClass = "page" %}
+{% if page.type %}
+    {% set bodyClass = bodyClass ~ ' ' ~ page.type %}
+{% endif %}
 {% set bodyBackground = page.background %}
 {% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
 {% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('assets/css/page.css') }}">
+{% if page.type %}
+    <link rel="stylesheet" href="{{ asset('assets/css/' ~ page.type ~ '.css') }}">
+{% else %}
+    <link rel="stylesheet" href="{{ asset('assets/css/page.css') }}">
+{% endif %}
 {% endblock %}
 {% block content %}
 <div class="content">

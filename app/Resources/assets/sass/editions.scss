@@ -588,6 +588,7 @@ h2 {
       a {
         color: $roche-orange;
         border-bottom: 1px #ffb170 solid;
+        text-decoration: none;
       }
       hr {
         border-bottom: 1px #000000 solid;
@@ -634,6 +635,29 @@ h2 {
           color: $roche-orange;
           border-color: $roche-orange;
         }
+        &.radio {
+          background-image: url('button-radio-black-unchecked.png');
+          color: #000;
+          border-color: #000;
+          float: left;
+          &.checked {
+            background-image: url('button-radio-black-checked.png');
+            color: #000;
+            border-color: #000;
+          }
+        }
+      }
+      .accept-terms-link {
+        display: table !important;
+        width: auto !important;
+        padding-top:15px;
+        margin-bottom: 30px;
+      }
+      .secure-link {
+        background: url('lock-black.png') no-repeat 15px 5px;
+        background-size: 20px;
+        border-color: #000;
+        color: #000;
       }
       .panel {
         &:before {
