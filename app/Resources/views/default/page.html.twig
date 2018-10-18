@@ -8,7 +8,7 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('assets/css/page.css') }}">
-{% if page.type && page.type != 'page' %}
+{% if page.type and page.type != 'page' %}
     <link rel="stylesheet" href="{{ asset('assets/css/' ~ page.type ~ '.css') }}">
 {% endif %}
 {% endblock %}
