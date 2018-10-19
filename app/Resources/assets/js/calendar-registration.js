@@ -272,6 +272,11 @@ itemParticipants.on('click', '.navette', function () {
   changeItem(itemParticipants)
 })
 
+itemParticipants.on('click', '.newfich', function () {
+  const boolean = $(this).toggleClass('checked').hasClass('checked')
+  $('.newfich.checkbox', itemParticipants).val(boolean)
+})
+
 function validateDate (date) {
   return moment(date).isValid() && moment(date).isBefore(new Date())
 }
@@ -387,46 +392,22 @@ panelHimForm.on('submit', function (event) {
   })
 })
 
-panelHimForm.on('click', '.cancel', function (event) {
-  event.preventDefault()
-  $('.panel.him').slideUp(800, function () {
-    $(this).hide()
-  })
-})
-
-panelHimForm.on('click', '.newfich', function (event) {
-  event.preventDefault()
-  event.stopPropagation()
-  _participant.newfich = !_participant.newfich
-  updateHimFormRender()
-})
-
-panelAddForm.on('click', '.newfich', function (event) {
-  event.preventDefault()
-  event.stopPropagation()
-  _participant.newfich = !_participant.newfich
-  updateHimFormRender()
-})
-
-panelYouForm.on('click', '.cancel', function (event) {
-  event.preventDefault()
-  $('.panel.you').slideUp(800, function () {
-    $(this).hide()
-  })
-})
-
-panelAddForm.on('click', '.cancel', function (event) {
-  event.preventDefault()
-  $('.panel.cancel').slideUp(800, function () {
-    $(this).hide()
-  })
-})
-
 panelAddForm.on('submit', function (event) {
   callbackSubmit(event, $(this), 'add', false, function (res) {
     _registered.push(res)
   })
 })
+
+function closePanel (event, panel) {
+  event.preventDefault()
+  $(`.panel.${panel}`).slideUp(800, function () {
+    $(this).hide()
+  })
+}
+
+panelYouForm.on('click', '.cancel', function (event) { closePanel(event, 'you') })
+panelHimForm.on('click', '.cancel', function (event) { closePanel(event, 'him') })
+panelAddForm.on('click', '.cancel', function (event) { closePanel(event, 'add') })
 
 panelAddForm.on('change', '.select.colp', function () {
   const coltyp = $(this).closest('form').find('.select.coltyp').val()
