@@ -369,12 +369,28 @@ class CalendarController extends Controller
             $contact->setUsername($attendee['username']);
         }
 
-        if ($attendee['password'] !== '') {
-            $password = $this->encoder->encodePassword($contact, $attendee['password']);
-            $contact->setPassword($password);
-        }
+        $password = array_key_exists('password', $attendee) && $attendee['password'] !== ''
+            ? $attendee['password']
+            : $this->randomPassword(8);
+        
+        $passwordEncoded = $this->encoder->encodePassword($contact, $password);
+        $contact->setPassword($passwordEncoded);
 
         return $contact;
+    }
+
+    private function randomPassword($length)
+    {
+        $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+        $pass = array();
+        $alphaLength = strlen($alphabet) - 1;
+
+        for ($i = 0; $i < $length; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+
+        return implode($pass);
     }
 
     private function refCal($count, $site)
