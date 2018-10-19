@@ -321,7 +321,7 @@ class CalendarController extends Controller
                     [
                         'Arriv' => [
                             'Transport' => $a['transport'],
-                            'Navette' => (array_key_exists('navette', $a)) ? ($a['navette']) : '',
+                            'Navette' => (array_key_exists('navette', $a)) ? ($a['navette'] == 'true') : '',
                             'Lieu' => $a['lieu'],
                             'Heure' => ($a['arriv'] !== '') ? explode(':', $a['arriv'])[0]: '',
                             'Mn' => ($a['arriv'] !== '') ? explode(':', $a['arriv'])[1]: '',

@@ -245,7 +245,7 @@
     </div>
     <div class="pure-u-1-1 navette-wrapper hidden">
         <a href="#" class="input button radio navette">{{ 'form.navette' | trans | raw }}</a>
-        <input class="hidden checkbox navette" value="<%= _.escape(participant.navette) %>" name="navette" type="checkbox">
+        <input class="hidden checkbox navette" value="<%= _.escape(participant.navette) %>" name="navette" type="text">
     </div>
     <div class="pure-u-1-2 lieu-wrapper hidden">
         <select class="select lieu <%= (_.escape(participant.lieu) != '') ? 'white' : '' %>" name="lieu">
@@ -307,9 +307,9 @@
     <div class="pure-u-1-3">
         <input autocomplete="nope" class="input nom" required type="text" value="<%= _.escape(participant.nom) %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
     </div>
-    <div class="pure-u-1">
+    <div class="pure-u-1 newfich-wrapper">
         <a href="#" class="input button radio newfich">{{ 'form.newfich' | trans | raw }}</a>
-        <input class="hidden checkbox newfich" value="<%= _.escape(participant.newfich) %>" name="newfich" type="checkbox">
+        <input class="hidden checkbox newfich" value="<%= _.escape(participant.newfich) %>" name="newfich" type="text">
     </div>
     <div class="pure-u-1">
         <textarea class="textarea adresse" name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= _.escape(participant.adresse) %></textarea>
@@ -358,7 +358,7 @@
     </div>
     <div class="pure-u-1-1 navette-wrapper hidden">
         <a href="#" class="input button radio navette">{{ 'form.navette' | trans | raw }}</a>
-        <input class="hidden checkbox navette" value="<%= _.escape(participant.navette) %>" name="navette" type="checkbox">
+        <input class="hidden checkbox navette" value="<%= _.escape(participant.navette) %>" name="navette" type="text">
     </div>
     <div class="pure-u-1-2 lieu-wrapper hidden">
         <select class="select lieu <%= (_.escape(participant.lieu) != '') ? 'white' : '' %>" name="lieu">

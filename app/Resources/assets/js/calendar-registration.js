@@ -274,7 +274,7 @@ itemParticipants.on('click', '.navette', function () {
 
 itemParticipants.on('click', '.newfich', function () {
   const boolean = $(this).toggleClass('checked').hasClass('checked')
-  $('.newfich.checkbox', itemParticipants).val(boolean)
+  $('.newfich-wrapper .checkbox', itemParticipants).val(boolean)
 })
 
 function validateDate (date) {

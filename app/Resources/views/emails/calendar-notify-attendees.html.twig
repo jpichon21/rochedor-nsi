@@ -1,16 +1,25 @@
-<p>Nous vous remercions d’avoir pris le temps de renseigner le formulaire et de l’attention que vous portez à la Roche d’Or.</p>
-<p>Votre demande d’inscription est prise en compte sous le numéro :</p>
-<p style="text-align: center;"><b>{{ ref }}</b><br><br>«&nbsp;<b>" Apprenez de moi que je suis doux et humble de cœur. " (Mt 11,29)</b>&nbsp;»
-  <br> du <b>{{ calendar.datdeb|date('d/m/Y') }}</b> au <b>{{ calendar.datfin|date('d/m/Y') }}</b><br><br><p>Liste des participants :</p>
-  <table class=Liste width=100%> 
-    <tr><th width=26></th> <th>Participant</th> <th>Mode de transport</th> <th>Arrivée à</th> <th>Horaire</th> </tr>  
-    {% for attendee in attendees %}
-      <tr ValCle=36092 ColP=''><td width=26>&nbsp;</td><td xwidth=260 style='text-align:left'>{{ attendee.civil }} {{ attendee.nom }} {{ attendee.prenom }}</td><td>{{ attendee.transport }}</td><td></td><td></td></tr>
-    {% endfor %}
-  </table></p>
-<p><b>Une réponse à votre demande vous sera transmise prochainement</b> par email ou par courrier postal si vous ne disposez pas d'une adresse e-email.
-Cette réponse dépend essentiellement des places encore disponibles et de notre capacité à vous accueillir dans les meilleurs conditions</p>
-<p>
-  <i>La Roche d’Or s'engage à être le seul destinataire des informations que vous venez de lui communiquer.Pour plus d'informations,
-  merci de vous reporter à notre politique de confidentialité qui prend en compte les exigences de la réglementation européenne sur la protection des données.</i>
-</p>
+<p>Nous vous remercions de l'attention que vous portez à la Roche d'Or. Votre demande d'inscription est prise en compte sous le numéro :</p>
+<br>
+<p style="text-align: center;"><b>{{ ref }}</b></p>
+<p style="text-align: center;">&laquo;&nbsp;<b>{{ calendar.libact }}</b>&nbsp;&raquo;<br>du <b>{{ calendar.datdeb|date('d/m/Y') }}</b> au <b>{{ calendar.datfin|date('d/m/Y') }}</b> ({{ calendar.sitact == 'Font' ? "Les Fontanilles" : "La Roche d'Or" }})</p>
+<br>
+<p>Liste des participants :</p>
+<table width="100%"> 
+  <tr>
+    <th>Participant</th>
+    <th>Mode de transport</th>
+    <th>Arrivée à</th>
+    <th>Horaire</th>
+  </tr>  
+  {% for attendee in attendees %}
+  <tr>
+    <td>{{ attendee.civil }} {{ attendee.nom }} {{ attendee.prenom }}</td>
+    <td>{{ attendee.transport }}</td>
+    <td>{{ attendee.lieu }}</td>
+    <td>{{ attendee.arriv }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<br>
+<p><b>Une réponse à votre demande vous sera transmise prochainement</b> par e-mail ou par courrier postal si vous ne disposez pas d’une adresse e-mail. Cette réponse dépend essentiellement des places encore disponibles et de notre capacité à vous accueillir dans les meilleures conditions.</p>
+<p><i>Protection des données personnelles : la Roche d’Or s'engage à être le seul et unique destinataire des informations que vous venez de lui communiquer. Pour plus d’information, merci de vous reporter à notre politique de confidentialité qui prend en compte les exigences de la réglementation européenne sur la protection des données (RGPD).</i></p>
