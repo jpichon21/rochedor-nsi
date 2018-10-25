@@ -44,12 +44,21 @@ const header = document.querySelector('.header')
 const menus = document.querySelectorAll('[data-menu]')
 
 const handleMenuHover = event => {
-  const reference = event.target.getAttribute('data-menu')
+  const menu = event.target
+  const reference = menu.getAttribute('data-menu')
+  const offsetSubMenu = menu.offsetTop + 47 // lineHeight + paddingVertical
+  const isMenuReduced = body.classList.contains('menuReduced')
+  const isSubMenu = menu.classList.contains('sub-menu')
   let elements = document.querySelectorAll('[data-menu="' + reference + '"]')
   elements.forEach(element => {
-    event.type === 'mouseenter'
-      ? element.classList.add('active')
-      : element.classList.remove('active')
+    if (event.type === 'mouseenter') {
+      element.classList.add('active')
+      if (!isSubMenu && isMenuReduced) {
+        element.style.top = offsetSubMenu + 'px'
+      }
+    } else {
+      element.classList.remove('active')
+    }
   })
 }
 
@@ -59,6 +68,12 @@ const handleHeaderHover = event => {
     : body.classList.remove('hover')
 }
 
+const handleWindowResize = () => {
+  window.innerWidth < 1440
+    ? body.classList.add('menuReduced')
+    : body.classList.remove('menuReduced')
+}
+
 menus.forEach(menu => {
   menu.addEventListener('mouseleave', event => handleMenuHover(event))
   menu.addEventListener('mouseenter', event => handleMenuHover(event))
@@ -66,6 +81,10 @@ menus.forEach(menu => {
 
 header.addEventListener('mouseleave', event => handleHeaderHover(event))
 header.addEventListener('mouseenter', event => handleHeaderHover(event))
+
+window.addEventListener('resize', event => handleWindowResize())
+
+handleWindowResize()
 
 // Selects
 
