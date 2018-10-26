@@ -46,16 +46,10 @@ const menus = document.querySelectorAll('[data-menu]')
 const handleMenuHover = event => {
   const menu = event.target
   const reference = menu.getAttribute('data-menu')
-  const offsetSubMenu = menu.offsetTop + 47 // lineHeight + paddingVertical
-  const isMenuReduced = body.classList.contains('menuReduced')
-  const isSubMenu = menu.classList.contains('sub-menu')
   let elements = document.querySelectorAll('[data-menu="' + reference + '"]')
   elements.forEach(element => {
     if (event.type === 'mouseenter') {
       element.classList.add('active')
-      if (!isSubMenu && isMenuReduced) {
-        element.style.top = offsetSubMenu + 'px'
-      }
     } else {
       element.classList.remove('active')
     }
