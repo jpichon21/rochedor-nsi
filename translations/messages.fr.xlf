@@ -2628,5 +2628,11 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Cette adresse email est déjà utilisée</target>
       </segment>
     </unit>
+    <unit id="qr0aiUo" name="Invalid credentials.">
+      <segment>
+        <source>Invalid credentials.</source>
+        <target>Identifiants invalides</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

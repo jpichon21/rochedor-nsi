@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
 import { Redirect } from 'react-router-dom'
 import Alert from '../alert/alert'
+import I18n from '../../../i18n'
 
 export class Login extends React.Component {
   constructor (props) {
@@ -22,6 +23,7 @@ export class Login extends React.Component {
     this.handleClose = this.handleClose.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.i18n = new I18n('fr')
   }
 
   componentWillReceiveProps (nextProps) {
@@ -39,7 +41,7 @@ export class Login extends React.Component {
   handleSubmit (event) {
     this.props.dispatch(doLogin(this.state.username, this.state.password)).then((res) => {
       if (res.error) {
-        this.setState({error: res.error})
+        this.setState({error: this.i18n.trans(res.error)})
         this.setState({alertOpen: true})
       }
     })
