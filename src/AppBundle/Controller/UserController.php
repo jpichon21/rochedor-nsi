@@ -103,6 +103,11 @@ class UserController extends Controller
         if (!$this->userRepository->isUsernameUnique($user->getUsername())) {
             return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);
         }
+
+        if (!$this->userRepository->isEmailUnique($user->getEmail())) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.email_exists']);
+        }
+
         $user->__construct();
         $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
         
@@ -110,7 +115,6 @@ class UserController extends Controller
         if (count($errors) > 0) {
             return new JsonResponse(['status' => 'ko', 'message' => (string)$errors]);
         }
-        $user->setRoles(['ROLE_ADMIN']);
         $this->em->persist($user);
         $this->em->flush();
         return $user;

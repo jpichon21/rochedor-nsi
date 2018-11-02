@@ -36,4 +36,26 @@ class UserRepository extends ServiceEntityRepository
         }
         return true;
     }
+
+    /**
+     * Check if email is unique
+     *
+     * @param string $email
+     * @param int $id
+     * @return boolean
+     */
+    public function isEmailUnique($email, int $id = null)
+    {
+        $c = $this->findOneByEmail($email);
+        if ($c === null) {
+            return true;
+        }
+        if ($id === null) {
+            return false;
+        }
+        if ($c->getId() !== intval($id)) {
+            return false;
+        }
+        return true;
+    }
 }

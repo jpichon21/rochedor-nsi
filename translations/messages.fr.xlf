@@ -2622,5 +2622,11 @@ LEGIARTI000018619914&cidTexte=LEGITEXT000006069577" target="_blank">ICI</a>.<br>
 Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu aux dons et versements consentis au profit d’organismes étrangers établis dans un État membre de l’Union européenne ou dans un État membre de l’Espace économique européen ayant conclu avec la France une convention fiscale comportant une clause d’assistance administrative en vue de lutter contre la fraude ou l’évasion fiscale. Ceci est par exemple le cas pour la Belgique (en citer d’autres)]]></target>
       </segment>
     </unit>
+    <unit id="I3qXsyQ" name="security.email_exists">
+      <segment>
+        <source>security.email_exists</source>
+        <target>Cette adresse email est déjà utilisée</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
