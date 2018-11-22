@@ -33,9 +33,12 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         admin:
-            pattern: ^/(admin|api)
+            pattern: ^/(admin|api|crud)
             provider: admin_db_provider
             anonymous: ~
+            form_login:
+                login_path: admin-login-form
+                check_path: admin-login-form
             json_login:
                 check_path: /api/login
         shop:

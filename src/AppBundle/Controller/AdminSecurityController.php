@@ -12,6 +12,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use AppBundle\Repository\UserRepository;
 use AppBundle\Service\Mailer;
 use AppBundle\Entity\User;
@@ -60,6 +61,21 @@ class AdminSecurityController extends Controller
 
         return new JsonResponse($user);
     }
+
+    /**
+     * @Route("/admin/login-form", name="admin-login-form", requirements={"methods": "{GET, POST}"})
+     */
+    public function loginFormAction(Request $request, AuthenticationUtils $authenticationUtils)
+    {
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+    
+        return $this->render('security/admin-login.html.twig', array(
+            'last_username' => $lastUsername,
+            'error' => $error
+        ));
+    }
+
 
     /**
     * @Route("/api/user-update", name="admin-user-update", requirements={"methods": "PUT"})
