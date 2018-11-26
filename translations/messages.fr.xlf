@@ -773,7 +773,7 @@
       </notes>
       <segment>
         <source>form.username</source>
-        <target>Nom d'utilisateur</target>
+        <target>Identifiant</target>
       </segment>
     </unit>
     <unit id="bThUzo_" name="form.modify">
@@ -1049,8 +1049,7 @@
     <unit id="N_ACgte" name="calendar.registration.intro">
       <segment>
         <source>calendar.registration.intro</source>
-        <target><![CDATA[
-					Vous êtes sur le point de vous inscrire à une retraite. Complétez les informations suivantes si vous souhaitez continuer, sinon retourner au <a href="%link%">calendrier</a>.
+        <target><![CDATA[					Vous êtes sur le point de vous inscrire à une retraite. Complétez les informations suivantes si vous souhaitez continuer, sinon pour retourner au calendrier cliquer <a href="%link%">ici</a>.
 				]]></target>
       </segment>
     </unit>
@@ -2632,6 +2631,18 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>Invalid credentials.</source>
         <target>Identifiants invalides</target>
+      </segment>
+    </unit>
+    <unit id="1xgOZ62" name="form.submitParticipant">
+      <segment>
+        <source>form.submitParticipant</source>
+        <target>Valider le participant</target>
+      </segment>
+    </unit>
+    <unit id="6F6bhIE" name="calendar.registration.table.header.participant">
+      <segment>
+        <source>calendar.registration.table.header.participant</source>
+        <target>Partic</target>
       </segment>
     </unit>
   </file>
