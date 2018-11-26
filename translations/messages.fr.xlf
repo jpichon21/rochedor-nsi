@@ -579,7 +579,7 @@
       </notes>
       <segment>
         <source>form.password</source>
-        <target>Mot de passe</target>
+        <target>Mot de passe (8 caractère minimum) </target>
       </segment>
     </unit>
     <unit id="3NTTDax" name="form.ok">
