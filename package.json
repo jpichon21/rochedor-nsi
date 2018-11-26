@@ -41,6 +41,7 @@
     "immutability-helper": "^2.7.0",
     "immutable": "^3.8.2",
     "include-media": "^1.4.9",
+    "inputmask": "^4.0.3",
     "jquery": "^3.3.1",
     "jquery-scrollify": "^1.0.19",
     "jquery-zoom": "^1.7.21",

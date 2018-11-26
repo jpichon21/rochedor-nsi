@@ -3,6 +3,7 @@ import moment from 'moment'
 import { getContact } from './sample'
 import { upFlashbag, upConfirmbox } from './popup'
 import { upLoader, downLoader } from './loader'
+import Inputmask from 'inputmask'
 import I18n from './i18n'
 import {
   postParticipant,
@@ -108,6 +109,7 @@ function updateYouFormRender () {
       i18n.trans('form.civilite.soeur')
     ]
   }))
+  Inputmask().mask(document.querySelectorAll('.datnaiss'))
 }
 
 function updateHimFormRender () {
@@ -125,6 +127,7 @@ function updateHimFormRender () {
       i18n.trans('form.civilite.soeur')
     ]
   }))
+  Inputmask().mask(document.querySelectorAll('.datnaiss'))
 }
 
 /* Actions */
