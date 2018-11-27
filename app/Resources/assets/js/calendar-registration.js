@@ -73,6 +73,7 @@ const registeredTemplate = _.template($('.registered-template').html())
 const participantsTemplate = _.template($('.participants-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
 const himFormTemplate = _.template($('.him-form-template').html())
+const endMessageTemplate = _.template($('.end-message-template').html())
 
 function updateYouRender () {
   $('.you-render').html(youTemplate({ you: _you }))
@@ -86,6 +87,18 @@ function updateRegisteredRender () {
 
 function updateParticipantsRender () {
   $('.participants-render').html(participantsTemplate({
+    participants: _participants,
+    transports: {
+      'perso': i18n.trans('form.transport.perso'),
+      'train': i18n.trans('form.transport.train'),
+      'avion': i18n.trans('form.transport.avion'),
+      'bus': i18n.trans('form.transport.bus')
+    }
+  }))
+}
+
+function updateEndMessageRender () {
+  $('.end-message-render').html(endMessageTemplate({
     participants: _participants,
     transports: {
       'perso': i18n.trans('form.transport.perso'),
@@ -516,6 +529,8 @@ itemParticipants.on('click', '.validate-participants', function (event) {
       result = result.replace('%entry_number%', res)
       $('.result', itemValidation).html(result)
       downLoader()
+      upFlashbag(i18n.trans('form.mail_spam'))
+      updateEndMessageRender()
       changeItem(itemValidation)
     }).catch(error => {
       downLoader()
