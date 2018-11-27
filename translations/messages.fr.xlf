@@ -578,7 +578,7 @@
       </notes>
       <segment>
         <source>form.password</source>
-        <target>Mot de passe (8 caractère minimum) </target>
+        <target>Mot de passe (8 caractères minimum) </target>
       </segment>
     </unit>
     <unit id="3NTTDax" name="form.ok">
@@ -1048,7 +1048,7 @@
     <unit id="N_ACgte" name="calendar.registration.intro">
       <segment>
         <source>calendar.registration.intro</source>
-        <target><![CDATA[					Vous êtes sur le point de vous inscrire à une retraite.</br> Complétez les informations suivantes si vous souhaitez continuer, sinon pour retourner au calendrier cliquer <a href="%link%">ici</a>.
+        <target><![CDATA[					Vous êtes sur le point de vous inscrire à une retraite.<br> Complétez les informations suivantes si vous souhaitez continuer, sinon pour retourner au calendrier cliquer <a href="%link%">ici</a>.
 				]]></target>
       </segment>
     </unit>
