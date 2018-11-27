@@ -1048,7 +1048,7 @@
     <unit id="N_ACgte" name="calendar.registration.intro">
       <segment>
         <source>calendar.registration.intro</source>
-        <target><![CDATA[					Vous êtes sur le point de vous inscrire à une retraite. Complétez les informations suivantes si vous souhaitez continuer, sinon pour retourner au calendrier cliquer <a href="%link%">ici</a>.
+        <target><![CDATA[					Vous êtes sur le point de vous inscrire à une retraite.</br> Complétez les informations suivantes si vous souhaitez continuer, sinon pour retourner au calendrier cliquer <a href="%link%">ici</a>.
 				]]></target>
       </segment>
     </unit>
