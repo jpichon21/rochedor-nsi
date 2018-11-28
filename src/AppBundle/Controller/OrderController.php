@@ -54,6 +54,12 @@ class OrderController extends Controller
         '127.0.0.1'
     ];
     const TVASHIPMENT = 20;
+    
+    const FREE_SHIPPING_EXCEPTION = [
+        'Roche',
+        'Font',
+    ];
+
     /**
      * @var Mailer
      */
@@ -217,7 +223,7 @@ class OrderController extends Controller
         ->setTel($client['tel'])
         ->setMobil($client['mobil'])
         ->setEmail($client['email'])
-        ->setSociete($client['societe']);
+        ->setSociete($client['societe'])
         $em->persist($customer);
         $em->flush();
         return ['status' => 'ok', 'data' => $customer];
@@ -271,7 +277,7 @@ class OrderController extends Controller
                 $i++;
             }
         }
-        $shippingPriceData = $this->findShipping($totalWeight, $country);
+        $shippingPriceData = $this->findShipping($totalWeight, $country, $destliv);
         $packagingWeight = $shippingPriceData['supplementWeight'];
         $shippingPriceIT = $shippingPriceData['price'];
         $data['packagingWeight'] = $packagingWeight;
@@ -285,9 +291,9 @@ class OrderController extends Controller
         return $data;
     }
 
-    private function findShipping($weight, $country)
+    private function findShipping($weight, $country, $destliv)
     {
-        if ($country === 'Font' || $country === 'Roche') {
+        if (in_array($destliv, $this::FREE_SHIPPING_EXCEPTION)) {
             return ['supplementWeight' => 0, 'price' => 0];
         }
         $supplementWeight = $this->shippingRepository->findWeight($weight, $country);
