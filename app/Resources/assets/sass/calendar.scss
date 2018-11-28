@@ -1,5 +1,9 @@
 @import './variables';
 
+h1 {
+  margin-bottom: 0;
+}
+
 .content {
   .flex {
     display: flex;
@@ -9,6 +13,7 @@
 
 .filters {
   width: 220px;
+  margin-top: 40px;
   padding-right: 80px;
   color: $roche-yellow;
   .title {
@@ -259,12 +264,28 @@
     letter-spacing: 1.4px;
     text-transform: uppercase;
     th {
-      position: relative;
-      padding: 10px 15px;
+      position: sticky;
+      top: 0;
+      padding: 40px 15px 10px;
       text-align: left;
-      border-bottom: 1px #575432 solid;
+      background-image: url('../img/bg-fallback.jpg');
+      background-size: 100% auto;
+      background-attachment: fixed;
+      background-position: center;
+      z-index: 1;
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-bottom: 1px #575432 solid;
+      }
       &.dates {
-        padding-left: 0;
+        padding-left: 3px;
+        &:after {
+          left: 3px;
+        }
       }
       &.sites {
         padding: 0;
@@ -278,7 +299,7 @@
     tr {
       &.month {
         td {
-          padding: 20px 0 10px;
+          padding: 20px 0 10px 3px;
           font-size: 12px;
           font-weight: 500;
           letter-spacing: 1.4px;
@@ -288,11 +309,21 @@
       &.retreat {
         cursor: pointer;
         td {
+          position: relative;
           padding: 15px;
           font-size: 14px;
           line-height: 18px;
           color: #ffffff;
-          border-bottom: 1px #262626 solid;
+          z-index: 0;
+          &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-bottom: 1px #262626 solid;
+            z-index: 0;
+          }
           a {
             color: inherit;
             text-decoration: none;
@@ -300,6 +331,9 @@
           &.dates {
             padding-left: 30px;
             white-space: nowrap;
+            &:after {
+              left: 3px;
+            }
           }
           &.sites {
             padding: 0;
@@ -329,29 +363,30 @@
     text-align: center;
   }
   .dates {
-    position: relative;
     .bullet {
       position: absolute;
       top: 15px;
-      left: -3px;
+      left: 0;
       width: 7px;
       height: 7px;
       border-radius: 100%;
       background: $roche-yellow;
+      z-index: 2;
     }
     .fadeline {
       position: absolute;
       top: 20px;
-      left: 0;
+      left: 3px;
       width: 1px;
       height: 100%;
       background: $roche-yellow;
+      z-index: 1;
     }
   }
   .retreat {
     &.last {
-      td {
-        border: none;
+      td:after {
+        content: none;
       }
       .fadeline {
         height: 30px;
