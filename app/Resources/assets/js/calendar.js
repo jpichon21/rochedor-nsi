@@ -15,12 +15,10 @@ $('.filter')
       $('.filter').removeClass('active')
       $(this).addClass('active')
     }
-    $('.content').addClass('ahead')
   })
 
   .on('mouseleave', function () {
     $(this).removeClass('active')
-    $('.content').removeClass('ahead')
   })
 
   .on('change', function () {
