@@ -103,7 +103,8 @@ class ShopSecurityController extends Controller
             'societe' => $client->getSociete(),
             'tvaintra' => $client->getTvaintra(),
             'memocli' => $client->getMemocli(),
-            'enregcli' => $client->getEnregcli()
+            'enregcli' => $client->getEnregcli(),
+            'statut' => $client->getStatut()
         ]);
     }
 
@@ -122,6 +123,10 @@ class ShopSecurityController extends Controller
         
         if ($repository->findClientByUsername($clientReq['username'])) {
             return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);
+        }
+
+        if (!$this->validateStatut($clientReq)) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.nop']);
         }
 
         $client = new Client();
@@ -144,7 +149,8 @@ class ShopSecurityController extends Controller
         ->setSociete($clientReq['societe'])
         ->setTvaintra($clientReq['tvaintra'])
         ->setMemocli($clientReq['memocli'])
-        ->setEnregcli(new \DateTime('now'));
+        ->setEnregcli(new \DateTime('now'))
+        ->setStatut($clientReq['statut']);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($client);
@@ -167,7 +173,8 @@ class ShopSecurityController extends Controller
             'societe' => $client->getSociete(),
             'tvaintra' => $client->getTvaintra(),
             'memocli' => $client->getMemocli(),
-            'enregcli' => $client->getEnregcli()
+            'enregcli' => $client->getEnregcli(),
+            'statut' => $client->getStatut()
         ]);
     }
 
@@ -183,9 +190,14 @@ class ShopSecurityController extends Controller
         if (!$clientReq) {
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide client object']);
         }
-        
+
+        if (!$this->validateStatut($clientReq)) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.nop']);
+        }
+
         $client = $repository->findClient($clientReq['codcli']);
         $password = $encoder->encodePassword($client, $clientReq['password']);
+
 
         $client
         ->setCivil($clientReq['civil'])
@@ -198,6 +210,7 @@ class ShopSecurityController extends Controller
         ->setPays($clientReq['pays'])
         ->setTel($clientReq['tel'])
         ->setMobil($clientReq['mobil'])
+        ->setStatut($clientReq['statut'])
         ->setEmail($clientReq['email']);
         if ($clientReq['password'] !== '') {
             $client->setPassword($password);
@@ -227,7 +240,8 @@ class ShopSecurityController extends Controller
             'societe' => $client->getSociete(),
             'tvaintra' => $client->getTvaintra(),
             'memocli' => $client->getMemocli(),
-            'enregcli' => $client->getEnregcli()
+            'enregcli' => $client->getEnregcli(),
+            'statut' => $client->getStatut()
         ]);
     }
 
@@ -273,6 +287,7 @@ class ShopSecurityController extends Controller
         }
         return new JsonResponse(['status' => 'ok', 'message' => 'The email has been sent']);
     }
+
     /**
     * @Route("/{_locale}/shop/password-reset/{token}",
     *   name="shop-password-reset",
@@ -321,5 +336,16 @@ class ShopSecurityController extends Controller
         return $this->render('security/password-reset.html.twig', array(
             'form' => $form->createView()
         ));
+    }
+
+    private function validateStatut($clientReq) {
+        switch ($clientReq['statut']) {
+            case 'par':
+                return !($clientReq['societe'] !== '' || $clientReq['tvaintra'] !== '');
+            case 'org':
+                return !($clientReq['societe'] !== '');
+            default:
+                return true;
+        }   
     }
 }

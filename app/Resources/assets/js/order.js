@@ -113,6 +113,16 @@ function updateYouFormRender () {
       i18n.trans('form.civilite.frere'),
       i18n.trans('form.civilite.pere'),
       i18n.trans('form.civilite.soeur')
+    ],
+    statutLabel: [
+      i18n.trans('form.statut.par'),
+      i18n.trans('form.statut.org'),
+      i18n.trans('form.statut.pro')
+    ],
+    statut: [
+      'par',
+      'org',
+      'pro'
     ]
   }))
 }
@@ -224,6 +234,7 @@ itemConnection.on('click', 'a', function (event) {
       $('.panel', itemConnection).hide()
       $(`.panel.${which}`, itemConnection).show()
       _you = getContact()
+      dynamicStatut(itemConnection)
       updateYouFormRender()
       break
     case 'reset':
@@ -245,10 +256,6 @@ itemConnection.on('click', 'a', function (event) {
 
 function validatePhone (phone, mobile) {
   return !(phone === '' && mobile === '')
-}
-
-function validatePro (societe, tvaintra) {
-  return (societe === '' && tvaintra === '') || (societe !== '' && tvaintra !== '')
 }
 
 function validateTvaintra (tvaintra) {
@@ -277,6 +284,7 @@ itemCard.on('click', '.modify-you', function (event) {
   event.preventDefault()
   $('.panel', itemCard).hide()
   $(`.panel.modify`, itemCard).show()
+  dynamicStatut(itemCard)
   updateYouFormRender()
   changeItem(itemCard)
 })
@@ -292,39 +300,39 @@ function validateClient (event, context, callback) {
   const data = context.serializeArray()
   const participant = formatParticipant(data)
   const validatedPhone = validatePhone(participant.tel, participant.mobil)
-  const validatedPro = validatePro(participant.societe, participant.tvaintra)
   const validatedPassword = validatePassword(participant.password)
+  const validatedStatut = validateStatut(participant)
   if (validatedPassword !== true) {
     downLoader()
     upFlashbag(validatedPassword)
     return
   }
-  if (validatedPro) {
-    if (validatedPhone) {
-      if (participant.tvaintra !== '') {
-        validateTvaintra(participant.tvaintra).then(() => {
-          callback(participant)
+  if (validatedStatut !== true) {
+    downLoader()
+    upFlashbag(i18n.trans('form.message.nop'))
+    return
+  }
+  if (validatedPhone) {
+    if (participant.tvaintra !== '') {
+      validateTvaintra(participant.tvaintra).then(() => {
+        callback(participant)
+      }).catch(() => {
+        downLoader()
+        upFlashbag(i18n.trans('form.message.tvaintra_invalid'))
+      })
+    } else {
+      return new Promise((resolve, reject) => {
+        checkZipcode(participant.pays, participant.cp, 'myAd').then(() => {
+          resolve(callback(participant))
         }).catch(() => {
           downLoader()
-          upFlashbag(i18n.trans('form.message.tvaintra_invalid'))
+          upFlashbag(i18n.trans('form.message.zipcode_invalid'))
         })
-      } else {
-        return new Promise((resolve, reject) => {
-          checkZipcode(participant.pays, participant.cp, 'myAd').then(() => {
-            resolve(callback(participant))
-          }).catch(() => {
-            downLoader()
-            upFlashbag(i18n.trans('form.message.zipcode_invalid'))
-          })
-        })
-      }
-    } else {
-      downLoader()
-      upFlashbag(i18n.trans('form.message.phone_invalid'))
+      })
     }
   } else {
     downLoader()
-    upFlashbag(i18n.trans('form.message.pro_invalid'))
+    upFlashbag(i18n.trans('form.message.phone_invalid'))
   }
 }
 
@@ -452,7 +460,7 @@ itemShipping.on('click', '.continue', function (event) {
       _total = data
       updateCartRender()
       updateDeliveryRender()
-      changeItem(itemTerms)
+      changeItem(itemTerms)      
     }).catch(error => {
       downLoader()
       if (error) {
@@ -493,3 +501,33 @@ itemPayment.on('change', '.select-modpaie', function (event) {
   const data = $(this).val()
   _delivery.modpaie = data
 })
+
+function dynamicStatut (item) {
+  item.on('change', '#statut', function () {
+    switch ($(this).val()) {
+      case 'par':
+        $('.societe').val('').prop('disabled', true)
+        $('.tvaintra').val('').prop('disabled', true)
+        break
+      case 'org':
+        $('.societe').val('').prop('disabled', true)
+        $('.tvaintra').prop('disabled', false)
+        break
+      case 'pro':
+        $('.societe').prop('disabled', false)
+        $('.tvaintra').prop('disabled', false)
+        break
+    }
+  })
+}
+
+function validateStatut (client) {
+  switch (client.statut) {
+    case 'par':
+      return !(client.societe !== '' || client.tvaintra !== '')
+    case 'org':
+      return !(client.societe !== '')
+    default:
+      return true
+  }
+}

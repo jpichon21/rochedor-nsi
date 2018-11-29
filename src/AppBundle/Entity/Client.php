@@ -15,6 +15,12 @@ use JMS\Serializer\Annotation\Exclude;
  */
 class Client implements UserInterface, \Serializable
 {
+    const STATUT = [
+        'par',
+        'org',
+        'pro'
+    ];
+
     /**
      * @var int
      *
@@ -165,7 +171,13 @@ class Client implements UserInterface, \Serializable
      * @ORM\Column(name="username", type="string", length=255, unique=true, nullable=true)
      */
     private $username;
-
+    
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="statut", type="string", nullable=false)
+     */
+    private $statut;
 
     public function getRoles()
     {
@@ -689,5 +701,29 @@ class Client implements UserInterface, \Serializable
         $this->username = $username;
 
         return $this;
+    }
+
+    /**
+     * Set statut.
+     *
+     * @param string $statut
+     *
+     * @return Client
+     */
+    public function setStatut($statut)
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * Get statut.
+     *
+     * @return string
+     */
+    public function getStatut()
+    {
+        return $this->statut;
     }
 }

@@ -2634,5 +2634,47 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Identifiants invalides</target>
       </segment>
     </unit>
+    <unit id="oRrFAdo" name="form.particular">
+      <segment>
+        <source>form.particular</source>
+        <target>Particulier</target>
+      </segment>
+    </unit>
+    <unit id="U_hF9qB" name="form.professional">
+      <segment>
+        <source>form.professional</source>
+        <target>Professionnel</target>
+      </segment>
+    </unit>
+    <unit id="GijUdK7" name="footer.termsPro">
+      <segment>
+        <source>footer.termsPro</source>
+        <target>Conditions générales de vente à destination des professionnels</target>
+      </segment>
+    </unit>
+    <unit id="RXbgqwH" name="form.statut">
+      <segment>
+        <source>form.statut</source>
+        <target>Statut</target>
+      </segment>
+    </unit>
+    <unit id="RXzerbgqwH" name="form.statut.par">
+      <segment>
+        <source>form.statut.par</source>
+        <target>Particulier</target>
+      </segment>
+    </unit>
+    <unit id="RXbgqdfgwH" name="form.statut.org">
+      <segment>
+        <source>form.statut.org</source>
+        <target>Organisation</target>
+      </segment>
+    </unit>
+    <unit id="RXbgqwHaa" name="form.statut.pro">
+      <segment>
+        <source>form.statut.pro</source>
+        <target>Professionnel</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

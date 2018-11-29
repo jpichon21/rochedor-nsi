@@ -134,13 +134,9 @@
                 <div class="panel terms active">
                     <div class="pure-g">
                         <div class="pure-u-1-2">
-                            {% if routeExists('cgv') %}
-                                {% set terms_link = path('cgv') %}
-                            {% else %}
-                                {% set terms_link = '#' %}
-                            {% endif %}
+                            {% set terms_link = 'getterms' %}
                             <p>
-                                {# <a class="accept-terms-link" target="_blank" href="{{ terms_link }}">{{ 'order.accept-terms.link' | trans | raw }}</a> #}
+                                {# <a class="accept-terms-link" target="_blank" href="{{ terms_link }}">{{ 'order.accept-terms.link' | trans | raw }}</a> #}                               
                                 {{ 'order.accept-terms.disclaimer' | trans({'%link%': terms_link}) | raw }}
                             </p>
                             <a href="#" class="accept-terms button radio">{{ 'order.accept-terms.label' | trans | raw }}</a>
@@ -360,6 +356,23 @@
 <script type="text/template" class="you-form-template">
     <input autocomplete="nope" type="hidden" value="<%= client.codcli %>" name="codcli">
     <input autocomplete="nope" type="hidden" value=<%= client.check %> name="check">
+    <div class="pure-u-1">
+        <select id="statut" class="select statut <%= (client.statut != '') ? 'white' : '' %>" required name="statut">
+            <option <%= (client.statut == '') ? 'selected' : '' %> disabled value="">{{ 'form.statut' | trans | raw }}</option>
+            <% for (var i = 0; i < statut.length; i++) { %>
+                <option <%= (client.statut == statut[i]) ? 'selected' : '' %> value="<%= statut[i] %>"><%= statutLabel[i] %></option>
+            <% } %>
+        </select>
+    </div>
+    <div class="pure-u-1-2">
+        <input autocomplete="nope" class="input societe" type="text" value="<%= _.escape(client.societe) %>" name="societe" placeholder="{{ 'form.societe' | trans | raw }}" <%= (client.statut == '' || client.statut == 'org' || client.statut == 'par') ? 'disabled' : '' %> >
+    </div>
+    <div class="pure-u-1-2">
+        <input autocomplete="nope" class="input tvaintra" type="text" value="<%= _.escape(client.tvaintra) %>" name="tvaintra" placeholder="{{ 'form.tvaintra' | trans | raw }}" <%= (client.statut == '' || client.statut == 'par') ? 'disabled' : '' %> >
+    </div>
+    <div class="pure-u-1">
+        <hr>
+    </div>
     <div class="pure-u-1-3">
         <select class="select civil <%= (client.civil != '') ? 'white' : '' %>" required name="civil">
             <option <%= (client.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
@@ -421,12 +434,6 @@
         <input autocomplete="nope" class="input password" type="password" name="password" placeholder="{{ 'form.keep-password' | trans | raw }}">
     </div>
     <% } %>
-    <div class="pure-u-1-2">
-        <input autocomplete="nope" class="input societe" type="text" value="<%= _.escape(client.societe) %>" name="societe" placeholder="{{ 'form.societe' | trans | raw }}">
-    </div>
-    <div class="pure-u-1">
-        <input autocomplete="nope" class="input tvaintra" type="text" value="<%= _.escape(client.tvaintra) %>" name="tvaintra" placeholder="{{ 'form.tvaintra' | trans | raw }}">
-    </div>
     <div class="pure-u-1">
         <hr>
     </div>
