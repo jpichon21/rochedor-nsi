@@ -224,6 +224,7 @@ class OrderController extends Controller
         ->setMobil($client['mobil'])
         ->setEmail($client['email'])
         ->setSociete($client['societe'])
+        ->setStatut($client['statut']);
         $em->persist($customer);
         $em->flush();
         return ['status' => 'ok', 'data' => $customer];

@@ -42,7 +42,7 @@ security:
             json_login:
                 check_path: /api/login
         shop:
-            pattern: ^/([a-z]{2,3}\/(cart|shop|order|commande|bestellen|ordine|orden)|shop/(login|register|password-request))
+            pattern: ^/([a-z]{2,3}\/(getterms|cart|shop|order|commande|bestellen|ordine|orden)|shop/(login|register|password-request))
             provider: shop_db_provider
             anonymous: ~
             json_login:
