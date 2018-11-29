@@ -68,7 +68,7 @@ h1 {
             &:checked ~ label {
               color: #ffffff;
               &:after {
-                background-image: url('../img/filter-cross.png');
+                background-image: url('../img/button-radio-checked.png');
               }
             }
           }
@@ -78,9 +78,10 @@ h1 {
             cursor: pointer;
             &:after {
               content: '';
-              width: 11px;
-              height: 11px;
-              background-image: url('../img/filter-plus.png');
+              width: 13px;
+              height: 13px;
+              background-image: url('../img/button-radio-unchecked.png');
+              background-size: 100% 100%;
             }
             .abbr {
               width: 25px;
