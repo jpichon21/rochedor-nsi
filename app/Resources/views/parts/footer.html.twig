@@ -36,6 +36,17 @@
                     )
                 %}
                 <a href="{{ path('cgv') }}">{{ 'footer.terms'|trans }}</a>
+                {% endif %}
+                {% if
+                    routeExists('cgv-pro')
+                    and (
+                        product is defined
+                        or (
+                            page is defined
+                            and page.type == 'editions'
+                        )
+                    )
+                %}
                 <a href="{{ path('cgv-pro') }}">{{ 'footer.termsPro'|trans }}</a>
                 {% endif %}
             </div>
