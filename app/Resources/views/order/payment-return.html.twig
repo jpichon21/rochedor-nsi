@@ -11,6 +11,8 @@
         <h1>{{ 'order-return.title' | trans | raw }}</h1>
         <div class="intro">
             {% if status == 'success' %}
+            {{ 'order-return.success-p1'| trans({'%refCom%': refCom , '%addCom%': addCom})|raw  }}
+            <br>
             {{ 'order-return.success' | trans({'%link%': path('collections-' ~ app.request.locale)}) | raw }}
             {% elseif status == 'cancel' %}
             {{ 'order-return.cancel' | trans({'%link%': path('order-' ~ app.request.locale)}) | raw }}

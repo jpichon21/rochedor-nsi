@@ -2253,7 +2253,7 @@
     <unit id="bI8gjQ5" name="order-return.success">
       <segment>
         <source>order-return.success</source>
-        <target><![CDATA[Votre commande a bien été enregistrée.<br>Vous recevrez un mail de confirmation dans quelques minutes.<br>Si vous ne recevez pas de mail d'ici, ces quelques minutes veuillez vérifier votre dossier SPAM.<br>Retour aux <a href="%link%">collections</a>.]]></target>
+        <target><![CDATA[<br>Vous recevrez un mail de confirmation dans quelques minutes.<br>Si vous ne recevez pas de mail d'ici, ces quelques minutes veuillez vérifier votre dossier SPAM.<br>Retour aux <a href="%link%">collections</a>.]]></target>
       </segment>
     </unit>
     <unit id="VbHIGnV" name="order-return.cancel">
@@ -2686,6 +2686,22 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>form.password-height</source>
         <target>Mot de passe (8 caractères requis)</target>
+      </segment>
+    </unit>
+    <unit id="TER1oiM" name="order-return.success-p1">
+      <segment>
+        <source>order-return.success-p1</source>
+        <target><![CDATA[
+        <p>Votre commande est bien enregistrée sous le numéro %refCom% et nous vous en remercions. Nous vous invitons à conserver ce numéro qui vous sera demandé pour toute question relative à votre commande.</p>
+        <p>Les livraisons sont effectuées dans un délai de quelques jours ouvrés à compter de la réception du paiement de votre commande.</p>
+        Votre commande sera livrée à l'adresse suivante :
+        <br>
+        <center>%addCom%</center>
+        <br>
+        <p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p>
+        <p>Avec toute notre sympathie</p>
+        <p>L'équipe des Éditions Roche d’Or</p> 
+        ]]></target>
       </segment>
     </unit>
   </file>

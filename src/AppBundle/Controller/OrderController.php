@@ -381,6 +381,7 @@ class OrderController extends Controller
         $cart = $this->cartRepository->find($cartId);
         
         
+
         if ($status === 'success') {
             if ($cart) {
                 $this->em->remove($cart);
@@ -388,12 +389,24 @@ class OrderController extends Controller
                 $session->remove('cart');
             }
         }
+        
+        if (isset($_GET)) {
+            $commande = $this->commandeRepository->findByRef($_GET['Ref']);
+            return $this->render('order/payment-return.html.twig', [
+                'refCom' => $commande->getRefCom(),
+                'addCom' =>  $commande->getAdLiv(),
+                'status' => $status,
+                'method' => $method,
+                'cartCount' => $this->cartService->getCartCount()
+            ]);
+        } else {
+            return $this->render('order/payment-return.html.twig', [
+                'status' => $status,
+                'method' => $method,
+                'cartCount' => $this->cartService->getCartCount()
+            ]);
+        }
 
-        return $this->render('order/payment-return.html.twig', [
-            'status' => $status,
-            'method' => $method,
-            'cartCount' => $this->cartService->getCartCount()
-        ]);
     }
 
     /**
