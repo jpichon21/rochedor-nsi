@@ -503,3 +503,10 @@ itemCard.on('click', '.newfich', function () {
   const boolean = $(this).toggleClass('checked').hasClass('checked')
   $('.newfich-wrapper .checkbox', itemCard).val(boolean)
 })
+
+itemConnection.on('click', '.panel.reset .cancel', function (event) {
+  event.preventDefault()
+  $('.panel.reset').slideUp(800, function () {
+    $(this).hide()
+  })
+})
