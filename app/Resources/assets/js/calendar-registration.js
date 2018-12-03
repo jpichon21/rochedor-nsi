@@ -212,6 +212,7 @@ itemConnection.on('click', '.panel.registration .cancel', function (event) {
   event.preventDefault()
   $('.panel.registration').slideUp(800, function () {
     $(this).hide()
+    changeItem(itemConnection)
   })
 })
 

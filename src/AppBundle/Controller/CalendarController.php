@@ -521,7 +521,7 @@ class CalendarController extends Controller
                 $speakerParse = array();
                 $speaker = explode(" , ", $speaker);
                 $speakerParse['name'] = $speaker[0] ;
-                $speakerParse['value'] = $speaker[0]  ;
+                $speakerParse['value'] = $speaker[1]  ;
                 $speakers[] = $speakerParse;
             }
 
