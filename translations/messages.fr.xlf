@@ -773,7 +773,7 @@
       </notes>
       <segment>
         <source>form.username</source>
-        <target>Nom d'utilisateur</target>
+        <target>Identifiant</target>
       </segment>
     </unit>
     <unit id="bThUzo_" name="form.modify">
