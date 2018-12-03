@@ -2253,7 +2253,7 @@
     <unit id="bI8gjQ5" name="order-return.success">
       <segment>
         <source>order-return.success</source>
-        <target><![CDATA[Votre commande a bien été enregistrée.<br>Vous recevrez un mail de confirmation dans quelques minutes.<br>Retour aux <a href="%link%">collections</a>.]]></target>
+        <target><![CDATA[Votre commande a bien été enregistrée.<br>Vous recevrez un mail de confirmation dans quelques minutes.<br>Si vous ne recevez pas de mail d'ici, ces quelques minutes veuillez vérifier votre dossier SPAM.<br>Retour aux <a href="%link%">collections</a>.]]></target>
       </segment>
     </unit>
     <unit id="VbHIGnV" name="order-return.cancel">
