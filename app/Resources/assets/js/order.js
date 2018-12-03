@@ -271,9 +271,6 @@ function validatePassword (password) {
   if (password.length < 8 && password.length !== 0) {
     return i18n.trans('security.password_too_small')
   }
-  if (password === "") {
-    return i18n.trans('user.security_password')
-  }
   return true
 }
 
