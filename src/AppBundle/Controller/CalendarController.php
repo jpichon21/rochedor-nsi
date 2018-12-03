@@ -57,10 +57,10 @@ class CalendarController extends Controller
         "A" => "#55C055",
         "W" => "#00B6E8",
         "TP" => "#FFA500",
-        "B" => "#0D0479",
+        "B" => "#418ef4",
         "RI" => "#008000",
         "FA" => "#8833CC",
-        "P" => "#671C43",
+        "P" => "#e541f4",
         "R" => "#31BF31",
         "J" => "#F7F752",
         "L" => "#AD58F2",
@@ -389,7 +389,6 @@ class CalendarController extends Controller
             $n = rand(0, $alphaLength);
             $pass[] = $alphabet[$n];
         }
-
         return implode($pass);
     }
 
