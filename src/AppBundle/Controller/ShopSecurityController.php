@@ -124,6 +124,16 @@ class ShopSecurityController extends Controller
         if ($repository->findClientByUsername($clientReq['username'])) {
             return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);
         }
+
+
+        if (!$this->isBadPassword($clientReq['password'])) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'user.security_password']);
+        }
+
+
+        if (!$this->isToShortPassword($clientReq['password'])) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.password_too_small']);
+        }
         
         $client = new Client();
         $password = $encoder->encodePassword($client, $clientReq['password']);
@@ -335,5 +345,23 @@ class ShopSecurityController extends Controller
             return true;
         }
         return false;
+    }
+
+    private function isBadPassword(string $password)
+    {
+        if ($password === "") {
+            return false;
+        }
+        return true;
+    }
+
+
+
+    private function isToShortPassword(string $password)
+    {
+        if (strlen($password) < 8) {
+            return false;
+        }
+        return true;
     }
 }
