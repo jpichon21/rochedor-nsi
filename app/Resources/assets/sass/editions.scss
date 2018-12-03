@@ -692,3 +692,9 @@ h2 {
     border: 1px $roche-orange solid;
   }
 }
+
+.content .dropdown .item .button.radio.checked {
+  background-image: url('../button-radio-checked-orange.png');
+  color: #ef7d1d;
+  border-color: #ef7d1d;
+}

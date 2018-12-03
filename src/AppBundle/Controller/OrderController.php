@@ -390,8 +390,10 @@ class OrderController extends Controller
             }
         }
         
-        if (isset($_GET)) {
-            $commande = $this->commandeRepository->findByRef($_GET['Ref']);
+        if (null !== $request->query->get('Ref')) {
+            $commande = $this
+                        ->commandeRepository
+                        ->findByRef($request->query->get('Ref'));
             return $this->render('order/payment-return.html.twig', [
                 'refCom' => $commande->getRefCom(),
                 'addCom' =>  $commande->getAdLiv(),

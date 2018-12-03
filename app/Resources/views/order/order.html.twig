@@ -331,13 +331,13 @@
 <script type="text/template" class="adliv-form-template">
     <div class="pure-g">
         <div class="pure-u-1-2">
-            <input class="input adresse" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="adresse" value="<%= _.escape(delivery.adliv.adresse) %>" placeholder="{{ 'form.adresse' | trans | raw }}">
+            <input class="input adresse" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="adresse" value="<%= _.escape(delivery.adliv.adresse) %>" placeholder="* {{ 'form.adresse' | trans | raw }}">
         </div>
         <div class="pure-u-1-2">
-            <input class="input zipcode" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="zipcode" value="<%= _.escape(delivery.adliv.zipcode) %>" placeholder="{{ 'form.zipcode' | trans | raw }}">
+            <input class="input zipcode" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="zipcode" value="<%= _.escape(delivery.adliv.zipcode) %>" placeholder="* {{ 'form.zipcode' | trans | raw }}">
         </div>
         <div class="pure-u-1-2">
-            <input class="input city" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="city" value="<%= _.escape(delivery.adliv.city) %>" placeholder="{{ 'form.city' | trans | raw }}">
+            <input class="input city" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="city" value="<%= _.escape(delivery.adliv.city) %>" placeholder="* {{ 'form.city' | trans | raw }}">
         </div>
         <div class="pure-u-1-2">
             <% var disableCountry = false %>
@@ -347,7 +347,7 @@
                 <% } %>
             <% } %>
             <select class="select country" <%= (delivery.destliv == 'Roche' || delivery.destliv == 'Font' || disableCountry) ? 'disabled' : '' %> required name="paysliv">
-                <option <%= !disableCountry ? 'selected' : '' %> disabled value="">{{ 'form.country' | trans | raw }}</option>
+                <option <%= !disableCountry ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
                 <% for (var i = 0; i < countries.length; i++) { %>
                     <% var country = countries[i] %>
                     <option <%= (delivery.paysliv == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
