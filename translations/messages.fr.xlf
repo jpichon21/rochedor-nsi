@@ -2682,5 +2682,11 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Je suis un professionnel</target>
       </segment>
     </unit>
+    <unit id="i6uKRyT" name="form.password-height">
+      <segment>
+        <source>form.password-height</source>
+        <target>Mot de passe (8 caractères requis)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
