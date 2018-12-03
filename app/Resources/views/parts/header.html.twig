@@ -45,15 +45,15 @@
             <li><a href="{{ path('calendar-' ~ app.request.locale) }}">{{ 'menu.three' | trans | raw }}</a></li>
         </ul>
         <ul class="sub-menu" data-menu="vgbhnj">
-            <li><a href="#">{{ 'menu.one.one' | trans | raw }}</a></li>
+            <li><a href="{{ path('la-communaute') }}">{{ 'menu.one.one' | trans | raw }}</a></li>
             <li><a href="#">{{ 'menu.one.two' | trans | raw }}</a></li>
             <li><a href="#">{{ 'menu.one.three' | trans | raw }}</a></li>
             <li><a href="#">{{ 'menu.one.four' | trans | raw }}</a></li>
         </ul>
         <ul class="sub-menu" data-menu="gyhuji">
-            <li><a href="#">{{ 'menu.two.one' | trans | raw }}</a></li>
-            <li><a href="#">{{ 'menu.two.two' | trans | raw }}</a></li>
-            <li><a href="#">{{ 'menu.two.three' | trans | raw }}</a></li>
+            <li><a href="{{ path('venir-en-retraite') }}">{{ 'menu.two.one' | trans | raw }}</a></li>
+            <li><a href="{{ path('retraites-a-la-roche-dor') }}">{{ 'menu.two.two' | trans | raw }}</a></li>
+            <li><a href="{{ path('retraites-aux-fontanilles') }}">{{ 'menu.two.three' | trans | raw }}</a></li>
             <li><a href="{{ path('intervenants') }}">{{ 'menu.two.four' | trans | raw }}</a></li>
         </ul>
     </div>
@@ -73,9 +73,9 @@
             <li data-menu="defrgt">{{ 'menu.six' | trans | raw }}</li>
         </ul>
         <ul class="sub-menu" data-menu="hbgvfc">
-            <li><a href="#">{{ 'menu.four.one' | trans | raw }}</a></li>
-            <li><a href="#">{{ 'menu.four.two' | trans | raw }}</a></li>
-            <li><a href="#">{{ 'menu.four.three' | trans | raw }}</a></li>
+            <li><a href="{{ path('infos-pratiques-de-la-roche-dor') }}">{{ 'menu.four.one' | trans | raw }}</a></li>
+            <li><a href="{{ path('infos-pratiques-des-fontanilles') }}">{{ 'menu.four.two' | trans | raw }}</a></li>
+            <li><a href="{{ path('accueil-des-enfants') }}">{{ 'menu.four.three' | trans | raw }}</a></li>
             <li><a href="#">{{ 'menu.four.four' | trans | raw }}</a></li>
         </ul>
         <ul class="sub-menu" data-menu="qzsedr">
@@ -91,7 +91,7 @@
             <div class="blank"></div>
             <div class="blank"></div>
             <div class="blank"></div>
-            <li><a href="#">{{ 'menu.six.one' | trans | raw }}</a></li>
+            <li><a href="{{ path('donner-du-temps') }}">{{ 'menu.six.one' | trans | raw }}</a></li>
             {% if routeExists('dons') %}<li><a href="{{ path('dons') }}">{{ 'menu.six.two' | trans | raw }}</a></li>{% endif %}
         </ul>
     </div>
