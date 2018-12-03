@@ -530,7 +530,6 @@ itemParticipants.on('click', '.validate-participants', function (event) {
       result = result.replace('%entry_number%', res)
       $('.result', itemValidation).html(result)
       downLoader()
-      upFlashbag(i18n.trans('form.mail_spam'))
       updateEndMessageRender()
       changeItem(itemValidation)
     }).catch(error => {
