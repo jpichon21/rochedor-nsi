@@ -118,7 +118,7 @@ class DefaultController extends Controller
     public function getTermsAction()
     {
         $user = $this->getUser();
-        if ($user->getStatut() === 'pro') {
+        if ($user->getProfessionnel() === true) {
             return $this->redirectToRoute('cgv-pro');
         }
         return $this->redirectToRoute('cgv');

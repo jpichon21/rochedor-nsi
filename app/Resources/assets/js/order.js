@@ -234,7 +234,6 @@ itemConnection.on('click', 'a', function (event) {
       $('.panel', itemConnection).hide()
       $(`.panel.${which}`, itemConnection).show()
       _you = getContact()
-      dynamicStatut(itemConnection)
       updateYouFormRender()
       break
     case 'reset':
@@ -284,7 +283,6 @@ itemCard.on('click', '.modify-you', function (event) {
   event.preventDefault()
   $('.panel', itemCard).hide()
   $(`.panel.modify`, itemCard).show()
-  dynamicStatut(itemCard)
   updateYouFormRender()
   changeItem(itemCard)
 })
@@ -301,15 +299,9 @@ function validateClient (event, context, callback) {
   const participant = formatParticipant(data)
   const validatedPhone = validatePhone(participant.tel, participant.mobil)
   const validatedPassword = validatePassword(participant.password)
-  const validatedStatut = validateStatut(participant)
   if (validatedPassword !== true) {
     downLoader()
     upFlashbag(validatedPassword)
-    return
-  }
-  if (validatedStatut !== true) {
-    downLoader()
-    upFlashbag(i18n.trans('form.message.nop'))
     return
   }
   if (validatedPhone) {
@@ -502,32 +494,12 @@ itemPayment.on('change', '.select-modpaie', function (event) {
   _delivery.modpaie = data
 })
 
-function dynamicStatut (item) {
-  item.on('change', '#statut', function () {
-    switch ($(this).val()) {
-      case 'par':
-        $('.societe').val('').prop('disabled', true)
-        $('.tvaintra').val('').prop('disabled', true)
-        break
-      case 'org':
-        $('.societe').val('').prop('disabled', true)
-        $('.tvaintra').prop('disabled', false)
-        break
-      case 'pro':
-        $('.societe').prop('disabled', false)
-        $('.tvaintra').prop('disabled', false)
-        break
-    }
-  })
-}
+itemConnection.on('click', '.newfich', function () {
+  const boolean = $(this).toggleClass('checked').hasClass('checked')
+  $('.newfich-wrapper .checkbox', itemConnection).val(boolean)
+})
 
-function validateStatut (client) {
-  switch (client.statut) {
-    case 'par':
-      return !(client.societe !== '' || client.tvaintra !== '')
-    case 'org':
-      return !(client.societe !== '')
-    default:
-      return true
-  }
-}
+itemCard.on('click', '.newfich', function () {
+  const boolean = $(this).toggleClass('checked').hasClass('checked')
+  $('.newfich-wrapper .checkbox', itemCard).val(boolean)
+})

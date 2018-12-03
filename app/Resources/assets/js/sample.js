@@ -1,5 +1,5 @@
 const contact = {
-  statut: '',
+  professionnel: '',
   tvaintra: '',
   societe: '',
   nom: '',

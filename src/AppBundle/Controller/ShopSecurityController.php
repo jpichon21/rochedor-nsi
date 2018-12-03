@@ -104,7 +104,7 @@ class ShopSecurityController extends Controller
             'tvaintra' => $client->getTvaintra(),
             'memocli' => $client->getMemocli(),
             'enregcli' => $client->getEnregcli(),
-            'statut' => $client->getStatut()
+            'professionnel' => $client->getProfessionnel()
         ]);
     }
 
@@ -124,16 +124,13 @@ class ShopSecurityController extends Controller
         if ($repository->findClientByUsername($clientReq['username'])) {
             return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);
         }
-
-        if (!$this->validateStatut($clientReq)) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'security.nop']);
-        }
-
+        
         $client = new Client();
         $password = $encoder->encodePassword($client, $clientReq['password']);
 
         $client
         ->setCivil($clientReq['civil'])
+        ->setProfessionnel($this->parsePro($clientReq['professionnel']))
         ->setNom($clientReq['nom'])
         ->setPrenom($clientReq['prenom'])
         ->setUsername($clientReq['username'])
@@ -149,8 +146,7 @@ class ShopSecurityController extends Controller
         ->setSociete($clientReq['societe'])
         ->setTvaintra($clientReq['tvaintra'])
         ->setMemocli($clientReq['memocli'])
-        ->setEnregcli(new \DateTime('now'))
-        ->setStatut($clientReq['statut']);
+        ->setEnregcli(new \DateTime('now'));
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($client);
@@ -174,7 +170,7 @@ class ShopSecurityController extends Controller
             'tvaintra' => $client->getTvaintra(),
             'memocli' => $client->getMemocli(),
             'enregcli' => $client->getEnregcli(),
-            'statut' => $client->getStatut()
+            'professionnel' => $client->getProfessionnel()
         ]);
     }
 
@@ -189,10 +185,6 @@ class ShopSecurityController extends Controller
         $clientReq = $request->get('client');
         if (!$clientReq) {
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide client object']);
-        }
-
-        if (!$this->validateStatut($clientReq)) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'security.nop']);
         }
 
         $client = $repository->findClient($clientReq['codcli']);
@@ -210,7 +202,7 @@ class ShopSecurityController extends Controller
         ->setPays($clientReq['pays'])
         ->setTel($clientReq['tel'])
         ->setMobil($clientReq['mobil'])
-        ->setStatut($clientReq['statut'])
+        ->setProfessionnel($this->parsePro($clientReq['professionnel']))
         ->setEmail($clientReq['email']);
         if ($clientReq['password'] !== '') {
             $client->setPassword($password);
@@ -241,7 +233,7 @@ class ShopSecurityController extends Controller
             'tvaintra' => $client->getTvaintra(),
             'memocli' => $client->getMemocli(),
             'enregcli' => $client->getEnregcli(),
-            'statut' => $client->getStatut()
+            'professionnel' => $client->getProfessionnel()
         ]);
     }
 
@@ -338,14 +330,10 @@ class ShopSecurityController extends Controller
         ));
     }
 
-    private function validateStatut($clientReq) {
-        switch ($clientReq['statut']) {
-            case 'par':
-                return !($clientReq['societe'] !== '' || $clientReq['tvaintra'] !== '');
-            case 'org':
-                return !($clientReq['societe'] !== '');
-            default:
-                return true;
-        }   
+    private function parsePro($professionnel) {
+        if ($professionnel === "true") {
+            return true;
+        }
+        return false;
     }
 }

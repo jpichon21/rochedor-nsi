@@ -2658,22 +2658,28 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Statut</target>
       </segment>
     </unit>
-    <unit id="RXzerbgqwH" name="form.statut.par">
+    <unit id="RbBuoVS" name="form.statut.par">
       <segment>
         <source>form.statut.par</source>
         <target>Particulier</target>
       </segment>
     </unit>
-    <unit id="RXbgqdfgwH" name="form.statut.org">
+    <unit id="_oSZqds" name="form.statut.org">
       <segment>
         <source>form.statut.org</source>
         <target>Organisation</target>
       </segment>
     </unit>
-    <unit id="RXbgqwHaa" name="form.statut.pro">
+    <unit id="u5UgI6X" name="form.statut.pro">
       <segment>
         <source>form.statut.pro</source>
         <target>Professionnel</target>
+      </segment>
+    </unit>
+    <unit id="_bAL1ap" name="form.pro">
+      <segment>
+        <source>form.pro</source>
+        <target>Je suis un professionnel</target>
       </segment>
     </unit>
   </file>
