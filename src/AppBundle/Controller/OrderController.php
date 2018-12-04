@@ -394,9 +394,20 @@ class OrderController extends Controller
             $commande = $this
                         ->commandeRepository
                         ->findByRef($request->query->get('Ref'));
+
+         
+
+            if ($commande->getDestLiv() === "Roche" ) {
+                $addCom = $this->translator->trans('order.notify.client.roche.adliv');
+            } else if ($commande->getDestLiv() === "Font") {
+                $addCom = $this->translator->trans('order.notify.client.font.adliv');
+            } else {
+                $addCom = $commande->getAdLiv();
+            }
+
             return $this->render('order/payment-return.html.twig', [
                 'refCom' => $commande->getRefCom(),
-                'addCom' =>  $commande->getAdLiv(),
+                'addCom' =>  $addCom,
                 'status' => $status,
                 'method' => $method,
                 'cartCount' => $this->cartService->getCartCount()
