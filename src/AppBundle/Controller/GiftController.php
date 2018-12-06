@@ -170,6 +170,20 @@ class GiftController extends Controller
      */
     public function paymentReturnAction($method, $status, Request $request, PaypalService $paypalService)
     {
+        if (null !== $request->query->get('Ref')) {
+            $gift = $this
+                        ->donRepository
+                        ->findByRef($request->query->get('Ref'));
+            $contact = $gift->getContact();
+            $parsedContact = $contact->getCivil().' '.$contact->getNom().' '.$contact->getPrenom();
+            
+            return $this->render('gift/payment-return.html.twig', [
+                'name' => $parsedContact,
+                'amount' => $gift->getMntdon(),
+                'status' => $status,
+                'method' => $method
+            ]);
+        }          
         return $this->render('gift/payment-return.html.twig', [
             'status' => $status,
             'method' => $method

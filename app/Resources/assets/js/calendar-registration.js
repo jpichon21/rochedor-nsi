@@ -205,6 +205,7 @@ itemConnection.on('click', '.panel.reset .cancel', function (event) {
   event.preventDefault()
   $('.panel.reset').slideUp(800, function () {
     $(this).hide()
+    changeItem(itemConnection)
   })
 })
 

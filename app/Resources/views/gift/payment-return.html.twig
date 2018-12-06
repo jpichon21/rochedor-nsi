@@ -10,7 +10,7 @@
         <h1>{{ 'gift.title' | trans | raw }}</h1>
         <div class="intro">
             {% if status == 'success' %}
-            {{ 'gift-return.success' | trans({'%link%': path('gift-' ~ app.request.locale)}) | raw }}
+            {{ 'gift-return.success' | trans({'%link%': path('gift-' ~ app.request.locale), '%name%': name, '%amount%': amount }) | raw }}
             {% elseif status == 'cancel' %}
             {{ 'gift-return.cancel' | trans({'%link%': path('gift-' ~ app.request.locale)}) | raw }}
             {% endif %}
