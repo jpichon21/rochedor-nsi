@@ -268,8 +268,8 @@ class Produit
     /**
      * @ORM\ManyToMany(targetEntity="Tax")
      * @ORM\JoinTable(name="produits_taxes",
-     *      joinColumns={@ORM\JoinColumn(name="produit_id", referencedColumnName="CodPrd")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="tax_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="produit_codprd", referencedColumnName="CodPrd")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tax_idtax", referencedColumnName="idTax")}
      *      )
      */
     private $taxes;

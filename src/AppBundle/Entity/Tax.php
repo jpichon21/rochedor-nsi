@@ -15,7 +15,7 @@ class Tax
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="idTax", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -24,7 +24,7 @@ class Tax
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=20)
+     * @ORM\Column(name="libTax", type="string", length=20)
      */
     private $name;
 
