@@ -2722,7 +2722,7 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <source>order-return.success-p1</source>
         <target><![CDATA[
         <p>Votre commande est bien enregistrée sous le numéro %refCom% et nous vous en remercions. Nous vous invitons à conserver ce numéro qui vous sera demandé pour toute question relative à votre commande.</p>
-        <p>Les livraisons sont effectuées dans un délai de quelques jours ouvrés à compter de la réception du paiement de votre commande.</p>
+        <p>Les livraisons sont effectuées dans un délai de [nbJours] jours ouvrés à compter de la réception du paiement de votre commande.</p>
         Votre commande sera livrée à l'adresse suivante :
         <br>
         <br>
