@@ -397,9 +397,9 @@ class OrderController extends Controller
 
          
 
-            if ($commande->getDestLiv() === "Roche" ) {
+            if ($commande->getDestLiv() === "Roche") {
                 $addCom = $this->translator->trans('order.notify.client.roche.adliv');
-            } else if ($commande->getDestLiv() === "Font") {
+            } elseif ($commande->getDestLiv() === "Font") {
                 $addCom = $this->translator->trans('order.notify.client.font.adliv');
             } else {
                 $addCom = $commande->getAdLiv();
@@ -419,7 +419,6 @@ class OrderController extends Controller
                 'cartCount' => $this->cartService->getCartCount()
             ]);
         }
-
     }
 
     /**
