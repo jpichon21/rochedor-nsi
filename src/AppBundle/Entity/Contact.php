@@ -412,14 +412,14 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="reset_token", type="string", length=50, nullable=true)
+     * @ORM\Column(name="resetToken", type="string", length=50, nullable=true)
      */
     private $resetToken;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="reset_token_expires_at", type="datetime")
+     * @ORM\Column(name="resetTokenExpire", type="datetime")
      */
     private $resetTokenExpiresAt;
 
