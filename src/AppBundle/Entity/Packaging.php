@@ -24,7 +24,7 @@ class Packaging
     /**
      * @var int
      *
-     * @ORM\Column(name="limit", type="integer", length=11)
+     * @ORM\Column(name="limitation", type="integer", length=11)
      */
     private $limit;
 
