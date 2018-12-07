@@ -125,7 +125,7 @@ class PaymentService
             'rm' => 0,
             'return' => $this->router->generate(
                 $baseRoute . '_payment_return',
-                ['_locale' => $locale, 'method' => 'paybox', 'status' => 'success'],
+                ['_locale' => $locale, 'method' => 'paybox', 'status' => 'success', 'Ref' => $objectId],
                 RouterInterface::ABSOLUTE_URL
             ),
             'cancel_return' => $this->router->generate(

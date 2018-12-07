@@ -620,6 +620,12 @@
         <target>Prénom</target>
       </segment>
     </unit>
+    <unit id="drdfgdfjTwRMd" name="form.surname.contact">
+      <segment>
+        <source>form.surname.contact</source>
+        <target>* Prénom</target>
+      </segment>
+    </unit>
     <unit id="eqR0LZq" name="form.name">
       <notes>
         <note priority="1">app/Resources/views/default/calendar-registration.html.twig:57</note>
@@ -628,6 +634,16 @@
       <segment>
         <source>form.name</source>
         <target>Nom</target>
+      </segment>
+    </unit>
+    <unit id="eqtyyR0LZq" name="form.name.contact">
+      <notes>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:57</note>
+        <note priority="1">app/Resources/views/default/calendar-registration.html.twig:166</note>
+      </notes>
+      <segment>
+        <source>form.name.contact</source>
+        <target>* Nom</target>
       </segment>
     </unit>
     <unit id="DOAWeTf" name="form.address">
@@ -772,7 +788,7 @@
       </notes>
       <segment>
         <source>form.username</source>
-        <target>Identifiant</target>
+        <target>Nom d'utilisateur</target>
       </segment>
     </unit>
     <unit id="bThUzo_" name="form.modify">
@@ -1225,7 +1241,10 @@
     <unit id="rHsOKUn" name="security.check_inbox">
       <segment>
         <source>security.check_inbox</source>
-        <target>Un mail vient de vous être envoyé pour terminer la réinitialisation de votre mot de passe.</target>
+        <target>
+        Un mail vient de vous être envoyé pour terminer la réinitialisation de votre mot de passe.
+        Si vous n'avez reçu aucun email, veuillez vérifier votre dossier "SPAM"
+        </target>
       </segment>
     </unit>
     <unit id="hmTi4mf" name="news.last_posts.title">
@@ -1639,7 +1658,7 @@
     <unit id="jBsBTZU" name="form.body">
       <segment>
         <source>form.body</source>
-        <target>Message</target>
+        <target>* Message</target>
       </segment>
     </unit>
     <unit id="N7xyN0P" name="form.send">
@@ -1846,6 +1865,12 @@
       <segment>
         <source>form.email.please</source>
         <target>Indiquer votre email</target>
+      </segment>
+    </unit>
+        <unit id="7OkaL_Leze" name="form.email.contact">
+      <segment>
+        <source>form.email.contact</source>
+        <target>* Email</target>
       </segment>
     </unit>
     <unit id="NrmWOmd" name="calendar.registration.three.header">
@@ -2497,7 +2522,16 @@
     <unit id="0yLloTj" name="gift-return.success">
       <segment>
         <source>gift-return.success</source>
-        <target><![CDATA[Votre don a bien été enregistré. Vous recevrez un mail de confirmation dans quelques minutes.<br>Retour à la page des <a href="%link%">dons</a>.]]></target>
+        <target>
+        <![CDATA[
+        <p>Bonjour %name%,</p>
+        <p>L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.</p>
+        <p>Par votre participation de %amount% euros, vous vous joignez au mouvement de solidarité des Amis de la Roche d’Or pour soutenir notre mission d’annonce de l’Évangile.</p>
+        <p>Soyez-en encore remercié(e).</p>
+        <p>Danièle VALÈS</p>
+        <br>Retour à la page des <a href="%link%">dons</a>.
+        ]]>
+        </target>
       </segment>
     </unit>
     <unit id="Xx1TBfK" name="gift-return.cancel">
@@ -2691,7 +2725,7 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <source>order-return.success-p1</source>
         <target><![CDATA[
         <p>Votre commande est bien enregistrée sous le numéro %refCom% et nous vous en remercions. Nous vous invitons à conserver ce numéro qui vous sera demandé pour toute question relative à votre commande.</p>
-        <p>Les livraisons sont effectuées dans un délai de quelques jours ouvrés à compter de la réception du paiement de votre commande.</p>
+        <p>Les livraisons sont effectuées dans un délai maximum de [nbJours] jours ouvrés à compter de la réception du paiement de votre commande.</p>
         Votre commande sera livrée à l'adresse suivante :
         <br>
         <br>

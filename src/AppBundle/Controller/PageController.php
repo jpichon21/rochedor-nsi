@@ -102,6 +102,7 @@ class PageController extends Controller
                 $page->setImmutableid($this->slugify($page->getTitle().'-'.$page->getSubTitle()));
             }
         }
+        $page->setType('page');
         $em->persist($page);
 
         if ($page->getLocale() !== "fr" && $parent === null) {
