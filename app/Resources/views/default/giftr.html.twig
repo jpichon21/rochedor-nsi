@@ -304,7 +304,7 @@
         </div>
         <%}%>
     <div class="pure-u-1-2">
-        <input autocomplete="nope" class="input password" type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
+        <input autocomplete="nope" class="input password" type="password" name="password" placeholder="* {{ 'form.password' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
         <input autocomplete="nope" data-inputmask="'mask': '99/99/9999'" class="input datnaiss" required type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value="<%= (you.datnaiss !== '') ? moment(you.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="* {{ 'form.birthday' | trans | raw }}">
