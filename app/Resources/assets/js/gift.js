@@ -3,6 +3,7 @@ import moment from 'moment'
 import { getContact } from './sample'
 import { upFlashbag } from './popup'
 import { upLoader, downLoader } from './loader'
+import Inputmask from 'inputmask'
 import I18n from './i18n'
 import {
   postRegister,
@@ -79,6 +80,7 @@ function updateYouFormRender () {
       i18n.trans('form.civilite.soeur')
     ]
   }))
+  Inputmask().mask(document.querySelectorAll('.datnaiss'))
 }
 
 function updateAmountRender () {
@@ -338,5 +340,13 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
     downLoader()
     upFlashbag(err)
     console.error(err)
+  })
+})
+
+itemConnection.on('click', '.panel.reset .cancel', function (event) {
+  event.preventDefault()
+  $('.panel.reset').slideUp(800, function () {
+    $(this).hide()
+    changeItem(itemConnection)
   })
 })
