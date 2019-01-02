@@ -3,6 +3,18 @@ body {
     .burger {
       background-image: url('../img/burger-open.png');      
     }
+    .header {
+      .left,
+      .right,
+      .options {
+        display: block;
+      }
+    }
+    .footer,
+    .content,
+    .swipe-section {
+      opacity: 0;
+    }
   }
 }
 .header {
@@ -19,6 +31,7 @@ body {
     height: 15px;
     background-image: url('../img/burger-close.png');
     background-size: 100%;
+    cursor: pointer;
   }
   .logo {
     .editions {
@@ -337,11 +350,15 @@ body {
     .left { order: 1; }
   }
   @include media('<=xxlarge') {
-    .zoom {
+    height: 0;
+    .options {
       display: none;
-    }
-    .languages {
-      padding: 50px 0;
+      .languages {
+        padding: 50px 0;
+      }
+      .zoom {
+        display: none;
+      }
     }
     .logo {
       margin-top: 8px;
@@ -369,7 +386,19 @@ body {
     }
     .left,
     .right {
-      width: 30%;
+      display: none;
+      width: 40%;
+      li {
+        max-height: 45px;
+        transition: all 0.2s linear;
+        &:hover {
+          color: #ffffff;
+        }
+        &.active {
+          color: #ffffff;
+          max-height: 250px;
+        }
+      }
     }
     .left {
       .menu {
@@ -382,7 +411,7 @@ body {
   @include media('<=large') {
     .left,
     .right {
-      width: 50%;
+      width: 60%;
     }
   }
   @include media('<=medium') {

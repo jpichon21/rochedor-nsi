@@ -55,9 +55,11 @@ const handleMenuHover = event => {
 }
 
 const handleHeaderHover = event => {
-  event.type === 'mouseenter'
-    ? body.classList.add('hover')
-    : body.classList.remove('hover')
+  if (window.innerWidth > 1440) {
+    event.type === 'mouseenter'
+      ? body.classList.add('hover')
+      : body.classList.remove('hover')
+  }
 }
 
 const handleWindowResize = () => {
@@ -77,6 +79,12 @@ header.addEventListener('mouseenter', event => handleHeaderHover(event))
 window.addEventListener('resize', event => handleWindowResize())
 
 handleWindowResize()
+
+const burger = header.querySelector('.burger')
+
+burger.onclick = () => {
+  body.classList.toggle('hover')
+}
 
 // Selects
 
