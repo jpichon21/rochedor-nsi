@@ -48,11 +48,9 @@ const handleMenuHover = event => {
   const reference = menu.getAttribute('data-menu')
   let elements = document.querySelectorAll('[data-menu="' + reference + '"]')
   elements.forEach(element => {
-    if (event.type === 'mouseenter') {
-      element.classList.add('active')
-    } else {
-      element.classList.remove('active')
-    }
+    event.type === 'mouseenter'
+      ? element.classList.add('active')
+      : element.classList.remove('active')
   })
 }
 
