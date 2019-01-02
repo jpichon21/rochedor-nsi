@@ -140,12 +140,35 @@ export class UserForm extends React.Component {
 
   toggleRole (event, value) {
     let roles = this.state.user.roles
+    let splitedRoles = event.target.name.split('_')
+    let toggledRoles = splitedRoles[3]
+    let familyRole = splitedRoles[2]
     if (value) {
       if (!roles.includes(event.target.name)) {
+        if (toggledRoles !== 'VIEW') {
+          if (!roles.includes('ROLE_ADMIN_' + familyRole + '_VIEW')) {
+            roles.push('ROLE_ADMIN_' + familyRole + '_VIEW')
+          }
+          if (toggledRoles === 'DELETE' && !roles.includes('ROLE_ADMIN_' + familyRole + '_EDIT')) {
+            roles.push('ROLE_ADMIN_' + familyRole + '_EDIT')
+          }
+        }
         roles.push(event.target.name)
       }
     } else {
       if (roles.includes(event.target.name)) {
+        if (toggledRoles === 'VIEW') {
+          roles = roles.filter(e => {
+            return (
+              e !== 'ROLE_ADMIN_' + familyRole + '_CREATE' &&
+              e !== 'ROLE_ADMIN_' + familyRole + '_EDIT' &&
+              e !== 'ROLE_ADMIN_' + familyRole + '_DELETE'
+            )
+          })
+        }
+        if (toggledRoles === 'EDIT') {
+          roles = roles.filter(e => e !== 'ROLE_ADMIN_' + familyRole + '_DELETE')
+        }
         roles = roles.filter(e => e !== event.target.name)
       }
     }
@@ -164,7 +187,8 @@ export class UserForm extends React.Component {
       this.state.user.name !== '' &&
       this.state.user.username !== '' &&
       this.state.user.email !== '' &&
-      this.state.password === this.state.repeat)
+      this.state.password === this.state.repeat
+    )
   }
   componentDidMount () {
     if (this.props.edit) {
