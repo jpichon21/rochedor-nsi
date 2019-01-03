@@ -10,10 +10,12 @@ body {
         display: block;
       }
     }
-    .footer,
-    .content,
-    .swipe-section {
-      opacity: 0;
+    @include media('<=xxlarge') {
+      .footer,
+      .content,
+      .swipe-section {
+        opacity: 0;
+      }
     }
   }
 }
