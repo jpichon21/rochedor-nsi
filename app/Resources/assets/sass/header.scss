@@ -10,7 +10,7 @@ body {
         display: block;
       }
     }
-    @include media('<=xxlarge') {
+    @include media('<xxlarge') {
       .footer,
       .content,
       .swipe-section {
@@ -129,7 +129,7 @@ body {
   .options {
     order: 4;
   }
-  @include media('>xxlarge') {
+  @include media('>=xxlarge') {
     flex-direction: row;
     align-items: flex-end;
     .burger {
@@ -351,7 +351,7 @@ body {
     .logo { order: 2; }
     .left { order: 1; }
   }
-  @include media('<=xxlarge') {
+  @include media('<xxlarge') {
     height: 0;
     .options {
       display: none;
@@ -410,13 +410,13 @@ body {
       }
     }
   }
-  @include media('<=large') {
+  @include media('<large') {
     .left,
     .right {
       width: 60%;
     }
   }
-  @include media('<=medium') {
+  @include media('<medium') {
     .left,
     .right {
       width: 80%;

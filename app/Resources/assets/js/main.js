@@ -55,7 +55,7 @@ const handleMenuHover = event => {
 }
 
 const handleHeaderHover = event => {
-  if (window.innerWidth > 1440) {
+  if (window.innerWidth >= 1440) {
     event.type === 'mouseenter'
       ? body.classList.add('hover')
       : body.classList.remove('hover')

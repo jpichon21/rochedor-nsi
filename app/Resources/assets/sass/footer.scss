@@ -69,4 +69,7 @@
       }
     }
   }
+  @include media('<large') {
+    display: none;
+  }
 }
