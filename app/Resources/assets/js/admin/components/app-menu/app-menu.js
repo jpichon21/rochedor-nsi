@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { NavLink, Redirect } from 'react-router-dom'
+import { Link, NavLink, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Menu, MenuItem, AppBar, Toolbar, Typography, IconButton, Tooltip, Button, Divider } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import IsAuthorized, { ACTION_SPEAKER_VIEW, ACTION_HOME_VIEW, ACTION_CONTENT_VIEW, ACTION_NEWS_VIEW, ACTION_PAGE_VIEW, ACTION_USER_VIEW } from '../../isauthorized/isauthorized'
+import IsAuthorized, { ACTION_SPEAKER_VIEW, ACTION_HOME_VIEW, ACTION_CONTENT_VIEW, ACTION_NEWS_VIEW, ACTION_PAGE_VIEW, ACTION_USER_VIEW} from '../../isauthorized/isauthorized'
 
 class AppMenu extends React.Component {
   constructor (props) {
@@ -130,89 +130,92 @@ class AppMenu extends React.Component {
               {(this.props.locales[this.props.locale]) ? this.props.locales[this.props.locale] : ' '}
             </Button>
           </Tooltip>
-          <IsAuthorized action={[ACTION_HOME_VIEW, ACTION_CONTENT_VIEW, ACTION_NEWS_VIEW, ACTION_PAGE_VIEW, ACTION_SPEAKER_VIEW, ACTION_USER_VIEW]} alternative={null}>
-            <Menu
-              id='menu-appbar'
-              anchorEl={anchorMenu}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left'
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left'
-              }}
-              open={menuOpen}
-              onClose={this.handleCloseMenu}>
+          <Menu
+            id='menu-appbar'
+            anchorEl={anchorMenu}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'left'
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'left'
+            }}
+            open={menuOpen}
+            onClose={this.handleCloseMenu}>
 
-              <IsAuthorized action={ACTION_HOME_VIEW} alternative={null}>
-                <NavLink to='/home-edit' className={classes.link}>
-                  <MenuItem onClick={this.handleCloseMenu}>
-                    Page d'accueil
-                  </MenuItem>
-                </NavLink>
-              </IsAuthorized>
-              <IsAuthorized action={ACTION_CONTENT_VIEW} alternative={null}>
-                <NavLink to='/content-list' className={classes.link}>
-                  <MenuItem onClick={this.handleCloseMenu}>
-                  Liste des contenus
-                  </MenuItem>
-                </NavLink>
-              </IsAuthorized>
-              <IsAuthorized action={[ACTION_HOME_VIEW, ACTION_CONTENT_VIEW]}><Divider className={'divider'} /></IsAuthorized>
-              <IsAuthorized action={ACTION_NEWS_VIEW} alternative={null}>
-                <NavLink to='/news-list' className={classes.link}>
-                  <MenuItem onClick={this.handleCloseMenu}>
-                  Liste des nouveautés
-                  </MenuItem>
-                </NavLink>
-              </IsAuthorized>
-              <IsAuthorized action={ACTION_PAGE_VIEW} alternative={null}>
-                <NavLink to='/page-list' className={classes.link}>
-                  <MenuItem onClick={this.handleCloseMenu}>
-                  Liste des pages
-                  </MenuItem>
-                </NavLink>
-              </IsAuthorized>
-              <IsAuthorized action={ACTION_SPEAKER_VIEW}>
-                <NavLink to='/speaker-list' className={classes.link}>
-                  <MenuItem onClick={this.handleCloseMenu}>
-                    Liste des intervenants
-                  </MenuItem>
-                </NavLink>
-              </IsAuthorized>
-              <IsAuthorized action={[ACTION_PAGE_VIEW, ACTION_SPEAKER_VIEW, ACTION_NEWS_VIEW]}><Divider className={'divider'} /></IsAuthorized>
-              <IsAuthorized action={ACTION_USER_VIEW} alternative={null}>
-                <NavLink to='/user-list' className={classes.link}>
-                  <MenuItem onClick={this.handleCloseMenu}>
-                  Liste des utilisateurs
-                  </MenuItem>
-                </NavLink>
-              </IsAuthorized>
-              <a href='/' target='_blank' className={classes.link}>
+            <Link to='/' target='_blank' className={classes.link}>
+              <MenuItem className={classes.visit} onClick={this.handleCloseMenu}>
+                Voir le site
+              </MenuItem>
+            </Link>
+            <Divider className={'divider'} />
+            <IsAuthorized action={ACTION_HOME_VIEW} alternative={null}>
+              <NavLink to='/home-edit' className={classes.link}>
                 <MenuItem onClick={this.handleCloseMenu}>
-                  Voir le site
+                  Page d'accueil
                 </MenuItem>
-              </a>
-              {
-                isConnected
-                  ? (
-                    <NavLink to='/logout' className={classes.link}>
-                      <MenuItem onClick={this.handleCloseMenu}>
-                        Déconnexion
-                      </MenuItem>
-                    </NavLink>
-                  )
-                  : (
-                    <NavLink to='/login' className={classes.link}>
-                      <MenuItem onClick={this.handleCloseMenu}>
-                        Connexion
-                      </MenuItem>
-                    </NavLink>
-                  )
-              }
-            </Menu>
-          </IsAuthorized>
+              </NavLink>
+            </IsAuthorized>
+            <IsAuthorized action={ACTION_CONTENT_VIEW} alternative={null}>
+              <NavLink to='/content-list' className={classes.link}>
+                <MenuItem onClick={this.handleCloseMenu}>
+                Liste des contenus
+                </MenuItem>
+              </NavLink>
+            </IsAuthorized>
+            <IsAuthorized action={ACTION_HOME_VIEW || ACTION_CONTENT_VIEW}>
+              <IsAuthorized action={[ACTION_SPEAKER_VIEW || ACTION_PAGE_VIEW || ACTION_NEWS_VIEW]}>
+                <Divider className={'divider'} />
+              </IsAuthorized>
+            </IsAuthorized>
+            <IsAuthorized action={ACTION_NEWS_VIEW} alternative={null}>
+              <NavLink to='/news-list' className={classes.link}>
+                <MenuItem onClick={this.handleCloseMenu}>
+                Liste des nouveautés
+                </MenuItem>
+              </NavLink>
+            </IsAuthorized>
+            <IsAuthorized action={ACTION_PAGE_VIEW} alternative={null}>
+              <NavLink to='/page-list' className={classes.link}>
+                <MenuItem onClick={this.handleCloseMenu}>
+                Liste des pages
+                </MenuItem>
+              </NavLink>
+            </IsAuthorized>
+            <IsAuthorized action={ACTION_SPEAKER_VIEW}>
+              <NavLink to='/speaker-list' className={classes.link}>
+                <MenuItem onClick={this.handleCloseMenu}>
+                  Liste des intervenants
+                </MenuItem>
+              </NavLink>
+            </IsAuthorized>
+            <Divider className={'divider'} />
+            <IsAuthorized action={ACTION_USER_VIEW} alternative={null}>
+              <NavLink to='/user-list' className={classes.link}>
+                <MenuItem onClick={this.handleCloseMenu}>
+                Liste des utilisateurs
+                </MenuItem>
+              </NavLink>
+            </IsAuthorized>
+            {
+              isConnected
+                ? (
+                  <NavLink to='/logout' className={classes.link}>
+                    <MenuItem className={classes.logout} onClick={this.handleCloseMenu}>
+                      Déconnexion
+                    </MenuItem>
+                  </NavLink>
+                )
+                : (
+                  <NavLink to='/login' className={classes.link}>
+                    <MenuItem onClick={this.handleCloseMenu}>
+                      Connexion
+                    </MenuItem>
+                  </NavLink>
+                )
+            }
+          </Menu>
           <Menu
             id='lang-appbar'
             anchorEl={anchorLang}
@@ -244,6 +247,7 @@ class AppMenu extends React.Component {
 }
 
 const styles = theme => ({
+  ...theme,
   root: {
     flexGrow: 1
   },
@@ -265,6 +269,12 @@ const styles = theme => ({
   divider: {
     marginTop: 10,
     marginBottom: 10
+  },
+  visit: {
+    color: '#3f51b5'
+  },
+  logout: {
+    color: '#e91e63'
   }
 })
 
