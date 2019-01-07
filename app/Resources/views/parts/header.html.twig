@@ -140,7 +140,6 @@
             <div class="blank"></div>
             <div class="blank"></div>
             {% if routeExists('editions') %}<li><a href="{{ path('editions') }}">{{ 'menu.five.one' | trans | raw }}</a></li>{% endif %}
-            
             <li><a href="{{ path('collections-news-' ~ currentLocale) }}">{{ 'menu.five.two' | trans | raw }}</a></li>
             <li><a href="{{ path('collections-' ~ currentLocale) }}">{{ 'menu.five.three' | trans | raw }}</a></li>
         </ul>
@@ -150,7 +149,11 @@
             <div class="blank"></div>
             <div class="blank"></div>
             <div class="blank"></div>
+            {% if routeExists('donner-du-temps') %}
             <li><a href="{{ path('donner-du-temps') }}">{{ 'menu.six.one' | trans | raw }}</a></li>
+            {% else %}
+            <li><a href="#">{{ 'menu.six.one' | trans | raw }}</a></li>
+            {% endif %}
             {% if routeExists('dons') %}<li><a href="{{ path('dons') }}">{{ 'menu.six.two' | trans | raw }}</a></li>{% endif %}
         </ul>
     </div>
