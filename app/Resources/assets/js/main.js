@@ -1,12 +1,3 @@
-// Scrollbar
-
-const content = document.querySelector('.content')
-
-if (content !== null) {
-  content.style.overflowY = 'scroll'
-  content.style.width = 'calc(100% + ' + (content.offsetWidth - content.clientWidth) + 'px)'
-}
-
 // Zoom
 
 const bodyClass = document.querySelector('body').classList
@@ -40,6 +31,7 @@ zoomPlus.onclick = () => { handleClickZoomPlus() }
 // Menu
 
 const body = document.querySelector('body')
+const content = document.querySelector('.content')
 const header = document.querySelector('.header')
 const menus = document.querySelectorAll('[data-menu]')
 
@@ -63,9 +55,19 @@ const handleHeaderHover = event => {
 }
 
 const handleWindowResize = () => {
-  window.innerWidth < 1440
-    ? body.classList.add('menuReduced')
-    : body.classList.remove('menuReduced')
+  if (window.innerWidth < 1440) {
+    body.classList.add('menuReduced')
+    if (content !== null) {
+      content.style.overflowY = 'auto'
+      content.style.width = '100%'
+    }
+  } else {
+    body.classList.remove('menuReduced')
+    if (content !== null) {
+      content.style.overflowY = 'scroll'
+      content.style.width = 'calc(100% + ' + (content.offsetWidth - content.clientWidth) + 'px)'
+    }
+  }
 }
 
 menus.forEach(menu => {

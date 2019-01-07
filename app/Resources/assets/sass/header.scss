@@ -1,7 +1,18 @@
 body {
+  &.menuReduced {
+    display: block;
+    height: auto;
+    min-height: 100vh;
+    overflow: auto;
+    .footer {
+      position: fixed;
+      top: calc(100% - 35px);
+      width: 100%;
+    }
+  }
   &.hover {
     .burger {
-      background-image: url('../img/burger-open.png');      
+      background-image: url('../img/burger-open.png');
     }
     .header {
       .left,
