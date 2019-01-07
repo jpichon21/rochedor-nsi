@@ -24,7 +24,7 @@ var hWindow = updateHeightWindow()
 
 var controller = new ScrollMagic.Controller()
 
-new ScrollMagic.Scene({ triggerElement: '.article-4', triggerHook: 'onLeave', duration: hWindow - 100 })
+new ScrollMagic.Scene({ triggerElement: '.article-3', triggerHook: 'onLeave', duration: hWindow - 100 })
   .setTween(new TimelineMax().to('.swipe-background, .swipe-section', 1, { x: '-50%' }))
   .addTo(controller)
 
@@ -42,4 +42,10 @@ for (var i = 1; i <= 6; i++) { myScene('onEnter', i); myScene('onCenter', i); my
 
 $(window).resize(function () {
   hWindow = updateHeightWindow()
+})
+
+/* Nouveautés */
+
+$('.nouveautes h2').click(function () {
+  $('body').toggleClass('nouveautesOpened')
 })

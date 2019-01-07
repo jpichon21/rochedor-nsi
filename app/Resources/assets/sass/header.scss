@@ -27,8 +27,8 @@ body {
   z-index: 2;
   .burger {
     position: absolute;
-    top: 50px;
-    right: 50px;
+    top: 40px;
+    right: 40px;
     width: 20px;
     height: 15px;
     background-image: url('../img/burger-close.png');
@@ -369,7 +369,7 @@ body {
     .menu {
       li {
         > a, span {
-          padding: 15px 30px;
+          padding: 15px;
           border-top: 1px rgba(255, 243, 141, 0.2) solid;
         }
       }
