@@ -294,7 +294,7 @@ h1 {
       background-image: url('../img/bg-fallback.jpg');
       background-size: 100% auto;
       background-attachment: fixed;
-      background-position: center;
+      background-position: top;
       z-index: 1;
       &:after {
         content: '';
