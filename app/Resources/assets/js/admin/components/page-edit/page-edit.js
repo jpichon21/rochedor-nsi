@@ -1,13 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { getPage, putPage, deletePage, setTitle, setLocale, initStatus, getPageTranslations, setMessage } from '../../actions'
+import { getPage, putPage, deletePage, setTitle, setLocale, initStatus, getPageTranslations } from '../../actions'
 import PageForm from '../page-form/page-form'
 import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
 import { locales } from '../../locales'
 import update from 'immutability-helper'
 import { Snackbar, Button } from '@material-ui/core'
+import IsAuthorized, { ACTION_PAGE_EDIT } from '../../isauthorized/isauthorized'
+import Redirect from 'react-router/Redirect'
 
 export class PageEdit extends React.Component {
   constructor (props) {
@@ -102,25 +104,27 @@ export class PageEdit extends React.Component {
 
   render () {
     return (
-      <div>
-        <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu goBack='/page-list' title={`Modification d'une page`} localeHandler={this.onLocaleChange} locales={this.state.locales} locale={this.props.page.locale} />
-        <Snackbar
-          open={this.state.snackbarOpen}
-          autoHideDuration={4000}
-          onClose={this.handleCloseSnack}
-          ContentProps={{
-            'aria-describedby': 'snackbar-fab-message-id'
-          }}
-          message={<span id='snackbar-fab-message-id'>{this.state.snackbarContent}</span>}
-          action={
-            <Button color='inherit' size='small' onClick={this.handleCloseSnack}>
-              Ok
-            </Button>
-          }
-        />
-        <PageForm page={this.props.page} submitHandler={this.onSubmit} deleteHandler={this.onDelete} versionHandler={this.onVersionChange} edit translations={this.props.translations} />
-      </div>
+      <IsAuthorized action={ACTION_PAGE_EDIT} alternative={<Redirect to={'/page-list'} />}>
+        <div>
+          <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
+          <AppMenu goBack='/page-list' title={`Modification d'une page`} localeHandler={this.onLocaleChange} locales={this.state.locales} locale={this.props.page.locale} />
+          <Snackbar
+            open={this.state.snackbarOpen}
+            autoHideDuration={4000}
+            onClose={this.handleCloseSnack}
+            ContentProps={{
+              'aria-describedby': 'snackbar-fab-message-id'
+            }}
+            message={<span id='snackbar-fab-message-id'>{this.state.snackbarContent}</span>}
+            action={
+              <Button color='inherit' size='small' onClick={this.handleCloseSnack}>
+                Ok
+              </Button>
+            }
+          />
+          <PageForm page={this.props.page} submitHandler={this.onSubmit} deleteHandler={this.onDelete} versionHandler={this.onVersionChange} edit translations={this.props.translations} />
+        </div>
+      </IsAuthorized>
     )
   }
 }

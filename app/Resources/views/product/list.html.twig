@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/editions.css') }}">
 {% endblock %}
 {% block content %}
+{% include 'parts/popup.html.twig' %}
 {% set filters_collection = app.request.get('collection') %}
 {% set filters_themes = app.request.get('themes') %}
 {% set filters_themes_array = filters_themes|split('|') %}

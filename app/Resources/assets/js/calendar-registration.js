@@ -3,6 +3,7 @@ import moment from 'moment'
 import { getContact } from './sample'
 import { upFlashbag, upConfirmbox } from './popup'
 import { upLoader, downLoader } from './loader'
+import Inputmask from 'inputmask'
 import I18n from './i18n'
 import {
   postParticipant,
@@ -72,6 +73,7 @@ const registeredTemplate = _.template($('.registered-template').html())
 const participantsTemplate = _.template($('.participants-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
 const himFormTemplate = _.template($('.him-form-template').html())
+const endMessageTemplate = _.template($('.end-message-template').html())
 
 function updateYouRender () {
   $('.you-render').html(youTemplate({ you: _you }))
@@ -95,6 +97,18 @@ function updateParticipantsRender () {
   }))
 }
 
+function updateEndMessageRender () {
+  $('.end-message-render').html(endMessageTemplate({
+    participants: _participants,
+    transports: {
+      'perso': i18n.trans('form.transport.perso'),
+      'train': i18n.trans('form.transport.train'),
+      'avion': i18n.trans('form.transport.avion'),
+      'bus': i18n.trans('form.transport.bus')
+    }
+  }))
+}
+
 function updateYouFormRender () {
   $('.you-form-render').html(youFormTemplate({
     participant: _participant,
@@ -108,6 +122,7 @@ function updateYouFormRender () {
       i18n.trans('form.civilite.soeur')
     ]
   }))
+  Inputmask().mask(document.querySelectorAll('.datnaiss'))
 }
 
 function updateHimFormRender () {
@@ -125,6 +140,7 @@ function updateHimFormRender () {
       i18n.trans('form.civilite.soeur')
     ]
   }))
+  Inputmask().mask(document.querySelectorAll('.datnaiss'))
 }
 
 /* Actions */
@@ -185,10 +201,18 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
   })
 })
 
+itemConnection.on('click', '.panel.reset .cancel', function (event) {
+  event.preventDefault()
+  $('.panel.reset').slideUp(800, function () {
+    $(this).hide()
+  })
+})
+
 itemConnection.on('click', '.panel.registration .cancel', function (event) {
   event.preventDefault()
   $('.panel.registration').slideUp(800, function () {
     $(this).hide()
+    changeItem(itemConnection)
   })
 })
 
@@ -272,6 +296,11 @@ itemParticipants.on('click', '.navette', function () {
   changeItem(itemParticipants)
 })
 
+itemParticipants.on('click', '.newfich', function () {
+  const boolean = $(this).toggleClass('checked').hasClass('checked')
+  $('.newfich-wrapper .checkbox', itemParticipants).val(boolean)
+})
+
 function validateDate (date) {
   return moment(date).isValid() && moment(date).isBefore(new Date())
 }
@@ -315,6 +344,9 @@ function validatePassword (password) {
   }
   if (password.length < 8 && password.length !== 0) {
     return i18n.trans('security.password_too_small')
+  }
+  if (password === "") {
+    return i18n.trans('user.security_password')
   }
   return true
 }
@@ -387,46 +419,22 @@ panelHimForm.on('submit', function (event) {
   })
 })
 
-panelHimForm.on('click', '.cancel', function (event) {
-  event.preventDefault()
-  $('.panel.him').slideUp(800, function () {
-    $(this).hide()
-  })
-})
-
-panelHimForm.on('click', '.newfich', function (event) {
-  event.preventDefault()
-  event.stopPropagation()
-  _participant.newfich = !_participant.newfich
-  updateHimFormRender()
-})
-
-panelAddForm.on('click', '.newfich', function (event) {
-  event.preventDefault()
-  event.stopPropagation()
-  _participant.newfich = !_participant.newfich
-  updateHimFormRender()
-})
-
-panelYouForm.on('click', '.cancel', function (event) {
-  event.preventDefault()
-  $('.panel.you').slideUp(800, function () {
-    $(this).hide()
-  })
-})
-
-panelAddForm.on('click', '.cancel', function (event) {
-  event.preventDefault()
-  $('.panel.cancel').slideUp(800, function () {
-    $(this).hide()
-  })
-})
-
 panelAddForm.on('submit', function (event) {
   callbackSubmit(event, $(this), 'add', false, function (res) {
     _registered.push(res)
   })
 })
+
+function closePanel (event, panel) {
+  event.preventDefault()
+  $(`.panel.${panel}`).slideUp(800, function () {
+    $(this).hide()
+  })
+}
+
+panelYouForm.on('click', '.cancel', function (event) { closePanel(event, 'you') })
+panelHimForm.on('click', '.cancel', function (event) { closePanel(event, 'him') })
+panelAddForm.on('click', '.cancel', function (event) { closePanel(event, 'add') })
 
 panelAddForm.on('change', '.select.colp', function () {
   const coltyp = $(this).closest('form').find('.select.coltyp').val()
@@ -522,6 +530,7 @@ itemParticipants.on('click', '.validate-participants', function (event) {
       result = result.replace('%entry_number%', res)
       $('.result', itemValidation).html(result)
       downLoader()
+      updateEndMessageRender()
       changeItem(itemValidation)
     }).catch(error => {
       downLoader()

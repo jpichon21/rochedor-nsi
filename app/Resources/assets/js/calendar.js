@@ -63,7 +63,8 @@ $('.calendar-in').clndr({
       $('.date-in').addClass('active').find('span').text(moment(target.date._i).format('LL'))
       $('.date-in-value').val(moment(target.date._i).format('YYYYMMDD'))
       $('.calendar-in').removeClass('active')
-      $('.calendar-out').addClass('active')
+      $('.filter.dates').removeClass('active')
+      updateFilters()
     }
   }
 })
@@ -82,13 +83,19 @@ $('.calendar-out').clndr({
   }
 })
 
+$('.filter-dates').on('click', '.clndr-close', function () {
+  $('.calendar-in').removeClass('active')
+  $('.calendar-out').removeClass('active')
+})
+
 $('.date-in').on('click', function () {
-  $('.calendar-in').toggleClass('active')
+  $('.calendar-in').addClass('active')
   $('.calendar-out').removeClass('active')
 })
 
 $('.date-out').on('click', function () {
-  $('.calendar-out').toggleClass('active')
+  $('.calendar-out').addClass('active')
+  $('.calendar-in').removeClass('active')
 })
 
 /* Table */
@@ -124,10 +131,10 @@ function applyFilters (filters) {
     return filters['translation'].indexOf(retreat.translation) >= 0
   }).filter((retreat) => {
     if (filters['dateIn'].length === 0) { return true }
-    return moment(retreat.dateIn).isAfter(filters['dateIn'])
+    return moment(retreat.dateIn).isSameOrAfter(filters['dateIn'])
   }).filter((retreat) => {
     if (filters['dateOut'].length === 0) { return true }
-    return moment(retreat.dateOut).isBefore(filters['dateOut'])
+    return moment(retreat.dateOut).isSameOrBefore(filters['dateOut'])
   }).filter((retreat) => {
     if (filters['keywords'].length === 0) { return true }
     return retreat.event.toLowerCase().includes(filters['keywords'].toLowerCase())
@@ -194,4 +201,8 @@ $('.filter-raz').on('click', function (event) {
   $('.filter-keywords').find('input')
     .val('')
     .trigger('keyup')
+})
+
+$('.filter-keywords').on('submit', function (event) {
+  event.preventDefault()
 })

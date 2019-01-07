@@ -15,6 +15,7 @@ use JMS\Serializer\Annotation\Exclude;
  */
 class Client implements UserInterface, \Serializable
 {
+
     /**
      * @var int
      *
@@ -165,7 +166,13 @@ class Client implements UserInterface, \Serializable
      * @ORM\Column(name="username", type="string", length=255, unique=true, nullable=true)
      */
     private $username;
-
+    
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="professionnel", type="boolean", nullable=false)
+     */
+    private $professionnel;
 
     public function getRoles()
     {
@@ -689,5 +696,29 @@ class Client implements UserInterface, \Serializable
         $this->username = $username;
 
         return $this;
+    }
+
+    /**
+     * Set professionnel.
+     *
+     * @param boolean $professionnel
+     *
+     * @return Client
+     */
+    public function setProfessionnel($professionnel)
+    {
+        $this->professionnel = $professionnel;
+
+        return $this;
+    }
+
+    /**
+     * Get professionnel.
+     *
+     * @return string
+     */
+    public function getProfessionnel()
+    {
+        return $this->professionnel;
     }
 }

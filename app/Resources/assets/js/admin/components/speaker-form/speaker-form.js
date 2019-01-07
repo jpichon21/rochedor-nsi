@@ -12,6 +12,7 @@ import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual'
 import { withStyles } from '@material-ui/core/styles'
 import { getSpeaker, getSpeakerVersions, deleteSpeaker, putSpeaker, postSpeaker, uploadFile } from '../../actions'
 import Alert from '../alert/alert'
+import IsAuthorized, { ACTION_SPEAKER_EDIT, ACTION_SPEAKER_CREATE, ACTION_SPEAKER_DELETE } from '../../isauthorized/isauthorized'
 
 export class SpeakerForm extends React.Component {
   constructor (props) {
@@ -337,24 +338,26 @@ export class SpeakerForm extends React.Component {
             (this.props.edit)
               ? (
                 <div>
-                  <Tooltip
-                    enterDelay={300}
-                    id='tooltip-controlled'
-                    leaveDelay={300}
-                    onClose={this.handleTooltipClose}
-                    onOpen={this.handleTooltipOpen}
-                    open={this.state.open}
-                    placement='bottom'
-                    title='Supprimer'
-                  >
-                    <Button
-                      onClick={this.handleDelete}
-                      className={classes.button}
-                      variant='fab'
-                      color='secondary'>
-                      <DeleteIcon />
-                    </Button>
-                  </Tooltip>
+                  <IsAuthorized action={ACTION_SPEAKER_DELETE}>
+                    <Tooltip
+                      enterDelay={300}
+                      id='tooltip-controlled'
+                      leaveDelay={300}
+                      onClose={this.handleTooltipClose}
+                      onOpen={this.handleTooltipOpen}
+                      open={this.state.open}
+                      placement='bottom'
+                      title='Supprimer'
+                    >
+                      <Button
+                        onClick={this.handleDelete}
+                        className={classes.button}
+                        variant='fab'
+                        color='secondary'>
+                        <DeleteIcon />
+                      </Button>
+                    </Tooltip>
+                  </IsAuthorized>
                   <Dialog
                     open={this.state.showDeleteAlert}
                     onClose={this.handleDeleteClose}
@@ -379,25 +382,27 @@ export class SpeakerForm extends React.Component {
                 ''
               )
           }
-          <Tooltip
-            enterDelay={300}
-            id='tooltip-controlled'
-            leaveDelay={300}
-            onClose={this.handleTooltipClose}
-            onOpen={this.handleTooltipOpen}
-            open={this.state.open}
-            placement='bottom'
-            title='Publier'
-          >
-            <Button
-              disabled={!this.isSubmitEnabled()}
-              onClick={this.handleSubmit}
-              className={classes.button}
-              variant='fab'
-              color='primary'>
-              <SaveIcon />
-            </Button>
-          </Tooltip>
+          <IsAuthorized action={[ACTION_SPEAKER_EDIT, ACTION_SPEAKER_CREATE]}>
+            <Tooltip
+              enterDelay={300}
+              id='tooltip-controlled'
+              leaveDelay={300}
+              onClose={this.handleTooltipClose}
+              onOpen={this.handleTooltipOpen}
+              open={this.state.open}
+              placement='bottom'
+              title='Publier'
+            >
+              <Button
+                disabled={!this.isSubmitEnabled()}
+                onClick={this.handleSubmit}
+                className={classes.button}
+                variant='fab'
+                color='primary'>
+                <SaveIcon />
+              </Button>
+            </Tooltip>
+          </IsAuthorized>
         </div>
         <Alert open={this.state.alertOpen} content={this.state.status} onClose={this.handleClose} />
       </div>

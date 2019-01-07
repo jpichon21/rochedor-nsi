@@ -1,5 +1,9 @@
 @import './variables';
 
+h1 {
+  margin-bottom: 0;
+}
+
 .content {
   .flex {
     display: flex;
@@ -8,10 +12,14 @@
 }
 
 .filters {
+  position: relative;
   width: 220px;
+  margin-top: 40px;
   padding-right: 80px;
   color: $roche-yellow;
+  z-index: 1;
   .title {
+    position: relative;
     display: block;
     margin-bottom: 10px;
     font-size: 12px;
@@ -24,90 +32,96 @@
     z-index: 0;
     &.active {
       z-index: 2;
-      .select {
-      ul {
-        display: block;
+      .title {
+        z-index: 1;
       }
-      .value {
-        background-image: url('../img/filter-arrow-up.png');
+      .select {
+        z-index: 1;
+        ul {
+          display: block;
+        }
+        .value {
+          background-image: url('../img/filter-arrow-up.png');
+        }
       }
     }
-  }
-  .select {
-    position: relative;
-    cursor: pointer;
-    ul {
-      display: none;
-      position: absolute;
-      top: 100%;
-      width: 100%;
-      max-height: 145px;
-      margin-top: -1px; 
-      padding: 5px 0;
-      border: 1px $roche-yellow solid;
-      background: #000000;
-      box-sizing: border-box;
-      box-shadow: 0px 20px 20px 10px #000000;
-      overflow: auto;
-      li {
-        input {
-          display: none;
-          &:checked ~ label {
-            color: #ffffff;
+    .select {
+      position: relative;
+      cursor: pointer;
+      ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        min-width: 220px;
+        max-height: 165px;
+        margin-top: -1px; 
+        padding: 5px 0;
+        border: 1px $roche-yellow solid;
+        background: #000000;
+        box-sizing: border-box;
+        box-shadow: 20px 20px 100px 10px #000000;
+        overflow: auto;
+        z-index: 99999;
+        li {
+          input {
+            display: none;
+            &:checked ~ label {
+              color: #ffffff;
+              &:after {
+                background-image: url('../img/button-radio-checked.png');
+              }
+            }
+          }
+          label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
             &:after {
-              background-image: url('../img/filter-cross.png');
+              content: '';
+              width: 13px;
+              height: 13px;
+              background-image: url('../img/button-radio-unchecked.png');
+              background-size: 100% 100%;
+            }
+            .abbr {
+              width: 25px;
+              font-weight: 500;
+            }
+            .name {
+              flex: 1;
+              padding-right: 10px;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
             }
           }
         }
-        label {
-          display: flex;
-          align-items: center;
-          cursor: pointer;
-          &:after {
-            content: '';
-            width: 11px;
-            height: 11px;
-            background-image: url('../img/filter-plus.png');
+      }
+      li,
+      .value {
+        padding: 0 10px;
+        line-height: 30px;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1.4px;
+      }
+      .value {
+        border: 1px $roche-yellow solid;
+        background-image: url('../img/filter-arrow-down.png');
+        background-position: calc(100% - 11px) center;
+        background-repeat: no-repeat;
+        div {
+          display: none;
+          &.active {
+            display: block;
           }
-          .abbr {
-            width: 25px;
-            font-weight: 500;
-          }
-          .name {
-            flex: 1;
-            padding-right: 10px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
+          &.plural,
+          &.singular {
+            color: #ffffff;
           }
         }
       }
     }
-    li,
-    .value {
-      padding: 0 10px;
-      line-height: 30px;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1.4px;
-    }
-    .value {
-      border: 1px $roche-yellow solid;
-      background-image: url('../img/filter-arrow-down.png');
-      background-position: calc(100% - 11px) center;
-      background-repeat: no-repeat;
-      div {
-        display: none;
-        &.active {
-          display: block;
-        }
-        &.plural,
-        &.singular {
-          color: #ffffff;
-        }
-      }
-    }
-  }
   }
   .filter-dates {
     position: relative;
@@ -143,6 +157,18 @@
       background: #000000;
       box-sizing: border-box;
       box-shadow: 0px 20px 20px 10px #000000;
+      .clndr-close{
+        display: block;
+        width: 100%;
+        font-size: 10px;
+        line-height: 30px;
+        text-align: center;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        letter-spacing: 1.4px;
+        border: 1px #faf28e solid;
+        cursor: pointer;
+      }
       &.active {
         display: block;
       }
@@ -250,21 +276,39 @@
 }
 
 .retreats-table {
+  position: relative;
   flex: 1;
   margin-bottom: 40px;
   color: $roche-yellow;
+  z-index: 0;
   thead {
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 1.4px;
     text-transform: uppercase;
     th {
-      position: relative;
-      padding: 0 15px 10px;
+      position: sticky;
+      top: 0;
+      padding: 40px 15px 10px;
       text-align: left;
-      border-bottom: 1px #575432 solid;
+      background-image: url('../img/bg-fallback.jpg');
+      background-size: 100% auto;
+      background-attachment: fixed;
+      background-position: center;
+      z-index: 1;
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-bottom: 1px #575432 solid;
+      }
       &.dates {
-        padding-left: 0;
+        padding-left: 3px;
+        &:after {
+          left: 3px;
+        }
       }
       &.sites {
         padding: 0;
@@ -278,7 +322,7 @@
     tr {
       &.month {
         td {
-          padding: 20px 0 10px;
+          padding: 20px 0 10px 3px;
           font-size: 12px;
           font-weight: 500;
           letter-spacing: 1.4px;
@@ -288,11 +332,21 @@
       &.retreat {
         cursor: pointer;
         td {
+          position: relative;
           padding: 15px;
           font-size: 14px;
           line-height: 18px;
           color: #ffffff;
-          border-bottom: 1px #262626 solid;
+          z-index: 0;
+          &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-bottom: 1px #262626 solid;
+            z-index: 0;
+          }
           a {
             color: inherit;
             text-decoration: none;
@@ -300,6 +354,9 @@
           &.dates {
             padding-left: 30px;
             white-space: nowrap;
+            &:after {
+              left: 3px;
+            }
           }
           &.sites {
             padding: 0;
@@ -329,29 +386,30 @@
     text-align: center;
   }
   .dates {
-    position: relative;
     .bullet {
       position: absolute;
       top: 15px;
-      left: -3px;
+      left: 0;
       width: 7px;
       height: 7px;
       border-radius: 100%;
       background: $roche-yellow;
+      z-index: 2;
     }
     .fadeline {
       position: absolute;
       top: 20px;
-      left: 0;
+      left: 3px;
       width: 1px;
       height: 100%;
       background: $roche-yellow;
+      z-index: 1;
     }
   }
   .retreat {
     &.last {
-      td {
-        border: none;
+      td:after {
+        content: none;
       }
       .fadeline {
         height: 30px;

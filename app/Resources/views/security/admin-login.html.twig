@@ -1,0 +1,24 @@
+{% extends 'base-admin.html.twig' %}
+{% block body %}
+<div class="content">
+    <h1>Login cruds</h1>
+    <form action="{{ path('admin-login-form') }}" method="post" class="form">
+      <div class="pure-u-1-2">
+        <input autocomplete="nope" type="text" class="input" placeholder="{{ 'form.username' | trans }}" name="_username">
+      </div>
+      <div class="pure-u-1-2"> 
+        <input autocomplete="nope" type="password" class="input" placeholder="{{ 'form.password' | trans }}" name="_password">
+      </div>
+      <div class="pure-u-1-4"> 
+        <button type="submit" class="input button submit">{{ 'form.validate'|trans }}</button>
+      </div>
+      <div class="pure-u-3-4"> 
+      {% if error %}
+        <div class="catch-message">
+          {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+      {% endif %}
+      </div>
+    </form>
+</div>
+{% endblock %}

@@ -46,10 +46,10 @@
                     <h3>{{ 'order.registration.one.title.connection' | trans | raw }}</h3>
                     <form class="pure-g connection">
                         <div class="pure-u-1-2">
-                            <input autocomplete="nope" class="input username" required type="text" name="username" placeholder="{{ 'form.username' | trans | raw }}">
+                            <input autocomplete="nope" class="input username" required type="text" name="username" placeholder="* {{ 'form.username' | trans | raw }}">
                         </div>
                         <div class="pure-u-1-2">
-                            <input autocomplete="nope" class="input password" required type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
+                            <input autocomplete="nope" class="input password" required type="password" name="password" placeholder="* {{ 'form.password' | trans | raw }}">
                         </div>
                         <div class="pure-u-4-24">
                             <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
@@ -65,13 +65,16 @@
                     <h3>{{ 'form.password.reset'|trans|raw }}</h3>
                     <form class="pure-g reset">
                         <div class="pure-u-1">
-                            <input autocomplete="nope" class="input email" required type="text" name="email" placeholder="{{ 'form.email' | trans | raw }}">
+                            <input autocomplete="nope" class="input email" required type="text" name="email" placeholder="* {{ 'form.email' | trans | raw }}">
                         </div>
                         <div class="pure-u-1">
-                            <input autocomplete="nope" class="input firstname" required type="text" name="firstname" placeholder="{{ 'form.firstname' | trans | raw }}">
+                            <input autocomplete="nope" class="input firstname" required type="text" name="firstname" placeholder="* {{ 'form.firstname' | trans | raw }}">
                         </div>
                         <div class="pure-u-1">
-                            <input autocomplete="nope" class="input lastname" required type="text" name="lastname" placeholder="{{ 'form.lastname' | trans | raw }}">
+                            <input autocomplete="nope" class="input lastname" required type="text" name="lastname" placeholder="* {{ 'form.lastname' | trans | raw }}">
+                        </div>
+                        <div class="pure-u-6-24">
+                            <a href="#" class="button cancel input">{{ 'form.cancel' | trans | raw }}</a>
                         </div>
                         <div class="pure-u-4-24">
                             <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
@@ -129,11 +132,26 @@
                     </div>
                 </div>
             </div>
+            <div class="item terms">
+                <h2>{{ 'order.accept-terms.title' | trans }}</h3>
+                <div class="panel terms active">
+                    <div class="pure-g">
+                        <div class="pure-u-1-2">
+                            {% set terms_link = 'getterms' %}
+                            <p>
+                                {# <a class="accept-terms-link" target="_blank" href="{{ terms_link }}">{{ 'order.accept-terms.link' | trans | raw }}</a> #}                               
+                                {{ 'order.accept-terms.disclaimer' | trans({'%link%': terms_link}) | raw }}
+                            </p>
+                            <a href="#" class="accept-terms button radio">{{ 'order.accept-terms.label' | trans | raw }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="item payment">
                 <h2>{{ 'order.registration.four.title' | trans | raw }}</h2>
                 <div class="panel payment active">
                     <form class="form payment">
-                        <h3>{{ 'order.choose.payment' | trans | raw }}</h3>    
+                        <h3>{{ 'order.choose.payment' | trans | raw }}</h3>
                         <div class="pure-g">
                             <div class="pure-u-1-2">
                                 <select class="select select-modpaie" required>
@@ -144,8 +162,18 @@
                             </div>
                         </div>
                         <div class="pure-g">
+                            <div class="pure-u-10-24">
+                                {% if routeExists('securite-donnees') %}
+                                    {% set secure_link = path('securite-donnees') %}
+                                {% else %}
+                                    {% set secure_link = '#' %}
+                                {% endif %}
+                                <a href="{{ secure_link }}" target="_blank" class="button input secure-link">{{ 'global.secure-datas'|trans }}</a>
+                            </div>
+                            <div class="pure-u-10-24">
+                            </div>
                             <div class="pure-u-4-24">
-                                <input class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
+                                <input class="input button submit" disabled type="submit" value="{{ 'form.ok' | trans | raw }}">
                             </div>
                         </div>
                     </form>
@@ -303,13 +331,13 @@
 <script type="text/template" class="adliv-form-template">
     <div class="pure-g">
         <div class="pure-u-1-2">
-            <input class="input adresse" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="adresse" value="<%= _.escape(delivery.adliv.adresse) %>" placeholder="{{ 'form.adresse' | trans | raw }}">
+            <input class="input adresse" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="adresse" value="<%= _.escape(delivery.adliv.adresse) %>" placeholder="* {{ 'form.adresse' | trans | raw }}">
         </div>
         <div class="pure-u-1-2">
-            <input class="input zipcode" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="zipcode" value="<%= _.escape(delivery.adliv.zipcode) %>" placeholder="{{ 'form.zipcode' | trans | raw }}">
+            <input class="input zipcode" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="zipcode" value="<%= _.escape(delivery.adliv.zipcode) %>" placeholder="* {{ 'form.zipcode' | trans | raw }}">
         </div>
         <div class="pure-u-1-2">
-            <input class="input city" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="city" value="<%= _.escape(delivery.adliv.city) %>" placeholder="{{ 'form.city' | trans | raw }}">
+            <input class="input city" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="city" value="<%= _.escape(delivery.adliv.city) %>" placeholder="* {{ 'form.city' | trans | raw }}">
         </div>
         <div class="pure-u-1-2">
             <% var disableCountry = false %>
@@ -319,7 +347,7 @@
                 <% } %>
             <% } %>
             <select class="select country" <%= (delivery.destliv == 'Roche' || delivery.destliv == 'Font' || disableCountry) ? 'disabled' : '' %> required name="paysliv">
-                <option <%= !disableCountry ? 'selected' : '' %> disabled value="">{{ 'form.country' | trans | raw }}</option>
+                <option <%= !disableCountry ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
                 <% for (var i = 0; i < countries.length; i++) { %>
                     <% var country = countries[i] %>
                     <option <%= (delivery.paysliv == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
@@ -331,28 +359,41 @@
 <script type="text/template" class="you-form-template">
     <input autocomplete="nope" type="hidden" value="<%= client.codcli %>" name="codcli">
     <input autocomplete="nope" type="hidden" value=<%= client.check %> name="check">
+    <div class="pure-u-1 newfich-wrapper">
+        <a href="#" class="input button radio newfich <%= (client.professionnel === true) ? 'checked' : '' %>" >{{ 'form.pro' | trans | raw }}</a>
+        <input class="hidden checkbox newfich" value="<%= _.escape(client.professionnel) %>" name="professionnel" type="text" >
+    </div>
+    <div class="pure-u-1-2">
+        <input autocomplete="nope" class="input societe" type="text" value="<%= _.escape(client.societe) %>" name="societe" placeholder="{{ 'form.societe' | trans | raw }}">
+    </div>
+    <div class="pure-u-1-2">
+        <input autocomplete="nope" class="input tvaintra" type="text" value="<%= _.escape(client.tvaintra) %>" name="tvaintra" placeholder="{{ 'form.tvaintra' | trans | raw }}" >
+    </div>
+    <div class="pure-u-1">
+        <hr>
+    </div>
     <div class="pure-u-1-3">
         <select class="select civil <%= (client.civil != '') ? 'white' : '' %>" required name="civil">
-            <option <%= (client.civil == '') ? 'selected' : '' %> disabled value="">{{ 'form.civil' | trans | raw }}</option>
+            <option <%= (client.civil == '') ? 'selected' : '' %> disabled value="">* {{ 'form.civil' | trans | raw }}</option>
             <% for (var i = 0; i < civilites.length; i++) { %>
                 <option <%= (client.civil == civilites[i]) ? 'selected' : '' %> value="<%= civilites[i] %>"><%= civilites[i] %></option>
             <% } %>
         </select>
     </div>
     <div class="pure-u-1-3">
-        <input autocomplete="nope" class="input prenom" required type="text" value="<%= _.escape(client.prenom) %>" name="prenom" placeholder="{{ 'form.surname' | trans | raw }}">
+        <input autocomplete="nope" class="input prenom" required type="text" value="<%= _.escape(client.prenom) %>" name="prenom" placeholder="* {{ 'form.surname' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input autocomplete="nope" class="input nom" required type="text" value="<%= _.escape(client.nom) %>" name="nom" placeholder="{{ 'form.name' | trans | raw }}">
+        <input autocomplete="nope" class="input nom" required type="text" value="<%= _.escape(client.nom) %>" name="nom" placeholder="* {{ 'form.name' | trans | raw }}">
     </div>
     <div class="pure-u-1">
-        <textarea class="textarea adresse" required name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= _.escape(client.adresse) %></textarea>
+        <textarea class="textarea adresse" required name="adresse" placeholder="* {{ 'form.address' | trans | raw }}"><%= _.escape(client.adresse) %></textarea>
     </div>
     <div class="pure-u-1-3">
-        <input autocomplete="nope" class="input cp" required type="text" value="<%= _.escape(client.cp) %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
+        <input autocomplete="nope" class="input cp" required type="text" value="<%= _.escape(client.cp) %>" name="cp" placeholder="* {{ 'form.zipcode' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input autocomplete="nope" class="input ville" required type="text" value="<%= _.escape(client.ville) %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
+        <input autocomplete="nope" class="input ville" required type="text" value="<%= _.escape(client.ville) %>" name="ville" placeholder="* {{ 'form.city' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
         <% var countryNotFound = true %>
@@ -362,7 +403,7 @@
             <% } %>
         <% } %>
         <select class="select pays <%= (_.escape(client.pays) != '') ? 'white' : '' %>" required name="pays">
-            <option <%= countryNotFound ? 'selected' : '' %> disabled value="">{{ 'form.country' | trans | raw }}</option>
+            <option <%= countryNotFound ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
             <% for (var i = 0; i < countries.length; i++) { %>
                 <% var country = countries[i] %>
                 <option <%= (_.escape(client.pays) == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
@@ -370,42 +411,33 @@
         </select>
     </div>
     <div class="pure-u-1-2">
-        <input autocomplete="nope" class="input tel" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(client.tel) %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
+        <input autocomplete="nope" class="input tel" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(client.tel) %>" name="tel" placeholder="* {{ 'form.phone' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
         <input autocomplete="nope" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(client.mobil) %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
     </div>
     <div class="pure-u-1-2">
-        <input autocomplete="nope" class="input email" required type="email" value="<%= _.escape(client.email) %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
+        <input autocomplete="nope" class="input email" required type="email" value="<%= _.escape(client.email) %>" name="email" placeholder="* {{ 'form.email' | trans | raw }}">
     </div>
     <% if (!client.codcli) { %>
     <div class="pure-u-1-2">
-        <input autocomplete="nope" class="input username" required type="username" value="<%= _.escape(client.username) %>" name="username" placeholder="{{ 'form.username' | trans | raw }}">
+        <input autocomplete="nope" class="input username" required type="username" value="<%= _.escape(client.username) %>" name="username" placeholder="* {{ 'form.username' | trans | raw }}">
     </div>
     <% } %>
     <% if (!client.codcli) { %>
     <div class="pure-u-1-2">
-        <input autocomplete="nope" class="input password" type="password" name="password" placeholder="{{ 'form.password' | trans | raw }}">
+        <input autocomplete="nope" class="input password" type="password" name="password" placeholder="* {{ 'form.password-height' | trans | raw }}">
     </div>
     <% } else { %>
     <div class="pure-u-1-2">
         <input autocomplete="nope" class="input password" type="password" name="password" placeholder="{{ 'form.keep-password' | trans | raw }}">
     </div>
     <% } %>
-    <div class="pure-u-1-2">
-        <input autocomplete="nope" class="input societe" type="text" value="<%= _.escape(client.societe) %>" name="societe" placeholder="{{ 'form.societe' | trans | raw }}">
-    </div>
-    <div class="pure-u-1">
-        <input autocomplete="nope" class="input tvaintra" type="text" value="<%= _.escape(client.tvaintra) %>" name="tvaintra" placeholder="{{ 'form.tvaintra' | trans | raw }}">
-    </div>
     <div class="pure-u-1">
         <hr>
     </div>
     <div class="pure-u-1">
         <textarea class="textarea memocli" name="memocli" placeholder="{{ 'form.memocli' | trans | raw }}"><%= _.escape(client.memocli) %></textarea>
-    </div>
-    <div class="pure-u-6-24">
-        <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reinit' | trans | raw }}">
     </div>
     <div class="pure-u-4-24">
         <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
@@ -413,13 +445,13 @@
 </script>
 <script type="text/template" class="delivery-form-template">
     <div class="pure-u-1-3">
-        <input class="input adresse" required type="text" value="<%= delivery.adliv.adresse %>" name="adresse" placeholder="{{ 'form.adresse' | trans | raw }}">
+        <input class="input adresse" required type="text" value="<%= delivery.adliv.adresse %>" name="adresse" placeholder="* {{ 'form.adresse' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input zipcode" required type="text" value="<%= delivery.adliv.zipcode %>" name="zipcode" placeholder="{{ 'form.zipcode' | trans | raw }}">
+        <input class="input zipcode" required type="text" value="<%= delivery.adliv.zipcode %>" name="zipcode" placeholder="* {{ 'form.zipcode' | trans | raw }}">
     </div>
     <div class="pure-u-1-3">
-        <input class="input city" required type="text" value="<%= delivery.adliv.city %>" name="zipcode" placeholder="{{ 'form.zipcode' | trans | raw }}">
+        <input class="input city" required type="text" value="<%= delivery.adliv.city %>" name="zipcode" placeholder="* {{ 'form.zipcode' | trans | raw }}">
     </div>
 </script>
 <script src="{{ asset("assets/js/order.js") }}"></script>

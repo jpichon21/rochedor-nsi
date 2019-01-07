@@ -1,3 +1,5 @@
+imports:
+    - { resource: role_hierarchy.yml }
 security:
     providers:
         in_memory:
@@ -15,20 +17,32 @@ security:
             entity:
                 class: AppBundle:Client
                 property: username
-    role_hierarchy:
-        ROLE_ADMIN: ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        admin_db_provider:
+            entity:
+                class: AppBundle:User
+                property: username
+    role_hierarchy: %role_hierarchy%
     encoders:
         AppBundle\Entity\Contact: bcrypt
         AppBundle\Entity\Client: bcrypt
+        AppBundle\Entity\User: bcrypt
         Symfony\Component\Security\Core\User\User: bcrypt
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        admin:
+            pattern: ^/(admin|api|crud)
+            provider: admin_db_provider
+            anonymous: ~
+            form_login:
+                login_path: admin-login-form
+                check_path: admin-login-form
+            json_login:
+                check_path: /api/login
         shop:
-            pattern: ^/([a-z]{2,3}\/(cart|shop|order)|shop/(login|register|password-request))
+            pattern: ^/([a-z]{2,3}\/(getterms|cart|shop|order|commande|bestellen|ordine|orden)|shop/(login|register|password-request))
             provider: shop_db_provider
             anonymous: ~
             json_login:
@@ -50,4 +64,5 @@ security:
     access_control:
         - { path: ^/api, role: ROLE_ADMIN}
         - { path: ^/crud, role: ROLE_ADMIN}
-        - { path: ^/admin, role: ROLE_ADMIN}
+        - { path: ^/admin/_trans, role: ROLE_ADMIN}
+        - { path: ^/admin#/*, role: ROLE_ADMIN}

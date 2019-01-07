@@ -57,10 +57,10 @@ class CalendarController extends Controller
         "A" => "#55C055",
         "W" => "#00B6E8",
         "TP" => "#FFA500",
-        "B" => "#0D0479",
+        "B" => "#418ef4",
         "RI" => "#008000",
         "FA" => "#8833CC",
-        "P" => "#671C43",
+        "P" => "#e541f4",
         "R" => "#31BF31",
         "J" => "#F7F752",
         "L" => "#AD58F2",
@@ -129,6 +129,9 @@ class CalendarController extends Controller
         $calendarURL = $this->generateUrl('calendar-'.$request->getLocale());
 
         $page = $this->pageService->getContentFromRequest($request);
+        if (!$page) {
+            throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
+        }
         $availableLocales = $this->pageService->getAvailableLocales($page);
 
         $countriesJSON = array();
@@ -318,7 +321,7 @@ class CalendarController extends Controller
                     [
                         'Arriv' => [
                             'Transport' => $a['transport'],
-                            'Navette' => (array_key_exists('navette', $a)) ? ($a['navette']) : '',
+                            'Navette' => (array_key_exists('navette', $a)) ? ($a['navette'] == 'true') : '',
                             'Lieu' => $a['lieu'],
                             'Heure' => ($a['arriv'] !== '') ? explode(':', $a['arriv'])[0]: '',
                             'Mn' => ($a['arriv'] !== '') ? explode(':', $a['arriv'])[1]: '',
@@ -366,12 +369,27 @@ class CalendarController extends Controller
             $contact->setUsername($attendee['username']);
         }
 
-        if ($attendee['password'] !== '') {
-            $password = $this->encoder->encodePassword($contact, $attendee['password']);
-            $contact->setPassword($password);
-        }
+        $password = array_key_exists('password', $attendee) && $attendee['password'] !== ''
+            ? $attendee['password']
+            : $this->randomPassword(8);
+        
+        $passwordEncoded = $this->encoder->encodePassword($contact, $password);
+        $contact->setPassword($passwordEncoded);
 
         return $contact;
+    }
+
+    private function randomPassword($length)
+    {
+        $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+        $pass = array();
+        $alphaLength = strlen($alphabet) - 1;
+
+        for ($i = 0; $i < $length; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return implode($pass);
     }
 
     private function refCal($count, $site)
@@ -565,6 +583,9 @@ class CalendarController extends Controller
         $retreatsData = $this->getRetreatsData($calendarRepo);
 
         $page = $this->pageService->getContentFromRequest($request);
+        if (!$page) {
+            throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
+        }
         $availableLocales = $this->pageService->getAvailableLocales($page);
         return $this->render('default/calendar.html.twig', [
                 'page' => $page,
@@ -573,7 +594,7 @@ class CalendarController extends Controller
                 'speakers' => $filters['speakers'],
                 'translations' => $filters['translations'],
                 'retreatsData' => json_encode($retreatsData),
-                'availableLocales' => array()
+                'availableLocales' => $availableLocales
             ]);
     }
 }

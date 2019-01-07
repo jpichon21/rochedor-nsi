@@ -84,11 +84,10 @@ function updateYouFormRender () {
 function updateAmountRender () {
   $('.amount-render').html(amountTemplate({
     amount: _amount,
-    allocation: _allocation
+    allocation: _allocation,
+    reduction: i18n.trans('gift.summary.reduction').replace('%reduction%', parseFloat(_amount * 0.66).toFixed(2))
   }))
 }
-
-updateAmountRender()
 
 /* Actions */
 
@@ -139,11 +138,17 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
   event.preventDefault()
   upLoader()
   resetLogin({
-    email: $('.username', this).val()
+    email: $('.email', this).val(),
+    firstname: $('.firstname', this).val(),
+    lastname: $('.lastname', this).val()
   }).then(() => {
     downLoader()
     upFlashbag(i18n.trans('security.check_inbox'))
   })
+    .catch((err) => {
+      downLoader()
+      upFlashbag(i18n.trans(err))
+    })
 })
 
 itemConnection.on('click', '.cancel', function (event) {

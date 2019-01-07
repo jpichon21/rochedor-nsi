@@ -1,6 +1,8 @@
+/* global flashbags */
 import $ from 'jquery'
 import JsBarcode from 'jsbarcode'
 import 'jquery-zoom-js'
+import { upFlashbag } from './popup'
 
 JsBarcode('.barcode').init()
 $('.slide .image').zoom()
@@ -44,3 +46,8 @@ $('.carousel .prev, .carousel .next').on('click', function () {
   let direction = $(this).hasClass('prev') ? 'prev' : 'next'
   changeThumb(direction)
 })
+
+// Displays flashbags
+if (flashbags.length > 0) {
+  upFlashbag(flashbags.join('<br>'))
+}

@@ -467,9 +467,8 @@
       </notes>
       <segment>
         <source>calendar.registration.three.body</source>
-        <target><![CDATA[
-					
-        <p>Une réponse à votre demande vous sera transmise prochainement par e-mail ou par courrier postal si vous ne disposez pas d'une adresse e-mail. Cette réponse dépend essentiellement des places encore disponibles et de notre capacité à vous accueillir dans les meilleures conditions.</p><p><i>Protection des données personnelles: la Roche d'Or s'engage à être le seul et unique destinataire des informations que vous venez de lui communiquer. Pour plus d'information, merci de vous reporter à notre politique de confidentialité qui prend en compte les exigences de la réglementation européenne sur la protection des données (RGPD)</i></p>
+        <target><![CDATA[					
+        <p><strong>Une réponse à votre demande vous sera transmise prochainement</strong> par e-mail ou par courrier postal si vous ne disposez pas d'une adresse e-mail. Cette réponse dépend essentiellement des places encore disponibles et de notre capacité à vous accueillir dans les meilleures conditions.</p><p>Si vous ne recevez pas de mail d'ici ces quelques minutes, veuillez vérifier votre dossier SPAM.</p><p><i>Protection des données personnelles: la Roche d'Or s'engage à être le seul et unique destinataire des informations que vous venez de lui communiquer. Pour plus d'information, merci de vous reporter à notre politique de confidentialité qui prend en compte les exigences de la réglementation européenne sur la protection des données (RGPD)</i></p>
         
 				]]></target>
       </segment>
@@ -562,7 +561,7 @@
       </notes>
       <segment>
         <source>form.password</source>
-        <target>Mot de passe</target>
+        <target>Mot de passe (8 caractères minimum) </target>
       </segment>
     </unit>
     <unit id="3NTTDax" name="form.ok">
@@ -756,7 +755,7 @@
       </notes>
       <segment>
         <source>form.username</source>
-        <target>Nom d'utilisateur</target>
+        <target>Identifiant</target>
       </segment>
     </unit>
     <unit id="bThUzo_" name="form.modify">
@@ -1032,8 +1031,7 @@
     <unit id="N_ACgte" name="calendar.registration.intro">
       <segment>
         <source>calendar.registration.intro</source>
-        <target><![CDATA[
-					Vous êtes sur le point de vous inscrire à une retraite. Complétez les informations suivantes si vous souhaitez continuer, sinon retourner au <a href="%link%">calendrier</a>.
+        <target><![CDATA[					Vous êtes sur le point de vous inscrire à une retraite.<br> Complétez les informations suivantes si vous souhaitez continuer, sinon pour retourner au calendrier cliquer <a href="%link%">ici</a>.
 				]]></target>
       </segment>
     </unit>
@@ -2236,7 +2234,7 @@
     <unit id="bI8gjQ5" name="order-return.success">
       <segment>
         <source>order-return.success</source>
-        <target><![CDATA[Votre commande a bien été enregistrée.<br>Vous recevrez un mail de confirmation dans quelques minutes.<br>Retour aux <a href="%link%">collections</a>.]]></target>
+        <target><![CDATA[<br>Vous recevrez un mail de confirmation dans quelques minutes.<br>Si vous ne recevez pas de mail d'ici ces quelques minutes, veuillez vérifier votre dossier SPAM.<br>Retour aux <a href="%link%">collections</a>.]]></target>
       </segment>
     </unit>
     <unit id="VbHIGnV" name="order-return.cancel">
@@ -2513,6 +2511,233 @@
       <segment>
         <source>gift.one.title.registration</source>
         <target>Inscription</target>
+      </segment>
+    </unit>
+    <unit id="mccDfNi" name="gift.summary.reduction">
+      <segment>
+        <source>gift.summary.reduction</source>
+        <target>Si je suis imposable, ce don me revient à %reduction% € après déduction fiscale.</target>
+      </segment>
+    </unit>
+    <unit id="kwp2jus" name="global.page-not-found">
+      <segment>
+        <source>global.page-not-found</source>
+        <target>La page à laquelle vous tentez d'accéder, n'existe plus ou a été déplacée.</target>
+      </segment>
+    </unit>
+    <unit id="..asBgy" name="errors.not-found.title">
+      <segment>
+        <source>errors.not-found.title</source>
+        <target>Page introuvable</target>
+      </segment>
+    </unit>
+    <unit id="iPFuef3" name="errors.not-found.intro">
+      <segment>
+        <source>errors.not-found.intro</source>
+        <target><![CDATA[La page à laquelle vous tentez d'accéder n'existe plus.<br>
+<a href="%link%">Retourner à la page d'accueil.</a>]]></target>
+      </segment>
+    </unit>
+    <unit id="o1xwBMD" name="errors.unknown.title">
+      <segment>
+        <source>errors.unknown.title</source>
+        <target>Erreur</target>
+      </segment>
+    </unit>
+    <unit id="8bM_dS3" name="errors.unknown.intro">
+      <segment>
+        <source>errors.unknown.intro</source>
+        <target><![CDATA[Une erreur est survenue.<br>
+<a href="%link%">Retourner à la page d'accueil.</a>]]></target>
+      </segment>
+    </unit>
+    <unit id="o3R9FHH" name="cart.product.added">
+      <segment>
+        <source>cart.product.added</source>
+        <target>Le produit a été ajouté au panier</target>
+      </segment>
+    </unit>
+    <unit id="ILZzkFr" name="order.accept-terms.title">
+      <segment>
+        <source>order.accept-terms.title</source>
+        <target>Conditions générales de vente</target>
+      </segment>
+    </unit>
+    <unit id="XPYZoBX" name="order.accept-terms.label">
+      <segment>
+        <source>order.accept-terms.label</source>
+        <target>J'accepte les CGV</target>
+      </segment>
+    </unit>
+    <unit id="64plJkn" name="order.accept-terms.link">
+      <segment>
+        <source>order.accept-terms.link</source>
+        <target>Lire les conditions générales de vente.</target>
+      </segment>
+    </unit>
+    <unit id="aKTuNcB" name="footer.terms">
+      <segment>
+        <source>footer.terms</source>
+        <target>Conditions générales de vente</target>
+      </segment>
+    </unit>
+    <unit id="l4A0hfj" name="global.secure-datas">
+      <segment>
+        <source>global.secure-datas</source>
+        <target>Sécurité des données</target>
+      </segment>
+    </unit>
+    <unit id="mo2Qk4k" name="order.accept-terms.disclaimer">
+      <segment>
+        <source>order.accept-terms.disclaimer</source>
+        <target><![CDATA[Pour terminer votre commande, vous devez accepter nos conditions générales de ventes.<br>
+<a href="%link%" class="accept-terms-link" target="_blank">Voir les conditions générales de ventes.</a>]]></target>
+      </segment>
+    </unit>
+    <unit id="WSRB_P4" name="global.tax-code">
+      <segment>
+        <source>global.tax-code</source>
+        <target><![CDATA[Si vous êtes imposable en France et dans les pays européens qui le permettent, vous bénéficiez d'une réduction d'impôt.<br>
+Si vous relevez de la fiscalité française, la réduction est équivalente à 66 % du montant de votre don, dans la limite de 20 % du revenu imposable. L’excédent peut être reporté sur les 5 années suivantes et ouvre droit à la réduction d’impôt dans les mêmes conditions (Article 200 du CGI). Pour accéder au Code Général des Impôts, cliquer <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=
+LEGIARTI000018619914&cidTexte=LEGITEXT000006069577" target="_blank">ICI</a>.<br>
+Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu aux dons et versements consentis au profit d’organismes étrangers établis dans un État membre de l’Union européenne ou dans un État membre de l’Espace économique européen ayant conclu avec la France une convention fiscale comportant une clause d’assistance administrative en vue de lutter contre la fraude ou l’évasion fiscale. Ceci est par exemple le cas pour la Belgique (en citer d’autres)]]></target>
+      </segment>
+    </unit>
+    <unit id="I3qXsyQ" name="security.email_exists">
+      <segment>
+        <source>security.email_exists</source>
+        <target>Cette adresse email est déjà utilisée</target>
+      </segment>
+    </unit>
+    <unit id="qr0aiUo" name="Invalid credentials.">
+      <segment>
+        <source>Invalid credentials.</source>
+        <target>Identifiants invalides</target>
+      </segment>
+    </unit>
+    <unit id="oRrFAdo" name="form.particular">
+      <segment>
+        <source>form.particular</source>
+        <target>Particulier</target>
+      </segment>
+    </unit>
+    <unit id="U_hF9qB" name="form.professional">
+      <segment>
+        <source>form.professional</source>
+        <target>Professionnel</target>
+      </segment>
+    </unit>
+    <unit id="GijUdK7" name="footer.termsPro">
+      <segment>
+        <source>footer.termsPro</source>
+        <target>Conditions générales de vente à destination des professionnels</target>
+      </segment>
+    </unit>
+    <unit id="RXbgqwH" name="form.statut">
+      <segment>
+        <source>form.statut</source>
+        <target>Statut</target>
+      </segment>
+    </unit>
+    <unit id="RbBuoVS" name="form.statut.par">
+      <segment>
+        <source>form.statut.par</source>
+        <target>Particulier</target>
+      </segment>
+    </unit>
+    <unit id="_oSZqds" name="form.statut.org">
+      <segment>
+        <source>form.statut.org</source>
+        <target>Organisation</target>
+      </segment>
+    </unit>
+    <unit id="u5UgI6X" name="form.statut.pro">
+      <segment>
+        <source>form.statut.pro</source>
+        <target>Professionnel</target>
+      </segment>
+    </unit>
+    <unit id="_bAL1ap" name="form.pro">
+      <segment>
+        <source>form.pro</source>
+        <target>Je suis un professionnel</target>
+      </segment>
+    </unit>
+    <unit id="i6uKRyT" name="form.password-height">
+      <segment>
+        <source>form.password-height</source>
+        <target>Mot de passe (8 caractères requis)</target>
+      </segment>
+    </unit>
+    <unit id="TER1oiM" name="order-return.success-p1">
+      <segment>
+        <source>order-return.success-p1</source>
+        <target><![CDATA[
+        <p>Votre commande est bien enregistrée sous le numéro %refCom% et nous vous en remercions. Nous vous invitons à conserver ce numéro qui vous sera demandé pour toute question relative à votre commande.</p>
+        <p>Les livraisons sont effectuées dans un délai de quelques jours ouvrés à compter de la réception du paiement de votre commande.</p>
+        Votre commande sera livrée à l'adresse suivante :
+        <br>
+        <br>
+        <center>%addCom%</center>
+        <br>
+        <p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p>
+        <p>Avec toute notre sympathie</p>
+        <p>L'équipe des Éditions Roche d’Or</p> 
+        ]]></target>
+      </segment>
+    </unit>
+    <unit id="1xgOZ62" name="form.submitParticipant">
+      <segment>
+        <source>form.submitParticipant</source>
+        <target>Valider le participant</target>
+      </segment>
+    </unit>
+    <unit id="6F6bhIE" name="calendar.registration.table.header.participant">
+      <segment>
+        <source>calendar.registration.table.header.participant</source>
+        <target>Partic</target>
+      </segment>
+    </unit>
+    <unit id="9wc0Ipn" name="form.mail_spam">
+      <segment>
+        <source>form.mail_spam</source>
+        <target>Si vous n'avez reçu aucun mail, vérifier votre dossier SPAM</target>
+      </segment>
+    </unit>
+    <unit id="gJ0U0Pz" name="calendar.registration.table.header.transport">
+      <segment>
+        <source>calendar.registration.table.header.transport</source>
+        <target>Mode de transport</target>
+      </segment>
+    </unit>
+    <unit id="LGLNIkX" name="calendar.registration.table.header.come">
+      <segment>
+        <source>calendar.registration.table.header.come</source>
+        <target>Arrivée à</target>
+      </segment>
+    </unit>
+    <unit id="b.kM3a." name="calendar.registration.table.header.schedule">
+      <segment>
+        <source>calendar.registration.table.header.schedule</source>
+        <target>Horaire</target>
+      </segment>
+    </unit>
+    <unit id="OTuFOuF" name="calendar.registration.two.title ">
+      <segment>
+        <source>calendar.registration.two.title </source>
+        <target>Participants</target>
+      </segment>
+    </unit>
+    <unit id="i6uzrzreKRyT" name="order.notify.client.roche.adliv">
+      <segment>
+        <source>order.notify.client.roche.adliv</source>
+        <target>Retrait à La Roche d'Or — 1 Chemin du Muenot 25000 Besançon (FR)</target>
+      </segment>
+    </unit>
+    <unit id="i6uzrzrggeKRyT" name="order.notify.client.font.adliv">
+      <segment>
+        <source>order.notify.client.font.adliv</source>
+        <target>Retrait aux Fontanilles — Route de Riunoguès 66480 Maureillas Las Illas (FR)</target>
       </segment>
     </unit>
   </file>

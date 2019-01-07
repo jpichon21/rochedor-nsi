@@ -7,10 +7,11 @@ import { Table, TableBody, TableCell, TableHead, TableRow, Tooltip, Button, Circ
 import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, Redirect } from 'react-router-dom'
 import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
 import { locales } from '../../locales'
+import IsAuthorized, { ACTION_PAGE_VIEW, ACTION_PAGE_CREATE, ACTION_PAGE_EDIT } from '../../isauthorized/isauthorized'
 
 export class PageList extends React.Component {
   constructor (props) {
@@ -53,11 +54,13 @@ export class PageList extends React.Component {
           <TableRow key={page.id}>
             <TableCell>
               {`${page.title} ${page.sub_title}`}
-              <NavLink
-                className={classes.link}
-                to={`/page-edit/${page.id}`}>
-                Modifier
-              </NavLink>
+              <IsAuthorized action={ACTION_PAGE_EDIT}>
+                <NavLink
+                  className={classes.link}
+                  to={`/page-edit/${page.id}`}>
+                  Modifier
+                </NavLink>
+              </IsAuthorized>
             </TableCell>
             <TableCell>{page.routes[0].static_prefix}<a className={classes.link} target='_blank' href={`${page.routes[0].static_prefix}`}>Aperçu</a></TableCell>
             <TableCell>{Moment(page.updated).format('DD/MM/YY')}</TableCell>
@@ -66,46 +69,50 @@ export class PageList extends React.Component {
       })
     return (
       <div>
-        <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Liste des pages'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
-        <div className={classes.container}>
-          <Paper className={classes.paper}>
-            {
-              this.props.loading
-                ? <CircularProgress size={50} />
-                : (
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Titre</TableCell>
-                        <TableCell>URL</TableCell>
-                        <TableCell>Dernière modification</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {items}
-                    </TableBody>
-                  </Table>
-                )
-            }
-          </Paper>
-          <div className={classes.buttons}>
-            <Tooltip
-              enterDelay={300}
-              id='tooltip-controlled'
-              leaveDelay={100}
-              onClose={this.handleTooltipClose}
-              onOpen={this.handleTooltipOpen}
-              open={this.state.open}
-              placement='bottom'
-              title='Ajouter une page'
-            >
-              <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/page-create'}>
-                <AddIcon />
-              </Button>
-            </Tooltip>
+        <IsAuthorized action={ACTION_PAGE_VIEW} alternative={<Redirect to={'/'} />}>
+          <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
+          <AppMenu title={'Liste des pages'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
+          <div className={classes.container}>
+            <Paper className={classes.paper}>
+              {
+                this.props.loading
+                  ? <CircularProgress size={50} />
+                  : (
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Titre</TableCell>
+                          <TableCell>URL</TableCell>
+                          <TableCell>Dernière modification</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {items}
+                      </TableBody>
+                    </Table>
+                  )
+              }
+            </Paper>
+            <div className={classes.buttons}>
+              <IsAuthorized action={ACTION_PAGE_CREATE}>
+                <Tooltip
+                  enterDelay={300}
+                  id='tooltip-controlled'
+                  leaveDelay={100}
+                  onClose={this.handleTooltipClose}
+                  onOpen={this.handleTooltipOpen}
+                  open={this.state.open}
+                  placement='bottom'
+                  title='Ajouter une page'
+                >
+                  <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/page-create'}>
+                    <AddIcon />
+                  </Button>
+                </Tooltip>
+              </IsAuthorized>
+            </div>
           </div>
-        </div>
+        </IsAuthorized>
       </div>
     )
   }

@@ -369,10 +369,11 @@ h2 {
           font-size: 12px;
           text-transform: uppercase;
           border: 1px $roche-brown solid;
-          background-image: url('../img/tags-brown.png');
+          background-image: url('../img/button-radio-unchecked-black.png');
           background-position: calc(100% - 20px) center;
           background-repeat: no-repeat;
           box-sizing: border-box;
+          background-size: auto 14px;
           cursor: pointer;
         }
         input {
@@ -380,7 +381,7 @@ h2 {
           &:checked + label {
             color: $roche-orange;
             border-color: $roche-orange;
-            background-image: url('../img/tags-crossed-orange.png');
+            background-image: url('../img/button-radio-checked-orange.png');
           }
         }
       }
@@ -588,6 +589,7 @@ h2 {
       a {
         color: $roche-orange;
         border-bottom: 1px #ffb170 solid;
+        text-decoration: none;
       }
       hr {
         border-bottom: 1px #000000 solid;
@@ -634,6 +636,29 @@ h2 {
           color: $roche-orange;
           border-color: $roche-orange;
         }
+        &.radio {
+          background-image: url('button-radio-black-unchecked.png');
+          color: #000;
+          border-color: #000;
+          float: left;
+          &.checked {
+            background-image: url('button-radio-black-checked.png');
+            color: #000;
+            border-color: #000;
+          }
+        }
+      }
+      .accept-terms-link {
+        display: table !important;
+        width: auto !important;
+        padding-top:15px;
+        margin-bottom: 30px;
+      }
+      .secure-link {
+        background: url('lock-black.png') no-repeat 15px 5px;
+        background-size: 20px;
+        border-color: #000;
+        color: #000;
       }
       .panel {
         &:before {
@@ -666,4 +691,10 @@ h2 {
     color: $roche-orange;
     border: 1px $roche-orange solid;
   }
+}
+
+.content .dropdown .item .button.radio.checked {
+  background-image: url('../button-radio-checked-orange.png');
+  color: #ef7d1d;
+  border-color: #ef7d1d;
 }

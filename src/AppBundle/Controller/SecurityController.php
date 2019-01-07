@@ -142,6 +142,15 @@ class SecurityController extends Controller
         ContactService $contactService
     ) {
         $contactReq = $request->get('contact');
+        
+        if (!$this->isBadPassword($contactReq['password'])) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'user.security_password']);
+        }
+
+        if (!$this->isToShortPassword($contactReq['password'])) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.password_too_small']);
+        }
+        
         if (!$contactReq) {
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide contact object']);
         }
@@ -303,10 +312,10 @@ class SecurityController extends Controller
         if (!$contacts = $repository->findContactByInfos($email, $lastname, $firstname)) {
             return new JsonResponse(['status' => 'ko', 'message' => 'security.password_request.not_found']);
         }
-        $token = sha1(random_bytes(15));
         $expiresAt = new \DateTime();
         $expiresAt->add(new \DateInterval('PT4H'));
         foreach ($contacts as $contact) {
+            $token = sha1(random_bytes(15));
             $contact->setResetToken($token)
             ->setResetTokenExpiresAt($expiresAt);
             
@@ -398,5 +407,21 @@ class SecurityController extends Controller
         $now = new \DateTime();
         $diff = $datnaiss->diff($now);
         return ($diff->y >= $this::YEARS_ADULT);
+    }
+
+    private function isBadPassword(string $password)
+    {
+        if ($password === "") {
+            return false;
+        }
+        return true;
+    }
+
+    private function isToShortPassword(string $password)
+    {
+        if (strlen($password) < 8) {
+            return false;
+        }
+        return true;
     }
 }

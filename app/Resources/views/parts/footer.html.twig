@@ -25,7 +25,30 @@
                 <span>Les Editions Roche d'Or</span>
                 <a href="#">Les nouveautés</a>
                 <a href="#">Les collections</a>
-                <a href="#">Conditions générales de vente</a>
+                {% if
+                    routeExists('cgv')
+                    and (
+                        product is defined
+                        or (
+                            page is defined
+                            and page.type == 'editions'
+                        )
+                    )
+                %}
+                <a href="{{ path('cgv') }}">{{ 'footer.terms'|trans }}</a>
+                {% endif %}
+                {% if
+                    routeExists('cgv-pro')
+                    and (
+                        product is defined
+                        or (
+                            page is defined
+                            and page.type == 'editions'
+                        )
+                    )
+                %}
+                <a href="{{ path('cgv-pro') }}">{{ 'footer.termsPro'|trans }}</a>
+                {% endif %}
             </div>
             <div class="column">
                 <span>Informations pratiques</span>

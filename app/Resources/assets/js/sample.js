@@ -1,4 +1,7 @@
 const contact = {
+  professionnel: '',
+  tvaintra: '',
+  societe: '',
   nom: '',
   prenom: '',
   newfich: false,

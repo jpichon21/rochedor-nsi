@@ -54,6 +54,12 @@ class OrderController extends Controller
         '127.0.0.1'
     ];
     const TVASHIPMENT = 20;
+    
+    const FREE_SHIPPING_EXCEPTION = [
+        'Roche',
+        'Font',
+    ];
+
     /**
      * @var Mailer
      */
@@ -149,21 +155,20 @@ class OrderController extends Controller
     }
 
     /**
-     * @Rest\Get("/xhr/order/vat/{vat}/{countryCode}", name="get_vat")
+     * @Rest\Get("/xhr/order/vat/{vat}", name="get_vat")
      * @Rest\View()
     */
-    public function xhrTestVAT(Request $request, $vat, $countryCode)
+    public function xhrTestVAT(Request $request, $vat)
     {
-
+        $vat = str_replace(' ', '', $vat);
         $client = new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl");
         $result = $client->checkVat(array(
-            'countryCode' => $countryCode,
-            'vatNumber' => $vat
+            'countryCode' => substr($vat, 0, 2),
+            'vatNumber' => substr($vat, 2, 11)
         ));
         if ($result->valid) {
             return ['status' => 'ok'];
         }
-        exit();
         
         return ['status' => 'ko','error' => 'your tvaIntra didnt exist'];
     }
@@ -218,7 +223,8 @@ class OrderController extends Controller
         ->setTel($client['tel'])
         ->setMobil($client['mobil'])
         ->setEmail($client['email'])
-        ->setSociete($client['societe']);
+        ->setSociete($client['societe'])
+        ->setProfessionnel($client['professionnel']);
         $em->persist($customer);
         $em->flush();
         return ['status' => 'ok', 'data' => $customer];
@@ -272,7 +278,7 @@ class OrderController extends Controller
                 $i++;
             }
         }
-        $shippingPriceData = $this->findShipping($totalWeight, $country);
+        $shippingPriceData = $this->findShipping($totalWeight, $country, $destliv);
         $packagingWeight = $shippingPriceData['supplementWeight'];
         $shippingPriceIT = $shippingPriceData['price'];
         $data['packagingWeight'] = $packagingWeight;
@@ -286,9 +292,9 @@ class OrderController extends Controller
         return $data;
     }
 
-    private function findShipping($weight, $country)
+    private function findShipping($weight, $country, $destliv)
     {
-        if ($country === 'Font' || $country === 'Roche') {
+        if (in_array($destliv, $this::FREE_SHIPPING_EXCEPTION)) {
             return ['supplementWeight' => 0, 'price' => 0];
         }
         $supplementWeight = $this->shippingRepository->findWeight($weight, $country);
@@ -375,17 +381,44 @@ class OrderController extends Controller
         $cart = $this->cartRepository->find($cartId);
         
         
-        if ($status === 'success') {
-            $this->em->remove($cart);
-            $this->em->flush();
-            $session->remove('cart');
-        }
 
-        return $this->render('order/payment-return.html.twig', [
-            'status' => $status,
-            'method' => $method,
-            'cartCount' => $this->cartService->getCartCount()
-        ]);
+        if ($status === 'success') {
+            if ($cart) {
+                $this->em->remove($cart);
+                $this->em->flush();
+                $session->remove('cart');
+            }
+        }
+        
+        if (null !== $request->query->get('Ref')) {
+            $commande = $this
+                        ->commandeRepository
+                        ->findByRef($request->query->get('Ref'));
+
+         
+
+            if ($commande->getDestLiv() === "Roche") {
+                $addCom = $this->translator->trans('order.notify.client.roche.adliv');
+            } elseif ($commande->getDestLiv() === "Font") {
+                $addCom = $this->translator->trans('order.notify.client.font.adliv');
+            } else {
+                $addCom = $commande->getAdLiv();
+            }
+
+            return $this->render('order/payment-return.html.twig', [
+                'refCom' => $commande->getRefCom(),
+                'addCom' =>  $addCom,
+                'status' => $status,
+                'method' => $method,
+                'cartCount' => $this->cartService->getCartCount()
+            ]);
+        } else {
+            return $this->render('order/payment-return.html.twig', [
+                'status' => $status,
+                'method' => $method,
+                'cartCount' => $this->cartService->getCartCount()
+            ]);
+        }
     }
 
     /**
@@ -575,7 +608,11 @@ class OrderController extends Controller
     }
      
     /**
-     * @Route("/{_locale}/order", name="order-fr")
+     * @Route("/{_locale}/commande", name="order-fr")
+     * @Route("/{_locale}/order", name="order-en")
+     * @Route("/{_locale}/bestellen", name="order-de")
+     * @Route("/{_locale}/ordine", name="order-it")
+     * @Route("/{_locale}/orden", name="order-es")
      */
     public function orderAction(Request $request)
     {
@@ -607,6 +644,9 @@ class OrderController extends Controller
         }
         
         $page = $this->pageService->getContentFromRequest($request);
+        if (!$page) {
+            throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
+        }
         $availableLocales = $this->pageService->getAvailableLocales($page);
         return $this->render('order/order.html.twig', [
             'cart' => $this->cartRepository->find($cartId),

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { getPage, putPage, deletePage, setTitle, setLocale, initStatus, getPageTranslations } from '../../actions'
+import { getContent, putContent, setTitle, setLocale, initStatus, getContentTranslations } from '../../actions'
 import ContentForm from '../content-form/content-form'
 import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
@@ -19,7 +19,6 @@ export class ContentEdit extends React.Component {
       snackbarContent: ''
     }
     this.onSubmit = this.onSubmit.bind(this)
-    this.onDelete = this.onDelete.bind(this)
     this.onVersionChange = this.onVersionChange.bind(this)
     this.onLocaleChange = this.onLocaleChange.bind(this)
     this.handleClose = this.handleClose.bind(this)
@@ -28,8 +27,8 @@ export class ContentEdit extends React.Component {
 
   componentDidMount () {
     const { match: { params } } = this.props
-    this.props.dispatch(getPage(params.pageId))
-    this.props.dispatch(getPageTranslations(params.pageId))
+    this.props.dispatch(getContent(params.pageId))
+    this.props.dispatch(getContentTranslations(params.pageId))
   }
 
   componentWillReceiveProps (nextProps) {
@@ -39,7 +38,7 @@ export class ContentEdit extends React.Component {
     }
     if (nextProps.page !== null && this.props.page !== null) {
       if (nextProps.page.id !== this.props.page.id) {
-        this.props.dispatch(getPageTranslations(nextProps.page.id))
+        this.props.dispatch(getContentTranslations(nextProps.page.id))
       }
     }
     if (nextProps.translations) {
@@ -57,34 +56,30 @@ export class ContentEdit extends React.Component {
   }
 
   onSubmit (page) {
-    this.props.dispatch(putPage(page)).then((res) => {
-      this.setState({snackbarContent: 'Page enregistrée et publiée', snackbarOpen: true})
-      this.props.dispatch(getPage(page.id))
+    this.props.dispatch(putContent(page)).then((res) => {
+      this.setState({snackbarContent: 'Contenu enregistré et publié', snackbarOpen: true})
+      this.props.dispatch(getContent(page.id))
     })
   }
 
   onVersionChange (page, version) {
-    this.props.dispatch(getPage(page.id, version))
+    this.props.dispatch(getContent(page.id, version))
   }
 
   onLocaleChange (locale) {
     if (locale === 'fr') {
-      this.props.dispatch(getPage(this.props.page.parent.id))
+      this.props.dispatch(getContent(this.props.page.parent.id))
       this.props.history.push(`/content-edit/${this.props.page.parent.id}`)
     } else {
       const ts = this.props.translations
       for (let k in ts) {
         if (ts[k].locale === locale) {
-          this.props.dispatch(getPage(ts[k].id))
+          this.props.dispatch(getContent(ts[k].id))
           this.props.history.push(`/content-edit/${ts[k].id}`)
         }
       }
     }
     this.props.dispatch(setLocale(locale))
-  }
-
-  onDelete (page) {
-    this.props.dispatch(deletePage(page))
   }
 
   handleClose () {
@@ -115,7 +110,7 @@ export class ContentEdit extends React.Component {
             </Button>
           }
         />
-        <ContentForm page={this.props.page} submitHandler={this.onSubmit} deleteHandler={this.onDelete} versionHandler={this.onVersionChange} edit translations={this.props.translations} />
+        <ContentForm page={this.props.page} submitHandler={this.onSubmit} versionHandler={this.onVersionChange} edit translations={this.props.translations} />
       </div>
     )
   }

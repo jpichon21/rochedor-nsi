@@ -12,8 +12,15 @@
       .select-allocation {
         margin-bottom: 0;
       }
+      .secure-link {
+        background: url('lock.png') no-repeat 15px 5px;
+        background-size: 20px;
+      }
     }
   }
+}
+.tax-link, .tax-link:visited {
+  color: #fff;
 }
 .modify-you {
   display: table;
@@ -94,5 +101,14 @@
         }
       }
     }
+  }
+}
+.reduction {
+  margin-bottom: 40px;
+  font-style: italic;
+  a, a:visited {
+    color: #faf28e;
+    text-decoration: none;
+    border-bottom: 1px solid #faf28e;
   }
 }

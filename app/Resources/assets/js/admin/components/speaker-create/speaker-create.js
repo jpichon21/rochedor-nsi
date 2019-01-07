@@ -5,6 +5,8 @@ import SpeakerForm from '../speaker-form/speaker-form'
 import AppMenu from '../app-menu/app-menu'
 import { locales } from '../../locales'
 import Alert from '../alert/alert'
+import IsAuthorized, { ACTION_SPEAKER_CREATE } from '../../isauthorized/isauthorized'
+import Redirect from 'react-router-dom/Redirect';
 
 export class SpeakerCreate extends React.Component {
   constructor (props) {
@@ -30,9 +32,11 @@ export class SpeakerCreate extends React.Component {
   render () {
     return (
       <div>
-        <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Ajout d\'un intervenant'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
-        <SpeakerForm locale={this.props.locale} />
+        <IsAuthorized action={ACTION_SPEAKER_CREATE} alternative={<Redirect to='/speaker-list' />}>
+          <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
+          <AppMenu title={'Ajout d\'un intervenant'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
+          <SpeakerForm locale={this.props.locale} />
+        </IsAuthorized>
       </div>
     )
   }

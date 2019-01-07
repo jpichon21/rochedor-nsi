@@ -103,7 +103,8 @@ class ShopSecurityController extends Controller
             'societe' => $client->getSociete(),
             'tvaintra' => $client->getTvaintra(),
             'memocli' => $client->getMemocli(),
-            'enregcli' => $client->getEnregcli()
+            'enregcli' => $client->getEnregcli(),
+            'professionnel' => $client->getProfessionnel()
         ]);
     }
 
@@ -124,11 +125,22 @@ class ShopSecurityController extends Controller
             return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);
         }
 
+
+        if (!$this->isBadPassword($clientReq['password'])) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'user.security_password']);
+        }
+
+
+        if (!$this->isToShortPassword($clientReq['password'])) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.password_too_small']);
+        }
+        
         $client = new Client();
         $password = $encoder->encodePassword($client, $clientReq['password']);
 
         $client
         ->setCivil($clientReq['civil'])
+        ->setProfessionnel($this->parsePro($clientReq['professionnel']))
         ->setNom($clientReq['nom'])
         ->setPrenom($clientReq['prenom'])
         ->setUsername($clientReq['username'])
@@ -167,7 +179,8 @@ class ShopSecurityController extends Controller
             'societe' => $client->getSociete(),
             'tvaintra' => $client->getTvaintra(),
             'memocli' => $client->getMemocli(),
-            'enregcli' => $client->getEnregcli()
+            'enregcli' => $client->getEnregcli(),
+            'professionnel' => $client->getProfessionnel()
         ]);
     }
 
@@ -183,9 +196,10 @@ class ShopSecurityController extends Controller
         if (!$clientReq) {
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide client object']);
         }
-        
+
         $client = $repository->findClient($clientReq['codcli']);
         $password = $encoder->encodePassword($client, $clientReq['password']);
+
 
         $client
         ->setCivil($clientReq['civil'])
@@ -198,6 +212,7 @@ class ShopSecurityController extends Controller
         ->setPays($clientReq['pays'])
         ->setTel($clientReq['tel'])
         ->setMobil($clientReq['mobil'])
+        ->setProfessionnel($this->parsePro($clientReq['professionnel']))
         ->setEmail($clientReq['email']);
         if ($clientReq['password'] !== '') {
             $client->setPassword($password);
@@ -227,7 +242,8 @@ class ShopSecurityController extends Controller
             'societe' => $client->getSociete(),
             'tvaintra' => $client->getTvaintra(),
             'memocli' => $client->getMemocli(),
-            'enregcli' => $client->getEnregcli()
+            'enregcli' => $client->getEnregcli(),
+            'professionnel' => $client->getProfessionnel()
         ]);
     }
 
@@ -273,6 +289,7 @@ class ShopSecurityController extends Controller
         }
         return new JsonResponse(['status' => 'ok', 'message' => 'The email has been sent']);
     }
+
     /**
     * @Route("/{_locale}/shop/password-reset/{token}",
     *   name="shop-password-reset",
@@ -321,5 +338,31 @@ class ShopSecurityController extends Controller
         return $this->render('security/password-reset.html.twig', array(
             'form' => $form->createView()
         ));
+    }
+
+    private function parsePro($professionnel)
+    {
+        if ($professionnel === "true") {
+            return true;
+        }
+        return false;
+    }
+
+    private function isBadPassword(string $password)
+    {
+        if ($password === "") {
+            return false;
+        }
+        return true;
+    }
+
+
+
+    private function isToShortPassword(string $password)
+    {
+        if (strlen($password) < 8) {
+            return false;
+        }
+        return true;
     }
 }

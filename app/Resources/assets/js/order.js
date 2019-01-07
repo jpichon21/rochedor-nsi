@@ -38,11 +38,13 @@ const _countries = JSON.parse($('.countries-json').html().trim())
 let _you = {}
 let _delivery = {}
 let _total = {}
+let _termsAccepted = false
 
 const itemConnection = $('.item.connection')
 const itemCard = $('.item.card')
 const itemShipping = $('.item.shipping')
 const itemPayment = $('.item.payment')
+const itemTerms = $('.item.terms')
 
 /* Dropdowns */
 
@@ -111,6 +113,16 @@ function updateYouFormRender () {
       i18n.trans('form.civilite.frere'),
       i18n.trans('form.civilite.pere'),
       i18n.trans('form.civilite.soeur')
+    ],
+    statutLabel: [
+      i18n.trans('form.statut.par'),
+      i18n.trans('form.statut.org'),
+      i18n.trans('form.statut.pro')
+    ],
+    statut: [
+      'par',
+      'org',
+      'pro'
     ]
   }))
 }
@@ -245,13 +257,9 @@ function validatePhone (phone, mobile) {
   return !(phone === '' && mobile === '')
 }
 
-function validatePro (societe, tvaintra) {
-  return (societe === '' && tvaintra === '') || (societe !== '' && tvaintra !== '')
-}
-
-function validateTvaintra (tvaintra, country) {
+function validateTvaintra (tvaintra) {
   return new Promise((resolve, reject) => {
-    checkVat(tvaintra, country).then(() => {
+    checkVat(tvaintra).then(() => {
       resolve()
     }).catch(() => {
       reject(i18n.trans('form.message.zipcode_invalid'))
@@ -290,39 +298,33 @@ function validateClient (event, context, callback) {
   const data = context.serializeArray()
   const participant = formatParticipant(data)
   const validatedPhone = validatePhone(participant.tel, participant.mobil)
-  const validatedPro = validatePro(participant.societe, participant.tvaintra)
   const validatedPassword = validatePassword(participant.password)
   if (validatedPassword !== true) {
     downLoader()
     upFlashbag(validatedPassword)
     return
   }
-  if (validatedPro) {
-    if (validatedPhone) {
-      if (participant.tvaintra !== '') {
-        validateTvaintra(participant.tvaintra, participant.pays).then(() => {
-          callback(participant)
+  if (validatedPhone) {
+    if (participant.tvaintra !== '') {
+      validateTvaintra(participant.tvaintra).then(() => {
+        callback(participant)
+      }).catch(() => {
+        downLoader()
+        upFlashbag(i18n.trans('form.message.tvaintra_invalid'))
+      })
+    } else {
+      return new Promise((resolve, reject) => {
+        checkZipcode(participant.pays, participant.cp, 'myAd').then(() => {
+          resolve(callback(participant))
         }).catch(() => {
           downLoader()
-          upFlashbag(i18n.trans('form.message.tvaintra_invalid'))
+          upFlashbag(i18n.trans('form.message.zipcode_invalid'))
         })
-      } else {
-        return new Promise((resolve, reject) => {
-          checkZipcode(participant.pays, participant.cp, 'myAd').then(() => {
-            resolve(callback(participant))
-          }).catch(() => {
-            downLoader()
-            upFlashbag(i18n.trans('form.message.zipcode_invalid'))
-          })
-        })
-      }
-    } else {
-      downLoader()
-      upFlashbag(i18n.trans('form.message.phone_invalid'))
+      })
     }
   } else {
     downLoader()
-    upFlashbag(i18n.trans('form.message.pro_invalid'))
+    upFlashbag(i18n.trans('form.message.phone_invalid'))
   }
 }
 
@@ -450,7 +452,7 @@ itemShipping.on('click', '.continue', function (event) {
       _total = data
       updateCartRender()
       updateDeliveryRender()
-      changeItem(itemPayment)
+      changeItem(itemTerms)      
     }).catch(error => {
       downLoader()
       if (error) {
@@ -463,6 +465,14 @@ itemShipping.on('click', '.continue', function (event) {
       upFlashbag(error)
     }
   })
+})
+
+itemTerms.on('click', '.accept-terms', function (event) {
+  event.preventDefault()
+  $(this).toggleClass('checked')
+  _termsAccepted = $(this).hasClass('checked')
+  $('.submit', itemPayment).attr('disabled', !_termsAccepted)
+  changeItem(itemPayment)
 })
 
 itemPayment.on('submit', 'form.payment', function (event) {
@@ -482,4 +492,22 @@ itemPayment.on('change', '.select-modpaie', function (event) {
   event.preventDefault()
   const data = $(this).val()
   _delivery.modpaie = data
+})
+
+itemConnection.on('click', '.newfich', function () {
+  const boolean = $(this).toggleClass('checked').hasClass('checked')
+  $('.newfich-wrapper .checkbox', itemConnection).val(boolean)
+})
+
+itemCard.on('click', '.newfich', function () {
+  const boolean = $(this).toggleClass('checked').hasClass('checked')
+  $('.newfich-wrapper .checkbox', itemCard).val(boolean)
+})
+
+itemConnection.on('click', '.panel.reset .cancel', function (event) {
+  event.preventDefault()
+  $('.panel.reset').slideUp(800, function () {
+    $(this).hide()
+    changeItem(itemConnection)
+  })
 })

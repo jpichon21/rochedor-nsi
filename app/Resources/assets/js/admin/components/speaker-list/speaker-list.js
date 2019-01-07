@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc'
-import { getSpeaker, getSpeakers, setSpeakerPosition, initStatus, setLocale } from '../../actions'
+import { getSpeakers, setSpeakerPosition, initStatus } from '../../actions'
 import { Table, TableBody, TableCell, TableHead, TableRow, Tooltip, Button, CircularProgress, Paper, Icon } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
@@ -11,13 +11,17 @@ import Moment from 'moment'
 import { NavLink, Link } from 'react-router-dom'
 import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
-import { locales } from '../../locales'
+import IsAuthorized, { ACTION_SPEAKER_EDIT, ACTION_SPEAKER_VIEW, ACTION_SPEAKER_CREATE } from '../../isauthorized/isauthorized'
+import Redirect from 'react-router-dom/Redirect'
 
 export class SpeakerList extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      alertOpen: false
+      alertOpen: false,
+      allowView: false,
+      alllowEdit: false,
+      allowCreate: false
     }
 
     this.handleClose = this.handleClose.bind(this)
@@ -60,10 +64,16 @@ export class SpeakerList extends React.Component {
           title='Réordonner par glisser déposer'
         >
           <TableCell style={{ 'width': '50px' }}>
-            <DragHandle />
+            <IsAuthorized action={ACTION_SPEAKER_EDIT} alternative={<Icon>not_interested</Icon>}>
+              <DragHandle />
+            </IsAuthorized>
           </TableCell>
         </Tooltip>
-        <TableCell><NavLink className={classes.link} to={`/speaker-edit/${speaker.id}`}>{speaker.name}</NavLink></TableCell>
+        <TableCell>
+          <IsAuthorized action={ACTION_SPEAKER_EDIT} alternative={speaker.name}>
+            <NavLink className={classes.link} to={`/speaker-edit/${speaker.id}`}>{speaker.name}</NavLink>
+          </IsAuthorized>
+        </TableCell>
       </TableRow>
     )
 
@@ -79,43 +89,47 @@ export class SpeakerList extends React.Component {
 
     return (
       <div>
-        <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu title={'Liste des intervenants'} />
-        <div className={classes.container}>
-          <Paper className={classes.paper}>
-            {
-              this.props.loading
-                ? <CircularProgress size={50} />
-                : (
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Réordonner</TableCell>
-                        <TableCell>Nom</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <SortableList speakers={this.props.speakers} onSortEnd={this.onSortEnd} useDragHandle />
-                  </Table>
-                )
-            }
-          </Paper>
-          <div className={classes.buttons}>
-            <Tooltip
-              enterDelay={300}
-              id='tooltip-controlled'
-              leaveDelay={100}
-              onClose={this.handleTooltipClose}
-              onOpen={this.handleTooltipOpen}
-              open={this.state.open}
-              placement='bottom'
-              title='Ajouter un intervenant'
-            >
-              <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/speaker-create'}>
-                <AddIcon />
-              </Button>
-            </Tooltip>
+        <IsAuthorized action={ACTION_SPEAKER_VIEW} alternative={<Redirect to='/' />}>
+          <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
+          <AppMenu title={'Liste des intervenants'} />
+          <div className={classes.container}>
+            <Paper className={classes.paper}>
+              {
+                this.props.loading
+                  ? <CircularProgress size={50} />
+                  : (
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Réordonner</TableCell>
+                          <TableCell>Nom</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <SortableList speakers={this.props.speakers} onSortEnd={this.onSortEnd} useDragHandle />
+                    </Table>
+                  )
+              }
+            </Paper>
+            <IsAuthorized action={ACTION_SPEAKER_CREATE}>
+              <div className={classes.buttons}>
+                <Tooltip
+                  enterDelay={300}
+                  id='tooltip-controlled'
+                  leaveDelay={100}
+                  onClose={this.handleTooltipClose}
+                  onOpen={this.handleTooltipOpen}
+                  open={this.state.open}
+                  placement='bottom'
+                  title='Ajouter un intervenant'
+                >
+                  <Button component={Link} variant='fab' color='secondary' aria-label='Ajouter' to={'/speaker-create'}>
+                    <AddIcon />
+                  </Button>
+                </Tooltip>
+              </div>
+            </IsAuthorized>
           </div>
-        </div>
+        </IsAuthorized>
       </div>
     )
   }
