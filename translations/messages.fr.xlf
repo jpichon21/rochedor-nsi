@@ -2728,16 +2728,22 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Participants</target>
       </segment>
     </unit>
-    <unit id="i6uzrzreKRyT" name="order.notify.client.roche.adliv">
+    <unit id="3ufiucg" name="order.notify.client.roche.adliv">
       <segment>
         <source>order.notify.client.roche.adliv</source>
         <target>Retrait à La Roche d'Or — 1 Chemin du Muenot 25000 Besançon (FR)</target>
       </segment>
     </unit>
-    <unit id="i6uzrzrggeKRyT" name="order.notify.client.font.adliv">
+    <unit id="lCT3EkI" name="order.notify.client.font.adliv">
       <segment>
         <source>order.notify.client.font.adliv</source>
         <target>Retrait aux Fontanilles — Route de Riunoguès 66480 Maureillas Las Illas (FR)</target>
+      </segment>
+    </unit>
+    <unit id="u2DERC4" name="filter.button.show">
+      <segment>
+        <source>filter.button.show</source>
+        <target>Afficher les filtres</target>
       </segment>
     </unit>
   </file>

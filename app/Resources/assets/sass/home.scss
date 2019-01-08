@@ -103,7 +103,7 @@ section {
       .box {
         margin-left: 40px;
         padding-right: 40px;
-        @include media('>large') {
+        @include media('>=large') {
           em,
           strong,
           .button {
@@ -118,7 +118,7 @@ section {
         margin-right: 40px;
         padding-left: 40px;
         text-align: right;
-        @include media('>large') {
+        @include media('>=large') {
           em,
           strong,
           .button {
@@ -141,7 +141,7 @@ section {
         text-transform: uppercase;
         margin-bottom: 55px;
         letter-spacing: 1px;
-        @include media('<=large') {
+        @include media('<large') {
           margin-bottom: 20px;
         }
         small {

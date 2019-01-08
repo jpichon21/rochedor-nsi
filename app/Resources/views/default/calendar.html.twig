@@ -9,7 +9,7 @@
         <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
         <div class="flex">
             <div class="filters">
-                <span class="toggle">{{ 'filter.button.show' | trans }}</span>
+                <span class="toggle">{{ 'filter.button.show' | trans }}</span>
                 {% include 'parts/filter.html.twig' with {
                     'name': 'site',
                     'items': sites,

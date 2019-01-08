@@ -1,3 +1,4 @@
+@import '~include-media/dist/_include-media.scss';
 @import './variables';
 
 h1 {
@@ -8,6 +9,9 @@ h1 {
   .flex {
     display: flex;
     flex-direction: row;
+    @include media('<xlarge') {
+      flex-direction: column;
+    }
   }
 }
 
@@ -18,6 +22,15 @@ h1 {
   padding-right: 80px;
   color: $roche-yellow;
   z-index: 1;
+  @include media('<xlarge') {
+    width: auto;
+    padding-right: 0;
+  }
+  .toggle {
+    @include media('>=xlarge') {
+      display: none;
+    }
+  }
   .title {
     position: relative;
     display: block;
@@ -291,11 +304,13 @@ h1 {
       top: 0;
       padding: 40px 15px 10px;
       text-align: left;
-      background-image: url('../img/bg-fallback.jpg');
-      background-size: 100% auto;
-      background-attachment: fixed;
-      background-position: top;
       z-index: 1;
+      @include media('>=xxlarge') {
+        background-image: url('../img/bg-fallback.jpg');
+        background-size: 100% auto;
+        background-attachment: fixed;
+        background-position: top;
+      }
       &:after {
         content: '';
         position: absolute;
