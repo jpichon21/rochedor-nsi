@@ -49,22 +49,26 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/intervenants", name="intervenants")
-     * @Route("/speakers", name="speakers")
-     * @Route("/lautsprecher", name="lautsprecher")
-     * @Route("/altoparlanti", name="altoparlanti")
-     * @Route("/altavoces", name="altavoces")
+     * @Route("/{_locale}/intervenants", name="speakers-fr")
+     * @Route("/{_locale}/speakers", name="speakers-en")
+     * @Route("/{_locale}/lautsprecher", name="speakers-de")
+     * @Route("/{_locale}/altoparlanti", name="speakers-it")
+     * @Route("/{_locale}/altavoces", name="speakers-es")
      */
     public function showSpeakerAction(Request $request)
     {
         $path = $request->getPathInfo();
         $name = substr($path, 1);
-        $contentDocument = $this->pageService->getContent($name);
+        $page = $this->pageService->getContentFromRequest($request);
+        if (!$page) {
+            throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
+        }
+        $availableLocales = $this->pageService->getAvailableLocales($page);
         $speakers = $this->getDoctrine()->getRepository('AppBundle:Speaker')->findAll();
         foreach ($speakers as $speaker) {
             $localSpeaker = new Speaker;
-            $localeTitle = $speaker->getTitle()[$contentDocument->getLocale()];
-            $localeDesc = $speaker->getDescription()[$contentDocument->getLocale()];
+            $localeTitle = $speaker->getTitle()[$page->getLocale()];
+            $localeDesc = $speaker->getDescription()[$page->getLocale()];
             $localSpeaker->setName($speaker->getName());
             $localSpeaker->setTitle($localeTitle);
             $localSpeaker->setDescription($localeDesc);
@@ -74,8 +78,8 @@ class DefaultController extends Controller
             unset($speakers[array_search($speaker, $speakers)]);
         }
         return $this->render('default/speaker.html.twig', array(
-            'page' => $contentDocument,
-            'availableLocales' => $this->pageService->getAvailableLocales($contentDocument),
+            'page' => $page,
+            'availableLocales' => $availableLocales,
             'speakers'=> $speakers
         ));
     }
