@@ -2,23 +2,22 @@
     <div class="hover" {% if bodyClass != 'home' %}style="{{ bodyBackground|default(0)|constantBackground }}"{% endif %}>
         <div class="bottom">
             <div class="column">
-                <span>La communauté</span>
-                <a href="#">La communauté</a>
-                <a href="#">Les fondateurs</a>
-                <a href="#">La Roche d'Or</a>
-                <a href="#">Les Fontanilles</a>
+                <span>{{ 'menu.one.one' | trans | raw | striptags }}</span>
+                <a href="#">{{ 'menu.one.one' | trans | raw | striptags }}</a>
+                <a href="#">{{ 'menu.one.two' | trans | raw | striptags }}</a>
+                <a href="#">{{ 'menu.one.three' | trans | raw | striptags }}</a>
+                <a href="#">{{ 'menu.one.four' | trans | raw | striptags }}</a>
             </div>
             <div class="column">
-                <span>Les retraites</span>
-                <a href="#">Qui vient en retraite ?</a>
-                <a href="#">Les retraites</a>
-                <a href="#">Les intervenants</a>
-                <a href="#">Le calendrier</a>
+                <span>{{ 'menu.two' | trans | raw | striptags }}</span>
+                <a href="#">{{ 'menu.two.one' | trans | raw | striptags }}</a>
+                <a href="#">{{ 'menu.two.four' | trans | raw | striptags }}</a>
+                <a href="#">{{ 'menu.three' | trans | raw | striptags }}</a>
             </div>
             <div class="column">
-                <span>Les Editions Roche d'Or</span>
-                <a href="#">Les nouveautés</a>
-                <a href="#">Les collections</a>
+                <span>{{ 'menu.five' | trans | raw | striptags }}</span>
+                <a href="#">{{ 'menu.five.two' | trans | raw | striptags }}</a>
+                <a href="#">{{ 'menu.five.three' | trans | raw | striptags }}</a>
                 {% if
                     routeExists('cgv')
                     and (
@@ -45,16 +44,16 @@
                 {% endif %}
             </div>
             <div class="column">
-                <span>Informations pratiques</span>
-                <a href="#">Conditions d'utilisation</a>
-                <a href="#">Mentions légales</a>
-                <a href="#">Liens amis</a>
-                <a href="#">Nous soutenir</a>
+                <span>{{ 'menu.four' | trans | raw | striptags }}</span>
+                <a href="#">{{ 'menu.terms' | trans | raw | striptags }}</a>
+                <a href="#">{{ 'menu.legal' | trans | raw | striptags }}</a>
+                <a href="#">{{ 'menu.four.four' | trans | raw | striptags }}</a>
+                <a href="#">{{ 'menu.six' | trans | raw | striptags }}</a>
             </div>
             <div class="column">
-                <span>Contacts</span>
-                <a href="{{ url('contact', {'site': 'ro'}) }}">La Roche d'Or</a>
-                <a href="{{ url('contact', {'site': 'ft'}) }}">Les Fontanilles</a>
+                <span>{{ 'contacts' | trans | raw | striptags }}</span>
+                <a href="{{ url('contact', {'site': 'ro'}) }}">{{ 'menu.one.three' | trans | raw | striptags }}</a>
+                <a href="{{ url('contact', {'site': 'ft'}) }}">{{ 'menu.one.four' | trans | raw | striptags }}</a>
             </div>
         </div>
     </div>

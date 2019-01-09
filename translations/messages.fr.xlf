@@ -620,7 +620,7 @@
         <target>Prénom</target>
       </segment>
     </unit>
-    <unit id="drdfgdfjTwRMd" name="form.surname.contact">
+    <unit id="d7zGvKa" name="form.surname.contact">
       <segment>
         <source>form.surname.contact</source>
         <target>* Prénom</target>
@@ -636,7 +636,7 @@
         <target>Nom</target>
       </segment>
     </unit>
-    <unit id="eqtyyR0LZq" name="form.name.contact">
+    <unit id="q9DdWRf" name="form.name.contact">
       <notes>
         <note priority="1">app/Resources/views/default/calendar-registration.html.twig:57</note>
         <note priority="1">app/Resources/views/default/calendar-registration.html.twig:166</note>
@@ -1867,7 +1867,7 @@
         <target>Indiquer votre email</target>
       </segment>
     </unit>
-        <unit id="7OkaL_Leze" name="form.email.contact">
+    <unit id="TQH9nei" name="form.email.contact">
       <segment>
         <source>form.email.contact</source>
         <target>* Email</target>
@@ -2522,16 +2522,16 @@
     <unit id="0yLloTj" name="gift-return.success">
       <segment>
         <source>gift-return.success</source>
-        <target>
-        <![CDATA[
+        <target><![CDATA[
+        
         <p>Bonjour %name%,</p>
         <p>L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.</p>
         <p>Par votre participation de %amount% euros, vous vous joignez au mouvement de solidarité des Amis de la Roche d’Or pour soutenir notre mission d’annonce de l’Évangile.</p>
         <p>Soyez-en encore remercié(e).</p>
         <p>Danièle VALÈS</p>
         <br>Retour à la page des <a href="%link%">dons</a>.
-        ]]>
-        </target>
+        
+        ]]></target>
       </segment>
     </unit>
     <unit id="Xx1TBfK" name="gift-return.cancel">
@@ -2779,16 +2779,34 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Participants</target>
       </segment>
     </unit>
-    <unit id="i6uzrzreKRyT" name="order.notify.client.roche.adliv">
+    <unit id="3ufiucg" name="order.notify.client.roche.adliv">
       <segment>
         <source>order.notify.client.roche.adliv</source>
         <target>Retrait à La Roche d'Or — 1 Chemin du Muenot 25000 Besançon (FR)</target>
       </segment>
     </unit>
-    <unit id="i6uzrzrggeKRyT" name="order.notify.client.font.adliv">
+    <unit id="lCT3EkI" name="order.notify.client.font.adliv">
       <segment>
         <source>order.notify.client.font.adliv</source>
         <target>Retrait aux Fontanilles — Route de Riunoguès 66480 Maureillas Las Illas (FR)</target>
+      </segment>
+    </unit>
+    <unit id="gv447o9" name="menu.terms">
+      <segment>
+        <source>menu.terms</source>
+        <target>Conditions d'utilisation</target>
+      </segment>
+    </unit>
+    <unit id="r8Ej7h0" name="menu.legal">
+      <segment>
+        <source>menu.legal</source>
+        <target>Mentions légales</target>
+      </segment>
+    </unit>
+    <unit id="qlr0CE8" name="contacts">
+      <segment>
+        <source>contacts</source>
+        <target>Contacts</target>
       </segment>
     </unit>
   </file>
