@@ -44,15 +44,19 @@ h2 {
   .right {
     border-color: #000000;
     li {
-      color: #000000;
-      &:after {
-        background: linear-gradient(to right, #000000 0%, $roche-orange 50%, #000000 100%);
-      }
       &:hover,
       &.active {
-        color: $roche-orange;
-        &:before {
-          border-color: $roche-orange;
+        > a, span {
+          color: $roche-orange;
+          &:before {
+            border-color: $roche-orange;
+          }
+        }
+      }
+      > a, span {
+        color: #000000;
+        &:after {
+          background: linear-gradient(to right, #000000 0%, $roche-orange 50%, #000000 100%);
         }
       }
     }
