@@ -95,6 +95,7 @@ i {
   overflow: hidden;
   @include media('<large') {
     flex-direction: column;
+    padding-top: 220px;
   }
   & > {
     .zone,
@@ -105,12 +106,18 @@ i {
     }
     .zone {
       padding: 100px 40px 0;
+      @include media('<large') {
+        padding: 0 20px;
+      }
     }
     .hole {
       width: 170px;
     }
     .left {
       padding: 100px 0 0 40px;
+      @include media('<large') {
+        padding: 0 20px;
+      }
     }
     .right {
       padding: 100px 40px 40px 0;

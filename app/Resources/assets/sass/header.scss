@@ -1,13 +1,4 @@
 body {
-  &.scrollTop {
-    @include media('>=large') {
-      .logo {
-        &:after {
-          opacity: 0;
-        }
-      }
-    }
-  }
   &.menuReduced {
     display: block;
     height: auto;
@@ -30,7 +21,7 @@ body {
         display: block;
       }
     }
-    @include media('<xxlarge') {
+    @include media('<large') {
       .footer,
       .content,
       .swipe-section {
@@ -60,20 +51,55 @@ body {
     &:after {
       content: 'Communauté\A de la roche d\'or';
       position: absolute;
+      left: 50%;
       bottom: -20px;
-      left: -45px;
+      width: 180px;
+      margin-left: -90px;
       font-size: 14px;
       line-height: 18px;
       letter-spacing: 2px;
       color: #faf28e;
       text-align: center;
       text-transform: uppercase;
-      white-space: pre;
+      white-space: pre-line;
       transition: 0.2s;
       opacity: 1;
+      @include media('>=large') {
+        content: none;
+      }
     }
     .editions {
       display: none;
+    }
+  }
+  .cart {
+    display: block;
+    position: relative;
+    padding: 0 20px;
+    line-height: 30px;
+    font-size: 12px;
+    color: #000000;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    border: 1px #000000 solid;
+    z-index: 1;
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      top: -7px;
+      right: -7px;
+      color: #ffffff;
+      border-radius: 18px;
+      font-size: 10px;
+      background-color: $roche-orange;
+      font-family: arial, sans-serif;
+      padding-top: 3.5px;
+      box-sizing: border-box;
     }
   }
   .languages {
@@ -172,7 +198,9 @@ body {
   .options {
     order: 4;
   }
-  @include media('>=xxlarge') {
+}
+@include media('>=large') {
+  .header {
     flex-direction: row;
     align-items: flex-end;
     .burger {
@@ -201,34 +229,6 @@ body {
       .languages {
         float: left;
         margin-left: 22px;
-      }
-      .cart {
-        position: relative;
-        padding: 0 20px;
-        line-height: 30px;
-        font-size: 12px;
-        color: #000000;
-        text-transform: uppercase;
-        text-decoration: none;
-        border: 1px #000000 solid;
-        z-index: 1;
-        span {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: absolute;
-          width: 18px;
-          height: 18px;
-          top: -7px;
-          right: -7px;
-          color: #ffffff;
-          border-radius: 18px;
-          font-size: 10px;
-          background-color: $roche-orange;
-          font-family: arial, sans-serif;
-          padding-top: 3.5px;
-          box-sizing: border-box;
-        }
       }
     }
     .left,
@@ -394,15 +394,24 @@ body {
     .logo { order: 2; }
     .left { order: 1; }
   }
-  @include media('<xxlarge') {
+}
+@include media('<large') {
+  .header {
     height: 0;
     .options {
       display: none;
-      .languages {
-        padding: 50px 0;
+      width: 100%;
+      padding: 0 40px;
+      .cart {
+        width: 100px;
+        margin: 20px auto 40px;
       }
       .zoom {
         display: none;
+      }
+      .languages {
+        display: flex;
+        justify-content: center;
       }
     }
     .logo {
@@ -410,6 +419,7 @@ body {
       padding: 30px 0;
     }
     .menu {
+      padding: 0 40px;
       li {
         > a, span {
           padding: 15px;
@@ -436,7 +446,7 @@ body {
     .left,
     .right {
       display: none;
-      width: 40%;
+      width: 100%;
       li {
         transition: all 0.2s linear;
         &:hover {
@@ -455,21 +465,4 @@ body {
       }
     }
   }
-  @include media('<large') {
-    .left,
-    .right {
-      width: 60%;
-    }
-  }
-  @include media('<medium') {
-    .left,
-    .right {
-      width: 80%;
-    }
-  }
-}
-
-@keyframes logo-opacity {
-  from { opacity: 1; }
-  to { opacity: 0; }
 }

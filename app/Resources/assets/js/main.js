@@ -99,11 +99,3 @@ document.addEventListener('change', function (event) {
     }
   }
 })
-
-// Logo Baseline
-
-window.onscroll = function () {
-  document.documentElement.scrollTop > 20
-    ? body.classList.add('scrollTop')
-    : body.classList.remove('scrollTop')
-}

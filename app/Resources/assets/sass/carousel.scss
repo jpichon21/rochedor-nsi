@@ -28,6 +28,11 @@
     background-image: url('../img/arrow-left.png');
     z-index: 1;
     cursor: pointer;
+    @include media('<large') {
+      width: 40px;
+      height: 40px;
+      background-size: 100%;
+    }
   }
   .prev {
     left: 0;

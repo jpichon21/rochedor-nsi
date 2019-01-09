@@ -315,19 +315,12 @@
       display: none;
     }
     .left {
-      padding: 200px 20px 0;
       .carousel {
         position: relative;
         height: 100vw;
         max-height: 360px;
         margin: 0 -20px 20px -40px;
         z-index: 1;
-        .prev,
-        .next {
-          width: 40px;
-          height: 40px;
-          background-size: 100%;
-        }
       }
     }
     .dropdown {
