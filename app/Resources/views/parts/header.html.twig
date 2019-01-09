@@ -45,52 +45,17 @@
             <li><a href="{{ path('calendar-' ~ app.request.locale) }}">{{ 'menu.three' | trans | raw }}</a></li>
         </ul>
         <ul class="sub-menu" data-menu="vgbhnj">
-            {% if
-                routeExists('la-communaute')
-            %}
-            <li><a href="{{ path('la-communaute') }}">{{ 'menu.one.one' | trans | raw }}</a></li>
-            {% else %}
-            <li><a href="#">{{ 'menu.one.one' | trans | raw }}</a></li>
-            {% endif %}
-            
+            <li><a href={{ localePath('la-communaute', app.request.locale) }}>{{ 'menu.one.one' | trans | raw }}</a></li>       
             <li><a href="#">{{ 'menu.one.two' | trans | raw }}</a></li>
             <li><a href="#">{{ 'menu.one.three' | trans | raw }}</a></li>
             <li><a href="#">{{ 'menu.one.four' | trans | raw }}</a></li>
         </ul>
         <ul class="sub-menu" data-menu="gyhuji">
-            
-            {% if
-                routeExists('venir-en-retraite')
-            %}
-            <li><a href="{{ path('venir-en-retraite') }}">{{ 'menu.two.one' | trans | raw }}</a></li>
-            {% else %}
-            <li><a href="#">{{ 'menu.two.one' | trans | raw }}</a></li>
-            {% endif %}
-
-            {% if
-                routeExists('retraites-a-la-roche-dor')
-            %}
-            <li><a href="{{ path('retraites-a-la-roche-dor') }}">{{ 'menu.two.two' | trans | raw }}</a></li>
-            {% else %}
+            <li><a href="{{ localePath('venir-en-retraite', app.request.locale) }}">{{ 'menu.two.one' | trans | raw }}</a></li>
+            <li><a href="{{ localePath('retraites-a-la-roche-dor', app.request.locale) }}">{{ 'menu.two.two' | trans | raw }}</a></li>
             <li><a href="#">{{ 'menu.two.two' | trans | raw }}</a></li>
-            {% endif %}
-            
-            {% if
-                routeExists('retraites-aux-fontanilles')
-            %}
-            <li><a href="{{ path('retraites-aux-fontanilles') }}">{{ 'menu.two.three' | trans | raw }}</a></li>
-            {% else %}
-            <li><a href="#">{{ 'menu.two.three' | trans | raw }}</a></li>
-            {% endif %}
-
-            {% if
-                routeExists('intervenants')
-            %}
-            <li><a href="{{ path('intervenants') }}">{{ 'menu.two.four' | trans | raw }}</a></li>
-            {% else %}
-            <li><a href="#">{{ 'menu.two.four' | trans | raw }}</a></li>
-            {% endif %}
-
+            <li><a href="{{ localePath('retraites-aux-fontanilles', app.request.locale) }}">{{ 'menu.two.three' | trans | raw }}</a></li>
+            <li><a href="{{ path('speakers-' ~ app.request.locale)}}">{{ 'menu.two.four' | trans | raw }}</a></li>
         </ul>
     </div>
     <div class="logo">
@@ -109,37 +74,15 @@
             <li data-menu="defrgt">{{ 'menu.six' | trans | raw }}</li>
         </ul>
         <ul class="sub-menu" data-menu="hbgvfc">
-                
-            {% if
-                routeExists('infos-pratiques-de-la-roche-dor')
-            %}
-            <li><a href="{{ path('infos-pratiques-de-la-roche-dor') }}">{{ 'menu.four.one' | trans | raw }}</a></li>
-            {% else %}
-            <li><a href="#">{{ 'menu.four.one' | trans | raw }}</a></li>
-            {% endif %}
-
-            {% if
-                routeExists('infos-pratiques-des-fontanilles')
-            %}
-            <li><a href="{{ path('infos-pratiques-des-fontanilles') }}">{{ 'menu.four.two' | trans | raw }}</a></li>
-            {% else %}
-            <li><a href="#">{{ 'menu.four.two' | trans | raw }}</a></li>
-            {% endif %}
-
-            {% if
-                routeExists('accueil-des-enfants')
-            %}
-            <li><a href="{{ path('accueil-des-enfants') }}">{{ 'menu.four.three' | trans | raw }}</a></li>
-            {% else %}
-            <li><a href="#">{{ 'menu.four.three' | trans | raw }}</a></li>
-            {% endif %}  
-            
+            <li><a href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">{{ 'menu.four.one' | trans | raw }}</a></li>
+            <li><a href="{{ localePath('infos-pratiques-des-fontanilles', app.request.locale) }}">{{ 'menu.four.two' | trans | raw }}</a></li>
+            <li><a href="{{ localePath('accueil-des-enfants', app.request.locale) }}">{{ 'menu.four.three' | trans | raw }}</a></li>          
             <li><a href="#">{{ 'menu.four.four' | trans | raw }}</a></li>
         </ul>
         <ul class="sub-menu" data-menu="qzsedr">
             <div class="blank"></div>
             <div class="blank"></div>
-            {% if routeExists('editions') %}<li><a href="{{ path('editions') }}">{{ 'menu.five.one' | trans | raw }}</a></li>{% endif %}
+            <li><a href="{{ localePath('editions', app.request.locale) }}">{{ 'menu.five.one' | trans | raw }}</a></li>
             <li><a href="{{ path('collections-news-' ~ currentLocale) }}">{{ 'menu.five.two' | trans | raw }}</a></li>
             <li><a href="{{ path('collections-' ~ currentLocale) }}">{{ 'menu.five.three' | trans | raw }}</a></li>
         </ul>
@@ -149,12 +92,8 @@
             <div class="blank"></div>
             <div class="blank"></div>
             <div class="blank"></div>
-            {% if routeExists('donner-du-temps') %}
-            <li><a href="{{ path('donner-du-temps') }}">{{ 'menu.six.one' | trans | raw }}</a></li>
-            {% else %}
-            <li><a href="#">{{ 'menu.six.one' | trans | raw }}</a></li>
-            {% endif %}
-            {% if routeExists('dons') %}<li><a href="{{ path('dons') }}">{{ 'menu.six.two' | trans | raw }}</a></li>{% endif %}
+            <li><a href="{{ localePath('donner-du-temps', app.request.locale) }}">{{ 'menu.six.one' | trans | raw }}</a></li>
+            <li><a href="{{ localePath('dons', app.request.locale) }}">{{ 'menu.six.two' | trans | raw }}</a></li>
         </ul>
     </div>
 </div>
