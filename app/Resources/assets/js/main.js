@@ -68,6 +68,7 @@ const handleWindowResize = () => {
       content.style.width = 'calc(100% + ' + (content.offsetWidth - content.clientWidth) + 'px)'
     }
   }
+  updateHeightDropdown()
 }
 
 menus.forEach(menu => {
@@ -98,3 +99,11 @@ document.addEventListener('change', function (event) {
     }
   }
 })
+
+// Logo Baseline
+
+window.onscroll = function () {
+  document.documentElement.scrollTop > 20
+    ? body.classList.add('scrollTop')
+    : body.classList.remove('scrollTop')
+}

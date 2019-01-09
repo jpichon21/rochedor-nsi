@@ -1,4 +1,13 @@
 body {
+  &.scrollTop {
+    @include media('>=large') {
+      .logo {
+        &:after {
+          opacity: 0;
+        }
+      }
+    }
+  }
   &.menuReduced {
     display: block;
     height: auto;
@@ -40,13 +49,29 @@ body {
     position: absolute;
     top: 40px;
     right: 40px;
-    width: 20px;
-    height: 15px;
+    width: 25px;
+    height: 18px;
     background-image: url('../img/burger-close.png');
-    background-size: 100%;
+    background-size: 100% 100%;
     cursor: pointer;
   }
   .logo {
+    position: relative;
+    &:after {
+      content: 'Communauté\A de la roche d\'or';
+      position: absolute;
+      bottom: -20px;
+      left: -45px;
+      font-size: 14px;
+      line-height: 18px;
+      letter-spacing: 2px;
+      color: #faf28e;
+      text-align: center;
+      text-transform: uppercase;
+      white-space: pre;
+      transition: 0.2s;
+      opacity: 1;
+    }
     .editions {
       display: none;
     }
@@ -120,11 +145,19 @@ body {
   .sub-menu {
     position: absolute;
     visibility: hidden;
+    max-height: 0;
+    padding-top: 0;
     opacity: 0;
-    transition: visibility 0s 0.2s, opacity 0.2s linear;
+    transition:
+      visibility 0s 0.2s,
+      max-height 0.2s,
+      padding-top 0.2s,
+      opacity 0.2s linear;
     &.active {
       visibility: visible;
       opacity: 1;
+      max-height: 150px;
+      padding-top: 15px;
       transition: opacity 0.2s linear;
     }
   }
@@ -374,13 +407,15 @@ body {
       }
     }
     .logo {
-      margin-top: 8px;
-      padding: 50px 0;
+      margin: 8px 0 60px;
+      padding: 30px 0;
     }
     .menu {
       li {
         > a, span {
           padding: 15px;
+          font-size: 16px;
+          line-height: 20px;
           border-top: 1px rgba(255, 243, 141, 0.2) solid;
         }
       }
@@ -388,12 +423,11 @@ body {
     .sub-menu {
       position: relative;
       border-top: 1px rgba(255, 243, 141, 0.2) solid;
-      padding-top: 15px;
       li {
         > a, span {
           padding: 0 0 15px;
           border-top: none;
-          font-size: 10px;
+          font-size: 12px;
         }
       }
     }
@@ -402,14 +436,12 @@ body {
       display: none;
       width: 40%;
       li {
-        max-height: 45px;
         transition: all 0.2s linear;
         &:hover {
           color: #ffffff;
         }
         &.active {
           color: #ffffff;
-          max-height: 250px;
         }
       }
     }
@@ -433,4 +465,9 @@ body {
       width: 80%;
     }
   }
+}
+
+@keyframes logo-opacity {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }

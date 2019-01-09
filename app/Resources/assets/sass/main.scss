@@ -21,7 +21,7 @@ body {
   height: 100vh;
   overflow: hidden;
   background-size: cover;
-  background-position: top;
+  background-position: left top;
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -93,6 +93,9 @@ i {
   flex: 1;
   z-index: 0;
   overflow: hidden;
+  @include media('<large') {
+    flex-direction: column;
+  }
   & > {
     .zone,
     .left,

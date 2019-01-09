@@ -97,10 +97,10 @@
         margin-bottom: 20px;
         font-size: 13px;
         font-weight: 400;
+        line-height: 17px;
         letter-spacing: 2px;
         text-transform: uppercase;
         cursor: pointer;
-        
       }
       @at-root .content .dropdown.without-link .item h2 {
           cursor: default;
@@ -148,7 +148,7 @@
           bottom: -50px;
           left: 23px;
           width: 1px;
-          background: linear-gradient(to bottom, #ffffff 0%, #232323 25%, #232323 75%, $roche-yellow 100%);
+          background: linear-gradient(to bottom, #ffffff 0%, #000000 25%, #000000 75%, $roche-yellow 100%);
           z-index: 0;
         }
         em,
@@ -310,6 +310,53 @@
       }
     }
   }  
+  @include media('<large') {
+    .right {
+      display: none;
+    }
+    .left {
+      padding: 200px 20px 0;
+      .carousel {
+        position: relative;
+        height: 100vw;
+        max-height: 360px;
+        margin: 0 -20px 20px -40px;
+        z-index: 1;
+        .prev,
+        .next {
+          width: 40px;
+          height: 40px;
+          background-size: 100%;
+        }
+      }
+    }
+    .dropdown {
+      margin: 0 -20px;
+      &:after {
+        left: 20px;
+      }
+      .item {
+        padding: 0 20px 0 40px;
+        &:after {
+          left: 23px;
+        }
+        &:before {
+          left: 20px;
+        }
+        blockquote {
+          margin: 0 20px 20px 0;
+          &:before {
+            left: -17px;
+          }
+          em,
+          strong {
+            animation: none;
+            transform: none;
+          }
+        }
+      }
+    }
+  }
 }
   
 @keyframes blockquoteEnter {
