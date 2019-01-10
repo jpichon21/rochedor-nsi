@@ -607,6 +607,11 @@ h2 {
     }
   }
   .content {
+    > .left {
+      .carousel {
+        display: flex;
+      }
+    }
     > .right {
       position: relative;
       @include media('<large') {
