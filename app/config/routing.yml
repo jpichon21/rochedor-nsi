@@ -16,3 +16,6 @@ rest_api_public:
     prefix: /xhr
     resource: '@AppBundle/Resources/config/rest_routes_public.yml'
     schemes: ['%httpprotocol%']
+mywebsite_sitemap:
+    path:    /sitemap.xml
+    defaults: { _controller: AppBundle:Sitemap:sitemap }
