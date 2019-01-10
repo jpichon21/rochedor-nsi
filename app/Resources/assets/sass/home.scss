@@ -23,6 +23,10 @@ body {
         top: -1px;
         padding: 40px;
         border: transparent;
+        &:before {
+          background-color: rgba(0, 0, 0, 0.4);
+          transition: 0.2s;
+        }
         &:after {
           top: 40px;
           transform: rotate(90deg);
