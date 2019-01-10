@@ -50,6 +50,23 @@ const handleMenuHover = event => {
   })
 }
 
+const handleMenuClick = event => {
+  const menu = event.target.parentNode
+  const reference = menu.getAttribute('data-menu')
+  let elements = document.querySelectorAll('[data-menu="' + reference + '"]')
+  elements.forEach(element => {
+    if (event.type === 'click') {
+      element.classList.toggle('active')
+    }
+  })
+}
+
+const handleMenuEvent = event => {
+  window.innerWidth >= limitMenuReduced
+    ? handleMenuHover(event)
+    : handleMenuClick(event)
+}
+
 const handleHeaderHover = event => {
   if (window.innerWidth >= limitMenuReduced) {
     event.type === 'mouseenter'
@@ -76,14 +93,15 @@ const handleWindowResize = () => {
 }
 
 menus.forEach(menu => {
-  menu.addEventListener('mouseleave', event => handleMenuHover(event))
-  menu.addEventListener('mouseenter', event => handleMenuHover(event))
+  menu.onmouseleave = event => handleMenuEvent(event)
+  menu.onmouseenter = event => handleMenuEvent(event)
+  menu.onclick = event => handleMenuEvent(event)
 })
 
-header.addEventListener('mouseleave', event => handleHeaderHover(event))
-header.addEventListener('mouseenter', event => handleHeaderHover(event))
+header.onmouseleave = event => handleHeaderHover(event)
+header.onmouseenter = event => handleHeaderHover(event)
 
-window.addEventListener('resize', event => handleWindowResize())
+window.onresize = () => handleWindowResize()
 
 handleWindowResize()
 
@@ -95,11 +113,11 @@ burger.onclick = () => {
 
 // Selects
 
-document.addEventListener('change', function (event) {
+document.onchange = event => {
   const element = event.target
   if (element && element.classList.contains('select')) {
     if (element.value !== '') {
       element.classList.add('white')
     }
   }
-})
+}
