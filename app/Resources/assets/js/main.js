@@ -70,8 +70,8 @@ const handleMenuEvent = event => {
 const handleHeaderHover = event => {
   if (window.innerWidth >= limitMenuReduced) {
     event.type === 'mouseenter'
-      ? body.classList.add('hover')
-      : body.classList.remove('hover')
+      ? body.classList.add('menuOpened')
+      : body.classList.remove('menuOpened')
   }
 }
 
@@ -108,7 +108,7 @@ handleWindowResize()
 const burger = header.querySelector('.burger')
 
 burger.onclick = () => {
-  body.classList.toggle('hover')
+  body.classList.toggle('menuOpened')
 }
 
 // Selects

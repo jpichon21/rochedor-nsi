@@ -9,7 +9,9 @@ body {
       width: 100%;
     }
   }
-  &.hover {
+  &.menuOpened {
+    position: fixed;
+    width: 100%;
     .burger {
       background-image: url('../img/burger-open.png');
     }
