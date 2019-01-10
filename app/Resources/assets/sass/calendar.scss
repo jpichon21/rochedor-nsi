@@ -9,9 +9,29 @@ h1 {
   .flex {
     display: flex;
     flex-direction: row;
-    @include media('<xlarge') {
+    @include media('<large') {
       flex-direction: column;
     }
+  }
+}
+
+.show-filters {
+  display: block;
+  padding: 0 20px;
+  margin: 40px 0 20px;
+  font-size: 10px;
+  line-height: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: $roche-yellow;
+  border: 1px $roche-yellow solid;
+  background: none;
+  box-sizing: border-box;
+  outline: none;
+  cursor: pointer;
+  @include media('>=large') {
+    display: none;
   }
 }
 
@@ -22,12 +42,22 @@ h1 {
   padding-right: 80px;
   color: $roche-yellow;
   z-index: 1;
-  @include media('<xlarge') {
+  @include media('<large') {
     width: auto;
+    max-height: 0;
+    margin: 0 0 50px;
     padding-right: 0;
+    overflow: hidden;
+    transition: 0.2s;
+    &.active {
+      max-height: 600px;
+      padding: 20px 0;
+      border-top: 1px rgba(255, 243, 141, 0.2) solid;
+      border-bottom: 1px rgba(255, 243, 141, 0.2) solid;
+    }
   }
   .toggle {
-    @include media('>=xlarge') {
+    @include media('>=large') {
       display: none;
     }
   }
@@ -43,6 +73,9 @@ h1 {
     position: relative;
     margin-bottom: 40px;
     z-index: 0;
+    @include media('<large') {
+      margin-bottom: 20px;
+    }
     &.active {
       z-index: 2;
       .title {
@@ -140,6 +173,9 @@ h1 {
     position: relative;
     margin-bottom: 40px;
     z-index: 1;
+    @include media('<large') {
+      margin-bottom: 20px;
+    }
     .date-in,
     .date-out {
       padding: 0 10px;
@@ -263,11 +299,19 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 1.4px;
     border: 1px #faf28e solid;
+    @include media('<large') {
+      float: right;
+      color: #000000;
+      background-color: $roche-yellow;
+    }
   }
   .filter-keywords {
     position: relative;
     margin-bottom: 40px;
     z-index: 1;
+    @include media('<large') {
+      margin-bottom: 20px;
+    }
     input {
       width: 100%;
       padding: 0 10px;
@@ -288,7 +332,140 @@ h1 {
   }
 }
 
+.retreats-list {
+  @include media('>=large') {
+    display: none;
+  }
+  color: #ffffff;
+  .month {
+    padding: 20px 0 10px 3px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+  }
+  .retreat {
+    position: relative;
+    padding: 15px 45px 15px 25px;
+    font-size: 14px;
+    line-height: 18px;
+    max-height: 50px;
+    overflow: hidden;
+    &:before {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 1px;
+      width: 30px;
+      height: 30px;
+      background-image: url('../img/retreat-plus.png');
+      background-size: 100%;
+      z-index: 1;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-bottom: 1px #262626 solid;
+      z-index: 0;
+    }
+    &.active {
+      max-height: 200px;
+      &:before {
+        background-image: url('../img/retreat-minus.png');
+      }
+      .event {
+        overflow: auto;
+        text-overflow: inherit;
+        white-space: inherit;
+      }
+    }
+    &.first {
+      .dates {
+        .fadeline {
+          top: 20px;
+        }
+      }
+    }
+    &.last {
+      border: none;
+      .dates {
+        .fadeline {
+          height: 50px;
+          background: linear-gradient(to bottom, $roche-yellow 20px, transparent 100%);
+        }
+      }
+    }
+    .dates {
+      .bullet {
+        position: absolute;
+        top: 20px;
+        left: 0;
+        width: 7px;
+        height: 7px;
+        border-radius: 100%;
+        background: $roche-yellow;
+        z-index: 2;
+      }
+      .fadeline {
+        position: absolute;
+        top: 0;
+        left: 3px;
+        width: 1px;
+        height: 100%;
+        background: $roche-yellow;
+        z-index: 1;
+      }
+    }
+    .site,
+    .type,
+    .translation {
+      position: absolute;
+      top: 15px;
+    }
+    .site {
+      right: 50px;
+    }
+    .type {
+      right: 100px;
+    }
+    .translation {
+      right: 150px;
+    }
+    .event {
+      padding: 10px 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .speaker {
+      font-size: 12px;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+    .button {
+      display: inline-block;
+      margin: 10px 0;
+      padding: 0 20px;
+      font-size: 10px;
+      line-height: 30px;
+      text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: 1.4px;
+      color: $roche-yellow;
+      border: 1px $roche-yellow solid;
+      box-sizing: border-box;
+      outline: none;
+    }
+  }
+}
+
 .retreats-table {
+  @include media('<large') {
+    display: none;
+  }
   position: relative;
   flex: 1;
   margin-bottom: 40px;
@@ -403,7 +580,7 @@ h1 {
   .dates {
     .bullet {
       position: absolute;
-      top: 15px;
+      top: 20px;
       left: 0;
       width: 7px;
       height: 7px;
@@ -413,7 +590,7 @@ h1 {
     }
     .fadeline {
       position: absolute;
-      top: 20px;
+      top: 25px;
       left: 3px;
       width: 1px;
       height: 100%;

@@ -63,14 +63,3 @@ content.onscroll = function () {
     ? body.classList.add('scrollTop')
     : body.classList.remove('scrollTop')
 }
-
-// Action filters
-
-const showFilters = document.querySelector('.show-filters')
-const filters = document.querySelector('.filters')
-
-if (showFilters != null) {
-  showFilters.onclick = function () {
-    filters.classList.toggle('active')
-  }
-}

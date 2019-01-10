@@ -2758,5 +2758,11 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Filtrer</target>
       </segment>
     </unit>
+    <unit id="aF9Ibh7" name="retreat.speaker.of">
+      <segment>
+        <source>retreat.speaker.of</source>
+        <target>par</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
