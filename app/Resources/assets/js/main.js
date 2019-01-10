@@ -1,3 +1,7 @@
+// Variables
+
+const limitMenuReduced = 1024
+
 // Zoom
 
 const bodyClass = document.querySelector('body').classList
@@ -47,7 +51,7 @@ const handleMenuHover = event => {
 }
 
 const handleHeaderHover = event => {
-  if (window.innerWidth >= 1440) {
+  if (window.innerWidth >= limitMenuReduced) {
     event.type === 'mouseenter'
       ? body.classList.add('hover')
       : body.classList.remove('hover')
@@ -55,7 +59,7 @@ const handleHeaderHover = event => {
 }
 
 const handleWindowResize = () => {
-  if (window.innerWidth < 1440) {
+  if (window.innerWidth < limitMenuReduced) {
     body.classList.add('menuReduced')
     if (content !== null) {
       content.style.overflowY = 'auto'
