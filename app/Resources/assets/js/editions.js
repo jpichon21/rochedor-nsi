@@ -69,6 +69,8 @@ content.onscroll = function () {
 const showFilters = document.querySelector('.show-filters')
 const filters = document.querySelector('.filters')
 
-showFilters.onclick = function () {
-  filters.classList.toggle('active')
+if (showFilters != null) {
+  showFilters.onclick = function () {
+    filters.classList.toggle('active')
+  }
 }
