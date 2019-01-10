@@ -43,7 +43,7 @@ body {
       background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 200px, transparent 100%);
     }
   }
-  &.hover {
+  &.menuOpened {
     &:before {
       visibility: visible;
       opacity: 1;

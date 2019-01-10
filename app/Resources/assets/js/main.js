@@ -1,6 +1,4 @@
-// Variables
-
-const limitMenuReduced = 1200
+import { limitMenuReduced } from './variables'
 
 // Zoom
 

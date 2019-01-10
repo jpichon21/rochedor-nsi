@@ -4,8 +4,9 @@ import scrollify from 'jquery-scrollify'
 import ScrollMagic from 'scrollmagic'
 import 'animation.gsap'
 import 'jquery.easing'
+import { limitMenuReduced } from './variables'
 
-/* Scrollify */
+// Scrollify
 
 $.scrollify({
   section: 'article',
@@ -14,7 +15,7 @@ $.scrollify({
   updateHash: false
 })
 
-/* ScrollMagic */
+// ScrollMagic
 
 function updateHeightWindow () {
   return $(window).height()
@@ -44,8 +45,10 @@ $(window).resize(function () {
   hWindow = updateHeightWindow()
 })
 
-/* Nouveautés */
+// Nouveautés
 
 $('.nouveautes h2').click(function () {
-  $('body').toggleClass('nouveautesOpened')
+  if (window.innerWidth < limitMenuReduced) {
+    $('body').toggleClass('nouveautesOpened')
+  }
 })

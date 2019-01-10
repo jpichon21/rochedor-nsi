@@ -10,7 +10,7 @@ body {
       }
     }
   }
-  &.hover {
+  &.menuOpened {
     .burger {
       background-image: url('../img/burger-open-black.png');
     }
