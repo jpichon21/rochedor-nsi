@@ -20,7 +20,7 @@ body {
         display: block;
       }
     }
-    @include media('<large') {
+    @include media('<limitMenuReduced') {
       .footer,
       .content,
       .swipe-section {
@@ -63,7 +63,7 @@ body {
       white-space: pre-line;
       transition: 0.2s;
       opacity: 1;
-      @include media('>=large') {
+      @include media('>=limitMenuReduced') {
         content: none;
       }
     }
@@ -198,7 +198,7 @@ body {
     order: 4;
   }
 }
-@include media('>=large') {
+@include media('>=limitMenuReduced') {
   .header {
     flex-direction: row;
     align-items: flex-end;
@@ -394,7 +394,7 @@ body {
     .left { order: 1; }
   }
 }
-@include media('<large') {
+@include media('<limitMenuReduced') {
   .header {
     height: 0;
     .options {

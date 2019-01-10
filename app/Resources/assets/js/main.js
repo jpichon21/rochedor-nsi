@@ -1,6 +1,6 @@
 // Variables
 
-const limitMenuReduced = 1024
+const limitMenuReduced = 1200
 
 // Zoom
 
