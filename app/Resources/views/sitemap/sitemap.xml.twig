@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<urlset 
-    xmlns="http://sitemaps.org/schemas/sitemap/0.9"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {% for url in urls %}
     <url>
         {# check if hostname is not already in url #}
-        <loc>{% if url.loc|replace({hostname:''}) == url.loc %}http://{{hostname}}{{url.loc}}{% else %}{{url.loc}}{% endif %}</loc>
+        <loc>{% if url.loc|replace({hostname:''}) == url.loc %}https://{{hostname}}{{url.loc}}{% else %}{{url.loc}}{% endif %}</loc>
         {% if url.lastmod is defined %}
             <lastmod>{{ url.lastmod }}</lastmod>
         {% endif %}
@@ -20,3 +15,4 @@
         {% endif %}
     </url>
 {% endfor %}
+</urlset> 
