@@ -3,6 +3,7 @@ body {
     display: block;
     height: auto;
     min-height: 100vh;
+    overflow-y: auto;
     .footer {
       position: fixed;
       top: calc(100% - 35px);
