@@ -325,9 +325,11 @@ body {
     }
     .menu {
       li {
+        > span {
+          cursor: default;
+        }
         > a, span {
           padding-bottom: 20px;
-          cursor: default;
           &:after,
           &:before {
             bottom: -1px;
@@ -420,6 +422,9 @@ body {
     .menu {
       padding: 0 40px;
       li {
+        > span {
+          cursor: pointer;
+        }
         > a, span {
           padding: 15px;
           font-size: 16px;

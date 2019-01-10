@@ -27,6 +27,9 @@ body {
           top: 40px;
           transform: rotate(90deg);
         }
+        h2 {
+          padding: 0;
+        }
       }
     }
   }
@@ -194,7 +197,6 @@ section {
         top: calc(100% - 55px);
         left: 0;
         right: 0;
-        padding: 20px 40px;
         margin-right: 0;
         border-top: 1px $roche-yellow solid;
         &:after,
@@ -228,6 +230,7 @@ section {
         text-transform: uppercase;
         letter-spacing: 1.6px;
         @include media('<large') {
+          padding: 20px;
           font-size: 15px;
           cursor: pointer;
         }
