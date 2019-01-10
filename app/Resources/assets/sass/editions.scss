@@ -184,9 +184,11 @@ h2 {
     padding: 80px;
     background-color: #ffffff;
     box-sizing: border-box;
+    order: 1;
     @include media('<large') {
       width: 100%;
       padding: 20px;
+      order: 2;
     }
     h2 {
       font-size: 28px;
@@ -225,8 +227,17 @@ h2 {
   .right {
     position: relative;
     flex: 1;
+    order: 2;
     @include media('<large') {
-      height: 100vw;
+      height: 80vw;
+      order: 1;
+      .carousel {
+        .prev,
+        .next {
+          top: 100%;
+          margin-top: -40px;
+        }
+      }
     }
   }
 }
@@ -261,7 +272,8 @@ h2 {
     height: 315px;
     overflow: hidden;
     @include media('<large') {
-      width: 100%;
+      width: auto;
+      margin: 0 -20px 40px;
     }
     .link {
       position: absolute;
@@ -269,6 +281,9 @@ h2 {
       right: 0;
       width: 43px;
       height: 44px;
+      @include media('<large') {
+        display: none;
+      }
       &:after,
       &:before {
         content: '';
@@ -286,31 +301,33 @@ h2 {
         z-index: 3;
       }
     }
-    &:hover {
-      .link {
-        &:before {
-          opacity: 0;
-        }
-      }
-      .description {
-        top: 0;
-        &:after {
-          opacity: 1;
-          right: 20px;
-        }
-        .text {
-          .short {
+    @include media('>=large') {
+      &:hover {
+        .link {
+          &:before {
             opacity: 0;
           }
-          .long {
+        }
+        .description {
+          top: 0;
+          &:after {
             opacity: 1;
+            right: 20px;
           }
-        }
-        .cart {
-          right: 110px;
-        }
-        .price {
-          bottom: 20px;
+          .text {
+            .short {
+              opacity: 0;
+            }
+            .long {
+              opacity: 1;
+            }
+          }
+          .cart {
+            right: 110px;
+          }
+          .price {
+            bottom: 20px;
+          }
         }
       }
     }
@@ -392,9 +409,26 @@ h2 {
     }
   }
 }
-
+.show-filters {
+  display: block;
+  float: none;
+  margin-bottom: 20px;
+  text-align: center;
+  cursor: pointer;
+  @include media('>=large') {
+    display: none;
+  }
+}
 .filters {
   margin-bottom: 50px;
+  @include media('<large') {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.2s;
+    &.active {
+      max-height: 600px;
+    }
+  }
   .title {
     display: block;
     margin-bottom: 10px;
@@ -402,6 +436,9 @@ h2 {
     font-weight: 100;
     text-transform: uppercase;
     letter-spacing: 1.4px;
+    @include media('<large') {
+      display: none;
+    }
   }
   .box {
     display: flex;
@@ -410,8 +447,15 @@ h2 {
     border-top: 1px rgba(0, 0, 0, 0.1) solid;
     border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
     align-items: flex-end;
+    @include media('<large') {
+      flex-direction: column;
+    }
     .filter {
       margin-right: 50px;
+      @include media('<large') {
+        width: 100%;
+        margin: 0 0 20px 0;
+      }
       &.disabled {
         opacity: 0.2;
       }
@@ -435,6 +479,12 @@ h2 {
           box-sizing: border-box;
           background-size: auto 14px;
           cursor: pointer;
+          @include media('<large') {
+            margin: 0 0 10px 0;
+            &:last-of-type {
+              margin: 0;
+            }
+          }
         }
         input {
           display: none;
@@ -447,6 +497,9 @@ h2 {
       }
       form {
         display: flex;
+        @include media('<large') {
+          flex-direction: column;
+        }
       }
       .select {
         width: 100%;
@@ -488,11 +541,19 @@ h2 {
 .category {
   float: left;
   width: 50%;
+  @include media('<large') {
+    float: none;
+    width: 100%;
+  }
   .products {
     flex-wrap: nowrap;
     .product {
       width: 50%;
       margin-right: 20px;
+      @include media('<large') {
+        width: auto;
+        margin: 0 -20px 40px;
+      }
     }
   }
   .button {

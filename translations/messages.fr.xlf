@@ -2746,5 +2746,17 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Afficher les filtres</target>
       </segment>
     </unit>
+    <unit id="Q0rf09M" name="editions.filters.show">
+      <segment>
+        <source>editions.filters.show</source>
+        <target>Filtrer</target>
+      </segment>
+    </unit>
+    <unit id="mslbO25" name="editions.filter.show">
+      <segment>
+        <source>editions.filter.show</source>
+        <target>Filtrer</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
