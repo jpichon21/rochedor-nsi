@@ -175,8 +175,9 @@ h2 {
   margin-bottom: 50px;
   @include media('<large') {
     flex-direction: column;
-    width: 100%;
+    width: auto;
     height: auto;
+    margin: 0 -20px 40px;
   }
   .left {
     position: relative;
@@ -235,7 +236,7 @@ h2 {
         .prev,
         .next {
           top: 100%;
-          margin-top: -40px;
+          margin-top: -45px;
         }
       }
     }
@@ -565,6 +566,15 @@ h2 {
   .carousel {
     position: relative;
     height: 500px;
+    @include media('<large') {
+      height: 80vw;
+      margin: 0 -20px;
+      .prev,
+      .next {
+        top: 100%;
+        margin-top: -45px;
+      }
+    }
     img {
       display: none;
     }
@@ -573,6 +583,9 @@ h2 {
     display: flex;
     margin-bottom: 40px;
     padding-top: 10px;
+    @include media('<large') {
+      display: none;
+    }
     div {
       flex: 1;
       margin-right: 10px;
@@ -593,81 +606,126 @@ h2 {
       }
     }
   }
-  .right {
-    position: relative;
-    h1 {
-      font-size: 24px;
-      font-weight: 100;
-      margin-bottom: 20px;
-    }
-    h2 {
-      font-weight: 100;
-      margin-bottom: 10px;
-      color: #000000;
-    }
-    .subtitle {
-      margin-bottom: 5px;
-      font-size: 14px;
-      font-weight: 100;
-      text-transform: uppercase;
-      letter-spacing: 1.4px;
-      b {
-        font-weight: 500;
-        margin-right: 5px;
+  .content {
+    > .right {
+      position: relative;
+      @include media('<large') {
+        padding: 40px 20px;
       }
-    }
-    .price {
-      padding-top: 10px;
-      margin-bottom: 40px;
-      font-size: 30px;
-      font-weight: 100;
-      color: $roche-orange;
-    }
-    .description {
-      line-height: 18px;
-      font-size: 14px;
-      font-weight: 100;
-      margin-bottom: 40px;
-    }
-    .actions {
-      margin-bottom: 40px;
-      a {
-        display: inline-block;
-        float: none;
+      h1 {
+        font-size: 24px;
+        font-weight: 100;
+        margin-bottom: 20px;
+        @include media('<large') {
+          font-size: 18px;
+        }
       }
-      .choice {
-        display: inline-block;
-        margin: 0 10px;
-        font-size: 12px;
+      h2 {
+        font-weight: 100;
+        margin-bottom: 20px;
+        color: #000000;
+      }
+      .subtitle {
+        margin-bottom: 5px;
+        font-size: 14px;
+        font-weight: 100;
         text-transform: uppercase;
+        letter-spacing: 1.4px;
+        @include media('<large') {
+          font-size: 12px;
+          margin-bottom: 10px;
+        }
+        b {
+          font-weight: 500;
+          margin-right: 5px;
+          @include media('<large') {
+            display: block;
+            margin-bottom: 5px;
+          }
+        }
       }
-    }
-    .technical-review {
-      display: flex;
-      margin-bottom: 40px;
-      .left {
-        margin-right: 20px;
+      .price {
+        padding-top: 10px;
+        margin-bottom: 40px;
+        font-size: 30px;
+        font-weight: 100;
+        color: $roche-orange;
+        @include media('<large') {
+          font-size: 26px;
+          padding-top: 20px;
+          margin-bottom: 20px;
+        }
       }
-      .left,
-      .right {
-        flex: 1;
+      .description {
+        line-height: 18px;
+        font-size: 14px;
+        font-weight: 100;
+        margin-bottom: 40px;
+      }
+      .actions {
+        margin-bottom: 40px;
+        a {
+          display: inline-block;
+          float: none;
+          @include media('<large') {
+            display: block;
+            text-align: center;
+            &.addToCart {
+              margin-bottom: 10px;
+            }
+          }
+        }
+        .choice {
+          display: inline-block;
+          margin: 0 10px;
+          font-size: 12px;
+          text-transform: uppercase;
+          @include media('<large') {
+            display: none;
+          }
+        }
+      }
+      .technical-review {
         display: flex;
-        flex-direction: column;
-        .line {
+        margin-bottom: 40px;
+        @include media('>=large') {
+          .left {
+            margin-right: 20px;
+          }
+        }
+        @include media('<large') {
+          flex-direction: column;
+        }
+        .left,
+        .right {
+          flex: 1;
           display: flex;
-          justify-content: space-between;
+          flex-direction: column;
+          .line {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            border-bottom: 2px #ffffff solid;
+            b {
+              font-size: 12px;
+              font-weight: 500;
+              line-height: 16px;
+              text-transform: uppercase;
+              padding: 7px 0;
+            }
+            span {
+              margin-left: 40px;
+              font-size: 14px;
+              line-height: 18px;
+              font-weight: 100;
+              padding: 6px 0;
+            }
+          }
+        }
+      }
+      @include media('<large') {
+        .barcode {
           width: 100%;
-          line-height: 30px;
-          border-bottom: 2px #ffffff solid;
-          b {
-            font-size: 12px;
-            font-weight: 500;
-            text-transform: uppercase;
-          }
-          span {
-            font-size: 14px;
-            font-weight: 100;
-          }
         }
       }
     }
