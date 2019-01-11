@@ -24,6 +24,10 @@ body {
       }
     }
     @include media('<limitMenuReduced') {
+      .header {
+        height: 100vh;
+        overflow-y: auto;
+      }
       .footer,
       .content,
       .swipe-section {
@@ -404,7 +408,7 @@ body {
     .options {
       display: none;
       width: 100%;
-      padding: 20px 40px 0;
+      padding: 20px 0 40px;
       .cart {
         width: 100px;
         margin: 0 auto 40px;
