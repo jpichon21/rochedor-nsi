@@ -1,5 +1,5 @@
 {% set bodyClass = "home" %}
-{% block title %}{{ page.title ~ ' ' ~ page.subTitle }}{% endblock %}
+{% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
 {% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
@@ -26,7 +26,7 @@
                 <a class="button yellow" href="#">Découvrir</a>
             </div>
         <div class="scroll-down">
-            <img src="{{ asset('assets/img/scroll.png') }}">
+            <img src="{{ asset('assets/img/scroll.png') }}" alt="Déroulez pour voir la suite">
         </div>
         {% if lastNews %}
             <div class="nouveautes">
