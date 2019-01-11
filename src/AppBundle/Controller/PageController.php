@@ -392,7 +392,7 @@ class PageController extends Controller
                 $routes = $page->getRoutes();
                 foreach ($routes as $key => $route) {
                     $route->setName($url);
-                    $route->setStaticPrefix('/' . $url);
+                    $route->setStaticPrefix('/' .$page->getLocale().'/'.$url);
                     $routes[$key] = $route;
                 }
             }
