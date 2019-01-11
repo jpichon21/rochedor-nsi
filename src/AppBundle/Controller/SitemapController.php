@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Page;
@@ -10,11 +12,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SitemapController extends Controller
 {
+    /**
+     * Lists all tpay entities.
+     *
+     * @Route("/sitemap.xml", name="sitemap")
+     * @Method("GET")
+    */
     public function sitemapAction(Request $request) 
     {
         $urls = [];
-    
-        $hostname = $request->getHost();
         $pages = $this->getDoctrine()->getRepository('AppBundle:Page')->findAll();
         
         foreach ($pages as $page){
@@ -26,7 +32,6 @@ class SitemapController extends Controller
 
         return $this->render('sitemap/sitemap.xml.twig', [
             'urls' => $urls,
-            'hostname' => $hostname
         ]);
     }
 }

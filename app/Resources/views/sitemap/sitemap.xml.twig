@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{% set hostname = app.request.get('host') %}
 {% for url in urls %}
     <url>
         {# check if hostname is not already in url #}
-        <loc>{% if url.loc|replace({hostname:''}) == url.loc %}https://{{hostname}}{{url.loc}}{% else %}{{url.loc}}{% endif %}</loc>
+        <loc>{% if url.loc|replace({hostname:''}) == url.loc %}{{app.request.getSchemeAndHttpHost}}{{url.loc}}{% else %}{{url.loc}}{% endif %}</loc>
         {% if url.lastmod is defined %}
             <lastmod>{{ url.lastmod }}</lastmod>
         {% endif %}
