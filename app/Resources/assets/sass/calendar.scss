@@ -45,7 +45,7 @@ h1 {
 
 .filters {
   position: relative;
-  width: 220px;
+  width: 260px;
   margin-top: 40px;
   padding-right: 80px;
   color: $roche-yellow;
@@ -59,11 +59,19 @@ h1 {
     padding: 40px 20px 20px;
     background: #000000;
     transition: 0.2s;
+    box-sizing: border-box;
     z-index: 3;
     &.active {
       left: 0;
+      height: 100vh;
       box-shadow: 0 0 100px 0 #000000;
+      overflow-y: auto;
     }
+  }
+  @include media('<xxlarge', '>=large') {
+    &.active {
+      height: calc(100vh - 30px);
+    }    
   }
   @include media('<medium') {
     width: auto;
