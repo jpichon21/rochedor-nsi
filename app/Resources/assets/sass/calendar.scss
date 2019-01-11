@@ -9,8 +9,13 @@ h1 {
   .flex {
     display: flex;
     flex-direction: row;
-    @include media('<large') {
+    @include media('<xxlarge') {
       flex-direction: column;
+    }
+  }
+  @include media('<xxlarge') {
+    > .zone {
+      padding: 0 20px;
     }
   }
 }
@@ -30,8 +35,11 @@ h1 {
   box-sizing: border-box;
   outline: none;
   cursor: pointer;
-  @include media('>=large') {
+  @include media('>=xxlarge') {
     display: none;
+  }
+  @include media('>=medium') {
+    max-width: 250px;
   }
 }
 
@@ -42,7 +50,22 @@ h1 {
   padding-right: 80px;
   color: $roche-yellow;
   z-index: 1;
-  @include media('<large') {
+  @include media('<xxlarge', '>=medium') {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: -260px;
+    margin-top: 0;
+    padding: 40px 20px 20px;
+    background: #000000;
+    transition: 0.2s;
+    z-index: 3;
+    &.active {
+      left: 0;
+      box-shadow: 0 0 100px 0 #000000;
+    }
+  }
+  @include media('<medium') {
     width: auto;
     max-height: 0;
     margin: 0 0 50px;
@@ -54,11 +77,6 @@ h1 {
       padding: 20px 0;
       border-top: 1px rgba(255, 243, 141, 0.2) solid;
       border-bottom: 1px rgba(255, 243, 141, 0.2) solid;
-    }
-  }
-  .toggle {
-    @include media('>=large') {
-      display: none;
     }
   }
   .title {
@@ -288,8 +306,10 @@ h1 {
       }
     }
   }
-  .filter-raz {
+  .filter-raz,
+  .hide-filters {
     display: block;
+    margin-bottom: 10px;
     padding: 0 20px;
     font-size: 10px;
     color: #faf28e;
@@ -299,10 +319,15 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 1.4px;
     border: 1px #faf28e solid;
-    @include media('<large') {
-      float: right;
-      color: #000000;
-      background-color: $roche-yellow;
+    cursor: pointer;
+  }
+  .filter-raz {
+    color: #000000;
+    background-color: $roche-yellow;
+  }
+  .hide-filters {
+    @include media('>=xxlarge') {
+      display: none;
     }
   }
   .filter-keywords {
@@ -481,7 +506,7 @@ h1 {
       padding: 40px 15px 10px;
       text-align: left;
       z-index: 1;
-      @include media('>=large') {
+      @include media('>=xxlarge') {
         background-image: url('../img/bg-fallback.jpg');
         background-size: 100% auto;
         background-attachment: fixed;

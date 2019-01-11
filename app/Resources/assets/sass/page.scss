@@ -1,3 +1,4 @@
+@import '~include-media/dist/_include-media.scss';
 @import './carousel';
 @import './variables';
 
@@ -193,6 +194,9 @@
         background-color: transparent;
         outline: none;
         resize: none;
+        @include media('<large') {
+          margin-bottom: 10px;
+        }
         &::placeholder {
           color: $roche-yellow;
           opacity: 1;
@@ -236,6 +240,7 @@
         max-height: 110px;
       }
       .button {
+        margin-bottom: 20px;
         padding: 0 20px;
         font-size: 10px;
         line-height: 30px;
@@ -248,6 +253,9 @@
         box-sizing: border-box;
         outline: none;
         cursor: pointer;
+        @include media('<large') {
+          margin-bottom: 10px;
+        }
         &.submit {
           color: #ffffff;
           border-color: #ffffff;
@@ -269,7 +277,7 @@
         display: none;
         position: relative;
         margin: 20px 0;
-        padding: 30px 30px 0px 20px;
+        padding: 30px 20px 0px 20px;
         hr {
           margin: 10px 0 30px;
         }

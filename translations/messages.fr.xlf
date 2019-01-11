@@ -2764,5 +2764,11 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>par</target>
       </segment>
     </unit>
+    <unit id="GShLOoI" name="filter.close.button">
+      <segment>
+        <source>filter.close.button</source>
+        <target>Fermer les filtres</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

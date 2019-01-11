@@ -123,10 +123,17 @@ document.onchange = event => {
 // Action filters
 
 const showFilters = document.querySelector('.show-filters')
+const hideFilters = document.querySelector('.hide-filters')
 const filters = document.querySelector('.filters')
 
 if (showFilters != null) {
   showFilters.onclick = function () {
     filters.classList.toggle('active')
+  }
+}
+
+if (hideFilters != null) {
+  hideFilters.onclick = function () {
+    filters.classList.remove('active')
   }
 }

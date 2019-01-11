@@ -179,6 +179,8 @@ $('.filter-keywords').on('keyup', 'input', function () {
 
 $('.filter-raz').on('click', function (event) {
   event.preventDefault()
+  $('.filters')
+    .removeClass('active')
   $('.filter')
     .find('input:checked')
     .each(function () {
