@@ -190,7 +190,7 @@ h1 {
   .filter-dates {
     position: relative;
     margin-bottom: 40px;
-    z-index: 1;
+    z-index: 2;
     @include media('<large') {
       margin-bottom: 20px;
     }
