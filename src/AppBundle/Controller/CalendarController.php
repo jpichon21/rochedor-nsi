@@ -520,9 +520,11 @@ class CalendarController extends Controller
             foreach (explode("|", $event['speakers']) as $speaker) {
                 $speakerParse = array();
                 $speaker = explode(" , ", $speaker);
-                $speakerParse['name'] = $speaker[0] ;
-                $speakerParse['value'] = $speaker[1]  ;
-                $speakers[] = $speakerParse;
+                if (count($speaker) > 1) {
+                    $speakerParse['name'] = $speaker[0];
+                    $speakerParse['value'] = $speaker[1];
+                    $speakers[] = $speakerParse;
+                }
             }
 
 
