@@ -109,11 +109,11 @@ class ProductController extends Controller
     }
     
     /**
-     * @Route("/editions", name="collections-fr")
-     * @Route("/collections", name="collections-en")
-     * @Route("/publikationen", name="collections-de")
-     * @Route("/publicaciones", name="collections-es")
-     * @Route("/pubblicazioni", name="collections-it")
+     * @Route("/editions-collections", name="collections-fr")
+     * @Route("/publications-collections", name="collections-en")
+     * @Route("/publikationen-collections", name="collections-de")
+     * @Route("/publicaciones-collections", name="collections-es")
+     * @Route("/pubblicazioni-collections", name="collections-it")
      */
     public function showCollections(Request $request)
     {
