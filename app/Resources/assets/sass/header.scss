@@ -73,6 +73,9 @@ body {
       @include media('>=limitMenuReduced') {
         content: none;
       }
+      @media screen and (max-height: 500px) {
+        content: none;
+      }
     }
     .editions {
       display: none;

@@ -148,10 +148,11 @@ section {
         letter-spacing: 1px;
         @include media('<large') {
           margin-bottom: 20px;
+          font-size: 25px;
         }
         small {
           display: block;
-          font-size: 23px;
+          font-size: 16px;
         }
       }
       em {
