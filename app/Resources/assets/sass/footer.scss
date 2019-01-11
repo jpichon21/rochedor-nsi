@@ -3,9 +3,13 @@
   height: 35px;
   &:hover {
     .hover {
-      top: -150px;
-      .top {
-        opacity: 0;
+      top: -138px;
+      .bottom {
+        padding-top: 15px;
+        .column {
+          border-color: $roche-yellow;
+          padding-top: 0;
+        }
       }
     }
   }
@@ -33,25 +37,17 @@
       display: flex;
       z-index: 1;
     }
-    .top {
-      justify-content: center;
-      align-items: center;
-      transition: 0.5s;
-      span {
-        margin: 0 20px;
-        line-height: 35px;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: $roche-yellow;
-      }
-    }
     .bottom {
+      z-index: 1;
+      display: flex;
       flex: 1;
       justify-content: space-evenly;
+      transition: 0.5s;
+      padding-top: 0;
       .column {
+        transition: 0.5s;
         padding: 5px 0 40px 30px;
-        border-left: 1px $roche-yellow solid;
+        border-left: 1px transparent solid;
         a,
         span {
           display: block;
@@ -62,6 +58,8 @@
         }
         span {
           text-transform: uppercase;
+          margin-bottom: 13px;
+          margin-top: 5px;
         }
         a {
           text-decoration: none;
