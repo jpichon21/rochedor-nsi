@@ -39,11 +39,6 @@ class PageService
         return $page;
     }
 
-    public function getUrl($page) 
-    {
-        return $page->getRoutes()->getValues()[0]->getPath();
-    }
-
     public function getAvailableLocales($contentDocument)
     {
         if ($contentDocument === null) {

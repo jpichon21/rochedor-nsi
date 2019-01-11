@@ -35,7 +35,6 @@ class CustomExtension extends \Twig_Extension
         return array(
             new \Twig_Function('routeExists', array($this, 'routeExists')),
             new \Twig_Function('localePath', array($this, 'localePath')),
-            new \Twig_Function('dynamicCanonicalLink', array($this, 'dynamicCanonicalLink'))
         );
     }
  
@@ -74,14 +73,6 @@ class CustomExtension extends \Twig_Extension
             }
         } 
         return '#';
-    }
- 
-    public function dynamicCanonicalLink($host, $page) 
-    {   
-        if (is_string($page)) {
-            return 'https://'.$host.$page;
-        }
-        return 'https://'.$host.$this->pageService->getUrl($page);
     }
 
     public function getName()

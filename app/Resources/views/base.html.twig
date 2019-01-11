@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}La Roche d'Or{% endblock %}</title>
     {% if page is defined %}
-        <link rel="canonical" href="{{ dynamicCanonicalLink(app.request.headers.get('host') , page) }}" />
+        <link rel="canonical" href="{{ app.request.getSchemeAndHttpHost ~ page.routes.values[0].path }}" />
+
     {% else %}
-        <link rel="canonical" href="{{ dynamicCanonicalLink(app.request.headers.get('host') , app.request.requestUri) }}" />
+        <link rel="canonical" href="{{ app.request.getSchemeAndHttpHost ~ app.request.requestUri }}" />
     {% endif %}
     <link rel="stylesheet" href="https://use.typekit.net/ozm6rkb.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display">
