@@ -48,7 +48,7 @@
                             <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
                         </div>
                     </form>
-                    <a class="option" href="#reset">{{ 'form.password.reset'|trans }}</a>
+                    <a class="option" href="#reset" rel="nofollow">{{ 'form.password.reset'|trans }}</a>
                 </div>
                 <div class="panel registration">
                     <h3>{{ 'calendar.registration.one.title.registration' | trans | raw }}</h3>
@@ -82,8 +82,8 @@
                 <div class="you-render"></div>
                 <h3>{{ 'calendar.registration.two.title.registered' | trans | raw }}</h3>
                 <div class="registered-render"></div>
-                <a href="#" class="add-participant">{{ 'calendar.registration.two.add_participant' | trans | raw }}</a>
-                <a href="#" class="validate-participants button">{{ 'calendar.registration.two.validate_participants' | trans | raw }}</a>
+                <a href="#" class="add-participant" rel="nofollow">{{ 'calendar.registration.two.add_participant' | trans | raw }}</a>
+                <a href="#" class="validate-participants button" rel="nofollow">{{ 'calendar.registration.two.validate_participants' | trans | raw }}</a>
                 <div class="panel you">
                     <h3>{{ 'calendar.registration.two.title.modify.you' | trans | raw }}</h3>
                     <form class="pure-g you-form-render"></form>
@@ -179,8 +179,8 @@
             <div class="him">
                 <p><%= _.escape(him.prenom) %> <%= _.escape(him.nom) %><br>
                     <%= _.escape(him.adresse) %> <%= _.escape(him.cp) %> <%= _.escape(him.ville) %> (<%= _.escape(him.pays) %>)</p>
-                <a href="#" data-id="<%= _.escape(him.codco) %>" class="modify-him button">{{ 'form.modify' | trans | raw }}</a>
-                <a href="#" data-id="<%= _.escape(him.codco) %>" class="participate-him button radio <%= (him.check) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
+                <a href="#" data-id="<%= _.escape(him.codco) %>" class="modify-him button" rel="nofollow">{{ 'form.modify' | trans | raw }}</a>
+                <a href="#" data-id="<%= _.escape(him.codco) %>" class="participate-him button radio <%= (him.check) ? 'checked' : '' %>" rel="nofollow">{{ 'form.participate' | trans | raw }}</a>
             </div>
         <% } %>
     <% } else { %>

@@ -34,7 +34,7 @@ class CustomExtension extends \Twig_Extension
     {
         return array(
             new \Twig_Function('routeExists', array($this, 'routeExists')),
-            new \Twig_Function('localePath', array($this, 'localePath'))
+            new \Twig_Function('localePath', array($this, 'localePath')),
         );
     }
  
@@ -78,7 +78,7 @@ class CustomExtension extends \Twig_Extension
         }
         return '#';
     }
- 
+
     public function getName()
     {
         return 'custom_extension';

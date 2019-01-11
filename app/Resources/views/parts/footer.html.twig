@@ -3,57 +3,51 @@
         <div class="bottom">
             <div class="column">
                 <span>{{ 'menu.one.one' | trans | raw | striptags }}</span>
-                <a href="#">{{ 'menu.one.one' | trans | raw | striptags }}</a>
-                <a href="#">{{ 'menu.one.two' | trans | raw | striptags }}</a>
-                <a href="#">{{ 'menu.one.three' | trans | raw | striptags }}</a>
-                <a href="#">{{ 'menu.one.four' | trans | raw | striptags }}</a>
+                <a a href={{ localePath('la-communaute', app.request.locale)}} rel="nofollow">{{ 'menu.one.one' | trans | raw | striptags }}</a>
+                <a href="#" rel="nofollow">{{ 'menu.one.two' | trans | raw | striptags }}</a>
+                <a href="#" rel="nofollow">{{ 'menu.one.three' | trans | raw | striptags }}</a>
+                <a href="#" rel="nofollow">{{ 'menu.one.four' | trans | raw | striptags }}</a>
             </div>
             <div class="column">
                 <span>{{ 'menu.two' | trans | raw | striptags }}</span>
-                <a href="#">{{ 'menu.two.one' | trans | raw | striptags }}</a>
-                <a href="#">{{ 'menu.two.four' | trans | raw | striptags }}</a>
-                <a href="#">{{ 'menu.three' | trans | raw | striptags }}</a>
+                <a href={{ localePath('venir-en-retraite', app.request.locale) }} rel="nofollow">{{ 'menu.two.one' | trans | raw | striptags }}</a>
+                <a href={{ path('speakers-' ~ app.request.locale)}} rel="nofollow">{{ 'menu.two.four' | trans | raw | striptags }}</a>
+                <a href={{ path('calendar-' ~ app.request.locale) }} rel="nofollow">{{ 'menu.three' | trans | raw | striptags }}</a>
             </div>
             <div class="column">
                 <span>{{ 'menu.five' | trans | raw | striptags }}</span>
-                <a href="#">{{ 'menu.five.two' | trans | raw | striptags }}</a>
-                <a href="#">{{ 'menu.five.three' | trans | raw | striptags }}</a>
+                <a href={{ path('collections-news-' ~ currentLocale) }} rel="nofollow">{{ 'menu.five.two' | trans | raw | striptags }}</a>
+                <a href={{ path('collections-' ~ currentLocale) }} rel="nofollow">{{ 'menu.five.three' | trans | raw | striptags }}</a>
                 {% if
-                    routeExists('cgv')
-                    and (
-                        product is defined
-                        or (
-                            page is defined
-                            and page.type == 'editions'
-                        )
+                    product is defined
+                    or (
+                        page is defined
+                        and page.type == 'editions'
                     )
                 %}
-                <a href="{{ path('cgv') }}">{{ 'footer.terms'|trans }}</a>
+                <a href={{ localePath('cgv', app.request.locale) }} rel="nofollow">{{ 'footer.terms'|trans }}</a>
                 {% endif %}
                 {% if
-                    routeExists('cgv-pro')
-                    and (
-                        product is defined
-                        or (
-                            page is defined
-                            and page.type == 'editions'
-                        )
+                    product is defined
+                    or (
+                        page is defined
+                        and page.type == 'editions'
                     )
                 %}
-                <a href="{{ path('cgv-pro') }}">{{ 'footer.termsPro'|trans }}</a>
+                <a href={{ localePath('cgv-pro', app.request.locale) }} rel="nofollow">{{ 'footer.termsPro'|trans }}</a>
                 {% endif %}
             </div>
             <div class="column">
                 <span>{{ 'menu.four' | trans | raw | striptags }}</span>
-                <a href="#">{{ 'menu.terms' | trans | raw | striptags }}</a>
-                <a href="#">{{ 'menu.legal' | trans | raw | striptags }}</a>
-                <a href="#">{{ 'menu.four.four' | trans | raw | striptags }}</a>
-                <a href="#">{{ 'menu.six' | trans | raw | striptags }}</a>
+                <a href="#" rel="nofollow">{{ 'menu.terms' | trans | raw | striptags }}</a>
+                <a href="#" rel="nofollow">{{ 'menu.legal' | trans | raw | striptags }}</a>
+                <a href="#" rel="nofollow">{{ 'menu.four.four' | trans | raw | striptags }}</a>
+                <a href="#" rel="nofollow">{{ 'menu.six' | trans | raw | striptags }}</a>
             </div>
             <div class="column">
                 <span>{{ 'contacts' | trans | raw | striptags }}</span>
-                <a href="{{ url('contact', {'site': 'ro'}) }}">{{ 'menu.one.three' | trans | raw | striptags }}</a>
-                <a href="{{ url('contact', {'site': 'ft'}) }}">{{ 'menu.one.four' | trans | raw | striptags }}</a>
+                <a href="{{ url('contact', {'site': 'ro'}) }}" rel="nofollow">{{ 'menu.one.three' | trans | raw | striptags }}</a>
+                <a href="{{ url('contact', {'site': 'ft'}) }}" rel="nofollow">{{ 'menu.one.four' | trans | raw | striptags }}</a>
             </div>
         </div>
     </div>
