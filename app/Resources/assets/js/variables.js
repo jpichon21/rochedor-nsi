@@ -1,1 +1,1 @@
-export const limitMenuReduced = 1200
+export const limitMenuReduced = 1440
