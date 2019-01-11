@@ -6,7 +6,7 @@ const bodyClass = document.querySelector('body').classList
 const dropdown = document.querySelector('.dropdown')
 
 const updateHeightDropdown = () => {
-  if (dropdown) {
+  if (dropdown !== null) {
     let active = dropdown.querySelector('.active')
     active.style.maxHeight = active.scrollHeight + 'px'
   }
@@ -87,7 +87,6 @@ const handleWindowResize = () => {
       content.style.width = 'calc(100% + ' + (content.offsetWidth - content.clientWidth) + 'px)'
     }
   }
-  updateHeightDropdown()
 }
 
 menus.forEach(menu => {
@@ -99,7 +98,10 @@ menus.forEach(menu => {
 header.onmouseleave = event => handleHeaderHover(event)
 header.onmouseenter = event => handleHeaderHover(event)
 
-window.onresize = () => handleWindowResize()
+window.onresize = () => {
+  handleWindowResize()
+  updateHeightDropdown()
+}
 
 handleWindowResize()
 
