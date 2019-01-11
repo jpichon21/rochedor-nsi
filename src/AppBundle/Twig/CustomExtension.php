@@ -65,15 +65,13 @@ class CustomExtension extends \Twig_Extension
         if (!$route) {
             return '#';
         }
-        if ($route[0]) {
-            $availableLocales = $this->pageService->getAvailableLocales($this->pageService->getContent($routeName));
-            foreach ($availableLocales as $path) {
-                if (in_array($locale, explode('/', $path))) {
-                    return $path;
-                }
-            }
-            if ($locale === 'fr') {
-                return $routeName;
+        if ($locale === 'fr') {
+            return $route[0]->getStaticPrefix();
+        }
+        $availableLocales = $this->pageService->getAvailableLocales($this->pageService->getContent($routeName));
+        foreach ($availableLocales as $path) {
+            if (in_array($locale, explode('/', $path))) {
+                return $path;
             }
         }
         return '#';
