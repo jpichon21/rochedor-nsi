@@ -78,6 +78,9 @@ class CustomExtension extends \Twig_Extension
  
     public function dynamicCanonicalLink($host, $page) 
     {   
+        if (is_string($page)) {
+            return 'https://'.$host.$page;
+        }
         return 'https://'.$host.$this->pageService->getUrl($page);
     }
 

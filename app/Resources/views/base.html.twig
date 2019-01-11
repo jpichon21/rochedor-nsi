@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}La Roche d'Or{% endblock %}</title>
-    <link rel="canonical" href="{{ dynamicCanonicalLink(app.request.headers.get('host') , page) }}" />
+    {% if page is defined %}
+        <link rel="canonical" href="{{ dynamicCanonicalLink(app.request.headers.get('host') , page) }}" />
+    {% else %}
+        <link rel="canonical" href="{{ dynamicCanonicalLink(app.request.headers.get('host') , app.request.requestUri) }}" />
+    {% endif %}
     <link rel="stylesheet" href="https://use.typekit.net/ozm6rkb.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display">
     <link rel="stylesheet" href="{{ asset("assets/css/main.css") }}">
