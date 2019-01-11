@@ -61,7 +61,11 @@ class CustomExtension extends \Twig_Extension
  
     public function localePath($routeName, $locale)
     {
-        if ($route = $this->routeExists($routeName)[0]) {
+        $route = $this->routeExists($routeName);
+        if (!$route) {
+            return '#';
+        }
+        if ($route[0]) {
             $availableLocales = $this->pageService->getAvailableLocales($this->pageService->getContent($routeName));
             foreach ($availableLocales as $path) {
                 if (in_array($locale, explode('/', $path))) {
@@ -71,7 +75,7 @@ class CustomExtension extends \Twig_Extension
             if ($locale === 'fr') {
                 return $routeName;
             }
-        } 
+        }
         return '#';
     }
  

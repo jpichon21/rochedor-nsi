@@ -340,7 +340,8 @@ class ShopSecurityController extends Controller
         ));
     }
 
-    private function parsePro($professionnel) {
+    private function parsePro($professionnel)
+    {
         if ($professionnel === "true") {
             return true;
         }

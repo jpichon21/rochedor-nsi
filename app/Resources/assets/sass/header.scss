@@ -1,0 +1,474 @@
+body {
+  &.menuReduced {
+    display: block;
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+    .footer {
+      position: fixed;
+      top: calc(100% - 35px);
+      width: 100%;
+    }
+  }
+  &.menuOpened {
+    position: fixed;
+    width: 100%;
+    .burger {
+      background-image: url('../img/burger-open.png');
+    }
+    .header {
+      .left,
+      .right,
+      .options {
+        display: block;
+      }
+    }
+    @include media('<limitMenuReduced') {
+      .footer,
+      .content,
+      .swipe-section {
+        opacity: 0;
+      }
+    }
+  }
+}
+.header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+  .burger {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 25px;
+    height: 18px;
+    background-image: url('../img/burger-close.png');
+    background-size: 100% 100%;
+    cursor: pointer;
+  }
+  .logo {
+    position: relative;
+    &:after {
+      content: 'Communauté\A de la roche d\'or';
+      position: absolute;
+      left: 50%;
+      bottom: -20px;
+      width: 180px;
+      margin-left: -90px;
+      font-size: 14px;
+      line-height: 18px;
+      letter-spacing: 2px;
+      color: #faf28e;
+      text-align: center;
+      text-transform: uppercase;
+      white-space: pre-line;
+      transition: 0.2s;
+      opacity: 1;
+      @include media('>=limitMenuReduced') {
+        content: none;
+      }
+    }
+    .editions {
+      display: none;
+    }
+  }
+  .cart {
+    display: block;
+    position: relative;
+    padding: 0 20px;
+    line-height: 30px;
+    font-size: 12px;
+    color: #000000;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    border: 1px #000000 solid;
+    z-index: 1;
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      top: -7px;
+      right: -7px;
+      color: #ffffff;
+      border-radius: 18px;
+      font-size: 10px;
+      background-color: $roche-orange;
+      font-family: arial, sans-serif;
+      padding-top: 3.5px;
+      box-sizing: border-box;
+    }
+  }
+  .languages {
+    ul {
+      float: left;
+      li {
+        float: left;
+        margin-right: -1px;
+        border: 1px $roche-yellow solid;
+        a {
+          display: block;
+          width: 30px;
+          line-height: 30px;
+          font-size: 12px;
+          color: $roche-yellow;
+          text-align: center;
+          text-transform: uppercase;
+          text-decoration: none;
+        }
+      }
+    }
+    .current {
+      li {
+        a {
+          color: #000000;
+          background-color: $roche-yellow;
+        }
+      }
+    }
+  }
+  .zoom {
+    li {
+      float: left;
+      width: 30px;
+      margin-left: -1px;
+      line-height: 30px;
+      font-size: 12px;
+      color: $roche-yellow;
+      text-align: center;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px $roche-yellow solid;
+      cursor: pointer;
+    }
+  }
+  .left,
+  .right {
+    li {
+      font-size: 12px;
+      font-weight: 400;
+      color: $roche-yellow;
+      line-height: 16px;
+      letter-spacing: 2px;
+      text-align: center;
+      text-transform: uppercase;
+      > a, span {
+        position: relative;
+        display: block;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+        br {
+          display: none;
+        }
+      }
+    }
+  }
+  .sub-menu {
+    position: absolute;
+    visibility: hidden;
+    max-height: 0;
+    padding-top: 0;
+    opacity: 0;
+    transition:
+      visibility 0s 0.2s,
+      max-height 0.2s,
+      padding-top 0.2s,
+      opacity 0.2s linear;
+    &.active {
+      visibility: visible;
+      opacity: 1;
+      max-height: 150px;
+      transition: opacity 0.2s linear;
+    }
+  }
+  .logo {
+    order: 1;
+  }
+  .left {
+    order: 2;
+  }
+  .right {
+    order: 3;
+  }
+  .options {
+    order: 4;
+  }
+}
+@include media('>=limitMenuReduced') {
+  .header {
+    flex-direction: row;
+    align-items: flex-end;
+    .burger {
+      display: none;
+    }
+    .logo {
+      position: relative;
+      width: 170px;
+      .editions {
+        display: none;
+      }
+      img {
+        position: absolute;
+        left: 50%;
+        bottom: -20px;
+        margin-left: -45px;
+      }
+    }
+    .options {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      z-index: 1;
+      .cart,
+      .zoom,
+      .languages {
+        float: left;
+        margin-left: 22px;
+      }
+    }
+    .left,
+    .right {
+      position: relative;
+      flex: 1;
+      padding-top: 80px;
+      border-bottom: 1px $roche-yellow solid;
+      z-index: 0;
+      li {
+        position: static;
+        transition: color 0.2s;
+        &:hover,
+        &.active {
+          > a, span {
+            color: #ffffff;
+            &:after {
+              width: 200px;
+            }
+            &:before {
+              height: 100%;
+              border-color: #ffffff;
+            }
+          }
+        }
+        > a, span {
+          &:after,
+          &:before {
+            content: '';
+            position: absolute;
+            transition: 0.2s;
+          }
+          &:after {
+            width: 0;
+            height: 1px;
+            background: linear-gradient(to right, $roche-yellow 0%, #ffffff 50%, $roche-yellow 100%);
+          }
+          &:before {
+            border-left: 1px $roche-yellow solid;
+          }
+          br {
+            display: block;
+          }
+        }
+      }
+    }
+    .left {
+      order: 1;
+      padding-left: 40px;
+      li {
+        > a, span {
+          text-align: left;
+          padding-left: 10px;
+          &:after,
+          &:before {
+            left: 0;
+          }
+        }
+        &:hover,
+        &.active {
+          > a, span {
+            &:after {
+              left: -100px;
+            }
+          }
+        }
+      }
+    }
+    .right {
+      order: 3;
+      padding-right: 40px;
+      li {
+        > a, span {
+          text-align: right;
+          padding-right: 10px;
+          &:after,
+          &:before {
+            right: 0;
+          }
+        }
+        &:hover,
+        &.active {
+          > a, span {
+            &:after {
+              right: -100px;
+            }
+          }
+        }
+      }
+    }
+    .menu,
+    .sub-menu {
+      display: flex;
+      justify-content: space-between;
+    }
+    .menu {
+      li {
+        > span {
+          cursor: default;
+        }
+        > a, span {
+          padding-bottom: 20px;
+          &:after,
+          &:before {
+            bottom: -1px;
+          }
+          &:before {
+            height: 0;
+          }
+        }
+      }
+    }
+    .sub-menu {
+      top: 100%;
+      left: 0;
+      right: 0;
+      padding: 0 40px;
+      li {
+        > a, span {
+          position: relative;
+          padding-top: 25px;
+          padding-bottom: 0;
+          &:after,
+          &:before {
+            top: 0;
+          }
+          &:before {
+            height: 0px;
+          }
+        }
+      }
+    }
+    .languages {
+      &:hover {
+        .available {
+          max-width: 130px;
+          visibility: visible;
+          opacity: 1;
+          transition: opacity 0.2s linear, max-width 0.2s linear;
+        }
+      }
+      .current {
+        li {
+          a {
+            color: $roche-yellow;
+            background: none;
+          }
+        }
+      }
+      .available {
+        max-width: 0;
+        height: 32px;
+        visibility: hidden;
+        overflow: hidden;
+        opacity: 0;
+        transition: visibility 0s 0.2s, opacity 0.2s linear, max-width 0.2s linear;
+        li {
+          border: 1px rgba(255, 243, 141, 0.2) solid;
+        }
+      }
+    }
+    .zoom {
+      display: block;
+    }
+    .logo { order: 2; }
+    .left { order: 1; }
+  }
+}
+@include media('<limitMenuReduced') {
+  .header {
+    .options {
+      display: none;
+      width: 100%;
+      padding: 20px 40px 0;
+      .cart {
+        width: 100px;
+        margin: 0 auto 40px;
+      }
+      .zoom {
+        display: none;
+      }
+      .languages {
+        display: flex;
+        justify-content: center;
+      }
+    }
+    .logo {
+      margin: 8px 0 60px;
+      padding: 30px 0;
+    }
+    .menu {
+      padding: 0 40px;
+      li {
+        > span {
+          cursor: pointer;
+        }
+        > a, span {
+          padding: 15px;
+          font-size: 16px;
+          line-height: 20px;
+          border-top: 1px rgba(255, 243, 141, 0.2) solid;
+        }
+      }
+    }
+    .sub-menu {
+      position: relative;
+      border-top: 1px rgba(255, 243, 141, 0.2) solid;
+      &.active {
+        padding-top: 15px;
+      }
+      li {
+        > a, span {
+          padding: 0 0 15px;
+          border-top: none;
+          font-size: 12px;
+        }
+      }
+    }
+    .left,
+    .right {
+      display: none;
+      width: 100%;
+      li {
+        transition: all 0.2s linear;
+        &:hover {
+          color: #ffffff;
+        }
+        &.active {
+          color: #ffffff;
+        }
+      }
+    }
+    .left {
+      .menu {
+        li:first-child {
+          border: none;
+        }
+      }
+    }
+  }
+}

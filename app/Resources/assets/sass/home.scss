@@ -1,14 +1,48 @@
+@import '~include-media/dist/_include-media.scss';
 @import './intro';
 @import './variables';
 
 body {
   height: auto;
+  &:before {
+    z-index: 3;
+  }
+  &.nouveautesOpened {
+    position: fixed;
+    width: 100%;
+    .footer,
+    .header {
+      display: none;
+    }
+    section {
+      z-index: 5;
+      .box {
+        opacity: 0;
+      }
+      .nouveautes {
+        top: -1px;
+        padding: 40px;
+        border: transparent;
+        &:before {
+          background-color: rgba(0, 0, 0, 0.4);
+          transition: 0.2s;
+        }
+        &:after {
+          top: 40px;
+          transform: rotate(90deg);
+        }
+        h2 {
+          padding: 0;
+        }
+      }
+    }
+  }
 }
 
 .header {
   position: fixed;
   width: 100%;
-  z-index: 3;
+  z-index: 4;
 }
 
 .footer {
@@ -21,7 +55,7 @@ body {
 .button {
   display: inline-block;
   padding: 0 25px 0 10px;
-  line-height: 35px;
+  line-height: 33px;
   font-size: 12px;
   text-transform: uppercase;
   text-decoration: none;
@@ -50,32 +84,36 @@ section {
     width: 50%;
     height: 100vh;
     align-items: center;
+    opacity: 0;
     z-index: 1;
     &.article-1 {
       justify-content: space-between;
     }
-    &.article-2 {
-      margin-top: 100px;
-    }
-    &.article-3 {
-      margin-top: -400px;
-    }
-    &.article-4 {
-      margin-top: -200px;
-    }
-    &.article-5 {
-      margin-top: -100px;
-    }
-    &.article-6 {
-      margin-top: 800px;
-    }
+    // &.article-2 {
+    //   margin-top: 100px;
+    // }
+    // &.article-3 {
+    //   margin-top: -400px;
+    // }
+    // &.article-4 {
+    //   margin-top: -200px;
+    // }
+    // &.article-5 {
+    //   margin-top: -100px;
+    // }
+    // &.article-6 {
+    //   margin-top: 800px;
+    // }
     &.align-left {
       .box {
         margin-left: 40px;
-        em,
-        strong,
-        .button {
-          margin-left: 80px;
+        padding-right: 40px;
+        @include media('>=large') {
+          em,
+          strong,
+          .button {
+            margin-left: 80px;
+          }
         }
       }
     }
@@ -83,11 +121,14 @@ section {
       justify-content: flex-end;
       .box {
         margin-right: 40px;
+        padding-left: 40px;
         text-align: right;
-        em,
-        strong,
-        .button {
-          margin-right: 80px;
+        @include media('>=large') {
+          em,
+          strong,
+          .button {
+            margin-right: 80px;
+          }
         }
       }
     }
@@ -105,6 +146,9 @@ section {
         text-transform: uppercase;
         margin-bottom: 55px;
         letter-spacing: 1px;
+        @include media('<large') {
+          margin-bottom: 20px;
+        }
         small {
           display: block;
           font-size: 23px;
@@ -137,11 +181,51 @@ section {
       img {
         animation: bounce 4s ease infinite;
       }
+      @include media('<large') {
+        display: none;
+      }
     }
     .nouveautes {
+      position: relative;
       width: 25%;
       margin-right: 40px;
       overflow: hidden;
+      z-index: 2;
+      @include media('<xlarge') {
+        width: 35%
+      }
+      @include media('<large') {
+        position: fixed;
+        width: auto;
+        height: 100%;
+        top: calc(100% - 55px);
+        left: 0;
+        right: 0;
+        margin-right: 0;
+        border-top: 1px $roche-yellow solid;
+        &:after,
+        &:before {
+          content: '';
+          position: absolute;
+        }
+        &:before {
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.2);
+          z-index: -9999;
+        }
+        &:after {
+          top: 20px;
+          right: 40px;
+          width: 6px;
+          height: 11px;
+          background-image: url('../img/button-arrow-right-yellow.png');
+          transform: rotate(-90deg);
+          z-index: -1;
+        }
+      }
       h2 {
         margin-bottom: 20px;
         font-size: 20px;
@@ -149,6 +233,11 @@ section {
         color: $roche-yellow;
         text-transform: uppercase;
         letter-spacing: 1.6px;
+        @include media('<large') {
+          padding: 20px 40px;
+          font-size: 15px;
+          cursor: pointer;
+        }
       }
       i {
         display: block;
@@ -157,6 +246,9 @@ section {
         font-size: 18px;
         font-style: italic;
         line-height: 23px;
+        @include media('<large') {
+          color: $roche-yellow;
+        }
       }
       .text {
         position: relative;
@@ -167,18 +259,33 @@ section {
         line-height: 16px;
         border: 1px #000000 solid;
         border-bottom: none;
+        @include media('<large') {
+          padding: 0;
+          margin-bottom: 20px;
+          color: $roche-yellow;
+          border: none;
+        }
       }
       .button {
         position: relative;
         float: right;
         margin-right: 20px;
+        @include media('<large') {
+          float: none;
+          color: $roche-yellow;
+          border-color: $roche-yellow;
+          background-image: url('../img/button-arrow-right-yellow.png');
+        }
         &:after,
         &:before {
           content: '';
           position: absolute;
           width: 100vw;
-          bottom: 18px;
-          border-bottom: 1px #000000 solid;
+          bottom: 15px;
+          border-top: 1px #000000 solid;
+          @include media('<large') {
+            content: none;
+          }
         }
         &:before {
           right: 100%;
@@ -195,9 +302,12 @@ section {
   position: absolute;
   width: 200%;
   height: 100%;
-  background-image: url('../img/background-home-2.jpg');
-  background-size: 100% auto;
+  background-image: url('../img/background-home-desktop.jpg');
+  background-size: 100% 100%;
   z-index: 0;
+  @include media('<large') {
+    background-image: url('../img/background-home-mobile.jpg');
+  }
 }
 
 .overlay-begin {

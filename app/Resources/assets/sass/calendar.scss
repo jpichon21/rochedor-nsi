@@ -1,3 +1,4 @@
+@import '~include-media/dist/_include-media.scss';
 @import './variables';
 
 h1 {
@@ -8,6 +9,37 @@ h1 {
   .flex {
     display: flex;
     flex-direction: row;
+    @include media('<xxlarge') {
+      flex-direction: column;
+    }
+  }
+  @include media('<xxlarge') {
+    > .zone {
+      padding: 0 20px;
+    }
+  }
+}
+
+.show-filters {
+  display: block;
+  padding: 0 20px;
+  margin: 40px 0 20px;
+  font-size: 10px;
+  line-height: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: $roche-yellow;
+  border: 1px $roche-yellow solid;
+  background: none;
+  box-sizing: border-box;
+  outline: none;
+  cursor: pointer;
+  @include media('>=xxlarge') {
+    display: none;
+  }
+  @include media('>=medium') {
+    max-width: 250px;
   }
 }
 
@@ -18,6 +50,35 @@ h1 {
   padding-right: 80px;
   color: $roche-yellow;
   z-index: 1;
+  @include media('<xxlarge', '>=medium') {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: -260px;
+    margin-top: 0;
+    padding: 40px 20px 20px;
+    background: #000000;
+    transition: 0.2s;
+    z-index: 3;
+    &.active {
+      left: 0;
+      box-shadow: 0 0 100px 0 #000000;
+    }
+  }
+  @include media('<medium') {
+    width: auto;
+    max-height: 0;
+    margin: 0 0 50px;
+    padding-right: 0;
+    overflow: hidden;
+    transition: 0.2s;
+    &.active {
+      max-height: 600px;
+      padding: 20px 0;
+      border-top: 1px rgba(255, 243, 141, 0.2) solid;
+      border-bottom: 1px rgba(255, 243, 141, 0.2) solid;
+    }
+  }
   .title {
     position: relative;
     display: block;
@@ -30,6 +91,9 @@ h1 {
     position: relative;
     margin-bottom: 40px;
     z-index: 0;
+    @include media('<large') {
+      margin-bottom: 20px;
+    }
     &.active {
       z-index: 2;
       .title {
@@ -127,6 +191,9 @@ h1 {
     position: relative;
     margin-bottom: 40px;
     z-index: 1;
+    @include media('<large') {
+      margin-bottom: 20px;
+    }
     .date-in,
     .date-out {
       padding: 0 10px;
@@ -239,8 +306,10 @@ h1 {
       }
     }
   }
-  .filter-raz {
+  .filter-raz,
+  .hide-filters {
     display: block;
+    margin-bottom: 10px;
     padding: 0 20px;
     font-size: 10px;
     color: #faf28e;
@@ -250,11 +319,24 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 1.4px;
     border: 1px #faf28e solid;
+    cursor: pointer;
+  }
+  .filter-raz {
+    color: #000000;
+    background-color: $roche-yellow;
+  }
+  .hide-filters {
+    @include media('>=xxlarge') {
+      display: none;
+    }
   }
   .filter-keywords {
     position: relative;
     margin-bottom: 40px;
     z-index: 1;
+    @include media('<large') {
+      margin-bottom: 20px;
+    }
     input {
       width: 100%;
       padding: 0 10px;
@@ -275,7 +357,139 @@ h1 {
   }
 }
 
+.retreats-list {
+  @include media('>=large') {
+    display: none;
+  }
+  color: #ffffff;
+  .month {
+    padding: 20px 0 10px 3px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+  }
+  .retreat {
+    position: relative;
+    padding: 15px 45px 15px 25px;
+    font-size: 14px;
+    line-height: 18px;
+    max-height: 50px;
+    overflow: hidden;
+    &:before {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 1px;
+      width: 30px;
+      height: 30px;
+      background-image: url('../img/retreat-plus.png');
+      background-size: 100%;
+      z-index: 1;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-bottom: 1px #262626 solid;
+      z-index: 0;
+    }
+    &.active {
+      max-height: 200px;
+      &:before {
+        background-image: url('../img/retreat-minus.png');
+      }
+      .event {
+        overflow: auto;
+        text-overflow: inherit;
+        white-space: inherit;
+      }
+    }
+    &.first {
+      .dates {
+        .fadeline {
+          top: 20px;
+        }
+      }
+    }
+    &.last {
+      .dates {
+        .fadeline {
+          height: 50px;
+          background: linear-gradient(to bottom, $roche-yellow 20px, transparent 100%);
+        }
+      }
+    }
+    .dates {
+      .bullet {
+        position: absolute;
+        top: 20px;
+        left: 0;
+        width: 7px;
+        height: 7px;
+        border-radius: 100%;
+        background: $roche-yellow;
+        z-index: 2;
+      }
+      .fadeline {
+        position: absolute;
+        top: 0;
+        left: 3px;
+        width: 1px;
+        height: 100%;
+        background: $roche-yellow;
+        z-index: 1;
+      }
+    }
+    .site,
+    .type,
+    .translation {
+      position: absolute;
+      top: 15px;
+    }
+    .site {
+      right: 50px;
+    }
+    .type {
+      right: 100px;
+    }
+    .translation {
+      right: 150px;
+    }
+    .event {
+      padding: 10px 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .speaker {
+      font-size: 12px;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+    .button {
+      display: inline-block;
+      margin: 10px 0;
+      padding: 0 20px;
+      font-size: 10px;
+      line-height: 30px;
+      text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: 1.4px;
+      color: $roche-yellow;
+      border: 1px $roche-yellow solid;
+      box-sizing: border-box;
+      outline: none;
+    }
+  }
+}
+
 .retreats-table {
+  @include media('<large') {
+    display: none;
+  }
   position: relative;
   flex: 1;
   margin-bottom: 40px;
@@ -291,11 +505,13 @@ h1 {
       top: 0;
       padding: 40px 15px 10px;
       text-align: left;
-      background-image: url('../img/bg-fallback.jpg');
-      background-size: 100% auto;
-      background-attachment: fixed;
-      background-position: center;
       z-index: 1;
+      @include media('>=xxlarge') {
+        background-image: url('../img/bg-fallback.jpg');
+        background-size: 100% auto;
+        background-attachment: fixed;
+        background-position: top;
+      }
       &:after {
         content: '';
         position: absolute;
@@ -388,7 +604,7 @@ h1 {
   .dates {
     .bullet {
       position: absolute;
-      top: 15px;
+      top: 20px;
       left: 0;
       width: 7px;
       height: 7px;
@@ -398,7 +614,7 @@ h1 {
     }
     .fadeline {
       position: absolute;
-      top: 20px;
+      top: 25px;
       left: 3px;
       width: 1px;
       height: 100%;

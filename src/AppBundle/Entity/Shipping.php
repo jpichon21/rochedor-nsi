@@ -38,7 +38,7 @@ class Shipping
     /**
      * @var string
      *
-     * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=false)
+     * @ORM\Column(name="prix", type="decimal", precision=10, scale=2, nullable=false)
      */
     private $price;
 
@@ -46,7 +46,7 @@ class Shipping
     /**
      * @var array
      *
-     * @ORM\Column(name="countries", type="json", length=65535)
+     * @ORM\Column(name="pays", type="json", length=65535)
      */
     private $countries;
 

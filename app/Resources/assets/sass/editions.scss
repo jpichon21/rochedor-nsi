@@ -1,7 +1,20 @@
+@import '~include-media/dist/_include-media.scss';
 @import './variables';
 
 body {
   background-color: #ffffff;
+  &.scrollTop {
+    .logo {
+      &:after {
+        opacity: 0;
+      }
+    }
+  }
+  &.menuOpened {
+    .burger {
+      background-image: url('../img/burger-open-black.png');
+    }
+  }
 }
 
 h1 {
@@ -14,6 +27,9 @@ h2 {
   font-weight: 200;
   letter-spacing: 1px;
   text-transform: uppercase;
+  @include media('<large') {
+    margin-bottom: 40px;
+  }
   small {
     display: block;
     margin-bottom: 5px;
@@ -28,22 +44,33 @@ h2 {
   .right {
     border-color: #000000;
     li {
-      color: #000000;
-      &:after {
-        background: linear-gradient(to right, #000000 0%, $roche-orange 50%, #000000 100%);
-      }
       &:hover,
       &.active {
-        color: $roche-orange;
-        &:before {
-          border-color: $roche-orange;
+        > a, span {
+          color: $roche-orange;
+          &:before {
+            border-color: $roche-orange;
+          }
+        }
+      }
+      > a, span {
+        color: #000000;
+        &:after {
+          background: linear-gradient(to right, #000000 0%, $roche-orange 50%, #000000 100%);
         }
       }
     }
   }
-  .sub-menu {
-    &:before {
-      background: linear-gradient(to bottom, transparent 0%, #ececec 1px, transparent 100%);
+  .menu {
+    li > a,
+    li span {
+      border-color: rgba(0, 0, 0, 0.2);
+    }
+    .sub-menu {
+      border-color: rgba(0, 0, 0, 0.2);
+      &:before {
+        background: linear-gradient(to bottom, transparent 0%, #ececec 1px, transparent 100%);
+      }
     }
   }
   .options {
@@ -53,6 +80,12 @@ h2 {
       }
       .current li {
         border-color: #000000;
+        @include media('<large') {
+          a {
+            color: #ffffff;
+            background-color: #000000;
+          }
+        }
       }
       .available li {
         border-color: rgba(0, 0, 0, 0.2);
@@ -64,39 +97,26 @@ h2 {
     }
   }
   .logo {
+    &:after {
+      content: 'Les Editions\A de la Roche d\'Or';
+      bottom: -60px;
+      font-size: 12px;
+      line-height: 16px;
+      color: #000000;
+      @include media('<large') {
+        bottom: -10px;
+      }
+    }
     .normal {
       display: none;
     }
     .editions {
       display: block;
-      text-decoration: none;
-      img {
-        bottom: -25px;
-        margin-left: -45px;
-      }
-      span {
-        position: absolute;
-        top: 150px;
-        width: 100%;
-        font-size: 12px;
-        font-weight: 100;
-        line-height: 16px;
-        color: #000000;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        animation-delay: 2s;
-        animation-duration: 0.8s;
-        animation-fill-mode: forwards;
-        animation-name: downElement;
-      }
     }
   }
-}
-
-@keyframes downElement {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  .burger {
+    background-image: url('../img/burger-close-black.png');
+  }
 }
 
 .footer {
@@ -133,10 +153,17 @@ h2 {
   border: 1px #000000 solid;
   &.right-arrow {
     margin-bottom: 40px;
-    padding-right: 40px;
-    background-image: url('../img/button-arrow-right-black.png');
-    background-position: calc(100% - 20px);
-    background-repeat: no-repeat;
+    @include media('<large') {
+      float: left;
+    }
+    &:after {
+      content: '';
+      padding-right: 6px;
+      margin-left: 10px;
+      background-image: url('../img/button-arrow-right-black.png');
+      background-position: center;
+      background-repeat: no-repeat;
+    }
   }
 }
 
@@ -146,18 +173,34 @@ h2 {
   width: 100%;
   height: 500px;
   margin-bottom: 50px;
+  @include media('<large') {
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    margin: 0 -20px 40px;
+  }
   .left {
     position: relative;
     width: 500px;
     padding: 80px;
     background-color: #ffffff;
     box-sizing: border-box;
+    order: 1;
+    @include media('<large') {
+      width: 100%;
+      padding: 20px;
+      order: 2;
+    }
     h2 {
       font-size: 28px;
       font-weight: 300;
       letter-spacing: 1.4px;
       text-transform: uppercase;
       margin-bottom: 50px;
+      @include media('<large') {
+        font-size: 18px;
+        margin: 20px 0;
+      }
     }
     p {
       font-family: 'Playfair Display', serif;
@@ -165,16 +208,38 @@ h2 {
       font-style: italic;
       line-height: 28px;
       letter-spacing: 0.2px;
+      @include media('<large') {
+        font-size: 16px;
+        line-height: 20px;
+      }
     }
     .button {
       position: absolute;
       right: 50px;
       bottom: 10px;
+      @include media('<large') {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        margin-bottom: 20px;
+      }
     }
   }
   .right {
     position: relative;
     flex: 1;
+    order: 2;
+    @include media('<large') {
+      height: 80vw;
+      order: 1;
+      .carousel {
+        .prev,
+        .next {
+          top: 100%;
+          margin-top: -45px;
+        }
+      }
+    }
   }
 }
 
@@ -198,18 +263,28 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  @include media('<large') {
+    flex-direction: column;
+  }
   .product {
     position: relative;
     margin-bottom: 40px;
     width: 24%;
     height: 315px;
     overflow: hidden;
+    @include media('<large') {
+      width: auto;
+      margin: 0 -20px 40px;
+    }
     .link {
       position: absolute;
       top: 0;
       right: 0;
       width: 43px;
       height: 44px;
+      @include media('<large') {
+        display: none;
+      }
       &:after,
       &:before {
         content: '';
@@ -227,30 +302,33 @@ h2 {
         z-index: 3;
       }
     }
-    &:hover {
-      .link {
-        &:before {
-          opacity: 0;
-        }
-      }
-      .description {
-        top: 0;
-        &:after {
-          opacity: 1;
-        }
-        .text {
-          .short {
+    @include media('>=large') {
+      &:hover {
+        .link {
+          &:before {
             opacity: 0;
           }
-          .long {
+        }
+        .description {
+          top: 0;
+          &:after {
             opacity: 1;
+            right: 20px;
           }
-        }
-        .cart {
-          right: 110px;
-        }
-        .price {
-          bottom: 20px;
+          .text {
+            .short {
+              opacity: 0;
+            }
+            .long {
+              opacity: 1;
+            }
+          }
+          .cart {
+            right: 110px;
+          }
+          .price {
+            bottom: 20px;
+          }
         }
       }
     }
@@ -278,7 +356,7 @@ h2 {
         position: absolute;
         bottom: 60px;
         left: 20px;
-        right: 20px;
+        right: calc(100% - 20px);
         border-bottom: 1px #cccccc solid;
         opacity: 0;
         transition: 0.5s;
@@ -332,9 +410,26 @@ h2 {
     }
   }
 }
-
+.show-filters {
+  display: block;
+  float: none;
+  margin-bottom: 20px;
+  text-align: center;
+  cursor: pointer;
+  @include media('>=large') {
+    display: none;
+  }
+}
 .filters {
   margin-bottom: 50px;
+  @include media('<large') {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.2s;
+    &.active {
+      max-height: 600px;
+    }
+  }
   .title {
     display: block;
     margin-bottom: 10px;
@@ -342,6 +437,9 @@ h2 {
     font-weight: 100;
     text-transform: uppercase;
     letter-spacing: 1.4px;
+    @include media('<large') {
+      display: none;
+    }
   }
   .box {
     display: flex;
@@ -350,8 +448,15 @@ h2 {
     border-top: 1px rgba(0, 0, 0, 0.1) solid;
     border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
     align-items: flex-end;
+    @include media('<large') {
+      flex-direction: column;
+    }
     .filter {
       margin-right: 50px;
+      @include media('<large') {
+        width: 100%;
+        margin: 0 0 20px 0;
+      }
       &.disabled {
         opacity: 0.2;
       }
@@ -375,6 +480,12 @@ h2 {
           box-sizing: border-box;
           background-size: auto 14px;
           cursor: pointer;
+          @include media('<large') {
+            margin: 0 0 10px 0;
+            &:last-of-type {
+              margin: 0;
+            }
+          }
         }
         input {
           display: none;
@@ -387,6 +498,9 @@ h2 {
       }
       form {
         display: flex;
+        @include media('<large') {
+          flex-direction: column;
+        }
       }
       .select {
         width: 100%;
@@ -428,11 +542,19 @@ h2 {
 .category {
   float: left;
   width: 50%;
+  @include media('<large') {
+    float: none;
+    width: 100%;
+  }
   .products {
     flex-wrap: nowrap;
     .product {
       width: 50%;
       margin-right: 20px;
+      @include media('<large') {
+        width: auto;
+        margin: 0 -20px 40px;
+      }
     }
   }
   .button {
@@ -444,6 +566,15 @@ h2 {
   .carousel {
     position: relative;
     height: 500px;
+    @include media('<large') {
+      height: 80vw;
+      margin: 0 -20px;
+      .prev,
+      .next {
+        top: 100%;
+        margin-top: -45px;
+      }
+    }
     img {
       display: none;
     }
@@ -452,6 +583,9 @@ h2 {
     display: flex;
     margin-bottom: 40px;
     padding-top: 10px;
+    @include media('<large') {
+      display: none;
+    }
     div {
       flex: 1;
       margin-right: 10px;
@@ -472,81 +606,131 @@ h2 {
       }
     }
   }
-  .right {
-    position: relative;
-    h1 {
-      font-size: 24px;
-      font-weight: 100;
-      margin-bottom: 20px;
-    }
-    h2 {
-      font-weight: 100;
-      margin-bottom: 10px;
-      color: #000000;
-    }
-    .subtitle {
-      margin-bottom: 5px;
-      font-size: 14px;
-      font-weight: 100;
-      text-transform: uppercase;
-      letter-spacing: 1.4px;
-      b {
-        font-weight: 500;
-        margin-right: 5px;
-      }
-    }
-    .price {
-      padding-top: 10px;
-      margin-bottom: 40px;
-      font-size: 30px;
-      font-weight: 100;
-      color: $roche-orange;
-    }
-    .description {
-      line-height: 18px;
-      font-size: 14px;
-      font-weight: 100;
-      margin-bottom: 40px;
-    }
-    .actions {
-      margin-bottom: 40px;
-      a {
-        display: inline-block;
-        float: none;
-      }
-      .choice {
-        display: inline-block;
-        margin: 0 10px;
-        font-size: 12px;
-        text-transform: uppercase;
-      }
-    }
-    .technical-review {
-      display: flex;
-      margin-bottom: 40px;
-      .left {
-        margin-right: 20px;
-      }
-      .left,
-      .right {
-        flex: 1;
+  .content {
+    > .left {
+      .carousel {
         display: flex;
-        flex-direction: column;
-        .line {
+      }
+    }
+    > .right {
+      position: relative;
+      @include media('<large') {
+        padding: 40px 20px;
+      }
+      h1 {
+        font-size: 24px;
+        font-weight: 100;
+        margin-bottom: 20px;
+        @include media('<large') {
+          font-size: 18px;
+        }
+      }
+      h2 {
+        font-weight: 100;
+        margin-bottom: 20px;
+        color: #000000;
+      }
+      .subtitle {
+        margin-bottom: 5px;
+        font-size: 14px;
+        font-weight: 100;
+        text-transform: uppercase;
+        letter-spacing: 1.4px;
+        @include media('<large') {
+          font-size: 12px;
+          margin-bottom: 10px;
+        }
+        b {
+          font-weight: 500;
+          margin-right: 5px;
+          @include media('<large') {
+            display: block;
+            margin-bottom: 5px;
+          }
+        }
+      }
+      .price {
+        padding-top: 10px;
+        margin-bottom: 40px;
+        font-size: 30px;
+        font-weight: 100;
+        color: $roche-orange;
+        @include media('<large') {
+          font-size: 26px;
+          padding-top: 20px;
+          margin-bottom: 20px;
+        }
+      }
+      .description {
+        line-height: 18px;
+        font-size: 14px;
+        font-weight: 100;
+        margin-bottom: 40px;
+      }
+      .actions {
+        margin-bottom: 40px;
+        a {
+          display: inline-block;
+          float: none;
+          @include media('<large') {
+            display: block;
+            text-align: center;
+            &.addToCart {
+              margin-bottom: 10px;
+            }
+          }
+        }
+        .choice {
+          display: inline-block;
+          margin: 0 10px;
+          font-size: 12px;
+          text-transform: uppercase;
+          @include media('<large') {
+            display: none;
+          }
+        }
+      }
+      .technical-review {
+        display: flex;
+        margin-bottom: 40px;
+        @include media('>=large') {
+          .left {
+            margin-right: 20px;
+          }
+        }
+        @include media('<large') {
+          flex-direction: column;
+        }
+        .left,
+        .right {
+          flex: 1;
           display: flex;
-          justify-content: space-between;
+          flex-direction: column;
+          .line {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            border-bottom: 2px #ffffff solid;
+            b {
+              font-size: 12px;
+              font-weight: 500;
+              line-height: 16px;
+              text-transform: uppercase;
+              padding: 7px 0;
+            }
+            span {
+              margin-left: 40px;
+              font-size: 14px;
+              line-height: 18px;
+              font-weight: 100;
+              padding: 6px 0;
+            }
+          }
+        }
+      }
+      @include media('<large') {
+        .barcode {
           width: 100%;
-          line-height: 30px;
-          border-bottom: 2px #ffffff solid;
-          b {
-            font-size: 12px;
-            font-weight: 500;
-            text-transform: uppercase;
-          }
-          span {
-            font-size: 14px;
-            font-weight: 100;
-          }
         }
       }
     }

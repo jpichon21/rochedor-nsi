@@ -1013,12 +1013,12 @@
             "version": "v2.6.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/doctrine/doctrine2.git",
+                "url": "https://github.com/doctrine/orm.git",
                 "reference": "87ee409783a4a322b5597ebaae558661404055a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/87ee409783a4a322b5597ebaae558661404055a7",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/87ee409783a4a322b5597ebaae558661404055a7",
                 "reference": "87ee409783a4a322b5597ebaae558661404055a7",
                 "shasum": ""
             },
@@ -3706,12 +3706,12 @@
             "version": "2.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/SyslogicNL/DoctrineJsonFunctions.git",
+                "url": "https://github.com/ScientaNL/DoctrineJsonFunctions.git",
                 "reference": "3c9973d6a43ca762366bc8c0c490052fe3cf7ff6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SyslogicNL/DoctrineJsonFunctions/zipball/3c9973d6a43ca762366bc8c0c490052fe3cf7ff6",
+                "url": "https://api.github.com/repos/ScientaNL/DoctrineJsonFunctions/zipball/3c9973d6a43ca762366bc8c0c490052fe3cf7ff6",
                 "reference": "3c9973d6a43ca762366bc8c0c490052fe3cf7ff6",
                 "shasum": ""
             },
@@ -3754,6 +3754,7 @@
                 "postgres",
                 "postgresql"
             ],
+            "abandoned": "scienta/doctrine-json-functions",
             "time": "2018-01-31T09:12:42+00:00"
         },
         {

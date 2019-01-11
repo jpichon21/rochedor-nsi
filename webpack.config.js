@@ -36,7 +36,6 @@ function initEncore () {
     .addStyleEntry('css/order', './app/Resources/assets/sass/order.scss')
     .addStyleEntry('css/Draft/Draft', './app/Resources/assets/css/Draft.css')
     .addStyleEntry('css/Draft/Editor', './app/Resources/assets/css/Editor.css')
-    .addStyleEntry('css/pure-css-grids', './node_modules/purecss/build/grids-min.css')
     .enableSassLoader()
     .enableVersioning(Encore.isProduction())
     .enableReactPreset()

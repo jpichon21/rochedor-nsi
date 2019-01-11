@@ -100,12 +100,12 @@ $('.date-out').on('click', function () {
 
 /* Table */
 
-const retreatsTemplate = _.template($('.retreats-template').html())
+const retreatsTableTemplate = _.template($('.retreats-table-template').html())
+const retreatsListTemplate = _.template($('.retreats-list-template').html())
 
 function updateRetreats (data) {
-  $('.retreats-table tbody').html(retreatsTemplate({
-    retreats: data
-  }))
+  $('.retreats-table tbody').html(retreatsTableTemplate({ retreats: data }))
+  $('.retreats-list ul').html(retreatsListTemplate({ retreats: data }))
 }
 
 retreatsData.map(retreat => {
@@ -179,6 +179,8 @@ $('.filter-keywords').on('keyup', 'input', function () {
 
 $('.filter-raz').on('click', function (event) {
   event.preventDefault()
+  $('.filters')
+    .removeClass('active')
   $('.filter')
     .find('input:checked')
     .each(function () {
@@ -205,4 +207,10 @@ $('.filter-raz').on('click', function (event) {
 
 $('.filter-keywords').on('submit', function (event) {
   event.preventDefault()
+})
+
+/* Animate Retreats Mobile */
+
+$('.retreats-list .retreat').click(function () {
+  $(this).toggleClass('active')
 })

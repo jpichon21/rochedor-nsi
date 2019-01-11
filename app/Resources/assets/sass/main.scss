@@ -1,8 +1,13 @@
 @import '~reset-css/_reset';
+@import '~include-media/dist/_include-media.scss';
+@import '~purecss/build/grids-min.css';
+@import '~purecss/build/grids-responsive-min.css';
 @import './variables';
 @import './zoom';
 @import './popup';
 @import './loader';
+@import './header';
+@import './footer';
 
 html {
   background-color: #000000;
@@ -18,10 +23,35 @@ body {
   height: 100vh;
   overflow: hidden;
   background-size: cover;
-  background-position: center;
+  background-position: left top;
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  &:before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 200px, transparent 100%);
+    visibility: hidden;
+    opacity: 0;
+    z-index: 1;
+    transition: visibility 0s 0.2s, opacity 0.2s linear;
+  }
+  &.editions {
+    &:before {
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 200px, transparent 100%);
+    }
+  }
+  &.menuOpened {
+    &:before {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.2s linear;
+    }
+  }
 }
 
 h1 {
@@ -58,331 +88,6 @@ i {
   text-align: center;
 }
 
-.header {
-  position: relative;
-  display: flex;
-  z-index: 1;
-  .editions-only {
-    display: none;
-  }
-  .options {
-    position: absolute;
-    top: 20px;
-    right: 40px;
-    z-index: 1;
-    .cart,
-    .zoom,
-    .languages {
-      float: left;
-      margin-left: 22px;
-    }
-    .cart {
-      position: relative;
-      padding: 0 20px;
-      line-height: 30px;
-      font-size: 12px;
-      color: #000000;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: 1px #000000 solid;
-      z-index: 1;
-      span {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        width: 18px;
-        height: 18px;
-        top: -7px;
-        right: -7px;
-        color: #ffffff;
-        border-radius: 18px;
-        font-size: 10px;
-        background-color: $roche-orange;
-        font-family: arial, sans-serif;
-        padding-top: 3.5px;
-        box-sizing: border-box;
-      }
-    }
-    .languages {
-      ul {
-        float: left;
-        li {
-          float: left;
-          margin-right: -1px;
-          a {
-            display: block;
-            width:  30px;
-            line-height: 30px;
-            font-size: 12px;
-            color: $roche-yellow;
-            text-align: center;
-            text-transform: uppercase;
-            text-decoration: none;
-          }
-        }
-      }
-      &:hover {
-        .available {
-          max-width: 130px;
-          visibility: visible;
-          opacity: 1;
-          transition:
-            opacity 0.2s linear,
-            max-width 0.2s linear;
-        }
-      }
-      .current {
-        li {
-          border: 1px $roche-yellow solid;
-        }
-      }
-      .available {
-        max-width: 0;
-        height: 32px;
-        visibility: hidden;
-        overflow: hidden;
-        opacity: 0;
-        transition:
-          visibility 0s 0.2s,
-          opacity 0.2s linear,
-          max-width 0.2s linear;
-        li {
-          border: 1px rgba(255, 243, 141, 0.2) solid;
-        }
-      }
-    }
-    .zoom {
-      li {
-        float: left;
-        width:  30px;
-        margin-left:  -1px;
-        line-height: 30px;
-        font-size: 12px;
-        color: $roche-yellow;
-        text-align: center;
-        text-transform: uppercase;
-        text-decoration: none;
-        border: 1px $roche-yellow solid;
-        cursor: pointer;
-      }
-    }
-  }
-  .left,
-  .right {
-    position: relative;
-    flex: 1;
-    padding-top: 80px;
-    border-bottom: 1px $roche-yellow solid;
-    z-index: 0;
-    li {
-      position: relative;
-      font-size: 12px;
-      font-weight: 400;
-      color: $roche-yellow;
-      line-height: 16px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      transition: color 0.2s;
-      &:after,
-      &:before {
-        content: '';
-        position: absolute;
-        transition: 0.2s;
-      }
-      &:after {
-        width: 0;
-        height: 1px;
-        background: linear-gradient(to right, $roche-yellow 0%, #ffffff 50%, $roche-yellow 100%);
-      }
-      &:before {
-        border-left: 1px $roche-yellow solid;
-      }
-      &:hover,
-      &.active {
-        color: #ffffff;
-        &:after {
-          width: 200px;
-        }
-        &:before {
-          height: 100%;
-          border-color: #ffffff;
-        }
-      }
-      a {
-        display: block;
-        height: 100%;
-        color: inherit;
-        text-decoration: none;
-      }
-    }
-  }
-  .left {
-    padding-left: 40px;
-    li {
-      padding-left: 10px;
-      &:after,
-      &:before {
-        left: 0;
-      }
-      &:hover,
-      &.active {
-        &:after {
-          left: -100px;
-        }
-      }
-    }
-  }
-  .right {
-    padding-right: 40px;
-    li {
-      text-align: right;
-      padding-right: 10px;
-      &:after,
-      &:before {
-        right: 0;
-      }
-      &:hover,
-      &.active {
-        &:after {
-          right: -100px;
-        }
-      }
-    }
-  }
-  .logo {
-    position: relative;
-    width: 170px;
-    .editions {
-      display: none;
-    }
-    img {
-      position: absolute;
-      left: 50%;
-      bottom: -20px;
-      margin-left: -45px;
-    }
-  }
-  .menu,
-  .sub-menu {
-    display: flex;
-    justify-content: space-between;
-  }
-  .menu {
-    li {
-      padding-bottom: 20px;
-      cursor: default;
-      &:after,
-      &:before {
-        bottom: -1px;
-      }
-      &:before {
-        height: 0;
-      }
-    }
-  }
-  .sub-menu {
-    display: flex;
-    visibility: hidden;
-    position: absolute;
-    left: 0;
-    right: 0;
-    padding: 0 40px;
-    opacity: 0;
-    transition: visibility 0s 0.2s, opacity 0.2s linear;
-    &:before {
-      content: '';
-      position: absolute;
-      top: 1px;
-      left: 0;
-      right: 0;
-      bottom: -50px;
-      background: linear-gradient(to bottom, transparent 0%, #000000 1px, transparent 100%);
-    }
-    &.active {
-      visibility: visible;
-      opacity: 1;
-      transition: opacity 0.2s linear;
-    }
-    li {
-      padding-top: 25px;
-      &:after,
-      &:before {
-        top: 0;
-      }
-      &:before {
-        height: 0px;
-      }
-    }
-  }
-}
-
-.footer {
-  position: relative;
-  height: 35px;
-  &:hover {
-    .hover {
-      top: -138px;
-      .bottom {
-        padding-top: 15px;
-        .column {
-          border-color: $roche-yellow;
-          padding-top: 0;
-        }
-      }
-    }
-  }
-  .hover {
-    position: absolute;
-    top: 0;
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    background-size: cover;
-    background-position: top;
-    background-attachment: fixed;
-    transition: 0.5s;
-    &:before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      transition: 0.5s;
-      z-index: 0;
-    }
-    .bottom {
-      z-index: 1;
-      display: flex;
-      flex: 1;
-      justify-content: space-evenly;
-      transition: 0.5s;
-      padding-top: 0;
-      .column {
-        transition: 0.5s;
-        padding: 5px 0 40px 30px;
-        border-left: 1px transparent solid;
-        a,
-        span {
-          display: block;
-          margin-bottom: 10px;
-          font-size: 12px;
-          color: $roche-yellow;
-          letter-spacing: 1px;
-        }
-        span {
-          text-transform: uppercase;
-          margin-bottom: 13px;
-          margin-top: 5px;
-        }
-        a {
-          text-decoration: none;
-        }
-      }
-    }
-  }
-}
-
 .content {
   position: relative;
   width: 100%;
@@ -390,6 +95,9 @@ i {
   flex: 1;
   z-index: 0;
   overflow: hidden;
+  @include media('<large') {
+    flex-direction: column;
+  }
   & > {
     .zone,
     .left,
@@ -398,17 +106,32 @@ i {
       position: relative;
     }
     .zone {
-      padding: 100px 50px 0;
+      padding: 100px 40px 0;
+      @include media('<large') {
+        padding: 0 20px;
+      }
     }
     .hole {
       width: 170px;
+      @include media('<xxlarge') {
+        width: 0;
+      }
     }
     .left {
-      padding: 100px 0 0 50px;
+      padding: 100px 0 0 40px;
+      @include media('<xxlarge') {
+        padding: 0 40px 40px;
+      }
+      @include media('<large') {
+        padding: 0 20px 20px;
+      }
     }
     .right {
-      padding: 100px 50px 50px 0;
+      padding: 100px 40px 40px 0;
       overflow: auto;
+      @include media('<xxlarge') {
+        padding: 100px 40px 40px 40px;
+      }
     }
     .right {
       position: sticky;

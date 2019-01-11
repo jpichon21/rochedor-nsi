@@ -8,6 +8,9 @@
     <div class="zone">
         <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
         <div class="flex">
+            <span class="show-filters">
+                {{ 'filter.button.show' | trans }}
+            </span>
             <div class="filters">
                 {% include 'parts/filter.html.twig' with {
                     'name': 'site',
@@ -43,6 +46,7 @@
                     <input autocomplete="nope" type="text" name="keywords" placeholder="{{ 'filter.inner.keyword' | trans }}">
                 </form>
                 <a class="filter-raz" href="#reset">{{ 'filter.raz.button' | trans }}</a>
+                <span class="hide-filters">{{ 'filter.close.button' | trans }}</span>
             </div>
             <table class="retreats-table">
                 <thead>
@@ -59,6 +63,9 @@
                 <tbody>
                 </tbody>
             </table>
+            <div class="retreats-list">
+                <ul></ul>
+            </div>
         </div>
     </div>
 </div>
@@ -97,7 +104,39 @@
     </table>
     <span class="clndr-close">Fermer</span>
 </script>
-<script type="text/template" class="retreats-template">
+<script type="text/template" class="retreats-list-template">
+<% var lastMonth = 0 %>
+<% var firstOfMonth = false %>
+<% for (var i = 0; i < retreats.length; i++) { %>
+    <% if (retreats[i].dateIn.format('M') !== lastMonth) { %>
+    <% firstOfMonth = true %>
+    <% lastMonth = retreats[i].dateIn.format('M') %>
+    <li class="month">
+        <%= retreats[i].dateIn.format('MMMM YYYY') %>
+    </li>
+    <% } %>
+    <li class="retreat <%= firstOfMonth ? 'first' : '' %> <%= (!retreats[i + 1] || retreats[i + 1].dateIn.format('M') !== lastMonth) ? 'last' : '' %>">
+        <% if (firstOfMonth) firstOfMonth = false %>
+        <div class="dates">
+            <span class="bullet"></span>
+            <span class="fadeline"></span>
+            <%= retreats[i].dateIn.format('Do MMM') %> - <%= retreats[i].dateOut.format('Do MMM') %>
+        </div>
+        <div class="site" style="color: <%= retreats[i].site.color %>"><%= retreats[i].site.abbr %></div>
+        <div class="type" style="color: <%= retreats[i].type.color %>"><%= retreats[i].type.abbr %></div>
+        <div class="translation"><%= retreats[i].translation %></div>
+        <div class="event"><%= retreats[i].event %></div>
+        <% var speakers = _.pluck(retreats[i].speaker, 'name').join(',') %>
+        <% if (speakers != '') { %>
+            <div class="speaker">
+                {{ 'retreat.speaker.of' | trans }} <%= speakers %>
+            </div>
+        <% } %>
+        <a class="button" href="{{ url('register_calendar' ~ '-' ~ app.request.locale) }}?id=<%= retreats[i].id %>">Choisir</a>
+    </li>
+<% } %>
+</script>
+<script type="text/template" class="retreats-table-template">
 <% var lastMonth = 0 %>
 <% for (var i = 0; i < retreats.length; i++) { %>
     <% if (retreats[i].dateIn.format('M') !== lastMonth) { %>
