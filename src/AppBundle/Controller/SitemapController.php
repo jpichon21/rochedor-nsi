@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 class SitemapController extends Controller
 {
     /**
-     * Lists all tpay entities.
      *
      * @Route("/sitemap.xml", name="sitemap")
      * @Method("GET")
