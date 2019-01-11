@@ -401,7 +401,6 @@ body {
 }
 @include media('<limitMenuReduced') {
   .header {
-    height: 0;
     .options {
       display: none;
       width: 100%;

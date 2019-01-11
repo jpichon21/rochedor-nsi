@@ -97,7 +97,6 @@ i {
   overflow: hidden;
   @include media('<large') {
     flex-direction: column;
-    padding-top: 220px;
   }
   & > {
     .zone,
@@ -114,16 +113,25 @@ i {
     }
     .hole {
       width: 170px;
+      @include media('<xxlarge') {
+        width: 0;
+      }
     }
     .left {
       padding: 100px 0 0 40px;
+      @include media('<xxlarge') {
+        padding: 0 40px 40px;
+      }
       @include media('<large') {
-        padding: 0 20px;
+        padding: 0 20px 20px;
       }
     }
     .right {
       padding: 100px 40px 40px 0;
       overflow: auto;
+      @include media('<xxlarge') {
+        padding: 100px 40px 40px 40px;
+      }
     }
     .right {
       position: sticky;
