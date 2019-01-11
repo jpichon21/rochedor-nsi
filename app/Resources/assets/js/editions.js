@@ -3,9 +3,30 @@ import $ from 'jquery'
 import JsBarcode from 'jsbarcode'
 import 'jquery-zoom-js'
 import { upFlashbag } from './popup'
+import { limitMenuReduced } from './variables'
 
 JsBarcode('.barcode').init()
+
 $('.slide .image').zoom()
+let zoom = true
+
+const handleWindowResize = () => {
+  if (window.innerWidth >= limitMenuReduced) {
+    if (!zoom) {
+      $('.slide .image').zoom()
+      zoom = true
+    }
+  } else {
+    if (zoom) {
+      $('.slide .image').trigger('zoom.destroy')
+      zoom = false
+    }
+  }
+}
+
+window.onresize = () => {
+  handleWindowResize()
+}
 
 const themesForm = document.querySelector('.filter.themes form')
 const filtersForm = document.querySelector('.filters form')
