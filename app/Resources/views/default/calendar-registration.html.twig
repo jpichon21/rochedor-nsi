@@ -18,33 +18,33 @@
                 {% if app.user %}
                 <p>{{ 'calendar.registration.one.body.connected' | trans({ '%name%': app.user.prenom ~ ' ' ~ app.user.nom }) | raw }}</p>
                 <div class="pure-g">
-                    <div class="pure-u-1-3">
+                    <div class="pure-u-1 pure-u-md-1-3">
                         <a href="#continue" class="button continue">{{ 'form.continue' | trans | raw }}</a>
                     </div>
-                    <div class="pure-u-1-3">
+                    <div class="pure-u-1 pure-u-md-1-3">
                         <a href="#disconnect" class="button disconnect">{{ 'form.disconnect' | trans | raw }}</a>
                     </div>
                 </div>
                 {% else %}
                 <p>{{ 'calendar.registration.one.body.disconnected' | trans | raw }}</p>
                 <div class="pure-g">
-                    <div class="pure-u-4-24">
+                    <div class="pure-u-1 pure-u-md-4-24">
                         <a href="#connection" class="button yes">{{ 'form.yes' | trans | raw }}</a>
                     </div>
-                    <div class="pure-u-4-24">
+                    <div class="pure-u-1 pure-u-md-4-24">
                         <a href="#registration" class="button no">{{ 'form.no' | trans | raw }}</a>
                     </div>
                 </div>
                 <div class="panel connection">
                     <h3>{{ 'calendar.registration.one.title.connection' | trans | raw }}</h3>
                     <form class="pure-g connection">
-                        <div class="pure-u-1-2">
+                        <div class="pure-u-1 pure-u-md-1-2">
                             <input class="input username" required type="text" name="username" placeholder="* {{ 'form.username' | trans | raw }}">
                         </div>
-                        <div class="pure-u-1-2">
+                        <div class="pure-u-1 pure-u-md-1-2">
                             <input class="input password" required type="password" name="password" placeholder="* {{ 'form.password' | trans | raw }}">
                         </div>
-                        <div class="pure-u-4-24">
+                        <div class="pure-u-1 pure-u-md-4-24">
                             <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
                         </div>
                     </form>
@@ -57,19 +57,19 @@
                 <div class="panel reset">
                     <h3>{{ 'form.password.reset'|trans|raw }}</h3>
                     <form class="pure-g reset">
-                        <div class="pure-u-1">
+                        <div class="pure-u-1 pure-u-md-1">
                             <input autocomplete="nope" class="input username" required type="text" name="username" placeholder="* {{ 'form.email.please' | trans | raw }}">
                         </div>
-                        <div class="pure-u-1">
+                        <div class="pure-u-1 pure-u-md-1">
                             <input autocomplete="nope" class="input lastname" required type="text" name="lastname" placeholder="* {{ 'form.lastname.please' | trans | raw }}">
                         </div>
-                        <div class="pure-u-1">
+                        <div class="pure-u-1 pure-u-md-1">
                             <input autocomplete="nope" class="input firstname" required type="text" name="firstname" placeholder="* {{ 'form.firstname.please' | trans | raw }}">
                         </div>
-                        <div class="pure-u-6-24">
+                        <div class="pure-u-1 pure-u-md-6-24">
                             <a href="#" class="button cancel input">{{ 'form.cancel' | trans | raw }}</a>
                         </div>
-                        <div class="pure-u-4-24">
+                        <div class="pure-u-1 pure-u-md-4-24">
                             <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
                         </div>
                     </form>
@@ -116,10 +116,10 @@
                     </table>
                     {{ 'calendar.registration.three.body' | trans | raw }}     
                     <div class="pure-g">
-                        <div class="pure-u-1-3">
+                        <div class="pure-u-1 pure-u-md-1-3">
                             <p><a class="button" href="{{ path('home') }}">{{ 'homepage' | trans }}</a></p>
                         </div>
-                        <div class="pure-u-1-3">
+                        <div class="pure-u-1 pure-u-md-1-3">
                             <p><a class="button" href="{{ path('calendar-' ~ currentLocale) }}">{{ 'calendar' | trans }}</a></p>
                         </div>
                     </div>
@@ -190,7 +190,7 @@
 <script type="text/template" class="you-form-template">
     <input autocomplete="nope" type="hidden" value="<%= _.escape(participant.codco) %>" name="codco">
     <input autocomplete="nope" type="hidden" value=<%= participant.check %> name="check">
-    <div class="pure-u-1-3">
+    <div class="pure-u-1 pure-u-md-1-3">
         <select class="select civil <%= (_.escape(participant.civil) != '') ? 'white' : '' %>" required name="civil">
             <option <%= (_.escape(participant.civil) == '') ? 'selected' : '' %> disabled value="">* {{ 'form.civil' | trans | raw }}</option>
             <% for (var i = 0; i < civilites.length; i++) { %>
@@ -198,22 +198,22 @@
             <% } %>
         </select>
     </div>
-    <div class="pure-u-1-3">
+    <div class="pure-u-1 pure-u-md-1-3">
         <input autocomplete="nope" class="input prenom" required type="text" value="<%= _.escape(participant.prenom) %>" name="prenom" placeholder="* {{ 'form.surname' | trans | raw }}">
     </div>
-    <div class="pure-u-1-3">
+    <div class="pure-u-1 pure-u-md-1-3">
         <input autocomplete="nope" class="input nom" required type="text" value="<%= _.escape(participant.nom) %>" name="nom" placeholder="* {{ 'form.name' | trans | raw }}">
     </div>
-    <div class="pure-u-1">
+    <div class="pure-u-1 pure-u-md-1">
         <textarea class="textarea adresse" required name="adresse" placeholder="* {{ 'form.address' | trans | raw }}"><%= _.escape(participant.adresse) %></textarea>
     </div>
-    <div class="pure-u-1-3">
+    <div class="pure-u-1 pure-u-md-1-3">
         <input autocomplete="nope" class="input cp" required type="text" value="<%= _.escape(participant.cp) %>" name="cp" placeholder="* {{ 'form.zipcode' | trans | raw }}">
     </div>
-    <div class="pure-u-1-3">
+    <div class="pure-u-1 pure-u-md-1-3">
         <input autocomplete="nope" class="input ville" required type="text" value="<%= _.escape(participant.ville) %>" name="ville" placeholder="* {{ 'form.city' | trans | raw }}">
     </div>
-    <div class="pure-u-1-3">
+    <div class="pure-u-1 pure-u-md-1-3">
         <select class="select pays <%= (_.escape(participant.pays) != '') ? 'white' : '' %>" required name="pays" placeholder="sdfsdf">
             <option <%= (_.escape(participant.pays) == '') ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
             <% for (var i = 0; i < countries.length; i++) { %>
@@ -222,34 +222,34 @@
             <% } %>
         </select>
     </div>
-    <div class="pure-u-1-2">
+    <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" class="input tel" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.tel) %>" name="tel" placeholder="* {{ 'form.phone' | trans | raw }}">
     </div>
-    <div class="pure-u-1-2">
+    <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.mobil) %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
     </div>
-    <div class="pure-u-1-2">
+    <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" class="input email" required type="email" value="<%= _.escape(participant.email) %>" name="email" placeholder="* {{ 'form.email' | trans | raw }}" maxlength="40">
     </div>
     <% if(!_.escape(participant.username)) { %>
-    <div class="pure-u-1-2">
+    <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" class="input username" required type="text" value="<%= _.escape(participant.username) %>" name="username" placeholder="* {{ 'form.username' | trans | raw }}">
     </div>
     <%}%>
-    <div class="pure-u-1-2">
+    <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="new-password" class="input password" type="password" name="password" placeholder="* {{ 'form.password' | trans | raw }}">
     </div>
-    <div class="pure-u-1-2">
+    <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" data-inputmask="'mask': '99/99/9999'"  class="input datnaiss" required type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value="<%= (_.escape(participant.datnaiss) !== '') ? moment(_.escape(participant.datnaiss)).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="* {{ 'form.birthday' | trans | raw }}">
     </div>
 
-    <div class="pure-u-1-2">
+    <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" class="input profession" type="text" value="<%= _.escape(participant.profession) %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
     </div>
-    <div class="pure-u-1">
+    <div class="pure-u-1 pure-u-md-1">
         <hr>
     </div>
-    <div class="pure-u-1">
+    <div class="pure-u-1 pure-u-md-1">
         <select class="select transport <%= (_.escape(participant.transport) != '') ? 'white' : '' %>" required name="transport">
             <option <%= (_.escape(participant.transport) == '') ? 'selected' : '' %> disabled value="">* {{ 'form.transport' | trans | raw }}</option>
             <option <%= (_.escape(participant.transport) == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
@@ -258,37 +258,37 @@
             <option <%= (_.escape(participant.transport) == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
         </select>
     </div>
-    <div class="pure-u-1-1 navette-wrapper hidden">
+    <div class="pure-u-1 pure-u-md-1-1 navette-wrapper hidden">
         <a href="#" class="input button radio navette">{{ 'form.navette' | trans | raw }}</a>
         <input class="hidden checkbox navette" value="<%= _.escape(participant.navette) %>" name="navette" type="text">
     </div>
-    <div class="pure-u-1-2 lieu-wrapper hidden">
+    <div class="pure-u-1 pure-u-md-1-2 lieu-wrapper hidden">
         <select class="select lieu <%= (_.escape(participant.lieu) != '') ? 'white' : '' %>" name="lieu">
             <option <%= (_.escape(participant.lieu) == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu) == 'viotte') ? 'selected' : '' %> value="viotte">{{ 'form.lieu.viotte' | trans | raw }}</option>
         </select>
     </div>
-    <div class="pure-u-1-2 arriv-wrapper hidden">
+    <div class="pure-u-1 pure-u-md-1-2 arriv-wrapper hidden">
         <input autocomplete="nope" class="input arriv" value="<%= _.escape(participant.arriv) %>" name="arriv" type="text" pattern="[0-2][0-9]:[0-5][0-9]" placeholder="{{ 'form.arriv' | trans | raw }}">
     </div>
-    <div class="pure-u-1">
+    <div class="pure-u-1 pure-u-md-1">
         <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= _.escape(participant.memo) %></textarea>
     </div>
-    {# <div class="pure-u-6-24">
+    {# <div class="pure-u-1 pure-u-md-6-24">
         <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reinit' | trans | raw }}">
     </div> #}
-    <div class="pure-u-14-24"></div>
-    <div class="pure-u-6-24">
+    <div class="pure-u-1 pure-u-md-14-24"></div>
+    <div class="pure-u-1 pure-u-md-6-24">
         <a href="#" class="button cancel input">{{ 'form.cancel' | trans | raw }}</a>
     </div>
-    <div class="pure-u-4-24">
+    <div class="pure-u-1 pure-u-md-4-24">
         <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
     </div>
 </script>
 <script type="text/template" class="him-form-template">
     <input autocomplete="nope" type="hidden" value="<%= _.escape(participant.codco) %>" name="codco">
     <input autocomplete="nope" type="hidden" value=<%= participant.check %> name="check">
-    <div class="pure-u-1-2">
+    <div class="pure-u-1 pure-u-md-1-2">
         <select class="select coltyp <%= (_.escape(participant.coltyp) != '') ? 'white' : '' %>" required name="coltyp">
             <option <%= (_.escape(participant.coltyp) == '') ? 'selected' : '' %> disabled value="">* {{ 'form.relation' | trans | raw }}</option>
             <option <%= (_.escape(participant.coltyp) == 'accom') ? 'selected' : '' %> value="accom">Vient avec</option>
@@ -296,7 +296,7 @@
             <option <%= (_.escape(participant.coltyp) == 'enfan') ? 'selected' : '' %> value="enfan">Enfant de</option>
         </select>
     </div>
-    <div class="pure-u-1-2">
+    <div class="pure-u-1 pure-u-md-1-2">
         <select class="select colp <%= (_.escape(participant.colp) != '') ? 'white' : '' %>" required name="colp">
             <option <%= (_.escape(participant.colp) == '') ? 'selected' : '' %> disabled value="">* {{ 'form.colp' | trans | raw }}</option>
             <option <%= (_.escape(participant.colp) == _.escape(you.codco)) ? 'selected' : '' %> value="<%= _.escape(you.codco) %>"><%= _.escape(you.prenom) + ' ' + _.escape(you.nom) %></option>
@@ -308,7 +308,7 @@
             <% } %>
         </select>
     </div>
-    <div class="pure-u-1-3">
+    <div class="pure-u-1 pure-u-md-1-3">
         <select class="select civil <%= (_.escape(participant.civil) != '') ? 'white' : '' %>" required name="civil">
             <option <%= (_.escape(participant.civil) == '') ? 'selected' : '' %> disabled value="">* {{ 'form.civil' | trans | raw }}</option>
             <% for (var i = 0; i < civilites.length; i++) { %>
@@ -316,26 +316,26 @@
             <% } %>
         </select>
     </div>
-    <div class="pure-u-1-3">
+    <div class="pure-u-1 pure-u-md-1-3">
         <input autocomplete="nope" class="input prenom" required type="text" value="<%= _.escape(participant.prenom) %>" name="prenom" placeholder="* {{ 'form.surname' | trans | raw }}">
     </div>
-    <div class="pure-u-1-3">
+    <div class="pure-u-1 pure-u-md-1-3">
         <input autocomplete="nope" class="input nom" required type="text" value="<%= _.escape(participant.nom) %>" name="nom" placeholder="* {{ 'form.name' | trans | raw }}">
     </div>
-    <div class="pure-u-1 newfich-wrapper">
+    <div class="pure-u-1 pure-u-md-1 newfich-wrapper">
         <a href="#" class="input button radio newfich">{{ 'form.newfich' | trans | raw }}</a>
         <input class="hidden checkbox newfich" value="<%= _.escape(participant.newfich) %>" name="newfich" type="text">
     </div>
-    <div class="pure-u-1">
+    <div class="pure-u-1 pure-u-md-1">
         <textarea class="textarea adresse" name="adresse" placeholder="{{ 'form.address' | trans | raw }}"><%= _.escape(participant.adresse) %></textarea>
     </div>
-    <div class="pure-u-1-3">
+    <div class="pure-u-1 pure-u-md-1-3">
         <input autocomplete="nope" class="input cp" type="text" value="<%= _.escape(participant.cp) %>" name="cp" placeholder="{{ 'form.zipcode' | trans | raw }}">
     </div>
-    <div class="pure-u-1-3">
+    <div class="pure-u-1 pure-u-md-1-3">
         <input autocomplete="nope" class="input ville" type="text" value="<%= _.escape(participant.ville) %>" name="ville" placeholder="{{ 'form.city' | trans | raw }}">
     </div>
-    <div class="pure-u-1-3">
+    <div class="pure-u-1 pure-u-md-1-3">
         <select class="select pays <%= (_.escape(participant.pays) != '') ? 'white' : '' %>" name="pays">
             <option <%= (_.escape(participant.pays) == '') ? 'selected' : '' %> disabled value="">{{ 'form.country' | trans | raw }}</option>
             <% for (var i = 0; i < countries.length; i++) { %>
@@ -344,25 +344,25 @@
             <% } %>
         </select>
     </div>
-    <div class="pure-u-1-3">
+    <div class="pure-u-1 pure-u-md-1-3">
         <input autocomplete="nope" class="input tel" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.tel) %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
     </div>
-    <div class="pure-u-1-3">
+    <div class="pure-u-1 pure-u-md-1-3">
         <input autocomplete="nope" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.mobil) %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
     </div>
-    <div class="pure-u-1-3">
+    <div class="pure-u-1 pure-u-md-1-3">
         <input autocomplete="nope" class="input email" type="email" value="<%= _.escape(participant.email) %>" name="email" placeholder="{{ 'form.email' | trans | raw }}" maxlength="40">
     </div>
-    <div class="pure-u-1-2">
+    <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" class="input datnaiss" data-inputmask="'mask': '99/99/9999'" required type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value="<%= (_.escape(participant.datnaiss) !== '') ? moment(_.escape(participant.datnaiss)).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="{{ 'form.birthday' | trans | raw }} *">
     </div>
-    <div class="pure-u-1-2">
+    <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" class="input profession" type="text" value="<%= _.escape(participant.profession) %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
     </div>
-    <div class="pure-u-1">
+    <div class="pure-u-1 pure-u-md-1">
         <hr>
     </div>
-    <div class="pure-u-1">
+    <div class="pure-u-1 pure-u-md-1">
         <select class="select transport <%= (_.escape(participant.transport) != '') ? 'white' : '' %>" required name="transport">
             <option <%= (_.escape(participant.transport) == '') ? 'selected' : '' %> disabled value="">* {{ 'form.transport' | trans | raw }}</option>
             <option <%= (_.escape(participant.transport) == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
@@ -371,30 +371,30 @@
             <option <%= (_.escape(participant.transport) == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
         </select>
     </div>
-    <div class="pure-u-1-1 navette-wrapper hidden">
+    <div class="pure-u-1 pure-u-md-1-1 navette-wrapper hidden">
         <a href="#" class="input button radio navette">{{ 'form.navette' | trans | raw }}</a>
         <input class="hidden checkbox navette" value="<%= _.escape(participant.navette) %>" name="navette" type="text">
     </div>
-    <div class="pure-u-1-2 lieu-wrapper hidden">
+    <div class="pure-u-1 pure-u-md-1-2 lieu-wrapper hidden">
         <select class="select lieu <%= (_.escape(participant.lieu) != '') ? 'white' : '' %>" name="lieu">
             <option <%= (_.escape(participant.lieu) == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu) == 'viotte') ? 'selected' : '' %> value="viotte">{{ 'form.lieu.viotte' | trans | raw }}</option>
         </select>
     </div>
-    <div class="pure-u-1-2 arriv-wrapper hidden">
+    <div class="pure-u-1 pure-u-md-1-2 arriv-wrapper hidden">
         <input autocomplete="nope" class="input arriv" value="<%= _.escape(participant.arriv) %>" name="arriv" type="text" pattern="[0-2][0-9]:[0-5][0-9]" placeholder="{{ 'form.arriv' | trans | raw }}">
     </div>
-    <div class="pure-u-1">
+    <div class="pure-u-1 pure-u-md-1">
         <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= _.escape(participant.memo) %></textarea>
     </div>
-    {# <div class="pure-u-6-24">
+    {# <div class="pure-u-1 pure-u-md-6-24">
         <input autocomplete="nope" class="input button submit" type="reset" value="{{ 'form.reinit' | trans | raw }}">
     </div> #}
-    <div class="pure-u-10-24"></div>
-    <div class="pure-u-6-24">
+    <div class="pure-u-1 pure-u-md-10-24"></div>
+    <div class="pure-u-1 pure-u-md-6-24">
         <a href="#" class="button cancel input">{{ 'form.cancel' | trans | raw }}</a>
     </div>
-    <div class="pure-u-8-24">
+    <div class="pure-u-1 pure-u-md-8-24">
             <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submitParticipant' | trans | raw }}">
         </div>
 </script>

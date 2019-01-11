@@ -194,7 +194,7 @@
         background-color: transparent;
         outline: none;
         resize: none;
-        @include media('<large') {
+        @include media('<medium') {
           margin-bottom: 10px;
         }
         &::placeholder {
