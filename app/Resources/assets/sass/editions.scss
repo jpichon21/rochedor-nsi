@@ -740,11 +740,6 @@ h2 {
 }
 
 .content {
-  @include media('<limitMenuReduced') {
-    .zone {
-      padding: 0 40px 40px;
-    }
-  }
   .intro {
     color: #000000;
     a {
