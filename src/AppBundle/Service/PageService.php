@@ -63,7 +63,9 @@ class PageService
             if ($childPage->getLocale() != $contentDocument->getLocale()) {
                 $key = $childPage->getLocale();
                 $tmp = $childPage->getRoutes()->getValues();
-                $availableLocales[$key] = $tmp[0]->getStaticPrefix();
+                if ($tmp) {
+                    $availableLocales[$key] = $tmp[0]->getStaticPrefix();
+                }
             }
         }
         return $availableLocales;
