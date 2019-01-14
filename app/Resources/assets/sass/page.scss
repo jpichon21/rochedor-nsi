@@ -2,6 +2,14 @@
 @import './carousel';
 @import './variables';
 
+body {
+  &.gift {
+    .content > .right {
+      display: block;
+    }
+  }
+}
+
 .content {
   .intro {
     font-size: 14px;
