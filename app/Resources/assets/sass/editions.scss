@@ -263,7 +263,7 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  @include media('<large') {
+  @include media('<medium') {
     flex-direction: column;
   }
   .product {
@@ -272,7 +272,7 @@ h2 {
     width: 24%;
     height: 315px;
     overflow: hidden;
-    @include media('<large') {
+    @include media('<medium') {
       width: auto;
       margin: 0 -20px 40px;
     }
@@ -416,13 +416,13 @@ h2 {
   margin-bottom: 20px;
   text-align: center;
   cursor: pointer;
-  @include media('>=large') {
+  @include media('>=medium') {
     display: none;
   }
 }
 .filters {
   margin-bottom: 50px;
-  @include media('<large') {
+  @include media('<medium') {
     max-height: 0;
     overflow: hidden;
     transition: all 0.2s;
@@ -437,7 +437,7 @@ h2 {
     font-weight: 100;
     text-transform: uppercase;
     letter-spacing: 1.4px;
-    @include media('<large') {
+    @include media('<medium') {
       display: none;
     }
   }
@@ -447,17 +447,23 @@ h2 {
     padding: 20px 0;
     border-top: 1px rgba(0, 0, 0, 0.1) solid;
     border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
-    align-items: flex-end;
+    align-items: flex-start;
     @include media('<xxlarge') {
-      align-items: flex-start;
       flex-direction: column;
     }
     .filter {
       margin-right: 50px;
+      @include media('>=xxlarge') {
+        &.collections {
+          max-width: 250px;
+        }
+      }
       @include media('<xxlarge') {
-        width: 100%;
         width: auto;
         margin: 0 0 20px;
+      }
+      @include media('<medium') {
+        width: 100%;
       }
       &.disabled {
         opacity: 0.2;
@@ -482,12 +488,12 @@ h2 {
           &:after {
             content: '\2610';
             position: absolute;
-            right: 8px;
+            right: 15px;
             font-size: 18px;
             top: 13px;
             line-height: 0;
           }
-          @include media('<large') {
+          @include media('<medium') {
             margin: 0 0 10px 0;
             &:last-of-type {
               margin: 0;
@@ -507,7 +513,7 @@ h2 {
       }
       form {
         display: flex;
-        @include media('<large') {
+        @include media('<medium') {
           flex-direction: column;
         }
       }
@@ -544,6 +550,10 @@ h2 {
     .raz {
       color: #ffffff;
       background-color: $roche-brown;
+      white-space: nowrap;
+      @include media('>=xxlarge'){
+        margin-top: 22px;
+      }
     }
   }
 }
@@ -551,16 +561,17 @@ h2 {
 .category {
   float: left;
   width: 50%;
-  @include media('<large') {
+  @include media('<xlarge') {
     float: none;
     width: 100%;
+    margin-bottom: 80px;
   }
   .products {
     flex-wrap: nowrap;
     .product {
       width: 50%;
       margin-right: 20px;
-      @include media('<large') {
+      @include media('<medium') {
         width: auto;
         margin: 0 -20px 40px;
       }
