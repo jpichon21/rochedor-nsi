@@ -713,12 +713,12 @@ h2 {
       .technical-review {
         display: flex;
         margin-bottom: 40px;
-        @include media('>=large') {
+        @include media('>=xxlarge') {
           .left {
             margin-right: 20px;
           }
         }
-        @include media('<large') {
+        @include media('<xxlarge') {
           flex-direction: column;
         }
         .left,
