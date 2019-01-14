@@ -80,7 +80,7 @@ h2 {
       }
       .current li {
         border-color: #000000;
-        @include media('<large') {
+        @include media('<limitMenuReduced') {
           a {
             color: #ffffff;
             background-color: #000000;
