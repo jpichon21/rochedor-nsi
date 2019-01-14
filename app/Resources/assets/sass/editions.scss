@@ -469,6 +469,7 @@ h2 {
           }
         }
         label {
+          position: relative;
           margin-right: 10px;
           padding: 5px 40px 5px 20px;
           line-height: 20px;
@@ -476,12 +477,16 @@ h2 {
           font-size: 12px;
           text-transform: uppercase;
           border: 1px $roche-brown solid;
-          background-image: url('../img/button-radio-unchecked-black.png');
-          background-position: calc(100% - 20px) center;
-          background-repeat: no-repeat;
-          box-sizing: border-box;
-          background-size: auto 14px;
           cursor: pointer;
+          box-sizing: border-box;
+          &:after {
+            content: '\2610';
+            position: absolute;
+            right: 8px;
+            font-size: 18px;
+            top: 13px;
+            line-height: 0;
+          }
           @include media('<large') {
             margin: 0 0 10px 0;
             &:last-of-type {
@@ -494,7 +499,9 @@ h2 {
           &:checked + label {
             color: $roche-orange;
             border-color: $roche-orange;
-            background-image: url('../img/button-radio-checked-orange.png');
+            &:after {
+              content: '\2611';
+            }
           }
         }
       }
@@ -823,14 +830,12 @@ h2 {
           border-color: $roche-orange;
         }
         &.radio {
-          background-image: url('button-radio-black-unchecked.png');
-          color: #000;
-          border-color: #000;
+          color: #000000;
+          border-color: #000000;
           float: left;
           &.checked {
-            background-image: url('button-radio-black-checked.png');
-            color: #000;
-            border-color: #000;
+            color: $roche-orange;
+            border-color: $roche-orange;
           }
         }
       }
@@ -843,8 +848,8 @@ h2 {
       .secure-link {
         background: url('lock-black.png') no-repeat 15px 5px;
         background-size: 20px;
-        border-color: #000;
-        color: #000;
+        border-color: #000000;
+        color: #000000;
       }
       .panel {
         &:before {
@@ -877,10 +882,4 @@ h2 {
     color: $roche-orange;
     border: 1px $roche-orange solid;
   }
-}
-
-.content .dropdown .item .button.radio.checked {
-  background-image: url('../button-radio-checked-orange.png');
-  color: #ef7d1d;
-  border-color: #ef7d1d;
 }
