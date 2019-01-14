@@ -99,11 +99,11 @@ h2 {
   .logo {
     &:after {
       content: 'Les Editions\A de la Roche d\'Or';
-      bottom: -60px;
+      bottom: -62px;
       font-size: 12px;
       line-height: 16px;
       color: #000000;
-      @include media('<large') {
+      @include media('<limitMenuReduced') {
         bottom: -10px;
       }
     }
@@ -448,14 +448,16 @@ h2 {
     border-top: 1px rgba(0, 0, 0, 0.1) solid;
     border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
     align-items: flex-end;
-    @include media('<large') {
+    @include media('<xxlarge') {
+      align-items: flex-start;
       flex-direction: column;
     }
     .filter {
       margin-right: 50px;
-      @include media('<large') {
+      @include media('<xxlarge') {
         width: 100%;
-        margin: 0 0 20px 0;
+        width: auto;
+        margin: 0 0 20px;
       }
       &.disabled {
         opacity: 0.2;
@@ -738,6 +740,11 @@ h2 {
 }
 
 .content {
+  @include media('<limitMenuReduced') {
+    .zone {
+      padding: 0 40px 40px;
+    }
+  }
   .intro {
     color: #000000;
     a {
