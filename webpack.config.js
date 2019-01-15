@@ -59,10 +59,6 @@ function initEncore () {
 }
 
 const alias = {
-  'TweenMax': path.resolve('node_modules', 'gsap/src/uncompressed/TweenMax.js'),
-  'TimelineMax': path.resolve('node_modules', 'gsap/src/uncompressed/TimelineMax.js'),
-  'ScrollMagic': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'),
-  'animation.gsap': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'),
   'magnific-popup-js': path.resolve('node_modules', 'magnific-popup/dist/jquery.magnific-popup.js'),
   'magnific-popup-css': path.resolve('node_modules', 'magnific-popup/src/css/main.scss'),
   'jquery-zoom-js': path.resolve('node_modules', 'jquery-zoom/jquery.zoom.js')

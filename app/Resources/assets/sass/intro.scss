@@ -1,4 +1,4 @@
-.animation-intro {
+.intro {
   display: none;
   position: fixed;
   width: 100vw;
@@ -70,13 +70,13 @@
 
 body {
   &.intro {
-    .animation-intro {
+    .intro {
       display: block;
     }
     .header,
     .footer,
     .scroll-down,
-    .swipe-section {
+    .section {
       opacity: 0;
       animation-name: intro-opacity;
       animation-duration: 4s;
@@ -86,10 +86,10 @@ body {
     .footer {
       animation-delay: 15s;
     }
-    .swipe-section {
+    .section {
       animation-delay: 17s;
     }
-    .swipe-section {
+    .section {
       animation-delay: 17s;
     }
     .scroll-down {
