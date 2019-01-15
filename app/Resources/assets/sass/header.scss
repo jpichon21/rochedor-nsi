@@ -24,9 +24,13 @@ body {
       }
     }
     @include media('<limitMenuReduced') {
+      .header {
+        height: 100vh;
+        overflow-y: auto;
+      }
       .footer,
       .content,
-      .swipe-section {
+      .sections {
         opacity: 0;
       }
     }
@@ -69,6 +73,9 @@ body {
       @include media('>=limitMenuReduced') {
         content: none;
       }
+      @media screen and (max-height: 500px) {
+        content: none;
+      }
     }
     .editions {
       display: none;
@@ -100,7 +107,7 @@ body {
       font-size: 10px;
       background-color: $roche-orange;
       font-family: arial, sans-serif;
-      padding-top: 3.5px;
+      padding-top: 2px;
       box-sizing: border-box;
     }
   }
@@ -404,7 +411,7 @@ body {
     .options {
       display: none;
       width: 100%;
-      padding: 20px 40px 0;
+      padding: 20px 0 40px;
       .cart {
         width: 100px;
         margin: 0 auto 40px;
@@ -422,7 +429,9 @@ body {
       padding: 30px 0;
     }
     .menu {
+      max-width: 400px;
       padding: 0 40px;
+      margin: 0 auto;
       li {
         > span {
           cursor: pointer;

@@ -80,7 +80,7 @@ h2 {
       }
       .current li {
         border-color: #000000;
-        @include media('<large') {
+        @include media('<limitMenuReduced') {
           a {
             color: #ffffff;
             background-color: #000000;
@@ -99,11 +99,11 @@ h2 {
   .logo {
     &:after {
       content: 'Les Editions\A de la Roche d\'Or';
-      bottom: -60px;
+      bottom: -62px;
       font-size: 12px;
       line-height: 16px;
       color: #000000;
-      @include media('<large') {
+      @include media('<limitMenuReduced') {
         bottom: -10px;
       }
     }
@@ -263,7 +263,7 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  @include media('<large') {
+  @include media('<medium') {
     flex-direction: column;
   }
   .product {
@@ -272,7 +272,7 @@ h2 {
     width: 24%;
     height: 315px;
     overflow: hidden;
-    @include media('<large') {
+    @include media('<medium') {
       width: auto;
       margin: 0 -20px 40px;
     }
@@ -416,13 +416,13 @@ h2 {
   margin-bottom: 20px;
   text-align: center;
   cursor: pointer;
-  @include media('>=large') {
+  @include media('>=medium') {
     display: none;
   }
 }
 .filters {
   margin-bottom: 50px;
-  @include media('<large') {
+  @include media('<medium') {
     max-height: 0;
     overflow: hidden;
     transition: all 0.2s;
@@ -437,7 +437,7 @@ h2 {
     font-weight: 100;
     text-transform: uppercase;
     letter-spacing: 1.4px;
-    @include media('<large') {
+    @include media('<medium') {
       display: none;
     }
   }
@@ -447,15 +447,23 @@ h2 {
     padding: 20px 0;
     border-top: 1px rgba(0, 0, 0, 0.1) solid;
     border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
-    align-items: flex-end;
-    @include media('<large') {
+    align-items: flex-start;
+    @include media('<xxlarge') {
       flex-direction: column;
     }
     .filter {
       margin-right: 50px;
-      @include media('<large') {
+      @include media('>=xxlarge') {
+        &.collections {
+          max-width: 250px;
+        }
+      }
+      @include media('<xxlarge') {
+        width: auto;
+        margin: 0 0 20px;
+      }
+      @include media('<medium') {
         width: 100%;
-        margin: 0 0 20px 0;
       }
       &.disabled {
         opacity: 0.2;
@@ -467,6 +475,7 @@ h2 {
           }
         }
         label {
+          position: relative;
           margin-right: 10px;
           padding: 5px 40px 5px 20px;
           line-height: 20px;
@@ -474,13 +483,17 @@ h2 {
           font-size: 12px;
           text-transform: uppercase;
           border: 1px $roche-brown solid;
-          background-image: url('../img/button-radio-unchecked-black.png');
-          background-position: calc(100% - 20px) center;
-          background-repeat: no-repeat;
-          box-sizing: border-box;
-          background-size: auto 14px;
           cursor: pointer;
-          @include media('<large') {
+          box-sizing: border-box;
+          &:after {
+            content: '\2610';
+            position: absolute;
+            right: 15px;
+            font-size: 18px;
+            top: 13px;
+            line-height: 0;
+          }
+          @include media('<medium') {
             margin: 0 0 10px 0;
             &:last-of-type {
               margin: 0;
@@ -492,13 +505,15 @@ h2 {
           &:checked + label {
             color: $roche-orange;
             border-color: $roche-orange;
-            background-image: url('../img/button-radio-checked-orange.png');
+            &:after {
+              content: '\2611';
+            }
           }
         }
       }
       form {
         display: flex;
-        @include media('<large') {
+        @include media('<medium') {
           flex-direction: column;
         }
       }
@@ -535,6 +550,10 @@ h2 {
     .raz {
       color: #ffffff;
       background-color: $roche-brown;
+      white-space: nowrap;
+      @include media('>=xxlarge'){
+        margin-top: 22px;
+      }
     }
   }
 }
@@ -542,16 +561,17 @@ h2 {
 .category {
   float: left;
   width: 50%;
-  @include media('<large') {
+  @include media('<xlarge') {
     float: none;
     width: 100%;
+    margin-bottom: 80px;
   }
   .products {
     flex-wrap: nowrap;
     .product {
       width: 50%;
       margin-right: 20px;
-      @include media('<large') {
+      @include media('<medium') {
         width: auto;
         margin: 0 -20px 40px;
       }
@@ -693,12 +713,12 @@ h2 {
       .technical-review {
         display: flex;
         margin-bottom: 40px;
-        @include media('>=large') {
+        @include media('>=xxlarge') {
           .left {
             margin-right: 20px;
           }
         }
-        @include media('<large') {
+        @include media('<xxlarge') {
           flex-direction: column;
         }
         .left,
@@ -821,14 +841,12 @@ h2 {
           border-color: $roche-orange;
         }
         &.radio {
-          background-image: url('button-radio-black-unchecked.png');
-          color: #000;
-          border-color: #000;
+          color: #000000;
+          border-color: #000000;
           float: left;
           &.checked {
-            background-image: url('button-radio-black-checked.png');
-            color: #000;
-            border-color: #000;
+            color: $roche-orange;
+            border-color: $roche-orange;
           }
         }
       }
@@ -841,8 +859,8 @@ h2 {
       .secure-link {
         background: url('lock-black.png') no-repeat 15px 5px;
         background-size: 20px;
-        border-color: #000;
-        color: #000;
+        border-color: #000000;
+        color: #000000;
       }
       .panel {
         &:before {
@@ -875,10 +893,4 @@ h2 {
     color: $roche-orange;
     border: 1px $roche-orange solid;
   }
-}
-
-.content .dropdown .item .button.radio.checked {
-  background-image: url('../button-radio-checked-orange.png');
-  color: #ef7d1d;
-  border-color: #ef7d1d;
 }

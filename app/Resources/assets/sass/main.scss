@@ -105,32 +105,30 @@ i {
       flex: 1;
       position: relative;
     }
-    .zone {
-      padding: 100px 40px 0;
-      @include media('<large') {
-        padding: 0 20px;
-      }
-    }
     .hole {
       width: 170px;
       @include media('<xxlarge') {
         width: 0;
       }
     }
+    .zone {
+      padding: 100px 40px 0;
+    }
     .left {
-      padding: 100px 0 0 40px;
-      @include media('<xxlarge') {
-        padding: 0 40px 40px;
-      }
-      @include media('<large') {
-        padding: 0 20px 20px;
-      }
+      padding: 100px 0 40px 40px;
     }
     .right {
       padding: 100px 40px 40px 0;
       overflow: auto;
+    }
+    .zone,
+    .left,
+    .right {
       @include media('<xxlarge') {
-        padding: 100px 40px 40px 40px;
+        padding: 20px 40px;
+      }
+      @include media('<large') {
+        padding: 20px;
       }
     }
     .right {
