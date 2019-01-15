@@ -3,6 +3,8 @@
 @import './variables';
 
 body {
+  position: fixed;
+  width: 100vw;
   height: auto;
   &:before {
     z-index: 3;
