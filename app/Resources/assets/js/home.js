@@ -4,14 +4,17 @@ const body = document.querySelector('body')
 
 // Home River Animation
 
-const changeSection = nextPosition => {
-  isMoving = true
-  body.classList.remove(`section-${prevPosition}-active`)
-  body.classList.add(`section-${nextPosition}-active`)
-  setTimeout(() => {
-    isMoving = false
-    prevPosition = nextPosition
-  }, 2000)
+const changeSection = movingDown => {
+  nextPosition = movingDown ? prevPosition + 1 : prevPosition - 1
+  if (nextPosition !== 0 && nextPosition !== 7) {
+    isMoving = true
+    body.classList.remove(`section-${prevPosition}-active`)
+    body.classList.add(`section-${nextPosition}-active`)
+    setTimeout(() => {
+      isMoving = false
+      prevPosition = nextPosition
+    }, 2000)
+  }
 }
 
 let prevPosition = 1
@@ -20,10 +23,21 @@ let isMoving = false
 
 window.onwheel = event => {
   if (!isMoving) {
-    nextPosition = event.deltaY > 0 ? prevPosition + 1 : prevPosition - 1
-    if (nextPosition !== 0 && nextPosition !== 7) {
-      changeSection(nextPosition)
-    }
+    changeSection(event.deltaY > 0)
+  }
+}
+
+let startMovement = 0
+let endMovement = 0
+
+window.ontouchstart = event => {
+  startMovement = event.changedTouches[0].pageY
+}
+
+window.ontouchend = event => {
+  endMovement = event.changedTouches[0].pageY
+  if (!isMoving) {
+    changeSection(startMovement > endMovement)
   }
 }
 
