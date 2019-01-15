@@ -23,9 +23,10 @@ body {
         opacity: 0;
       }
       .nouveautes {
-        top: -1px;
+        top: 0;
         padding: 40px;
-        border: transparent;
+        max-height: none;
+        border-color: transparent;
         &:before {
           background-color: rgba(0, 0, 0, 0.4);
           transition: 0.2s;
@@ -280,6 +281,7 @@ body {
         position: fixed;
         width: 100vw;
         height: 100vh;
+        max-height: 55px;
         top: calc(100vh - 55px);
         left: 0;
         right: 0;
