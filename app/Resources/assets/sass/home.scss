@@ -4,12 +4,14 @@
 
 body {
   position: fixed;
-  width: 100vw;
-  height: auto;
+  width: 100%;
+  height: 100%;
   &:before {
     z-index: 3;
   }
   &.menuReduced {
+    height: 100%;
+    min-height: 100%;
     overflow-y: hidden;
   }
   &.nouveautesOpened {
@@ -59,7 +61,7 @@ body {
   &.section-2-active {
     .background,
     .sections {
-      transform: translate(0, -100vh);
+      transform: translate(0, calc(-100% / 6));
       .section-2 {
         opacity: 1;
         transition: opacity 2s cubic-bezier(0.755, 0.050, 0.855, 0.060);
@@ -69,7 +71,7 @@ body {
   &.section-3-active {
     .background,
     .sections {
-      transform: translate(0, -200vh);
+      transform: translate(0, calc(-200% / 6));
       .section-3 {
         opacity: 1;
         transition: opacity 2s cubic-bezier(0.755, 0.050, 0.855, 0.060);
@@ -79,7 +81,7 @@ body {
   &.section-4-active {
     .background,
     .sections {
-      transform: translate(-100vw, -300vh);
+      transform: translate(-50%, calc(-300% / 6));
       .section-4 {
         opacity: 1;
         transition: opacity 2s cubic-bezier(0.755, 0.050, 0.855, 0.060);
@@ -89,7 +91,7 @@ body {
   &.section-5-active {
     .background,
     .sections {
-      transform: translate(-100vw, -400vh);
+      transform: translate(-50%, calc(-400% / 6));
       .section-5 {
         opacity: 1;
         transition: opacity 2s cubic-bezier(0.755, 0.050, 0.855, 0.060);
@@ -99,7 +101,7 @@ body {
   &.section-6-active {
     .background,
     .sections {
-      transform: translate(-100vw, -500vh);
+      transform: translate(-50%, calc(-500% / 6));
       .section-6 {
         opacity: 1;
         transition: opacity 2s cubic-bezier(0.755, 0.050, 0.855, 0.060);
@@ -149,7 +151,7 @@ body {
   top: 0;
   left: 0;
   width: 200%;
-  height: 100%;
+  height: 600%;
   background-image: url('../img/background-home-desktop.jpg');
   background-size: 100% 100%;
   z-index: 0;
@@ -163,8 +165,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-image: url('../img/overlay-begin.png');
   opacity: 0;
   z-index: 1;
@@ -174,13 +176,14 @@ body {
 .sections {
   position: relative;
   width: 200%;
+  height: 600%;
   z-index: 2;
   transition: transform 2s cubic-bezier(0.645, 0.045, 0.355, 1.000);
   .section {
     position: relative;
     display: flex;
     width: 50%;
-    height: 100vh;
+    height: calc(100% / 6);
     align-items: center;
     opacity: 0;
     z-index: 1;
@@ -286,11 +289,11 @@ body {
         width: 35%
       }
       @include media('<large') {
-        position: fixed;
-        width: 100vw;
-        height: 100vh;
+        position: absolute;
+        width: 100%;
+        height: 100%;
         max-height: 55px;
-        top: calc(100vh - 55px);
+        top: calc(100% - 55px);
         left: 0;
         right: 0;
         margin-right: 0;
@@ -373,7 +376,7 @@ body {
         &:before {
           content: '';
           position: absolute;
-          width: 100vw;
+          width: 9999px;
           bottom: 15px;
           border-top: 1px #000000 solid;
           @include media('<large') {
