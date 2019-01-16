@@ -37,6 +37,7 @@ window.ontouchstart = event => {
 window.ontouchend = event => {
   endMovement = event.changedTouches[0].pageY
   if (
+    startMovement !== endMovement &&
     !body.classList.contains('nouveautesOpened') &&
     !body.classList.contains('menuOpened') &&
     !isMoving
