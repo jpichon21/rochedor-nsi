@@ -11,6 +11,9 @@ body {
   }
   &.menuOpened {
     height: 100%;
+    .header {
+      height: 100%;
+    }
   }
   &.menuReduced {
     height: 100%;
