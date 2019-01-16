@@ -9,6 +9,9 @@ body {
   &:before {
     z-index: 3;
   }
+  &.menuOpened {
+    height: 100%;
+  }
   &.menuReduced {
     height: 100%;
     min-height: 100%;
