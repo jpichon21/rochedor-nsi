@@ -10,11 +10,6 @@ monolog:
             type: stream
             path: '%kernel.logs_dir%/%kernel.environment%.log'
             level: debug
-        debug_handler:
-            type: rotating_file
-            level: debug
-            path: '%kernel.logs_dir%/%kernel.environment%.debug.log'
-            max_files: 30
         mail:
             type: fingers_crossed
             action_level: critical

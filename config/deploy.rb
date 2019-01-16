@@ -28,6 +28,7 @@ task :deploy => :environment do
 		on :launch do
 			command "export SYMFONY_ENV=prod"
 			command "ea-php72 composer.phar install --optimize-autoloader"
+			command "ea-php72 composer.phar dump-autoload --optimize --no-dev --classmap-authoritative"
 			command "yarn install"
 			command "ea-php72 bin/console assets:install --env=prod"
 			command "ea-php72 bin/console cache:clear --env=prod"
