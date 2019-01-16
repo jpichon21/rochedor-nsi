@@ -36,7 +36,11 @@ window.ontouchstart = event => {
 
 window.ontouchend = event => {
   endMovement = event.changedTouches[0].pageY
-  if (!isMoving) {
+  if (
+    !body.classList.contains('nouveautesOpened') &&
+    !body.classList.contains('menuOpened') &&
+    !isMoving
+  ) {
     changeSection(startMovement > endMovement)
   }
 }
