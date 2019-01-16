@@ -233,6 +233,9 @@ body {
     }
     .box {
       color: $roche-yellow;
+      @include media('<medium') {
+        padding-top: 20%;
+      }
       br {
         display: none;
       }
