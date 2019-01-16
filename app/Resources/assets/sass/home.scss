@@ -233,7 +233,7 @@ body {
     }
     .box {
       color: $roche-yellow;
-      @include media('<medium') {
+      @media screen and (max-width: 500px) {
         padding-top: 20%;
       }
       br {
