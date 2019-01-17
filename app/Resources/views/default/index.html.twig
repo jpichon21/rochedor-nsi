@@ -1,4 +1,4 @@
-{% set bodyClass = "home" %}
+{% set bodyClass = "home section-1-active" %}
 {% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
 {% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
 {% extends 'base.html.twig' %}
@@ -6,25 +6,25 @@
 <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
 {% endblock %}
 {% block content %}
-<div class="animation-intro">
+<div class="intro">
     <div class="element">
         <div class="logo"></div>
     </div>
 </div>
-<div class="overlay-begin"></div>
-<div class="swipe-background"></div>
-<section class="swipe-section">
-    <article class="article-1 align-left">
-            <div class="box">
-                <h2>
-                    <small>{{page.content['sections'][0].title|raw}}</small>
-                    {% if 'sub_title' in page.content['sections'][0]|keys %}
-                    {{page.content['sections'][0].sub_title|raw}}
-                    {% endif %}
-                </h2>
-                {{page.content['sections'][0].body|raw}}
-                <a class="button yellow" href="#">Découvrir</a>
-            </div>
+<div class="background"></div>
+<div class="overlay"></div>
+<div class="sections">
+    <div class="section section-1">
+        <div class="box">
+            <h2>
+                <small>{{page.content['sections'][0].title|raw}}</small>
+                {% if 'sub_title' in page.content['sections'][0]|keys %}
+                {{page.content['sections'][0].sub_title|raw}}
+                {% endif %}
+            </h2>
+            {{page.content['sections'][0].body|raw}}
+            <a class="button yellow" href="#">Découvrir</a>
+        </div>
         <div class="scroll-down">
             <img src="{{ asset('assets/img/scroll.png') }}" alt="Déroulez pour voir la suite">
         </div>
@@ -38,8 +38,8 @@
                 <a class="button black" href="{{lastNews.url}}">Lire la suite</a>
             </div>
         {% endif %}
-    </article>
-    <article class="article-2 align-right">
+    </div>
+    <div class="section section-2">
         <div class="box">
             <h2>
                 <small>{{page.content['sections'][1].title|raw}}</small>
@@ -50,8 +50,8 @@
             {{page.content['sections'][1].body|raw}}
             <a class="button yellow" href="#">Découvrir</a>
         </div>
-    </article>
-    <article class="article-3 align-left">
+    </div>
+    <div class="section section-3">
         <div class="box">
             <h2>
                 <small>{{page.content['sections'][2].title|raw}}</small>
@@ -62,8 +62,8 @@
             {{page.content['sections'][2].body|raw}}
             <a class="button yellow" href="#">Découvrir</a>
         </div>
-    </article>
-    <article class="article-4 right align-right">
+    </div>
+    <div class="section section-4">
         <div class="box">
             <h2>
                 <small>{{page.content['sections'][3].title|raw}}</small>
@@ -74,8 +74,8 @@
             {{page.content['sections'][3].body|raw}}
             <a class="button yellow" href="#">Découvrir</a>
         </div>
-    </article>
-    <article class="article-5 right align-left">
+    </div>
+    <div class="section section-5">
         <div class="box">
             <h2>
                 <small>{{page.content['sections'][4].title|raw}}</small>
@@ -86,8 +86,8 @@
             {{page.content['sections'][4].body|raw}}
             <a class="button yellow" href="#">Découvrir</a>
         </div>
-    </article>
-    <article class="article-6 right align-right">
+    </div>
+    <div class="section section-6">
         <div class="box">
             <h2>
                 <small>{{page.content['sections'][5].title|raw}}</small>
@@ -98,8 +98,8 @@
             {{page.content['sections'][5].body|raw}}
             <a class="button yellow" href="#">Découvrir</a>
         </div>
-    </article>
-</section>
+    </div>
+</div>
 {% endblock %}
 {% block javascripts %}
 <script src="{{ asset("assets/js/home.js") }}"></script>

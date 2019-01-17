@@ -2,7 +2,10 @@
 @import './page';
 
 .content {
-    .dropdown {
+  > .right {
+    display: block;
+  }
+  .dropdown {
     .item {
       &.active {
         h2 {
@@ -89,6 +92,9 @@
       &.last {
         padding-right: 0;
         text-align: right;
+        @include media('<large') {
+          font-size: 0;
+        }
       }
     }
   }
@@ -119,11 +125,23 @@
         }
         &.first {
           padding-left: 0;
+          max-width: 30vw;
+          overflow: hidden;
+          text-overflow: ellipsis;
           text-align: left;
         }
         &.last {
           padding-right: 0;
           text-align: right;
+          @include media('<large') {
+            a {
+              font-size: 0;
+              &:before {
+                content: '\274C';
+                font-size: 10px;
+              }
+            }
+          }
         }
       }
     }

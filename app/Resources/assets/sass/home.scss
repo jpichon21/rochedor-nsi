@@ -3,9 +3,22 @@
 @import './variables';
 
 body {
-  height: auto;
+  position: fixed;
+  width: 100%;
+  height: 100%;
   &:before {
     z-index: 3;
+  }
+  &.menuOpened {
+    height: 100%;
+    .header {
+      height: 100%;
+    }
+  }
+  &.menuReduced {
+    height: 100%;
+    min-height: 100%;
+    overflow-y: hidden;
   }
   &.nouveautesOpened {
     position: fixed;
@@ -14,15 +27,16 @@ body {
     .header {
       display: none;
     }
-    section {
+    .section {
       z-index: 5;
       .box {
         opacity: 0;
       }
       .nouveautes {
-        top: -1px;
-        padding: 40px;
-        border: transparent;
+        top: 0;
+        padding: 20px 40px 40px;
+        max-height: none;
+        border-color: transparent;
         &:before {
           background-color: rgba(0, 0, 0, 0.4);
           transition: 0.2s;
@@ -32,8 +46,72 @@ body {
           transform: rotate(90deg);
         }
         h2 {
-          padding: 0;
+          margin: 0 -20px;
+          padding: 20px;
         }
+      }
+    }
+  }
+  &.section-1-active {
+    .overlay {
+      opacity: 0.8;
+    }
+    .background,
+    .sections {
+      transform: translate(0, 0);
+      .section-1 {
+        opacity: 1;
+        transition: opacity 2s cubic-bezier(0.755, 0.050, 0.855, 0.060);
+      }
+    }
+  }
+  &.section-2-active {
+    .background,
+    .sections {
+      transform: translate(0, calc(-100% / 6));
+      .section-2 {
+        opacity: 1;
+        transition: opacity 2s cubic-bezier(0.755, 0.050, 0.855, 0.060);
+      }
+    }
+  }
+  &.section-3-active {
+    .background,
+    .sections {
+      transform: translate(0, calc(-200% / 6));
+      .section-3 {
+        opacity: 1;
+        transition: opacity 2s cubic-bezier(0.755, 0.050, 0.855, 0.060);
+      }
+    }
+  }
+  &.section-4-active {
+    .background,
+    .sections {
+      transform: translate(-50%, calc(-300% / 6));
+      .section-4 {
+        opacity: 1;
+        transition: opacity 2s cubic-bezier(0.755, 0.050, 0.855, 0.060);
+      }
+    }
+  }
+  &.section-5-active {
+    .background,
+    .sections {
+      transform: translate(-50%, calc(-400% / 6));
+      .section-5 {
+        opacity: 1;
+        transition: opacity 2s cubic-bezier(0.755, 0.050, 0.855, 0.060);
+      }
+    }
+  }
+  &.section-6-active {
+    .background,
+    .sections {
+      transform: translate(-50%, calc(-500% / 6));
+      .section-6 {
+        opacity: 1;
+        transition: opacity 2s cubic-bezier(0.755, 0.050, 0.855, 0.060);
       }
     }
   }
@@ -75,36 +153,54 @@ body {
   }
 }
 
-section {
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 200%;
+  height: 600%;
+  background-image: url('../img/background-home-desktop.jpg');
+  background-size: 100% 100%;
+  z-index: 0;
+  transition: transform 2s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+  @include media('<large') {
+    background-image: url('../img/background-home-mobile.jpg');
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../img/overlay-begin.png');
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 2s linear;
+}
+
+.sections {
+  position: relative;
+  width: 200%;
+  height: 600%;
   z-index: 2;
-  article {
+  transition: transform 2s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+  .section {
     position: relative;
     display: flex;
     width: 50%;
-    height: 100vh;
+    height: calc(100% / 6);
     align-items: center;
     opacity: 0;
     z-index: 1;
-    &.article-1 {
+    transition: opacity 2s cubic-bezier(0.230, 1.000, 0.320, 1.000);
+    &.section-1 {
       justify-content: space-between;
     }
-    // &.article-2 {
-    //   margin-top: 100px;
-    // }
-    // &.article-3 {
-    //   margin-top: -400px;
-    // }
-    // &.article-4 {
-    //   margin-top: -200px;
-    // }
-    // &.article-5 {
-    //   margin-top: -100px;
-    // }
-    // &.article-6 {
-    //   margin-top: 800px;
-    // }
-    &.align-left {
+    &.section-1,
+    &.section-3,
+    &.section-5 {
       .box {
         margin-left: 40px;
         padding-right: 40px;
@@ -117,7 +213,9 @@ section {
         }
       }
     }
-    &.align-right {
+    &.section-4,
+    &.section-2,
+    &.section-6 {
       justify-content: flex-end;
       .box {
         margin-right: 40px;
@@ -132,11 +230,16 @@ section {
         }
       }
     }
-    &.right {
+    &.section-4,
+    &.section-5,
+    &.section-6 {
       margin-left: 50%;
     }
     .box {
       color: $roche-yellow;
+      @media screen and (max-width: 500px) {
+        padding-top: 20%;
+      }
       br {
         display: none;
       }
@@ -148,10 +251,11 @@ section {
         letter-spacing: 1px;
         @include media('<large') {
           margin-bottom: 20px;
+          font-size: 25px;
         }
         small {
           display: block;
-          font-size: 23px;
+          font-size: 16px;
         }
       }
       em {
@@ -175,7 +279,7 @@ section {
     }
     .scroll-down {
       position: absolute;
-      bottom: 80px;
+      bottom: 40px;
       left: 50%;
       margin-left: -84px;
       img {
@@ -195,14 +299,16 @@ section {
         width: 35%
       }
       @include media('<large') {
-        position: fixed;
-        width: auto;
+        position: absolute;
+        width: 100%;
         height: 100%;
+        max-height: 55px;
         top: calc(100% - 55px);
         left: 0;
         right: 0;
         margin-right: 0;
         border-top: 1px $roche-yellow solid;
+        box-sizing: border-box;
         &:after,
         &:before {
           content: '';
@@ -280,7 +386,7 @@ section {
         &:before {
           content: '';
           position: absolute;
-          width: 100vw;
+          width: 9999px;
           bottom: 15px;
           border-top: 1px #000000 solid;
           @include media('<large') {
@@ -296,29 +402,6 @@ section {
       }
     }
   }
-}
-
-.swipe-background {
-  position: absolute;
-  width: 200%;
-  height: 100%;
-  background-image: url('../img/background-home-desktop.jpg');
-  background-size: 100% 100%;
-  z-index: 0;
-  @include media('<large') {
-    background-image: url('../img/background-home-mobile.jpg');
-  }
-}
-
-.overlay-begin {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: url('../img/overlay-begin.png');
-  opacity: 0.8;
-  z-index: 1;
 }
 
 @keyframes bounce {

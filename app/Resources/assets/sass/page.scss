@@ -2,6 +2,14 @@
 @import './carousel';
 @import './variables';
 
+body {
+  &.gift {
+    .content > .right {
+      display: block;
+    }
+  }
+}
+
 .content {
   .intro {
     font-size: 14px;
@@ -261,15 +269,22 @@
           border-color: #ffffff;
         }
         &.radio {
+          position: relative;
           padding-right: 40px;
-          background-image: url('button-radio-unchecked.png');
-          background-position: calc(100% - 10px);
-          background-repeat: no-repeat;
-          background-size: 18px;
+          &:after {
+            content: '\2610';
+            position: absolute;
+            right: 15px;
+            font-size: 18px;
+            top: 13px;
+            line-height: 0;
+          }
           &.checked {
             color: #ffffff;
             border-color: #ffffff;
-            background-image: url('button-radio-checked.png');
+            &:after {
+              content: '\2611';
+            }
           }
         }
       }
@@ -278,6 +293,9 @@
         position: relative;
         margin: 20px 0;
         padding: 30px 20px 0px 20px;
+        @include media('<large') {
+          padding: 30px 20px 10px;
+        }
         hr {
           margin: 10px 0 30px;
         }

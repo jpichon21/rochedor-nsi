@@ -4083,11 +4083,6 @@ growl@1.10.5:
   resolved "https://registry.yarnpkg.com/growl/-/growl-1.10.5.tgz#f2735dc2283674fa67478b10181059355c369e5e"
   integrity sha512-qBr4OuELkhPenW6goKVXiv47US3clb3/IbuWF9KNKEijAy9oeHxU9IgzjvJhHkUzhaj7rOUD7+YGWqUjLp5oSA==
 
-gsap@^1.20.4:
-  version "1.20.6"
-  resolved "https://registry.yarnpkg.com/gsap/-/gsap-1.20.6.tgz#0f6829052e94fbfffa92be3265f24b88729c9d1d"
-  integrity sha512-XM2BdaoJP23KSg/u4FnsqVI+HI7/jcVZbHFU8JfzNLvPCF08yf4a/WRFP/lQ5gbWydpL7g/YKjPe/PMpw+5WJQ==
-
 handle-thing@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/handle-thing/-/handle-thing-1.2.5.tgz#fd7aad726bf1a5fd16dfc29b2f7a6601d27139c4"
@@ -4994,24 +4989,12 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-jquery-scrollify@^1.0.19:
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/jquery-scrollify/-/jquery-scrollify-1.0.19.tgz#442dfa6188639ee0bdc4d60ea580347b31f9256b"
-  integrity sha512-bPgTaiQd1JY/mjW8HxX9x3LOcCjjokl0umJ5ftFQB4i9ATSwkdeSLNYwZHzAOQZpMxSVgRzkOFKqL1xFlnvlyg==
-  dependencies:
-    jquery ">=1.7"
-
 jquery-zoom@^1.7.21:
   version "1.7.21"
   resolved "https://registry.yarnpkg.com/jquery-zoom/-/jquery-zoom-1.7.21.tgz#9c8cbb40cefaeba288e9dd05a67e5f0f8dcec4f3"
   integrity sha512-C3aDEt0c4TkPrOPqIs5VAOwBMgitf1I7jEakO15G3QfxdVEivBvUlkiCjfcGQM+FyXdvshpbiEJKDbEdPz2/pw==
   dependencies:
     jquery ">=1.7"
-
-jquery.easing@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/jquery.easing/-/jquery.easing-1.4.1.tgz#47982c5836bd758fd48494923c4a101ef6e93e3b"
-  integrity sha1-R5gsWDa9dY/UhJSSPEoQHvbpPjs=
 
 jquery@>=1.7, jquery@>=1.9, jquery@^3.3.1:
   version "3.3.1"
@@ -8238,11 +8221,6 @@ scroll@^2.0.3:
   dependencies:
     rafl "~1.2.1"
 
-scrollmagic@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/scrollmagic/-/scrollmagic-2.0.5.tgz#ad7597341c76fb1f4a5bec12968a09223bd08dd9"
-  integrity sha1-rXWXNBx2+x9KW+wSlooJIjvQjdk=
-
 scss-tokenizer@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/scss-tokenizer/-/scss-tokenizer-0.2.3.tgz#8eb06db9a9723333824d3f5530641149847ce5d1"
@@ -9455,11 +9433,6 @@ vary@^1, vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
-
-velocityjs@^1.0.1:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/velocityjs/-/velocityjs-1.1.0.tgz#91b7ccc5538d559b8b008ff532e9bfad3843f667"
-  integrity sha512-qIAvO8RvshAie4M6kH4WOMZ6OiVKZgUvXLyZdRzFQw1AbcEYBCy8KDysn1sMRmffWPyyFz3maFkU8kNRjzdTsA==
 
 vendors@^1.0.0:
   version "1.0.2"

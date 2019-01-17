@@ -1,54 +1,57 @@
-import $ from 'jquery'
-import Velocity from 'velocityjs'
-import scrollify from 'jquery-scrollify'
-import ScrollMagic from 'scrollmagic'
-import 'animation.gsap'
-import 'jquery.easing'
 import { limitMenuReduced } from './variables'
 
-// Scrollify
+const body = document.querySelector('body')
 
-$.scrollify({
-  section: 'article',
-  easing: 'easeInOutCubic',
-  scrollSpeed: 2000,
-  updateHash: false
-})
+// Home River Animation
 
-// ScrollMagic
-
-function updateHeightWindow () {
-  return $(window).height()
+const changeSection = movingDown => {
+  nextPosition = movingDown ? prevPosition + 1 : prevPosition - 1
+  if (nextPosition !== 0 && nextPosition !== 7) {
+    isMoving = true
+    body.classList.remove(`section-${prevPosition}-active`)
+    body.classList.add(`section-${nextPosition}-active`)
+    setTimeout(() => {
+      isMoving = false
+      prevPosition = nextPosition
+    }, 2000)
+  }
 }
 
-var hWindow = updateHeightWindow()
+let prevPosition = 1
+let nextPosition = null
+let isMoving = false
 
-var controller = new ScrollMagic.Controller()
-
-new ScrollMagic.Scene({ triggerElement: '.article-3', triggerHook: 'onLeave', duration: hWindow - 100 })
-  .setTween(new TimelineMax().to('.swipe-background, .swipe-section', 1, { x: '-50%' }))
-  .addTo(controller)
-
-new ScrollMagic.Scene({ triggerElement: '.article-1', triggerHook: 'onLeave', duration: hWindow })
-  .setTween(new TimelineMax().to('.overlay-begin', 1, { opacity: 0 }))
-  .addTo(controller)
-
-function myScene (myHook, index) {
-  return new ScrollMagic.Scene({ triggerElement: `.article-${index}`, triggerHook: myHook, duration: hWindow / 3 })
-    .setTween(new TimelineMax().to(`.article-${index}`, 1, { opacity: myHook === 'onCenter' ? 1 : 0 }))
-    .addTo(controller)
+window.onwheel = event => {
+  if (!isMoving) {
+    changeSection(event.deltaY > 0)
+  }
 }
 
-for (var i = 1; i <= 6; i++) { myScene('onEnter', i); myScene('onCenter', i); myScene('onLeave', i) }
+let startMovement = 0
+let endMovement = 0
 
-$(window).resize(function () {
-  hWindow = updateHeightWindow()
-})
+window.ontouchstart = event => {
+  startMovement = event.changedTouches[0].pageY
+}
+
+window.ontouchend = event => {
+  endMovement = event.changedTouches[0].pageY
+  if (
+    startMovement !== endMovement &&
+    !body.classList.contains('nouveautesOpened') &&
+    !body.classList.contains('menuOpened') &&
+    !isMoving
+  ) {
+    changeSection(startMovement > endMovement)
+  }
+}
 
 // Nouveautés
 
-$('.nouveautes h2').click(function () {
+const title = document.querySelector('.nouveautes h2')
+
+title.onclick = () => {
   if (window.innerWidth < limitMenuReduced) {
-    $('body').toggleClass('nouveautesOpened')
+    body.classList.toggle('nouveautesOpened')
   }
-})
+}
