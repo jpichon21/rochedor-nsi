@@ -17,7 +17,7 @@ set :term_mode, nil
 set :deploy_to, "/home/#{account}/nsi_staging" if ENV['on'] == 'staging'
 set :deploy_to, "/home/#{account}/nsi_dev" if ENV['on'] == 'dev'
 
-set :shared_dirs, ['vendor', 'web/uploads', 'web/biblio', 'web/kiwi', 'web/site', 'var/cache', 'var/logs', 'node_modules']
+set :shared_dirs, ['vendor', 'web/uploads', 'web/biblio', 'web/kiwi', 'web/site', 'var/cache', 'var/logs']
 set :shared_files, ['web/.htaccess', 'web/robots.txt', 'web/kiwi.php', 'web/adminer-lrdo.php', 'app/config/parameters.yml']
 
 task :deploy => :environment do
@@ -28,7 +28,7 @@ task :deploy => :environment do
 		on :launch do
 			command "export SYMFONY_ENV=prod"
 			command "ea-php72 composer.phar install --optimize-autoloader"
-			command "ea-php72 composer.phar dump-autoload --optimize --no-dev --classmap-authoritative"
+			command "ea-php72 composer.phar dump-autoload --optimize --classmap-authoritative"
 			command "yarn install"
 			command "ea-php72 bin/console assets:install --env=prod"
 			command "ea-php72 bin/console cache:clear --env=prod"
