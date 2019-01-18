@@ -22,7 +22,11 @@ let nextPosition = null
 let isMoving = false
 
 window.onwheel = event => {
-  if (!isMoving) {
+  if (
+    !body.classList.contains('nouveautesOpened') &&
+    !body.classList.contains('menuOpened') &&
+    !isMoving
+  ) {
     changeSection(event.deltaY > 0)
   }
 }
