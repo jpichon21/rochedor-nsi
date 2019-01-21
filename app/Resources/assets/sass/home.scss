@@ -183,7 +183,9 @@ body {
 }
 
 .sections {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 200%;
   height: 600%;
   z-index: 2;
@@ -281,7 +283,7 @@ body {
     }
     .scroll-down {
       position: absolute;
-      bottom: 40px;
+      bottom: 80px;
       left: 50%;
       margin-left: -84px;
       img {

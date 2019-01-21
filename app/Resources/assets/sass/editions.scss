@@ -124,14 +124,15 @@ h2 {
     &:before {
       background: rgba(255, 255, 255, 0.5);
     }
-    .top {
-      span {
-        color: #000000;
+    &:hover {
+      .bottom {
+        .column {
+          border-color: #000000;
+        }
       }
     }
     .bottom {
       .column {
-        border-color: #000000;
         a,
         span {
           color: #000000;

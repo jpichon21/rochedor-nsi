@@ -1,5 +1,4 @@
 .footer {
-  display: none;
   position: relative;
   height: 35px;
   &:hover {
@@ -33,7 +32,6 @@
       transition: 0.5s;
       z-index: 0;
     }
-    .top,
     .bottom {
       display: flex;
       z-index: 1;
