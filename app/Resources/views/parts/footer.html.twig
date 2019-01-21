@@ -1,5 +1,5 @@
 <div class="footer">
-    <div class="hover" {% if bodyClass != 'home' %}style="{{ bodyBackground|default(0)|constantBackground }}"{% endif %}>
+    <div class="hover" {% if 'home' not in bodyClass %}style="{{ bodyBackground|default(0)|constantBackground }}"{% endif %}>
         <div class="bottom">
             <div class="column">
                 <span>{{ 'menu.one.one' | trans | raw | striptags }}</span>
