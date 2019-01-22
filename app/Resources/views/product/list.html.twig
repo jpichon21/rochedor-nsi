@@ -68,12 +68,23 @@
     {% else %}
     {% if filters_collection %}<h2><small>{{ 'editions.filter.collections.title' | trans }} </small>{{ collections_array['collection-' ~ filters_collection] }}</h2>{% endif %}
     {% if filters_themes %}<h2><small>{{ 'editions.filter.themes.title' | trans }} </small>{{ filters_themes_array|join(', ') }}{% if filters_themes_array|length > 1 %}.{% endif %}</h2>{% endif %}
-    <div class="products">
     {% for product in products %}
-      {% include 'parts/product.html.twig'
-        with { 'product': product } %}
+      {% if loop.index0 is even %}
+      <div class="category">
+        <div class="products">
+          {% include 'parts/product.html.twig'
+            with { 'product': product } %}
+      {% if loop.last %}
+        </div>
+      </div>
+      {% endif %}
+      {% else %}
+          {% include 'parts/product.html.twig'
+            with { 'product': product } %}
+        </div>
+      </div>
+      {% endif %}
     {% endfor %}
-    </div>
     {% endif %}
   </div>
 </div>
