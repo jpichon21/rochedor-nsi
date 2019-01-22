@@ -197,7 +197,7 @@
                 {% for line in cart.cartLines %}
                 <tr>
                     <td class="first">{{ line.product.produitcourt }}</td>
-                    <td>{{ line.product.prix }}</td>
+                    <td>{{ line.product.prix }} € </td>
                     <td>{{ line.quantity }}</td>
                     <td class="last"><a href="{{ path('cart-remove', { 'cartLine': line.id }) }}">{{ 'main.remove' | trans }}</a></td>
                 </tr>
@@ -257,7 +257,7 @@
                 <thead>
                     <tr>
                         <th class="first">{{ 'table.header.weight' | trans }}</th>
-                        <th class="last">{{ 'table.header.total' | trans }}</th>
+                        <th class="last">{{ 'table.header.total' | trans }} </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -282,7 +282,7 @@
             <table class="table" border="0" cellspacing="0" cellpadding="0">
                 <thead>
                     <tr>
-                        <th class="first">{{ 'table.header.price' | trans }}</th>
+                        <th class="first">{{ 'table.header.price' | trans }} </th>
                         <th class="last">{{ 'table.header.total' | trans }}</th>
                     </tr>
                 </thead>
