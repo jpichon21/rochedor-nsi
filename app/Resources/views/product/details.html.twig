@@ -108,11 +108,11 @@
           </div>
           <div class="line">
             <b>{{ 'editions.technicalreview.poids' | trans }}</b>
-            <span>{{ product.poids / 100 }} kg</span>
+            <span>{{ product.poids}} g</span>
           </div>
         </div>
       </div>
-      {% if product.ean != '' %}
+      {% if product.ean != ''  and product.ean|length == 13 and product.ean matches '/^\\d+$/' %}
       <svg class="barcode"
         jsbarcode-format="EAN13"
         jsbarcode-value="{{ product.ean }}">
