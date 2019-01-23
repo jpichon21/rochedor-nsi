@@ -564,6 +564,12 @@
         <target>Mot de passe (8 caractères minimum) </target>
       </segment>
     </unit>
+    <unit id="ySBKerzfsd" name="form.password-login">
+      <segment>
+        <source>form.password-login</source>
+        <target>Mot de passe </target>
+      </segment>
+    </unit>
     <unit id="3NTTDax" name="form.ok">
       <notes>
         <note priority="1">app/Resources/views/default/calendar-registration.html.twig:40</note>
@@ -2695,12 +2701,6 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>form.pro</source>
         <target>Je suis un professionnel</target>
-      </segment>
-    </unit>
-    <unit id="i6uKRyT" name="form.password-height">
-      <segment>
-        <source>form.password-height</source>
-        <target>Mot de passe (8 caractères requis)</target>
       </segment>
     </unit>
     <unit id="TER1oiM" name="order-return.success-p1">
