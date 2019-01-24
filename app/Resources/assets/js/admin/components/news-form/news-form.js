@@ -7,7 +7,7 @@ import { Menu, MenuItem, TextField, Button, Tooltip, Typography, Dialog, DialogA
 import MomentUtils from 'material-ui-pickers/utils/moment-utils'
 import moment from 'moment'
 import 'moment/locale/fr'
-import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider'
+import { MuiPickersUtilsProvider } from 'material-ui-pickers'
 import DateTimePicker from 'material-ui-pickers/DateTimePicker'
 import SaveIcon from '@material-ui/icons/Save'
 import DeleteIcon from '@material-ui/icons/Delete'
