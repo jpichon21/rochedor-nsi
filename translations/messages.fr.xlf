@@ -564,7 +564,7 @@
         <target>Mot de passe (8 caractères minimum) </target>
       </segment>
     </unit>
-    <unit id="ySBKerzfsd" name="form.password-login">
+    <unit id="rBMLwS." name="form.password-login">
       <segment>
         <source>form.password-login</source>
         <target>Mot de passe </target>
@@ -1786,7 +1786,7 @@
         <target>M</target>
       </segment>
     </unit>
-    <unit id="38v6zefzefzefvmFF" name="error.cgv">
+    <unit id="m9RRKUv" name="error.cgv">
       <segment>
         <source>error.cgv</source>
         <target>Veuillez accepter les CGV</target>
@@ -2826,6 +2826,18 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>filter.close.button</source>
         <target>Fermer les filtres</target>
+      </segment>
+    </unit>
+    <unit id="p2uES0U" name="logout.disconnect.title">
+      <segment>
+        <source>logout.disconnect.title</source>
+        <target>Déconnexion</target>
+      </segment>
+    </unit>
+    <unit id="BEeHafO" name="logout.disconnect.text">
+      <segment>
+        <source>logout.disconnect.text</source>
+        <target>Vous avez bien été déconnecté</target>
       </segment>
     </unit>
   </file>

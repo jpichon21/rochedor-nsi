@@ -51,14 +51,14 @@ export const postEditCli = (data) => {
     })
 }
 
-export const getLogout = () => {
+export const getLogout = (locale) => {
   return window.fetch('/logout', {
     headers: { 'Content-Type': 'application/json' },
     method: 'GET',
     credentials: 'include'
   })
     .then(() => {
-      window.location.reload()
+      window.location.replace('/' + locale + '/logout-message/edition')
     })
 }
 

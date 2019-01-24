@@ -218,7 +218,7 @@ itemConnection.on('click', 'a', function (event) {
       getLogin().then(user => afterLogin(user, false))
       break
     case 'disconnect':
-      getLogout()
+      getLogout(_locale)
       break
   }
   changeItem(itemConnection)

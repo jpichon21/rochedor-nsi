@@ -1,0 +1,21 @@
+{% set bodyClass = "page editions" %}
+{% set bodyBackground = 7 %}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/page.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/editions.css') }}">
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="left">
+        <h1>{{ 'logout.disconnect.title' | trans | raw }}</h1>
+        <div class="intro">
+            {{ 'logout.disconnect.text'|trans }}
+        </div>
+    </div>
+    <div class="hole">
+    </div>
+    <div class="right">
+    </div>
+</div>
+{% endblock %}

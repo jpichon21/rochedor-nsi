@@ -24,7 +24,7 @@ const _infos = JSON.parse($('.infos-json').html())
 let i18n = new I18n()
 
 const _locale = $('.locale-json').html()
-
+console.log(_locale)
 moment.locale(_locale)
 
 /* Countries */
@@ -279,7 +279,7 @@ itemConnection.on('click', 'a', function (event) {
       getLogin().then(user => afterLogin(user))
       break
     case 'disconnect':
-      getLogout()
+      getLogout(_locale)
       break
   }
   changeItem(itemConnection)

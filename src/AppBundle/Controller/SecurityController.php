@@ -401,6 +401,21 @@ class SecurityController extends Controller
         return new JsonResponse(['status' => 'ok']);
     }
 
+    /**
+    * @Route("{_locale}/logout-message/{from}", name="logout-meesgae")
+    */
+    public function logoutMessageAction(Request $request, $from)
+    {  
+        if ($from === "edition"){
+            return $this->render('default/logout-message-white.html.twig', array(
+            ));
+        } else {
+            return $this->render('default/logout-message-black.html.twig', array(
+                'background' => 4
+            ));
+        }
+    }
+
     private function isAdult(string $datnaiss)
     {
         $datnaiss = new \DateTime($datnaiss);
