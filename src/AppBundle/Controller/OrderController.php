@@ -426,6 +426,7 @@ class OrderController extends Controller
      */
     public function paymentNotifyAction($method, Request $request, PaypalService $paypalService)
     {
+        
         $this->logger->info($request);
         if ($method === 'paybox') {
             if (!in_array($request->getClientIp(), $this::AUTHORIZED_PAYMENT_IP_ADRESSES)) {
@@ -454,11 +455,14 @@ class OrderController extends Controller
         
         $order = $this->commandeRepository->findByRef($ref);
         if ($status && $order->getTtc() == $amount) {
+            $user = $this->clientRepository->findClient($order->getCodcli());
+            $locale = $request->getLocale();
             $order->setDatpaie(new \DateTime())
             ->setValidpaie($status)
             ->setPaysIP($country);
             $this->em->persist($order);
             $this->em->flush();
+            $this->notifyClient($order, $locale, $user);
         } else {
             $order->setDatpaie(new \DateTime('0000-00-00'))
             ->setValidpaie('error')
@@ -563,7 +567,6 @@ class OrderController extends Controller
             $em->persist($comprd);
             $em->flush();
         }
-        $this->notifyClient($order, $locale, $user);
         return $order;
     }
 
