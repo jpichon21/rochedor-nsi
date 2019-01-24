@@ -380,7 +380,9 @@ class OrderController extends Controller
         $cartId = $session->get('cart');
         $cart = $this->cartRepository->find($cartId);
         
-        
+        if ($status === 'cancel') {
+            return $this->redirectToRoute('order-'.$request->getLocale());
+        }
 
         if ($status === 'success') {
             if ($cart) {
