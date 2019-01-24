@@ -1786,6 +1786,12 @@
         <target>M</target>
       </segment>
     </unit>
+    <unit id="38v6zefzefzefvmFF" name="error.cgv">
+      <segment>
+        <source>error.cgv</source>
+        <target>Veuillez accepter les CGV</target>
+      </segment>
+    </unit>
     <unit id="eGbXcnm" name="form.civilite.mme">
       <segment>
         <source>form.civilite.mme</source>

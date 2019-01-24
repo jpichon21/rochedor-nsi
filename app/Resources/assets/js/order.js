@@ -472,6 +472,9 @@ itemTerms.on('click', '.accept-terms', function (event) {
   $(this).toggleClass('checked')
   _termsAccepted = $(this).hasClass('checked')
   $('.submit', itemPayment).attr('disabled', !_termsAccepted)
+  if (!_termsAccepted) {
+    $('.submit', itemPayment).attr('title', i18n.trans('error.cgv'))
+  }
   changeItem(itemPayment)
 })
 
