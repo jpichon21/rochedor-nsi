@@ -16,7 +16,8 @@ import {
   checkVat,
   checkZipcode
 } from './order-api.js'
-
+import {limitMenuReduced} from './variables'
+ 
 /* Cart */
 
 const _cartId = parseInt($('.cart-json').html().trim())
@@ -34,7 +35,6 @@ moment.locale(_locale)
 const _countries = JSON.parse($('.countries-json').html().trim())
 
 /* Variables */
-
 let _you = {}
 let _delivery = {}
 let _total = {}
@@ -45,8 +45,16 @@ const itemCard = $('.item.card')
 const itemShipping = $('.item.shipping')
 const itemPayment = $('.item.payment')
 const itemTerms = $('.item.terms')
+const content = $('.content')
 
 /* Dropdowns */
+function backToTop () {
+  if (window.innerWidth >= limitMenuReduced) {
+    content[0].scroll({ top: 0, behavior: 'smooth' })
+  } else {
+    window.scroll({ top: 0, behavior: 'smooth' })
+  }
+}
 
 function changeItem (elmt) {
   $('.dropdown .item').each(function () {
@@ -55,6 +63,7 @@ function changeItem (elmt) {
   })
   elmt[0].classList.add('active')
   elmt[0].style.maxHeight = elmt[0].scrollHeight + 'px'
+  backToTop()
 }
 
 $(document).ready(function () {

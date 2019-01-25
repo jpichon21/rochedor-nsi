@@ -14,6 +14,7 @@ import {
   getRegistered,
   postRegistered,
   postRegister } from './calendar-api.js'
+import {limitMenuReduced} from './variables'
 
 /* Infos */
 
@@ -41,8 +42,15 @@ let _participants = []
 const itemConnection = $('.item.connection')
 const itemParticipants = $('.item.participants')
 const itemValidation = $('.item.validation')
-
+const content = $('.content')
 /* Dropdowns */
+function backToTop () {
+  if (window.innerWidth >= limitMenuReduced) {
+    content[0].scroll({ top: 0, behavior: 'smooth' })
+  } else {
+    window.scroll({ top: 0, behavior: 'smooth' })
+  }
+}
 
 function changeItem (elmt) {
   $('.dropdown .item').each(function () {
@@ -205,6 +213,7 @@ itemConnection.on('click', '.panel.reset .cancel', function (event) {
   event.preventDefault()
   $('.panel.reset').slideUp(800, function () {
     $(this).hide()
+    backToTop()
     changeItem(itemConnection)
   })
 })
@@ -213,6 +222,7 @@ itemConnection.on('click', '.panel.registration .cancel', function (event) {
   event.preventDefault()
   $('.panel.registration').slideUp(800, function () {
     $(this).hide()
+    backToTop()
     changeItem(itemConnection)
   })
 })
@@ -282,6 +292,7 @@ itemConnection.on('click', 'a', function (event) {
       getLogout(_locale)
       break
   }
+  backToTop()
   changeItem(itemConnection)
 })
 
@@ -373,6 +384,7 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
             updateParticipants()
             $(`.panel.${action}`).slideUp(800, function () {
               $(this).hide()
+              backToTop()
               changeItem(itemParticipants)
             })
           }).catch(error => {
@@ -493,6 +505,7 @@ function modifyClick (event, action, callUpdater, callFunction) {
   $('.panel', itemParticipants).hide()
   $(`.panel.${action}`, itemParticipants).show()
   changeItem(itemParticipants)
+  backToTop()
   setTimeout(() => {
     const content = document.querySelector('.content')
     const panel = content.querySelector(`.panel.${action}`)
@@ -532,6 +545,7 @@ itemParticipants.on('click', '.validate-participants', function (event) {
       $('.result', itemValidation).html(result)
       downLoader()
       updateEndMessageRender()
+      backToTop()
       changeItem(itemValidation)
     }).catch(error => {
       downLoader()

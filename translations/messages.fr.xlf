@@ -2612,7 +2612,7 @@
     <unit id="XPYZoBX" name="order.accept-terms.label">
       <segment>
         <source>order.accept-terms.label</source>
-        <target>J'accepte les CGV</target>
+        <target>J'accepte les Conditions Générales de Vente</target>
       </segment>
     </unit>
     <unit id="64plJkn" name="order.accept-terms.link">
@@ -2636,8 +2636,8 @@
     <unit id="mo2Qk4k" name="order.accept-terms.disclaimer">
       <segment>
         <source>order.accept-terms.disclaimer</source>
-        <target><![CDATA[Pour terminer votre commande, vous devez accepter nos conditions générales de ventes.<br>
-<a href="%link%" class="accept-terms-link" target="_blank">Voir les conditions générales de ventes.</a>]]></target>
+        <target><![CDATA[Pour terminer votre commande, vous devez accepter nos conditions générales de vente.<br>
+<a href="%link%" class="accept-terms-link" target="_blank">Voir les conditions générales de vente.</a>]]></target>
       </segment>
     </unit>
     <unit id="WSRB_P4" name="global.tax-code">
