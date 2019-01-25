@@ -402,7 +402,7 @@ class SecurityController extends Controller
     }
 
     /**
-    * @Route("{_locale}/logout-message/{from}", name="logout-meesgae")
+    * @Route("{_locale}/logout-message/{from}", name="logout-message")
     */
     public function logoutMessageAction(Request $request, $from)
     {  
