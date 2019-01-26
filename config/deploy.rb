@@ -17,8 +17,8 @@ set :term_mode, nil
 set :deploy_to, "/home/#{account}/nsi_staging" if ENV['on'] == 'staging'
 set :deploy_to, "/home/#{account}/nsi_dev" if ENV['on'] == 'dev'
 
-set :shared_dirs, ['vendor', 'web/uploads', 'web/biblio', 'web/kiwi', 'web/site', 'var/cache', 'var/logs']
-set :shared_files, ['web/.htaccess', 'web/robots.txt', 'web/kiwi.php', 'web/adminer-lrdo.php', 'app/config/parameters.yml']
+set :shared_dirs, ['vendor', 'web/uploads', 'var/cache', 'var/logs', 'node_modules']
+set :shared_files, ['web/.htaccess', 'web/robots.txt', 'app/config/parameters.yml']
 
 task :deploy => :environment do
 	deploy do
