@@ -70,7 +70,7 @@
         <a class="button addToCart" href="{{ path('cart-add', {'productId': product.codprd}) }}">{{ 'editions.addtocart' | trans }}</a>
         {% if product.urlbook != '' %}
         <div class="choice">{{ 'editions.or' | trans }}</div>
-        <a class="button" href="{{ product.urlbook }}">{{ 'editions.ebookversion' | trans }}</a>
+        <a class="button" target="_blank" href="{{ product.urlbook }}">{{ 'editions.ebookversion' | trans }}</a>
         {% endif %}
       </div>
       <h2>{{ 'editions.technicalreview' | trans }}</h2>
