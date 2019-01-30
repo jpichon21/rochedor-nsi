@@ -7,7 +7,7 @@
       </notes>
       <segment>
         <source>menu.one</source>
-        <target>__menu.one</target>
+        <target>Die Gemeinschaft und ihre Häuser</target>
       </segment>
     </unit>
     <unit id="td1g_X_" name="menu.two">
@@ -16,7 +16,7 @@
       </notes>
       <segment>
         <source>menu.two</source>
-        <target>__menu.two</target>
+        <target>Die Einkehrtage</target>
       </segment>
     </unit>
     <unit id="_QTPx9b" name="menu.three">
@@ -25,7 +25,7 @@
       </notes>
       <segment>
         <source>menu.three</source>
-        <target>__menu.three</target>
+        <target>Der Kalender</target>
       </segment>
     </unit>
     <unit id="QokeGaI" name="menu.one.one">
@@ -34,7 +34,8 @@
       </notes>
       <segment>
         <source>menu.one.one</source>
-        <target>__menu.one.one</target>
+        <target><![CDATA[Die <br>Gemeinschaft
+				]]></target>
       </segment>
     </unit>
     <unit id="DY.PFaX" name="menu.one.two">
@@ -43,7 +44,8 @@
       </notes>
       <segment>
         <source>menu.one.two</source>
-        <target>__menu.one.two</target>
+        <target><![CDATA[Die <br>Gründer
+				]]></target>
       </segment>
     </unit>
     <unit id="ABGsIRc" name="menu.one.three">
@@ -52,7 +54,8 @@
       </notes>
       <segment>
         <source>menu.one.three</source>
-        <target>__menu.one.three</target>
+        <target><![CDATA[Die <br>Roche d'Or
+				]]></target>
       </segment>
     </unit>
     <unit id="5vJ0eNt" name="menu.one.four">
@@ -61,7 +64,8 @@
       </notes>
       <segment>
         <source>menu.one.four</source>
-        <target>__menu.one.four</target>
+        <target><![CDATA[Die <br>Fontanilles
+				]]></target>
       </segment>
     </unit>
     <unit id="TfDK6ic" name="menu.two.one">
@@ -106,7 +110,7 @@
       </notes>
       <segment>
         <source>menu.four</source>
-        <target>__menu.four</target>
+        <target>praktische Informatonen</target>
       </segment>
     </unit>
     <unit id="yImul.f" name="menu.five">
@@ -115,7 +119,7 @@
       </notes>
       <segment>
         <source>menu.five</source>
-        <target>__menu.five</target>
+        <target>Roche d'Or Verlag</target>
       </segment>
     </unit>
     <unit id="Uu.vp07" name="menu.six">
@@ -124,7 +128,7 @@
       </notes>
       <segment>
         <source>menu.six</source>
-        <target>__menu.six</target>
+        <target>Uns unterstützen</target>
       </segment>
     </unit>
     <unit id="Ne9wirQ" name="menu.four.one">
@@ -964,6 +968,36 @@
       <segment>
         <source>password</source>
         <target></target>
+      </segment>
+    </unit>
+    <unit id="aVKbZqrhgrhS" name="menu.cart">
+      <segment>
+        <source>menu.cart</source>
+        <target>Einkaufswagen</target>
+      </segment>
+    </unit>
+    <unit id="adfgdfnrehKTuNcB" name="footer.terms">
+      <segment>
+        <source>footer.terms</source>
+        <target>allgemeine Verkaufsbedingungen</target>
+      </segment>
+    </unit>
+    <unit id="gv4gernert47o9" name="menu.terms">
+      <segment>
+        <source>menu.terms</source>
+        <target>Nutzungsbedingungen</target>
+      </segment>
+    </unit>
+    <unit id="r8Efgnnuiaaj7h0" name="menu.legal">
+      <segment>
+        <source>menu.legal</source>
+        <target>Impressum</target>
+      </segment>
+    </unit>
+    <unit id="Gij946587UdK7" name="footer.termsPro">
+      <segment>
+        <source>footer.termsPro</source>
+        <target>Allgemeine Verkaufsbedingungen für Fachleute</target>
       </segment>
     </unit>
   </file>
