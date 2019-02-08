@@ -1359,13 +1359,13 @@
     <unit id="rznIWfL" name="select.ad.roche">
       <segment>
         <source>select.ad.roche</source>
-        <target>La Roche d'Or</target>
+        <target>Librairie de la Roche d'Or</target>
       </segment>
     </unit>
     <unit id="8QjWF9b" name="select.ad.font">
       <segment>
         <source>select.ad.font</source>
-        <target>Les Fontanilles</target>
+        <target>Librairie des Fontanilles</target>
       </segment>
     </unit>
     <unit id="MlxM03H" name="select.ad.other">

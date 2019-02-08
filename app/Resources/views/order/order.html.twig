@@ -238,10 +238,10 @@
             <%= ' — ' %>
             <%= _.escape(you.adresse) %> <%= _.escape(you.cp) %> <%= _.escape(you.ville) %> (<%= _.escape(you.pays) %>)</p>
         <p><b>Adresse de livraison</b><br>
-            <%= delivery.destliv === 'Roche' ? "Retrait à La Roche d'Or" : '' %>
-            <%= delivery.destliv === 'Font' ? "Retrait aux Fontanilles" : '' %>
-            <%= delivery.destliv === 'myAd' ? (you.prenom + ' ' + you.nom) : '' %>
-            <%= delivery.destliv === 'Other' ? (you.prenom + ' ' + you.nom) : '' %>
+            <% if (delivery.destliv === 'Roche') { %>{{ 'select.ad.roche' | trans | raw }}<% } %>
+            <% if (delivery.destliv === 'Font') { %>{{ 'select.ad.font' | trans | raw }}<% } %>
+            <% if (delivery.destliv === 'myAd') { %><%= you.prenom + ' ' + you.nom %><% } %>
+            <% if (delivery.destliv === 'Other') { %><%= you.prenom + ' ' + you.nom %><% } %>
             <%= ' — ' %>
             <%= delivery.adliv.adresse %> <%= delivery.adliv.zipcode %> <%= delivery.adliv.city %> (<%= delivery.paysliv %>)</p>
     <% } else { %>
