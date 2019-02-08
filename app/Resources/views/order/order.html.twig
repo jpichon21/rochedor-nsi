@@ -19,7 +19,7 @@
         </div>
         {% endif %}
         <div class="dropdown">
-            <div class="item connection">
+            <div class="item connection first">
                 <h2>{{ 'order.registration.one.title' | trans | raw }}</h2>
                 {% if app.user %}
                 <p>{{ 'order.registration.one.body.connected' | trans({ '%name%': app.user.prenom ~ ' ' ~ app.user.nom }) | raw }}</p>
@@ -86,7 +86,7 @@
                 {% endif %}
             </div>
             <div class="item card">
-                <h2 class="you-title">{{ 'order.registration.two.title' | trans | raw }}<span>{{ 'form.modify' | trans | raw }}</span></h2>
+                <h2>{{ 'order.registration.two.title' | trans | raw }}</h2>
                 <div class="you-render"></div>
                 <a href="#" class="modify-you">{{ 'form.update' | trans | raw }}</a>
                 <div class="pure-g">

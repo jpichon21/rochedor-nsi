@@ -1,5 +1,6 @@
 import { changeCarousel } from './carousel.js'
 
+const body = document.querySelector('body')
 const dropdown = document.querySelector('.dropdown')
 const items = dropdown.querySelectorAll('.item')
 
@@ -8,14 +9,29 @@ const updateHeightDropdown = () => {
   active.style.maxHeight = active.scrollHeight + 'px'
 }
 
-const changeItem = item => {
+export const changeItem = element => {
+  if (element[0] !== undefined) {
+    // If JQuery Object
+    element = element[0]
+  }
+  let canOpen = true
   items.forEach(item => {
     item.style.maxHeight = null
     item.classList.remove('active')
+    if (body.classList.contains('order')) {
+      if (canOpen) {
+        item.classList.add('canOpen')
+        if (item === element) {
+          canOpen = false
+        }
+      } else {
+        item.classList.remove('canOpen')
+      }
+    }
   })
-  item.classList.add('active')
+  element.classList.add('active')
   updateHeightDropdown()
-  let reference = item.getAttribute('data-carousel-id')
+  let reference = element.getAttribute('data-carousel-id')
   if (reference) {
     changeCarousel(reference)
   }
@@ -23,7 +39,14 @@ const changeItem = item => {
 
 items.forEach(item => {
   item.addEventListener('click', () => {
-    changeItem(item)
+    if (body.classList.contains('order')) {
+      if (item.classList.contains('canOpen')) {
+        // Open Only If Previous Steps
+        changeItem(item)
+      }
+    } else {
+      changeItem(item)
+    }
   })
 })
 
