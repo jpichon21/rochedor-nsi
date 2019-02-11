@@ -19,7 +19,51 @@
         </div>
         {% endif %}
         <div class="dropdown">
-            <div class="item connection first">
+            <div class="item resume first">
+                <h2>Panier</h2>
+                {% if cart %}
+                <table class="table" border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th class="first">{{ 'table.header.product' | trans }}</th>
+                            <th>{{ 'table.header.price.unit' | trans }}</th>
+                            <th>{{ 'table.header.quantity' | trans }}</th>
+                            <th>Action</th>
+                            <th class="last">{{ 'table.header.price.total' | trans }}</th>
+                        </tr>
+                    </thead>
+                    {% set total = 0 %}
+                    <tbody>
+                        {% for line in cart.cartLines %}
+                        <tr>
+                            <td class="first">{{ line.product.produitcourt }}</td>
+                            <td>{{ line.product.prix }} € </td>
+                            <td class="quantity"><a href="#">&minus;</a>{{ line.quantity }}<a href="#">&plus;</a></td>
+                            <td class="action"><a href="{{ path('cart-remove', { 'cartLine': line.id }) }}">Supprimer</a></td>
+                            <td class="last">{{ (line.product.prix * line.quantity)|number_format(2, '.', ',') }} € </td>
+                        </tr>
+                        {% set total = total + (line.product.prix * line.quantity) %}
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5"><span>TOTAL TTC</span>{{ total|number_format(2, '.', ',') }} €</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                {% else %}
+                <p>{{ 'cart.empty'|trans }}</p>
+                {% endif %}
+                <div class="pure-g">
+                    <div class="pure-u-1 pure-u-md-2-3 pure-u-lg-1 pure-u-xl-2-3">
+                        {# Offset #}
+                    </div>
+                    <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
+                        <a href="#continue" class="button">Continuer</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item connection">
                 <h2>{{ 'order.registration.one.title' | trans | raw }}</h2>
                 {% if app.user %}
                 <p>{{ 'order.registration.one.body.connected' | trans({ '%name%': app.user.prenom ~ ' ' ~ app.user.nom }) | raw }}</p>
@@ -86,7 +130,7 @@
                 {% endif %}
             </div>
             <div class="item card">
-                <h2>{{ 'order.registration.two.title' | trans | raw }}</h2>
+                <h2>Adresse de facturation</h2>
                 <div class="you-render"></div>
                 <a href="#" class="modify-you">{{ 'form.update' | trans | raw }}</a>
                 <div class="pure-g">
@@ -100,7 +144,7 @@
                 </div>
             </div>
             <div class="item shipping">
-                <h2>{{ 'order.registration.three.title' | trans | raw }}</h2>
+                <h2>Adresse de livraison</h2>
                 <div class="pure-g">
                     <div class="pure-u-1 pure-u-md-1-2">
                         <select class="select white select-adliv" name="select_adliv" >
@@ -134,24 +178,44 @@
                     </div>
                 </div>
             </div>
-            <div class="item terms">
-                <h2>{{ 'order.accept-terms.title' | trans }}</h3>
-                <div class="panel terms active">
-                    <div class="pure-g">
-                        <div class="pure-u-1 pure-u-md-3-4">
-                            {% set terms_link = 'getterms' %}
-                            <p>
-                                {# <a class="accept-terms-link" target="_blank" href="{{ terms_link }}">{{ 'order.accept-terms.link' | trans | raw }}</a> #}                               
-                                {{ 'order.accept-terms.disclaimer' | trans({'%link%': terms_link}) | raw }}
-                            </p>
-                            <a href="#" class="accept-terms button radio">{{ 'order.accept-terms.label' | trans | raw }}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="item payment">
                 <h2>{{ 'order.registration.four.title' | trans | raw }}</h2>
-                <div class="panel payment active">
+                <div class="panel active">
+                    <h3>Panier</h3>
+                    {% if cart %}
+                    <table class="table" border="0" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                <th class="first">{{ 'table.header.product' | trans }}</th>
+                                <th>{{ 'table.header.price.unit' | trans }}</th>
+                                <th>{{ 'table.header.quantity' | trans }}</th>
+                                <th>Action</th>
+                                <th class="last">{{ 'table.header.price.total' | trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for line in cart.cartLines %}
+                            <tr>
+                                <td class="first">{{ line.product.produitcourt }}</td>
+                                <td>{{ line.product.prix }} € </td>
+                                <td class="quantity"><a href="#">&minus;</a>{{ line.quantity }}<a href="#">&plus;</a></td>
+                                <td class="action"><a href="{{ path('cart-remove', { 'cartLine': line.id }) }}">Supprimer</a></td>
+                                <td class="last">{{ (line.product.prix * line.quantity)|number_format(2, '.', ',') }} € </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <p>{{ 'cart.empty'|trans }}</p>
+                    {% endif %}
+                </div>
+                <div class="panel active">
+                    <div class="delivery-render"></div>
+                </div>
+                <div class="panel active">
+                    <div class="total-render"></div>
+                </div>
+                <div class="panel active">
                     <form class="form payment">
                         <h3>{{ 'order.choose.payment' | trans | raw }}</h3>
                         <div class="pure-g">
@@ -163,18 +227,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="pure-g">
-                            <div class="pure-u-1 pure-u-md-10-24">
-                                <a href="{{ localePath('securite-donnees-editions', app.request.locale) }}" target="_blank" class="button input secure-link">{{ 'global.secure-datas'|trans }}</a>
-                            </div>
-                            <div class="pure-u-1 pure-u-md-3-4">
-                                <!-- Offset -->
-                            </div>
-                            <div class="pure-u-1 pure-u-md-1-4">
-                                <input class="input button submit" disabled type="submit" value="{{ 'form.ok' | trans | raw }}">
-                            </div>
-                        </div>
                     </form>
+                </div>
+                <p>En cliquant sur <i>Valider la commande et procéder au paiement</i>, <br>j'accepte les <a href="#">Conditions Générales de Vente</a>.</p>
+                <div class="pure-g">
+                    <div class="pure-u-1">
+                        <input class="input button submit" type="submit" value="Valider la commande et procéder au paiement">
+                    </div>
                 </div>
             </div>
         </div>
@@ -182,33 +241,23 @@
     <div class="hole">
     </div>
     <div class="right">
-        <h3>{{ 'order.summary.title.cart' | trans | raw }}</h3>
-        {% if cart %}
-        <table class="table" border="0" cellspacing="0" cellpadding="0">
-            <thead>
-                <tr>
-                    <th class="first">{{ 'table.header.product' | trans }}</th>
-                    <th>{{ 'table.header.price' | trans }}</th>
-                    <th>{{ 'table.header.quantity' | trans }}</th>
-                    <th class="last">{{ 'table.header.delete' | trans }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for line in cart.cartLines %}
-                <tr>
-                    <td class="first">{{ line.product.produitcourt }}</td>
-                    <td>{{ line.product.prix }} € </td>
-                    <td>{{ line.quantity }}</td>
-                    <td class="last"><a href="{{ path('cart-remove', { 'cartLine': line.id }) }}">{{ 'main.remove' | trans }}</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <p>{{ 'cart.empty'|trans }}</p>
-        {% endif %}
-        <div class="delivery-render"></div>
-        <div class="total-render"></div>
+        <div class="carousel active" data-carousel-element="88689b21e8bdaf6b0422b08575661932">
+            <div class="slides">
+                <div class="slide active">
+                    <div class="top">
+                        <div class="left">
+                            <a class="full image" title="Le back" href="/uploads/picsum-1jpg1549895633.jpeg" style="background-image: url('/uploads/picsum-1jpg1549895633.jpeg')"></a>
+                        </div>
+                        <div class="right">
+                            <a class="full image" title="" href="/uploads/picsum-2jpg1549895637.jpeg" style="background-image: url('/uploads/picsum-2jpg1549895637.jpeg')"></a>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <a class="full image" title="" href="/uploads/picsum-4jpg1549895641.jpeg" style="background-image: url('/uploads/picsum-4jpg1549895641.jpeg')"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
@@ -328,6 +377,12 @@
 </script>
 <script type="text/template" class="adliv-form-template">
     <div class="pure-g">
+        <div class="pure-u-1 pure-u-md-1-2">
+            <input class="input adresse" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="adresse" value="Matthieu" placeholder="* Matthieu">
+        </div>
+        <div class="pure-u-1 pure-u-md-1-2">
+            <input class="input zipcode" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="zipcode" value="Godin" placeholder="* Godin">
+        </div>
         <div class="pure-u-1 pure-u-md-1-2">
             <input class="input adresse" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="adresse" value="<%= _.escape(delivery.adliv.adresse) %>" placeholder="* {{ 'form.adresse' | trans | raw }}">
         </div>

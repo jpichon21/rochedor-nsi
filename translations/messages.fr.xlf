@@ -2840,5 +2840,17 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Vous avez bien été déconnecté</target>
       </segment>
     </unit>
+    <unit id="lAVunJy" name="table.header.price.unit">
+      <segment>
+        <source>table.header.price.unit</source>
+        <target>Prix unitaire</target>
+      </segment>
+    </unit>
+    <unit id="vyJfvpb" name="table.header.price.total">
+      <segment>
+        <source>table.header.price.total</source>
+        <target>Prix total</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
