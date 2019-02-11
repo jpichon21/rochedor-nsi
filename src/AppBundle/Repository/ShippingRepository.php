@@ -81,7 +81,7 @@ class ShippingRepository
         $query = $this->entityManager->createQuery(
             'SELECT s.price 
             FROM AppBundle\Entity\Shipping s 
-            WHERE s.countries LIKE :country AND s.weight > :weight 
+            WHERE s.countries LIKE :country AND s.weight >= :weight 
             ORDER BY s.weight'
         )
         ->setParameters(['country' => '%'.$country.'%', 'weight' => $weight])
