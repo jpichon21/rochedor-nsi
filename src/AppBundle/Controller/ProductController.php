@@ -73,10 +73,12 @@ class ProductController extends Controller
     public function showProductAction($id, Request $request)
     {
         $product = $this->productRepository->findProduct($id);
+        $taxes = $this->productRepository->findTax($id , "FR");
         return $this->render(
             'product/details.html.twig',
             [
                 'product' => $product,
+                'taxes' => $taxes,
                 'cartCount' => $this->cartService->getCartCount()
             ]
         );
