@@ -2840,5 +2840,47 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Vous avez bien été déconnecté</target>
       </segment>
     </unit>
+    <unit id="fHkEzwp" name="contact.ro">
+      <segment>
+        <source>contact.ro</source>
+        <target>Contact Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="gq_6MhO" name="contact.ft">
+      <segment>
+        <source>contact.ft</source>
+        <target>Contact Fontanilles</target>
+      </segment>
+    </unit>
+    <unit id="vtjeKfz" name="friends.links">
+      <segment>
+        <source>friends.links</source>
+        <target>Liens amis</target>
+      </segment>
+    </unit>
+    <unit id="pJznzAY" name="terms.of.use">
+      <segment>
+        <source>terms.of.use</source>
+        <target>Conditions d'utilisation</target>
+      </segment>
+    </unit>
+    <unit id="2Mti_iS" name="legal.information">
+      <segment>
+        <source>legal.information</source>
+        <target>Informations légales</target>
+      </segment>
+    </unit>
+    <unit id="NbGhMyd" name="legal.mention">
+      <segment>
+        <source>legal.mention</source>
+        <target>Mentions légales</target>
+      </segment>
+    </unit>
+    <unit id="y6p1vdI" name="privacy.policy">
+      <segment>
+        <source>privacy.policy</source>
+        <target>Politique de confidentialité</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
