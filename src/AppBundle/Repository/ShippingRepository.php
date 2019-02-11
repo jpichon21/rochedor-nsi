@@ -50,7 +50,7 @@ class ShippingRepository
         $query = $this->entityManager
         ->createQuery('SELECT p
         FROM AppBundle\Entity\Packaging p 
-        WHERE :weight < p.limit  
+        WHERE :weight <= p.limit  
         ORDER BY p.limit asc');
         $query->setParameters(['weight' => $weight]);
         $query->setMaxResults(1);
