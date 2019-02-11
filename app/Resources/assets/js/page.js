@@ -28,8 +28,11 @@ items.forEach(item => {
 })
 
 document.addEventListener('DOMContentLoaded', () => {
+  let item = dropdown.querySelector('.item.first')
+  if (window.location.hash !== '') {
+    item = dropdown.querySelector(`.item[data-slug-id="${window.location.hash}"]`)
+  }
   setTimeout(() => {
-    const item = dropdown.querySelector('.item.first')
     changeItem(item)
   }, 500)
 })

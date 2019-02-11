@@ -27,6 +27,7 @@ class CustomExtension extends \Twig_Extension
             new \Twig_SimpleFilter('background', array($this, 'backgroundFilter')),
             new \Twig_SimpleFilter('constantBackground', array($this, 'constantBackgroundFilter')),
             new \Twig_SimpleFilter('md5', array($this, 'md5Filter')),
+            new \Twig_SimpleFilter('slugify', array($this, 'slugifyFilter')),
         );
     }
  
@@ -52,6 +53,22 @@ class CustomExtension extends \Twig_Extension
     public function md5Filter($string)
     {
         return md5($string);
+    }
+
+    public function slugifyFilter($string, $replace = array(), $delimiter = '-')
+    {
+        if (!extension_loaded('iconv')) {
+            throw new Exception('iconv module not loaded');
+        }
+        $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
+        if (!empty($replace)) {
+            $clean = str_replace((array) $replace, ' ', $clean);
+        }
+        $clean = preg_replace("/[^a-zA-Z0-9_|+ -]/", '', $clean);
+        $clean = strtolower($clean);
+        $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
+        $clean = trim($clean, $delimiter);
+        return $clean;
     }
  
     public function routeExists($routeName)
