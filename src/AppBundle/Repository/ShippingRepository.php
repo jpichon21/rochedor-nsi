@@ -14,6 +14,10 @@ use AppBundle\Entity\Packaging;
 class ShippingRepository
 {
     const SHIPPINGWEIGHT = 40;
+    const COUNTRYEXCEPTION = [
+        "FR",
+        "CS"
+    ];
     
     /**
     * @var EntityManagerInterface
@@ -63,7 +67,7 @@ class ShippingRepository
             $query->setMaxResults(1);
             $result = $query->getOneOrNullResult();
         }
-        if ($country === "FR") {
+        if (in_array($country, $this::COUNTRYEXCEPTION)) {
             return $result->getFrance();
         } else {
             return $result->getInternational();
