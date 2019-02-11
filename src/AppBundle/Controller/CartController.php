@@ -81,7 +81,7 @@ class CartController extends Controller
         $this->em->flush();
         $session->set('cart', $cart->getId());
         $session->getFlashBag()->add('info', 'cart.product.added');
-        return $this->redirectToRoute('collection-fr', ['id' => $productId]);
+        return $this->redirect($request->server->get('HTTP_REFERER'));
     }
 
     /**
