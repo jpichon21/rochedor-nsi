@@ -2,7 +2,7 @@
 import $ from 'jquery'
 import JsBarcode from 'jsbarcode'
 import 'jquery-zoom-js'
-import { upFlashbag } from './popup'
+import { upCartBox } from './popup'
 import { limitMenuReduced } from './variables'
 
 JsBarcode('.barcode').init()
@@ -71,7 +71,7 @@ $('.carousel .prev, .carousel .next').on('click', function () {
 // Displays flashbags
 
 if (flashbags.length > 0) {
-  upFlashbag(flashbags.join('<br>'))
+  upCartBox(flashbags.join('<br>'))
 }
 
 // Logo Baseline

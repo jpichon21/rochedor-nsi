@@ -18,16 +18,25 @@
     opacity: 1;
     transition-delay: 0s;
   }
-  &.flashbag {
-    .no,
-    .yes {
-      display: none;
+  &.continue {
+    .continue {
+      display: block;
     }
   }
-  &.confirmbox {
-    .continue {
-      display: none;
+  &.no,
+  &.yes {
+    .no,
+    .yes {
+      display: block;
     }
+  }
+  &.cart {
+    .cart {
+      display: block;
+    }
+  }
+  .button {
+    display: none;
   }
   .overlay {
     position: absolute;
@@ -64,5 +73,15 @@
     box-sizing: border-box;
     outline: none;
     cursor: pointer;
+  }
+  a {
+    text-decoration: none;
+    color: #ef7d1d;
+  }
+  a:visited {
+    color: #ef7d1d;
+  }
+  a:hover, a:focus, a:active {
+    text-decoration: none;
   }
 }
