@@ -2882,5 +2882,29 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Politique de confidentialité</target>
       </segment>
     </unit>
+    <unit id="CmlcQv1" name="detail.pricettc">
+      <segment>
+        <source>detail.pricettc</source>
+        <target>
+					%ttc% € TTC
+				</target>
+      </segment>
+    </unit>
+    <unit id="9q0mqTd" name="detail.priceht">
+      <segment>
+        <source>detail.priceht</source>
+        <target>
+					%ht% € HT
+				</target>
+      </segment>
+    </unit>
+    <unit id="mQbnWaB" name="detail.tva">
+      <segment>
+        <source>detail.tva</source>
+        <target>
+					(TVA %tva% %)
+				</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
