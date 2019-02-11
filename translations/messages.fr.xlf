@@ -1783,7 +1783,7 @@
     <unit id="38v6mFF" name="form.civilite.mr">
       <segment>
         <source>form.civilite.mr</source>
-        <target>M</target>
+        <target>M.</target>
       </segment>
     </unit>
     <unit id="m9RRKUv" name="error.cgv">
