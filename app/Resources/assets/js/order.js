@@ -79,8 +79,6 @@ const youFormTemplate = _.template($('.you-form-template').html())
 const adlivFormTemplate = _.template($('.adliv-form-template').html())
 const cartTemplate = _.template($('.cart-template').html())
 
-
-
 function updateYouRender () {
   $('.you-render').html(youTemplate({
     you: _you
