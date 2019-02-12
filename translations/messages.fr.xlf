@@ -2924,5 +2924,23 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>(aucun frais de port)</target>
       </segment>
     </unit>
+    <unit id="WIqjchX" name="validate.order">
+      <segment>
+        <source>validate.order</source>
+        <target>Valider la commande et procéder au paiement</target>
+      </segment>
+    </unit>
+    <unit id="SPdedW." name="when.you.click.you.accept">
+      <segment>
+        <source>when.you.click.you.accept</source>
+        <target><![CDATA[En cliquant sur <i>Valider la commande et procéder au paiement</i>, <br>j'accepte les <a href="#">Conditions Générales de Vente</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="qN8UFWZ" name="form.message.modpaie_invalid">
+      <segment>
+        <source>form.message.modpaie_invalid</source>
+        <target>Veuillez sélectionner un mode de paiement</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

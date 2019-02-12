@@ -264,6 +264,12 @@ body {
         @include media('<large') {
           margin-bottom: 10px;
         }
+        &.disabled {
+          border: 1px solid #ffffff;
+          color: #ffffff;
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
         &.submit {
           color: #ffffff;
           border-color: #ffffff;

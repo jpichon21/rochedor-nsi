@@ -229,10 +229,10 @@
                         </div>
                     </form>
                 </div>
-                <p>En cliquant sur <i>Valider la commande et procéder au paiement</i>, <br>j'accepte les <a href="#">Conditions Générales de Vente</a>.</p>
+                <p>{{ 'when.you.click.you.accept' | trans | raw }}</p>
                 <div class="pure-g">
                     <div class="pure-u-1">
-                        <input class="input button submit" type="submit" value="Valider la commande et procéder au paiement">
+                        <a href="#pay" class="input button pay disabled">{{ 'validate.order' | trans | raw }}</a>
                     </div>
                 </div>
             </div>
@@ -257,7 +257,6 @@
             {% endif %}
         </div>
         {% endfor %}
-        <div class="cart-render"></div>
     </div>
 </div>
 {% endblock %}

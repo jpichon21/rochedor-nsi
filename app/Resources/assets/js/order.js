@@ -525,6 +525,16 @@ itemShipping.on('click', '.continue', function (event) {
   })
 })
 
+const formPayment = $('form.payment', itemPayment)
+
+itemPayment.on('click', '.pay', function (event) {
+  if (_delivery.modpaie === '') {
+    upFlashbag(i18n.trans('form.message.modpaie_invalid'))
+  } else {
+    formPayment.submit()
+  }
+})
+
 itemPayment.on('submit', 'form.payment', function (event) {
   event.preventDefault()
   upLoader()
@@ -542,6 +552,7 @@ itemPayment.on('change', '.select-modpaie', function (event) {
   event.preventDefault()
   const data = $(this).val()
   _delivery.modpaie = data
+  $('.pay', itemPayment).removeClass('disabled')
 })
 
 itemConnection.on('click', '.newfich', function () {
