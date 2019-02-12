@@ -22,6 +22,12 @@ import { changeItem } from './page'
 
 const _cartId = parseInt($('.cart-json').html().trim())
 
+/* Order */
+
+const _order = JSON.parse($('.order-json').html().trim())
+
+console.log(_order)
+
 /* Translations */
 
 let i18n = new I18n()

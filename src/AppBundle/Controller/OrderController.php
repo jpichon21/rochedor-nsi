@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -381,7 +384,7 @@ class OrderController extends Controller
         $cart = $this->cartRepository->find($cartId);
         
         if ($status === 'cancel') {
-            return $this->redirectToRoute('order-'.$request->getLocale());
+            return $this->redirectToRoute('order-'.$request->getLocale(), ['orderId' => $request->query->get('Ref')]);
         }
 
         if ($status === 'success') {
@@ -621,6 +624,20 @@ class OrderController extends Controller
      */
     public function orderAction(Request $request)
     {
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $initOrder = false;
+
+        if ($orderId = $request->get('orderId')) {
+            if ($order = $this->commandeRepository->findByRef($orderId)) {
+                if ($user = $this->getUser()) {
+                    $initOrder = $user->getCodcli() === $order->getCodcli();
+                }
+            }
+        }
+
         $cookies = $request->cookies;
         $session = new Session();
         
@@ -655,6 +672,7 @@ class OrderController extends Controller
         $availableLocales = $this->pageService->getAvailableLocales($page);
         return $this->render('order/order.html.twig', [
             'cart' => $this->cartRepository->find($cartId),
+            'order' => $initOrder ? $serializer->serialize($order, 'json') : 'false',
             'page' => $page,
             'countries' => $countriesJSON,
             'availableLocales' => $availableLocales,

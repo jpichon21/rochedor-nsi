@@ -19,7 +19,7 @@
         </div>
         {% endif %}
         <div class="dropdown">
-            <div class="item connection first">
+            <div class="item connection {% if order == 'false' %}first{% endif %}">
                 <h2>{{ 'order.registration.one.title' | trans | raw }}</h2>
                 {% if app.user %}
                 <p>{{ 'order.registration.one.body.connected' | trans({ '%name%': app.user.prenom ~ ' ' ~ app.user.nom }) | raw }}</p>
@@ -149,7 +149,7 @@
                     </div>
                 </div>
             </div>
-            <div class="item payment">
+            <div class="item payment {% if order != 'false' %}first{% endif %}">
                 <h2>{{ 'order.registration.four.title' | trans | raw }}</h2>
                 <div class="panel payment active">
                     <form class="form payment">
@@ -220,6 +220,9 @@
 </script>
 <script type="application/json" class="countries-json">
     {{ countries | json_encode() | raw }}
+</script>
+<script type="application/json" class="order-json">
+    {{ order | raw }}
 </script>
 <script type="application/json" class="cart-json">
     {% if cart %}{{ cart.id }}{% endif %}
