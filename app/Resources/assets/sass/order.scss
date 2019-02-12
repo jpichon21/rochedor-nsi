@@ -32,8 +32,7 @@
           transition: 0.5s;
         }
       }
-      .select-adliv,
-      .select-modpaie {
+      .select-adliv {
         margin-bottom: 0;
       }
     }
@@ -63,7 +62,7 @@
 }
 .table {
   width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   font-family: 'Lato', sans-serif;
   color: $roche-orange;
   thead {
@@ -96,7 +95,7 @@
     tr {
       &:last-child {
         td {
-          border: none;
+          padding-bottom: 15px;
         }
       }
       &.ttc {
@@ -116,6 +115,15 @@
         a {
           color: inherit;
           text-decoration: none;
+          border-bottom: none!important;
+        }
+        &.action {
+          font-size: 12px;
+        }
+        &.quantity {
+          a {
+            margin: 0 10px;
+          }
         }
         &.first {
           padding-left: 0;
@@ -138,6 +146,26 @@
           }
         }
       }
+    }
+  }
+  tfoot {
+    td {
+      padding: 15px 0;
+      text-align: right;
+      border-top: 1px #000000 solid;
+      span {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+.content .dropdown .item .panel {
+  padding: 30px 40px 0px 20px;
+  &.active {
+    &:after {
+      content: '';
+      display: block;
+      height: 1px;
     }
   }
 }

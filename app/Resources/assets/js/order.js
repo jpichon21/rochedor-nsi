@@ -45,13 +45,12 @@ const _countries = JSON.parse($('.countries-json').html().trim())
 let _you = {}
 let _delivery = {}
 let _total = {}
-let _termsAccepted = false
 
+const itemResume = $('.item.resume')
 const itemConnection = $('.item.connection')
 const itemCard = $('.item.card')
 const itemShipping = $('.item.shipping')
 const itemPayment = $('.item.payment')
-const itemTerms = $('.item.terms')
 
 /* Button Radio */
 
@@ -155,6 +154,11 @@ function formatParticipant (data) {
   participant.codcli = parseInt(participant.codcli)
   return participant
 }
+
+itemResume.on('click', '.button', function (event) {
+  event.preventDefault()
+  changeItem(itemConnection)
+})
 
 itemConnection.on('submit', '.panel.connection form', function (event) {
   event.preventDefault()
@@ -435,7 +439,7 @@ itemShipping.on('click', '.continue', function (event) {
       _total = data
       updateCartRender()
       updateDeliveryRender()
-      changeItem(itemTerms)      
+      changeItem(itemPayment)
     }).catch(error => {
       downLoader()
       if (error) {
@@ -448,17 +452,6 @@ itemShipping.on('click', '.continue', function (event) {
       upFlashbag(error)
     }
   })
-})
-
-itemTerms.on('click', '.accept-terms', function (event) {
-  event.preventDefault()
-  $(this).toggleClass('checked')
-  _termsAccepted = $(this).hasClass('checked')
-  $('.submit', itemPayment).attr('disabled', !_termsAccepted)
-  if (!_termsAccepted) {
-    $('.submit', itemPayment).attr('title', i18n.trans('error.cgv'))
-  }
-  changeItem(itemPayment)
 })
 
 itemPayment.on('submit', 'form.payment', function (event) {
