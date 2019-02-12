@@ -130,7 +130,7 @@
                 {% endif %}
             </div>
             <div class="item card">
-                <h2>Adresse de facturation</h2>
+                <h2>{{ 'order.registration.two.title' | trans | raw }}</h2>
                 <div class="you-render"></div>
                 <a href="#" class="modify-you">{{ 'form.update' | trans | raw }}</a>
                 <div class="pure-g">
@@ -144,13 +144,13 @@
                 </div>
             </div>
             <div class="item shipping">
-                <h2>Adresse de livraison</h2>
+                <h2>{{ 'order.registration.three.title' | trans | raw }}</h2>
                 <div class="pure-g">
-                    <div class="pure-u-1 pure-u-md-1-2">
-                        <select class="select white select-adliv" name="select_adliv" >
+                    <div class="pure-u-1">
+                        <select class="select white select-adliv" name="select_adliv">
                             <option value="myAd">{{ 'select.ad.myAd' | trans | raw }}</option>
-                            <option value="Roche">{{ 'select.ad.roche' | trans | raw }}</option>
-                            <option value="Font">{{ 'select.ad.font' | trans | raw }}</option>
+                            <option value="Roche">{{ 'select.ad.roche' | trans ~ ' ' ~ 'no.shipping' | trans | raw }}</option>
+                            <option value="Font">{{ 'select.ad.font' | trans ~ ' ' ~ 'no.shipping' | trans | raw }}</option>
                             <option value="Other">{{ 'select.ad.other' | trans | raw }}</option>
                         </select>
                     </div>
@@ -286,14 +286,19 @@
     <% if (delivery.adliv) { %>
         <p><b>Adresse de facturation</b><br>
             <%= _.escape(you.prenom) %> <%= _.escape(you.nom) %>
-            <%= ' — ' %>
+            <br>
             <%= _.escape(you.adresse) %> <%= _.escape(you.cp) %> <%= _.escape(you.ville) %> (<%= _.escape(you.pays) %>)</p>
         <p><b>Adresse de livraison</b><br>
-            <% if (delivery.destliv === 'Roche') { %>{{ 'select.ad.roche' | trans | raw }}<% } %>
-            <% if (delivery.destliv === 'Font') { %>{{ 'select.ad.font' | trans | raw }}<% } %>
-            <% if (delivery.destliv === 'myAd') { %><%= you.prenom + ' ' + you.nom %><% } %>
-            <% if (delivery.destliv === 'Other') { %><%= you.prenom + ' ' + you.nom %><% } %>
-            <%= ' — ' %>
+            <%= delivery.adliv.prenom %> <%= delivery.adliv.nom %>
+            <br>
+            <% if (delivery.destliv === 'Roche') { %>
+                {{ 'select.ad.roche' | trans | raw }}
+                <br>
+            <% } %>
+            <% if (delivery.destliv === 'Font') { %>
+                {{ 'select.ad.font' | trans | raw }}
+                <br>
+            <% } %>
             <%= delivery.adliv.adresse %> <%= delivery.adliv.zipcode %> <%= delivery.adliv.city %> (<%= delivery.paysliv %>)</p>
     <% } else { %>
         <p>{{ 'order.summary.body.delivery' | trans | raw }}</p>
@@ -380,10 +385,10 @@
 <script type="text/template" class="adliv-form-template">
     <div class="pure-g">
         <div class="pure-u-1 pure-u-md-1-2">
-            <input class="input adresse" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="adresse" value="Matthieu" placeholder="* Matthieu">
+            <input class="input prenom" <%= (delivery.destliv == 'myAd') ? 'disabled' : '' %> required type="text" name="prenom" value="<%= _.escape(delivery.adliv.prenom) %>" placeholder="* {{ 'form.surname' | trans | raw }}">
         </div>
         <div class="pure-u-1 pure-u-md-1-2">
-            <input class="input zipcode" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="zipcode" value="Godin" placeholder="* Godin">
+            <input class="input nom" <%= (delivery.destliv == 'myAd') ? 'disabled' : '' %> required type="text" name="nom" value="<%= _.escape(delivery.adliv.nom) %>" placeholder="* {{ 'form.name' | trans | raw }}">
         </div>
         <div class="pure-u-1 pure-u-md-1-2">
             <input class="input adresse" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="adresse" value="<%= _.escape(delivery.adliv.adresse) %>" placeholder="* {{ 'form.adresse' | trans | raw }}">

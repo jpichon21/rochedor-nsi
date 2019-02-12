@@ -1317,7 +1317,7 @@
     <unit id="i2JGptw" name="order.registration.one.title">
       <segment>
         <source>order.registration.one.title</source>
-        <target>Connexion/Inscription</target>
+        <target>Identification</target>
       </segment>
     </unit>
     <unit id="BxI_rwF" name="order.registration.one.body.disconnected">
@@ -1329,7 +1329,7 @@
     <unit id="al9WFPE" name="order.registration.two.title">
       <segment>
         <source>order.registration.two.title</source>
-        <target>Fiche client</target>
+        <target>Mon adresse</target>
       </segment>
     </unit>
     <unit id="S_61BVF" name="order.registration.two.title.you">
@@ -1371,7 +1371,7 @@
     <unit id="MlxM03H" name="select.ad.other">
       <segment>
         <source>select.ad.other</source>
-        <target>Autre Adresse</target>
+        <target>Une autre adresse</target>
       </segment>
     </unit>
     <unit id="GDNiQhU" name="order.choose.adliv">
@@ -2916,6 +2916,12 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>table.header.price.total</source>
         <target>Prix total</target>
+      </segment>
+    </unit>
+    <unit id="lroTZg0" name="no.shipping">
+      <segment>
+        <source>no.shipping</source>
+        <target>(aucun frais de port)</target>
       </segment>
     </unit>
   </file>

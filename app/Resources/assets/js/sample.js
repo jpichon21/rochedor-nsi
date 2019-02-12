@@ -31,6 +31,8 @@ const contact = {
 
 const delivery = {
   adliv: {
+    prenom: '',
+    nom: '',
     adresse: '',
     zipcode: '',
     city: ''

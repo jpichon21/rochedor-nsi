@@ -348,24 +348,32 @@ itemShipping.on('change', '.select-adliv', function (event) {
 function adlivUpdateForm (destliv) {
   switch (destliv) {
     case 'myAd':
+      _delivery.adliv.prenom = _you.prenom
+      _delivery.adliv.nom = _you.nom
       _delivery.adliv.adresse = _you.adresse
       _delivery.adliv.zipcode = _you.cp
       _delivery.adliv.city = _you.ville
       _delivery.paysliv = _you.pays
       break
     case 'Roche':
+      _delivery.adliv.prenom = _you.prenom
+      _delivery.adliv.nom = _you.nom
       _delivery.adliv.adresse = '1 Chemin du Muenot'
       _delivery.adliv.zipcode = '25000'
       _delivery.adliv.city = 'Besançon'
       _delivery.paysliv = 'FR'
       break
     case 'Font':
+      _delivery.adliv.prenom = _you.prenom
+      _delivery.adliv.nom = _you.nom
       _delivery.adliv.adresse = 'Route de Riunoguès'
       _delivery.adliv.zipcode = '66480'
       _delivery.adliv.city = 'Maureillas Las Illas'
       _delivery.paysliv = 'FR'
       break
     case 'Other':
+      _delivery.adliv.prenom = ''
+      _delivery.adliv.nom = ''
       _delivery.adliv.adresse = ''
       _delivery.adliv.zipcode = ''
       _delivery.adliv.city = ''
@@ -398,6 +406,10 @@ formAdliv.on('submit', function (event) {
   event.preventDefault()
   const data = $(this).serializeArray()
   const delivery = formatForm(data)
+  if (_delivery.destliv !== 'myAd') {
+    _delivery.adliv.prenom = delivery.prenom
+    _delivery.adliv.nom = delivery.nom
+  }
   if (_delivery.destliv === 'Other') {
     _delivery.adliv.adresse = delivery.adresse
     _delivery.adliv.zipcode = delivery.zipcode
@@ -416,7 +428,14 @@ function noEmptyFields (data) {
 
 function valideDelivery (delivery) {
   return new Promise((resolve, reject) => {
-    if (noEmptyFields([delivery.adliv.adresse, delivery.adliv.zipcode, delivery.adliv.city, delivery.paysliv])) {
+    if (noEmptyFields([
+      delivery.adliv.prenom,
+      delivery.adliv.nom,
+      delivery.adliv.adresse,
+      delivery.adliv.zipcode,
+      delivery.adliv.city,
+      delivery.paysliv
+    ])) {
       checkZipcode(delivery.paysliv, delivery.adliv.zipcode, delivery.destliv).then(() => {
         resolve(delivery)
       }).catch(() => {
