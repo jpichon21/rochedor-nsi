@@ -1,5 +1,3 @@
-import { type } from "os";
-
 export const postLogin = (data) => {
   return window.fetch('/shop/login', {
     headers: { 'Content-Type': 'application/json' },
