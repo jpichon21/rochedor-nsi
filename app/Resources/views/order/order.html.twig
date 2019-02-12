@@ -229,7 +229,7 @@
                         </div>
                     </form>
                 </div>
-                <p>{{ 'when.you.click.you.accept' | trans | raw }}</p>
+                <div class="terms-render"></div>
                 <div class="pure-g">
                     <div class="pure-u-1">
                         <a href="#pay" class="input button pay disabled">{{ 'validate.order' | trans | raw }}</a>
@@ -280,6 +280,13 @@
         <p><%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
             <%= _.escape(you.adresse) %> <%= _.escape(you.cp) %> <%= _.escape(you.ville) %> (<%= _.escape(you.pays) %>)</p>
     </div>
+</script>
+<script type="text/template" class="terms-template">
+    <% if (you.professionnel) { %>
+    <p>{{ 'click.termsPro' | trans({'%link%': localePath('cgv-pro', app.request.locale)}) | raw }}</p>
+    <% } else { %>
+    <p>{{ 'click.terms' | trans({'%link%': localePath('cgv', app.request.locale)}) | raw }}</p>
+    <% } %>
 </script>
 <script type="text/template" class="delivery-template">
     <h3>{{'order.summary.title.delivery' | trans}}</h3>

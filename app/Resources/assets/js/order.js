@@ -78,6 +78,7 @@ const totalTemplate = _.template($('.total-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
 const adlivFormTemplate = _.template($('.adliv-form-template').html())
 const cartTemplate = _.template($('.cart-template').html())
+const termsTemplate = _.template($('.terms-template').html())
 
 function updateYouRender () {
   $('.you-render').html(youTemplate({
@@ -168,6 +169,12 @@ function adlivUpdateFormRender () {
   $('.adliv-form-render').html(adlivFormTemplate({
     delivery: _delivery,
     countries: _countries
+  }))
+}
+
+function updateTermsRender () {
+  $('.terms-render').html(termsTemplate({
+    you: _you
   }))
 }
 
@@ -319,6 +326,7 @@ function validatePassword (password) {
 
 itemCard.on('click', '.continue', function (event) {
   event.preventDefault()
+  updateTermsRender()
   changeItem(itemShipping)
 })
 
