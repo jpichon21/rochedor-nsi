@@ -41,7 +41,7 @@
                                 <td class="first">{{ line.product.produitcourt }}</td>
                                 <td>{{ line.product.prix }} € </td>
                                 <td class="quantity"><a href="#">&minus;</a>{{ line.quantity }}<a href="#">&plus;</a></td>
-                                <td class="action"><a href="{{ path('cart-remove', { 'cartLine': line.id }) }}">Supprimer</a></td>
+                                <td class="action"><a href="#">Supprimer</a></td>
                                 <td class="last">{{ (line.product.prix * line.quantity)|number_format(2, '.', ',') }} € </td>
                             </tr>
                             {% set total = total + (line.product.prix * line.quantity) %}
@@ -199,7 +199,7 @@
                                 <td class="first">{{ line.product.produitcourt }}</td>
                                 <td>{{ line.product.prix }} € </td>
                                 <td class="quantity"><a href="#">&minus;</a>{{ line.quantity }}<a href="#">&plus;</a></td>
-                                <td class="action"><a href="{{ path('cart-remove', { 'cartLine': line.id }) }}">Supprimer</a></td>
+                                <td class="action"><a href="#">Supprimer</a></td>
                                 <td class="last">{{ (line.product.prix * line.quantity)|number_format(2, '.', ',') }} € </td>
                             </tr>
                             {% endfor %}
