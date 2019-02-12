@@ -241,23 +241,22 @@
     <div class="hole">
     </div>
     <div class="right">
-        <div class="carousel active" data-carousel-element="88689b21e8bdaf6b0422b08575661932">
+        {% for section in page.content['sections'] %}
+        <div class="carousel active">
             <div class="slides">
-                <div class="slide active">
-                    <div class="top">
-                        <div class="left">
-                            <a class="full image" title="Le back" href="/uploads/picsum-1jpg1549895633.jpeg" style="background-image: url('/uploads/picsum-1jpg1549895633.jpeg')"></a>
-                        </div>
-                        <div class="right">
-                            <a class="full image" title="" href="/uploads/picsum-2jpg1549895637.jpeg" style="background-image: url('/uploads/picsum-2jpg1549895637.jpeg')"></a>
-                        </div>
-                    </div>
-                    <div class="bottom">
-                        <a class="full image" title="" href="/uploads/picsum-4jpg1549895641.jpeg" style="background-image: url('/uploads/picsum-4jpg1549895641.jpeg')"></a>
-                    </div>
+                {% for slide in section.slides %}
+                <div class="slide {% if loop.first %}active{% endif %}">
+                    {% include 'parts/carousel/layout-' ~ slide.layout ~ '.html.twig'
+                    with { 'images': slide.images } %}
                 </div>
+                {% endfor %}
             </div>
+            {% if section.slides|length > 1 %}
+            <div class="prev"></div>
+            <div class="next"></div>
+            {% endif %}
         </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
