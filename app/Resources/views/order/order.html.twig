@@ -257,6 +257,7 @@
             {% endif %}
         </div>
         {% endfor %}
+        <div class="cart-render"></div>
     </div>
 </div>
 {% endblock %}
@@ -366,6 +367,38 @@
     <% } else { %>
     <p>{{ 'order.summary.body.total' | trans }}</p>
     <% } %>
+</script>
+<script type="text/template" class="cart-template">
+    <h3>{{ 'order.summary.title.cart' | trans | raw }}</h3>
+    {% if cart %}
+    <table class="table" border="0" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th class="first">{{ 'table.header.product' | trans }}</th>
+                <th>{{ 'table.header.price' | trans }}</th>
+                <th>{{ 'table.header.quantity' | trans }}</th>
+                <th>{{ 'table.header.add' | trans }}</th>
+                <th class="last">{{ 'table.header.delete' | trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i = 0; i < product.length; i++) { %>
+                <tr>
+                    <td class="first"> <%= product[i].name %> </td>
+                    <td> <%= product[i].price %>€ </td>
+                    <td> <%= product[i].quantity %> </td>
+                    <td> 
+                        <a href="#addproduct" data-action="add" data-id=<%= product[i].codprd %> class="patchproduct">+</a>
+                        <a href="#delproduct" data-action="del" data-id=<%= product[i].codprd %> class="patchproduct">-</a>
+                    </td>
+                    <td class="last"><a href="#remcartline" data-id=<%= product[i].codprd %> class="removecartline">{{ 'main.remove' | trans }}</a></td>
+                </tr>       
+            <% } %>
+        </tbody>
+    </table>
+    {% else %}
+    <p>{{ 'cart.empty'|trans }}</p>
+    {% endif %}
 </script>
 <script type="text/template" class="registered-template">
     <% if (registered.length) { %>

@@ -14,7 +14,9 @@ import {
   postOrder,
   postEditCli,
   checkVat,
-  checkZipcode
+  checkZipcode,
+  patchProduct,
+  removeCartline
 } from './order-api.js'
 import { changeItem } from './page'
 
@@ -45,12 +47,16 @@ const _countries = JSON.parse($('.countries-json').html().trim())
 let _you = {}
 let _delivery = {}
 let _total = {}
+let _country = 'FR'
+let _dest = 'myAdd'
 
 const itemResume = $('.item.resume')
 const itemConnection = $('.item.connection')
 const itemCard = $('.item.card')
 const itemShipping = $('.item.shipping')
 const itemPayment = $('.item.payment')
+
+const cartRender = $('.cart-render')
 
 /* Button Radio */
 
@@ -71,12 +77,56 @@ const deliveryTemplate = _.template($('.delivery-template').html())
 const totalTemplate = _.template($('.total-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
 const adlivFormTemplate = _.template($('.adliv-form-template').html())
+const cartTemplate = _.template($('.cart-template').html())
+
+
 
 function updateYouRender () {
   $('.you-render').html(youTemplate({
     you: _you
   }))
 }
+
+function updateCartRender () {
+  $('.cart-render').html(cartTemplate({
+    product: _total.product
+  }))
+}
+
+cartRender.on('click', '.patchproduct', function (event) {
+  event.preventDefault()
+  let data = {}
+  data.productId = $(this).attr('data-id')
+  data.typeAction = $(this).attr('data-action')
+  patchProduct(data)
+    .then(() => {
+      getData(_cartId, _country, _dest)
+        .then(data => {
+          _total = data
+          console.log(_total)
+        }).then(() => {
+          updateCartRender()
+          updateTotalRender()
+        })
+    })
+    .catch(error => window.alert(error))
+})
+
+cartRender.on('click', '.removecartline', function (event) {
+  event.preventDefault()
+  let codprd = $(this).attr('data-id')
+  removeCartline(_cartId, codprd)
+    .then(() => {
+      getData(_cartId, _country, _dest)
+        .then(data => {
+          _total = data
+        }).then(() => {
+          updateCartRender()
+          updateTotalRender()
+        })
+    })
+    .catch(error => window.alert(error))
+})
 
 function updateDeliveryRender () {
   $('.delivery-render').html(deliveryTemplate({
@@ -85,7 +135,7 @@ function updateDeliveryRender () {
   }))
 }
 
-function updateCartRender () {
+function updateTotalRender () {
   $('.total-render').html(totalTemplate({
     total: _total
   }))
@@ -125,8 +175,9 @@ function adlivUpdateFormRender () {
 
 getData(_cartId, 'myAdd', 'FR').then(data => {
   _total = data
-  updateCartRender()
+  updateTotalRender()
   updateDeliveryRender()
+  updateCartRender()
 })
 
 /* Actions */
@@ -137,6 +188,7 @@ function afterLogin (user, bypass) {
   _delivery.cartId = parseInt(_cartId)
   _you = user
   updateYouRender()
+  updateTotalRender()
   updateCartRender()
   adlivUpdateForm('myAd')
   if (bypass) {
@@ -453,10 +505,12 @@ itemShipping.on('click', '.continue', function (event) {
   formGift.submit()
   upLoader()
   valideDelivery(_delivery).then(delivery => {
+    _country = delivery.paysliv
+    _dest = delivery.destliv
     getData(_cartId, delivery.destliv, delivery.paysliv).then(data => {
       downLoader()
       _total = data
-      updateCartRender()
+      updateTotalRender()
       updateDeliveryRender()
       changeItem(itemPayment)
     }).catch(error => {

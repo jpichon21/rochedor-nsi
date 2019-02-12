@@ -21,10 +21,10 @@ use AppBundle\Entity\Cart;
 use AppBundle\Repository\CartRepository;
 use AppBundle\Repository\ProductRepository;
 use AppBundle\Entity\Cartline;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations as Rest;
 
-/**
- * @Route("{_locale}")
- */
+
 class CartController extends Controller
 {
 
@@ -60,7 +60,7 @@ class CartController extends Controller
     }
 
     /**
-     * @Route("/cart/add/{productId}", name="cart-add", methods={"GET"}, requirements={"productId"="\d+"})
+     * @Route("/{_locale}/cart/add/{productId}", name="cart-add", methods={"GET"}, requirements={"productId"="\d+"})
      */
     public function addAction($productId, Request $request)
     {
@@ -85,16 +85,62 @@ class CartController extends Controller
     }
 
     /**
-     * @Route("/cart/remove/{cartLine}", name="cart-remove", methods={"GET"}, requirements={"cartline"="\d+"})
-     */
-    public function removeAction(CartLine $cartLine, Request $request)
+     * @Rest\Patch("/xhr/cart/patch", name="patch_product")
+     * @Rest\View()
+    */
+    public function xhrPatchProductAction(Request $request)
     {
-        $cartLine->setCart(null);
+        $data = $request->get('data');
+        $productId = $data['productId'];
+        $typeAction = $data['typeAction'];
+
+        if ($data === null || $productId === null || $typeAction === null) {
+            return new JsonResponse([
+                'status' => 'ko',
+                'message' => 'missing parameters'
+            ]);
+        }
+
+        $session = new Session();
+        $product = $this->productRepository->find($productId);
+        $cartId = $session->get('cart');
+
+        $cart = $this->cartRepository->find($cartId);
+        if ($cart === null) {
+            $cart = new Cart();
+            $this->em->persist($cart);
+            $this->em->flush();
+        }
+
+        if ($typeAction === "add") {
+            $cartLine = $this->addProduct($cart, $product);
+        } else {
+            $cartLine = $this->removeProduct($cart, $product);
+        }
+
         $this->em->persist($cartLine);
         $this->em->flush();
-        $session = new Session();
-        $session->getFlashBag()->add('info', 'cart.product.removed');
-        return $this->redirectToRoute('order-'.$request->getLocale());
+
+        return new JsonResponse([
+            'status' => 'ok'
+        ]);
+    }
+
+    /**
+     * @Rest\Delete("/xhr/cart/remove/{codprd}/{cartid}", name="delete_cartline")
+     * @Rest\View()
+     */
+    public function xhrRemoveAction($codprd, $cartId, Request $request)
+    {
+        $product = $this->productController->find($codprd);
+        $cart = $this->cartRepository->find($cartId);
+
+        $cartline = $this->cartRepository->findCartline($cart , $product);
+        $this->removeCartline($cartLine);
+        return new JsonResponse([
+            'status' => 'ok'
+        ]);
+        // return $this->redirectToRoute('order-'.$request->getLocale());
     }
 
     /**
@@ -117,4 +163,32 @@ class CartController extends Controller
         }
         return $cartLine;
     }
+
+    /**
+     * Remove a product to the Cart
+     *
+     * @param Cart $cart
+     * @param Produit $product
+     * @return CartLine
+     */
+    private function removeProduct(Cart $cart, Produit $product)
+    {
+        $cartLine = $this->cartRepository->findCartline($cart, $product);
+        if ($cartLine != null) {
+            if (($cartLine->getQuantity() - 1) === 0) {
+                $this->removeCartline($cartline);
+            }
+            $cartLine->setQuantity($cartLine->getQuantity() - 1);
+        }
+        return $cartLine;
+    }
+
+    private function removeCartline(Cartline $cartline){
+        $cartLine->setCart(null);
+        $this->em->persist($cartLine);
+        $this->em->flush();
+        $session = new Session();
+        $session->getFlashBag()->add('info', 'cart.product.removed');
+    }
+    
 }

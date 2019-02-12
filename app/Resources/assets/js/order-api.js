@@ -1,3 +1,5 @@
+import { type } from "os";
+
 export const postLogin = (data) => {
   return window.fetch('/shop/login', {
     headers: { 'Content-Type': 'application/json' },
@@ -86,6 +88,35 @@ export const postOrder = (data) => {
     .then(res => {
       if (res.status !== 'ok') { throw res.message }
       return res.data
+    })
+}
+
+export const patchProduct = (data) => {
+  return window.fetch(`/xhr/cart/patch`, {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'PATCH',
+    credentials: 'include',
+    body: JSON.stringify({
+      data: data
+    })
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.message }
+      return true
+    })
+}
+
+export const removeProduct = (cartId, codprd) => {
+  return window.fetch(`/xhr/cart/remove/${cartId}/${codprd}`, {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'DELETE',
+    credentials: 'include'
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.message }
+      return true
     })
 }
 

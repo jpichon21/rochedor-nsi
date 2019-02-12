@@ -327,7 +327,7 @@
         <target>__retreats.table.head.dates</target>
       </segment>
     </unit>
-    <unit id="fxGgGMw" name="retreats.table.head.site">
+    <unit id="DLoeleR" name="retreats.table.head.site">
       <notes>
         <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:53</note>
       </notes>
@@ -336,7 +336,7 @@
         <target>__retreats.table.head.site</target>
       </segment>
     </unit>
-    <unit id="2kGPPNK" name="retreats.table.head.event">
+    <unit id="udKCrOO" name="retreats.table.head.event">
       <notes>
         <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:54</note>
       </notes>
@@ -354,7 +354,7 @@
         <target>__retreats.table.head.speakers</target>
       </segment>
     </unit>
-    <unit id="gYOavAc" name="retreats.table.head.type">
+    <unit id="fdtdIAj" name="retreats.table.head.type">
       <notes>
         <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:56</note>
       </notes>
@@ -363,7 +363,7 @@
         <target>__retreats.table.head.type</target>
       </segment>
     </unit>
-    <unit id="0j2BAw_" name="retreats.table.head.duration">
+    <unit id="MUpvFuZ" name="retreats.table.head.duration">
       <notes>
         <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:57</note>
       </notes>
@@ -964,6 +964,12 @@
       <segment>
         <source>password</source>
         <target></target>
+      </segment>
+    </unit>
+    <unit id="p2uES0U" name="logout.disconnect.title">
+      <segment>
+        <source>logout.disconnect.title</source>
+        <target>logout.disconnect.title</target>
       </segment>
     </unit>
   </file>

@@ -94,11 +94,13 @@ stof_doctrine_extensions:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: '%mailer_transport%'
-    host: '%mailer_host%'
-    username: '%mailer_user%'
-    password: '%mailer_password%'
-    spool: { type: memory }
+  spool:     { type: memory }
+  transport: smtp
+  host:      smtp.mailtrap.io
+  username:  3b61b1ecf7ade5
+  password:  676be31fec01ab
+  auth_mode: cram-md5
+  port: 2525
 
 sensio_framework_extra:
     request: { converters: true }
