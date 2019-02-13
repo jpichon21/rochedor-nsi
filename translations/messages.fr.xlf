@@ -2946,6 +2946,24 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>click.terms</source>
         <target><![CDATA[En cliquant sur <i>Valider la commande et procéder au paiement</i>, <br>j'accepte les <a href="%link%">Conditions Générales de Vente</a>.]]></target>
+        </segment>
+    </unit>
+    <unit id="8BOf13k" name="table.header.price.ttc">
+      <segment>
+        <source>table.header.price.ttc</source>
+        <target>Prix TTC</target>
+      </segment>
+    </unit>
+    <unit id="cyak7iD" name="table.header.price.prix.ht">
+      <segment>
+        <source>table.header.price.prix.ht</source>
+        <target>Prix HT</target>
+      </segment>
+    </unit>
+    <unit id="8J5qHFa" name="table.header.tax.rate">
+      <segment>
+        <source>table.header.tax.rate</source>
+        <target>TVA</target>
       </segment>
     </unit>
   </file>

@@ -127,15 +127,15 @@ class CartController extends Controller
     }
 
     /**
-     * @Rest\Delete("/xhr/cart/remove/{codprd}/{cartid}", name="delete_cartline")
+     * @Rest\Delete("/xhr/cart/remove/{cartId}/{codprd}", name="delete_cartline")
      * @Rest\View()
      */
     public function xhrRemoveAction($codprd, $cartId, Request $request)
     {
-        $product = $this->productController->find($codprd);
+        $product = $this->productRepository->find($codprd);
         $cart = $this->cartRepository->find($cartId);
 
-        $cartline = $this->cartRepository->findCartline($cart , $product);
+        $cartLine = $this->cartRepository->findCartline($cart , $product);
         $this->removeCartline($cartLine);
         return new JsonResponse([
             'status' => 'ok'
@@ -176,14 +176,14 @@ class CartController extends Controller
         $cartLine = $this->cartRepository->findCartline($cart, $product);
         if ($cartLine != null) {
             if (($cartLine->getQuantity() - 1) === 0) {
-                $this->removeCartline($cartline);
+                $this->removeCartline($cartLine);
             }
             $cartLine->setQuantity($cartLine->getQuantity() - 1);
         }
         return $cartLine;
     }
 
-    private function removeCartline(Cartline $cartline){
+    private function removeCartline(Cartline $cartLine){
         $cartLine->setCart(null);
         $this->em->persist($cartLine);
         $this->em->flush();

@@ -105,7 +105,7 @@ export const patchProduct = (data) => {
     })
 }
 
-export const removeProduct = (cartId, codprd) => {
+export const removeCartline = (cartId, codprd) => {
   return window.fetch(`/xhr/cart/remove/${cartId}/${codprd}`, {
     headers: { 'Content-Type': 'application/json' },
     method: 'DELETE',
@@ -119,7 +119,7 @@ export const removeProduct = (cartId, codprd) => {
 }
 
 export const getData = (cartId, paysliv, destliv) => {
-  return window.fetch(`/xhr/order/taxes/${cartId}/${destliv}/${paysliv}`, {
+  return window.fetch(`/xhr/order/taxes/${cartId}/${paysliv}/${destliv}`, {
     method: 'GET',
     credentials: 'include'
   })

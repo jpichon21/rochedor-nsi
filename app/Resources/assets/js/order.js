@@ -57,8 +57,6 @@ const itemCard = $('.item.card')
 const itemShipping = $('.item.shipping')
 const itemPayment = $('.item.payment')
 
-const cartRender = $('.cart-render')
-
 /* Button Radio */
 
 $('.registered-render').on('click', '.button.radio', function (event) {
@@ -80,53 +78,13 @@ const youFormTemplate = _.template($('.you-form-template').html())
 const adlivFormTemplate = _.template($('.adliv-form-template').html())
 const cartTemplate = _.template($('.cart-template').html())
 const termsTemplate = _.template($('.terms-template').html())
+const detailcartTemplate = _.template($('.detailcart-template').html())
 
 function updateYouRender () {
   $('.you-render').html(youTemplate({
     you: _you
   }))
 }
-
-function updateCartRender () {
-  $('.cart-render').html(cartTemplate({
-    product: _total.product
-  }))
-}
-
-cartRender.on('click', '.patchproduct', function (event) {
-  event.preventDefault()
-  let data = {}
-  data.productId = $(this).attr('data-id')
-  data.typeAction = $(this).attr('data-action')
-  patchProduct(data)
-    .then(() => {
-      getData(_cartId, _country, _dest)
-        .then(data => {
-          _total = data
-          console.log(_total)
-        }).then(() => {
-          updateCartRender()
-          updateTotalRender()
-        })
-    })
-    .catch(error => window.alert(error))
-})
-
-cartRender.on('click', '.removecartline', function (event) {
-  event.preventDefault()
-  let codprd = $(this).attr('data-id')
-  removeCartline(_cartId, codprd)
-    .then(() => {
-      getData(_cartId, _country, _dest)
-        .then(data => {
-          _total = data
-        }).then(() => {
-          updateCartRender()
-          updateTotalRender()
-        })
-    })
-    .catch(error => window.alert(error))
-})
 
 function updateDeliveryRender () {
   $('.delivery-render').html(deliveryTemplate({
@@ -179,6 +137,22 @@ function updateTermsRender () {
   }))
 }
 
+function updateCartRender () {
+  let _sum = 0
+  $('.cart-render').html(cartTemplate({
+    product: _total.product,
+    sum: _sum
+  }))
+}
+
+function updateDetailcartRender () {
+  let _sum = 0
+  $('.detailcart-render').html(detailcartTemplate({
+    product: _total.product,
+    sum: _sum
+  }))
+}
+
 /* Actions */
 
 function afterLogin (user, bypass) {
@@ -189,6 +163,7 @@ function afterLogin (user, bypass) {
   updateYouRender()
   updateTotalRender()
   updateCartRender()
+  updateDetailcartRender()
   adlivUpdateForm('myAd')
   if (bypass) {
     changeItem(itemShipping)
@@ -507,11 +482,12 @@ itemShipping.on('click', '.continue', function (event) {
   valideDelivery(_delivery).then(delivery => {
     _country = delivery.paysliv
     _dest = delivery.destliv
-    getData(_cartId, delivery.destliv, delivery.paysliv).then(data => {
+    getData(_cartId, _country, _dest).then(data => {
       downLoader()
       _total = data
       updateTotalRender()
       updateDeliveryRender()
+      updateDetailcartRender()
       changeItem(itemPayment)
     }).catch(error => {
       downLoader()
@@ -585,19 +561,86 @@ if (cancelReturn) {
   _delivery.destliv = _order.destliv
   _delivery.adliv = JSON.parse(_delivery.adliv)
   _delivery.modpaie = ''
-  getData(_cartId, _delivery.destliv, _delivery.paysliv).then(data => {
+  _country = _delivery.paysliv
+  _dest = _delivery.destliv
+  getData(_cartId, _country, _dest).then(data => {
     _total = data
     updateYouRender()
     updateDeliveryRender()
     updateCartRender()
+    updateDetailcartRender()
     updateTotalRender()
     updateTermsRender()
   })
 } else {
-  getData(_cartId, 'myAdd', 'FR').then(data => {
+  getData(_cartId, _country, _dest).then(data => {
     _total = data
-    updateTotalRender()
-    updateDeliveryRender()
     updateCartRender()
   })
+}
+
+itemResume.on('click', function () {
+  getData(_cartId, _country, _dest)
+    .then(data => {
+      _total = data
+      updateCartRender()
+    })
+})
+
+$('.cart-render').on('click', '.patchproduct', function (event) {
+  getCartData(event, $(this).attr('data-id'), $(this).attr('data-action'))
+})
+
+$('.cart-render').on('click', '.removecartline', function (event) {
+  remCartline(event, $(this).attr('data-id'))
+})
+
+$('.detailcart-render').on('click', '.patchproduct', function (event) {
+  getCartData(event, $(this).attr('data-id'), $(this).attr('data-action'))
+})
+
+$('.detailcart-render').on('click', '.removecartline', function (event) {
+  remCartline(event, $(this).attr('data-id'))
+})
+
+function getCartData (event, product, action) {
+  event.preventDefault()
+  let data = {}
+  data.productId = product
+  data.typeAction = action
+  patchProduct(data)
+    .then(() => {
+      getData(_cartId, _country, _dest)
+        .then(data => {
+          _total = data
+          if (_total.product === undefined) {
+            window.location.reload()
+          } else {
+            updateCartRender()
+            updateDetailcartRender()
+            updateTotalRender()
+          }
+        })
+    })
+    .catch(error => upFlashbag(error))
+}
+
+function remCartline (event, product) {
+  event.preventDefault()
+  let codprd = product
+  removeCartline(_cartId, codprd)
+    .then(() => {
+      getData(_cartId, _country, _dest)
+        .then(data => {
+          _total = data
+          if (_total.product === undefined) {
+            window.location.reload()
+          } else {
+            updateCartRender()
+            updateDetailcartRender()
+            updateTotalRender()
+          }
+        })
+    })
+    .catch(error => upFlashbag(error))
 }
