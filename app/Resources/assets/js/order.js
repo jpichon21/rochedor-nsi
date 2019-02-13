@@ -616,6 +616,7 @@ function getCartData (event, product, action) {
           if (_total.product === undefined) {
             window.location.reload()
           } else {
+            $('.header .cart span').text(countTotalProduct(_total.product))
             updateCartRender()
             updateDetailcartRender()
             updateTotalRender()
@@ -636,6 +637,7 @@ function remCartline (event, product) {
           if (_total.product === undefined) {
             window.location.reload()
           } else {
+            $('.header .cart span').text(countTotalProduct(_total.product))
             updateCartRender()
             updateDetailcartRender()
             updateTotalRender()
@@ -643,4 +645,12 @@ function remCartline (event, product) {
         })
     })
     .catch(error => upFlashbag(error))
+}
+
+function countTotalProduct (products) {
+  let totalProduct = 0
+  products.forEach(product => {
+    totalProduct = totalProduct + product.quantity
+  })
+  return totalProduct
 }
