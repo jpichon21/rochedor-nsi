@@ -12,9 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -495,21 +492,7 @@ class OrderController extends Controller
         $datpaie = new \DateTime('0000-00-00 00:00:00');
         $validpaie = $delivery['validpaie'];
         $destliv = $delivery['destliv'];
-        if ($destliv === "Other") {
-            $adliv = $this->getAdLiv($delivery['adliv'], $user);
-        } else {
-            $adliv = $user->getCivil().
-                    " ".
-                    $user->getNom().
-                    " ".
-                    $user->getPrenom().
-                    " ".
-                    $user->getAdresse().
-                    " ".
-                    $user->getCp().
-                    " ".
-                    $user->getVille();
-        }
+        $adliv = json_encode($delivery['adliv']);
         
         if (!isset($delivery['memocmd'])) {
             $memoCmd = "";
@@ -575,23 +558,6 @@ class OrderController extends Controller
         return $order;
     }
 
-    private function getAdLiv($adliv, $user)
-    {
-        $parsedAdliv =
-                    $user->getCivil().
-                    " ".
-                    $user->getNom().
-                    " ".
-                    $user->getPrenom().
-                    " ".
-                    $adliv['adresse'].
-                    " ".
-                    $adliv['zipcode'].
-                    " ".
-                    $adliv['city'];
-        return $parsedAdliv;
-    }
-
     private function notifyClient($order, $locale, $user)
     {
         $this->mailer->send(
@@ -624,16 +590,12 @@ class OrderController extends Controller
      */
     public function orderAction(Request $request)
     {
-        $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $initOrder = false;
+        $cancelReturn = false;
 
         if ($orderId = $request->get('orderId')) {
             if ($order = $this->commandeRepository->findByRef($orderId)) {
                 if ($user = $this->getUser()) {
-                    $initOrder = $user->getCodcli() === $order->getCodcli();
+                    $cancelReturn = $user->getCodcli() === $order->getCodcli();
                 }
             }
         }
@@ -672,7 +634,27 @@ class OrderController extends Controller
         $availableLocales = $this->pageService->getAvailableLocales($page);
         return $this->render('order/order.html.twig', [
             'cart' => $this->cartRepository->find($cartId),
-            'order' => $initOrder ? $serializer->serialize($order, 'json') : 'false',
+            'order' => $cancelReturn ? json_encode([
+                'adliv' => $order->getAdliv(),
+                'codcli' => $order->getCodcli(),
+                'datliv' => $order->getDatliv(),
+                'destliv' => $order->getDestliv(),
+                'memocmd' => $order->getMemocmd(),
+                'modliv' => $order->getModliv(),
+                'modpaie' => $order->getModpaie(),
+                'paysip' => $order->getPaysip(),
+                'paysliv' => $order->getPaysliv(),
+                'validpaie' => $order->getValidpaie()
+            ]) : 'false',
+            'user' => $cancelReturn ? json_encode([
+                'codcli' => $user->getCodcli(),
+                'prenom' => $user->getPrenom(),
+                'nom' => $user->getNom(),
+                'adresse' => $user->getAdresse(),
+                'cp' => $user->getCp(),
+                'ville' => $user->getVille(),
+                'pays' => $user->getPays()
+            ]) : 'false',
             'page' => $page,
             'countries' => $countriesJSON,
             'availableLocales' => $availableLocales,

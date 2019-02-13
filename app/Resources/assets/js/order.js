@@ -24,11 +24,12 @@ import { changeItem } from './page'
 
 const _cartId = parseInt($('.cart-json').html().trim())
 
-/* Order */
+/* Cancel Return */
 
 const _order = JSON.parse($('.order-json').html().trim())
+const _user = JSON.parse($('.user-json').html().trim())
 
-console.log(_order)
+const cancelReturn = _order !== false && _user !== false
 
 /* Translations */
 
@@ -177,13 +178,6 @@ function updateTermsRender () {
     you: _you
   }))
 }
-
-getData(_cartId, 'myAdd', 'FR').then(data => {
-  _total = data
-  updateTotalRender()
-  updateDeliveryRender()
-  updateCartRender()
-})
 
 /* Actions */
 
@@ -536,6 +530,7 @@ itemShipping.on('click', '.continue', function (event) {
 const formPayment = $('form.payment', itemPayment)
 
 itemPayment.on('click', '.pay', function (event) {
+  event.preventDefault()
   if (_delivery.modpaie === '') {
     upFlashbag(i18n.trans('form.message.modpaie_invalid'))
   } else {
@@ -580,3 +575,29 @@ itemConnection.on('click', '.panel.reset .cancel', function (event) {
     changeItem(itemConnection)
   })
 })
+
+if (cancelReturn) {
+  _you = _user
+  _delivery = _order
+  _delivery.cartId = parseInt(_cartId)
+  _delivery.dateenreg = ''
+  _delivery.paysliv = _order.paysliv
+  _delivery.destliv = _order.destliv
+  _delivery.adliv = JSON.parse(_delivery.adliv)
+  _delivery.modpaie = ''
+  getData(_cartId, _delivery.destliv, _delivery.paysliv).then(data => {
+    _total = data
+    updateYouRender()
+    updateDeliveryRender()
+    updateCartRender()
+    updateTotalRender()
+    updateTermsRender()
+  })
+} else {
+  getData(_cartId, 'myAdd', 'FR').then(data => {
+    _total = data
+    updateTotalRender()
+    updateDeliveryRender()
+    updateCartRender()
+  })
+}

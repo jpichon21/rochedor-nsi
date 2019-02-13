@@ -19,7 +19,7 @@
         </div>
         {% endif %}
         <div class="dropdown">
-            <div class="item resume {% if order == 'false' %}first{% endif %}">
+            <div class="item resume {% if order == 'false' %}open{% endif %}">
                 <h2>Récapitulatif</h2>
                 <div class="panel active">
                     <h3>Panier</h3>
@@ -178,7 +178,7 @@
                     </div>
                 </div>
             </div>
-            <div class="item payment">
+            <div class="item payment {% if order != 'false' %}open{% endif %}">
                 <h2>{{ 'order.registration.four.title' | trans | raw }}</h2>
                 <div class="panel active">
                     <h3>Panier</h3>
@@ -271,6 +271,9 @@
 </script>
 <script type="application/json" class="order-json">
     {{ order | raw }}
+</script>
+<script type="application/json" class="user-json">
+    {{ user | raw }}
 </script>
 <script type="application/json" class="cart-json">
     {% if cart %}{{ cart.id }}{% endif %}
