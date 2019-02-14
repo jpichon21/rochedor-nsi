@@ -74,7 +74,8 @@
       </notes>
       <segment>
         <source>menu.two.one</source>
-        <target>__menu.two.one</target>
+        <target><![CDATA[Zu Einkehrtagen <br> kommen
+				]]></target>
       </segment>
     </unit>
     <unit id="zFwSu3O" name="menu.two.two">
@@ -83,7 +84,8 @@
       </notes>
       <segment>
         <source>menu.two.two</source>
-        <target>__menu.two.two</target>
+        <target><![CDATA[Einkehrtage <br> in Roche d'Or
+				]]></target>
       </segment>
     </unit>
     <unit id="OipSnvA" name="menu.two.three">
@@ -92,7 +94,8 @@
       </notes>
       <segment>
         <source>menu.two.three</source>
-        <target>__menu.two.three</target>
+        <target><![CDATA[Einkehrtage <br> in den Fontanilles
+				]]></target>
       </segment>
     </unit>
     <unit id="NEzhIK_" name="menu.two.four">
@@ -101,7 +104,8 @@
       </notes>
       <segment>
         <source>menu.two.four</source>
-        <target>__menu.two.four</target>
+        <target><![CDATA[Die <br> Referenten
+				]]></target>
       </segment>
     </unit>
     <unit id="d2ahr5A" name="menu.four">
@@ -137,7 +141,8 @@
       </notes>
       <segment>
         <source>menu.four.one</source>
-        <target>__menu.four.one</target>
+        <target><![CDATA[Praktische Informatonen <br> zu Roche d'Or
+				]]></target>
       </segment>
     </unit>
     <unit id="t9xDnqi" name="menu.four.two">
@@ -146,7 +151,8 @@
       </notes>
       <segment>
         <source>menu.four.two</source>
-        <target>__menu.four.two</target>
+        <target><![CDATA[Praktische Informationen <br> zu den Fontanilles
+				]]></target>
       </segment>
     </unit>
     <unit id="xm3Wl2D" name="menu.four.three">
@@ -155,7 +161,8 @@
       </notes>
       <segment>
         <source>menu.four.three</source>
-        <target>__menu.four.three</target>
+        <target><![CDATA[Empfang <br> von Kindern
+				]]></target>
       </segment>
     </unit>
     <unit id="ADfxTyP" name="menu.four.four">
@@ -164,7 +171,8 @@
       </notes>
       <segment>
         <source>menu.four.four</source>
-        <target>__menu.four.four</target>
+        <target><![CDATA[Link <br> Freunde
+				]]></target>
       </segment>
     </unit>
     <unit id="rehny29" name="menu.five.one">
@@ -173,7 +181,8 @@
       </notes>
       <segment>
         <source>menu.five.one</source>
-        <target>__menu.five.one</target>
+        <target><![CDATA[Roche d'Or <br> Verlag
+				]]></target>
       </segment>
     </unit>
     <unit id="JQrk3we" name="menu.five.two">
@@ -182,7 +191,8 @@
       </notes>
       <segment>
         <source>menu.five.two</source>
-        <target>__menu.five.two</target>
+        <target><![CDATA[Die <br> Neuigkeiten
+				]]></target>
       </segment>
     </unit>
     <unit id="Vvb_xEv" name="menu.five.three">
@@ -191,7 +201,8 @@
       </notes>
       <segment>
         <source>menu.five.three</source>
-        <target>__menu.five.three</target>
+        <target><![CDATA[Die <br> Sammlungen
+				]]></target>
       </segment>
     </unit>
     <unit id="aY4iGkg" name="menu.six.one">
@@ -200,7 +211,8 @@
       </notes>
       <segment>
         <source>menu.six.one</source>
-        <target>__menu.six.one</target>
+        <target><![CDATA[Zeit <br> schenken
+				]]></target>
       </segment>
     </unit>
     <unit id="nrz9.5B" name="menu.six.two">
@@ -209,7 +221,7 @@
       </notes>
       <segment>
         <source>menu.six.two</source>
-        <target>__menu.six.two</target>
+        <target>Spenden</target>
       </segment>
     </unit>
     <unit id="_xIh0pv" name="filter.title.site">
@@ -218,7 +230,7 @@
       </notes>
       <segment>
         <source>filter.title.site</source>
-        <target>__filter.title.site</target>
+        <target>Webseite</target>
       </segment>
     </unit>
     <unit id="6EbXPX3" name="filter.title.type">
@@ -227,7 +239,7 @@
       </notes>
       <segment>
         <source>filter.title.type</source>
-        <target>__filter.title.type</target>
+        <target>Muster</target>
       </segment>
     </unit>
     <unit id="YBxvI.S" name="filter.title.intervenants">
@@ -236,7 +248,7 @@
       </notes>
       <segment>
         <source>filter.title.intervenants</source>
-        <target>__filter.title.intervenants</target>
+        <target>Referenten</target>
       </segment>
     </unit>
     <unit id="4A1GNtj" name="filter.title.traductions">
@@ -245,7 +257,7 @@
       </notes>
       <segment>
         <source>filter.title.traductions</source>
-        <target>__filter.title.traductions</target>
+        <target>Übersetzungen</target>
       </segment>
     </unit>
     <unit id="ZsqTtfH" name="filter.inner.default">
@@ -254,7 +266,7 @@
       </notes>
       <segment>
         <source>filter.inner.default</source>
-        <target>__filter.inner.default</target>
+        <target>Auswählen</target>
       </segment>
     </unit>
     <unit id="WJZTCIa" name="filter.inner.selection.singular">
@@ -263,7 +275,7 @@
       </notes>
       <segment>
         <source>filter.inner.selection.singular</source>
-        <target>__filter.inner.selection.singular</target>
+        <target>Auswahl</target>
       </segment>
     </unit>
     <unit id="TRhsePV" name="filter.inner.selection.plural">
@@ -272,7 +284,7 @@
       </notes>
       <segment>
         <source>filter.inner.selection.plural</source>
-        <target>__filter.inner.selection.plural</target>
+        <target>Auswählen</target>
       </segment>
     </unit>
     <unit id="FM0PXMD" name="filter.inner.date.in">
@@ -282,7 +294,7 @@
       </notes>
       <segment>
         <source>filter.inner.date.in</source>
-        <target>__filter.inner.date.in</target>
+        <target>Vom</target>
       </segment>
     </unit>
     <unit id="gGyMDWm" name="filter.inner.date.out">
@@ -292,7 +304,7 @@
       </notes>
       <segment>
         <source>filter.inner.date.out</source>
-        <target>__filter.inner.date.out</target>
+        <target>Bis zum</target>
       </segment>
     </unit>
     <unit id="pbylFh8" name="filter.inner.submit">
@@ -301,7 +313,7 @@
       </notes>
       <segment>
         <source>filter.inner.submit</source>
-        <target>__filter.inner.submit</target>
+        <target>Ok</target>
       </segment>
     </unit>
     <unit id="wY2f8rr" name="filter.title.keyword">
@@ -310,7 +322,7 @@
       </notes>
       <segment>
         <source>filter.title.keyword</source>
-        <target>__filter.title.keyword</target>
+        <target>Einkehrtage</target>
       </segment>
     </unit>
     <unit id=".0VN0jX" name="filter.inner.keyword">
@@ -319,7 +331,7 @@
       </notes>
       <segment>
         <source>filter.inner.keyword</source>
-        <target>__filter.inner.keyword</target>
+        <target>Stichwort</target>
       </segment>
     </unit>
     <unit id="Q6jhgTg" name="retreats.table.head.dates">
@@ -328,7 +340,7 @@
       </notes>
       <segment>
         <source>retreats.table.head.dates</source>
-        <target>__retreats.table.head.dates</target>
+        <target>Datum</target>
       </segment>
     </unit>
     <unit id="fxGgGMw" name="retreats.table.head.site">
@@ -337,7 +349,7 @@
       </notes>
       <segment>
         <source>retreats.table.head.site</source>
-        <target>__retreats.table.head.site</target>
+        <target>Webseite</target>
       </segment>
     </unit>
     <unit id="2kGPPNK" name="retreats.table.head.event">
@@ -346,7 +358,7 @@
       </notes>
       <segment>
         <source>retreats.table.head.event</source>
-        <target>__retreats.table.head.event</target>
+        <target>Ereignis</target>
       </segment>
     </unit>
     <unit id="z44_LRk" name="retreats.table.head.speakers">
@@ -355,7 +367,7 @@
       </notes>
       <segment>
         <source>retreats.table.head.speakers</source>
-        <target>__retreats.table.head.speakers</target>
+        <target>Referent</target>
       </segment>
     </unit>
     <unit id="gYOavAc" name="retreats.table.head.type">
@@ -364,7 +376,7 @@
       </notes>
       <segment>
         <source>retreats.table.head.type</source>
-        <target>__retreats.table.head.type</target>
+        <target>Muster</target>
       </segment>
     </unit>
     <unit id="0j2BAw_" name="retreats.table.head.duration">
@@ -373,7 +385,7 @@
       </notes>
       <segment>
         <source>retreats.table.head.duration</source>
-        <target>__retreats.table.head.duration</target>
+        <target>Dauer</target>
       </segment>
     </unit>
     <unit id="33juit3" name="retreats.table.head.translations">
@@ -382,7 +394,7 @@
       </notes>
       <segment>
         <source>retreats.table.head.translations</source>
-        <target>__retreats.table.head.translations</target>
+        <target>Übers.</target>
       </segment>
     </unit>
     <unit id="7tmJeqV" name="retreats.table.head.selections">
@@ -391,7 +403,7 @@
       </notes>
       <segment>
         <source>retreats.table.head.selections</source>
-        <target>__retreats.table.head.selections</target>
+        <target>Auswählen</target>
       </segment>
     </unit>
     <unit id="3_6XCKH" name="filter.title.speakers">
@@ -400,7 +412,7 @@
       </notes>
       <segment>
         <source>filter.title.speakers</source>
-        <target>__filter.title.speakers</target>
+        <target>Referenten</target>
       </segment>
     </unit>
     <unit id="JtjutUk" name="filter.title.translations">
@@ -409,7 +421,7 @@
       </notes>
       <segment>
         <source>filter.title.translations</source>
-        <target>__filter.title.translations</target>
+        <target>Übersetzungen</target>
       </segment>
     </unit>
     <unit id="XneOvFD" name="admin.title">
@@ -418,7 +430,7 @@
       </notes>
       <segment>
         <source>admin.title</source>
-        <target></target>
+        <target>Dashboard</target>
       </segment>
     </unit>
     <unit id="JUG1sw_" name="calendar.registration.one.title">
@@ -427,7 +439,7 @@
       </notes>
       <segment>
         <source>calendar.registration.one.title</source>
-        <target></target>
+        <target>Anmelden / Anmeldung</target>
       </segment>
     </unit>
     <unit id="UuuHLxt" name="calendar.registration.one.body">
@@ -436,7 +448,7 @@
       </notes>
       <segment>
         <source>calendar.registration.one.body</source>
-        <target></target>
+        <target>Sie sind als %Name% eingeloggt, möchten Sie fortfahren?</target>
       </segment>
     </unit>
     <unit id="wbVpZSG" name="calendar.registration.one.title.connection">
@@ -445,7 +457,7 @@
       </notes>
       <segment>
         <source>calendar.registration.one.title.connection</source>
-        <target></target>
+        <target>Anmelden</target>
       </segment>
     </unit>
     <unit id="B0VCgO_" name="form.username">
@@ -463,7 +475,7 @@
       </notes>
       <segment>
         <source>form.password</source>
-        <target></target>
+        <target>Passwort (mindestens 8 Schriftzeichen)</target>
       </segment>
     </unit>
     <unit id="3NTTDax" name="form.ok">
@@ -472,7 +484,7 @@
       </notes>
       <segment>
         <source>form.ok</source>
-        <target></target>
+        <target>Ok</target>
       </segment>
     </unit>
     <unit id="Hu7hGnb" name="calendar.registration.one.title.registration">
@@ -482,7 +494,7 @@
       </notes>
       <segment>
         <source>calendar.registration.one.title.registration</source>
-        <target></target>
+        <target>Anmeldung</target>
       </segment>
     </unit>
     <unit id="JfsNCsD" name="form.civility.mr">
@@ -492,7 +504,7 @@
       </notes>
       <segment>
         <source>form.civility.mr</source>
-        <target></target>
+        <target>H.</target>
       </segment>
     </unit>
     <unit id="xsDsRUV" name="form.civility.mme">
@@ -502,7 +514,7 @@
       </notes>
       <segment>
         <source>form.civility.mme</source>
-        <target></target>
+        <target>Fr.</target>
       </segment>
     </unit>
     <unit id="drTwRMd" name="form.surname">
@@ -512,7 +524,13 @@
       </notes>
       <segment>
         <source>form.surname</source>
-        <target></target>
+        <target>Vorname</target>
+      </segment>
+    </unit>
+    <unit id="drTazeednwRMd" name="form.surname.contact">
+      <segment>
+        <source>form.surname.contact</source>
+        <target>* Vorname</target>
       </segment>
     </unit>
     <unit id="eqR0LZq" name="form.name">
@@ -522,7 +540,13 @@
       </notes>
       <segment>
         <source>form.name</source>
-        <target></target>
+        <target>Familienname</target>
+      </segment>
+    </unit>
+    <unit id="eqR0LZq" name="form.name.contact">
+      <segment>
+        <source>form.name.contact</source>
+        <target>* Familienname</target>
       </segment>
     </unit>
     <unit id="DOAWeTf" name="form.address">
@@ -631,7 +655,7 @@
       </notes>
       <segment>
         <source>calendar.registration.two.title</source>
-        <target></target>
+        <target>Teilnehmer</target>
       </segment>
     </unit>
     <unit id="UN_T7Q7" name="calendar.registration.two.title.you">
@@ -676,7 +700,7 @@
       </notes>
       <segment>
         <source>calendar.registration.three.title</source>
-        <target></target>
+        <target>Freigabe</target>
       </segment>
     </unit>
     <unit id="YR9sNBD" name="calendar.registration.three.body">
@@ -685,7 +709,8 @@
       </notes>
       <segment>
         <source>calendar.registration.three.body</source>
-        <target></target>
+        <target><![CDATA[<p><strong>Eine Antwort auf Ihre Anfrage wird Ihnen demnächst</strong>  per E-Mail oder postalisch zukommen, wenn sie keine E-Mail Adresse haben. Diese Antwort hängt hauptsächlich von den noch verfügbaren Plätzen und unseren Möglichkeiten, Sie unter den besten Bedingungen aufzunehmen ab. </p><p>Wenn Sie innerhalb einiger Minuten kein E-Mail erhalten, überprüfen Sie bitte den Spamordner. </p><p><i>Schutz personenbezogener Daten: Roche d'Or verpflichtet sich, der einzige und ausschließliche Empfänger der von Ihnen zur Verfügung gestellten Informationen zu sein. Weitere Informationen finden Sie in unserer Datenschutzerklärung, die die Anforderungen der Europäischen Datenschutzverordnung (EDPR) berücksichtigt.</i></p>
+				]]></target>
       </segment>
     </unit>
     <unit id="79GaqZh" name="calendar.registration.summary.title">
@@ -694,7 +719,7 @@
       </notes>
       <segment>
         <source>calendar.registration.summary.title</source>
-        <target></target>
+        <target>Zusammenfassung</target>
       </segment>
     </unit>
     <unit id="hyo40Kt" name="calendar.registration.summary.title.retreat">
@@ -703,7 +728,7 @@
       </notes>
       <segment>
         <source>calendar.registration.summary.title.retreat</source>
-        <target></target>
+        <target>Einkehrtage</target>
       </segment>
     </unit>
     <unit id="cf8D8wL" name="calendar.registration.summary.title.participants">
@@ -712,7 +737,7 @@
       </notes>
       <segment>
         <source>calendar.registration.summary.title.participants</source>
-        <target></target>
+        <target>Teilnehmer</target>
       </segment>
     </unit>
     <unit id="bThUzo_" name="form.modify">
@@ -998,6 +1023,36 @@
       <segment>
         <source>footer.termsPro</source>
         <target>Allgemeine Verkaufsbedingungen für Fachleute</target>
+      </segment>
+    </unit>
+    <unit id="rvJRfefbtjzfhtHqu" name="main.yes">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>main.yes</source>
+        <target>Ja</target>
+      </segment>
+    </unit>
+    <unit id="rvJRsdfbtjzfgjkmfefbtjzfhtHqu" name="main.no">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>main.no</source>
+        <target>Nein</target>
+      </segment>
+    </unit>
+    <unit id="mlokifhfnzg7856931" name="form.id">
+      <segment>
+        <source>form.id</source>
+        <target>Benutzer</target>
+      </segment>
+    </unit>
+    <unit id="yjqmSBsdfsn,15+984K" name="form.password-login">
+      <segment>
+        <source>form.password-login</source>
+        <target>Passwort</target>
       </segment>
     </unit>
   </file>

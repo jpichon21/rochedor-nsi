@@ -7,7 +7,7 @@
       </notes>
       <segment>
         <source>menu.one</source>
-        <target>__menu.one</target>
+        <target>The community and our houses</target>
       </segment>
     </unit>
     <unit id="td1g_X_" name="menu.two">
@@ -16,7 +16,7 @@
       </notes>
       <segment>
         <source>menu.two</source>
-        <target>__menu.two</target>
+        <target>Retreats</target>
       </segment>
     </unit>
     <unit id="_QTPx9b" name="menu.three">
@@ -25,7 +25,7 @@
       </notes>
       <segment>
         <source>menu.three</source>
-        <target>__menu.three</target>
+        <target>Calendar</target>
       </segment>
     </unit>
     <unit id="QokeGaI" name="menu.one.one">
@@ -34,7 +34,8 @@
       </notes>
       <segment>
         <source>menu.one.one</source>
-        <target>__menu.one.one</target>
+        <target><![CDATA[The <br>Community
+				]]></target>
       </segment>
     </unit>
     <unit id="DY.PFaX" name="menu.one.two">
@@ -43,7 +44,8 @@
       </notes>
       <segment>
         <source>menu.one.two</source>
-        <target>__menu.one.two</target>
+        <target><![CDATA[<br>Founders
+				]]></target>
       </segment>
     </unit>
     <unit id="ABGsIRc" name="menu.one.three">
@@ -52,7 +54,8 @@
       </notes>
       <segment>
         <source>menu.one.three</source>
-        <target>__menu.one.three</target>
+        <target><![CDATA[La <br>Roche d'Or
+				]]></target>
       </segment>
     </unit>
     <unit id="5vJ0eNt" name="menu.one.four">
@@ -61,7 +64,8 @@
       </notes>
       <segment>
         <source>menu.one.four</source>
-        <target>__menu.one.four</target>
+        <target><![CDATA[Les <br>Fontanilles
+				]]></target>
       </segment>
     </unit>
     <unit id="TfDK6ic" name="menu.two.one">
@@ -70,7 +74,8 @@
       </notes>
       <segment>
         <source>menu.two.one</source>
-        <target>__menu.two.one</target>
+        <target><![CDATA[Take part in <br>a retreat
+				]]></target>
       </segment>
     </unit>
     <unit id="zFwSu3O" name="menu.two.two">
@@ -79,7 +84,8 @@
       </notes>
       <segment>
         <source>menu.two.two</source>
-        <target>__menu.two.two</target>
+        <target><![CDATA[Retreats <br>at La Roche d'Or
+				]]></target>
       </segment>
     </unit>
     <unit id="OipSnvA" name="menu.two.three">
@@ -88,7 +94,8 @@
       </notes>
       <segment>
         <source>menu.two.three</source>
-        <target>__menu.two.three</target>
+        <target><![CDATA[Retreats <br>at Fontanilles
+				]]></target>
       </segment>
     </unit>
     <unit id="NEzhIK_" name="menu.two.four">
@@ -97,7 +104,8 @@
       </notes>
       <segment>
         <source>menu.two.four</source>
-        <target>__menu.two.four</target>
+        <target><![CDATA[<br>Speakers
+				]]></target>
       </segment>
     </unit>
     <unit id="d2ahr5A" name="menu.four">
@@ -106,7 +114,7 @@
       </notes>
       <segment>
         <source>menu.four</source>
-        <target>__menu.four</target>
+        <target>Useful information</target>
       </segment>
     </unit>
     <unit id="yImul.f" name="menu.five">
@@ -115,7 +123,7 @@
       </notes>
       <segment>
         <source>menu.five</source>
-        <target>__menu.five</target>
+        <target>Éditions Roche d'Or</target>
       </segment>
     </unit>
     <unit id="Uu.vp07" name="menu.six">
@@ -124,7 +132,7 @@
       </notes>
       <segment>
         <source>menu.six</source>
-        <target>__menu.six</target>
+        <target>Support us</target>
       </segment>
     </unit>
     <unit id="Ne9wirQ" name="menu.four.one">
@@ -133,7 +141,8 @@
       </notes>
       <segment>
         <source>menu.four.one</source>
-        <target>__menu.four.one</target>
+        <target><![CDATA[Useful information<br> for la Roche d'Or
+				]]></target>
       </segment>
     </unit>
     <unit id="t9xDnqi" name="menu.four.two">
@@ -142,7 +151,8 @@
       </notes>
       <segment>
         <source>menu.four.two</source>
-        <target>__menu.four.two</target>
+        <target><![CDATA[Useful information<br> for les Fontanilles
+				]]></target>
       </segment>
     </unit>
     <unit id="xm3Wl2D" name="menu.four.three">
@@ -160,7 +170,8 @@
       </notes>
       <segment>
         <source>menu.four.four</source>
-        <target>__menu.four.four</target>
+        <target><![CDATA[Friends<br> link
+				]]></target>
       </segment>
     </unit>
     <unit id="rehny29" name="menu.five.one">
@@ -169,7 +180,8 @@
       </notes>
       <segment>
         <source>menu.five.one</source>
-        <target>__menu.five.one</target>
+        <target><![CDATA[Editions<br> Roche d'Or
+				]]></target>
       </segment>
     </unit>
     <unit id="JQrk3we" name="menu.five.two">
@@ -178,7 +190,8 @@
       </notes>
       <segment>
         <source>menu.five.two</source>
-        <target>__menu.five.two</target>
+        <target><![CDATA[<br>New additions
+				]]></target>
       </segment>
     </unit>
     <unit id="Vvb_xEv" name="menu.five.three">
@@ -187,7 +200,8 @@
       </notes>
       <segment>
         <source>menu.five.three</source>
-        <target>__menu.five.three</target>
+        <target><![CDATA[<br>Collections
+				]]></target>
       </segment>
     </unit>
     <unit id="aY4iGkg" name="menu.six.one">
@@ -196,7 +210,8 @@
       </notes>
       <segment>
         <source>menu.six.one</source>
-        <target>__menu.six.one</target>
+        <target><![CDATA[Donate<br> time
+				]]></target>
       </segment>
     </unit>
     <unit id="nrz9.5B" name="menu.six.two">
@@ -205,7 +220,8 @@
       </notes>
       <segment>
         <source>menu.six.two</source>
-        <target>__menu.six.two</target>
+        <target><![CDATA[<br>Donate
+				]]></target>
       </segment>
     </unit>
     <unit id="_xIh0pv" name="filter.title.site">
@@ -964,6 +980,12 @@
       <segment>
         <source>password</source>
         <target></target>
+      </segment>
+    </unit>
+    <unit id="aVKbZqrhzdzdzdzbxcbgrhS" name="menu.cart">
+      <segment>
+        <source>menu.cart</source>
+        <target>Basket</target>
       </segment>
     </unit>
   </file>
