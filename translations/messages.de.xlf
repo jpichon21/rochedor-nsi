@@ -543,7 +543,7 @@
         <target>Familienname</target>
       </segment>
     </unit>
-    <unit id="eqR0LZq" name="form.name.contact">
+    <unit id="eqR0LzdzdzdzdgrjkZq" name="form.name.contact">
       <segment>
         <source>form.name.contact</source>
         <target>* Familienname</target>
@@ -556,7 +556,7 @@
       </notes>
       <segment>
         <source>form.address</source>
-        <target></target>
+        <target>Adresse</target>
       </segment>
     </unit>
     <unit id="ziUr.Qg" name="form.zipcode">
@@ -566,7 +566,7 @@
       </notes>
       <segment>
         <source>form.zipcode</source>
-        <target></target>
+        <target>Postleitzahl</target>
       </segment>
     </unit>
     <unit id="XUsHqAd" name="form.city">
@@ -1049,7 +1049,7 @@
         <target>Benutzer</target>
       </segment>
     </unit>
-    <unit id="yjqmSBsdfsn,15+984K" name="form.password-login">
+    <unit id="yjqmSBsdfsn984K" name="form.password-login">
       <segment>
         <source>form.password-login</source>
         <target>Passwort</target>
