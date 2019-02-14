@@ -16,8 +16,8 @@ import {
   checkVat,
   checkZipcode
 } from './order-api.js'
-import {limitMenuReduced} from './variables'
- 
+import { changeItem } from './page'
+
 /* Cart */
 
 const _cartId = parseInt($('.cart-json').html().trim())
@@ -35,6 +35,7 @@ moment.locale(_locale)
 const _countries = JSON.parse($('.countries-json').html().trim())
 
 /* Variables */
+
 let _you = {}
 let _delivery = {}
 let _total = {}
@@ -45,32 +46,6 @@ const itemCard = $('.item.card')
 const itemShipping = $('.item.shipping')
 const itemPayment = $('.item.payment')
 const itemTerms = $('.item.terms')
-const content = $('.content')
-
-/* Dropdowns */
-function backToTop () {
-  if (window.innerWidth >= limitMenuReduced) {
-    content[0].scroll({ top: 0, behavior: 'smooth' })
-  } else {
-    window.scroll({ top: 0, behavior: 'smooth' })
-  }
-}
-
-function changeItem (elmt) {
-  $('.dropdown .item').each(function () {
-    this.style.maxHeight = null
-    this.classList.remove('active')
-  })
-  elmt[0].classList.add('active')
-  elmt[0].style.maxHeight = elmt[0].scrollHeight + 'px'
-  backToTop()
-}
-
-$(document).ready(function () {
-  setTimeout(function () {
-    changeItem(itemConnection)
-  }, 500)
-})
 
 /* Button Radio */
 
@@ -156,7 +131,6 @@ function afterLogin (user, bypass) {
   _delivery.codcli = user.codcli
   _delivery.cartId = parseInt(_cartId)
   _you = user
-  $('.you-title').addClass('pointer')
   updateYouRender()
   updateCartRender()
   adlivUpdateForm('myAd')
@@ -294,12 +268,6 @@ itemCard.on('click', '.modify-you', function (event) {
   $(`.panel.modify`, itemCard).show()
   updateYouFormRender()
   changeItem(itemCard)
-})
-
-itemCard.on('click', '.you-title', function (event) {
-  if (_you.codcli) {
-    changeItem(itemCard)
-  }
 })
 
 function validateClient (event, context, callback) {

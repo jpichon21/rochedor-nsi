@@ -9,24 +9,18 @@
     .item {
       &.active {
         h2 {
-          &.pointer {
-            cursor: default;
-          }
           span {
             display: none;
           }
         }
       }
+      &.canOpen {
+        h2 {
+          cursor: pointer;
+        }
+      }
       h2 {
         cursor: default;
-        &.pointer {
-          cursor: pointer;
-          &:hover {
-            span {
-              opacity: 1;
-            }
-          }
-        }
         span {
           margin-left: 10px;
           font-size: 14px;
