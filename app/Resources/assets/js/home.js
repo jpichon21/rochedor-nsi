@@ -54,8 +54,10 @@ window.ontouchend = event => {
 
 const title = document.querySelector('.nouveautes h2')
 
-title.onclick = () => {
-  if (window.innerWidth < limitMenuReduced) {
-    body.classList.toggle('nouveautesOpened')
+if (title !== null) {
+  title.onclick = () => {
+    if (window.innerWidth < limitMenuReduced) {
+      body.classList.toggle('nouveautesOpened')
+    }
   }
 }
