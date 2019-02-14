@@ -406,7 +406,8 @@ class OrderController extends Controller
             } elseif ($commande->getDestLiv() === "Font") {
                 $addCom = $this->translator->trans('order.notify.client.font.adliv');
             } else {
-                $addCom = $commande->getAdLiv();
+                $addCom = json_decode($commande->getAdLiv(), true);
+                $addCom = $addCom['prenom'].' '.$addCom['nom'].' '.$addCom['adresse'].' '.$addCom['zipcode'].' '.$addCom['city'];
             }
 
             return $this->render('order/payment-return.html.twig', [
@@ -562,6 +563,9 @@ class OrderController extends Controller
 
     private function notifyClient($order, $locale, $user)
     {
+        $adliv = json_decode($order->getAdLiv(), true);
+        $adliv = $adliv['prenom'].' '.$adliv['nom'].' '.$adliv['adresse'].' '.$adliv['zipcode'].' '.$adliv['city'];
+
         $this->mailer->send(
             [
                 $user->getEmail(),
@@ -570,6 +574,7 @@ class OrderController extends Controller
             $this->translator->trans('order.notify.client.subject'),
             $this->renderView('emails/order-notify-order-'.$locale.'.html.twig', [
                 'order' => $order,
+                'adliv' => $adliv
                 ])
         );
 
