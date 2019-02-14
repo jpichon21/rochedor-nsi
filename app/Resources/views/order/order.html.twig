@@ -221,8 +221,11 @@
 </script>
 <script type="text/template" class="you-template">
     <div class="you">
-        <p><%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
-            <%= _.escape(you.adresse) %> <%= _.escape(you.cp) %> <%= _.escape(you.ville) %> (<%= _.escape(you.pays) %>)</p>
+        <p>
+            <b>{{ 'you.billing' | trans | raw }}</b><br>
+            <%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
+            <%= _.escape(you.adresse) %> <%= _.escape(you.cp) %> <%= _.escape(you.ville) %> (<%= _.escape(you.pays) %>)
+        </p>
     </div>
 </script>
 <script type="text/template" class="terms-template">
@@ -235,11 +238,7 @@
 <script type="text/template" class="delivery-template">
     <h3>{{'order.summary.title.delivery' | trans}}</h3>
     <% if (delivery.adliv) { %>
-        <p><b>Adresse de facturation</b><br>
-            <%= _.escape(you.prenom) %> <%= _.escape(you.nom) %>
-            <br>
-            <%= _.escape(you.adresse) %> <%= _.escape(you.cp) %> <%= _.escape(you.ville) %> (<%= _.escape(you.pays) %>)</p>
-        <p><b>Adresse de livraison</b><br>
+        <p><b>{{ 'order.registration.choose.adliv' | trans | raw }}</b><br>
             <%= delivery.adliv.prenom %> <%= delivery.adliv.nom %>
             <br>
             <% if (delivery.destliv === 'Roche') { %>

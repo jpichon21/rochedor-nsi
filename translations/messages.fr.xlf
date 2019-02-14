@@ -1341,7 +1341,7 @@
     <unit id="biPtN4s" name="order.registration.choose.adliv">
       <segment>
         <source>order.registration.choose.adliv</source>
-        <target>Votre adresse de livraison</target>
+        <target>Adresse de livraison</target>
       </segment>
     </unit>
     <unit id="TKTwy0K" name="form.choose.adliv">
@@ -2976,6 +2976,12 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>cart.product.wouldremove</source>
         <target>Voulez vous supprimer ces produits</target>
+      </segment>
+    </unit>
+    <unit id="biP124tN4s" name="you.billing">
+      <segment>
+        <source>you.billing</source>
+        <target>Adresse de facturation</target>
       </segment>
     </unit>
   </file>
