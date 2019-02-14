@@ -2061,7 +2061,7 @@
     <unit id="YQKEE1i" name="order.summary.title.delivery">
       <segment>
         <source>order.summary.title.delivery</source>
-        <target>Adresse</target>
+        <target>Livraison</target>
       </segment>
     </unit>
     <unit id="vmEWF6k" name="order.summary.title.total">
@@ -2966,25 +2966,25 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>TVA</target>
       </segment>
     </unit>
-    <unit id="RrOccFs" name="cart.product.notremoved">
+    <unit id="xAYLLaQ" name="cart.product.notremoved">
       <segment>
         <source>cart.product.notremoved</source>
         <target>Ces produits n'on pas été supprimés</target>
       </segment>
     </unit>
-    <unit id="RrezrfzOccFs" name="cart.product.wouldremove">
+    <unit id="EtH91dF" name="cart.product.wouldremove">
       <segment>
         <source>cart.product.wouldremove</source>
-        <target>Voulez vous supprimer ces produits</target>
+        <target>Voulez-vous supprimer ce produit</target>
       </segment>
     </unit>
-    <unit id="biP124tN4s" name="you.billing">
+    <unit id="5L9Opva" name="you.billing">
       <segment>
         <source>you.billing</source>
         <target>Cette adresse sera considerée comme votre adresse de facturation</target>
       </segment>
     </unit>
-    <unit id="biP124teffNe4s" name="order.change.price">
+    <unit id="XWixlRU" name="order.change.price">
       <segment>
         <source>order.change.price</source>
         <target>Les prix ont été mis à jour suite à l'adresse de livraison renseignée.</target>
