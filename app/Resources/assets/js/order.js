@@ -651,7 +651,6 @@ function validateDeleteCartline (event, product) {
     .then(() => {
       deleteCartline(product)
     })
-    .catch(() => upFlashbag(i18n.trans('cart.product.notremoved')))
 }
 
 function countTotalProduct (products) {
