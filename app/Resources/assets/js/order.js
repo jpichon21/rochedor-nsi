@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import moment from 'moment'
 import { getContact, getDelivery } from './sample'
-import { upFlashbag } from './popup'
+import { upFlashbag, upConfirmbox } from './popup'
 import { upLoader, downLoader } from './loader'
 import I18n from './i18n'
 import {
@@ -592,7 +592,7 @@ $('.cart-render').on('click', '.patchproduct', function (event) {
 })
 
 $('.cart-render').on('click', '.removecartline', function (event) {
-  remCartline(event, $(this).attr('data-id'))
+  validateDeleteCartline(event, $(this).attr('data-id'))
 })
 
 $('.detailcart-render').on('click', '.patchproduct', function (event) {
@@ -600,7 +600,7 @@ $('.detailcart-render').on('click', '.patchproduct', function (event) {
 })
 
 $('.detailcart-render').on('click', '.removecartline', function (event) {
-  remCartline(event, $(this).attr('data-id'))
+  validateDeleteCartline(event, $(this).attr('data-id'))
 })
 
 function getCartData (event, product, action) {
@@ -626,8 +626,7 @@ function getCartData (event, product, action) {
     .catch(error => upFlashbag(error))
 }
 
-function remCartline (event, product) {
-  event.preventDefault()
+function deleteCartline (product) {
   let codprd = product
   removeCartline(_cartId, codprd)
     .then(() => {
@@ -644,7 +643,15 @@ function remCartline (event, product) {
           }
         })
     })
-    .catch(error => upFlashbag(error))
+}
+
+function validateDeleteCartline (event, product) {
+  event.preventDefault()
+  upConfirmbox(i18n.trans('cart.product.wouldremove'))
+    .then(() => {
+      deleteCartline(product)
+    })
+    .catch(() => upFlashbag(i18n.trans('cart.product.notremoved')))
 }
 
 function countTotalProduct (products) {

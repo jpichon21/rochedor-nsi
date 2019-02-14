@@ -2966,10 +2966,16 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>TVA</target>
       </segment>
     </unit>
-    <unit id="RrOccFs" name="cart.product.removed">
+    <unit id="RrOccFs" name="cart.product.notremoved">
       <segment>
-        <source>cart.product.removed</source>
-        <target>Ces produits ont bien été supprimés</target>
+        <source>cart.product.notremoved</source>
+        <target>Ces produits n'on pas été supprimés</target>
+      </segment>
+    </unit>
+    <unit id="RrezrfzOccFs" name="cart.product.wouldremove">
+      <segment>
+        <source>cart.product.wouldremove</source>
+        <target>Voulez vous supprimer ces produits</target>
       </segment>
     </unit>
   </file>
