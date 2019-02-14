@@ -79,7 +79,7 @@ class ProductController extends Controller
             [
                 'product' => $product,
                 'taxes' => $taxes,
-                'cartCount' => $this->cartService->getCartCount()
+                'cartCount' => $this->cartService->getCartCount($request->cookies->get('cart'))
             ]
         );
     }
@@ -105,7 +105,7 @@ class ProductController extends Controller
                 'products' => $products,
                 'availableLocales' => $availableLocales,
                 'page' => $contentDocument,
-                'cartCount' => $this->cartService->getCartCount()
+                'cartCount' => $this->cartService->getCartCount($request->cookies->get('cart'))
             ]
         );
     }
@@ -164,7 +164,7 @@ class ProductController extends Controller
                 'themes' => $themes,
                 'productsCategorized' => $productsCategorized,
                 'products' => $products,
-                'cartCount' => $this->cartService->getCartCount()
+                'cartCount' => $this->cartService->getCartCount($request->cookies->get('cart'))
             ]
         );
     }

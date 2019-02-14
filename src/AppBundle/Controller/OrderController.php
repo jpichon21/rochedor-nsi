@@ -376,8 +376,8 @@ class OrderController extends Controller
      */
     public function paymentReturnAction($method, $status, Request $request, PaypalService $paypalService)
     {
-        $session = new Session();
-        $cartId = $session->get('cart');
+        $cookies = $request->cookies;
+        $cartId = $cookies->get('cart');
         $cart = $this->cartRepository->find($cartId);
         
         if ($status === 'cancel') {
@@ -388,7 +388,9 @@ class OrderController extends Controller
             if ($cart) {
                 $this->em->remove($cart);
                 $this->em->flush();
-                $session->remove('cart');
+                $response = new Response;
+                $response->headers->clearCookie('cart');
+                $response->send();
             }
         }
         
@@ -412,13 +414,13 @@ class OrderController extends Controller
                 'addCom' =>  $addCom,
                 'status' => $status,
                 'method' => $method,
-                'cartCount' => $this->cartService->getCartCount()
+                'cartCount' => $this->cartService->getCartCount($cookies->get('cart'))
             ]);
         } else {
             return $this->render('order/payment-return.html.twig', [
                 'status' => $status,
                 'method' => $method,
-                'cartCount' => $this->cartService->getCartCount()
+                'cartCount' => $this->cartService->getCartCount($cookies->get('cart'))
             ]);
         }
     }
@@ -601,7 +603,6 @@ class OrderController extends Controller
         }
 
         $cookies = $request->cookies;
-        $session = new Session();
         
         $countriesJSON = array();
         $countries = $this->tpaysRepository->findAllCountry();
@@ -612,18 +613,18 @@ class OrderController extends Controller
             );
         }
 
-        $cartId = $session->get('cart');
+        $cartId = $cookies->get('cart');
         $cart = $this->cartRepository->find($cartId);
         
         if ($cartId === null) {
             return $this->render('order/order-error.html.twig', [
-                'cartCount' => $this->cartService->getCartCount()
+                'cartCount' => $this->cartService->getCartCount($cookies->get('cart'))
             ]);
         }
 
         if (empty($cart->getCartlines()->getValues())) {
             return $this->render('order/order-error.html.twig', [
-                'cartCount' => $this->cartService->getCartCount()
+                'cartCount' => $this->cartService->getCartCount($cookies->get('cart'))
             ]);
         }
         
@@ -658,7 +659,7 @@ class OrderController extends Controller
             'page' => $page,
             'countries' => $countriesJSON,
             'availableLocales' => $availableLocales,
-            'cartCount' => $this->cartService->getCartCount()
+            'cartCount' => $this->cartService->getCartCount($cookies->get('cart'))
         ]);
     }
 }

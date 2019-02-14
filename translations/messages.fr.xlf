@@ -2946,7 +2946,7 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>click.terms</source>
         <target><![CDATA[En cliquant sur <i>Valider la commande et procéder au paiement</i>, <br>j'accepte les <a href="%link%">Conditions Générales de Vente</a>.]]></target>
-        </segment>
+      </segment>
     </unit>
     <unit id="8BOf13k" name="table.header.price.ttc">
       <segment>
@@ -2964,6 +2964,12 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>table.header.tax.rate</source>
         <target>TVA</target>
+      </segment>
+    </unit>
+    <unit id="RrOccFs" name="cart.product.removed">
+      <segment>
+        <source>cart.product.removed</source>
+        <target>Ces produits ont bien été supprimés</target>
       </segment>
     </unit>
   </file>

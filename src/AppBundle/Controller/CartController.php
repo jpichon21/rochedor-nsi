@@ -23,6 +23,7 @@ use AppBundle\Repository\ProductRepository;
 use AppBundle\Entity\Cartline;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\HttpFoundation\Cookie;
 
 
 class CartController extends Controller
@@ -69,17 +70,14 @@ class CartController extends Controller
         if ($product === null) {
             return $this->redirectToRoute('product-series-' . $request->getLocale());
         }
-        $cartId = $session->get('cart');
-        $cart = $this->cartRepository->find($cartId);
+        $cartId = $request->cookies->get('cart');
+        $cart = $this->cartRepository->find($cartId);        
         if ($cart === null) {
-            $cart = new Cart();
-            $this->em->persist($cart);
-            $this->em->flush();
+            $cart = $this->createCart();
         }
         $cartLine = $this->addProduct($cart, $product);
         $this->em->persist($cartLine);
         $this->em->flush();
-        $session->set('cart', $cart->getId());
         $session->getFlashBag()->add('info', 'cart.product.added');
         return $this->redirect($request->server->get('HTTP_REFERER'));
     }
@@ -100,24 +98,14 @@ class CartController extends Controller
                 'message' => 'missing parameters'
             ]);
         }
-
-        $session = new Session();
         $product = $this->productRepository->find($productId);
-        $cartId = $session->get('cart');
-
+        $cartId = $request->cookies->get('cart');
         $cart = $this->cartRepository->find($cartId);
-        if ($cart === null) {
-            $cart = new Cart();
-            $this->em->persist($cart);
-            $this->em->flush();
-        }
-
         if ($typeAction === "add") {
             $cartLine = $this->addProduct($cart, $product);
         } else {
             $cartLine = $this->removeProduct($cart, $product);
         }
-
         $this->em->persist($cartLine);
         $this->em->flush();
 
@@ -183,6 +171,11 @@ class CartController extends Controller
         return $cartLine;
     }
 
+    /**
+     * Remove an entire cartline from a cart
+     *
+     * @param Cartline
+    */
     private function removeCartline(Cartline $cartLine){
         $cartLine->setCart(null);
         $this->em->persist($cartLine);
@@ -191,4 +184,23 @@ class CartController extends Controller
         $session->getFlashBag()->add('info', 'cart.product.removed');
     }
     
+    /**
+     * Create a cart object and a cart cookies
+     *
+     * @return Cart $cart
+     */
+    private function createCart() {
+        $cart = new Cart();
+        $this->em->persist($cart);
+        $this->em->flush();
+        $res = new Response();
+        $cookie = new Cookie(
+            'cart',
+            $cart->getId(),
+            time() + ( 2 * 365 * 24 * 60 * 60)
+        );
+        $res->headers->setCookie( $cookie );
+        $res->send();
+        return $cart;
+    }
 }
