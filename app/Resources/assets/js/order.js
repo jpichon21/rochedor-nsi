@@ -152,7 +152,6 @@ function updateDetailcartRender () {
     country: _country,
     sum: _sum
   }))
-  console.log(_country)
 }
 
 /* Actions */
