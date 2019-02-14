@@ -2975,7 +2975,7 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
     <unit id="EtH91dF" name="cart.product.wouldremove">
       <segment>
         <source>cart.product.wouldremove</source>
-        <target>Voulez-vous supprimer ce produit</target>
+        <target>Voulez-vous supprimer ce produit ?</target>
       </segment>
     </unit>
     <unit id="5L9Opva" name="you.billing">
