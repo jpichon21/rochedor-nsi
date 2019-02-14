@@ -149,8 +149,10 @@ function updateDetailcartRender () {
   let _sum = 0
   $('.detailcart-render').html(detailcartTemplate({
     product: _total.product,
+    country: _country,
     sum: _sum
   }))
+  console.log(_country)
 }
 
 /* Actions */

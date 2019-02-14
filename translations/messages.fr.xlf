@@ -2061,7 +2061,7 @@
     <unit id="YQKEE1i" name="order.summary.title.delivery">
       <segment>
         <source>order.summary.title.delivery</source>
-        <target>Livraison</target>
+        <target>Adresse</target>
       </segment>
     </unit>
     <unit id="vmEWF6k" name="order.summary.title.total">
@@ -2981,7 +2981,13 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
     <unit id="biP124tN4s" name="you.billing">
       <segment>
         <source>you.billing</source>
-        <target>Adresse de facturation</target>
+        <target>Cette adresse sera considerée comme votre adresse de facturation</target>
+      </segment>
+    </unit>
+    <unit id="biP124teffNe4s" name="order.change.price">
+      <segment>
+        <source>order.change.price</source>
+        <target>Les prix ont été mis à jour suite à l'adresse de livraison renseignée.</target>
       </segment>
     </unit>
   </file>
