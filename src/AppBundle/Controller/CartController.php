@@ -196,8 +196,7 @@ class CartController extends Controller
         $res = new Response();
         $cookie = new Cookie(
             'cart',
-            $cart->getId(),
-            time() + ( 2 * 365 * 24 * 60 * 60)
+            $cart->getId()
         );
         $res->headers->setCookie( $cookie );
         $res->send();
