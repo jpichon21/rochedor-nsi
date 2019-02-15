@@ -466,7 +466,7 @@
       </notes>
       <segment>
         <source>form.username</source>
-        <target></target>
+        <target>Nutzername</target>
       </segment>
     </unit>
     <unit id="yjqmSBK" name="form.password">
@@ -576,7 +576,7 @@
       </notes>
       <segment>
         <source>form.city</source>
-        <target></target>
+        <target>Gemeinde</target>
       </segment>
     </unit>
     <unit id="f95h2nt" name="form.country">
@@ -586,7 +586,7 @@
       </notes>
       <segment>
         <source>form.country</source>
-        <target></target>
+        <target>Staat</target>
       </segment>
     </unit>
     <unit id="vLNMGXN" name="form.phone">
@@ -596,7 +596,7 @@
       </notes>
       <segment>
         <source>form.phone</source>
-        <target></target>
+        <target>Telefon</target>
       </segment>
     </unit>
     <unit id="uD_aUux" name="form.mobile">
@@ -606,7 +606,7 @@
       </notes>
       <segment>
         <source>form.mobile</source>
-        <target></target>
+        <target>Handy</target>
       </segment>
     </unit>
     <unit id="3IGOm9D" name="form.email">
@@ -616,7 +616,7 @@
       </notes>
       <segment>
         <source>form.email</source>
-        <target></target>
+        <target>E-Mail</target>
       </segment>
     </unit>
     <unit id="2G58i_f" name="form.birthday">
@@ -626,7 +626,7 @@
       </notes>
       <segment>
         <source>form.birthday</source>
-        <target></target>
+        <target>Geburtsdatum (TT.MM.JJJJ)</target>
       </segment>
     </unit>
     <unit id="P7A68ag" name="form.profession">
@@ -636,7 +636,7 @@
       </notes>
       <segment>
         <source>form.profession</source>
-        <target></target>
+        <target>Beruf</target>
       </segment>
     </unit>
     <unit id="kohqA_C" name="form.submit">
@@ -646,7 +646,7 @@
       </notes>
       <segment>
         <source>form.submit</source>
-        <target></target>
+        <target>Ok</target>
       </segment>
     </unit>
     <unit id="X6w.m5l" name="calendar.registration.two.title">
@@ -664,7 +664,7 @@
       </notes>
       <segment>
         <source>calendar.registration.two.title.you</source>
-        <target></target>
+        <target>Sie</target>
       </segment>
     </unit>
     <unit id="__z09IL" name="calendar.registration.two.title.registered">
@@ -673,7 +673,7 @@
       </notes>
       <segment>
         <source>calendar.registration.two.title.registered</source>
-        <target></target>
+        <target>Mit Ihnen angemeldet</target>
       </segment>
     </unit>
     <unit id="mfItNzY" name="calendar.registration.two.add_participant">
@@ -682,7 +682,7 @@
       </notes>
       <segment>
         <source>calendar.registration.two.add_participant</source>
-        <target></target>
+        <target>+ Einen Teilnehmer hinzufügen</target>
       </segment>
     </unit>
     <unit id="mV4kdh." name="calendar.registration.two.validate_participants">
@@ -691,7 +691,7 @@
       </notes>
       <segment>
         <source>calendar.registration.two.validate_participants</source>
-        <target></target>
+        <target>Die Anmeldung bestätigen</target>
       </segment>
     </unit>
     <unit id="UzRFO5C" name="calendar.registration.three.title">
@@ -746,7 +746,7 @@
       </notes>
       <segment>
         <source>form.modify</source>
-        <target></target>
+        <target>Ändern</target>
       </segment>
     </unit>
     <unit id="kDOH2ki" name="form.participate">
@@ -755,7 +755,7 @@
       </notes>
       <segment>
         <source>form.participate</source>
-        <target></target>
+        <target>Nimmt teil</target>
       </segment>
     </unit>
     <unit id="YWzPHVB" name="calendar.notify.attendee.subject">
@@ -764,7 +764,7 @@
       </notes>
       <segment>
         <source>calendar.notify.attendee.subject</source>
-        <target></target>
+        <target>Anmeldungsanfrage</target>
       </segment>
     </unit>
     <unit id="LJQqtt5" name="security.reset_password_request.subject">
@@ -783,7 +783,7 @@
       </notes>
       <segment>
         <source>security.reset.token_not_found</source>
-        <target></target>
+        <target>Diese Rücknahmeanforderung ist nicht mehr gültig oder existiert nicht.</target>
       </segment>
     </unit>
     <unit id="cUuO.r4" name="security.password_reset_success_message">
@@ -792,7 +792,7 @@
       </notes>
       <segment>
         <source>security.password_reset_success_message</source>
-        <target></target>
+        <target>Ihr neues Passwort wurde registriert, Sie können sich nunmehr mit Ihrem neuen Passwort anmelden.</target>
       </segment>
     </unit>
     <unit id="OF6XF6p" name="form.label.email">
@@ -802,7 +802,7 @@
       </notes>
       <segment>
         <source>form.label.email</source>
-        <target></target>
+        <target>E-Mail Adresse</target>
       </segment>
     </unit>
     <unit id="RmsDr53" name="form.label.password">
@@ -812,7 +812,13 @@
       </notes>
       <segment>
         <source>form.label.password</source>
-        <target></target>
+        <target>Passwort</target>
+      </segment>
+    </unit>
+    <unit id="RmgerhopjjazevbsDr53" name="security.reset_password_request.subject">
+      <segment>
+        <source>security.reset_password_request.subject</source>
+        <target>Passwort-Neudefinition</target>
       </segment>
     </unit>
     <unit id="otIm1Q." name="form.label.connection">
@@ -821,7 +827,7 @@
       </notes>
       <segment>
         <source>form.label.connection</source>
-        <target></target>
+        <target>Identifizierung</target>
       </segment>
     </unit>
     <unit id="lJ9kDJr" name="form.label.male">
@@ -830,7 +836,7 @@
       </notes>
       <segment>
         <source>form.label.male</source>
-        <target></target>
+        <target>H.</target>
       </segment>
     </unit>
     <unit id="xvipkdQ" name="form.label.female">
@@ -839,7 +845,7 @@
       </notes>
       <segment>
         <source>form.label.female</source>
-        <target></target>
+        <target>Fr.</target>
       </segment>
     </unit>
     <unit id="yeuJugN" name="form.label.miss">
@@ -857,7 +863,7 @@
       </notes>
       <segment>
         <source>form.label.father</source>
-        <target></target>
+        <target>Pater</target>
       </segment>
     </unit>
     <unit id="NDJSbka" name="form.label.sister">
@@ -866,7 +872,7 @@
       </notes>
       <segment>
         <source>form.label.sister</source>
-        <target></target>
+        <target>Ordensschwester</target>
       </segment>
     </unit>
     <unit id="cX.x2TJ" name="form.label.brother">
@@ -875,7 +881,7 @@
       </notes>
       <segment>
         <source>form.label.brother</source>
-        <target></target>
+        <target>Ordensbruder</target>
       </segment>
     </unit>
     <unit id="_zkUWKW" name="form.label.lastname">
@@ -884,7 +890,7 @@
       </notes>
       <segment>
         <source>form.label.lastname</source>
-        <target></target>
+        <target>Name</target>
       </segment>
     </unit>
     <unit id="Bnb8Fxq" name="form.label.firstname">
@@ -893,7 +899,7 @@
       </notes>
       <segment>
         <source>form.label.firstname</source>
-        <target></target>
+        <target>Vorname</target>
       </segment>
     </unit>
     <unit id="nWzdT1I" name="form.label.gender">
@@ -902,7 +908,7 @@
       </notes>
       <segment>
         <source>form.label.gender</source>
-        <target></target>
+        <target>Anrede</target>
       </segment>
     </unit>
     <unit id="fpwiOEp" name="form.label.address">
@@ -911,7 +917,7 @@
       </notes>
       <segment>
         <source>form.label.address</source>
-        <target></target>
+        <target>Adresse</target>
       </segment>
     </unit>
     <unit id="YCgup4i" name="form.label.zipcode">
@@ -920,7 +926,7 @@
       </notes>
       <segment>
         <source>form.label.zipcode</source>
-        <target></target>
+        <target>Postleitzahl</target>
       </segment>
     </unit>
     <unit id="uHJcphH" name="form.label.city">
@@ -929,7 +935,7 @@
       </notes>
       <segment>
         <source>form.label.city</source>
-        <target></target>
+        <target>Gemeinde</target>
       </segment>
     </unit>
     <unit id="FgNmpx1" name="form.label.country">
@@ -938,7 +944,7 @@
       </notes>
       <segment>
         <source>form.label.country</source>
-        <target></target>
+        <target>Staat</target>
       </segment>
     </unit>
     <unit id="WfF5F2." name="form.label.phone">
@@ -947,7 +953,7 @@
       </notes>
       <segment>
         <source>form.label.phone</source>
-        <target></target>
+        <target>Telefon</target>
       </segment>
     </unit>
     <unit id="Ovness." name="form.label.mobile">
@@ -956,7 +962,7 @@
       </notes>
       <segment>
         <source>form.label.mobile</source>
-        <target></target>
+        <target>Handy</target>
       </segment>
     </unit>
     <unit id="CiLuyEH" name="form.label.birthday">
@@ -965,7 +971,7 @@
       </notes>
       <segment>
         <source>form.label.birthday</source>
-        <target></target>
+        <target>Geburtsdatum</target>
       </segment>
     </unit>
     <unit id="Y4ieqkz" name="form.label.password_repeat">
@@ -974,7 +980,7 @@
       </notes>
       <segment>
         <source>form.label.password_repeat</source>
-        <target></target>
+        <target>Wiederholen</target>
       </segment>
     </unit>
     <unit id="1GEr2LD" name="form.label.job">
@@ -983,7 +989,7 @@
       </notes>
       <segment>
         <source>form.label.job</source>
-        <target></target>
+        <target>Beruf</target>
       </segment>
     </unit>
     <unit id="XohImNo" name="password">
@@ -992,7 +998,7 @@
       </notes>
       <segment>
         <source>password</source>
-        <target></target>
+        <target>Passwort</target>
       </segment>
     </unit>
     <unit id="aVKbZqrhgrhS" name="menu.cart">
@@ -1053,6 +1059,1735 @@
       <segment>
         <source>form.password-login</source>
         <target>Passwort</target>
+      </segment>
+    </unit>
+    <unit id="YWgfhnlffjenabzPHVB" name="news.title">
+      <segment>
+        <source>news.title</source>
+        <target>Neuheit</target>
+      </segment>
+    </unit>
+    <unit id="YWnojpspjogrenabzPHVB" name="news.button.discover">
+      <segment>
+        <source>news.button.discover</source>
+        <target>Das Produkt entdecken</target>
+      </segment>
+    </unit>
+    <unit id="aV5487kcbsgqKbZqrhgrhS" name="security.register">
+      <segment>
+        <source>security.register</source>
+        <target>Anmeldung</target>
+      </segment>
+    </unit>
+    <unit id="LkiujcbjenabzPHVB" name="calendar.registration.intro">
+      <segment>
+        <source>calendar.registration.intro</source>
+        <target><![CDATA[Sie sind dabei, sich für Einkehrtage anzumelden. <br> Füllen Sie die folgenden Informationen aus, wenn Sie fortfahren möchten, andernfalls klicken Sie auf <a href="%link%">hier</a>, um zum Kalender zurückzukehren.
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="EHnUJsc" name="calendar.registration.two.title.modify">
+      <segment>
+        <source>calendar.registration.two.title.modify</source>
+        <target>Einen Teilnehmer ändern</target>
+      </segment>
+    </unit>
+    <unit id="g5egomQ" name="calendar.registration.two.title.registration">
+      <segment>
+        <source>calendar.registration.two.title.registration</source>
+        <target>Einen Teilnehmer hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="s5pfV6x" name="calendar.registration.one.body.connected">
+      <segment>
+        <source>calendar.registration.one.body.connected</source>
+        <target><![CDATA[
+					Sie sind als <i>%Name%%</i> eingeloggt, möchten Sie fortfahren?
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="L5.6B.Q" name="form.yes">
+      <segment>
+        <source>form.yes</source>
+        <target>Ja</target>
+      </segment>
+    </unit>
+    <unit id="dS5kpgF" name="form.no">
+      <segment>
+        <source>form.no</source>
+        <target>Nein</target>
+      </segment>
+    </unit>
+    <unit id="UfVO5kV" name="calendar.registration.one.body.disconnected">
+      <segment>
+        <source>calendar.registration.one.body.disconnected</source>
+        <target>Haben Sie schon an Einkehrtagent in Roche d'Or oder den Fontanilles teilgenommen? (wir würden gerne wissen, ob wir Ihre Kontaktdaten bereits haben oder nicht)</target>
+      </segment>
+    </unit>
+    <unit id="Hp62ZON" name="form.continue">
+      <segment>
+        <source>form.continue</source>
+        <target>Fortfahren</target>
+      </segment>
+    </unit>
+    <unit id="9iZriSj" name="form.disconnect">
+      <segment>
+        <source>form.disconnect</source>
+        <target>Sich abmelden</target>
+      </segment>
+    </unit>
+    <unit id="wYBophx" name="calendar.registration.two.title.modify.you">
+      <segment>
+        <source>calendar.registration.two.title.modify.you</source>
+        <target>Ihre Datei ändern</target>
+      </segment>
+    </unit>
+    <unit id="PtppaFL" name="calendar.registration.two.title.modify.him">
+      <segment>
+        <source>calendar.registration.two.title.modify.him</source>
+        <target>Einen Teilnehmer ändern</target>
+      </segment>
+    </unit>
+    <unit id="kswmam." name="form.transport">
+      <segment>
+        <source>form.transport</source>
+        <target>Sie kommen</target>
+      </segment>
+    </unit>
+    <unit id="g8r0.vw" name="form.memo">
+      <segment>
+        <source>form.memo</source>
+        <target>Kommentar</target>
+      </segment>
+    </unit>
+    <unit id="qZI9mI2" name="form.transport.perso">
+      <segment>
+        <source>form.transport.perso</source>
+        <target>Kommt mit eigenen Mitteln</target>
+      </segment>
+    </unit>
+    <unit id="qeUDh4t" name="form.transport.train">
+      <segment>
+        <source>form.transport.train</source>
+        <target>Kommt mit dem Zug</target>
+      </segment>
+    </unit>
+    <unit id="tjBn22A" name="form.transport.avion">
+      <segment>
+        <source>form.transport.avion</source>
+        <target>Kommt mit dem Flugzeug</target>
+      </segment>
+    </unit>
+    <unit id="l5g0cdb" name="form.transport.bus">
+      <segment>
+        <source>form.transport.bus</source>
+        <target>Kommt mit dem Bus</target>
+      </segment>
+    </unit>
+    <unit id="lTZDt9R" name="form.label.submit">
+      <segment>
+        <source>form.label.submit</source>
+        <target>Ok</target>
+      </segment>
+    </unit>
+    <unit id="fF5Ilm0" name="form.message.verify_transport">
+      <segment>
+        <source>form.message.verify_transport</source>
+        <target>Bitte geben Sie für die folgenden Teilnehmer die Beförderungsart an:</target>
+      </segment>
+    </unit>
+    <unit id="0uJUpBY" name="form.message.parent_must_be_adult">
+      <segment>
+        <source>form.message.parent_must_be_adult</source>
+        <target>Kinder müssen von einer Person über 18 Jahren begleitet werden.</target>
+      </segment>
+    </unit>
+    <unit id="Cr.q521" name="form.message.date_invalid">
+      <segment>
+        <source>form.message.date_invalid</source>
+        <target>Das von Ihnen eingegebene Datum ist ungültig</target>
+      </segment>
+    </unit>
+    <unit id="RJ.6oSN" name="form.no_participants">
+      <segment>
+        <source>form.no_participants</source>
+        <target>kein Teilnehmer</target>
+      </segment>
+    </unit>
+    <unit id="Ux7laCX" name="form.civil">
+      <segment>
+        <source>form.civil</source>
+        <target>Anrede</target>
+      </segment>
+    </unit>
+    <unit id="vJZGASh" name="form.relation">
+      <segment>
+        <source>form.relation</source>
+        <target>Beziehung</target>
+      </segment>
+    </unit>
+    <unit id="mKcWSOI" name="form.colp">
+      <segment>
+        <source>form.colp</source>
+        <target>Organisateur</target>
+      </segment>
+    </unit>
+    <unit id="edrUzMC" name="calendar.days">
+      <segment>
+        <source>calendar.days</source>
+        <target>t</target>
+      </segment>
+    </unit>
+    <unit id="A9HWtXN" name="filter.raz.button">
+      <segment>
+        <source>filter.raz.button</source>
+        <target>Filter löschen</target>
+      </segment>
+    </unit>
+    <unit id="cvwzHYX" name="form.password.reset">
+      <segment>
+        <source>form.password.reset</source>
+        <target>Passwort zurücksetzen</target>
+      </segment>
+    </unit>
+    <unit id="kzkX1MK" name="security.bad_credentials">
+      <segment>
+        <source>security.bad_credentials</source>
+        <target>Die von Ihnen eingegebenen Benuutzerdaten sind falsch</target>
+      </segment>
+    </unit>
+    <unit id="rHsOKUn" name="security.check_inbox">
+      <segment>
+        <source>security.check_inbox</source>
+        <target>
+        Sie haben gerade eine E-Mail erhalten, um das Zurücksetzen IhresPassworts abzuschließen.
+        Wenn Sie keine E-Mails erhalten haben, überprüfen Sie bitte Ihren Ordner "SPAM"
+        </target>
+      </segment>
+    </unit>
+    <unit id="hmTi4mf" name="news.last_posts.title">
+      <segment>
+        <source>news.last_posts.title</source>
+        <target>Die Produkte im Rampenlicht</target>
+      </segment>
+    </unit>
+    <unit id="Rmhs3fL" name="editions.seeallproducts">
+      <segment>
+        <source>editions.seeallproducts</source>
+        <target>Die Sammlung kennenlernen</target>
+      </segment>
+    </unit>
+    <unit id="PR.7mhC" name="editions.filters.title">
+      <segment>
+        <source>editions.filters.title</source>
+        <target>Verfeinern Sie Ihre Suche</target>
+      </segment>
+    </unit>
+    <unit id="bYGmESp" name="editions.filter.collections.title">
+      <segment>
+        <source>editions.filter.collections.title</source>
+        <target>Nach Sammlung</target>
+      </segment>
+    </unit>
+    <unit id="JDutJpY" name="editions.filter.collections.choose">
+      <segment>
+        <source>editions.filter.collections.choose</source>
+        <target>Eine Sammlung wählen</target>
+      </segment>
+    </unit>
+    <unit id="aoxcH.V" name="editions.filter.themes.title">
+      <segment>
+        <source>editions.filter.themes.title</source>
+        <target>Nach Thema</target>
+      </segment>
+    </unit>
+    <unit id="yskUgvU" name="cart.remove">
+      <segment>
+        <source>cart.remove</source>
+        <target>Warenkorb löschen</target>
+      </segment>
+    </unit>
+    <unit id="RoCT1_f" name="cart.empty">
+      <segment>
+        <source>cart.empty</source>
+        <target>Warenkorb leer</target>
+      </segment>
+    </unit>
+    <unit id="rgQWz6f" name="editions.author">
+      <segment>
+        <source>editions.author</source>
+        <target>Autor</target>
+      </segment>
+    </unit>
+    <unit id="kwCXg0T" name="editions.collection">
+      <segment>
+        <source>editions.collection</source>
+        <target>Sammlung</target>
+      </segment>
+    </unit>
+    <unit id="zfUdmv." name="editions.addtocart">
+      <segment>
+        <source>editions.addtocart</source>
+        <target>In den Warenkorb legen</target>
+      </segment>
+    </unit>
+    <unit id="YxhvXIb" name="editions.ebookversion">
+      <segment>
+        <source>editions.ebookversion</source>
+        <target>Version E-Book</target>
+      </segment>
+    </unit>
+    <unit id="Csu2uYK" name="order.registration.cart.title.1">
+      <segment>
+        <source>order.registration.cart.title.1</source>
+        <target>Ihr Warenkorb</target>
+      </segment>
+    </unit>
+    <unit id="i2JGptw" name="order.registration.one.title">
+      <segment>
+        <source>order.registration.one.title</source>
+        <target>Anmelden / Anmeldung</target>
+      </segment>
+    </unit>
+    <unit id="BxI_rwF" name="order.registration.one.body.disconnected">
+      <segment>
+        <source>order.registration.one.body.disconnected</source>
+        <target>Haben Sie bereits bei dem Roche d'Or Verlag bestellt? (wir würden gerne wissen, ob wir Ihre Kontaktdaten bereits haben oder nicht)</target>
+      </segment>
+    </unit>
+    <unit id="al9WFPE" name="order.registration.two.title">
+      <segment>
+        <source>order.registration.two.title</source>
+        <target>Kundendatensatz</target>
+      </segment>
+    </unit>
+    <unit id="S_61BVF" name="order.registration.two.title.you">
+      <segment>
+        <source>order.registration.two.title.you</source>
+        <target>Ihre Daten</target>
+      </segment>
+    </unit>
+    <unit id="biPtN4s" name="order.registration.choose.adliv">
+      <segment>
+        <source>order.registration.choose.adliv</source>
+        <target>Ihre Lieferanschfift</target>
+      </segment>
+    </unit>
+    <unit id="TKTwy0K" name="form.choose.adliv">
+      <segment>
+        <source>form.choose.adliv</source>
+        <target>Lieferung</target>
+      </segment>
+    </unit>
+    <unit id=".5a_NkK" name="select.ad.myAd">
+      <segment>
+        <source>select.ad.myAd</source>
+        <target>Meine Adresse</target>
+      </segment>
+    </unit>
+    <unit id="rznIWfL" name="select.ad.roche">
+      <segment>
+        <source>select.ad.roche</source>
+        <target>Buchladen von Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="8QjWF9b" name="select.ad.font">
+      <segment>
+        <source>select.ad.font</source>
+        <target>Buchladen von den Fontanilles</target>
+      </segment>
+    </unit>
+    <unit id="MlxM03H" name="select.ad.other">
+      <segment>
+        <source>select.ad.other</source>
+        <target>Andere Anschrift</target>
+      </segment>
+    </unit>
+    <unit id="GDNiQhU" name="order.choose.adliv">
+      <segment>
+        <source>order.choose.adliv</source>
+        <target>Lieferanschrift</target>
+      </segment>
+    </unit>
+    <unit id="xiX_zBW" name="form.adresse">
+      <segment>
+        <source>form.adresse</source>
+        <target>Adresse</target>
+      </segment>
+    </unit>
+    <unit id="CDqJj5g" name="order.registration.choose.country">
+      <segment>
+        <source>order.registration.choose.country</source>
+        <target>Mein Lieferland auswählen</target>
+      </segment>
+    </unit>
+    <unit id="qnrYsFN" name="form.choose.country">
+      <segment>
+        <source>form.choose.country</source>
+        <target>Staat</target>
+      </segment>
+    </unit>
+    <unit id="UxPpNQd" name="country.fr">
+      <segment>
+        <source>country.fr</source>
+        <target>Frankreich</target>
+      </segment>
+    </unit>
+    <unit id="Q6zSrRK" name="country.en">
+      <segment>
+        <source>country.en</source>
+        <target>Grossbritannien</target>
+      </segment>
+    </unit>
+    <unit id="ruZtiTw" name="country.de">
+      <segment>
+        <source>country.de</source>
+        <target>Deutschland</target>
+      </segment>
+    </unit>
+    <unit id="rZWRGQp" name="country.it">
+      <segment>
+        <source>country.it</source>
+        <target>Italien</target>
+      </segment>
+    </unit>
+    <unit id="lWwH1W0" name="country.es">
+      <segment>
+        <source>country.es</source>
+        <target>Spanien</target>
+      </segment>
+    </unit>
+    <unit id="JwRE9Ox" name="order.registration.choose.gift">
+      <segment>
+        <source>order.registration.choose.gift</source>
+        <target>Geschenk</target>
+      </segment>
+    </unit>
+    <unit id="7o3eWsz" name="order.choose.modpaie">
+      <segment>
+        <source>order.choose.modpaie</source>
+        <target>Meine Zahlungsart wählen</target>
+      </segment>
+    </unit>
+    <unit id="CIlu59y" name="form.choose.modpaie">
+      <segment>
+        <source>form.choose.modpaie</source>
+        <target>Zahlungsart</target>
+      </segment>
+    </unit>
+    <unit id="D210X6f" name="select.cb">
+      <segment>
+        <source>select.cb</source>
+        <target>Kreditkarte</target>
+      </segment>
+    </unit>
+    <unit id="BtZ0NwJ" name="select.paypal">
+      <segment>
+        <source>select.paypal</source>
+        <target>Paypal</target>
+      </segment>
+    </unit>
+    <unit id="Pox7Osf" name="editions.or">
+      <segment>
+        <source>editions.or</source>
+        <target>Oder</target>
+      </segment>
+    </unit>
+<unit id="6yPWKi5" name="editions.technicalreview.annee">
+      <segment>
+        <source>editions.technicalreview.annee</source>
+        <target>editions.technicalreview.annee</target>
+      </segment>
+    </unit>
+    <unit id="rT63a4z" name="editions.technicalreview.isbn">
+      <segment>
+        <source>editions.technicalreview.isbn</source>
+        <target>ISBN</target>
+      </segment>
+    </unit>
+    <unit id="MyEvwMh" name="editions.technicalreview">
+      <segment>
+        <source>editions.technicalreview</source>
+        <target>Datenblatt</target>
+      </segment>
+    </unit>
+    <unit id="OA2.mJ3" name="editions.technicalreview.dateparution">
+      <segment>
+        <source>editions.technicalreview.dateparution</source>
+        <target>Datum der Veröffentlichung</target>
+      </segment>
+    </unit>
+    <unit id="QOhaDtz" name="editions.technicalreview.dimensions">
+      <segment>
+        <source>editions.technicalreview.dimensions</source>
+        <target>Ausmasse</target>
+      </segment>
+    </unit>
+    <unit id="K4k3lnA" name="editions.technicalreview.editeur">
+      <segment>
+        <source>editions.technicalreview.editeur</source>
+        <target>Herausgeber</target>
+      </segment>
+    </unit>
+    <unit id="M3yf8iz" name="editions.technicalreview.ean">
+      <segment>
+        <source>editions.technicalreview.ean</source>
+        <target>EAN</target>
+      </segment>
+    </unit>
+    <unit id="gik7lYM" name="editions.technicalreview.nbpage">
+      <segment>
+        <source>editions.technicalreview.nbpage</source>
+        <target>Seitenumfang</target>
+      </segment>
+    </unit>
+    <unit id="SsON85Z" name="editions.technicalreview.rubrique">
+      <segment>
+        <source>editions.technicalreview.rubrique</source>
+        <target>Sammlung</target>
+      </segment>
+    </unit>
+    <unit id="Pbmdis9" name="editions.technicalreview.poids">
+      <segment>
+        <source>editions.technicalreview.poids</source>
+        <target>Gewicht</target>
+      </segment>
+    </unit>
+ <unit id="lYDi7RY" name="cart.emptydelivery">
+      <segment>
+        <source>cart.emptydelivery</source>
+        <target>Nichts</target>
+      </segment>
+    </unit>
+    <unit id="OVd0vdP" name="form.message.recap_delivery">
+      <segment>
+        <source>form.message.recap_delivery</source>
+        <target>Lieferung</target>
+      </segment>
+    </unit>
+    <unit id="2nyW22." name="form.message.recap_cartInfo">
+      <segment>
+        <source>form.message.recap_cartInfo</source>
+        <target>Warenkorbübersicht</target>
+      </segment>
+    </unit>
+    <unit id="C8Akz4x" name="cart.emptycart">
+      <segment>
+        <source>cart.emptycart</source>
+        <target>Warenkorb leer</target>
+      </segment>
+    </unit>
+    <unit id="1e765_n" name="form.street">
+      <segment>
+        <source>form.street</source>
+        <target>Strasse</target>
+      </segment>
+    </unit>
+    <unit id="oirGR28" name="form.societe">
+      <segment>
+        <source>form.societe</source>
+        <target>Gesellschaft</target>
+      </segment>
+    </unit>
+    <unit id="Sc.pDDq" name="order.summary.title.clients">
+      <segment>
+        <source>order.summary.title.clients</source>
+        <target>Produktübersicht</target>
+      </segment>
+    </unit>
+    <unit id="CJ0FDoz" name="its.a.gift">
+      <segment>
+        <source>its.a.gift</source>
+        <target>Geschenk</target>
+      </segment>
+    </unit>
+ <unit id="u6sNBSu" name="order.gift.text">
+      <segment>
+        <source>order.gift.text</source>
+        <target>Als Geschenk können Sie eine Nachricht an den Empfänger Ihrer Bestellung senden.</target>
+      </segment>
+    </unit>
+    <unit id="kkp4fpp" name="order.registration.one.body.connected">
+      <segment>
+        <source>order.registration.one.body.connected</source>
+        <target><![CDATA[Sie sind als <i>%name%%</i> eingeloggt, möchten Sie fortfahren?]]></target>
+      </segment>
+    </unit>
+    <unit id="JdLwAci" name="form.gift">
+      <segment>
+        <source>form.gift</source>
+        <target>Nachricht</target>
+      </segment>
+    </unit>
+    <unit id="HLmsseT" name="form.payment">
+      <segment>
+        <source>form.payment</source>
+        <target>Zahlung</target>
+      </segment>
+    </unit>
+    <unit id="f3pcw8k" name="go.to.order">
+      <segment>
+        <source>go.to.order</source>
+        <target>Zurück zur Lieferung</target>
+      </segment>
+    </unit>
+<unit id="zPY3e8P" name="form.its.a.gift">
+      <segment>
+        <source>form.its.a.gift</source>
+        <target>Geschenk</target>
+      </segment>
+    </unit>
+    <unit id="p3KOArL" name="form.validate.gift">
+      <segment>
+        <source>form.validate.gift</source>
+        <target>Nachricht bestätigen</target>
+      </segment>
+    </unit>
+    <unit id="GHT1Oe_" name="form.no_clients">
+      <segment>
+        <source>form.no_clients</source>
+        <target>form.no_clients</target>
+      </segment>
+    </unit>
+    <unit id="Yenhfq6" name="form.suprmessage.gift">
+      <segment>
+        <source>form.suprmessage.gift</source>
+        <target>Nachricht löschen</target>
+      </segment>
+    </unit>
+    <unit id="znn8YMw" name="security.user_exist">
+      <segment>
+        <source>security.user_exist</source>
+        <target>Die verwendete E-Mail-Adresse ist bereits registriert.</target>
+      </segment>
+    </unit>
+    <unit id="d6YHTZi" name="user.security_child">
+      <segment>
+        <source>user.security_child</source>
+        <target>Nur Personen über 18 Jahre dürfen sich anmelden.</target>
+      </segment>
+    </unit>
+<unit id="lDOm6tr" name="form.contact.title">
+      <segment>
+        <source>form.contact.title</source>
+        <target>Kontaktformular</target>
+      </segment>
+    </unit>
+    <unit id="jBsBTZU" name="form.body">
+      <segment>
+        <source>form.body</source>
+        <target>* Nachricht</target>
+      </segment>
+    </unit>
+    <unit id="N7xyN0P" name="form.send">
+      <segment>
+        <source>form.send</source>
+        <target>senden</target>
+      </segment>
+    </unit>
+    <unit id="06a7tU5" name="title.connection">
+      <segment>
+        <source>title.connection</source>
+        <target>Anmelden</target>
+      </segment>
+    </unit>
+    <unit id="KaXjE7S" name="form.title.connection">
+      <segment>
+        <source>form.title.connection</source>
+        <target>Anmeldeformular</target>
+      </segment>
+    </unit>
+    <unit id="k3DuK7A" name="form.validate">
+      <segment>
+        <source>form.validate</source>
+        <target>Bestätigen</target>
+      </segment>
+    </unit>
+<unit id="yJYpS55" name="form.title.registration">
+      <segment>
+        <source>form.title.registration</source>
+        <target>Anmeldeformular</target>
+      </segment>
+    </unit>
+    <unit id="ILWuW.c" name="form.password.repeat">
+      <segment>
+        <source>form.password.repeat</source>
+        <target>Passwort wiederholen</target>
+      </segment>
+    </unit>
+    <unit id="7HI7BgF" name="contact.submit.success">
+      <segment>
+        <source>contact.submit.success</source>
+        <target><![CDATA[
+					Ihre Nachricht wurde berücksichtigt. Sie wird so schnell wie möglich bearbeitet. Sie erhalten innerhalb der nächsten Minuten eine Versandbestätigung. Zurück zur <a href="/">Homepage</a>.
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="PnnB3aX" name="contact.ro.foradmin.subject">
+      <segment>
+        <source>contact.ro.foradmin.subject</source>
+        <target>Neue Nachricht von</target>
+      </segment>
+    </unit>
+    <unit id="aXfD6Ri" name="contact.ro.forclient.subject">
+      <segment>
+        <source>contact.ro.forclient.subject</source>
+        <target>Ihre Nachricht für Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="TI2I87A" name="contact.ft.forclient.subject">
+      <segment>
+        <source>contact.ft.forclient.subject</source>
+        <target>Ihre Nachricht für die Fontanilles</target>
+      </segment>
+    </unit>
+    <unit id="6PBTuta" name="contact.ft.foradmin.subject">
+      <segment>
+        <source>contact.ft.foradmin.subject</source>
+        <target>Neue Nachricht von</target>
+      </segment>
+    </unit>
+    <unit id="zRLk9BZ" name="form.please.recaptcha">
+      <segment>
+        <source>form.please.recaptcha</source>
+        <target>Bitte kreuzen Sie das Kästchen "Ich bin kein Roboter" an.</target>
+      </segment>
+    </unit>
+ <unit id="EvNMn7e" name="security.reset.intro">
+      <segment>
+        <source>security.reset.intro</source>
+        <target>Bitte geben Sie Ihr neues Passwort in das untenstehende Formular ein.</target>
+      </segment>
+    </unit>
+    <unit id="GaSM3XU" name="security.reset.title">
+      <segment>
+        <source>security.reset.title</source>
+        <target><![CDATA[
+					<small>Passwort zurücksetzen
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="4lbujnr" name="continue">
+      <segment>
+        <source>continue</source>
+        <target>Fortfahren</target>
+      </segment>
+    </unit>
+    <unit id="pcWhXux" name="homepage">
+      <segment>
+        <source>homepage</source>
+        <target>Homepage</target>
+      </segment>
+    </unit>
+    <unit id="PG6DQU." name="return.to.calendar">
+      <segment>
+        <source>return.to.calendar</source>
+        <target>Zurück zum Kalender</target>
+      </segment>
+    </unit>
+<unit id="UVJ5Die" name="calendar">
+      <segment>
+        <source>calendar</source>
+        <target>Kalender</target>
+      </segment>
+    </unit>
+    <unit id="oXrCtEF" name="form.reset">
+      <segment>
+        <source>form.reset</source>
+        <target>form.reset</target>
+      </segment>
+    </unit>
+    <unit id="reTt_sP" name="form.message.child_must_come_with_adult">
+      <segment>
+        <source>form.message.child_must_come_with_adult</source>
+        <target>Personen unter 16 Jahren müssen von einem Erwachsenen begleitet werden.
+Kommentar erstellt</target>
+      </segment>
+    </unit>
+    <unit id="gWaJq50" name="form.message.child_must_have_autpar">
+      <segment>
+        <source>form.message.child_must_have_autpar</source>
+        <target>Alle Kinder müssen die Zustimmung der Eltern oder der Erziehungsberechtigten haben</target>
+      </segment>
+    </unit>
+ <unit id="38v6mFF" name="form.civilite.mr">
+      <segment>
+        <source>form.civilite.mr</source>
+        <target>H.</target>
+      </segment>
+    </unit>
+    <unit id="eGbXcnm" name="form.civilite.mme">
+      <segment>
+        <source>form.civilite.mme</source>
+        <target>Fr.</target>
+      </segment>
+    </unit>
+    <unit id="vBzG3A3" name="form.civilite.pere">
+      <segment>
+        <source>form.civilite.pere</source>
+        <target>Pater</target>
+      </segment>
+    </unit>
+    <unit id="2cYcREU" name="form.civilite.frere">
+      <segment>
+        <source>form.civilite.frere</source>
+        <target>Ordensbruder</target>
+      </segment>
+    </unit>
+    <unit id="_MsfZra" name="form.civilite.soeur">
+      <segment>
+        <source>form.civilite.soeur</source>
+        <target>Ordensschwester</target>
+      </segment>
+    </unit>
+    <unit id="59StlEF" name="form.message.phone_invalid">
+      <segment>
+        <source>form.message.phone_invalid</source>
+        <target>Sie müssen mindestens eine Telefonnummer eingeben.</target>
+      </segment>
+    </unit>
+    <unit id="LVTrH3N" name="form.message.does_child_have_autpar">
+      <segment>
+        <source>form.message.does_child_have_autpar</source>
+        <target>Hat das Kind, das Sie registrieren, die Zustimmung der Eltern oder des Erziehungsberechtigten?</target>
+      </segment>
+    </unit>
+    <unit id="E_Qadzd" name="calendar.registration.error.empty">
+      <segment>
+        <source>calendar.registration.error.empty</source>
+        <target><![CDATA[
+				  Es tut uns leid, aber diese Einkehrtage existieren nicht mehr. Sie können zu <a href="/de/list-retirement list">Kalender</a> zurückkehren.
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="n6oIkhX" name="calendar.registration.error.date">
+      <segment>
+        <source>calendar.registration.error.date</source>
+        <target><![CDATA[
+          Es tut uns leid, aber diese Einkehrtage sind nicht mehr verfügbar. Sie können zu <a href="/de/list-retirement list">Kalender</a> zurückkehren.
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="7OkaL_L" name="form.email.please">
+      <segment>
+        <source>form.email.please</source>
+        <target>Geben Sie Ihre E-Mail Adresse an</target>
+      </segment>
+    </unit>
+    <unit id="TQH9nei" name="form.email.contact">
+      <segment>
+        <source>form.email.contact</source>
+        <target>* Email</target>
+      </segment>
+    </unit>
+    <unit id="NrmWOmd" name="calendar.registration.three.header">
+      <segment>
+        <source>calendar.registration.three.header</source>
+        <target><![CDATA[
+					<p>Wir danken Ihnen für Ihr Interesse an Roche d'Or. Ihre Anmeldung wird unter der Nummer: </p><p><p><p><p><center><br>%entry_number%</br></center></p> berücksichtigt.
+				]]></target>
+      </segment>
+    </unit>
+    <unit id="x9GINwp" name="Email not found">
+      <segment>
+        <source>Email not found</source>
+        <target>E-Mail Adresse nicht auffindbar</target>
+      </segment>
+    </unit>
+    <unit id="thE5KNk" name="form.reinit">
+      <segment>
+        <source>form.reinit</source>
+        <target>Zurücksetzen</target>
+      </segment>
+    </unit>
+    <unit id="l4mKCBH" name="form.arriv">
+      <segment>
+        <source>form.arriv</source>
+        <target>Ankunft (hh:mm)</target>
+      </segment>
+    </unit>
+    <unit id="krijuC." name="form.navette">
+      <segment>
+        <source>form.navette</source>
+        <target>Ich werde den Zubringerdienst von Roche d'Or in Anspruch nehmen</target>
+      </segment>
+    </unit>
+    <unit id="QoRcuhX" name="form.lieu">
+      <segment>
+        <source>form.lieu</source>
+        <target>Ankunftsort</target>
+      </segment>
+    </unit>
+    <unit id="dJfmInP" name="form.lieu.viotte">
+      <segment>
+        <source>form.lieu.viotte</source>
+        <target>Viotte</target>
+      </segment>
+    </unit>
+    <unit id="qm_COTU" name="form.cancel">
+      <segment>
+        <source>form.cancel</source>
+        <target>Stornieren</target>
+      </segment>
+    </unit>
+    <unit id=".55gGPd" name="form.message.not_with_an_adult">
+      <segment>
+        <source>form.message.not_with_an_adult</source>
+        <target>Wird nicht von einem Erwachsenen begleitet</target>
+      </segment>
+    </unit>
+    <unit id="ch5nrMQ" name="form.message.not_accompanied">
+      <segment>
+        <source>form.message.not_accompanied</source>
+        <target>Wird nicht begleitet</target>
+      </segment>
+    </unit>
+    <unit id="dSfs_7v" name="form.message.no_transport">
+      <segment>
+        <source>form.message.no_transport</source>
+        <target>Hat keine Transportmöglichkeit</target>
+      </segment>
+    </unit>
+    <unit id="REqCb2s" name="participant_not_valid">
+      <segment>
+        <source>participant_not_valid</source>
+        <target>Dieser Teilnehmer ist nicht gültig.</target>
+      </segment>
+    </unit>
+    <unit id="mhgfyic" name="form.message.participant_not_valid">
+      <segment>
+        <source>form.message.participant_not_valid</source>
+        <target>Dieser Teilnehmer ist nicht gültig.</target>
+      </segment>
+    </unit>
+    <unit id="fCR5IGy" name="security.username_exists">
+      <segment>
+        <source>security.username_exists</source>
+        <target>Dieser Benutzernahme wird schon verwendet</target>
+      </segment>
+    </unit>
+    <unit id="Bs52W.M" name="security.password_request.not_found">
+      <segment>
+        <source>security.password_request.not_found</source>
+        <target><![CDATA[
+						Wir haben keine Information über Sie gefunden. Schreibweise? Zwei Namen? Reihenfolge der Namen?
+					]]></target>
+      </segment>
+    </unit>
+    <unit id="XB7PsIn" name="security.password_request.missing_infos">
+      <segment>
+        <source>security.password_request.missing_infos</source>
+        <target>Fehlende Informationen</target>
+      </segment>
+    </unit>
+    <unit id="NuG.GrE" name="form.lastname.please">
+      <segment>
+        <source>form.lastname.please</source>
+        <target>Geben Sie Ihren Familiennamen an</target>
+      </segment>
+    </unit>
+    <unit id="dAXvvgy" name="form.firstname.please">
+      <segment>
+        <source>form.firstname.please</source>
+        <target>Geben SIe Ihren Vornahmen an</target>
+      </segment>
+    </unit>
+    <unit id="Wq4.if_" name="security.password_too_small">
+      <segment>
+        <source>security.password_too_small</source>
+        <target>Ihr Passwort muss mindestens 8 Schriftzeichen haben</target>
+      </segment>
+    </unit>
+    <unit id="r6YZYDf" name="order.summary.title.cart">
+      <segment>
+        <source>order.summary.title.cart</source>
+        <target>Warenkorb</target>
+      </segment>
+    </unit>
+    <unit id="bgD9EK8" name="form.update">
+      <segment>
+        <source>form.update</source>
+        <target>Ändern Sie Ihre Angaben</target>
+      </segment>
+    </unit>
+    <unit id="FEBnXbm" name="form.tvaintra">
+      <segment>
+        <source>form.tvaintra</source>
+        <target>Innergemeinschaftliche Mehrwertsteuer</target>
+      </segment>
+    </unit>
+    <unit id="xAoi438" name="form.memocli">
+      <segment>
+        <source>form.memocli</source>
+        <target>Merkblatt</target>
+      </segment>
+    </unit>
+    <unit id="DHrPEzE" name="order.registration.three.title">
+      <segment>
+        <source>order.registration.three.title</source>
+        <target>Lieferung</target>
+      </segment>
+    </unit>
+    <unit id="PB4LNL8" name="order.registration.three.title.you">
+      <segment>
+        <source>order.registration.three.title.you</source>
+        <target>Wählen Sie eine Lieferanschrift aus</target>
+      </segment>
+    </unit>
+    <unit id="TTOaJf7" name="form.message.pro_invalid">
+      <segment>
+        <source>form.message.pro_invalid</source>
+        <target>Die Nummer der MwSt oder der Name der Firma ist nicht komplett</target>
+      </segment>
+    </unit>
+    <unit id="X0QCe2q" name="order.registration.four.title">
+      <segment>
+        <source>order.registration.four.title</source>
+        <target>Bezahlung</target>
+      </segment>
+    </unit>
+    <unit id="MXXtuv8" name="order.registration.three.title.modify.you">
+      <segment>
+        <source>order.registration.three.title.modify.you</source>
+        <target>Bezahlung</target>
+      </segment>
+    </unit>
+    <unit id="0Xx9cxJ" name="order.registration.two.title.modify.you">
+      <segment>
+        <source>order.registration.two.title.modify.you</source>
+        <target>Ändern</target>
+      </segment>
+    </unit>
+    <unit id="3mncFIM" name="order.registration.five.title">
+      <segment>
+        <source>order.registration.five.title</source>
+        <target>Bestätigung</target>
+      </segment>
+    </unit>
+    <unit id="MlYjC4s" name="order.registration.five.body">
+      <segment>
+        <source>order.registration.five.body</source>
+        <target>Glückwunsch, Ihre Bestellung ist bestätigt!</target>
+      </segment>
+    </unit>
+    <unit id="YQKEE1i" name="order.summary.title.delivery">
+      <segment>
+        <source>order.summary.title.delivery</source>
+        <target>Lieferung</target>
+      </segment>
+    </unit>
+    <unit id="vmEWF6k" name="order.summary.title.total">
+      <segment>
+        <source>order.summary.title.total</source>
+        <target>Endsumme</target>
+      </segment>
+    </unit>
+    <unit id="uYqiG8u" name="order.summary.body.delivery">
+      <segment>
+        <source>order.summary.body.delivery</source>
+        <target><![CDATA[Bitte bestätigen Sie Ihre Lieferadresse. <br>Die folgenden Informationen beziehen sich auf eine Lieferung innerhalb Frankreichs.]]></target>
+      </segment>
+    </unit>
+    <unit id="1z0.Gk7" name="order.summary.body.total">
+      <segment>
+        <source>order.summary.body.total</source>
+        <target>Bestätigen Sie bitte Ihre Lieferanschrift</target>
+      </segment>
+    </unit>
+    <unit id="jYuAOdP" name="table.header.product">
+      <segment>
+        <source>table.header.product</source>
+        <target>Produkt</target>
+      </segment>
+    </unit>
+    <unit id="yrwV99j" name="table.header.price">
+      <segment>
+        <source>table.header.price</source>
+        <target>Preis</target>
+      </segment>
+    </unit>
+    <unit id="xZHRyZP" name="table.header.quantity">
+      <segment>
+        <source>table.header.quantity</source>
+        <target>Anzahl</target>
+      </segment>
+    </unit>
+    <unit id="UUICu91" name="table.header.delete">
+      <segment>
+        <source>table.header.delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="5ehaNxD" name="table.header.label">
+      <segment>
+        <source>table.header.label</source>
+        <target>Denominierung</target>
+      </segment>
+    </unit>
+    <unit id="22SyQzP" name="table.header.total">
+      <segment>
+        <source>table.header.total</source>
+        <target>Endsumme</target>
+      </segment>
+    </unit>
+    <unit id="HXv5iUO" name="table.header.weight">
+      <segment>
+        <source>table.header.weight</source>
+        <target>Gewicht</target>
+      </segment>
+    </unit>
+    <unit id="W5bVwVH" name="main.remove">
+      <segment>
+        <source>main.remove</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="jZKU8Dt" name="order-error.title.small">
+      <segment>
+        <source>order-error.title.small</source>
+        <target>Verlag</target>
+      </segment>
+    </unit>
+    <unit id="mCVIY4Y" name="order-error.title.big">
+      <segment>
+        <source>order-error.title.big</source>
+        <target>Von Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="hGp5Jrt" name="order-error.text">
+      <segment>
+        <source>order-error.text</source>
+        <target><![CDATA[Sie haben noch keine Artikel in Ihrem Warenkorb. Wir laden Sie ein, diese zu entdecken, indem Sie auf diesen <a href="%link%">Link</a> klicken.]]></target>
+      </segment>
+    </unit>
+    <unit id="9pr9CAk" name="order-return.title.small">
+      <segment>
+        <source>order-return.title.small</source>
+        <target>Verlag</target>
+      </segment>
+    </unit>
+    <unit id="5RoUp_p" name="order-return.title.big">
+      <segment>
+        <source>order-return.title.big</source>
+        <target>Von Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="ruQIhH0" name="success">
+      <segment>
+        <source>success</source>
+        <target>Ihre Bestellung wurde mit Erfolg abgewickelt</target>
+      </segment>
+    </unit>
+    <unit id="ygD8z7Q" name="error">
+      <segment>
+        <source>error</source>
+        <target>Während Ihrer Bestellung ist ein Irrtum aufgetreten</target>
+      </segment>
+    </unit>
+    <unit id="_nSW5K6" name="collection">
+      <segment>
+        <source>collection</source>
+        <target>Sammlung</target>
+      </segment>
+    </unit>
+    <unit id="EY4TYVa" name="order.registration.one.title.connection">
+      <segment>
+        <source>order.registration.one.title.connection</source>
+        <target>Anmelden</target>
+      </segment>
+    </unit>
+    <unit id="xglinNC" name="order.registration.one.title.registration">
+      <segment>
+        <source>order.registration.one.title.registration</source>
+        <target>Anmeldung</target>
+      </segment>
+    </unit>
+    <unit id="l0nR41K" name="form.message.delivery_invalid">
+      <segment>
+        <source>form.message.delivery_invalid</source>
+        <target>Alle Felder von "Lieferanschrift" müssen ausgefüllt werden</target>
+      </segment>
+    </unit>
+    <unit id="cHFGXVz" name="order.choose.payment">
+      <segment>
+        <source>order.choose.payment</source>
+        <target>Zahlungsart</target>
+      </segment>
+    </unit>
+    <unit id="oydHg8c" name="order.error.title">
+      <segment>
+        <source>order.error.title</source>
+        <target><![CDATA[ </small>Roche d'Or<small> Verlag]]></target>
+      </segment>
+    </unit>
+    <unit id="DwQUHDv" name="table.label.weightOrder">
+      <segment>
+        <source>table.label.weightOrder</source>
+        <target>Gewicht der Artikel</target>
+      </segment>
+    </unit>
+    <unit id="G1UnR4o" name="table.label.packagingWeight">
+      <segment>
+        <source>table.label.packagingWeight</source>
+        <target>Gewicht des Versandmaterials</target>
+      </segment>
+    </unit>
+    <unit id="lRTS5zO" name="table.label.totalWeight">
+      <segment>
+        <source>table.label.totalWeight</source>
+        <target>Gesamtgewicht</target>
+      </segment>
+    </unit>
+    <unit id="0DVHmKT" name="table.label.totalPriceIT">
+      <segment>
+        <source>table.label.totalPriceIT</source>
+        <target>Gesamtsumme der Einkäufe inkl. MwSt.</target>
+      </segment>
+    </unit>
+    <unit id="VlB_08Z" name="table.label.vat">
+      <segment>
+        <source>table.label.vat</source>
+        <target>Davon Mehrwertsteuer</target>
+      </segment>
+    </unit>
+    <unit id="1oH_yFe" name="table.label.shippingPriceIT">
+      <segment>
+        <source>table.label.shippingPriceIT</source>
+        <target>Versandkosten</target>
+      </segment>
+    </unit>
+    <unit id="oc7G9Ky" name="table.label.consumerPriceIT">
+      <segment>
+        <source>table.label.consumerPriceIT</source>
+        <target>Gesamtsumme inkl. MwSt</target>
+      </segment>
+    </unit>
+    <unit id="AOdX9Pe" name="order-return.title">
+      <segment>
+        <source>order-return.title</source>
+        <target><![CDATA[Roche d'Or Verlag]]></target>
+      </segment>
+    </unit>
+    <unit id="bI8gjQ5" name="order-return.success">
+      <segment>
+        <source>order-return.success</source>
+        <target><![CDATA[<br>Sie erhalten in wenigen Minuten eine Bestätigungs-E-Mail. <br>Wenn Sie innerhalb weniger Minuten keine E-Mail erhalten, überprüfen Sie bitte Ihren SPAM-Ordner. <br>Zurück zu <a href="%link%">Sammlungen</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="VbHIGnV" name="order-return.cancel">
+      <segment>
+        <source>order-return.cancel</source>
+        <target><![CDATA[Bei Ihrer Bestellung ist ein Problem aufgetreten. <br>Kehren Sie bitte zurück zu<a href="%link%">panier</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="I45NZDr" name="form.firstname">
+      <segment>
+        <source>form.firstname</source>
+        <target>Vorname</target>
+      </segment>
+    </unit>
+    <unit id="pof_qvc" name="form.lastname">
+      <segment>
+        <source>form.lastname</source>
+        <target>Familienname</target>
+      </segment>
+    </unit>
+    <unit id="pjSqg8z" name="form.message.zipcode_invalid">
+      <segment>
+        <source>form.message.zipcode_invalid</source>
+        <target>Die Postleitzahl entspricht nicht dem ausgewählten Staat</target>
+      </segment>
+    </unit>
+    <unit id="BzVNXKm" name="form.message.tvaintra_invalid">
+      <segment>
+        <source>form.message.tvaintra_invalid</source>
+        <target>Die Nummer der MwSt ist nicht gültig</target>
+      </segment>
+    </unit>
+    <unit id="W6ukKjO" name="order.notify.client.subject">
+      <segment>
+        <source>order.notify.client.subject</source>
+        <target>Neue Bestellung</target>
+      </segment>
+    </unit>
+    <unit id="vl4wLLv" name="form.keep-password">
+      <segment>
+        <source>form.keep-password</source>
+        <target>Das alte Passwort beibehalten</target>
+      </segment>
+    </unit>
+    <unit id="SNvVR0E" name="Error: unknown_error">
+      <segment>
+        <source>Error: unknown_error</source>
+        <target>Unbekannter Fehler</target>
+      </segment>
+    </unit>
+    <unit id="Y4EtXZD" name="form.newfich">
+      <segment>
+        <source>form.newfich</source>
+        <target>Erste Anmeldung zu Einkehrtagen</target>
+      </segment>
+    </unit>
+    <unit id="I8rtEKM" name="gift.title">
+      <segment>
+        <source>gift.title</source>
+        <target><![CDATA[Einmalige Online-Spende]]></target>
+      </segment>
+    </unit>
+    <unit id="GQMkF8_" name="gift.intro">
+      <segment>
+        <source>gift.intro</source>
+        <target><![CDATA[Sie sind dabei, eine einmalige Online-Spende zu machen. Bitte füllen Sie das folgende Formular aus oder kehren Sie zur <a href="%link%">Spendenseite</a>zurück.]]></target>
+      </segment>
+    </unit>
+    <unit id="0scb9.5" name="gift.one.title">
+      <segment>
+        <source>gift.one.title</source>
+        <target>Anmelden / Anmeldung</target>
+      </segment>
+    </unit>
+    <unit id="oeXVvov" name="gift.one.body.connected">
+      <segment>
+        <source>gift.one.body.connected</source>
+        <target>Sie sind als %name% eingeloggt, möchten Sie fortfahren?</target>
+      </segment>
+    </unit>
+    <unit id="UZ.im44" name="gift.two.title">
+      <segment>
+        <source>gift.two.title</source>
+        <target>Formular des/r Spenders/in</target>
+      </segment>
+    </unit>
+    <unit id="VAdu1Ue" name="gift.two.title.modify.you">
+      <segment>
+        <source>gift.two.title.modify.you</source>
+        <target>Änderung Ihrer Informationen</target>
+      </segment>
+    </unit>
+    <unit id="csOG4aQ" name="gift.three.title">
+      <segment>
+        <source>gift.three.title</source>
+        <target>Betrag</target>
+      </segment>
+    </unit>
+    <unit id="HFu0ulE" name="gift.amount">
+      <segment>
+        <source>gift.amount</source>
+        <target>Spendenbetrag</target>
+      </segment>
+    </unit>
+    <unit id="FdHFVLw" name="form.other">
+      <segment>
+        <source>form.other</source>
+        <target>Anderes</target>
+      </segment>
+    </unit>
+    <unit id="GD5xKg." name="gift.four.title">
+      <segment>
+        <source>gift.four.title</source>
+        <target>Verwendungszweck</target>
+      </segment>
+    </unit>
+    <unit id="jWH3OC7" name="gift.choose.allocation">
+      <segment>
+        <source>gift.choose.allocation</source>
+        <target>wählen Sie einen Verwendungszweck</target>
+      </segment>
+    </unit>
+    <unit id="6tCDwib" name="form.choose.allocation">
+      <segment>
+        <source>form.choose.allocation</source>
+        <target>Verwendungszwecke</target>
+      </segment>
+    </unit>
+    <unit id="7rO5qFQ" name="select.allocation.libre">
+      <segment>
+        <source>select.allocation.libre</source>
+        <target>Zur freien Verwendung</target>
+      </segment>
+    </unit>
+    <unit id="yOQ0eC8" name="select.allocation.souttx">
+      <segment>
+        <source>select.allocation.souttx</source>
+        <target>Eindringlicher Appell</target>
+      </segment>
+    </unit>
+    <unit id="otNY7_F" name="select.allocation.viecom">
+      <segment>
+        <source>select.allocation.viecom</source>
+        <target>Leben der Gemeinschaft</target>
+      </segment>
+    </unit>
+    <unit id="Oblzbpn" name="select.allocation.itin">
+      <segment>
+        <source>select.allocation.itin</source>
+        <target>Unterstützung der Pilgerfahrten</target>
+      </segment>
+    </unit>
+    <unit id="aJ35vts" name="select.allocation.rochtx">
+      <segment>
+        <source>select.allocation.rochtx</source>
+        <target>Instandhaltung von Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="BQg0VzQ" name="select.allocation.fonttx">
+      <segment>
+        <source>select.allocation.fonttx</source>
+        <target>Instandhaltung der Fontanilles</target>
+      </segment>
+    </unit>
+    <unit id="BvWhpYy" name="gift.five.title">
+      <segment>
+        <source>gift.five.title</source>
+        <target>Zahlung</target>
+      </segment>
+    </unit>
+    <unit id="jTQM.5t" name="gift.choose.payment">
+      <segment>
+        <source>gift.choose.payment</source>
+        <target>Wählen Sie eine Zahlungsart</target>
+      </segment>
+    </unit>
+    <unit id="Yj_Ar2s" name="gift.summary.title">
+      <segment>
+        <source>gift.summary.title</source>
+        <target>Zusammenfassung</target>
+      </segment>
+    </unit>
+    <unit id=".eHIBlV" name="gift.six.title">
+      <segment>
+        <source>gift.six.title</source>
+        <target>Bestätigung</target>
+      </segment>
+    </unit>
+    <unit id="l1p4Zk6" name="gift.summary.title.amount">
+      <segment>
+        <source>gift.summary.title.amount</source>
+        <target>Betrag</target>
+      </segment>
+    </unit>
+    <unit id="ekL2bem" name="gift.summary.no_amount">
+      <segment>
+        <source>gift.summary.no_amount</source>
+        <target>Kein Betrag</target>
+      </segment>
+    </unit>
+    <unit id="mgYZo6m" name="gift.summary.title.donator">
+      <segment>
+        <source>gift.summary.title.donator</source>
+        <target>Spender/in</target>
+      </segment>
+    </unit>
+    <unit id="OeUNsZo" name="gift.summary.no_donator">
+      <segment>
+        <source>gift.summary.no_donator</source>
+        <target>Melden Sie sich bitte an</target>
+      </segment>
+    </unit>
+    <unit id="4XPU9m_" name="gift.summary.title.gift">
+      <segment>
+        <source>gift.summary.title.gift</source>
+        <target>Spende</target>
+      </segment>
+    </unit>
+    <unit id="inaP6or" name="table.header.allocation">
+      <segment>
+        <source>table.header.allocation</source>
+        <target>Verwendungszweck</target>
+      </segment>
+    </unit>
+    <unit id="ohZm8Ru" name="table.header.amount">
+      <segment>
+        <source>table.header.amount</source>
+        <target>Betrag</target>
+      </segment>
+    </unit>
+    <unit id="u1hXRA0" name="gift.summary.no_allocation">
+      <segment>
+        <source>gift.summary.no_allocation</source>
+        <target>Kein Verwendungszweck</target>
+      </segment>
+    </unit>
+    <unit id="0yLloTj" name="gift-return.success">
+      <segment>
+        <source>gift-return.success</source>
+        <target><![CDATA[
+        <p>Grüss Gott %name%,</p>
+        <Die ganze Gemeinschaft schließt sich mir an um Ihnen für Ihre Großzügigkeit zu danken.
+        <Mit Ihrer Beteiligung von %Betrag% Euro schließen Sie sich der Solidaritätsbewegung der Freunde von La Roche d'Or an, um unsere Mission der Verkündigung des Evangeliums zu unterstützen.
+        <p>Nochmals vielen Dank. </p>P>
+        <p>Danièle VALÈS</p>
+        <br>Zurück zur Seite <a href="%link%">dons</a>.
+        ]]></target>
+      </segment>
+    </unit>
+    <unit id="Xx1TBfK" name="gift-return.cancel">
+      <segment>
+        <source>gift-return.cancel</source>
+        <target><![CDATA[Die Zahlung wurde storniert und Ihre Zahlung wurde nicht registriert. <br>Zurück zur Seite <a href="%link%">Dons</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="rkAB_hq" name="form.gift.note">
+      <segment>
+        <source>form.gift.note</source>
+        <target>Sie können uns eineNachrichht hinterlassen</target>
+      </segment>
+    </unit>
+    <unit id="Y.q4rE8" name="gift.one.body.disconnected">
+      <segment>
+        <source>gift.one.body.disconnected</source>
+        <target>Haben Sie schon einmal eine Online-Spende gemacht? (wir würden gerne wissen, ob wir Ihre Kontaktdaten bereits haben oder nicht)</target>
+      </segment>
+    </unit>
+<unit id="KXMcVvu" name="gift.one.title.connection">
+      <segment>
+        <source>gift.one.title.connection</source>
+        <target>Verbindung</target>
+      </segment>
+    </unit>
+    <unit id="syOOwQX" name="gift.one.title.registration">
+      <segment>
+        <source>gift.one.title.registration</source>
+        <target>Anmeldung</target>
+      </segment>
+    </unit>
+    <unit id="mccDfNi" name="gift.summary.reduction">
+      <segment>
+        <source>gift.summary.reduction</source>
+        <target>Wenn Sie in Frankreich steuerpflichtig sind, entspricht diese Spende %Ermäßigung% € nach Steuerabzug.</target>
+      </segment>
+    </unit>
+    <unit id="kwp2jus" name="global.page-not-found">
+      <segment>
+        <source>global.page-not-found</source>
+        <target>Die Seite, auf die Sie zugreifen möchten, existiert nicht mehr oder wurde verschoben.</target>
+      </segment>
+    </unit>
+    <unit id="..asBgy" name="errors.not-found.title">
+      <segment>
+        <source>errors.not-found.title</source>
+        <target>Seite unauffindbar</target>
+      </segment>
+    </unit>
+    <unit id="iPFuef3" name="errors.not-found.intro">
+      <segment>
+        <source>errors.not-found.intro</source>
+        <target><![CDATA[Die Seite, auf die Sie zugreifen möchten, existiert nicht mehr. <br>br>
+        <a href="%link%">Zurück zur Startseite. </a>]]></target>
+      </segment>
+    </unit>
+    <unit id="o1xwBMD" name="errors.unknown.title">
+      <segment>
+        <source>errors.unknown.title</source>
+        <target>Fehler</target>
+      </segment>
+    </unit>
+    <unit id="8bM_dS3" name="errors.unknown.intro">
+      <segment>
+        <source>errors.unknown.intro</source>
+        <target><![CDATA[Es ist ein Fehler aufgetreten. <br>
+        <a href="%link%">Zurück zur Startseite. </a>]]></target>
+      </segment>
+    </unit>
+    <unit id="o3R9FHH" name="cart.product.added">
+      <segment>
+        <source>cart.product.added</source>
+        <target>Das Produkt wurde in den Warenkorb gelegt</target>
+      </segment>
+    </unit>
+    <unit id="ILZzkFr" name="order.accept-terms.title">
+      <segment>
+        <source>order.accept-terms.title</source>
+        <target>Allgemeine Geschäftsbedingungen (AGB)</target>
+      </segment>
+    </unit>
+    <unit id="XPYZoBX" name="order.accept-terms.label">
+      <segment>
+        <source>order.accept-terms.label</source>
+        <target>Ich stimme den AGB zu</target>
+      </segment>
+    </unit>
+    <unit id="64plJkn" name="order.accept-terms.link">
+      <segment>
+        <source>order.accept-terms.link</source>
+        <target>Bitte lesen Sie die AGB</target>
+      </segment>
+    </unit>
+    <unit id="l4A0hfj" name="global.secure-datas">
+      <segment>
+        <source>global.secure-datas</source>
+        <target>Datenschutz</target>
+      </segment>
+    </unit>
+    <unit id="mo2Qk4k" name="order.accept-terms.disclaimer">
+      <segment>
+        <source>order.accept-terms.disclaimer</source>
+        <target><![CDATA[Um Ihre Bestellung abzuschließen, müssen Sie unsere AGB akzeptieren.
+        <a href="%link%" class="accept-terms-link" target="_blank">Siehe AGB. </a>]]></target>
+      </segment>
+    </unit>
+    <unit id="WSRB_P4" name="global.tax-code">
+      <segment>
+        <source>global.tax-code</source>
+        <target><![CDATA[Wenn Sie in Frankreich und in den europäischen Ländern, die dies zulassen, steuerpflichtig sind, profitieren Sie von einer Steuerermäßigung.Wenn Sie in Frankreich und in den europäischen Ländern, die dies zulassen, steuerpflichtig sind, profitieren Sie von einer Steuerermäßigung.
+        Wenn Sie der französischen Steuer unterliegen, entspricht die Ermäßigung 66% des Spendenbetrags, maximal 20% des steuerpflichtigen Einkommens. Der Überschuss kann auf die folgenden 5 Jahre vorgetragen werden und berechtigt den Inhaber zu einer Steuerermäßigung unter den gleichen Bedingungen (Artikel 200 CGI). Um auf das allgemeine Steuerkennzeichen zuzugreifen, klicken Sie auf <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=
+        LEGIARTI000000000018619914&cidTexte=LEGITEXT000006069577" target="_blank">ICI</a>.<br>.
+        Seit 2009 wird die Möglichkeit der Ausstellung eines Steuerbescheids auf Spenden und Zahlungen an ausländische Einrichtungen mit Sitz in einem Mitgliedstaat der Europäischen Union oder in einem Mitgliedstaat des Europäischen Wirtschaftsraums, der mit Frankreich ein Steuerabkommen geschlossen hat, das eine Amtshilfeklausel zur Bekämpfung von Steuerbetrug oder Steuerhinterziehung enthäl tausgeweitet,. Dies ist beispielsweise der Fall für Belgien.]]></target>
+      </segment>
+    </unit>
+    <unit id="qr0aiUo" name="Invalid credentials.">
+      <segment>
+        <source>Invalid credentials.</source>
+        <target>Benutzername ungültig</target>
+      </segment>
+    </unit>
+    <unit id="oRrFAdo" name="form.particular">
+      <segment>
+        <source>form.particular</source>
+        <target>Privatperson</target>
+      </segment>
+    </unit>
+    <unit id="U_hF9qB" name="form.professional">
+      <segment>
+        <source>form.professional</source>
+        <target>Juristische Person</target>
+      </segment>
+    </unit>
+    <unit id="RXbgqwH" name="form.statut">
+      <segment>
+        <source>form.statut</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="RbBuoVS" name="form.statut.par">
+      <segment>
+        <source>form.statut.par</source>
+        <target>Privatperson</target>
+      </segment>
+    </unit>
+    <unit id="_oSZqds" name="form.statut.org">
+      <segment>
+        <source>form.statut.org</source>
+        <target>Organisation</target>
+      </segment>
+    </unit>
+    <unit id="u5UgI6X" name="form.statut.pro">
+      <segment>
+        <source>form.statut.pro</source>
+        <target>Juristische Person</target>
+      </segment>
+    </unit>
+    <unit id="_bAL1ap" name="form.pro">
+      <segment>
+        <source>form.pro</source>
+        <target>Ich bin eine juristische Person</target>
+      </segment>
+    </unit>
+    <unit id="TER1oiM" name="order-return.success-p1">
+      <segment>
+        <source>order-return.success-p1</source>
+        <target><![CDATA[
+          <p>Ihre Bestellung ist unter der Nummer %refCom% registriert und wir danken Ihnen dafür. Wir bitten Sie, diese Nummer aufzubewahren, die bei allen Fragen zu Ihrer Bestellung angefordert wird.
+          <Die Lieferung erfolgt innerhalb von maximal[nb Tagen] Werktagen nach Zahlungseingang für Ihre Bestellung.
+          Ihre Bestellung wird an die folgende Adresse geliefert:
+          <br>
+          <br>
+          <center>%addCom%</center>/center>
+          <br>
+          <Für weitere Informationen und Auskunftsersuchen stehen wir Ihnen gerne zur Verfügung.
+          <p>Mit all unserer Sympathie</p>.
+          <p>Das Team von Roche d'Or Verlag</p> 
+        ]]></target>
+      </segment>
+    </unit>
+    <unit id="1xgOZ62" name="form.submitParticipant">
+      <segment>
+        <source>form.submitParticipant</source>
+        <target>den Teilnehmer bestätigen</target>
+      </segment>
+    </unit>
+    <unit id="6F6bhIE" name="calendar.registration.table.header.participant">
+      <segment>
+        <source>calendar.registration.table.header.participant</source>
+        <target>Priv. Pers.</target>
+      </segment>
+    </unit>
+    <unit id="9wc0Ipn" name="form.mail_spam">
+      <segment>
+        <source>form.mail_spam</source>
+        <target>Wenn Sie kein E-Mail erhalten haben, überprüfen Sie bitte Ihren Spam-Ordner</target>
+      </segment>
+    </unit>
+    <unit id="gJ0U0Pz" name="calendar.registration.table.header.transport">
+      <segment>
+        <source>calendar.registration.table.header.transport</source>
+        <target>Transportmittel</target>
+      </segment>
+    </unit>
+    <unit id="LGLNIkX" name="calendar.registration.table.header.come">
+      <segment>
+        <source>calendar.registration.table.header.come</source>
+        <target>Ankunftszeit</target>
+      </segment>
+    </unit>
+    <unit id="b.kM3a." name="calendar.registration.table.header.schedule">
+      <segment>
+        <source>calendar.registration.table.header.schedule</source>
+        <target>Zeitplan</target>
+      </segment>
+    </unit>
+    <unit id="OTuFOuF" name="calendar.registration.two.title ">
+      <segment>
+        <source>calendar.registration.two.title </source>
+        <target>Teilnehmer</target>
+      </segment>
+    </unit>
+    <unit id="3ufiucg" name="order.notify.client.roche.adliv">
+      <segment>
+        <source>order.notify.client.roche.adliv</source>
+        <target>Einkerhtage in Roche d'Or — 1 Chemin du Muenot F 25000 Besançon</target>
+      </segment>
+    </unit>
+    <unit id="lCT3EkI" name="order.notify.client.font.adliv">
+      <segment>
+        <source>order.notify.client.font.adliv</source>
+        <target>Einkehrtage in den Fontanilles — Route de Riunoguès F 66480 Maureillas Las Illas</target>
+      </segment>
+    </unit>
+    <unit id="qlr0CE8" name="contacts">
+      <segment>
+        <source>contacts</source>
+        <target>Kontakt</target>
+      </segment>
+    </unit>
+    <unit id="u2DERC4" name="filter.button.show">
+      <segment>
+        <source>filter.button.show</source>
+        <target>Anzeigefilter</target>
+      </segment>
+    </unit>
+    <unit id="Q0rf09M" name="editions.filters.show">
+      <segment>
+        <source>editions.filters.show</source>
+        <target>Filter</target>
+      </segment>
+    </unit>
+    <unit id="mslbO25" name="editions.filter.show">
+      <segment>
+        <source>editions.filter.show</source>
+        <target>Filter</target>
+      </segment>
+    </unit>
+    <unit id="aF9Ibh7" name="retreat.speaker.of">
+      <segment>
+        <source>retreat.speaker.of</source>
+        <target>von</target>
+      </segment>
+    </unit>
+    <unit id="GShLOoI" name="filter.close.button">
+      <segment>
+        <source>filter.close.button</source>
+        <target>Filter schliessen</target>
       </segment>
     </unit>
   </file>
