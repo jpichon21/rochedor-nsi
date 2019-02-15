@@ -384,16 +384,16 @@ function adlivUpdateForm (destliv) {
       _delivery.paysliv = _you.pays
       break
     case 'Roche':
-      _delivery.adliv.prenom = _you.prenom
-      _delivery.adliv.nom = _you.nom
+      _delivery.adliv.prenom = ''
+      _delivery.adliv.nom = ''
       _delivery.adliv.adresse = '1 Chemin du Muenot'
       _delivery.adliv.zipcode = '25000'
       _delivery.adliv.city = 'Besançon'
       _delivery.paysliv = 'FR'
       break
     case 'Font':
-      _delivery.adliv.prenom = _you.prenom
-      _delivery.adliv.nom = _you.nom
+      _delivery.adliv.prenom = ''
+      _delivery.adliv.nom = ''
       _delivery.adliv.adresse = 'Route de Riunoguès'
       _delivery.adliv.zipcode = '66480'
       _delivery.adliv.city = 'Maureillas Las Illas'
@@ -410,6 +410,8 @@ function adlivUpdateForm (destliv) {
   }
   _delivery.destliv = destliv
   adlivUpdateFormRender()
+  $('.panel.adliv').toggleClass('active', destliv !== 'myAd')
+  changeItem(itemShipping)
 }
 
 function formatForm (data) {

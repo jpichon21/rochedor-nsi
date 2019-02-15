@@ -1353,31 +1353,31 @@
     <unit id=".5a_NkK" name="select.ad.myAd">
       <segment>
         <source>select.ad.myAd</source>
-        <target>Mon adresse</target>
+        <target>Envoyer à mon adresse</target>
       </segment>
     </unit>
     <unit id="rznIWfL" name="select.ad.roche">
       <segment>
         <source>select.ad.roche</source>
-        <target>Librairie de la Roche d'Or</target>
+        <target>Retrait à la librairie de la Roche d'Or ?</target>
       </segment>
     </unit>
     <unit id="8QjWF9b" name="select.ad.font">
       <segment>
         <source>select.ad.font</source>
-        <target>Librairie des Fontanilles</target>
+        <target>Retrait à la librairie des Fontanilles ?</target>
       </segment>
     </unit>
     <unit id="MlxM03H" name="select.ad.other">
       <segment>
         <source>select.ad.other</source>
-        <target>Une autre adresse</target>
+        <target>Adresse de livraison différente de l'adresse de facturation ?</target>
       </segment>
     </unit>
     <unit id="GDNiQhU" name="order.choose.adliv">
       <segment>
         <source>order.choose.adliv</source>
-        <target>Adresse de livraison</target>
+        <target>Adresser la commande à</target>
       </segment>
     </unit>
     <unit id="xiX_zBW" name="form.adresse">
@@ -2058,12 +2058,6 @@
         <target>Félicitations, votre commande à été confirmée !</target>
       </segment>
     </unit>
-    <unit id="YQKEE1i" name="order.summary.title.delivery">
-      <segment>
-        <source>order.summary.title.delivery</source>
-        <target>Livraison</target>
-      </segment>
-    </unit>
     <unit id="vmEWF6k" name="order.summary.title.total">
       <segment>
         <source>order.summary.title.total</source>
@@ -2199,7 +2193,7 @@
     <unit id="l0nR41K" name="form.message.delivery_invalid">
       <segment>
         <source>form.message.delivery_invalid</source>
-        <target>Tous les champs de "Adresse de livraison" sont obligatoires</target>
+        <target>Tous les champs de "Adresser la commande à" sont obligatoires</target>
       </segment>
     </unit>
     <unit id="cHFGXVz" name="order.choose.payment">
@@ -2988,6 +2982,18 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>order.change.price</source>
         <target>Les prix ont été mis à jour suite à l'adresse de livraison renseignée.</target>
+      </segment>
+    </unit>
+    <unit id="3mG5LMG" name="order.summary.title.billing">
+      <segment>
+        <source>order.summary.title.billing</source>
+        <target>Adresse de facturation</target>
+      </segment>
+    </unit>
+    <unit id="YQKEE1i" name="order.summary.title.delivery">
+      <segment>
+        <source>order.summary.title.delivery</source>
+        <target>Adresse de livraison</target>
       </segment>
     </unit>
   </file>

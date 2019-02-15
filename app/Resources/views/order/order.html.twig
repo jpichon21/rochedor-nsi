@@ -117,16 +117,15 @@
                     <div class="pure-u-1">
                         <select class="select white select-adliv" name="select_adliv">
                             <option value="myAd">{{ 'select.ad.myAd' | trans | raw }}</option>
+                            <option value="Other">{{ 'select.ad.other' | trans | raw }}</option>
                             <option value="Roche">{{ 'select.ad.roche' | trans ~ ' ' ~ 'no.shipping' | trans | raw }}</option>
                             <option value="Font">{{ 'select.ad.font' | trans ~ ' ' ~ 'no.shipping' | trans | raw }}</option>
-                            <option value="Other">{{ 'select.ad.other' | trans | raw }}</option>
                         </select>
                     </div>
                 </div>
-                <div class="panel adliv active">
+                <div class="panel adliv">
                     <form class="form adliv">
-                        <h3>{{ 'order.choose.adliv' | trans | raw }}</h3>
-                        <div class="adliv-form-render"></div>
+                        <div class="adliv-form-render"></div>  
                     </form>
                 </div>
                 <div class="panel gift active">
@@ -152,6 +151,7 @@
                     <div class="detailcart-render"></div>
                 </div>
                 <div class="panel active">
+                    <h3>{{ 'order.registration.three.title' | trans | raw }}</h3>
                     <div class="delivery-render"></div>
                 </div>
                 <div class="panel active">
@@ -236,23 +236,20 @@
     <% } %>
 </script>
 <script type="text/template" class="delivery-template">
-    <h3>{{'order.summary.title.delivery' | trans}}</h3>
-    <% if (delivery.adliv) { %>
+    <% if (delivery.destliv !== 'myAd') { %>
         <p>
-            <%= delivery.adliv.prenom %> <%= delivery.adliv.nom %>
-            <br>
-            <% if (delivery.destliv === 'Roche') { %>
-                {{ 'select.ad.roche' | trans | raw }}
-                <br>
-            <% } %>
-            <% if (delivery.destliv === 'Font') { %>
-                {{ 'select.ad.font' | trans | raw }}
-                <br>
-            <% } %>
-            <%= delivery.adliv.adresse %> <%= delivery.adliv.zipcode %> <%= delivery.adliv.city %> (<%= delivery.paysliv %>)</p>
-    <% } else { %>
-        <p>{{ 'order.summary.body.delivery' | trans | raw }}</p>
+            <b>{{ 'order.summary.title.billing' | trans }}</b>
+            <%= you.prenom %> <%= you.nom %><br>
+            <%= you.adresse %> <%= you.zipcode %> <%= delivery.adliv.city %> (<%= delivery.paysliv %>)
+        </p>
     <% } %>
+    <p>
+        <% if (delivery.destliv !== 'myAd') { %><b>{{ 'order.summary.title.delivery' | trans }}</b><% } %>
+        <%= delivery.adliv.prenom %> <%= delivery.adliv.nom %><br>
+        <% if (delivery.destliv === 'Roche') { %>Librairie de la Roche d'Or<br><% } %>
+        <% if (delivery.destliv === 'Font') { %>Librairie des Fontanilles<br><% } %>
+        <%= delivery.adliv.adresse %> <%= delivery.adliv.zipcode %> <%= delivery.adliv.city %> (<%= delivery.paysliv %>)
+    </p>
 </script>
 <script type="text/template" class="total-template">
     <h3>{{ 'order.summary.title.total' | trans}}</h3>
@@ -403,37 +400,40 @@
     {% endif %}
 </script>
 <script type="text/template" class="adliv-form-template">
+    <h3>{{ 'order.choose.adliv' | trans | raw }}</h3>
     <div class="pure-g">
         <div class="pure-u-1 pure-u-md-1-2">
-            <input class="input prenom" <%= (delivery.destliv == 'myAd') ? 'disabled' : '' %> required type="text" name="prenom" value="<%= _.escape(delivery.adliv.prenom) %>" placeholder="* {{ 'form.surname' | trans | raw }}">
+            <input class="input prenom" required type="text" name="prenom" value="<%= _.escape(delivery.adliv.prenom) %>" placeholder="* {{ 'form.surname' | trans | raw }}">
         </div>
         <div class="pure-u-1 pure-u-md-1-2">
-            <input class="input nom" <%= (delivery.destliv == 'myAd') ? 'disabled' : '' %> required type="text" name="nom" value="<%= _.escape(delivery.adliv.nom) %>" placeholder="* {{ 'form.name' | trans | raw }}">
+            <input class="input nom" required type="text" name="nom" value="<%= _.escape(delivery.adliv.nom) %>" placeholder="* {{ 'form.name' | trans | raw }}">
         </div>
-        <div class="pure-u-1 pure-u-md-1-2">
-            <input class="input adresse" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="adresse" value="<%= _.escape(delivery.adliv.adresse) %>" placeholder="* {{ 'form.adresse' | trans | raw }}">
-        </div>
-        <div class="pure-u-1 pure-u-md-1-2">
-            <input class="input zipcode" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="zipcode" value="<%= _.escape(delivery.adliv.zipcode) %>" placeholder="* {{ 'form.zipcode' | trans | raw }}">
-        </div>
-        <div class="pure-u-1 pure-u-md-1-2">
-            <input class="input city" <%= (delivery.destliv == 'Other') ? '' : 'disabled' %> required type="text" name="city" value="<%= _.escape(delivery.adliv.city) %>" placeholder="* {{ 'form.city' | trans | raw }}">
-        </div>
-        <div class="pure-u-1 pure-u-md-1-2">
-            <% var disableCountry = false %>
-            <% for (var i = 0; i < countries.length; i++) { %>
-                <% if (delivery.paysliv == countries[i].codpays) { %>
-                    <% disableCountry = true %>
-                <% } %>
-            <% } %>
-            <select class="select country" <%= (delivery.destliv == 'Roche' || delivery.destliv == 'Font' || disableCountry) ? 'disabled' : '' %> required name="paysliv">
-                <option <%= !disableCountry ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
+        <% if (delivery.destliv == 'Other') { %>
+            <div class="pure-u-1 pure-u-md-1-2">
+                <input class="input adresse" required type="text" name="adresse" value="<%= _.escape(delivery.adliv.adresse) %>" placeholder="* {{ 'form.adresse' | trans | raw }}">
+            </div>
+            <div class="pure-u-1 pure-u-md-1-2">
+                <input class="input zipcode" required type="text" name="zipcode" value="<%= _.escape(delivery.adliv.zipcode) %>" placeholder="* {{ 'form.zipcode' | trans | raw }}">
+            </div>
+            <div class="pure-u-1 pure-u-md-1-2">
+                <input class="input city" required type="text" name="city" value="<%= _.escape(delivery.adliv.city) %>" placeholder="* {{ 'form.city' | trans | raw }}">
+            </div>
+            <div class="pure-u-1 pure-u-md-1-2">
+                <% var disableCountry = false %>
                 <% for (var i = 0; i < countries.length; i++) { %>
-                    <% var country = countries[i] %>
-                    <option <%= (delivery.paysliv == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
+                    <% if (delivery.paysliv == countries[i].codpays) { %>
+                        <% disableCountry = true %>
+                    <% } %>
                 <% } %>
-            </select>
-        </div>
+                <select class="select country" <%= (delivery.destliv == 'Roche' || delivery.destliv == 'Font' || disableCountry) ? 'disabled' : '' %> required name="paysliv">
+                    <option <%= !disableCountry ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
+                    <% for (var i = 0; i < countries.length; i++) { %>
+                        <% var country = countries[i] %>
+                        <option <%= (delivery.paysliv == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
+                    <% } %>
+                </select>
+            </div>
+        <% } %>
     </div>
 </script>
 <script type="text/template" class="you-form-template">
@@ -521,17 +521,6 @@
     </div>
     <div class="pure-u-1 pure-u-md-1-4">
         <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
-    </div>
-</script>
-<script type="text/template" class="delivery-form-template">
-    <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
-        <input class="input adresse" required type="text" value="<%= delivery.adliv.adresse %>" name="adresse" placeholder="* {{ 'form.adresse' | trans | raw }}">
-    </div>
-    <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
-        <input class="input zipcode" required type="text" value="<%= delivery.adliv.zipcode %>" name="zipcode" placeholder="* {{ 'form.zipcode' | trans | raw }}">
-    </div>
-    <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
-        <input class="input city" required type="text" value="<%= delivery.adliv.city %>" name="zipcode" placeholder="* {{ 'form.zipcode' | trans | raw }}">
     </div>
 </script>
 <script src="{{ asset("assets/js/order.js") }}"></script>
