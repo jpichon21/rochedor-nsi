@@ -3002,5 +3002,17 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Continuer mes achats</target>
       </segment>
     </unit>
+    <unit id="2XYDyoC" name="form.go.buy">
+      <segment>
+        <source>form.go.buy</source>
+        <target>Continuer mes achats</target>
+      </segment>
+    </unit>
+    <unit id="fqY3vh8" name="form.continue.order">
+      <segment>
+        <source>form.continue.order</source>
+        <target>Passer ma commande</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

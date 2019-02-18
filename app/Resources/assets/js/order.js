@@ -182,7 +182,7 @@ function formatParticipant (data) {
   return participant
 }
 
-itemResume.on('click', '.button', function (event) {
+itemResume.on('click', '.continue', function (event) {
   event.preventDefault()
   changeItem(itemConnection)
 })
