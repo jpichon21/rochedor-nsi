@@ -297,6 +297,7 @@ function validatePassword (password) {
 itemCard.on('click', '.continue', function (event) {
   event.preventDefault()
   updateTermsRender()
+  adlivUpdateForm($('.select-adliv').val())
   changeItem(itemShipping)
 })
 
