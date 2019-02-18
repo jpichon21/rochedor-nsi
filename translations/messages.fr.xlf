@@ -2879,25 +2879,19 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
     <unit id="CmlcQv1" name="detail.pricettc">
       <segment>
         <source>detail.pricettc</source>
-        <target>
-					%ttc% € TTC
-				</target>
+        <target>%ttc% € TTC</target>
       </segment>
     </unit>
     <unit id="9q0mqTd" name="detail.priceht">
       <segment>
         <source>detail.priceht</source>
-        <target>
-					%ht% € HT
-				</target>
+        <target>%ht% € HT</target>
       </segment>
     </unit>
     <unit id="mQbnWaB" name="detail.tva">
       <segment>
         <source>detail.tva</source>
-        <target>
-					(TVA %tva% %)
-				</target>
+        <target>(TVA %tva% %)</target>
       </segment>
     </unit>
     <unit id="lAVunJy" name="table.header.price.unit">
@@ -2963,7 +2957,7 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
     <unit id="xAYLLaQ" name="cart.product.notremoved">
       <segment>
         <source>cart.product.notremoved</source>
-        <target>Ces produits n'on pas été supprimés</target>
+        <target>Ces produits n'ont pas été supprimés</target>
       </segment>
     </unit>
     <unit id="EtH91dF" name="cart.product.wouldremove">
@@ -2975,13 +2969,13 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
     <unit id="5L9Opva" name="you.billing">
       <segment>
         <source>you.billing</source>
-        <target>Cette adresse sera considerée comme votre adresse de facturation</target>
+        <target>Cette adresse sera considérée comme votre adresse de facturation</target>
       </segment>
     </unit>
     <unit id="XWixlRU" name="order.change.price">
       <segment>
         <source>order.change.price</source>
-        <target>Les prix ont été mis à jour suite à l'adresse de livraison renseignée.</target>
+        <target>Les prix ont été mis à jourLes prix ont été mis à jour suite au renseignement de l'adresse de livraison.</target>
       </segment>
     </unit>
     <unit id="3mG5LMG" name="order.summary.title.billing">

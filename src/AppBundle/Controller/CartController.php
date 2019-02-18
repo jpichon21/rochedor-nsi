@@ -21,7 +21,6 @@ use AppBundle\Entity\Cart;
 use AppBundle\Repository\CartRepository;
 use AppBundle\Repository\ProductRepository;
 use AppBundle\Entity\Cartline;
-use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Cookie;
 
@@ -65,7 +64,6 @@ class CartController extends Controller
      */
     public function addAction($productId, Request $request)
     {
-        $session = new Session();
         $product = $this->productRepository->find($productId);
         if ($product === null) {
             return $this->redirectToRoute('product-series-' . $request->getLocale());
@@ -78,6 +76,7 @@ class CartController extends Controller
         $cartLine = $this->addProduct($cart, $product);
         $this->em->persist($cartLine);
         $this->em->flush();
+        $session = new Session();
         $session->getFlashBag()->add('info', 'cart.product.added');
         return $this->redirect($request->server->get('HTTP_REFERER'));
     }
@@ -153,7 +152,7 @@ class CartController extends Controller
     }
 
     /**
-     * Remove a product to the Cart
+     * Remove a product from a Cart
      *
      * @param Cart $cart
      * @param Produit $product
@@ -165,6 +164,8 @@ class CartController extends Controller
         if ($cartLine != null) {
             if (($cartLine->getQuantity() - 1) === 0) {
                 $this->removeCartline($cartLine);
+                $session = new Session();
+                $session->getFlashBag()->add('info', 'cart.product.removed');
             }
             $cartLine->setQuantity($cartLine->getQuantity() - 1);
         }
@@ -180,8 +181,6 @@ class CartController extends Controller
         $cartLine->setCart(null);
         $this->em->persist($cartLine);
         $this->em->flush();
-        $session = new Session();
-        $session->getFlashBag()->add('info', 'cart.product.removed');
     }
     
     /**
