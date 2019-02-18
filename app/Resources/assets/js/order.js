@@ -626,7 +626,6 @@ function getCartData (event, product, action) {
           }
         })
     })
-    .catch(error => upFlashbag(error))
 }
 
 function deleteCartline (product) {
