@@ -2927,13 +2927,13 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
     <unit id="34Dbjye" name="click.termsPro">
       <segment>
         <source>click.termsPro</source>
-        <target><![CDATA[En cliquant sur <i>Valider la commande et procéder au paiement</i>, <br>j'accepte les <a href="%link%">Conditions Générales de Vente à destination des professionnels</a>.]]></target>
+        <target><![CDATA[En cliquant sur <i>Valider la commande et procéder au paiement</i>, <br>vous acceptez les <a href="%link%">Conditions Générales de Vente à destination des professionnels</a>.]]></target>
       </segment>
     </unit>
     <unit id="xYp2S.J" name="click.terms">
       <segment>
         <source>click.terms</source>
-        <target><![CDATA[En cliquant sur <i>Valider la commande et procéder au paiement</i>, <br>j'accepte les <a href="%link%">Conditions Générales de Vente</a>.]]></target>
+        <target><![CDATA[En cliquant sur <i>Valider la commande et procéder au paiement</i>, <br>vous acceptez les <a href="%link%">Conditions Générales de Vente</a>.]]></target>
       </segment>
     </unit>
     <unit id="8BOf13k" name="table.header.price.ttc">
