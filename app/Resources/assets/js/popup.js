@@ -4,6 +4,7 @@ const overlay = popup.querySelector('.overlay')
 const buttonY = popup.querySelector('.button.yes')
 const buttonN = popup.querySelector('.button.no')
 const buttonC = popup.querySelector('.button.continue')
+const buttonCC = popup.querySelector('.button.continueCart')
 
 export const upFlashbag = html => {
   message.innerHTML = html
@@ -16,7 +17,7 @@ export const upCartBox = html => {
   message.innerHTML = html
   popup.classList.remove('yes', 'no', 'continue')
   popup.classList.add('active', 'cart', 'continueCart')
-  buttonC.addEventListener('click', () => { downPopup() })
+  buttonCC.addEventListener('click', () => { downPopup() })
 }
 
 export const upConfirmbox = html => {
