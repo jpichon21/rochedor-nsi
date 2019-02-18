@@ -2990,5 +2990,17 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Adresse de livraison</target>
       </segment>
     </unit>
+    <unit id="bBYtJtl" name="see.cart">
+      <segment>
+        <source>see.cart</source>
+        <target>Voir mon panier</target>
+      </segment>
+    </unit>
+    <unit id="1e1MzCd" name="continue.cart">
+      <segment>
+        <source>continue.cart</source>
+        <target>Continuer mes achats</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
