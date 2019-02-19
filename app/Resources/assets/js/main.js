@@ -137,15 +137,20 @@ document.onkeydown = event => {
 
 document.onclick = event => {
   const element = event.target
-  if (element && (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA')) {
+  if (
+    element &&
+    !element.classList.contains('submit') &&
+    (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA')
+  ) {
     const form = getForm(element)
     if (form !== null) {
       const focusTrap = createFocusTrap(form, {
         onActivate: () => { formLock = true },
-        onDeactivate: () => { formLock = false },
-        clickOutsideDeactivates: true,
-        returnFocusOnDeactivate: false
+        onDeactivate: () => { formLock = false }
       })
+      form.onsubmit = () => {
+        focusTrap.deactivate()
+      }
       focusTrap.activate()
     }
   }
