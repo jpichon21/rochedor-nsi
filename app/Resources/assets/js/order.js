@@ -665,5 +665,6 @@ function validateDeleteCartline (event, product) {
   upConfirmbox(i18n.trans('cart.product.wouldremove'))
     .then(() => {
       deleteCartline(product)
+    }).catch(() => {
     })
 }
