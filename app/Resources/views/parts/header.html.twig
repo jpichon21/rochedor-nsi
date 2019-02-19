@@ -4,31 +4,31 @@
             <li data-menu="vgbhnj">
                 <span>{{ 'menu.one' | trans | raw }}</span>
                 <ul class="sub-menu" data-menu="vgbhnj">
-                    <li><a tabindex="-1" href="{{ localePath('la-communaute', app.request.locale) }}">{{ 'menu.one.one' | trans | raw }}</a></li>
-                    <li><a tabindex="-1" href="#">{{ 'menu.one.two' | trans | raw }}</a></li>
-                    <li><a tabindex="-1" href="#">{{ 'menu.one.three' | trans | raw }}</a></li>
-                    <li><a tabindex="-1" href="#">{{ 'menu.one.four' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('la-communaute', app.request.locale) }}">{{ 'menu.one.one' | trans | raw }}</a></li>
+                    <li><a href="#">{{ 'menu.one.two' | trans | raw }}</a></li>
+                    <li><a href="#">{{ 'menu.one.three' | trans | raw }}</a></li>
+                    <li><a href="#">{{ 'menu.one.four' | trans | raw }}</a></li>
                 </ul>
             </li>
             <li data-menu="gyhuji">
                 <span>{{ 'menu.two' | trans | raw }}</span>
                 <ul class="sub-menu" data-menu="gyhuji">
-                    <li><a tabindex="-1" href="{{ localePath('venir-en-retraite', app.request.locale) }}">{{ 'menu.two.one' | trans | raw }}</a></li>
-                    <li><a tabindex="-1" href="{{ localePath('retraites-a-la-roche-dor', app.request.locale) }}">{{ 'menu.two.two' | trans | raw }}</a></li>
-                    <li><a tabindex="-1" href="{{ localePath('retraites-aux-fontanilles', app.request.locale) }}">{{ 'menu.two.three' | trans | raw }}</a></li>
-                    <li><a tabindex="-1" href="{{ localePath('intervenants', app.request.locale) }}">{{ 'menu.two.four' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('venir-en-retraite', app.request.locale) }}">{{ 'menu.two.one' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('retraites-a-la-roche-dor', app.request.locale) }}">{{ 'menu.two.two' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('retraites-aux-fontanilles', app.request.locale) }}">{{ 'menu.two.three' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('intervenants', app.request.locale) }}">{{ 'menu.two.four' | trans | raw }}</a></li>
                 </ul>
             </li>
             <li>
-                <a tabindex="-1" href="{{ localePath('liste-retraites', app.request.locale) }}">{{ 'menu.three' | trans | raw }}</a>
+                <a href="{{ localePath('liste-retraites', app.request.locale) }}">{{ 'menu.three' | trans | raw }}</a>
             </li>
         </ul>
     </div>
     <div class="logo">
-        <a class="normal" tabindex="-1" href="/">
+        <a class="normal" href="/">
             <img src="{{ asset('assets/img/logo.png') }}" alt="La Roche d'Or">
         </a>
-        <a class="editions" tabindex="-1" href="/">
+        <a class="editions" href="/">
             <img src="{{ asset('assets/img/logo-editions.png') }}" alt="Les Editions Roche d'Or">
         </a>
     </div>
@@ -37,10 +37,10 @@
             <li data-menu="hbgvfc">
                 <span>{{ 'menu.four' | trans | raw }}</span>
                 <ul class="sub-menu" data-menu="hbgvfc">
-                    <li><a tabindex="-1" href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">{{ 'menu.four.one' | trans | raw }}</a></li>
-                    <li><a tabindex="-1" href="{{ localePath('infos-pratiques-des-fontanilles', app.request.locale) }}">{{ 'menu.four.two' | trans | raw }}</a></li>
-                    <li><a tabindex="-1" href="{{ localePath('accueil-des-enfants', app.request.locale) }}">{{ 'menu.four.three' | trans | raw }}</a></li>
-                    <li><a tabindex="-1" href="#">{{ 'menu.four.four' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">{{ 'menu.four.one' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('infos-pratiques-des-fontanilles', app.request.locale) }}">{{ 'menu.four.two' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('accueil-des-enfants', app.request.locale) }}">{{ 'menu.four.three' | trans | raw }}</a></li>
+                    <li><a href="#">{{ 'menu.four.four' | trans | raw }}</a></li>
                 </ul>
             </li>
             <li data-menu="qzsedr">
@@ -48,9 +48,9 @@
                 <ul class="sub-menu" data-menu="qzsedr">
                     <div class="blank"></div>
                     <div class="blank"></div>
-                    <li><a tabindex="-1" href="{{ localePath('editions', app.request.locale) }}">{{ 'menu.five.one' | trans | raw }}</a></li>
-                    <li><a tabindex="-1" href="{{ localePath('editions-nouveautes', app.request.locale) }}">{{ 'menu.five.two' | trans | raw }}</a></li>
-                    <li><a tabindex="-1" href="{{ localePath('editions-collections', app.request.locale) }}">{{ 'menu.five.three' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('editions', app.request.locale) }}">{{ 'menu.five.one' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('editions-nouveautes', app.request.locale) }}">{{ 'menu.five.two' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('editions-collections', app.request.locale) }}">{{ 'menu.five.three' | trans | raw }}</a></li>
                 </ul>
             </li>
             <li data-menu="defrgt">
@@ -61,8 +61,8 @@
                     <div class="blank"></div>
                     <div class="blank"></div>
                     <div class="blank"></div>
-                    <li><a tabindex="-1" href="{{ localePath('donner-du-temps', app.request.locale) }}">{{ 'menu.six.one' | trans | raw }}</a></li>
-                    <li><a tabindex="-1" href="{{ localePath('dons', app.request.locale) }}">{{ 'menu.six.two' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('donner-du-temps', app.request.locale) }}">{{ 'menu.six.one' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('dons', app.request.locale) }}">{{ 'menu.six.two' | trans | raw }}</a></li>
                 </ul>
             </li>
         </ul>
@@ -75,7 +75,7 @@
                     and page.type == 'editions'
                 )
             %}
-                <a tabindex="-1" href="{{ path('order-' ~ app.request.locale) }}" class="cart">
+                <a href="{{ path('order-' ~ app.request.locale) }}" class="cart">
                     {{ 'menu.cart' | trans }}
                     <small class="cartCount-render"></small>
                 </a>
@@ -85,7 +85,7 @@
                 {% if availableLocales is defined %}
                 {% for locale, url in availableLocales %}
                 {% if locale != app.request.locale %}
-                <li><a tabindex="-1" href={{ url }}>{{ locale }}</a></li>
+                <li><a href={{ url }}>{{ locale }}</a></li>
                 {% endif %}
                 {% endfor %}
                 {% else %}
@@ -95,14 +95,14 @@
                 {% set params = route_params|merge(app.request.query.all) %}
                 {% for locale in locales %}
                 {% if locale != app.request.locale %}
-                <li><a tabindex="-1" href="{{ path(route, params|merge({ _locale: locale })) }}">{{ locale }}</a></li>
+                <li><a href="{{ path(route, params|merge({ _locale: locale })) }}">{{ locale }}</a></li>
                 {% endif %}
                 {% endfor %}
                 {% endif %}
                 {% endif %}
             </ul>
             <ul class="current">
-                <li><a tabindex="-1" href={{ currentPath }}>{{ currentLocale }}</a></li>
+                <li><a href={{ currentPath }}>{{ currentLocale }}</a></li>
             </ul>
         </div>
         <ul class="zoom">
