@@ -369,7 +369,7 @@ itemCard.on('submit', '.panel.modify form', function (event) {
       adlivUpdateForm('myAd')
       $(`.panel.modify`).slideUp(800, function () {
         $(this).hide()
-        changeItem(itemCard)
+        changeItem(itemShipping)
       })
     }).catch(error => {
       downLoader()
@@ -665,5 +665,6 @@ function validateDeleteCartline (event, product) {
   upConfirmbox(i18n.trans('cart.product.wouldremove'))
     .then(() => {
       deleteCartline(product)
+    }).catch(() => {
     })
 }
