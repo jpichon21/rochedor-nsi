@@ -146,7 +146,8 @@ document.onclick = event => {
     if (form !== null) {
       const focusTrap = createFocusTrap(form, {
         onActivate: () => { formLock = true },
-        onDeactivate: () => { formLock = false }
+        onDeactivate: () => { formLock = false },
+        clickOutsideDeactivates: true
       })
       form.onsubmit = () => {
         focusTrap.deactivate()
