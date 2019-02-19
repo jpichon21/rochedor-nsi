@@ -8,7 +8,7 @@
     <a class="price" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">
         {{ product.prix }}<small>€</small>
     </a>
-    <a class="cart"  href="{{ path('cart-add', {'productId': product.codprd})}}">
+    <a class="cart" data-id="{{ product.codprd }}" href="#">
         <img src="{{ asset('assets/img/cart.png') }}" alt="Panier">
     </a>
     <div class="text">

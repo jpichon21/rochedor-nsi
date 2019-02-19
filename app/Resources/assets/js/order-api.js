@@ -153,3 +153,15 @@ export const checkVat = (number) => {
       return res.data
     })
 }
+
+export const getCartCount = () => {
+  return window.fetch(`/xhr/order/cartcount`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.error }
+      return res.data
+    })
+}

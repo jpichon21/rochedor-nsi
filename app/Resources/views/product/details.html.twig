@@ -71,7 +71,7 @@
         {{ product.pageprd }}
       </div>
       <div class="actions">
-        <a class="button addToCart" href="{{ path('cart-add', {'productId': product.codprd}) }}">{{ 'editions.addtocart' | trans }}</a>
+        <a class="button addToCart" data-id="{{ product.codprd }}" href="#">{{ 'editions.addtocart' | trans }}</a>
         {% if product.urlbook != '' %}
         <div class="choice">{{ 'editions.or' | trans }}</div>
         <a class="button" target="_blank" href="{{ product.urlbook }}">{{ 'editions.ebookversion' | trans }}</a>
@@ -130,6 +130,7 @@
 </div>
 {% endblock %}
 {% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
 <script src="{{ asset('assets/js/carousel.js') }}"></script>
 <script src="{{ asset('assets/js/editions.js') }}"></script>
 {% endblock %}

@@ -155,6 +155,15 @@ class OrderController extends Controller
     }
 
     /**
+     * @Rest\Get("/xhr/order/cartcount", name="get_cartcount")
+     * @Rest\View()
+    */
+    public function xhrGetCartCount(Request $request)
+    {
+        return ['status' => 'ok' , 'data' => $this->cartService->getCartCount($request->cookies->get('cart'))];
+    }    
+
+    /**
      * @Rest\Get("/xhr/order/vat/{vat}", name="get_vat")
      * @Rest\View()
     */
@@ -415,13 +424,11 @@ class OrderController extends Controller
                 'addCom' =>  $addCom,
                 'status' => $status,
                 'method' => $method,
-                'cartCount' => $this->cartService->getCartCount($cookies->get('cart'))
             ]);
         } else {
             return $this->render('order/payment-return.html.twig', [
                 'status' => $status,
                 'method' => $method,
-                'cartCount' => $this->cartService->getCartCount($cookies->get('cart'))
             ]);
         }
     }
@@ -622,15 +629,11 @@ class OrderController extends Controller
         $cart = $this->cartRepository->find($cartId);
         
         if ($cartId === null) {
-            return $this->render('order/order-error.html.twig', [
-                'cartCount' => $this->cartService->getCartCount($cookies->get('cart'))
-            ]);
+            return $this->render('order/order-error.html.twig');
         }
 
         if (empty($cart->getCartlines()->getValues())) {
-            return $this->render('order/order-error.html.twig', [
-                'cartCount' => $this->cartService->getCartCount($cookies->get('cart'))
-            ]);
+            return $this->render('order/order-error.html.twig');
         }
         
         $page = $this->pageService->getContentFromRequest($request);
