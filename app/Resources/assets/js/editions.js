@@ -4,6 +4,12 @@ import JsBarcode from 'jsbarcode'
 import 'jquery-zoom-js'
 import { upCartBox } from './popup'
 import { limitMenuReduced } from './variables'
+import I18n from './i18n'
+import { patchProduct, getCartCount } from './order-api.js'
+
+/* Translations */
+
+let i18n = new I18n()
 
 JsBarcode('.barcode').init()
 
@@ -63,15 +69,43 @@ function changeThumb (direction) {
   prev.removeClass('active')
 }
 
+// use xhr to render the cart span number
+const cartCountTemplate = _.template($('.cartCount-template').html())
+
+function updateCartCountRender () {
+  getCartCount().then((res) => {
+    $('.cartCount-render').html(cartCountTemplate({
+      cartCount: res
+    }))
+  })
+}
+
+updateCartCountRender()
+// use xhr to add a product on the cart uploads flashbags and update cart Counter
+
 $('.carousel .prev, .carousel .next').on('click', function () {
   let direction = $(this).hasClass('prev') ? 'prev' : 'next'
   changeThumb(direction)
 })
 
-// Displays flashbags
+$('.product').on('click', '.description .cart', function (event) {
+  addProduct(event, $(this).attr('data-id'))
+})
 
-if (flashbags.length > 0) {
-  upCartBox(flashbags.join('<br>'))
+$('.actions').on('click', '.addToCart', function (event) {
+  addProduct(event, $(this).attr('data-id'))
+})
+
+function addProduct (event, product) {
+  event.preventDefault()
+  let data = {}
+  data.productId = product
+  data.typeAction = 'add'
+  patchProduct(data)
+    .then(() => {
+      updateCartCountRender()
+      upCartBox(i18n.trans('cart.product.added'))
+    })
 }
 
 // Logo Baseline

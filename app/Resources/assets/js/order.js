@@ -16,7 +16,8 @@ import {
   checkVat,
   checkZipcode,
   patchProduct,
-  removeCartline
+  removeCartline,
+  getCartCount
 } from './order-api.js'
 import { changeItem } from './page'
 
@@ -71,6 +72,7 @@ $('.item-clients').on('click', '.button.radio', function (event) {
 
 /* Renders */
 
+const cartCountTemplate = _.template($('.cartCount-template').html())
 const youTemplate = _.template($('.you-template').html())
 const deliveryTemplate = _.template($('.delivery-template').html())
 const totalTemplate = _.template($('.total-template').html())
@@ -78,7 +80,15 @@ const youFormTemplate = _.template($('.you-form-template').html())
 const adlivFormTemplate = _.template($('.adliv-form-template').html())
 const cartTemplate = _.template($('.cart-template').html())
 const termsTemplate = _.template($('.terms-template').html())
-const detailcartTemplate = _.template($('.detailcart-template').html())
+const detailCartTemplate = _.template($('.detailCart-template').html())
+
+function updateCartCountRender () {
+  getCartCount().then((res) => {
+    $('.cartCount-render').html(cartCountTemplate({
+      cartCount: res
+    }))
+  })
+}
 
 function updateYouRender () {
   $('.you-render').html(youTemplate({
@@ -147,7 +157,7 @@ function updateCartRender () {
 
 function updateDetailcartRender () {
   let _sum = 0
-  $('.detailcart-render').html(detailcartTemplate({
+  $('.detailCart-render').html(detailCartTemplate({
     product: _total.product,
     country: _country,
     sum: _sum
@@ -569,6 +579,7 @@ if (cancelReturn) {
   _dest = _delivery.destliv
   getData(_cartId, _country, _dest).then(data => {
     _total = data
+    updateCartCountRender()
     updateYouRender()
     updateDeliveryRender()
     updateCartRender()
@@ -579,6 +590,7 @@ if (cancelReturn) {
 } else {
   getData(_cartId, _country, _dest).then(data => {
     _total = data
+    updateCartCountRender()
     updateCartRender()
   })
 }
@@ -599,11 +611,11 @@ $('.cart-render').on('click', '.removecartline', function (event) {
   validateDeleteCartline(event, $(this).attr('data-id'))
 })
 
-$('.detailcart-render').on('click', '.patchproduct', function (event) {
+$('.detailCart-render').on('click', '.patchproduct', function (event) {
   getCartData(event, $(this).attr('data-id'), $(this).attr('data-action'))
 })
 
-$('.detailcart-render').on('click', '.removecartline', function (event) {
+$('.detailCart-render').on('click', '.removecartline', function (event) {
   validateDeleteCartline(event, $(this).attr('data-id'))
 })
 
@@ -620,7 +632,7 @@ function getCartData (event, product, action) {
           if (_total.product === undefined) {
             window.location.reload()
           } else {
-            $('.header .cart span').text(countTotalProduct(_total.product))
+            updateCartCountRender()
             updateCartRender()
             updateDetailcartRender()
             updateTotalRender()
@@ -639,7 +651,7 @@ function deleteCartline (product) {
           if (_total.product === undefined) {
             window.location.reload()
           } else {
-            $('.header .cart span').text(countTotalProduct(_total.product))
+            updateCartCountRender()
             updateCartRender()
             updateDetailcartRender()
             updateTotalRender()
@@ -654,12 +666,4 @@ function validateDeleteCartline (event, product) {
     .then(() => {
       deleteCartline(product)
     })
-}
-
-function countTotalProduct (products) {
-  let totalProduct = 0
-  products.forEach(product => {
-    totalProduct = totalProduct + product.quantity
-  })
-  return totalProduct
 }

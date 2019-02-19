@@ -83,4 +83,8 @@
 {% endblock %}
 {% block javascripts %}
 <script src="{{ asset('assets/js/page.js') }}"></script>
+{% if page.type == 'editions' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+<script src="{{ asset("assets/js/cartcount.js") }}"></script>
+{% endif %}
 {% endblock %}

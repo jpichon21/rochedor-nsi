@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/editions.css') }}">
 {% endblock %}
 {% block content %}
+{% include 'parts/popup.html.twig' %}
 <div class="content">
     <div class="zone">
       <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
@@ -58,6 +59,7 @@
 </div>
 {% endblock %}
 {% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
 <script src="{{ asset("assets/js/carousel.js") }}"></script>
 <script src="{{ asset("assets/js/editions.js") }}"></script>
 {% endblock %}

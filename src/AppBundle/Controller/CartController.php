@@ -24,7 +24,6 @@ use AppBundle\Entity\Cartline;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Cookie;
 
-
 class CartController extends Controller
 {
 
@@ -60,28 +59,6 @@ class CartController extends Controller
     }
 
     /**
-     * @Route("/{_locale}/cart/add/{productId}", name="cart-add", methods={"GET"}, requirements={"productId"="\d+"})
-     */
-    public function addAction($productId, Request $request)
-    {
-        $product = $this->productRepository->find($productId);
-        if ($product === null) {
-            return $this->redirectToRoute('product-series-' . $request->getLocale());
-        }
-        $cartId = $request->cookies->get('cart');
-        $cart = $this->cartRepository->find($cartId);        
-        if ($cart === null) {
-            $cart = $this->createCart();
-        }
-        $cartLine = $this->addProduct($cart, $product);
-        $this->em->persist($cartLine);
-        $this->em->flush();
-        $session = new Session();
-        $session->getFlashBag()->add('info', 'cart.product.added');
-        return $this->redirect($request->server->get('HTTP_REFERER'));
-    }
-
-    /**
      * @Rest\Patch("/xhr/cart/patch", name="patch_product")
      * @Rest\View()
     */
@@ -99,7 +76,13 @@ class CartController extends Controller
         }
         $product = $this->productRepository->find($productId);
         $cartId = $request->cookies->get('cart');
-        $cart = $this->cartRepository->find($cartId);
+
+        if ($cartId === null) {
+            $cart = $this->createCart();
+        } else {
+            $cart = $this->cartRepository->find($cartId);
+        }
+        
         if ($typeAction === "add") {
             $cartLine = $this->addProduct($cart, $product);
         } else {
@@ -122,7 +105,7 @@ class CartController extends Controller
         $product = $this->productRepository->find($codprd);
         $cart = $this->cartRepository->find($cartId);
 
-        $cartLine = $this->cartRepository->findCartline($cart , $product);
+        $cartLine = $this->cartRepository->findCartline($cart, $product);
         $this->removeCartline($cartLine);
         return new JsonResponse([
             'status' => 'ok'
@@ -164,8 +147,6 @@ class CartController extends Controller
         if ($cartLine != null) {
             if (($cartLine->getQuantity() - 1) === 0) {
                 $this->removeCartline($cartLine);
-                $session = new Session();
-                $session->getFlashBag()->add('info', 'cart.product.removed');
             }
             $cartLine->setQuantity($cartLine->getQuantity() - 1);
         }
@@ -177,7 +158,8 @@ class CartController extends Controller
      *
      * @param Cartline
     */
-    private function removeCartline(Cartline $cartLine){
+    private function removeCartline(Cartline $cartLine)
+    {
         $cartLine->setCart(null);
         $this->em->persist($cartLine);
         $this->em->flush();
@@ -188,7 +170,8 @@ class CartController extends Controller
      *
      * @return Cart $cart
      */
-    private function createCart() {
+    private function createCart()
+    {
         $cart = new Cart();
         $this->em->persist($cart);
         $this->em->flush();
@@ -197,7 +180,7 @@ class CartController extends Controller
             'cart',
             $cart->getId()
         );
-        $res->headers->setCookie( $cookie );
+        $res->headers->setCookie($cookie);
         $res->send();
         return $cart;
     }
