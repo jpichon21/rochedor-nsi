@@ -369,7 +369,7 @@ itemCard.on('submit', '.panel.modify form', function (event) {
       adlivUpdateForm('myAd')
       $(`.panel.modify`).slideUp(800, function () {
         $(this).hide()
-        changeItem(itemCard)
+        changeItem(itemShipping)
       })
     }).catch(error => {
       downLoader()
