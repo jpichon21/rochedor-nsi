@@ -1,3 +1,4 @@
+import createFocusTrap from 'focus-trap'
 import { limitMenuReduced } from './variables'
 
 // Zoom
@@ -118,6 +119,34 @@ document.onchange = event => {
   if (element && element.classList.contains('select')) {
     if (element.value !== '') {
       element.classList.add('white')
+    }
+  }
+}
+
+// Tabs
+
+let formLock = false
+
+function getForm (element) {
+  return element.tagName === 'FORM' ? element : getForm(element.parentElement)
+}
+
+document.onkeydown = event => {
+  if (event.which === 9 && !formLock) { event.preventDefault() }
+}
+
+document.onclick = event => {
+  const element = event.target
+  if (element && (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA')) {
+    const form = getForm(element)
+    if (form !== null) {
+      const focusTrap = createFocusTrap(form, {
+        onActivate: () => { formLock = true },
+        onDeactivate: () => { formLock = false },
+        clickOutsideDeactivates: true,
+        returnFocusOnDeactivate: false
+      })
+      focusTrap.activate()
     }
   }
 }

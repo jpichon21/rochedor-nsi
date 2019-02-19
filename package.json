@@ -35,6 +35,7 @@
     "date-fns": "^1.29.0",
     "draft-js": "^0.10.5",
     "draftjs-to-html": "^0.8.4",
+    "focus-trap": "^4.0.2",
     "html-to-draftjs": "^1.4.0",
     "imask": "^3.4.0",
     "immutability-helper": "^2.7.0",
