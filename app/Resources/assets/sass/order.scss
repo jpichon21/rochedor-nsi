@@ -131,8 +131,11 @@
           font-size: 12px;
         }
         &.quantity {
-          a {
+          a, i {
             margin: 0 10px;
+          }
+          i {
+            color: #000000;
           }
         }
         &.first {

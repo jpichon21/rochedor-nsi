@@ -337,7 +337,12 @@
             <tr>
                 <td class="first"> <%= product[i].name %> </td>
                 <td> <%= parseFloat(product[i].priceIT) %> € </td>
-                <td class="quantity"><a href="#" data-id=<%= product[i].codprd %> class="patchproduct" data-action="del" > &minus;</a>
+                <td class="quantity">
+                <% if (product[i].quantity > 1) { %>
+                    <a href="#" data-id=<%= product[i].codprd %> class="patchproduct" data-action="del" > &minus;</a>
+                <% } else { %>
+                    <i>&minus;</i>
+                <% } %>
                 <%= parseFloat(product[i].quantity) %>
                 <a href="#" data-id=<%= product[i].codprd %> class="patchproduct" data-action="add">&plus;</a></td>
                 <td class="action"><a href="#" data-id=<%= product[i].codprd %> class="removecartline" data-action="add" >Supprimer</a></td>
@@ -378,7 +383,12 @@
             <tr>
                 <td class="first"> <%= product[i].name %> </td>
                 <td> <%= parseFloat(product[i].priceIT) %> € </td>
-                <td class="quantity"><a href="#" data-id=<%= product[i].codprd %> class="patchproduct" data-action="del" > &minus;</a>
+                <td class="quantity">
+                <% if (product[i].quantity > 1) { %>
+                <a href="#" data-id=<%= product[i].codprd %> class="patchproduct" data-action="del" > &minus;</a>
+                <% } else { %>
+                    <i>&minus;</i>
+                <% } %>
                 <%= parseFloat(product[i].quantity) %>
                 <a href="#" data-id=<%= product[i].codprd %> class="patchproduct" data-action="add">&plus;</a></td>
                 <td> <%= parseFloat(product[i].price) %> </td>
