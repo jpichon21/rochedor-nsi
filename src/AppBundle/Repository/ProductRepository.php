@@ -143,7 +143,6 @@ class ProductRepository
     {
         $product = $this->find($productId);
         $taxes = $product->getTaxes();
-
         foreach ($taxes as $tax) {
             if (in_array($country, $tax->getCountries())) {
                 return $tax;

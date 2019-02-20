@@ -18,7 +18,7 @@
         {% endif %}
         <div class="dropdown">
             {% for section in page.content.sections %}
-            <div class="item {% if loop.first %}first{% endif %}">
+            <div class="item {% if loop.first %}open{% endif %}">
                 <h2>{{ section.title }}</h2>
                 {{ section.body | raw }}
             </div>

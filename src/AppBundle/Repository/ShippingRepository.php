@@ -14,6 +14,10 @@ use AppBundle\Entity\Packaging;
 class ShippingRepository
 {
     const SHIPPINGWEIGHT = 40;
+    const COUNTRYEXCEPTION = [
+        "FR",
+        "CS"
+    ];
     
     /**
     * @var EntityManagerInterface
@@ -50,7 +54,7 @@ class ShippingRepository
         $query = $this->entityManager
         ->createQuery('SELECT p
         FROM AppBundle\Entity\Packaging p 
-        WHERE :weight < p.limit  
+        WHERE :weight <= p.limit  
         ORDER BY p.limit asc');
         $query->setParameters(['weight' => $weight]);
         $query->setMaxResults(1);
@@ -63,7 +67,7 @@ class ShippingRepository
             $query->setMaxResults(1);
             $result = $query->getOneOrNullResult();
         }
-        if ($country === "FR") {
+        if (in_array($country, $this::COUNTRYEXCEPTION)) {
             return $result->getFrance();
         } else {
             return $result->getInternational();
@@ -77,7 +81,7 @@ class ShippingRepository
         $query = $this->entityManager->createQuery(
             'SELECT s.price 
             FROM AppBundle\Entity\Shipping s 
-            WHERE s.countries LIKE :country AND s.weight > :weight 
+            WHERE s.countries LIKE :country AND s.weight >= :weight 
             ORDER BY s.weight'
         )
         ->setParameters(['country' => '%'.$country.'%', 'weight' => $weight])

@@ -155,6 +155,15 @@ class OrderController extends Controller
     }
 
     /**
+     * @Rest\Get("/xhr/order/cartcount", name="get_cartcount")
+     * @Rest\View()
+    */
+    public function xhrGetCartCount(Request $request)
+    {
+        return ['status' => 'ok' , 'data' => $this->cartService->getCartCount($request->cookies->get('cart'))];
+    }
+
+    /**
      * @Rest\Get("/xhr/order/vat/{vat}", name="get_vat")
      * @Rest\View()
     */
@@ -376,19 +385,21 @@ class OrderController extends Controller
      */
     public function paymentReturnAction($method, $status, Request $request, PaypalService $paypalService)
     {
-        $session = new Session();
-        $cartId = $session->get('cart');
+        $cookies = $request->cookies;
+        $cartId = $cookies->get('cart');
         $cart = $this->cartRepository->find($cartId);
         
-        if ($status === 'cancel') {
-            return $this->redirectToRoute('order-'.$request->getLocale());
+        if ($status === 'cancel' || $status === 'error') {
+            return $this->redirectToRoute('order-'.$request->getLocale(), ['orderId' => $request->query->get('Ref')]);
         }
 
         if ($status === 'success') {
             if ($cart) {
                 $this->em->remove($cart);
                 $this->em->flush();
-                $session->remove('cart');
+                $response = new Response;
+                $response->headers->clearCookie('cart');
+                $response->send();
             }
         }
         
@@ -404,7 +415,14 @@ class OrderController extends Controller
             } elseif ($commande->getDestLiv() === "Font") {
                 $addCom = $this->translator->trans('order.notify.client.font.adliv');
             } else {
-                $addCom = $commande->getAdLiv();
+                $addCom = json_decode($commande->getAdLiv(), true);
+                $addCom = join(' ', [
+                    $addCom['prenom'],
+                    $addCom['nom'],
+                    $addCom['adresse'],
+                    $addCom['zipcode'],
+                    $addCom['city']
+                ]);
             }
 
             return $this->render('order/payment-return.html.twig', [
@@ -412,13 +430,11 @@ class OrderController extends Controller
                 'addCom' =>  $addCom,
                 'status' => $status,
                 'method' => $method,
-                'cartCount' => $this->cartService->getCartCount()
             ]);
         } else {
             return $this->render('order/payment-return.html.twig', [
                 'status' => $status,
                 'method' => $method,
-                'cartCount' => $this->cartService->getCartCount()
             ]);
         }
     }
@@ -492,21 +508,7 @@ class OrderController extends Controller
         $datpaie = new \DateTime('0000-00-00 00:00:00');
         $validpaie = $delivery['validpaie'];
         $destliv = $delivery['destliv'];
-        if ($destliv === "Other") {
-            $adliv = $this->getAdLiv($delivery['adliv'], $user);
-        } else {
-            $adliv = $user->getCivil().
-                    " ".
-                    $user->getNom().
-                    " ".
-                    $user->getPrenom().
-                    " ".
-                    $user->getAdresse().
-                    " ".
-                    $user->getCp().
-                    " ".
-                    $user->getVille();
-        }
+        $adliv = json_encode($delivery['adliv']);
         
         if (!isset($delivery['memocmd'])) {
             $memoCmd = "";
@@ -572,25 +574,17 @@ class OrderController extends Controller
         return $order;
     }
 
-    private function getAdLiv($adliv, $user)
-    {
-        $parsedAdliv =
-                    $user->getCivil().
-                    " ".
-                    $user->getNom().
-                    " ".
-                    $user->getPrenom().
-                    " ".
-                    $adliv['adresse'].
-                    " ".
-                    $adliv['zipcode'].
-                    " ".
-                    $adliv['city'];
-        return $parsedAdliv;
-    }
-
     private function notifyClient($order, $locale, $user)
     {
+        $adliv = json_decode($order->getAdLiv(), true);
+        $adliv = join(' ', [
+            $adliv['prenom'],
+            $adliv['nom'],
+            $adliv['adresse'],
+            $adliv['zipcode'],
+            $adliv['city']
+        ]);
+
         $this->mailer->send(
             [
                 $user->getEmail(),
@@ -599,6 +593,7 @@ class OrderController extends Controller
             $this->translator->trans('order.notify.client.subject'),
             $this->renderView('emails/order-notify-order-'.$locale.'.html.twig', [
                 'order' => $order,
+                'adliv' => $adliv
                 ])
         );
 
@@ -621,8 +616,17 @@ class OrderController extends Controller
      */
     public function orderAction(Request $request)
     {
+        $cancelReturn = false;
+
+        if ($orderId = $request->get('orderId')) {
+            if ($order = $this->commandeRepository->findByRef($orderId)) {
+                if ($user = $this->getUser()) {
+                    $cancelReturn = $user->getCodcli() === $order->getCodcli();
+                }
+            }
+        }
+
         $cookies = $request->cookies;
-        $session = new Session();
         
         $countriesJSON = array();
         $countries = $this->tpaysRepository->findAllCountry();
@@ -633,19 +637,15 @@ class OrderController extends Controller
             );
         }
 
-        $cartId = $session->get('cart');
+        $cartId = $cookies->get('cart');
         $cart = $this->cartRepository->find($cartId);
         
         if ($cartId === null) {
-            return $this->render('order/order-error.html.twig', [
-                'cartCount' => $this->cartService->getCartCount()
-            ]);
+            return $this->render('order/order-error.html.twig');
         }
 
         if (empty($cart->getCartlines()->getValues())) {
-            return $this->render('order/order-error.html.twig', [
-                'cartCount' => $this->cartService->getCartCount()
-            ]);
+            return $this->render('order/order-error.html.twig');
         }
         
         $page = $this->pageService->getContentFromRequest($request);
@@ -655,10 +655,31 @@ class OrderController extends Controller
         $availableLocales = $this->pageService->getAvailableLocales($page);
         return $this->render('order/order.html.twig', [
             'cart' => $this->cartRepository->find($cartId),
+            'order' => $cancelReturn ? json_encode([
+                'adliv' => $order->getAdliv(),
+                'codcli' => $order->getCodcli(),
+                'datliv' => $order->getDatliv(),
+                'destliv' => $order->getDestliv(),
+                'memocmd' => $order->getMemocmd(),
+                'modliv' => $order->getModliv(),
+                'modpaie' => $order->getModpaie(),
+                'paysip' => $order->getPaysip(),
+                'paysliv' => $order->getPaysliv(),
+                'validpaie' => $order->getValidpaie()
+            ]) : 'false',
+            'user' => $cancelReturn ? json_encode([
+                'codcli' => $user->getCodcli(),
+                'prenom' => $user->getPrenom(),
+                'nom' => $user->getNom(),
+                'adresse' => $user->getAdresse(),
+                'cp' => $user->getCp(),
+                'ville' => $user->getVille(),
+                'pays' => $user->getPays()
+            ]) : 'false',
             'page' => $page,
             'countries' => $countriesJSON,
             'availableLocales' => $availableLocales,
-            'cartCount' => $this->cartService->getCartCount()
+            'cartCount' => $this->cartService->getCartCount($cookies->get('cart'))
         ]);
     }
 }

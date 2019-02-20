@@ -98,7 +98,7 @@ h2 {
   }
   .logo {
     &:after {
-      content: 'Les Editions\A de la Roche d\'Or';
+      content: 'Les Editions\A Roche d\'Or';
       bottom: -62px;
       font-size: 12px;
       line-height: 16px;
@@ -681,6 +681,15 @@ h2 {
           padding-top: 20px;
           margin-bottom: 20px;
         }
+        .tva {
+          font-size: 12px;
+          font-style: italic;
+          color: #000000;
+        }
+        .ht {
+          font-size: 18px;
+          color: #000000;
+        }
       }
       .description {
         line-height: 18px;
@@ -837,6 +846,10 @@ h2 {
       .button {
         color: $roche-orange;
         border: 1px $roche-orange solid;
+        &.disabled {
+          border: 1px solid #000000;
+          color: #000000;
+        }
         &.submit {
           color: $roche-orange;
           border-color: $roche-orange;

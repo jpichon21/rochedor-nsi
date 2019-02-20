@@ -1317,7 +1317,7 @@
     <unit id="i2JGptw" name="order.registration.one.title">
       <segment>
         <source>order.registration.one.title</source>
-        <target>Connexion/Inscription</target>
+        <target>Identification</target>
       </segment>
     </unit>
     <unit id="BxI_rwF" name="order.registration.one.body.disconnected">
@@ -1329,7 +1329,7 @@
     <unit id="al9WFPE" name="order.registration.two.title">
       <segment>
         <source>order.registration.two.title</source>
-        <target>Fiche client</target>
+        <target>Mon adresse</target>
       </segment>
     </unit>
     <unit id="S_61BVF" name="order.registration.two.title.you">
@@ -1341,7 +1341,7 @@
     <unit id="biPtN4s" name="order.registration.choose.adliv">
       <segment>
         <source>order.registration.choose.adliv</source>
-        <target>Votre adresse de livraison</target>
+        <target>Adresse de livraison</target>
       </segment>
     </unit>
     <unit id="TKTwy0K" name="form.choose.adliv">
@@ -1353,31 +1353,31 @@
     <unit id=".5a_NkK" name="select.ad.myAd">
       <segment>
         <source>select.ad.myAd</source>
-        <target>Mon adresse</target>
+        <target>Envoyer à mon adresse</target>
       </segment>
     </unit>
     <unit id="rznIWfL" name="select.ad.roche">
       <segment>
         <source>select.ad.roche</source>
-        <target>Librairie de la Roche d'Or</target>
+        <target>Retrait à la librairie de la Roche d'Or ?</target>
       </segment>
     </unit>
     <unit id="8QjWF9b" name="select.ad.font">
       <segment>
         <source>select.ad.font</source>
-        <target>Librairie des Fontanilles</target>
+        <target>Retrait à la librairie des Fontanilles ?</target>
       </segment>
     </unit>
     <unit id="MlxM03H" name="select.ad.other">
       <segment>
         <source>select.ad.other</source>
-        <target>Autre Adresse</target>
+        <target>Adresse de livraison différente de l'adresse de facturation ?</target>
       </segment>
     </unit>
     <unit id="GDNiQhU" name="order.choose.adliv">
       <segment>
         <source>order.choose.adliv</source>
-        <target>Adresse de livraison</target>
+        <target>Adresser la commande à</target>
       </segment>
     </unit>
     <unit id="xiX_zBW" name="form.adresse">
@@ -1783,7 +1783,7 @@
     <unit id="38v6mFF" name="form.civilite.mr">
       <segment>
         <source>form.civilite.mr</source>
-        <target>M</target>
+        <target>M.</target>
       </segment>
     </unit>
     <unit id="m9RRKUv" name="error.cgv">
@@ -2058,12 +2058,6 @@
         <target>Félicitations, votre commande à été confirmée !</target>
       </segment>
     </unit>
-    <unit id="YQKEE1i" name="order.summary.title.delivery">
-      <segment>
-        <source>order.summary.title.delivery</source>
-        <target>Livraison</target>
-      </segment>
-    </unit>
     <unit id="vmEWF6k" name="order.summary.title.total">
       <segment>
         <source>order.summary.title.total</source>
@@ -2199,7 +2193,7 @@
     <unit id="l0nR41K" name="form.message.delivery_invalid">
       <segment>
         <source>form.message.delivery_invalid</source>
-        <target>Tous les champs de "Adresse de livraison" sont obligatoires</target>
+        <target>Tous les champs de "Adresser la commande à" sont obligatoires</target>
       </segment>
     </unit>
     <unit id="cHFGXVz" name="order.choose.payment">
@@ -2838,6 +2832,186 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>logout.disconnect.text</source>
         <target>Vous avez bien été déconnecté</target>
+      </segment>
+    </unit>
+    <unit id="fHkEzwp" name="contact.ro">
+      <segment>
+        <source>contact.ro</source>
+        <target>Contact Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="gq_6MhO" name="contact.ft">
+      <segment>
+        <source>contact.ft</source>
+        <target>Contact Fontanilles</target>
+      </segment>
+    </unit>
+    <unit id="vtjeKfz" name="friends.links">
+      <segment>
+        <source>friends.links</source>
+        <target>Liens amis</target>
+      </segment>
+    </unit>
+    <unit id="pJznzAY" name="terms.of.use">
+      <segment>
+        <source>terms.of.use</source>
+        <target>Conditions d'utilisation</target>
+      </segment>
+    </unit>
+    <unit id="2Mti_iS" name="legal.information">
+      <segment>
+        <source>legal.information</source>
+        <target>Informations légales</target>
+      </segment>
+    </unit>
+    <unit id="NbGhMyd" name="legal.mention">
+      <segment>
+        <source>legal.mention</source>
+        <target>Mentions légales</target>
+      </segment>
+    </unit>
+    <unit id="y6p1vdI" name="privacy.policy">
+      <segment>
+        <source>privacy.policy</source>
+        <target>Politique de confidentialité</target>
+      </segment>
+    </unit>
+    <unit id="CmlcQv1" name="detail.pricettc">
+      <segment>
+        <source>detail.pricettc</source>
+        <target>%ttc% € TTC</target>
+      </segment>
+    </unit>
+    <unit id="9q0mqTd" name="detail.priceht">
+      <segment>
+        <source>detail.priceht</source>
+        <target>%ht% € HT</target>
+      </segment>
+    </unit>
+    <unit id="mQbnWaB" name="detail.tva">
+      <segment>
+        <source>detail.tva</source>
+        <target>(TVA %tva% %)</target>
+      </segment>
+    </unit>
+    <unit id="lAVunJy" name="table.header.price.unit">
+      <segment>
+        <source>table.header.price.unit</source>
+        <target>Prix unitaire</target>
+      </segment>
+    </unit>
+    <unit id="vyJfvpb" name="table.header.price.total">
+      <segment>
+        <source>table.header.price.total</source>
+        <target>Prix total</target>
+      </segment>
+    </unit>
+    <unit id="lroTZg0" name="no.shipping">
+      <segment>
+        <source>no.shipping</source>
+        <target>(aucun frais de port)</target>
+      </segment>
+    </unit>
+    <unit id="WIqjchX" name="validate.order">
+      <segment>
+        <source>validate.order</source>
+        <target>Valider la commande et procéder au paiement</target>
+      </segment>
+    </unit>
+    <unit id="qN8UFWZ" name="form.message.modpaie_invalid">
+      <segment>
+        <source>form.message.modpaie_invalid</source>
+        <target>Veuillez sélectionner un mode de paiement</target>
+      </segment>
+    </unit>
+    <unit id="34Dbjye" name="click.termsPro">
+      <segment>
+        <source>click.termsPro</source>
+        <target><![CDATA[En cliquant sur <i>Valider la commande et procéder au paiement</i>, <br>vous acceptez les <a href="%link%">Conditions Générales de Vente à destination des professionnels</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="xYp2S.J" name="click.terms">
+      <segment>
+        <source>click.terms</source>
+        <target><![CDATA[En cliquant sur <i>Valider la commande et procéder au paiement</i>, <br>vous acceptez les <a href="%link%">Conditions Générales de Vente</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="8BOf13k" name="table.header.price.ttc">
+      <segment>
+        <source>table.header.price.ttc</source>
+        <target>Prix TTC</target>
+      </segment>
+    </unit>
+    <unit id="cyak7iD" name="table.header.price.prix.ht">
+      <segment>
+        <source>table.header.price.prix.ht</source>
+        <target>Prix HT</target>
+      </segment>
+    </unit>
+    <unit id="8J5qHFa" name="table.header.tax.rate">
+      <segment>
+        <source>table.header.tax.rate</source>
+        <target>TVA</target>
+      </segment>
+    </unit>
+    <unit id="xAYLLaQ" name="cart.product.notremoved">
+      <segment>
+        <source>cart.product.notremoved</source>
+        <target>Ces produits n'ont pas été supprimés</target>
+      </segment>
+    </unit>
+    <unit id="EtH91dF" name="cart.product.wouldremove">
+      <segment>
+        <source>cart.product.wouldremove</source>
+        <target>Voulez-vous supprimer ce produit ?</target>
+      </segment>
+    </unit>
+    <unit id="5L9Opva" name="you.billing">
+      <segment>
+        <source>you.billing</source>
+        <target>Cette adresse sera considérée comme votre adresse de facturation</target>
+      </segment>
+    </unit>
+    <unit id="XWixlRU" name="order.change.price">
+      <segment>
+        <source>order.change.price</source>
+        <target>Les prix ont été mis à jourLes prix ont été mis à jour suite au renseignement de l'adresse de livraison.</target>
+      </segment>
+    </unit>
+    <unit id="3mG5LMG" name="order.summary.title.billing">
+      <segment>
+        <source>order.summary.title.billing</source>
+        <target>Adresse de facturation</target>
+      </segment>
+    </unit>
+    <unit id="YQKEE1i" name="order.summary.title.delivery">
+      <segment>
+        <source>order.summary.title.delivery</source>
+        <target>Adresse de livraison</target>
+      </segment>
+    </unit>
+    <unit id="bBYtJtl" name="see.cart">
+      <segment>
+        <source>see.cart</source>
+        <target>Voir mon panier</target>
+      </segment>
+    </unit>
+    <unit id="1e1MzCd" name="continue.cart">
+      <segment>
+        <source>continue.cart</source>
+        <target>Continuer mes achats</target>
+      </segment>
+    </unit>
+    <unit id="2XYDyoC" name="form.go.buy">
+      <segment>
+        <source>form.go.buy</source>
+        <target>Continuer mes achats</target>
+      </segment>
+    </unit>
+    <unit id="fqY3vh8" name="form.continue.order">
+      <segment>
+        <source>form.continue.order</source>
+        <target>Passer ma commande</target>
       </segment>
     </unit>
   </file>

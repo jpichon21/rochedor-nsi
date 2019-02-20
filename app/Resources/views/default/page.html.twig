@@ -24,7 +24,7 @@
         <div class="dropdown {% if page.content.sections|length == 1 %}single{% endif %}">
             {% for section in page.content.sections %}
             <div
-                class="item {% if loop.first %}first{% endif %}"
+                class="item {% if loop.first %}open{% endif %}"
                 data-slug-id="#{{ section.title|slugify }}"
                 data-carousel-id="{{ section.title|md5 }}">
                 <a class="slug" href="{{ currentPath ~ '#' ~ section.title|slugify }}">
@@ -83,4 +83,8 @@
 {% endblock %}
 {% block javascripts %}
 <script src="{{ asset('assets/js/page.js') }}"></script>
+{% if page.type == 'editions' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+<script src="{{ asset("assets/js/cartcount.js") }}"></script>
+{% endif %}
 {% endblock %}

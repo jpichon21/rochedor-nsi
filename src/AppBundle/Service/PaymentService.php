@@ -130,7 +130,7 @@ class PaymentService
             ),
             'cancel_return' => $this->router->generate(
                 $baseRoute . '_payment_return',
-                ['_locale' => $locale, 'method' => 'paybox', 'status' => 'cancel'],
+                ['_locale' => $locale, 'method' => 'paybox', 'status' => 'cancel', 'Ref' => $objectId],
                 RouterInterface::ABSOLUTE_URL
             ),
             'business' => $this->container->getParameter('paypal_email'),

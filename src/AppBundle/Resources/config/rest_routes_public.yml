@@ -18,3 +18,7 @@ gift:
     type: rest
     name_prefix: api_gift_
     resource: AppBundle\Controller\GiftController
+cart:
+    type: rest
+    name_prefix: api_cart_
+    resource: AppBundle\Controller\CartController

@@ -89,8 +89,37 @@ export const postOrder = (data) => {
     })
 }
 
+export const patchProduct = (data) => {
+  return window.fetch(`/xhr/cart/patch`, {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'PATCH',
+    credentials: 'include',
+    body: JSON.stringify({
+      data: data
+    })
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.message }
+      return true
+    })
+}
+
+export const removeCartline = (cartId, codprd) => {
+  return window.fetch(`/xhr/cart/remove/${cartId}/${codprd}`, {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'DELETE',
+    credentials: 'include'
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.message }
+      return true
+    })
+}
+
 export const getData = (cartId, paysliv, destliv) => {
-  return window.fetch(`/xhr/order/taxes/${cartId}/${destliv}/${paysliv}`, {
+  return window.fetch(`/xhr/order/taxes/${cartId}/${paysliv}/${destliv}`, {
     method: 'GET',
     credentials: 'include'
   })
@@ -115,6 +144,18 @@ export const checkZipcode = (zipcode, country, destliv) => {
 
 export const checkVat = (number) => {
   return window.fetch(`/xhr/order/vat/${number}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status !== 'ok') { throw res.error }
+      return res.data
+    })
+}
+
+export const getCartCount = () => {
+  return window.fetch(`/xhr/order/cartcount`, {
     method: 'GET',
     credentials: 'include'
   })

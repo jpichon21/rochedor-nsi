@@ -13,10 +13,8 @@ class CartService
         $this->cartRepository = $cartRepository;
     }
 
-    public function getCartCount()
+    public function getCartCount($cartId)
     {
-        $session = new Session();
-        $cartId = $session->get('cart');
         $cart = $this->cartRepository->find($cartId);
         $count = 0;
         if ($cart === null) {

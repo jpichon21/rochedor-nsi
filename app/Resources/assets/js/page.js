@@ -51,13 +51,14 @@ items.forEach(item => {
 })
 
 document.addEventListener('DOMContentLoaded', () => {
-  let item = dropdown.querySelector('.item.first')
-  if (window.location.hash !== '') {
-    item = dropdown.querySelector(`.item[data-slug-id="${window.location.hash}"]`)
+  let item = window.location.hash !== ''
+    ? dropdown.querySelector(`.item[data-slug-id="${window.location.hash}"]`)
+    : dropdown.querySelector('.item.open')
+  if (item !== null) {
+    setTimeout(() => {
+      changeItem(item)
+    }, 500)
   }
-  setTimeout(() => {
-    changeItem(item)
-  }, 500)
 })
 
 const inputs = dropdown.querySelectorAll('.input')

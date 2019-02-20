@@ -60,14 +60,18 @@
         {{ product.rubrique }}
       </div>
       <div class="price">
-        {{ product.prix }}
-        <small>€</small>
+        <span>{{ 'detail.pricettc'|trans({'%ttc%': product.prix}) | raw }}</span>
+        {% if taxes != null %}
+        <span class="tva">{{ 'detail.tva'|trans({'%tva%': taxes.rate}) | raw }}</span>  
+        {% endif %}
+        <br>
+        <span class="ht">{{ 'detail.priceht'|trans({'%ht%': product.prixht}) | raw }}</span>
       </div>
       <div class="description">
         {{ product.pageprd }}
       </div>
       <div class="actions">
-        <a class="button addToCart" href="{{ path('cart-add', {'productId': product.codprd}) }}">{{ 'editions.addtocart' | trans }}</a>
+        <a class="button addToCart" data-id="{{ product.codprd }}" href="#">{{ 'editions.addtocart' | trans }}</a>
         {% if product.urlbook != '' %}
         <div class="choice">{{ 'editions.or' | trans }}</div>
         <a class="button" target="_blank" href="{{ product.urlbook }}">{{ 'editions.ebookversion' | trans }}</a>
@@ -78,7 +82,11 @@
         <div class="left">
           <div class="line">
             <b>{{ 'editions.technicalreview.dateparution' | trans }}</b>
-            <span>{{ product.dateparution|localizeddate('medium', 'none', app.request.locale) }}</span>
+            {% if product.dateparution %}
+              <span>{{ product.dateparution|localizeddate('medium', 'none', app.request.locale) }}</span>
+            {% else %}
+              <span> - </span>
+            {% endif %}
           </div>
           <div class="line">
             <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
@@ -122,6 +130,7 @@
 </div>
 {% endblock %}
 {% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
 <script src="{{ asset('assets/js/carousel.js') }}"></script>
 <script src="{{ asset('assets/js/editions.js') }}"></script>
 {% endblock %}

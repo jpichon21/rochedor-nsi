@@ -73,11 +73,13 @@ class ProductController extends Controller
     public function showProductAction($id, Request $request)
     {
         $product = $this->productRepository->findProduct($id);
+        $taxes = $this->productRepository->findTax($id, "FR");
         return $this->render(
             'product/details.html.twig',
             [
                 'product' => $product,
-                'cartCount' => $this->cartService->getCartCount()
+                'taxes' => $taxes,
+                'cartCount' => $this->cartService->getCartCount($request->cookies->get('cart'))
             ]
         );
     }
@@ -103,7 +105,7 @@ class ProductController extends Controller
                 'products' => $products,
                 'availableLocales' => $availableLocales,
                 'page' => $contentDocument,
-                'cartCount' => $this->cartService->getCartCount()
+                'cartCount' => $this->cartService->getCartCount($request->cookies->get('cart'))
             ]
         );
     }
@@ -162,7 +164,7 @@ class ProductController extends Controller
                 'themes' => $themes,
                 'productsCategorized' => $productsCategorized,
                 'products' => $products,
-                'cartCount' => $this->cartService->getCartCount()
+                'cartCount' => $this->cartService->getCartCount($request->cookies->get('cart'))
             ]
         );
     }
