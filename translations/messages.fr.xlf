@@ -2708,7 +2708,7 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <source>order-return.success-p1</source>
         <target><![CDATA[
         <p>Votre commande est bien enregistrée sous le numéro %refCom% et nous vous en remercions. Nous vous invitons à conserver ce numéro qui vous sera demandé pour toute question relative à votre commande.</p>
-        <p>Les livraisons sont effectuées dans un délai maximum de [nbJours] jours ouvrés à compter de la réception du paiement de votre commande.</p>
+        <p>À titre indicatif, les livraisons sont effectuées dans un délai de %minliv% à %maxliv% jours ouvrés.</p>
         Votre commande sera livrée à l'adresse suivante :
         <br>
         <br>
@@ -2876,21 +2876,21 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Politique de confidentialité</target>
       </segment>
     </unit>
-    <unit id="CmlcQv1" name="detail.pricettc">
+    <unit id="jWlGEW3" name="product.detail.price.ttc">
       <segment>
-        <source>detail.pricettc</source>
+        <source>product.detail.price.ttc</source>
         <target>%ttc% € TTC</target>
       </segment>
     </unit>
-    <unit id="9q0mqTd" name="detail.priceht">
+    <unit id="eVevJHF" name="product.detail.price.ht">
       <segment>
-        <source>detail.priceht</source>
+        <source>product.detail.price.ht</source>
         <target>%ht% € HT</target>
       </segment>
     </unit>
-    <unit id="mQbnWaB" name="detail.tva">
+    <unit id="JNkInEe" name="product.detail.price.tva">
       <segment>
-        <source>detail.tva</source>
+        <source>product.detail.price.tva</source>
         <target>(TVA %tva% %)</target>
       </segment>
     </unit>
@@ -2975,7 +2975,7 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
     <unit id="XWixlRU" name="order.change.price">
       <segment>
         <source>order.change.price</source>
-        <target>Les prix ont été mis à jourLes prix ont été mis à jour suite au renseignement de l'adresse de livraison.</target>
+        <target>Les prix ont été mis à jour suite au renseignement de l'adresse de livraison.</target>
       </segment>
     </unit>
     <unit id="3mG5LMG" name="order.summary.title.billing">
@@ -3012,6 +3012,93 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>form.continue.order</source>
         <target>Passer ma commande</target>
+      </segment>
+    </unit>
+    <unit id="HPUjmyT" name="order.delay.title">
+      <segment>
+        <source>order.delay.title</source>
+        <target>Délais de transport</target>
+      </segment>
+    </unit>
+    <unit id="MaFi16D" name="order.delay.message">
+      <segment>
+        <source>order.delay.message</source>
+        <target>Les livraisons sont effectuées dans un délais de %minliv% à %maxliv% jours ouvrés à compter de l'envoi du mail de confirmation de commande du client.</target>
+      </segment>
+    </unit>
+    <unit id="CRyl1aI" name="select.bank-cheque">
+      <segment>
+        <source>select.bank-cheque</source>
+        <target>Chèque</target>
+      </segment>
+    </unit>
+    <unit id="7L2Ji8o" name="order-return.success-p2">
+      <segment>
+        <source>order-return.success-p2</source>
+        <target><![CDATA[
+        <p>Votre commande est bien enregistrée sous le numéro %refCom% et nous vous en remercions. Nous vous invitons à conserver ce numéro qui vous sera demandé pour toute question relative à votre commande.</p>
+        <p>À titre indicatif, les livraisons sont effectuées dans un délai de %minliv% à %maxliv% jours ouvrés à compter de la réception du paiement de votre commande.</p>
+        <p>
+          <center>Merci libeller votre chèque à l’attention de : Éditions Roche d’Or </center>
+          <center>et de l’adresser à :</center>
+          <center>Éditions Roche d’Or</center>
+          <center>Chemin du Muenot</center>
+          <center>25042 BESANÇON Cedex</center>
+        </p>
+        Votre commande sera livrée à l'adresse suivante :
+        <br>
+        <br>
+        <center>%addCom%</center>
+        <br>
+        <p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p>
+        <p>Avec toute notre sympathie</p>
+        <p>L'équipe des Éditions Roche d’Or</p> 
+        ]]></target>
+      </segment>
+    </unit>
+    <unit id="0NSjVo7" name="order-return.success-p2-withoutDelay">
+      <segment>
+        <source>order-return.success-p2-withoutDelay</source>
+        <target><![CDATA[
+        <p>Votre commande est bien enregistrée sous le numéro %refCom% et nous vous en remercions. Nous vous invitons à conserver ce numéro qui vous sera demandé pour toute question relative à votre commande.</p>
+        <p>
+          <center>Merci libeller votre chèque à l’attention de : Éditions Roche d’Or </center>
+          <center>et de l’adresser à :</center>
+          <center>Éditions Roche d’Or</center>
+          <center>Chemin du Muenot</center>
+          <center>25042 BESANÇON Cedex</center>
+        </p>
+        Votre commande sera livrée à l'adresse suivante :
+        <br>
+        <br>
+        <center>%addCom%</center>
+        <br>
+        <p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p>
+        <p>Avec toute notre sympathie</p>
+        <p>L'équipe des Éditions Roche d’Or</p> 
+        ]]></target>
+      </segment>
+    </unit>
+    <unit id="EU6ewoa" name="order-return.success-p1-withoutDelay">
+      <segment>
+        <source>order-return.success-p1-withoutDelay</source>
+        <target><![CDATA[
+        <p>Votre commande est bien enregistrée sous le numéro %refCom% et nous vous en remercions. Nous vous invitons à conserver ce numéro qui vous sera demandé pour toute question relative à votre commande.</p>
+        Votre commande sera livrée à l'adresse suivante :
+        <br>
+        <br>
+        <center>%addCom%</center>
+        <br>
+        <p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p>
+        <p>Avec toute notre sympathie</p>
+        <p>L'équipe des Éditions Roche d’Or</p> 
+        ]]></target>
+      </segment>
+    </unit>
+    <unit id="Mxxq4As" name="order-return.error">
+      <segment>
+        <source>order-return.error</source>
+        <target><![CDATA[Un problème est survenu.<br>Veuillez retourner au <a href="%link%">collections</a>.]]></target>
       </segment>
     </unit>
   </file>

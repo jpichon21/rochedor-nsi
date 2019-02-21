@@ -49,12 +49,34 @@ class Tpays
     */
     private $codpostaux;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="MinLiv", type="integer", length=2,)
+     */
+    private $minliv;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="MaxLiv", type="integer", length=2,)
+     */
+    private $maxliv;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="DispLiv", type="boolean")
+     */
+    private $displiv;
+
     public function __construct()
     {
         $this->nompays = '';
         $this->codpayspbx = '';
         $this->codpayspaypal = '';
         $this->codpostaux = [];
+        $this->displiv = false;
     }
 
     public function getNompays()
@@ -164,6 +186,80 @@ class Tpays
     {
         $this->codpostaux = $codpostaux;
 
+        return $this;
+    }
+
+    /**
+     * Get minliv.
+     *
+     * @return integer
+     */
+    public function getMinliv()
+    {
+        return $this->minliv;
+    }
+    
+
+    /**
+     * Set minliv.
+     *
+     * @param integer $minliv
+     *
+     * @return Tpays
+     */
+    public function setMinliv($minliv)
+    {
+        $this->minliv = $minliv;
+
+        return $this;
+    }
+
+    /**
+     * Get maxliv.
+     *
+     * @return integer
+     */
+    public function getMaxliv()
+    {
+        return $this->maxliv;
+    }
+
+    /**
+     * Set maxliv.
+     *
+     * @param integer $maxliv
+     *
+     * @return Tpays
+     */
+    public function setMaxliv($maxliv)
+    {
+        $this->maxliv = $maxliv;
+
+        return $this;
+    }
+
+    
+    /**
+     * Get displiv.
+     *
+     * @return integer
+     */
+    public function getDispliv()
+    {
+        return $this->displiv;
+    }
+
+    /**
+     * Set displiv.
+     *
+     * @param integer $displiv
+     *
+     * @return Tpays
+     */
+    public function setDispliv($displiv)
+    {
+        $this->displiv = $displiv;
+        
         return $this;
     }
 }

@@ -131,6 +131,9 @@
                         <div class="adliv-form-render"></div>  
                     </form>
                 </div>
+                <div class="panel delay">
+                    <div class="delay-render"></div>
+                </div>
                 <div class="panel gift active">
                     <h3>{{ 'order.registration.choose.gift' | trans | raw }}</h3>
                     <p>{{ 'order.gift.text' | trans | raw }}</p>
@@ -169,6 +172,7 @@
                                     <option selected disabled value="">{{ 'form.choose.modpaie' | trans | raw }}</option>
                                     <option value="PBX">{{ 'select.cb' | trans | raw }}</option>
                                     <option value="PAYPAL">{{ 'select.paypal' | trans | raw }}</option>
+                                    <option value="CH">{{ 'select.bank-cheque' | trans | raw }}</option>
                                 </select>
                             </div>
                         </div>
@@ -442,12 +446,18 @@
                     <option <%= !disableCountry ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
                     <% for (var i = 0; i < countries.length; i++) { %>
                         <% var country = countries[i] %>
+                        <% if (country.displiv) { %>
                         <option <%= (delivery.paysliv == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
+                        <% } %>
                     <% } %>
                 </select>
             </div>
         <% } %>
     </div>
+</script>
+<script type="text/template" class="delay-template">
+    <h3>{{ 'order.delay.title' | trans | raw }}</h3>
+    <p>{{ 'order.delay.message'| trans({'%minliv%': '<%= country.minliv %>', '%maxliv%': '<%= country.maxliv %>' })|raw  }}</p>
 </script>
 <script type="text/template" class="you-form-template">
     <input autocomplete="nope" type="hidden" value="<%= client.codcli %>" name="codcli">
@@ -499,7 +509,9 @@
             <option <%= countryNotFound ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
             <% for (var i = 0; i < countries.length; i++) { %>
                 <% var country = countries[i] %>
+                <% if (countries[i].displiv) { %>
                 <option <%= (_.escape(client.pays) == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
+                <% } %>
             <% } %>
         </select>
     </div>

@@ -10,12 +10,30 @@
     <div class="left">
         <h1>{{ 'order-return.title' | trans | raw }}</h1>
         <div class="intro">
-            {% if status == 'success' %}
-            {{ 'order-return.success-p1'| trans({'%refCom%': refCom , '%addCom%': addCom})|raw  }}
-            <br>
-            {{ 'order-return.success' | trans({'%link%': path('collections-' ~ app.request.locale)}) | raw }}
-            {% elseif status == 'cancel' %}
-            {{ 'order-return.cancel' | trans({'%link%': path('order-' ~ app.request.locale)}) | raw }}
+            {% if chequemessage is defined %}
+                {% if status == 'error' %}
+                    {{ 'order-return.error' | trans({'%link%': path('collections-' ~ app.request.locale)}) | raw }}
+                {% else %}
+                    {% if withDelay == true %}
+                    {{ 'order-return.success-p2'| trans({'%refCom%': refCom , '%addCom%': addCom, '%minliv%': minliv, '%maxliv%': maxliv})|raw  }}
+                    {% else %}
+                    {{ 'order-return.success-p2-withoutDelay'| trans({'%refCom%': refCom , '%addCom%': addCom})|raw  }}
+                    {% endif %}
+                    <br>
+                    {{ 'order-return.success' | trans({'%link%': path('collections-' ~ app.request.locale)}) | raw }}
+                {% endif %}
+            {% else %}
+                {% if status == 'success' %}
+                    {% if withDelay == true %}
+                    {{ 'order-return.success-p1'| trans({'%refCom%': refCom , '%addCom%': addCom, '%minliv%': minliv, '%maxliv%': maxliv})|raw  }}
+                    {% else %}
+                    {{ 'order-return.success-p1-withoutDelay'| trans({'%refCom%': refCom , '%addCom%': addCom})|raw  }}
+                    {% endif %}
+                <br>
+                {{ 'order-return.success' | trans({'%link%': path('collections-' ~ app.request.locale)}) | raw }}
+                {% elseif status == 'cancel' %}
+                {{ 'order-return.cancel' | trans({'%link%': path('order-' ~ app.request.locale)}) | raw }}
+                {% endif %}
             {% endif %}
         </div>
     </div>

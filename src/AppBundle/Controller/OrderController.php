@@ -381,6 +381,109 @@ class OrderController extends Controller
 
     /**
      *
+     * @Route("/{_locale}/order/paymentcheque-return/{ref}", name="order_paymentcheque_return")
+     */
+    public function paymentChequeReturnAction($ref, Request $request)
+    {
+        $cookies = $request->cookies;
+        $cartId = $cookies->get('cart');
+        $cart = $this->cartRepository->find($cartId);
+    
+        if ($cart) {
+            $this->em->remove($cart);
+            $this->em->flush();
+            $response = new Response;
+            $response->headers->clearCookie('cart');
+            $response->send();
+        }
+
+        $commande = $this->commandeRepository->findByRef($ref);
+        $user = $this->getUser();
+        if ($commande === null || $user == null) {
+            return $this->render('order/payment-return.html.twig', [
+                'chequemessage' => true,
+                'status' => 'error',
+            ]);
+        }
+        if ($commande->getModpaie() !== 'CH' 
+            || $user->getCodcli() !== $commande->getCodcli()) {
+            return $this->render('order/payment-return.html.twig', [
+                'chequemessage' => true,
+                'status' => 'error',
+            ]);
+        }
+
+        $locale = $request->getLocale();
+
+        if ($commande->getDestLiv() === "Roche") {
+            $addCom = $this->translator->trans('order.notify.client.roche.adliv');
+            $withDelay = false;
+        } elseif ($commande->getDestLiv() === "Font") {
+            $addCom = $this->translator->trans('order.notify.client.font.adliv');
+            $withDelay = false;
+        } else {
+            $addCom = json_decode($commande->getAdLiv(), true);
+            $addCom = join(' ', [
+                $addCom['prenom'],
+                $addCom['nom'],
+                $addCom['adresse'],
+                $addCom['zipcode'],
+                $addCom['city']
+            ]);
+            $withDelay = true;
+        }
+
+        $paysliv = $this
+        ->tpaysRepository
+        ->findCountryByCode($commande->getPaysliv());
+        $minliv = $paysliv->getMinliv();
+        $maxliv = $paysliv->getMaxliv();
+        
+        if ($commande->getValidpaie() !== 'enAttente') {
+            $this->mailer->send(
+                [
+                    $user->getEmail(),
+                    $this->getParameter('email_from_address')
+                ],
+                $this->translator->trans('order.notify.client.subject'),
+                $this->renderView('emails/order-notify-cheque-order-'.$locale.'.html.twig', [
+                    'order' => $commande,
+                    'adliv' => $addCom,
+                    'minliv' => $minliv,
+                    'maxliv' => $maxliv,
+                    'withDelay' => $withDelay
+                    ])
+            );
+    
+            $this->mailer->send(
+                $this->getParameter('email_from_address'),
+                $this->translator->trans('order.notify.client.subject'),
+                $this->renderView('emails/order-notify-cheque-order-ro.html.twig', [
+                    'order' => $commande,
+                    'user' => $user,
+                    'minliv' => $minliv,
+                    'maxliv' => $maxliv
+                    ])
+            );
+        }
+
+        $commande->setValidpaie('enAttente');
+        $this->em->persist($commande);
+        $this->em->flush();
+
+        return $this->render('order/payment-return.html.twig', [
+            'chequemessage' => true,
+            'status' => 'succes',
+            'refCom' => $commande->getRefCom(),
+            'addCom' =>  $addCom,
+            'minliv' => $minliv,
+            'maxliv' => $maxliv,
+            'withDelay' => $withDelay
+        ]);
+    }
+
+    /**
+     *
      * @Route("/{_locale}/order/payment-return/{method}/{status}", name="order_payment_return")
      */
     public function paymentReturnAction($method, $status, Request $request, PaypalService $paypalService)
@@ -388,7 +491,7 @@ class OrderController extends Controller
         $cookies = $request->cookies;
         $cartId = $cookies->get('cart');
         $cart = $this->cartRepository->find($cartId);
-        
+    
         if ($status === 'cancel' || $status === 'error') {
             return $this->redirectToRoute('order-'.$request->getLocale(), ['orderId' => $request->query->get('Ref')]);
         }
@@ -412,8 +515,10 @@ class OrderController extends Controller
 
             if ($commande->getDestLiv() === "Roche") {
                 $addCom = $this->translator->trans('order.notify.client.roche.adliv');
+                $withDelay = false;
             } elseif ($commande->getDestLiv() === "Font") {
                 $addCom = $this->translator->trans('order.notify.client.font.adliv');
+                $withDelay = false;
             } else {
                 $addCom = json_decode($commande->getAdLiv(), true);
                 $addCom = join(' ', [
@@ -423,18 +528,29 @@ class OrderController extends Controller
                     $addCom['zipcode'],
                     $addCom['city']
                 ]);
+                $withDelay = true;
             }
 
+            $paysliv = $this
+            ->tpaysRepository
+            ->findCountryByCode($commande->getPaysliv());
+            $minliv = $paysliv->getMinliv();
+            $maxliv = $paysliv->getMaxliv();
+    
             return $this->render('order/payment-return.html.twig', [
                 'refCom' => $commande->getRefCom(),
                 'addCom' =>  $addCom,
                 'status' => $status,
                 'method' => $method,
+                'minliv' => $minliv,
+                'maxliv' => $maxliv,
+                'withDelay' => $withDelay
             ]);
         } else {
             return $this->render('order/payment-return.html.twig', [
                 'status' => $status,
                 'method' => $method,
+                'withDelay' => $withDelay
             ]);
         }
     }
@@ -480,7 +596,12 @@ class OrderController extends Controller
             ->setPaysIP($country);
             $this->em->persist($order);
             $this->em->flush();
-            $this->notifyClient($order, $locale, $user);
+            if ($order->getDestliv() !== 'myAd' || $order->getDestliv() !== 'Other') {
+                $withDelay = true;
+            } else {
+                $withDelay = false;
+            }
+            $this->notifyClient($order, $locale, $user, $withDelay);
         } else {
             $order->setDatpaie(new \DateTime('0000-00-00'))
             ->setValidpaie('error')
@@ -574,8 +695,11 @@ class OrderController extends Controller
         return $order;
     }
 
-    private function notifyClient($order, $locale, $user)
+    private function notifyClient($order, $locale, $user, $withDelay)
     {
+        $paysliv = $this->tpaysRepository->findCountryByCode($order->getPaysliv());
+        $minliv = $paysliv->getMinliv();
+        $maxliv = $paysliv->getMaxliv();
         $adliv = json_decode($order->getAdLiv(), true);
         $adliv = join(' ', [
             $adliv['prenom'],
@@ -593,7 +717,10 @@ class OrderController extends Controller
             $this->translator->trans('order.notify.client.subject'),
             $this->renderView('emails/order-notify-order-'.$locale.'.html.twig', [
                 'order' => $order,
-                'adliv' => $adliv
+                'adliv' => $adliv,
+                'minliv' => $minliv,
+                'maxliv' => $maxliv,
+                'withDelay' => $withDelay
                 ])
         );
 
@@ -603,6 +730,8 @@ class OrderController extends Controller
             $this->renderView('emails/order-notify-order-ro.html.twig', [
                 'order' => $order,
                 'user' => $user,
+                'minliv' => $minliv,
+                'maxliv' => $maxliv
                 ])
         );
     }
@@ -633,7 +762,10 @@ class OrderController extends Controller
         foreach ($countries as $country) {
             $countriesJSON[] = array(
                 'codpays' => $country->getCodpays(),
-                'nompays' => $country->getNompays()
+                'nompays' => $country->getNompays(),
+                'minliv' => $country->getMinliv(),
+                'maxliv' => $country->getMaxliv(),
+                'displiv' => $country->getDispliv()
             );
         }
 

@@ -42,6 +42,21 @@ class TpaysRepository
     }
 
     /**
+    * Find Tpays by country code
+    *
+    * @return Tpays
+    */
+    public function findCountryByCode($codCountry)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT tp 
+        FROM AppBundle\Entity\Tpays tp 
+        WHERE tp.codpays=:country');
+        $query->setParameter('country', $codCountry);
+        return $query->getOneOrNullResult();
+    }
+
+    /**
     * Check Zipcode
     *
     * @return Bool
