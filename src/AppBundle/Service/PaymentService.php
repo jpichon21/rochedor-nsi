@@ -10,6 +10,7 @@ class PaymentService
 {
     const METHOD_PBX = 'PBX';
     const METHOD_PAYPAL = 'PAYPAL';
+    const METHOD_CHEQUE = 'CH';
 
     private $container;
     private $tPaysRepository;
@@ -52,6 +53,9 @@ class PaymentService
         }
         if ($method === $this::METHOD_PAYPAL) {
             return $this->getPaypalUrl($amount, $objectId, $itemName, $email, $locale, $baseRoute);
+        }
+        if ($method === $this::METHOD_CHEQUE) {
+            return $this->getChequeUrl($objectId, $locale, $baseRoute);
         }
     }
 
@@ -144,6 +148,20 @@ class PaymentService
         ];
         $url = $this->container->getParameter('paypal_url');
         $url .= '?' . http_build_query($params);
+        return $url;
+    }
+
+    private function getChequeUrl(
+        $objectId,
+        $locale,
+        $baseRoute
+    ) {
+
+        $url = $this->router->generate(
+            $baseRoute . '_paymentcheque_return',
+            ['_locale' => $locale, 'ref' => $objectId],
+            RouterInterface::ABSOLUTE_URL
+        );
         return $url;
     }
 

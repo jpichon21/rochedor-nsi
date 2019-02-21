@@ -78,6 +78,7 @@ const deliveryTemplate = _.template($('.delivery-template').html())
 const totalTemplate = _.template($('.total-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
 const adlivFormTemplate = _.template($('.adliv-form-template').html())
+const delayTemplate = _.template($('.delay-template').html())
 const cartTemplate = _.template($('.cart-template').html())
 const termsTemplate = _.template($('.terms-template').html())
 const detailCartTemplate = _.template($('.detailCart-template').html())
@@ -141,6 +142,16 @@ function adlivUpdateFormRender () {
   }))
 }
 
+function updateDelayRender () {
+  if (_delivery.paysliv !== '') {
+    $('.delay-render').html(delayTemplate({
+      country: _countries.find(country => {
+        return country.codpays === _delivery.paysliv
+      })
+    }))
+  }
+}
+
 function updateTermsRender () {
   $('.terms-render').html(termsTemplate({
     you: _you
@@ -177,6 +188,7 @@ function afterLogin (user, bypass) {
   updateDetailcartRender()
   adlivUpdateForm('myAd')
   if (bypass) {
+    updateDelayRender()
     changeItem(itemShipping)
   } else {
     changeItem(itemCard)
@@ -308,6 +320,7 @@ itemCard.on('click', '.continue', function (event) {
   event.preventDefault()
   updateTermsRender()
   adlivUpdateForm($('.select-adliv').val())
+  updateDelayRender()
   changeItem(itemShipping)
 })
 
@@ -369,6 +382,7 @@ itemCard.on('submit', '.panel.modify form', function (event) {
       adlivUpdateForm('myAd')
       $(`.panel.modify`).slideUp(800, function () {
         $(this).hide()
+        updateDelayRender()
         changeItem(itemShipping)
       })
     }).catch(error => {
@@ -421,6 +435,8 @@ function adlivUpdateForm (destliv) {
   }
   _delivery.destliv = destliv
   adlivUpdateFormRender()
+  updateDelayRender()
+  $('.panel.delay').toggleClass('active', destliv === 'myAd')
   $('.panel.adliv').toggleClass('active', destliv !== 'myAd')
   changeItem(itemShipping)
 }
@@ -668,3 +684,9 @@ function validateDeleteCartline (event, product) {
     }).catch(() => {
     })
 }
+
+$(itemShipping).on('change', '.select.country', function (event) {
+  _delivery.paysliv = $(this).val()
+  $('.panel.delay').addClass('active')
+  updateDelayRender()
+})

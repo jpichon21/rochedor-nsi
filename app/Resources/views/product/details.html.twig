@@ -60,12 +60,12 @@
         {{ product.rubrique }}
       </div>
       <div class="price">
-        <span>{{ 'detail.pricettc'|trans({'%ttc%': product.prix}) | raw }}</span>
+        <span>{{ 'product.detail.price.ttc'|trans({'%ttc%': product.prix}) | raw }}</span>
         {% if taxes != null %}
-        <span class="tva">{{ 'detail.tva'|trans({'%tva%': taxes.rate}) | raw }}</span>  
+        <span class="tva">{{ 'product.detail.price.tva'|trans({'%tva%': taxes.rate}) | raw }}</span>  
         {% endif %}
         <br>
-        <span class="ht">{{ 'detail.priceht'|trans({'%ht%': product.prixht}) | raw }}</span>
+        <span class="ht">{{ 'product.detail.price.ht'|trans({'%ht%': product.prixht}) | raw }}</span>
       </div>
       <div class="description">
         {{ product.pageprd }}
