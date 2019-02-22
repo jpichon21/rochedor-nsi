@@ -10,7 +10,7 @@ rochedor-nsi
 - php-pcre
 - php-pdo 
 - php-sqlite
-- node-js
+- node-js v8.15.0
 - yarn
 
 ## Lancement
