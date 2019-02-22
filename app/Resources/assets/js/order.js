@@ -574,12 +574,14 @@ itemPayment.on('change', '.select-modpaie', function (event) {
   $('.pay', itemPayment).removeClass('disabled')
 })
 
-itemConnection.on('click', '.newfich', function () {
+itemConnection.on('click', '.newfich', function (event) {
+  event.preventDefault()
   const boolean = $(this).toggleClass('checked').hasClass('checked')
   $('.newfich-wrapper .checkbox', itemConnection).val(boolean)
 })
 
-itemCard.on('click', '.newfich', function () {
+itemCard.on('click', '.newfich', function (event) {
+  event.preventDefault()
   const boolean = $(this).toggleClass('checked').hasClass('checked')
   $('.newfich-wrapper .checkbox', itemCard).val(boolean)
 })
