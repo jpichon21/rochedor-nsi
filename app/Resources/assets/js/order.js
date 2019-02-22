@@ -199,7 +199,7 @@ const afterLogin = user => {
   updateTotalRender()
   updateCartRender()
   updateDetailcartRender()
-  adlivUpdateForm('myAd')
+  updateAdlivForm('myAd')
   changeItem(itemCard).then(() => {
     updateWelcomeRender()
   })
@@ -377,7 +377,7 @@ itemCard.onclick = event => {
     event.preventDefault()
     updateDelayRender()
     updateTermsRender()
-    adlivUpdateForm(document.querySelector('.select-adliv').value)
+    updateAdlivForm(document.querySelector('.select-adliv').value)
     changeItem(itemShipping).then(() => {
       itemCard.querySelector('.panel.modify').classList.remove('active')
     })
@@ -454,7 +454,7 @@ itemCard.onsubmit = event => {
         _you = client
         updateYouRender()
         updateDelayRender()
-        adlivUpdateForm('myAd')
+        updateAdlivForm('myAd')
         changeItem(itemShipping).then(() => {
           itemCard.querySelector('.panel.modify').classList.remove('active')
         })
@@ -472,7 +472,7 @@ itemShipping.onchange = event => {
     event.target.matches('.select-adliv')
   ) {
     event.preventDefault()
-    adlivUpdateForm(event.target.value)
+    updateAdlivForm(event.target.value)
     changeItem(itemShipping)
   }
   if (
@@ -486,7 +486,7 @@ itemShipping.onchange = event => {
   }
 }
 
-const adlivUpdateForm = destliv => {
+const updateAdlivForm = destliv => {
   switch (destliv) {
     case 'myAd':
       _delivery.adliv.prenom = _you.prenom
