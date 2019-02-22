@@ -700,4 +700,5 @@ $(itemShipping).on('change', '.select.country', function (event) {
   _delivery.paysliv = $(this).val()
   $('.panel.delay').addClass('active')
   updateDelayRender()
+  changeItem(itemShipping)
 })
