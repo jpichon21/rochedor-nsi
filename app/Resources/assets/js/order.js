@@ -520,6 +520,7 @@ const adlivUpdateForm = destliv => {
   _delivery.destliv = destliv
   updateDelayRender()
   adlivUpdateFormRender()
+  itemShipping.querySelector('.panel.delay').classList.toggle('active', destliv === 'myAd')
   itemShipping.querySelector('.panel.adliv').classList.toggle('active', destliv !== 'myAd')
 }
 
