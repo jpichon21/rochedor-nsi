@@ -60,17 +60,17 @@ const itemPayment = document.querySelector('.item.payment')
 
 /* Templates */
 
-const welcomeTemplate = _.template(document.querySelector('.welcome-template').innerHTML)
-const cartCountTemplate = _.template(document.querySelector('.cartCount-template').innerHTML)
-const youTemplate = _.template(document.querySelector('.you-template').innerHTML)
-const deliveryTemplate = _.template(document.querySelector('.delivery-template').innerHTML)
-const totalTemplate = _.template(document.querySelector('.total-template').innerHTML)
-const youFormTemplate = _.template(document.querySelector('.you-form-template').innerHTML)
-const adlivFormTemplate = _.template(document.querySelector('.adliv-form-template').innerHTML)
-const delayTemplate = _.template(document.querySelector('.delay-template').innerHTML)
-const termsTemplate = _.template(document.querySelector('.terms-template').innerHTML)
-const cartTemplate = _.template(document.querySelector('.cart-template').innerHTML)
-const detailCartTemplate = _.template(document.querySelector('.detailCart-template').innerHTML)
+const templateWelcome = _.template(document.querySelector('.welcome-template').innerHTML)
+const templateCartCount = _.template(document.querySelector('.cartCount-template').innerHTML)
+const templateYou = _.template(document.querySelector('.you-template').innerHTML)
+const templateDelivery = _.template(document.querySelector('.delivery-template').innerHTML)
+const templateTotal = _.template(document.querySelector('.total-template').innerHTML)
+const templateYouForm = _.template(document.querySelector('.you-form-template').innerHTML)
+const templateAdlivForm = _.template(document.querySelector('.adliv-form-template').innerHTML)
+const templateDelay = _.template(document.querySelector('.delay-template').innerHTML)
+const templateTerms = _.template(document.querySelector('.terms-template').innerHTML)
+const templateCart = _.template(document.querySelector('.cart-template').innerHTML)
+const templateDetailCart = _.template(document.querySelector('.detailCart-template').innerHTML)
 
 /* Renders */
 
@@ -90,7 +90,7 @@ const renderDetailCart = document.querySelector('.detailCart-render')
 
 const updateWelcomeRender = () => {
   if (_you.prenom !== undefined) {
-    renderWelcome.innerHTML = welcomeTemplate({
+    renderWelcome.innerHTML = templateWelcome({
       you: _you
     })
   }
@@ -98,33 +98,33 @@ const updateWelcomeRender = () => {
 
 const updateCartCountRender = () => {
   getCartCount().then((res) => {
-    renderCartCount.innerHTML = cartCountTemplate({
+    renderCartCount.innerHTML = templateCartCount({
       cartCount: res
     })
   })
 }
 
 const updateYouRender = () => {
-  renderYou.innerHTML = youTemplate({
+  renderYou.innerHTML = templateYou({
     you: _you
   })
 }
 
 const updateDeliveryRender = () => {
-  renderDelivery.innerHTML = deliveryTemplate({
+  renderDelivery.innerHTML = templateDelivery({
     delivery: _delivery,
     you: _you
   })
 }
 
 const updateTotalRender = () => {
-  renderTotal.innerHTML = totalTemplate({
+  renderTotal.innerHTML = templateTotal({
     total: _total
   })
 }
 
 const updateYouFormRender = () => {
-  renderYouForm.innerHTML = youFormTemplate({
+  renderYouForm.innerHTML = templateYouForm({
     client: _you,
     countries: _countries,
     civilites: [
@@ -148,8 +148,8 @@ const updateYouFormRender = () => {
   })
 }
 
-const adlivUpdateFormRender = () => {
-  renderAdlivForm.innerHTML = adlivFormTemplate({
+const updateAdlivFormRender = () => {
+  renderAdlivForm.innerHTML = templateAdlivForm({
     delivery: _delivery,
     countries: _countries
   })
@@ -157,7 +157,7 @@ const adlivUpdateFormRender = () => {
 
 const updateDelayRender = () => {
   if (_delivery.paysliv !== '') {
-    renderDelay.innerHTML = delayTemplate({
+    renderDelay.innerHTML = templateDelay({
       country: _countries.find(country => {
         return country.codpays === _delivery.paysliv
       })
@@ -166,14 +166,14 @@ const updateDelayRender = () => {
 }
 
 const updateTermsRender = () => {
-  renderTerms.innerHTML = termsTemplate({
+  renderTerms.innerHTML = templateTerms({
     you: _you
   })
 }
 
 const updateCartRender = () => {
   let _sum = 0
-  renderCart.innerHTML = cartTemplate({
+  renderCart.innerHTML = templateCart({
     product: _total.product,
     sum: _sum
   })
@@ -181,7 +181,7 @@ const updateCartRender = () => {
 
 const updateDetailcartRender = () => {
   let _sum = 0
-  renderDetailCart.innerHTML = detailCartTemplate({
+  renderDetailCart.innerHTML = templateDetailCart({
     product: _total.product,
     country: _country,
     sum: _sum
@@ -523,7 +523,7 @@ const adlivUpdateForm = destliv => {
   }
   _delivery.destliv = destliv
   updateDelayRender()
-  adlivUpdateFormRender()
+  updateAdlivFormRender()
   itemShipping.querySelector('.panel.delay').classList.toggle('active', destliv === 'myAd')
   itemShipping.querySelector('.panel.adliv').classList.toggle('active', destliv !== 'myAd')
 }
