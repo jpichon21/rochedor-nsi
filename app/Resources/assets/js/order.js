@@ -527,6 +527,7 @@ itemShipping.on('click', '.continue', function (event) {
       updateTotalRender()
       updateDeliveryRender()
       updateDetailcartRender()
+      updateTermsRender()
       changeItem(itemPayment)
     }).catch(error => {
       downLoader()
@@ -573,12 +574,14 @@ itemPayment.on('change', '.select-modpaie', function (event) {
   $('.pay', itemPayment).removeClass('disabled')
 })
 
-itemConnection.on('click', '.newfich', function () {
+itemConnection.on('click', '.newfich', function (event) {
+  event.preventDefault()
   const boolean = $(this).toggleClass('checked').hasClass('checked')
   $('.newfich-wrapper .checkbox', itemConnection).val(boolean)
 })
 
-itemCard.on('click', '.newfich', function () {
+itemCard.on('click', '.newfich', function (event) {
+  event.preventDefault()
   const boolean = $(this).toggleClass('checked').hasClass('checked')
   $('.newfich-wrapper .checkbox', itemCard).val(boolean)
 })
@@ -700,4 +703,5 @@ $(itemShipping).on('change', '.select.country', function (event) {
   _delivery.paysliv = $(this).val()
   $('.panel.delay').addClass('active')
   updateDelayRender()
+  changeItem(itemShipping)
 })
