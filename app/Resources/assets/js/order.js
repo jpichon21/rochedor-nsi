@@ -79,7 +79,7 @@ const renderCartCount = document.querySelector('.cartCount-render')
 const renderYou = document.querySelector('.you-render')
 const renderDelivery = document.querySelector('.delivery-render')
 const renderTotal = document.querySelector('.total-render')
-const renderYouForm = document.querySelector('.you-form-render')
+const renderYouForms = document.querySelectorAll('.you-form-render')
 const renderAdlivForm = document.querySelector('.adliv-form-render')
 const renderDelay = document.querySelector('.delay-render')
 const renderTerms = document.querySelector('.terms-render')
@@ -124,17 +124,19 @@ const updateTotalRender = () => {
 }
 
 const updateYouFormRender = () => {
-  renderYouForm.innerHTML = templateYouForm({
-    client: _you,
-    countries: _countries,
-    civilites: [
-      i18n.trans('form.civilite.mr'),
-      i18n.trans('form.civilite.mme'),
-      i18n.trans('form.civilite.mlle'),
-      i18n.trans('form.civilite.frere'),
-      i18n.trans('form.civilite.pere'),
-      i18n.trans('form.civilite.soeur')
-    ]
+  renderYouForms.forEach(renderYouForm => {
+    renderYouForm.innerHTML = templateYouForm({
+      client: _you,
+      countries: _countries,
+      civilites: [
+        i18n.trans('form.civilite.mr'),
+        i18n.trans('form.civilite.mme'),
+        i18n.trans('form.civilite.mlle'),
+        i18n.trans('form.civilite.frere'),
+        i18n.trans('form.civilite.pere'),
+        i18n.trans('form.civilite.soeur')
+      ]
+    })
   })
 }
 
