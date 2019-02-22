@@ -200,7 +200,9 @@ const afterLogin = user => {
   updateCartRender()
   updateDetailcartRender()
   adlivUpdateForm('myAd')
-  changeItem(itemCard)
+  changeItem(itemCard).then(() => {
+    updateWelcomeRender()
+  })
 }
 
 const formatParticipant = data => {
@@ -218,14 +220,12 @@ itemResume.onclick = event => {
     event.target.matches('.continue')
   ) {
     event.preventDefault()
-    updateWelcomeRender()
     changeItem(itemConnection)
   }
   if (
     event.target &&
     event.target.matches('h2')
   ) {
-    updateWelcomeRender()
     getData(_cartId, _country, _dest).then(data => {
       _total = data
       updateCartRender()
