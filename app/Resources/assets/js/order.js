@@ -309,13 +309,15 @@ itemConnection.onclick = event => {
     switch (which) {
       case 'connection':
       case 'registration':
-        itemConnection.querySelector('.panel').style.display = 'none'
-        itemConnection.querySelector(`.panel.${which}`).style.display = 'block'
         _you = getContact()
         updateYouFormRender()
+        itemConnection.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'))
+        itemConnection.querySelector(`.panel.${which}`).classList.add('active')
+        changeItem(itemConnection)
         break
       case 'reset':
-        itemConnection.querySelector('.panel.reset').style.display = 'block'
+        itemConnection.querySelector('.panel.reset').classList.add('active')
+        changeItem(itemConnection)
         break
       case 'continue':
         upLoader()
@@ -328,7 +330,6 @@ itemConnection.onclick = event => {
         getLogout(_locale)
         break
     }
-    changeItem(itemConnection)
   }
   if (
     event.target &&
@@ -343,8 +344,9 @@ itemConnection.onclick = event => {
     event.target.matches('.panel.reset .cancel')
   ) {
     event.preventDefault()
-    itemConnection.querySelector('.panel.reset').classList.remove('active')
-    changeItem(itemConnection)
+    changeItem(itemConnection).then(() => {
+      itemConnection.querySelector('.panel.reset').classList.remove('active')
+    })
   }
 }
 
@@ -377,16 +379,18 @@ itemCard.onclick = event => {
     updateDelayRender()
     updateTermsRender()
     adlivUpdateForm(document.querySelector('.select-adliv').value)
-    changeItem(itemShipping)
+    changeItem(itemShipping).then(() => {
+      itemCard.querySelector('.panel.modify').classList.remove('active')
+    })
   }
   if (
     event.target &&
     event.target.matches('.modify-you')
   ) {
     event.preventDefault()
-    itemCard.querySelector('.panel').style.display = 'none'
-    itemCard.querySelector('.panel.modify').style.display = 'block'
     updateYouFormRender()
+    itemCard.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'))
+    itemCard.querySelector('.panel.modify').classList.add('active')
     changeItem(itemCard)
   }
   if (
@@ -452,8 +456,9 @@ itemCard.onsubmit = event => {
         updateYouRender()
         updateDelayRender()
         adlivUpdateForm('myAd')
-        itemCard.querySelector('.panel.modify').classList.remove('active')
-        changeItem(itemShipping)
+        changeItem(itemShipping).then(() => {
+          itemCard.querySelector('.panel.modify').classList.remove('active')
+        })
       }).catch(error => {
         downLoader()
         upFlashbag(error)

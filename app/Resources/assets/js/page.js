@@ -10,30 +10,33 @@ const updateHeightDropdown = () => {
 }
 
 export const changeItem = element => {
-  if (element[0] !== undefined) {
-    element = element[0] // If JQuery Object
-  }
-  let canOpen = true
-  items.forEach(item => {
-    item.style.maxHeight = null
-    item.classList.remove('active')
-    if (body.classList.contains('order')) {
-      if (canOpen) {
-        item.classList.add('canOpen')
-        if (item === element) {
-          canOpen = false
-        }
-      } else {
-        item.classList.remove('canOpen')
-      }
+  return new Promise((resolve, reject) => {
+    if (element[0] !== undefined) {
+      element = element[0] // If JQuery Object
     }
+    let canOpen = true
+    items.forEach(item => {
+      item.style.maxHeight = null
+      item.classList.remove('active')
+      if (body.classList.contains('order')) {
+        if (canOpen) {
+          item.classList.add('canOpen')
+          if (item === element) {
+            canOpen = false
+          }
+        } else {
+          item.classList.remove('canOpen')
+        }
+      }
+    })
+    element.classList.add('active')
+    updateHeightDropdown()
+    let reference = element.getAttribute('data-carousel-id')
+    if (reference) {
+      changeCarousel(reference)
+    }
+    setTimeout(() => { resolve() }, 800)
   })
-  element.classList.add('active')
-  updateHeightDropdown()
-  let reference = element.getAttribute('data-carousel-id')
-  if (reference) {
-    changeCarousel(reference)
-  }
 }
 
 items.forEach(item => {
