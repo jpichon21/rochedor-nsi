@@ -527,6 +527,7 @@ itemShipping.on('click', '.continue', function (event) {
       updateTotalRender()
       updateDeliveryRender()
       updateDetailcartRender()
+      updateTermsRender()
       changeItem(itemPayment)
     }).catch(error => {
       downLoader()
