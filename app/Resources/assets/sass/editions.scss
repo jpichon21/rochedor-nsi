@@ -847,8 +847,8 @@ h2 {
         color: $roche-orange;
         border: 1px $roche-orange solid;
         &.disabled {
-          border: 1px solid #000000;
-          color: #000000;
+          border: 1px solid #cccccc;
+          color: #cccccc;
         }
         &.submit {
           color: $roche-orange;

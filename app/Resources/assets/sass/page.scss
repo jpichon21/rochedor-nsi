@@ -270,6 +270,10 @@ body {
           opacity: 0.5;
           cursor: not-allowed;
         }
+        &.black {
+          color: #000000;
+          border-color: #000000;
+        }
         &.submit {
           color: #ffffff;
           border-color: #ffffff;
@@ -298,15 +302,20 @@ body {
         display: none;
         position: relative;
         margin: 20px 0;
-        padding: 30px 20px 0px 20px;
+        padding: 30px 30px 0px 10px;
         @include media('<large') {
-          padding: 30px 20px 10px;
+          padding: 30px 10px 0px 10px;
         }
         hr {
           margin: 10px 0 30px;
         }
         &.active {
           display: block;
+          &:after {
+            content: '';
+            display: block;
+            height: 1px;
+          }
         }
         &:before {
           content: '';

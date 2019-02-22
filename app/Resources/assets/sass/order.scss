@@ -65,6 +65,24 @@
     }
   }
 }
+.cart-render,
+.detailCart-render {
+  .table-mobile {
+    @include media('>=xlarge') {
+      display: none;
+    }
+  }
+  .table {
+    @include media('<xlarge') {
+      display: none;
+    }
+    th, td {
+      &.first {
+        max-width: 100px;
+      }
+    }
+  }
+}
 .table {
   width: 100%;
   margin-bottom: 20px;
@@ -76,13 +94,14 @@
     letter-spacing: 1.4px;
     text-transform: uppercase;
     th {
-      padding: 10px 15px;
+      padding: 10px 0;
       font-size: 14px;
       font-weight: 400;
       text-align: center;
       text-transform: none;
       letter-spacing: 0;
       border-bottom: 1px #000000 solid;
+      white-space: nowrap;
       &.first {
         padding-left: 0;
         text-align: left;
@@ -117,22 +136,24 @@
         }
       }
       td {
-        padding: 10px 15px 5px 15px;
+        padding: 10px 0 5px;
         font-size: 14px;
         color: #000000;
         text-align: center;
         white-space: nowrap;
         a {
           color: inherit;
-          text-decoration: none;
           border-bottom: none!important;
         }
         &.action {
           font-size: 12px;
         }
         &.quantity {
-          a, i {
-            margin: 0 10px;
+          .minus {
+            margin-right: 10px;
+          }
+          .plus {
+            margin-left: 10px;
           }
           i {
             color: #000000;
@@ -140,7 +161,6 @@
         }
         &.first {
           padding-left: 0;
-          max-width: 30vw;
           overflow: hidden;
           text-overflow: ellipsis;
           text-align: left;
@@ -172,13 +192,79 @@
     }
   }
 }
-.content .dropdown .item .panel {
-  padding: 30px 40px 0px 20px;
-  &.active {
+.table-mobile {
+  margin-bottom: 20px;
+  .product {
+    position: relative;
+    border-bottom: 1px #000000 solid;
+    padding: 15px 0;
     &:after {
       content: '';
       display: block;
-      height: 1px;
+      clear: both;
+    }
+    .name {
+      width: 100%;
+      margin-bottom: 15px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .prices {
+      margin-bottom: 15px;
+      .ttc {
+        display: block;
+        color: $roche-orange;
+        margin-bottom: 5px;
+        .tva {
+          color: #000000;
+          font-size: 12px;
+        }
+      }
+      .ht {
+        display: block;
+        font-size: 12px;
+      }
+    }
+    .quantity {
+      float: left;
+      padding: 5px;
+      margin-right: 5px;
+      border: 1px #000000 solid;
+      a, i {
+        font-size: 24px;
+        line-height: 0;
+        vertical-align: -2px;
+        border-bottom: none!important;
+        &.plus,
+        &.minus {
+          margin: 0 5px;
+        }
+      }
+    }
+    .action {
+      float: left;
+      padding: 5px;
+      border: 1px $roche-orange solid;
+      a {
+        margin: 0 5px;
+        border-bottom: none!important;
+      }
+    }
+    .total {
+      position: absolute;
+      right: 0;
+      bottom: 14px;
+    }
+  }
+  .amount {
+    padding: 30px 0 15px 0;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: $roche-orange;
+    text-align: right;
+    span {
+      margin-right: 10px;
     }
   }
 }

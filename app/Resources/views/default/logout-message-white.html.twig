@@ -10,7 +10,7 @@
     <div class="left">
         <h1>{{ 'logout.disconnect.title' | trans | raw }}</h1>
         <div class="intro">
-            {{ 'logout.disconnect.text'|trans }}
+            {{ 'logout.disconnect.text'|trans({'%link%': path('collections-' ~ app.request.locale)}) | raw }}
         </div>
     </div>
     <div class="hole">

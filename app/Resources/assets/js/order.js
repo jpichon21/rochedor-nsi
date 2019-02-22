@@ -72,6 +72,7 @@ $('.item-clients').on('click', '.button.radio', function (event) {
 
 /* Renders */
 
+const welcomeTemplate = _.template($('.welcome-template').html())
 const cartCountTemplate = _.template($('.cartCount-template').html())
 const youTemplate = _.template($('.you-template').html())
 const deliveryTemplate = _.template($('.delivery-template').html())
@@ -82,6 +83,14 @@ const delayTemplate = _.template($('.delay-template').html())
 const cartTemplate = _.template($('.cart-template').html())
 const termsTemplate = _.template($('.terms-template').html())
 const detailCartTemplate = _.template($('.detailCart-template').html())
+
+function updateWelcomeRender () {
+  if (_you.prenom !== undefined) {
+    $('.welcome-render').html(welcomeTemplate({
+      you: _you
+    }))
+  }
+}
 
 function updateCartCountRender () {
   getCartCount().then((res) => {
@@ -177,7 +186,7 @@ function updateDetailcartRender () {
 
 /* Actions */
 
-function afterLogin (user, bypass) {
+function afterLogin (user) {
   _delivery = getDelivery()
   _delivery.codcli = user.codcli
   _delivery.cartId = parseInt(_cartId)
@@ -187,12 +196,7 @@ function afterLogin (user, bypass) {
   updateCartRender()
   updateDetailcartRender()
   adlivUpdateForm('myAd')
-  if (bypass) {
-    updateDelayRender()
-    changeItem(itemShipping)
-  } else {
-    changeItem(itemCard)
-  }
+  changeItem(itemCard)
 }
 
 function formatParticipant (data) {
@@ -206,7 +210,12 @@ function formatParticipant (data) {
 
 itemResume.on('click', '.continue', function (event) {
   event.preventDefault()
+  updateWelcomeRender()
   changeItem(itemConnection)
+})
+
+itemConnection.on('click', 'h2', function () {
+  updateWelcomeRender()
 })
 
 itemConnection.on('submit', '.panel.connection form', function (event) {
@@ -217,7 +226,7 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
     password: $('.password', this).val()
   }).then(user => {
     downLoader()
-    afterLogin(user, false)
+    afterLogin(user)
   }).catch(() => {
     downLoader()
     upFlashbag(i18n.trans('security.bad_credentials'))
@@ -255,7 +264,7 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
         password: participant.password
       }).then(user => {
         downLoader()
-        afterLogin(user, true)
+        afterLogin(user)
       }).catch(() => {
         downLoader()
         upFlashbag(i18n.trans('security.username_exists'))
@@ -285,7 +294,7 @@ itemConnection.on('click', 'a', function (event) {
       upLoader()
       getLogin().then(user => {
         downLoader()
-        afterLogin(user, false)
+        afterLogin(user)
       })
       break
     case 'disconnect':
@@ -602,12 +611,14 @@ if (cancelReturn) {
     updateDetailcartRender()
     updateTotalRender()
     updateTermsRender()
+    changeItem(itemPayment)
   })
 } else {
   getData(_cartId, _country, _dest).then(data => {
     _total = data
     updateCartCountRender()
     updateCartRender()
+    changeItem(itemResume)
   })
 }
 

@@ -11,8 +11,7 @@ const updateHeightDropdown = () => {
 
 export const changeItem = element => {
   if (element[0] !== undefined) {
-    // If JQuery Object
-    element = element[0]
+    element = element[0] // If JQuery Object
   }
   let canOpen = true
   items.forEach(item => {
@@ -38,14 +37,16 @@ export const changeItem = element => {
 }
 
 items.forEach(item => {
-  item.addEventListener('click', () => {
-    if (body.classList.contains('order')) {
-      if (item.classList.contains('canOpen')) {
-        // Open Only If Previous Steps
+  const h2 = item.querySelector('h2')
+  h2.addEventListener('click', () => {
+    if (!item.classList.contains('active')) {
+      if (body.classList.contains('order')) {
+        if (item.classList.contains('canOpen')) {
+          changeItem(item)
+        }
+      } else {
         changeItem(item)
       }
-    } else {
-      changeItem(item)
     }
   })
 })
