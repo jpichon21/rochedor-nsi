@@ -1,8 +1,9 @@
-import $ from 'jquery'
 import moment from 'moment'
 import { getContact, getDelivery } from './sample'
 import { upFlashbag, upConfirmbox } from './popup'
 import { upLoader, downLoader } from './loader'
+import { changeItem } from './page'
+import { serializeArray } from './youmightnotneedjquery'
 import I18n from './i18n'
 import {
   getLogin,
@@ -19,16 +20,15 @@ import {
   removeCartline,
   getCartCount
 } from './order-api.js'
-import { changeItem } from './page'
 
 /* Cart */
 
-const _cartId = parseInt($('.cart-json').html().trim())
+const _cartId = parseInt(document.querySelector('.cart-json').innerHTML.trim())
 
 /* Cancel Return */
 
-const _order = JSON.parse($('.order-json').html().trim())
-const _user = JSON.parse($('.user-json').html().trim())
+const _order = JSON.parse(document.querySelector('.order-json').innerHTML.trim())
+const _user = JSON.parse(document.querySelector('.user-json').innerHTML.trim())
 
 const cancelReturn = _order !== false && _user !== false
 
@@ -36,13 +36,13 @@ const cancelReturn = _order !== false && _user !== false
 
 let i18n = new I18n()
 
-const _locale = $('.locale-json').html().trim()
+const _locale = document.querySelector('.locale-json').innerHTML.trim()
 
 moment.locale(_locale)
 
 /* Countries */
 
-const _countries = JSON.parse($('.countries-json').html().trim())
+const _countries = JSON.parse(document.querySelector('.countries-json').innerHTML.trim())
 
 /* Variables */
 
@@ -52,75 +52,79 @@ let _total = {}
 let _country = 'FR'
 let _dest = 'myAdd'
 
-const itemResume = $('.item.resume')
-const itemConnection = $('.item.connection')
-const itemCard = $('.item.card')
-const itemShipping = $('.item.shipping')
-const itemPayment = $('.item.payment')
+const itemResume = document.querySelector('.item.resume')
+const itemConnection = document.querySelector('.item.connection')
+const itemCard = document.querySelector('.item.card')
+const itemShipping = document.querySelector('.item.shipping')
+const itemPayment = document.querySelector('.item.payment')
 
-/* Button Radio */
+/* Templates */
 
-$('.registered-render').on('click', '.button.radio', function (event) {
-  event.preventDefault()
-  $(this).toggleClass('checked')
-})
-
-$('.item-clients').on('click', '.button.radio', function (event) {
-  event.preventDefault()
-  $(this).toggleClass('checked')
-})
+const welcomeTemplate = _.template(document.querySelector('.welcome-template').innerHTML)
+const cartCountTemplate = _.template(document.querySelector('.cartCount-template').innerHTML)
+const youTemplate = _.template(document.querySelector('.you-template').innerHTML)
+const deliveryTemplate = _.template(document.querySelector('.delivery-template').innerHTML)
+const totalTemplate = _.template(document.querySelector('.total-template').innerHTML)
+const youFormTemplate = _.template(document.querySelector('.you-form-template').innerHTML)
+const adlivFormTemplate = _.template(document.querySelector('.adliv-form-template').innerHTML)
+const delayTemplate = _.template(document.querySelector('.delay-template').innerHTML)
+const termsTemplate = _.template(document.querySelector('.terms-template').innerHTML)
+const cartTemplate = _.template(document.querySelector('.cart-template').innerHTML)
+const detailCartTemplate = _.template(document.querySelector('.detailCart-template').innerHTML)
 
 /* Renders */
 
-const welcomeTemplate = _.template($('.welcome-template').html())
-const cartCountTemplate = _.template($('.cartCount-template').html())
-const youTemplate = _.template($('.you-template').html())
-const deliveryTemplate = _.template($('.delivery-template').html())
-const totalTemplate = _.template($('.total-template').html())
-const youFormTemplate = _.template($('.you-form-template').html())
-const adlivFormTemplate = _.template($('.adliv-form-template').html())
-const delayTemplate = _.template($('.delay-template').html())
-const cartTemplate = _.template($('.cart-template').html())
-const termsTemplate = _.template($('.terms-template').html())
-const detailCartTemplate = _.template($('.detailCart-template').html())
+const renderWelcome = document.querySelector('.welcome-render')
+const renderCartCount = document.querySelector('.cartCount-render')
+const renderYou = document.querySelector('.you-render')
+const renderDelivery = document.querySelector('.delivery-render')
+const renderTotal = document.querySelector('.total-render')
+const renderYouForm = document.querySelector('.you-form-render')
+const renderAdlivForm = document.querySelector('.adliv-form-render')
+const renderDelay = document.querySelector('.delay-render')
+const renderTerms = document.querySelector('.terms-render')
+const renderCart = document.querySelector('.cart-render')
+const renderDetailCart = document.querySelector('.detailCart-render')
 
-function updateWelcomeRender () {
+/* Updaters */
+
+const updateWelcomeRender = () => {
   if (_you.prenom !== undefined) {
-    $('.welcome-render').html(welcomeTemplate({
+    renderWelcome.innerHTML = welcomeTemplate({
       you: _you
-    }))
+    })
   }
 }
 
-function updateCartCountRender () {
+const updateCartCountRender = () => {
   getCartCount().then((res) => {
-    $('.cartCount-render').html(cartCountTemplate({
+    renderCartCount.innerHTML = cartCountTemplate({
       cartCount: res
-    }))
+    })
   })
 }
 
-function updateYouRender () {
-  $('.you-render').html(youTemplate({
+const updateYouRender = () => {
+  renderYou.innerHTML = youTemplate({
     you: _you
-  }))
+  })
 }
 
-function updateDeliveryRender () {
-  $('.delivery-render').html(deliveryTemplate({
+const updateDeliveryRender = () => {
+  renderDelivery.innerHTML = deliveryTemplate({
     delivery: _delivery,
     you: _you
-  }))
+  })
 }
 
-function updateTotalRender () {
-  $('.total-render').html(totalTemplate({
+const updateTotalRender = () => {
+  renderTotal.innerHTML = totalTemplate({
     total: _total
-  }))
+  })
 }
 
-function updateYouFormRender () {
-  $('.you-form-render').html(youFormTemplate({
+const updateYouFormRender = () => {
+  renderYouForm.innerHTML = youFormTemplate({
     client: _you,
     countries: _countries,
     civilites: [
@@ -141,52 +145,52 @@ function updateYouFormRender () {
       'org',
       'pro'
     ]
-  }))
+  })
 }
 
-function adlivUpdateFormRender () {
-  $('.adliv-form-render').html(adlivFormTemplate({
+const adlivUpdateFormRender = () => {
+  renderAdlivForm.innerHTML = adlivFormTemplate({
     delivery: _delivery,
     countries: _countries
-  }))
+  })
 }
 
-function updateDelayRender () {
+const updateDelayRender = () => {
   if (_delivery.paysliv !== '') {
-    $('.delay-render').html(delayTemplate({
+    renderDelay.innerHTML = delayTemplate({
       country: _countries.find(country => {
         return country.codpays === _delivery.paysliv
       })
-    }))
+    })
   }
 }
 
-function updateTermsRender () {
-  $('.terms-render').html(termsTemplate({
+const updateTermsRender = () => {
+  renderTerms.innerHTML = termsTemplate({
     you: _you
-  }))
+  })
 }
 
-function updateCartRender () {
+const updateCartRender = () => {
   let _sum = 0
-  $('.cart-render').html(cartTemplate({
+  renderCart.innerHTML = cartTemplate({
     product: _total.product,
     sum: _sum
-  }))
+  })
 }
 
-function updateDetailcartRender () {
+const updateDetailcartRender = () => {
   let _sum = 0
-  $('.detailCart-render').html(detailCartTemplate({
+  renderDetailCart.innerHTML = detailCartTemplate({
     product: _total.product,
     country: _country,
     sum: _sum
-  }))
+  })
 }
 
 /* Actions */
 
-function afterLogin (user) {
+const afterLogin = user => {
   _delivery = getDelivery()
   _delivery.codcli = user.codcli
   _delivery.cartId = parseInt(_cartId)
@@ -199,7 +203,7 @@ function afterLogin (user) {
   changeItem(itemCard)
 }
 
-function formatParticipant (data) {
+const formatParticipant = data => {
   let participant = getContact()
   data.map(obj => {
     participant[obj.name] = obj.value
@@ -208,107 +212,146 @@ function formatParticipant (data) {
   return participant
 }
 
-itemResume.on('click', '.continue', function (event) {
-  event.preventDefault()
-  updateWelcomeRender()
-  changeItem(itemConnection)
-})
+itemResume.onclick = event => {
+  if (
+    event.target &&
+    event.target.matches('.continue')
+  ) {
+    event.preventDefault()
+    updateWelcomeRender()
+    changeItem(itemConnection)
+  }
+  if (
+    event.target &&
+    event.target.matches('h2')
+  ) {
+    updateWelcomeRender()
+    getData(_cartId, _country, _dest).then(data => {
+      _total = data
+      updateCartRender()
+    })
+  }
+}
 
-itemConnection.on('click', 'h2', function () {
-  updateWelcomeRender()
-})
-
-itemConnection.on('submit', '.panel.connection form', function (event) {
-  event.preventDefault()
-  upLoader()
-  postLogin({
-    username: $('.username', this).val(),
-    password: $('.password', this).val()
-  }).then(user => {
-    downLoader()
-    afterLogin(user)
-  }).catch(() => {
-    downLoader()
-    upFlashbag(i18n.trans('security.bad_credentials'))
-  })
-})
-
-itemConnection.on('submit', '.panel.reset form', function (event) {
-  event.preventDefault()
-  upLoader()
-  resetLogin({
-    email: $('.email', this).val(),
-    firstname: $('.firstname', this).val(),
-    lastname: $('.lastname', this).val()
-  }).then(() => {
-    downLoader()
-    upFlashbag(i18n.trans('security.check_inbox'))
-  })
-    .catch((err) => {
+itemConnection.onsubmit = event => {
+  if (
+    event.target &&
+    event.target.matches('.panel.connection form')
+  ) {
+    event.preventDefault()
+    upLoader()
+    postLogin({
+      username: event.target.querySelector('.username').value,
+      password: event.target.querySelector('.password').value
+    }).then(user => {
+      downLoader()
+      afterLogin(user)
+    }).catch(() => {
+      downLoader()
+      upFlashbag(i18n.trans('security.bad_credentials'))
+    })
+  }
+  if (
+    event.target &&
+    event.target.matches('.panel.reset form')
+  ) {
+    event.preventDefault()
+    upLoader()
+    resetLogin({
+      email: event.target.querySelector('.email').value,
+      firstname: event.target.querySelector('.firstname').value,
+      lastname: event.target.querySelector('.lastname').value
+    }).then(() => {
+      downLoader()
+      upFlashbag(i18n.trans('security.check_inbox'))
+    }).catch((err) => {
       downLoader()
       upFlashbag(i18n.trans(err))
     })
-})
-
-itemConnection.on('submit', '.panel.registration form', function (event) {
-  validateClient(event, $(this), participant => {
-    upLoader()
-    postRegister({
-      client: {
-        ...participant,
-        rue: participant.adresse
-      }
-    }).then(user => {
-      postLogin({
-        username: user.username,
-        password: participant.password
-      }).then(user => {
-        downLoader()
-        afterLogin(user)
-      }).catch(() => {
-        downLoader()
-        upFlashbag(i18n.trans('security.username_exists'))
-      })
-    }).catch(error => {
-      downLoader()
-      upFlashbag(error)
-    })
-  })
-})
-
-itemConnection.on('click', 'a', function (event) {
-  event.preventDefault()
-  const which = $(this).attr('href').substring(1)
-  switch (which) {
-    case 'connection':
-    case 'registration':
-      $('.panel', itemConnection).hide()
-      $(`.panel.${which}`, itemConnection).show()
-      _you = getContact()
-      updateYouFormRender()
-      break
-    case 'reset':
-      $('.panel.reset', itemConnection).show()
-      break
-    case 'continue':
-      upLoader()
-      getLogin().then(user => {
-        downLoader()
-        afterLogin(user)
-      })
-      break
-    case 'disconnect':
-      getLogout(_locale)
-      break
   }
-  changeItem(itemConnection)
-})
+  if (
+    event.target &&
+    event.target.matches('.panel.registration form')
+  ) {
+    validateClient(event, event.target, participant => {
+      upLoader()
+      postRegister({
+        client: {
+          ...participant,
+          rue: participant.adresse
+        }
+      }).then(user => {
+        postLogin({
+          username: user.username,
+          password: participant.password
+        }).then(user => {
+          downLoader()
+          afterLogin(user)
+        }).catch(() => {
+          downLoader()
+          upFlashbag(i18n.trans('security.username_exists'))
+        })
+      }).catch(error => {
+        downLoader()
+        upFlashbag(error)
+      })
+    })
+  }
+}
 
-function validatePhone (phone, mobile) {
+itemConnection.onclick = event => {
+  if (
+    event.target &&
+    event.target.matches('a')
+  ) {
+    event.preventDefault()
+    const which = event.target.getAttribute('href').substring(1)
+    switch (which) {
+      case 'connection':
+      case 'registration':
+        itemConnection.querySelector('.panel').style.display = 'none'
+        itemConnection.querySelector(`.panel.${which}`).style.display = 'block'
+        _you = getContact()
+        updateYouFormRender()
+        break
+      case 'reset':
+        itemConnection.querySelector('.panel.reset').style.display = 'block'
+        break
+      case 'continue':
+        upLoader()
+        getLogin().then(user => {
+          downLoader()
+          afterLogin(user)
+        })
+        break
+      case 'disconnect':
+        getLogout(_locale)
+        break
+    }
+    changeItem(itemConnection)
+  }
+  if (
+    event.target &&
+    event.target.matches('.newfich')
+  ) {
+    const boolean = event.target.classList.toggle('checked').contains('checked')
+    itemConnection.querySelector('.newfich-wrapper .checkbox').value = boolean
+  }
+  if (
+    event.target &&
+    event.target.matches('.panel.reset .cancel')
+  ) {
+    event.preventDefault()
+    itemConnection.querySelector('.panel.reset').classList.remove('active')
+    changeItem(itemConnection)
+  }
+}
+
+const validatePhone = (phone, mobile) => {
   return !(phone === '' && mobile === '')
 }
 
-function validateTvaintra (tvaintra) {
+const validateTvaintra = tvaintra => {
   return new Promise((resolve, reject) => {
     checkVat(tvaintra).then(() => {
       resolve()
@@ -318,32 +361,45 @@ function validateTvaintra (tvaintra) {
   })
 }
 
-function validatePassword (password) {
-  if (password.length < 8 && password.length !== 0) {
-    return i18n.trans('security.password_too_small')
-  }
-  return true
+const validatePassword = password => {
+  return password.length < 8 && password.length !== 0
+    ? i18n.trans('security.password_too_small')
+    : true
 }
 
-itemCard.on('click', '.continue', function (event) {
-  event.preventDefault()
-  updateTermsRender()
-  adlivUpdateForm($('.select-adliv').val())
-  updateDelayRender()
-  changeItem(itemShipping)
-})
+itemCard.onclick = event => {
+  if (
+    event.target &&
+    event.target.matches('.continue')
+  ) {
+    event.preventDefault()
+    updateDelayRender()
+    updateTermsRender()
+    adlivUpdateForm(document.querySelector('.select-adliv').value)
+    changeItem(itemShipping)
+  }
+  if (
+    event.target &&
+    event.target.matches('.modify-you')
+  ) {
+    event.preventDefault()
+    itemCard.querySelector('.panel').style.display = 'none'
+    itemCard.querySelector('.panel.modify').style.display = 'block'
+    updateYouFormRender()
+    changeItem(itemCard)
+  }
+  if (
+    event.target &&
+    event.target.matches('.newfich')
+  ) {
+    const boolean = event.target.classList.toggle('checked').contains('checked')
+    itemCard.querySelector('.newfich-wrapper .checkbox').value = boolean
+  }
+}
 
-itemCard.on('click', '.modify-you', function (event) {
+const validateClient = (event, form, callback) => {
   event.preventDefault()
-  $('.panel', itemCard).hide()
-  $(`.panel.modify`, itemCard).show()
-  updateYouFormRender()
-  changeItem(itemCard)
-})
-
-function validateClient (event, context, callback) {
-  event.preventDefault()
-  const data = context.serializeArray()
+  const data = serializeArray(form)
   const participant = formatParticipant(data)
   const validatedPhone = validatePhone(participant.tel, participant.mobil)
   const validatedPassword = validatePassword(participant.password)
@@ -376,38 +432,55 @@ function validateClient (event, context, callback) {
   }
 }
 
-itemCard.on('submit', '.panel.modify form', function (event) {
-  upLoader()
-  validateClient(event, $(this), user => {
-    postEditCli({
-      client: {
-        ...user,
-        rue: user.adresse
-      }
-    }).then(client => {
-      downLoader()
-      _you = client
-      updateYouRender()
-      adlivUpdateForm('myAd')
-      $(`.panel.modify`).slideUp(800, function () {
-        $(this).hide()
+itemCard.onsubmit = event => {
+  if (
+    event.target &&
+    event.target.matches('.panel.modify form')
+  ) {
+    upLoader()
+    validateClient(event, event.target, user => {
+      postEditCli({
+        client: {
+          ...user,
+          rue: user.adresse
+        }
+      }).then(client => {
+        downLoader()
+        _you = client
+        updateYouRender()
         updateDelayRender()
+        adlivUpdateForm('myAd')
+        itemCard.querySelector('.panel.modify').classList.remove('active')
         changeItem(itemShipping)
+      }).catch(error => {
+        downLoader()
+        upFlashbag(error)
       })
-    }).catch(error => {
-      downLoader()
-      upFlashbag(error)
     })
-  })
-})
+  }
+}
 
-itemShipping.on('change', '.select-adliv', function (event) {
-  event.preventDefault()
-  const selected = $(this).val()
-  adlivUpdateForm(selected)
-})
+itemShipping.onchange = event => {
+  if (
+    event.target &&
+    event.target.matches('.select-adliv')
+  ) {
+    event.preventDefault()
+    adlivUpdateForm(event.target.value)
+    changeItem(itemShipping)
+  }
+  if (
+    event.target &&
+    event.target.matches('.select.country')
+  ) {
+    _delivery.paysliv = event.target.value
+    itemShipping.querySelector('.panel.delay').classList.add('active')
+    updateDelayRender()
+    changeItem(itemShipping)
+  }
+}
 
-function adlivUpdateForm (destliv) {
+const adlivUpdateForm = destliv => {
   switch (destliv) {
     case 'myAd':
       _delivery.adliv.prenom = _you.prenom
@@ -443,14 +516,12 @@ function adlivUpdateForm (destliv) {
       break
   }
   _delivery.destliv = destliv
-  adlivUpdateFormRender()
   updateDelayRender()
-  $('.panel.delay').toggleClass('active', destliv === 'myAd')
-  $('.panel.adliv').toggleClass('active', destliv !== 'myAd')
-  changeItem(itemShipping)
+  adlivUpdateFormRender()
+  itemShipping.querySelector('.panel.adliv').classList.toggle('active', destliv !== 'myAd')
 }
 
-function formatForm (data) {
+const formatForm = data => {
   let form = {}
   data.map(obj => {
     form[obj.name] = obj.value
@@ -458,19 +529,14 @@ function formatForm (data) {
   return form
 }
 
-const formAdliv = $('form.adliv', itemShipping)
-const formGift = $('form.gift', itemShipping)
-
-formGift.on('submit', function (event) {
-  event.preventDefault()
-  const data = $(this).serializeArray()
+const submitFormGift = () => {
+  const data = serializeArray(itemShipping.querySelector('form.gift'))
   const gift = formatForm(data)
   _delivery.memocmd = gift.note
-})
+}
 
-formAdliv.on('submit', function (event) {
-  event.preventDefault()
-  const data = $(this).serializeArray()
+const submitFormAdliv = () => {
+  const data = serializeArray(itemShipping.querySelector('form.adliv'))
   const delivery = formatForm(data)
   if (_delivery.destliv !== 'myAd') {
     _delivery.adliv.prenom = delivery.prenom
@@ -485,14 +551,14 @@ formAdliv.on('submit', function (event) {
   if (_delivery.destliv === 'myAd' && delivery.paysliv !== undefined) {
     _delivery.paysliv = delivery.paysliv
   }
-})
+}
 
-function noEmptyFields (data) {
+const noEmptyFields = data => {
   const emptyFileds = data.filter(obj => obj === undefined || obj === '')
   return emptyFileds.length === 0
 }
 
-function valideDelivery (delivery) {
+const valideDelivery = delivery => {
   return new Promise((resolve, reject) => {
     if (noEmptyFields([
       delivery.adliv.prenom,
@@ -513,49 +579,39 @@ function valideDelivery (delivery) {
   })
 }
 
-itemShipping.on('click', '.continue', function (event) {
-  event.preventDefault()
-  formAdliv.submit()
-  formGift.submit()
-  upLoader()
-  valideDelivery(_delivery).then(delivery => {
-    _country = delivery.paysliv
-    _dest = delivery.destliv
-    getData(_cartId, _country, _dest).then(data => {
-      downLoader()
-      _total = data
-      updateTotalRender()
-      updateDeliveryRender()
-      updateDetailcartRender()
-      updateTermsRender()
-      changeItem(itemPayment)
+itemShipping.onclick = event => {
+  if (
+    event.target &&
+    event.target.matches('.continue')
+  ) {
+    event.preventDefault()
+    submitFormGift()
+    submitFormAdliv()
+    upLoader()
+    valideDelivery(_delivery).then(delivery => {
+      getData(_cartId, delivery.paysliv, delivery.destliv).then(data => {
+        downLoader()
+        _total = data
+        updateTotalRender()
+        updateDeliveryRender()
+        updateDetailcartRender()
+        changeItem(itemPayment)
+      }).catch(error => {
+        downLoader()
+        if (error) {
+          upFlashbag(error)
+        }
+      })
     }).catch(error => {
       downLoader()
       if (error) {
         upFlashbag(error)
       }
     })
-  }).catch(error => {
-    downLoader()
-    if (error) {
-      upFlashbag(error)
-    }
-  })
-})
-
-const formPayment = $('form.payment', itemPayment)
-
-itemPayment.on('click', '.pay', function (event) {
-  event.preventDefault()
-  if (_delivery.modpaie === '') {
-    upFlashbag(i18n.trans('form.message.modpaie_invalid'))
-  } else {
-    formPayment.submit()
   }
-})
+}
 
-itemPayment.on('submit', 'form.payment', function (event) {
-  event.preventDefault()
+const submitFormPayment = () => {
   upLoader()
   postOrder(_delivery).then(res => {
     window.location.href = res
@@ -565,34 +621,32 @@ itemPayment.on('submit', 'form.payment', function (event) {
       upFlashbag(error)
     }
   })
-})
+}
 
-itemPayment.on('change', '.select-modpaie', function (event) {
-  event.preventDefault()
-  const data = $(this).val()
-  _delivery.modpaie = data
-  $('.pay', itemPayment).removeClass('disabled')
-})
+itemPayment.onclick = event => {
+  if (
+    event.target &&
+    event.target.matches('.pay')
+  ) {
+    event.preventDefault()
+    if (_delivery.modpaie === '') {
+      upFlashbag(i18n.trans('form.message.modpaie_invalid'))
+    } else {
+      submitFormPayment()
+    }
+  }
+}
 
-itemConnection.on('click', '.newfich', function (event) {
-  event.preventDefault()
-  const boolean = $(this).toggleClass('checked').hasClass('checked')
-  $('.newfich-wrapper .checkbox', itemConnection).val(boolean)
-})
-
-itemCard.on('click', '.newfich', function (event) {
-  event.preventDefault()
-  const boolean = $(this).toggleClass('checked').hasClass('checked')
-  $('.newfich-wrapper .checkbox', itemCard).val(boolean)
-})
-
-itemConnection.on('click', '.panel.reset .cancel', function (event) {
-  event.preventDefault()
-  $('.panel.reset').slideUp(800, function () {
-    $(this).hide()
-    changeItem(itemConnection)
-  })
-})
+itemPayment.onchange = event => {
+  if (
+    event.target &&
+    event.target.matches('.select-modpaie')
+  ) {
+    event.preventDefault()
+    _delivery.modpaie = event.target.value
+    itemPayment.querySelector('.pay').classList.remove('disabled')
+  }
+}
 
 if (cancelReturn) {
   _you = _user
@@ -625,83 +679,84 @@ if (cancelReturn) {
   })
 }
 
-itemResume.on('click', function () {
-  getData(_cartId, _country, _dest)
-    .then(data => {
-      _total = data
-      updateCartRender()
-    })
-})
+renderCart.onclick = event => {
+  if (
+    event.target &&
+    event.target.matches('.patchproduct')
+  ) {
+    getCartData(
+      event,
+      event.target.getAttribute('data-id'),
+      event.target.getAttribute('data-action')
+    )
+  }
+  if (
+    event.target &&
+    event.target.matches('.removecartline')
+  ) {
+    validateDeleteCartline(event, event.target.getAttribute('data-id'))
+  }
+}
 
-$('.cart-render').on('click', '.patchproduct', function (event) {
-  getCartData(event, $(this).attr('data-id'), $(this).attr('data-action'))
-})
+renderDetailCart.onclick = event => {
+  if (
+    event.target &&
+    event.target.matches('.patchproduct')
+  ) {
+    getCartData(
+      event,
+      event.target.getAttribute('data-id'),
+      event.target.getAttribute('data-action')
+    )
+  }
+  if (
+    event.target &&
+    event.target.matches('.removecartline')
+  ) {
+    validateDeleteCartline(event, event.target.getAttribute('data-id'))
+  }
+}
 
-$('.cart-render').on('click', '.removecartline', function (event) {
-  validateDeleteCartline(event, $(this).attr('data-id'))
-})
-
-$('.detailCart-render').on('click', '.patchproduct', function (event) {
-  getCartData(event, $(this).attr('data-id'), $(this).attr('data-action'))
-})
-
-$('.detailCart-render').on('click', '.removecartline', function (event) {
-  validateDeleteCartline(event, $(this).attr('data-id'))
-})
-
-function getCartData (event, product, action) {
+const getCartData = (event, product, action) => {
   event.preventDefault()
   let data = {}
   data.productId = product
   data.typeAction = action
-  patchProduct(data)
-    .then(() => {
-      getData(_cartId, _country, _dest)
-        .then(data => {
-          _total = data
-          if (_total.product === undefined) {
-            window.location.reload()
-          } else {
-            updateCartCountRender()
-            updateCartRender()
-            updateDetailcartRender()
-            updateTotalRender()
-          }
-        })
+  patchProduct(data).then(() => {
+    getData(_cartId, _country, _dest).then(data => {
+      _total = data
+      if (_total.product === undefined) {
+        window.location.reload()
+      } else {
+        updateCartCountRender()
+        updateCartRender()
+        updateDetailcartRender()
+        updateTotalRender()
+      }
     })
+  })
 }
 
-function deleteCartline (product) {
-  let codprd = product
-  removeCartline(_cartId, codprd)
-    .then(() => {
-      getData(_cartId, _country, _dest)
-        .then(data => {
-          _total = data
-          if (_total.product === undefined) {
-            window.location.reload()
-          } else {
-            updateCartCountRender()
-            updateCartRender()
-            updateDetailcartRender()
-            updateTotalRender()
-          }
-        })
+const deleteCartline = product => {
+  removeCartline(_cartId, product).then(() => {
+    getData(_cartId, _country, _dest).then(data => {
+      _total = data
+      if (_total.product === undefined) {
+        window.location.reload()
+      } else {
+        updateCartCountRender()
+        updateCartRender()
+        updateDetailcartRender()
+        updateTotalRender()
+      }
     })
+  })
 }
 
-function validateDeleteCartline (event, product) {
+const validateDeleteCartline = (event, product) => {
   event.preventDefault()
-  upConfirmbox(i18n.trans('cart.product.wouldremove'))
-    .then(() => {
-      deleteCartline(product)
-    }).catch(() => {
-    })
+  upConfirmbox(i18n.trans('cart.product.wouldremove')).then(() => {
+    deleteCartline(product)
+  }).catch(() => {
+  })
 }
-
-$(itemShipping).on('change', '.select.country', function (event) {
-  _delivery.paysliv = $(this).val()
-  $('.panel.delay').addClass('active')
-  updateDelayRender()
-  changeItem(itemShipping)
-})

@@ -306,17 +306,6 @@ body {
         @include media('<large') {
           padding: 30px 10px 0px 10px;
         }
-        hr {
-          margin: 10px 0 30px;
-        }
-        &.active {
-          display: block;
-          &:after {
-            content: '';
-            display: block;
-            height: 1px;
-          }
-        }
         &:before {
           content: '';
           position: absolute;
@@ -327,6 +316,17 @@ body {
           background: #000000;
           opacity: 0.5;
           z-index: -99999;
+        }
+        &.active {
+          display: block;
+          &:after {
+            content: '';
+            display: block;
+            height: 1px;
+          }
+        }
+        hr {
+          margin: 10px 0 30px;
         }
         .option {
           display: inline-block;
