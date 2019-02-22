@@ -344,9 +344,8 @@ itemConnection.onclick = event => {
     event.target.matches('.panel.reset .cancel')
   ) {
     event.preventDefault()
-    changeItem(itemConnection).then(() => {
-      itemConnection.querySelector('.panel.reset').classList.remove('active')
-    })
+    itemConnection.querySelector('.panel.reset').classList.remove('active')
+    changeItem(itemConnection)
   }
 }
 
