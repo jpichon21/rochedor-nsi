@@ -134,16 +134,6 @@ const updateYouFormRender = () => {
       i18n.trans('form.civilite.frere'),
       i18n.trans('form.civilite.pere'),
       i18n.trans('form.civilite.soeur')
-    ],
-    statutLabel: [
-      i18n.trans('form.statut.par'),
-      i18n.trans('form.statut.org'),
-      i18n.trans('form.statut.pro')
-    ],
-    statut: [
-      'par',
-      'org',
-      'pro'
     ]
   })
 }
@@ -308,6 +298,10 @@ itemConnection.onclick = event => {
     const which = event.target.getAttribute('href').substring(1)
     switch (which) {
       case 'connection':
+        itemConnection.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'))
+        itemConnection.querySelector(`.panel.${which}`).classList.add('active')
+        changeItem(itemConnection)
+        break
       case 'registration':
         _you = getContact()
         updateYouFormRender()
