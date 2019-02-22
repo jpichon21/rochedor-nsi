@@ -334,8 +334,9 @@ itemConnection.onclick = event => {
     event.target &&
     event.target.matches('.newfich')
   ) {
-    const boolean = event.target.classList.toggle('checked').contains('checked')
-    itemConnection.querySelector('.newfich-wrapper .checkbox').value = boolean
+    event.preventDefault()
+    event.target.classList.toggle('checked')
+    itemConnection.querySelector('.newfich-wrapper .checkbox').value = event.target.classList.contains('checked')
   }
   if (
     event.target &&
@@ -392,8 +393,9 @@ itemCard.onclick = event => {
     event.target &&
     event.target.matches('.newfich')
   ) {
-    const boolean = event.target.classList.toggle('checked').contains('checked')
-    itemCard.querySelector('.newfich-wrapper .checkbox').value = boolean
+    event.preventDefault()
+    event.target.classList.toggle('checked')
+    itemCard.querySelector('.newfich-wrapper .checkbox').value = event.target.classList.contains('checked')
   }
 }
 
@@ -595,6 +597,7 @@ itemShipping.onclick = event => {
         updateTotalRender()
         updateDeliveryRender()
         updateDetailcartRender()
+        updateTermsRender()
         changeItem(itemPayment)
       }).catch(error => {
         downLoader()
