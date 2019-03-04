@@ -507,14 +507,14 @@
         <target>H.</target>
       </segment>
     </unit>
-    <unit id="xsDsRUV" name="form.civility.mme">
+    <unit id="xsDsRUV" name="form.civility.abbe">
       <notes>
         <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:50</note>
         <note category="file-source" priority="1">app/Resources/views/default/calendar-registration.html.twig:159</note>
       </notes>
       <segment>
-        <source>form.civility.mme</source>
-        <target>Fr.</target>
+        <source>form.civility.abbe</source>
+        <target>Pfarrer</target>
       </segment>
     </unit>
     <unit id="drTwRMd" name="form.surname">
