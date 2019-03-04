@@ -589,14 +589,14 @@
         <target>Mr</target>
       </segment>
     </unit>
-    <unit id="xsDsRUV" name="form.civility.mme">
+    <unit id="xsDsRUV" name="form.civility.abbe">
       <notes>
         <note priority="1">app/Resources/views/default/calendar-registration.html.twig:50</note>
         <note priority="1">app/Resources/views/default/calendar-registration.html.twig:159</note>
       </notes>
       <segment>
-        <source>form.civility.mme</source>
-        <target>Mme</target>
+        <source>form.civility.abbe</source>
+        <target>Abbé</target>
       </segment>
     </unit>
     <unit id="drTwRMd" name="form.surname">
@@ -924,7 +924,7 @@
       </notes>
       <segment>
         <source>form.label.female</source>
-        <target>Mme</target>
+        <target>Abbé</target>
       </segment>
     </unit>
     <unit id="yeuJugN" name="form.label.miss">
@@ -1792,10 +1792,10 @@
         <target>Veuillez accepter les CGV</target>
       </segment>
     </unit>
-    <unit id="eGbXcnm" name="form.civilite.mme">
+    <unit id="eGbXcnm" name="form.civilite.abbe">
       <segment>
-        <source>form.civilite.mme</source>
-        <target>Mme</target>
+        <source>form.civilite.abbe</source>
+        <target>Abbé</target>
       </segment>
     </unit>
     <unit id="6mFCpN5" name="form.civilite.mlle">

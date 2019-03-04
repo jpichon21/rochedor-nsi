@@ -123,7 +123,7 @@ function updateYouFormRender () {
     countries: _countries,
     civilites: [
       i18n.trans('form.civilite.mr'),
-      i18n.trans('form.civilite.mme'),
+      i18n.trans('form.civilite.abbe'),
       i18n.trans('form.civilite.mlle'),
       i18n.trans('form.civilite.frere'),
       i18n.trans('form.civilite.pere'),
@@ -141,7 +141,7 @@ function updateHimFormRender () {
     you: _you,
     civilites: [
       i18n.trans('form.civilite.mr'),
-      i18n.trans('form.civilite.mme'),
+      i18n.trans('form.civilite.abbe'),
       i18n.trans('form.civilite.mlle'),
       i18n.trans('form.civilite.frere'),
       i18n.trans('form.civilite.pere'),
