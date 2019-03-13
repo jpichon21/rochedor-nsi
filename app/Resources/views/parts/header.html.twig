@@ -5,9 +5,9 @@
                 <span>{{ 'menu.one' | trans | raw }}</span>
                 <ul class="sub-menu" data-menu="vgbhnj">
                     <li><a href="{{ localePath('la-communaute', app.request.locale) }}">{{ 'menu.one.one' | trans | raw }}</a></li>
-                    <li><a href="#">{{ 'menu.one.two' | trans | raw }}</a></li>
-                    <li><a href="#">{{ 'menu.one.three' | trans | raw }}</a></li>
-                    <li><a href="#">{{ 'menu.one.four' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('les-fondateurs', app.request.locale) }}">{{ 'menu.one.two' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('la-rochedor', app.request.locale) }}">{{ 'menu.one.three' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('les-fontanilles', app.request.locale) }}">{{ 'menu.one.four' | trans | raw }}</a></li>
                 </ul>
             </li>
             <li data-menu="gyhuji">
@@ -40,7 +40,7 @@
                     <li><a href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">{{ 'menu.four.one' | trans | raw }}</a></li>
                     <li><a href="{{ localePath('infos-pratiques-des-fontanilles', app.request.locale) }}">{{ 'menu.four.two' | trans | raw }}</a></li>
                     <li><a href="{{ localePath('accueil-des-enfants', app.request.locale) }}">{{ 'menu.four.three' | trans | raw }}</a></li>
-                    <li><a href="#">{{ 'menu.four.four' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('liens-amis', app.request.locale) }}">{{ 'menu.four.four' | trans | raw }}</a></li>
                 </ul>
             </li>
             <li data-menu="qzsedr">

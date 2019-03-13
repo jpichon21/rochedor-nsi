@@ -17,8 +17,7 @@ export function changeCarousel (reference) {
   }
 }
 
-function changeSlide (direction) {
-  let carousel = $('.carousel.active')
+function changeSlide (carousel, direction) {
   let prev = $('.slide.active', carousel)
   let next = prev[direction]()
   if (!next.length) {
@@ -30,8 +29,9 @@ function changeSlide (direction) {
 }
 
 $('.carousel .prev, .carousel .next').on('click', function () {
-  let direction = $(this).hasClass('prev') ? 'prev' : 'next'
-  changeSlide(direction)
+  const carousel = $(this).parent('.carousel')
+  const direction = $(this).hasClass('prev') ? 'prev' : 'next'
+  changeSlide(carousel, direction)
 })
 
 const images = $('.carousel .slide .image')
