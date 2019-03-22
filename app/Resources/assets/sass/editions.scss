@@ -381,6 +381,11 @@ h2 {
         right: 20px;
         transition: 0.5s;
       }
+      .text-click, .text-click:hover, .text-click:visited, .text-click:active
+      {
+        color:#000;
+        text-decoration:none;
+      }
       .price {
         position: absolute;
         bottom: 80px;

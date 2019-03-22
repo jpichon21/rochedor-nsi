@@ -1,6 +1,8 @@
 <div class="product">
     <a class="link" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}"></a>
-    <div class="illustration" style="{{ asset(product.adimg) | background }}"></div>
+    <a class="text-click" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">
+        <div class="illustration" style="{{ asset(product.adimg) | background }}"></div>
+    </a>
     <div class="description">
     <a class="title" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">
         <h3>{{ product.produitcourt }}</h3>
@@ -11,13 +13,15 @@
     <a class="cart" data-id="{{ product.codprd }}" href="#">
         <img src="{{ asset('assets/img/cart.png') }}" alt="Panier">
     </a>
-    <div class="text">
-        <div class="short">
-        <p>{{ product.pageprd | truncate(110, true) }}</p>
+    <a class="text-click" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">
+        <div class="text">
+            <div class="short">
+                <p>{{ product.pageprd | truncate(110, true) }}</p>
+            </div>
+            <div class="long">
+                <p>{{ product.pageprd | truncate(500, true) }}</p>
+            </div>
         </div>
-        <div class="long">
-        <p>{{ product.pageprd | truncate(500, true) }}</p>
-        </div>
-    </div>
+    </a>
     </div>
 </div>
