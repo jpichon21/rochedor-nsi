@@ -209,8 +209,11 @@ body {
   .right {
     order: 3;
   }
-  .options {
+  .cart-container {
     order: 4;
+  }
+  .options {
+    order: 5;
   }
 }
 @include media('>=limitMenuReduced') {
@@ -232,6 +235,12 @@ body {
         bottom: -20px;
         margin-left: -45px;
       }
+    }
+    .cart-container {
+      position: absolute;
+      top: 20px;
+      right: 175px;
+      z-index: 1;
     }
     .options {
       position: absolute;
@@ -413,6 +422,12 @@ body {
 }
 @include media('<limitMenuReduced') {
   .header {
+    .cart-container {
+      position: absolute;
+      top: 30px;
+      right: 90px;
+      z-index: 1;
+    }
     .options {
       display: none;
       width: 100%;
