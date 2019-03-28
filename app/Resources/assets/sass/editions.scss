@@ -144,9 +144,8 @@ h2 {
 
 .button {
   float: right;
-  padding: 0 20px;
+  padding: 9px 20px;
   font-size: 12px;
-  line-height: 30px;
   letter-spacing: 1.4px;
   color: #000000;
   text-decoration: none;
@@ -485,7 +484,7 @@ h2 {
             position: absolute;
             right: 15px;
             font-size: 18px;
-            top: 16px;
+            top: 14px;
             line-height: 0;
           }
           @include media('<medium') {

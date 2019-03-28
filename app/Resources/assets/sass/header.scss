@@ -103,8 +103,7 @@ body {
       }
       span {
         display: block;
-        padding: 0 20px;
-        line-height: 30px;
+        padding: 9px 20px;
         border: 1px #000000 solid;
         @include media('<large') {
             display: none;
@@ -139,7 +138,7 @@ body {
         a {
           display: block;
           width: 30px;
-          line-height: 30px;
+          padding: 9px 0;
           font-size: 12px;
           color: $roche-yellow;
           text-align: center;
@@ -161,8 +160,8 @@ body {
     li {
       float: left;
       width: 30px;
+      padding: 9px 0;
       margin-left: -1px;
-      line-height: 30px;
       font-size: 12px;
       color: $roche-yellow;
       text-align: center;
@@ -437,8 +436,8 @@ body {
   .header {
     .cart-container {
       position: absolute;
-      top: 32px;
-      right: 90px;
+      top: 80px;
+      right: 38px;
       z-index: 1;
     }
     .options {
