@@ -1,19 +1,15 @@
-<div class="product">
-    <a class="link" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}"></a>
-    <a class="text-click" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">
-        <div class="illustration" style="{{ asset(product.adimg) | background }}"></div>
-    </a>
+<a href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}" class="product">
+    <div class="illustration" style="{{ asset(product.adimg) | background }}"></div>
     <div class="description">
-    <a class="title" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">
-        <h3>{{ product.produitcourt }}</h3>
-    </a>
-    <a class="price" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">
-        {{ product.prix }}<small>€</small>
-    </a>
-    <a class="cart" data-id="{{ product.codprd }}" href="#">
-        <img src="{{ asset('assets/img/cart.png') }}" alt="Panier">
-    </a>
-    <a class="text-click" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">
+        <div class="title">
+            <h3>{{ product.produitcourt }}</h3>
+        </div>
+        <div class="price">
+            {{ product.prix }}<small>€</small>
+        </div>
+        <div class="cart" data-id="{{ product.codprd }}">
+            <img src="{{ asset('assets/img/cart.png') }}" alt="Panier">
+        </div>
         <div class="text">
             <div class="short">
                 <p>{{ product.pageprd | truncate(110, true) }}</p>
@@ -22,6 +18,5 @@
                 <p>{{ product.pageprd | truncate(500, true) }}</p>
             </div>
         </div>
-    </a>
     </div>
-</div>
+</a>
