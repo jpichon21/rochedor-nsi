@@ -4,8 +4,6 @@
 .content {
   > .right {
     display: block;
-  }
-  .order-right {
     @include media('<large') {
       display: none;
     }
