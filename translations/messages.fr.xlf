@@ -440,7 +440,7 @@
       </notes>
       <segment>
         <source>calendar.registration.one.title</source>
-        <target>Connexion/Inscription</target>
+        <target>Identification/Inscription</target>
       </segment>
     </unit>
     <unit id="X6w.m5l" name="calendar.registration.two.title">
@@ -479,7 +479,7 @@
       </notes>
       <segment>
         <source>calendar.registration.one.title.connection</source>
-        <target>Connexion</target>
+        <target>Identification</target>
       </segment>
     </unit>
     <unit id="Hu7hGnb" name="calendar.registration.one.title.registration">
@@ -1665,7 +1665,7 @@
     <unit id="KaXjE7S" name="form.title.connection">
       <segment>
         <source>form.title.connection</source>
-        <target>Formulaire de connexion</target>
+        <target>Formulaire d'identification</target>
       </segment>
     </unit>
     <unit id="k3DuK7A" name="form.validate">
@@ -1798,10 +1798,10 @@
         <target>Abbé</target>
       </segment>
     </unit>
-    <unit id="6mFCpN5" name="form.civilite.mlle">
+    <unit id="6mFCpN5" name="form.civilite.mme">
       <segment>
-        <source>form.civilite.mlle</source>
-        <target>Mlle</target>
+        <source>form.civilite.mme</source>
+        <target>Mme</target>
       </segment>
     </unit>
     <unit id="vBzG3A3" name="form.civilite.pere">
@@ -2181,7 +2181,7 @@
     <unit id="EY4TYVa" name="order.registration.one.title.connection">
       <segment>
         <source>order.registration.one.title.connection</source>
-        <target>Connexion</target>
+        <target>Identification</target>
       </segment>
     </unit>
     <unit id="xglinNC" name="order.registration.one.title.registration">
@@ -2337,7 +2337,7 @@
     <unit id="0scb9.5" name="gift.one.title">
       <segment>
         <source>gift.one.title</source>
-        <target>Connexion/Inscription</target>
+        <target>Identification/Inscription</target>
       </segment>
     </unit>
     <unit id="oeXVvov" name="gift.one.body.connected">
@@ -2544,7 +2544,7 @@
     <unit id="KXMcVvu" name="gift.one.title.connection">
       <segment>
         <source>gift.one.title.connection</source>
-        <target>Connexion</target>
+        <target>Identification</target>
       </segment>
     </unit>
     <unit id="syOOwQX" name="gift.one.title.registration">
