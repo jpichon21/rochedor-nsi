@@ -152,7 +152,12 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                     {
                       tileData[slide.layout].map((tile, indexImage) => (
                         <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
-                          <div className={classes.tile} style={{ backgroundImage: `url('${slide.images[tile.id].url}')` }}>
+                          <div
+                            className={classes.tile}
+                            style={{
+                              backgroundImage: `url('${slide.images[tile.id].url}')`,
+                              backgroundPosition: 'crop' in slide.images[tile.id] && slide.images[tile.id].crop !== '' ? `${slide.images[tile.id].crop}` : 'center center'
+                            }}>
                             {
                               context.state.fileUploading.isUploading &&
                                 context.state.fileUploading.type === 'image' &&

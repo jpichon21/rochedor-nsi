@@ -304,15 +304,25 @@ body {
           &:before {
             border-left: 1px $roche-yellow solid;
           }
-          br {
-            display: block;
-          }
         }
       }
     }
     .left {
       order: 1;
       padding-left: 40px;
+      .sub-menu {
+        padding-left: 40px;
+        li {
+          &:last-child {
+            a {
+              margin-right: 0;
+            }
+          }
+          a {
+            margin-right: 20px;
+          }
+        }
+      }
       li {
         > a, span {
           text-align: left;
@@ -335,6 +345,19 @@ body {
     .right {
       order: 3;
       padding-right: 40px;
+      .sub-menu {
+        padding-right: 40px;
+        li {
+          &:first-child {
+            a {
+              margin-left: 0;
+            }
+          }
+          a {
+            margin-left: 20px;
+          }
+        }
+      }
       li {
         > a, span {
           text-align: right;
@@ -380,7 +403,6 @@ body {
       top: 100%;
       left: 0;
       right: 0;
-      padding: 0 40px;
       li {
         > a, span {
           position: relative;
