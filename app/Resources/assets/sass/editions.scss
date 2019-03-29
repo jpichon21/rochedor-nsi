@@ -144,9 +144,8 @@ h2 {
 
 .button {
   float: right;
-  padding: 0 20px;
+  padding: 9px 20px;
   font-size: 12px;
-  line-height: 30px;
   letter-spacing: 1.4px;
   color: #000000;
   text-decoration: none;
@@ -277,38 +276,31 @@ h2 {
       width: auto;
       margin: 0 -20px 40px;
     }
-    .link {
+    &:after,
+    &:before {
+      content: '';
       position: absolute;
       top: 0;
       right: 0;
       width: 43px;
       height: 44px;
+      transition: 0.5s;
       @include media('<large') {
-        display: none;
+        content: none;
       }
-      &:after,
-      &:before {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        transition: 0.5s;
-      }
-      &:after {
-        background-image: url('../img/plus-orange.png');
-        z-index: 2;
-      }
-      &:before {                
-        background-image: url('../img/plus-white.png');
-        z-index: 3;
-      }
+    }
+    &:after {
+      background-image: url('../img/plus-orange.png');
+      z-index: 2;
+    }
+    &:before {                
+      background-image: url('../img/plus-white.png');
+      z-index: 3;
     }
     @include media('>=large') {
       &:hover {
-        .link {
-          &:before {
-            opacity: 0;
-          }
+        &:before {
+          opacity: 0;
         }
         .description {
           top: 0;
@@ -398,6 +390,7 @@ h2 {
       }
       .text {
         position: relative;
+        color: #000000;
         .long,
         .short {
           position: absolute;
@@ -491,7 +484,7 @@ h2 {
             position: absolute;
             right: 15px;
             font-size: 18px;
-            top: 16px;
+            top: 14px;
             line-height: 0;
           }
           @include media('<medium') {

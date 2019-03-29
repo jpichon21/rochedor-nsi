@@ -86,34 +86,46 @@ body {
       display: none;
     }
   }
-  .cart {
-    display: block;
-    position: relative;
-    padding: 0 20px;
-    line-height: 30px;
-    font-size: 12px;
-    color: #000000;
-    text-transform: uppercase;
-    text-decoration: none;
-    text-align: center;
-    border: 1px #000000 solid;
-    z-index: 1;
-    span {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      top: -7px;
-      right: -7px;
-      color: #ffffff;
-      border-radius: 18px;
-      font-size: 10px;
-      background-color: $roche-orange;
-      font-family: arial, sans-serif;
-      padding-top: 2px;
-      box-sizing: border-box;
+  .cart-container {
+    .cart {
+      display: block;
+      position: relative;
+      font-size: 12px;
+      color: #000000;
+      text-decoration: none;
+      text-transform: uppercase;
+      text-align: center;
+      z-index: 1;
+      @include media('>=large') {
+        img {
+          display: none;
+        }
+      }
+      span {
+        display: block;
+        padding: 9px 20px;
+        border: 1px #000000 solid;
+        @include media('<large') {
+            display: none;
+        }
+      }
+      small {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        top: -7px;
+        right: -7px;
+        color: #ffffff;
+        border-radius: 18px;
+        font-size: 10px;
+        background-color: $roche-orange;
+        font-family: arial, sans-serif;
+        padding-top: 2px;
+        box-sizing: border-box;
+      }
     }
   }
   .languages {
@@ -126,7 +138,7 @@ body {
         a {
           display: block;
           width: 30px;
-          line-height: 30px;
+          padding: 9px 0;
           font-size: 12px;
           color: $roche-yellow;
           text-align: center;
@@ -148,8 +160,8 @@ body {
     li {
       float: left;
       width: 30px;
+      padding: 9px 0;
       margin-left: -1px;
-      line-height: 30px;
       font-size: 12px;
       color: $roche-yellow;
       text-align: center;
@@ -209,8 +221,11 @@ body {
   .right {
     order: 3;
   }
-  .options {
+  .cart-container {
     order: 4;
+  }
+  .options {
+    order: 5;
   }
 }
 @include media('>=limitMenuReduced') {
@@ -232,6 +247,12 @@ body {
         bottom: -20px;
         margin-left: -45px;
       }
+    }
+    .cart-container {
+      position: absolute;
+      top: 20px;
+      right: 175px;
+      z-index: 1;
     }
     .options {
       position: absolute;
@@ -283,15 +304,25 @@ body {
           &:before {
             border-left: 1px $roche-yellow solid;
           }
-          br {
-            display: block;
-          }
         }
       }
     }
     .left {
       order: 1;
       padding-left: 40px;
+      .sub-menu {
+        padding-left: 40px;
+        li {
+          &:last-child {
+            a {
+              margin-right: 0;
+            }
+          }
+          a {
+            margin-right: 20px;
+          }
+        }
+      }
       li {
         > a, span {
           text-align: left;
@@ -314,6 +345,19 @@ body {
     .right {
       order: 3;
       padding-right: 40px;
+      .sub-menu {
+        padding-right: 40px;
+        li {
+          &:first-child {
+            a {
+              margin-left: 0;
+            }
+          }
+          a {
+            margin-left: 20px;
+          }
+        }
+      }
       li {
         > a, span {
           text-align: right;
@@ -359,7 +403,6 @@ body {
       top: 100%;
       left: 0;
       right: 0;
-      padding: 0 40px;
       li {
         > a, span {
           position: relative;
@@ -413,6 +456,12 @@ body {
 }
 @include media('<limitMenuReduced') {
   .header {
+    .cart-container {
+      position: absolute;
+      top: 80px;
+      right: 38px;
+      z-index: 1;
+    }
     .options {
       display: none;
       width: 100%;

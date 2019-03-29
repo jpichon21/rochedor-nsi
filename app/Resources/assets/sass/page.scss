@@ -191,8 +191,7 @@ body {
       .textarea {
         width: 100%;
         margin-bottom: 20px;
-        padding: 0 20px;
-        line-height: 30px;
+        padding: 5px 20px;
         color: #ffffff;
         font-family: 'Lato', sans-serif;
         font-size: 14px;
@@ -221,7 +220,7 @@ body {
       }
       .select {
         color: $roche-yellow;
-        padding: 0 40px 0 20px;
+        padding: 5px 40px 5px 20px;
         background-image: url('../img/arrow-select-yellow.png');
         background-position: calc(100% - 20px) center;
         background-repeat: no-repeat;
@@ -249,12 +248,12 @@ body {
       }
       .button {
         margin-bottom: 20px;
-        padding: 0 20px;
+        padding: 10px 20px;
         font-size: 10px;
-        line-height: 30px;
         text-align: center;
         text-transform: uppercase;
         letter-spacing: 1.4px;
+        line-height: 100%;
         color: $roche-yellow;
         border: 1px $roche-yellow solid;
         background: none;
