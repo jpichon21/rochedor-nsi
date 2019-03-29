@@ -24,6 +24,7 @@ class CustomExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
+            new \Twig_SimpleFilter('position', array($this, 'positionFilter')),
             new \Twig_SimpleFilter('background', array($this, 'backgroundFilter')),
             new \Twig_SimpleFilter('constantBackground', array($this, 'constantBackgroundFilter')),
             new \Twig_SimpleFilter('md5', array($this, 'md5Filter')),
@@ -39,15 +40,20 @@ class CustomExtension extends \Twig_Extension
         );
     }
  
+    public function positionFilter($position)
+    {
+        return "background-position:$position;";
+    }
+ 
     public function backgroundFilter($url)
     {
-        return "background-image: url('$url')";
+        return "background-image:url($url);";
     }
  
     public function constantBackgroundFilter($id)
     {
         $url = constant('AppBundle\\Entity\\Page::BACKGROUNDS')[$id];
-        return "background-image: url('$url')";
+        return "background-image:url($url);";
     }
  
     public function md5Filter($string)

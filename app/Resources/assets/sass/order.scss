@@ -4,6 +4,9 @@
 .content {
   > .right {
     display: block;
+    @include media('<large') {
+      display: none;
+    }
   }
   .dropdown {
     .item {
