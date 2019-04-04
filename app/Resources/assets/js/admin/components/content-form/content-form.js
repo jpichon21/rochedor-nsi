@@ -818,8 +818,8 @@ export class ContentForm extends React.Component {
               <DialogContentText>
                 <p>Veuillez sélectionnez la zone à privilégier si la photo doit être recadrée.<br />
                   Le sujet de la photo se situe plutôt vers :</p><br />
-                <div style={{ position: 'relative', display: 'inline-block' }}>
-                  <img style={{ maxWidth: 400, maxHeight: 400, opacity: 0.5 }} src={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].url} />
+                <div style={{ position: 'relative', display: 'inline-block', minWidth: 150, minHeight: 150, backgroundColor: 'whitesmoke' }}>
+                  <img style={{ display: 'block', maxWidth: 400, maxHeight: 400, opacity: 0.5 }} src={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].url} />
                   <ArrowUpwardIcon
                     color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'left top' ? 'secondary' : 'primary'}
                     style={{ position: 'absolute', left: 20, top: 20, fontSize: 30, transform: 'rotate(-45deg)', cursor: 'pointer' }}
@@ -827,7 +827,7 @@ export class ContentForm extends React.Component {
                   />
                   <ArrowUpwardIcon
                     color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'left center' ? 'secondary' : 'primary'}
-                    style={{ position: 'absolute', left: 20, top: '45%', fontSize: 30, transform: 'rotate(-90deg)', cursor: 'pointer' }}
+                    style={{ position: 'absolute', left: 20, top: '50%', marginTop: -15, fontSize: 30, transform: 'rotate(-90deg)', cursor: 'pointer' }}
                     onClick={() => { this.handleChangeCrop('left center', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
                   />
                   <ArrowUpwardIcon
@@ -837,17 +837,17 @@ export class ContentForm extends React.Component {
                   />
                   <ArrowUpwardIcon
                     color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'center top' ? 'secondary' : 'primary'}
-                    style={{ position: 'absolute', left: '45%', top: 20, fontSize: 30, cursor: 'pointer' }}
+                    style={{ position: 'absolute', left: '50%', top: 20, marginLeft: -15, fontSize: 30, cursor: 'pointer' }}
                     onClick={() => { this.handleChangeCrop('center top', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
                   />
                   <FilterCenterFocusIcon
                     color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'center center' ? 'secondary' : 'primary'}
-                    style={{ position: 'absolute', left: '45%', top: '45%', fontSize: 30, cursor: 'pointer' }}
+                    style={{ position: 'absolute', left: '50%', top: '50%', marginLeft: -15, marginTop: -15, fontSize: 30, cursor: 'pointer' }}
                     onClick={() => { this.handleChangeCrop('center center', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
                   />
                   <ArrowUpwardIcon
                     color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'center bottom' ? 'secondary' : 'primary'}
-                    style={{ position: 'absolute', left: '45%', bottom: 20, fontSize: 30, transform: 'rotate(-180deg)', cursor: 'pointer' }}
+                    style={{ position: 'absolute', left: '50%', bottom: 20, marginLeft: -15, fontSize: 30, transform: 'rotate(-180deg)', cursor: 'pointer' }}
                     onClick={() => { this.handleChangeCrop('center bottom', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
                   />
                   <ArrowUpwardIcon
@@ -857,7 +857,7 @@ export class ContentForm extends React.Component {
                   />
                   <ArrowUpwardIcon
                     color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'right center' ? 'secondary' : 'primary'}
-                    style={{ position: 'absolute', right: 20, top: '45%', fontSize: 30, transform: 'rotate(90deg)', cursor: 'pointer' }}
+                    style={{ position: 'absolute', right: 20, top: '50%', marginTop: -15, fontSize: 30, transform: 'rotate(90deg)', cursor: 'pointer' }}
                     onClick={() => { this.handleChangeCrop('right center', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
                   />
                   <ArrowUpwardIcon
