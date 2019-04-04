@@ -159,10 +159,10 @@ PageEdit.defaultProps = {
             {
               layout: '1-1-2',
               images: [
-                { type: '', url: '', alt: '', video: '' },
-                { type: '', url: '', alt: '', video: '' },
-                { type: '', url: '', alt: '', video: '' },
-                { type: '', url: '', alt: '', video: '' }
+                { type: '', url: '', alt: '', video: '', crop: '' },
+                { type: '', url: '', alt: '', video: '', crop: '' },
+                { type: '', url: '', alt: '', video: '', crop: '' },
+                { type: '', url: '', alt: '', video: '', crop: '' }
               ]
             }
           ]
