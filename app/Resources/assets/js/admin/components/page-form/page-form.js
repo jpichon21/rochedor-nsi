@@ -10,6 +10,9 @@ import { SortableContainer, SortableElement, arrayMove, SortableHandle } from 'r
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import SaveIcon from '@material-ui/icons/Save'
 import OnDemandVideoIcon from '@material-ui/icons/OndemandVideo'
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
+import FilterCenterFocusIcon from '@material-ui/icons/FilterCenterFocus'
+import CropIcon from '@material-ui/icons/Crop'
 import FontDownloadIcon from '@material-ui/icons/FontDownload'
 import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -182,14 +185,15 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                                       id='tooltip-controlled'
                                       leaveDelay={300}
                                       placement='bottom'
-                                      title='Ajouter une légende'
+                                      title='Définir un cadrage'
                                     >
                                       <IconButton
-                                        color={slide.images[tile.id].alt === '' ? 'primary' : 'secondary'}
-                                        onClick={event => { context.handleChangeImageAlt(event, `${indexSection}-${indexSlide}-${indexImage}`) }}>
-                                        <FontDownloadIcon />
+                                        color={'crop' in slide.images[tile.id] && slide.images[tile.id].crop !== '' ? 'secondary' : 'primary'}
+                                        onClick={event => { context.handleChangeImageCrop(event, `${indexSection}-${indexSlide}-${indexImage}`) }}>
+                                        <CropIcon />
                                       </IconButton>
                                     </Tooltip>
+                                    <br />
                                     <Tooltip
                                       enterDelay={300}
                                       id='tooltip-controlled'
@@ -201,6 +205,19 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                                         color={slide.images[tile.id].video === '' ? 'primary' : 'secondary'}
                                         onClick={event => { context.handleChangeImageVideo(event, `${indexSection}-${indexSlide}-${indexImage}`) }}>
                                         <OnDemandVideoIcon />
+                                      </IconButton>
+                                    </Tooltip>
+                                    <Tooltip
+                                      enterDelay={300}
+                                      id='tooltip-controlled'
+                                      leaveDelay={300}
+                                      placement='bottom'
+                                      title='Ajouter une légende'
+                                    >
+                                      <IconButton
+                                        color={slide.images[tile.id].alt === '' ? 'primary' : 'secondary'}
+                                        onClick={event => { context.handleChangeImageAlt(event, `${indexSection}-${indexSlide}-${indexImage}`) }}>
+                                        <FontDownloadIcon />
                                       </IconButton>
                                     </Tooltip>
                                   </div>
@@ -327,15 +344,18 @@ export class PageForm extends React.Component {
       noticeId: '0-0-0',
       AlertBlockquoteOpen: false,
       AlertVideoOpen: false,
+      AlertCropOpen: false,
       AlertAltOpen: false
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleInputFilter = this.handleInputFilter.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChangeImageVideo = this.handleChangeImageVideo.bind(this)
+    this.handleChangeImageCrop = this.handleChangeImageCrop.bind(this)
     this.handleChangeImageAlt = this.handleChangeImageAlt.bind(this)
     this.handleCloseVersion = this.handleCloseVersion.bind(this)
     this.handleChangeVideo = this.handleChangeVideo.bind(this)
+    this.handleChangeCrop = this.handleChangeCrop.bind(this)
     this.handleOpenLayoutMenu = this.handleOpenLayoutMenu.bind(this)
     this.handleCloseLayoutMenu = this.handleCloseLayoutMenu.bind(this)
     this.handleChangeLayoutMenu = this.handleChangeLayoutMenu.bind(this)
@@ -363,6 +383,7 @@ export class PageForm extends React.Component {
     this.handleCloseAlertBlockquote = this.handleCloseAlertBlockquote.bind(this)
     this.handleOpenAlertVideo = this.handleOpenAlertVideo.bind(this)
     this.handleCloseAlertVideo = this.handleCloseAlertVideo.bind(this)
+    this.handleCloseAlertCrop = this.handleCloseAlertCrop.bind(this)
     this.handleOpenAlertAlt = this.handleOpenAlertAlt.bind(this)
     this.handleCloseAlertAlt = this.handleCloseAlertAlt.bind(this)
   }
@@ -471,6 +492,13 @@ export class PageForm extends React.Component {
     })
   }
 
+  handleChangeImageCrop (event, indexPopover) {
+    this.handleOpenAlertCrop()
+    this.setState({
+      noticeId: indexPopover
+    })
+  }
+
   handleChangeImageAlt (event, indexPopover) {
     this.handleOpenAlertAlt()
     this.setState({
@@ -488,6 +516,11 @@ export class PageForm extends React.Component {
 
   handleChangeVideo (event, indexSection, indexSlide, indexImage) {
     const state = immutable.set(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}.images.${indexImage}.video`, event.target.value)
+    this.setState(state)
+  }
+
+  handleChangeCrop (position, indexSection, indexSlide, indexImage) {
+    const state = immutable.set(this.state, `page.content.sections.${indexSection}.slides.${indexSlide}.images.${indexImage}.crop`, position)
     this.setState(state)
   }
 
@@ -699,6 +732,14 @@ export class PageForm extends React.Component {
     this.setState({ AlertVideoOpen: false })
   }
 
+  handleOpenAlertCrop () {
+    this.setState({ AlertCropOpen: true })
+  }
+
+  handleCloseAlertCrop () {
+    this.setState({ AlertCropOpen: false })
+  }
+
   handleOpenAlertAlt () {
     this.setState({ AlertAltOpen: true })
   }
@@ -778,6 +819,69 @@ export class PageForm extends React.Component {
           <DialogActions>
             <Button onClick={this.handleCloseAlertVideo} color='secondary' autoFocus>Annuler</Button>
             <Button onClick={this.handleCloseAlertVideo} color='primary' autoFocus>Valider</Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={this.state.AlertCropOpen}
+          onClose={this.handleCloseAlertCrop}>
+          <DialogTitle>Cadrage</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <p>Veuillez sélectionnez la zone à privilégier si la photo doit être recadrée.<br />
+                Le sujet de la photo se situe plutôt vers :</p><br />
+              <div style={{ position: 'relative', display: 'inline-block', minWidth: 150, minHeight: 150, backgroundColor: 'whitesmoke' }}>
+                <img style={{ display: 'block', maxWidth: 400, maxHeight: 400, opacity: 0.5 }} src={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].url} />
+                <ArrowUpwardIcon
+                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'left top' ? 'secondary' : 'primary'}
+                  style={{ position: 'absolute', left: 20, top: 20, fontSize: 30, transform: 'rotate(-45deg)', cursor: 'pointer' }}
+                  onClick={() => { this.handleChangeCrop('left top', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                />
+                <ArrowUpwardIcon
+                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'left center' ? 'secondary' : 'primary'}
+                  style={{ position: 'absolute', left: 20, top: '50%', marginTop: -15, fontSize: 30, transform: 'rotate(-90deg)', cursor: 'pointer' }}
+                  onClick={() => { this.handleChangeCrop('left center', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                />
+                <ArrowUpwardIcon
+                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'left bottom' ? 'secondary' : 'primary'}
+                  style={{ position: 'absolute', left: 20, bottom: 20, fontSize: 30, transform: 'rotate(-135deg)', cursor: 'pointer' }}
+                  onClick={() => { this.handleChangeCrop('left bottom', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                />
+                <ArrowUpwardIcon
+                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'center top' ? 'secondary' : 'primary'}
+                  style={{ position: 'absolute', left: '50%', top: 20, marginLeft: -15, fontSize: 30, cursor: 'pointer' }}
+                  onClick={() => { this.handleChangeCrop('center top', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                />
+                <FilterCenterFocusIcon
+                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'center center' ? 'secondary' : 'primary'}
+                  style={{ position: 'absolute', left: '50%', top: '50%', marginLeft: -15, marginTop: -15, fontSize: 30, cursor: 'pointer' }}
+                  onClick={() => { this.handleChangeCrop('center center', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                />
+                <ArrowUpwardIcon
+                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'center bottom' ? 'secondary' : 'primary'}
+                  style={{ position: 'absolute', left: '50%', bottom: 20, marginLeft: -15, fontSize: 30, transform: 'rotate(-180deg)', cursor: 'pointer' }}
+                  onClick={() => { this.handleChangeCrop('center bottom', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                />
+                <ArrowUpwardIcon
+                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'right top' ? 'secondary' : 'primary'}
+                  style={{ position: 'absolute', right: 20, top: 20, fontSize: 30, transform: 'rotate(45deg)', cursor: 'pointer' }}
+                  onClick={() => { this.handleChangeCrop('right top', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                />
+                <ArrowUpwardIcon
+                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'right center' ? 'secondary' : 'primary'}
+                  style={{ position: 'absolute', right: 20, top: '50%', marginTop: -15, fontSize: 30, transform: 'rotate(90deg)', cursor: 'pointer' }}
+                  onClick={() => { this.handleChangeCrop('right center', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                />
+                <ArrowUpwardIcon
+                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'right bottom' ? 'secondary' : 'primary'}
+                  style={{ position: 'absolute', right: 20, bottom: 20, fontSize: 30, transform: 'rotate(135deg)', cursor: 'pointer' }}
+                  onClick={() => { this.handleChangeCrop('right bottom', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                />
+              </div>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseAlertCrop} color='secondary' autoFocus>Annuler</Button>
+            <Button onClick={this.handleCloseAlertCrop} color='primary' autoFocus>Valider</Button>
           </DialogActions>
         </Dialog>
         <Dialog
