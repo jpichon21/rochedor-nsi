@@ -17,8 +17,8 @@
     {% block metadescription %}{% endblock %}
     {% block stylesheets %}{% endblock %}
 </head>
-{% if bodyClass == 'home' %}
-<body class="home">
+{% if 'home' in bodyClass %}
+<body class="{{ bodyClass }}">
 {% else %}
 <body class="{{ bodyClass|default('') }}" style="{{ bodyBackground|default(0)|constantBackground }}">
 {% endif %}
