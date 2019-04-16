@@ -11,28 +11,30 @@ body {
         font-size: 15px;
       }
       p {
-        font-size: 16px;
+        font-size: 17px;
         line-height: 20px;
       }
       blockquote {
         em {
-          font-size: 20px;
-          line-height: 24px;
+          font-size: 19px;
         }
         strong {
-          font-size: 16px;
+          font-size: 14px;
         }
       }
     }
     &.home {
       .section {
+        p {
+          font-size: 17px;
+          line-height: 20px;
+        }
         blockquote {
           em {
-            font-size: 21px;
-            line-height: 27px;
+            font-size: 20px;
           }
           strong {
-            font-size: 16px;
+            font-size: 14px;
           }
         }
       }
@@ -70,23 +72,25 @@ body {
       }
       blockquote {
         em {
-          font-size: 22px;
-          line-height: 26px;
+          font-size: 20px;
         }
         strong {
-          font-size: 18px;
+          font-size: 16px;
         }
       }
     }
     &.home {
       .section {
+        p {
+          font-size: 18px;
+          line-height: 22px;
+        }
         blockquote {
           em {
             font-size: 23px;
-            line-height: 29px;
           }
           strong {
-            font-size: 18px;
+            font-size: 16px;
           }
         }
       }
