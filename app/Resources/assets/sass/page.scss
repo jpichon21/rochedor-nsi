@@ -144,7 +144,7 @@ body {
       }
       blockquote {
         position: relative;
-        margin: 0 0 20px -40px;
+        margin: 0 0 20px 36px;
         padding: 20px 0;
         color: $roche-yellow;
         z-index: 1;
@@ -153,7 +153,7 @@ body {
           position: absolute;
           top: -50px;
           bottom: -50px;
-          left: 23px;
+          left: -53px;
           width: 1px;
           background: linear-gradient(to bottom, #ffffff 0%, #000000 25%, #000000 75%, $roche-yellow 100%);
           z-index: 0;
@@ -169,7 +169,6 @@ body {
           z-index: 1;
         }
         em {
-          display: block;
           margin-bottom: 30px;
           font-family: 'Playfair Display', serif;
           font-size: 18px;
@@ -177,7 +176,6 @@ body {
           line-height: 24px;
         }
         strong {
-          display: block;
           font-family: 'Lato', sans-serif;
           font-size: 12px;
           font-style: normal;
