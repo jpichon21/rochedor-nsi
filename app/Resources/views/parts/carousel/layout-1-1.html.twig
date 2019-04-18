@@ -1,4 +1,4 @@
-<div class="top">
-    <a class="left full {% if (images[0].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[0].alt }}" href="{% if (images[0].video != '') %}{{ asset(images[0].video) }}{% else %}{{ asset(images[0].url) }}{% endif %}" style="{{ asset(images[0].url)|background ~ (images[0].crop is defined ? images[0].crop|position : '') }}"></a>
-    <a class="right full {% if (images[1].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[1].alt }}" href="{% if (images[1].video != '') %}{{ asset(images[1].video) }}{% else %}{{ asset(images[1].url) }}{% endif %}" style="{{ asset(images[1].url)|background ~ (images[1].crop is defined ? images[1].crop|position : '') }}"></a>
+<div class="top no-border">
+    <a class="left full no-border {% if (images[0].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[0].alt }}" href="{% if (images[0].video != '') %}{{ asset(images[0].video) }}{% else %}{{ asset(images[0].url) }}{% endif %}" style="{{ asset(images[0].url)|background ~ (images[0].crop is defined ? images[0].crop|position : '') }}"></a>
+    <a class="right full no-border {% if (images[1].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[1].alt }}" href="{% if (images[1].video != '') %}{{ asset(images[1].video) }}{% else %}{{ asset(images[1].url) }}{% endif %}" style="{{ asset(images[1].url)|background ~ (images[1].crop is defined ? images[1].crop|position : '') }}"></a>
 </div>
