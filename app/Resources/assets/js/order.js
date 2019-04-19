@@ -279,13 +279,13 @@ itemConnection.onsubmit = event => {
         }).then(user => {
           downLoader()
           afterLogin(user)
-        }).catch(() => {
+        }).catch(err => {
           downLoader()
-          upFlashbag(i18n.trans('security.username_exists'))
+          upFlashbag(i18n.trans(`${err}`))
         })
       }).catch(error => {
         downLoader()
-        upFlashbag(error)
+        upFlashbag(i18n.trans(`${error}`))
       })
     })
   }

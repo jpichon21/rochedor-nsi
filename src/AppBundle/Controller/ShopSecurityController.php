@@ -135,6 +135,10 @@ class ShopSecurityController extends Controller
             return new JsonResponse(['status' => 'ko', 'message' => 'security.password_too_small']);
         }
         
+        if (!$repository->isEmailUnique($clientReq['email'])) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.email_exists']);
+        }
+
         $client = new Client();
         $password = $encoder->encodePassword($client, $clientReq['password']);
 
