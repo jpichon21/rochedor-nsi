@@ -155,7 +155,6 @@ export class SpeakerForm extends React.Component {
   componentWillReceiveProps (nextProps) {
     if (nextProps.uploadStatus) {
       if (nextProps.uploadStatus === 'File too big') {
-        console.log('too big')
         this.setState({status: nextProps.uploadStatus, alertOpen: true})
       }
     }
