@@ -213,7 +213,6 @@ itemConnection.on('click', '.panel.reset .cancel', function (event) {
   event.preventDefault()
   $('.panel.reset').slideUp(800, function () {
     $(this).hide()
-    backToTop()
     changeItem(itemConnection)
   })
 })
@@ -222,9 +221,19 @@ itemConnection.on('click', '.panel.registration .cancel', function (event) {
   event.preventDefault()
   $('.panel.registration').slideUp(800, function () {
     $(this).hide()
-    backToTop()
     changeItem(itemConnection)
   })
+})
+
+itemConnection.on('change', '.transport', function () {
+  $('.navette-wrapper', itemConnection).toggleClass('hidden', $(this).val() !== 'train')
+  changeItem(itemConnection)
+})
+
+itemConnection.on('click', '.navette', function () {
+  const boolean = $(this).toggleClass('checked').hasClass('checked')
+  $('.navette-wrapper .checkbox', itemConnection).val(boolean)
+  $('.lieu-wrapper, .arriv-wrapper', itemConnection).toggleClass('hidden', !boolean)
 })
 
 itemConnection.on('submit', '.panel.registration form', function (event) {
@@ -247,7 +256,10 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
           }).then(user => {
             afterLogin({
               ...user,
-              transport: participant.transport
+              transport: participant.transport,
+              arriv: participant.arriv,
+              lieu: participant.lieu,
+              navette: participant.navette
             })
           }).catch(err => {
             downLoader()
@@ -292,7 +304,6 @@ itemConnection.on('click', 'a', function (event) {
       getLogout(_locale)
       break
   }
-  backToTop()
   changeItem(itemConnection)
 })
 
