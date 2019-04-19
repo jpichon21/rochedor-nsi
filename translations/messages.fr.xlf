@@ -589,7 +589,7 @@
         <target>Mr</target>
       </segment>
     </unit>
-    <unit id="xsDsRUV" name="form.civility.abbe">
+    <unit id=".V17mpF" name="form.civility.abbe">
       <notes>
         <note priority="1">app/Resources/views/default/calendar-registration.html.twig:50</note>
         <note priority="1">app/Resources/views/default/calendar-registration.html.twig:159</note>
@@ -1792,13 +1792,13 @@
         <target>Veuillez accepter les CGV</target>
       </segment>
     </unit>
-    <unit id="eGbXcnm" name="form.civilite.abbe">
+    <unit id="jV4lunC" name="form.civilite.abbe">
       <segment>
         <source>form.civilite.abbe</source>
         <target>Abbé</target>
       </segment>
     </unit>
-    <unit id="6mFCpN5" name="form.civilite.mme">
+    <unit id="eGbXcnm" name="form.civilite.mme">
       <segment>
         <source>form.civilite.mme</source>
         <target>Mme</target>
@@ -3099,6 +3099,12 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>order-return.error</source>
         <target><![CDATA[Un problème est survenu.<br>Veuillez retourner au <a href="%link%">collections</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="gI_rNfE" name="logout.disconnect.text.black">
+      <segment>
+        <source>logout.disconnect.text.black</source>
+        <target>Vous avez bien été déconnecté.</target>
       </segment>
     </unit>
   </file>
