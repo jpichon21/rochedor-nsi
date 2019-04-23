@@ -226,6 +226,9 @@ itemConnection.on('click', '.panel.registration .cancel', function (event) {
 
 itemConnection.on('change', '.transport', function () {
   $('.navette-wrapper', itemConnection).toggleClass('hidden', $(this).val() !== 'train')
+  if ($('.navette').hasClass('checked')) {
+    $('.lieu-wrapper, .arriv-wrapper', itemConnection).toggleClass('hidden', $(this).val() !== 'train')
+  }
   changeItem(itemConnection)
 })
 
@@ -308,6 +311,9 @@ itemConnection.on('click', 'a', function (event) {
 
 itemParticipants.on('change', '.transport', function () {
   $('.navette-wrapper', itemParticipants).toggleClass('hidden', $(this).val() !== 'train')
+  if ($('.navette').hasClass('checked')) {
+    $('.lieu-wrapper, .arriv-wrapper', itemParticipants).toggleClass('hidden', $(this).val() !== 'train')
+  }
   changeItem(itemParticipants)
 })
 
@@ -385,6 +391,15 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
     if (validatedDate) {
       if (validatedPhone) {
         validateChild(participant).then(participantValidated => {
+          if(participantValidated.transport !== 'train') {
+            participantValidated.navette = 'false'
+            participantValidated.lieu = ''
+            participantValidated.arriv = ''
+          }
+          if(participantValidated.navette !== 'true') {
+            participantValidated.lieu = ''
+            participantValidated.arriv = ''
+          }
           postParticipant(participantValidated).then(res => {
             const participantUpdated = { ...participantValidated, ...res }
             downLoader()
