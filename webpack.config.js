@@ -19,6 +19,7 @@ function initEncore () {
     .addEntry('js/gift', './app/Resources/assets/js/gift.js')
     .addEntry('js/gift-api', './app/Resources/assets/js/gift-api.js')
     .addEntry('js/calendar-registration', './app/Resources/assets/js/calendar-registration.js')
+    .addEntry('js/check-validation', './app/Resources/assets/js/check-validation.js')
     .addEntry('js/editions', './app/Resources/assets/js/editions.js')
     .addEntry('js/carousel', './app/Resources/assets/js/carousel.js')
     .addEntry('js/order', './app/Resources/assets/js/order.js')

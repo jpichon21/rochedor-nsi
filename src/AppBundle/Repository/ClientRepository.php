@@ -53,6 +53,43 @@ class ClientRepository
     }
 
     /**
+    * Find Client by its email
+    *
+    * @param string $email
+    * @return Client
+    */
+    public function findClientByEmail($email)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT c FROM AppBundle\Entity\Client c WHERE c.email=:email');
+        $query->setParameter('email', $email);
+        $query->setMaxResults(1);
+        return $query->getOneOrNullResult();
+    }
+
+    /**
+     * Check if email is unique
+     *
+     * @param string $email
+     * @param int $codco
+     * @return boolean
+     */
+    public function isEmailUnique($email, $codco = null)
+    {
+        $c = $this->findClientByEmail($email);
+        if ($c === null) {
+            return true;
+        }
+        if ($codco === null) {
+            return false;
+        }
+        if ($c->getCodco() !== $codco) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
     * Find Client by its personnal infos
     *
     * @param string $email

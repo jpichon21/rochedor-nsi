@@ -20,7 +20,7 @@
         {% endif %}
         <div class="dropdown">
             <div class="item resume">
-                <h2>Récapitulatif</h2>
+                <h2>{{ 'order.summary.title' | trans }}</h2>
                 <div class="panel active">
                     <div class="cart-render"></div>
                 </div>
@@ -244,6 +244,7 @@
     <div class="you">
         <p>
             <%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
+            <% if (you.societe) { %><%= _.escape(you.societe) %><br><% } %>
             <%= _.escape(you.adresse) %> <%= _.escape(you.cp) %> <%= _.escape(you.ville) %> (<%= _.escape(you.pays) %>)
         </p>
     </div>
@@ -266,6 +267,7 @@
     <p>
         <% if (delivery.destliv !== 'myAd') { %><b>{{ 'order.summary.title.delivery' | trans }}</b><% } %>
         <%= delivery.adliv.prenom %> <%= delivery.adliv.nom %><br>
+        <% if (delivery.adliv.societe) { %><%= delivery.adliv.societe %><br><% } %>
         <% if (delivery.destliv === 'Roche') { %>Librairie de la Roche d'Or<br><% } %>
         <% if (delivery.destliv === 'Font') { %>Librairie des Fontanilles<br><% } %>
         <%= delivery.adliv.adresse %> <%= delivery.adliv.zipcode %> <%= delivery.adliv.city %> (<%= delivery.paysliv %>)
@@ -448,8 +450,8 @@
             <div class="product">
                 <div class="name" title="<%= product[i].name %>"><%= product[i].name %></div>
                 <div class="prices">
-                    <span class="ttc">{{ 'detail.pricettc'|trans({'%ttc%': '<%= parseFloat(product[i].priceIT) %>' }) | raw }}</span>
-                    <span class="ht">{{ 'detail.priceht'|trans({'%ht%': '<%= parseFloat(product[i].price) %>' }) | raw }} <i class="tva">({{ 'table.header.tax.rate' | trans }} <%= parseFloat(product[i].productTaxRate) %> %)</i></span>
+                    <span class="ttc">{{ 'detail.priceit'|trans }}  <%= parseFloat(product[i].priceIT).toFixed(2) %> €</span>
+                    <span class="ht">{{ 'detail.price'|trans }}  <%= parseFloat(product[i].price).toFixed(2) %> € <i class="tva">({{ 'table.header.tax.rate' | trans }} <%= parseFloat(product[i].productTaxRate) %> %)</i></span>
                 </div>
                 <div class="quantity">
                     <% if (product[i].quantity > 1) { %>

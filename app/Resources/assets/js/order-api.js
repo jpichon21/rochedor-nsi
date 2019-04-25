@@ -32,10 +32,17 @@ export const postRegister = (data) => {
     credentials: 'include',
     body: JSON.stringify(data)
   })
-    .then(res => {
-      if (!res.ok) { res.json().then(res => { throw res.error }) }
-      return res.json()
-    })
+  .catch(res => {
+    console.error(res)
+    throw (new Error('unknown_error'))
+  })
+  .then(res => res.json())
+  .then(res => {
+    if (res.status === 'ko') {
+      throw res.message
+    }
+    return res
+  })
 }
 
 export const postEditCli = (data) => {

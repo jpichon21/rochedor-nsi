@@ -101,7 +101,7 @@ body {
           display: none;
         }
       }
-      span {
+      .cartSpan {
         display: block;
         padding: 9px 20px;
         border: 1px #000000 solid;
@@ -110,21 +110,23 @@ body {
         }
       }
       small {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        width: 18px;
-        height: 18px;
-        top: -7px;
-        right: -7px;
-        color: #ffffff;
-        border-radius: 18px;
-        font-size: 10px;
-        background-color: $roche-orange;
-        font-family: arial, sans-serif;
-        padding-top: 2px;
-        box-sizing: border-box;
+        .counter{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          width: 18px;
+          height: 18px;
+          top: -7px;
+          right: -7px;
+          color: #ffffff;
+          border-radius: 18px;
+          font-size: 10px;
+          background-color: $roche-orange;
+          font-family: arial, sans-serif;
+          padding-top: 2px;
+          box-sizing: border-box;
+        }
       }
     }
   }

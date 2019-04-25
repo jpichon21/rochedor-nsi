@@ -279,13 +279,13 @@ itemConnection.onsubmit = event => {
         }).then(user => {
           downLoader()
           afterLogin(user)
-        }).catch(() => {
+        }).catch(err => {
           downLoader()
-          upFlashbag(i18n.trans('security.username_exists'))
+          upFlashbag(i18n.trans(`${err}`))
         })
       }).catch(error => {
         downLoader()
-        upFlashbag(error)
+        upFlashbag(i18n.trans(`${error}`))
       })
     })
   }
@@ -487,6 +487,7 @@ const updateAdlivForm = destliv => {
     case 'myAd':
       _delivery.adliv.prenom = _you.prenom
       _delivery.adliv.nom = _you.nom
+      _delivery.adliv.societe = _you.societe
       _delivery.adliv.adresse = _you.adresse
       _delivery.adliv.zipcode = _you.cp
       _delivery.adliv.city = _you.ville
@@ -764,3 +765,12 @@ const validateDeleteCartline = (event, product) => {
   }).catch(() => {
   })
 }
+
+window.addEventListener('pageshow', function (event) {
+  const historyTraversal = event.persisted ||
+                         (typeof window.performance !== 'undefined' &&
+                              window.performance.navigation.type === 2)
+  if (historyTraversal) {
+    window.location.reload()
+  }
+})
