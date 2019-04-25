@@ -42,4 +42,11 @@
     <div class="right">
     </div>
 </div>
+<script type="application/json" class="path-json">
+    {{ path('order-' ~ app.request.locale) }}
+</script>
+<script type="application/json" class="basePath-json">
+    {{ app.request.getSchemeAndHttpHost() }}
+</script>
+<script src="{{ asset('assets/js/check-validation.js') }}"></script>
 {% endblock %}

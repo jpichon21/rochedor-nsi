@@ -672,7 +672,7 @@
       </notes>
       <segment>
         <source>form.country</source>
-        <target>Pays</target>
+        <target>Pays et DOM-TOM</target>
       </segment>
     </unit>
     <unit id="vLNMGXN" name="form.phone">
@@ -1353,25 +1353,25 @@
     <unit id=".5a_NkK" name="select.ad.myAd">
       <segment>
         <source>select.ad.myAd</source>
-        <target>Envoyer à mon adresse</target>
+        <target>Envoyer à mon adresse.</target>
       </segment>
     </unit>
     <unit id="rznIWfL" name="select.ad.roche">
       <segment>
         <source>select.ad.roche</source>
-        <target>Retrait à la librairie de la Roche d'Or ?</target>
+        <target>Retrait à la librairie de la Roche d'Or.</target>
       </segment>
     </unit>
     <unit id="8QjWF9b" name="select.ad.font">
       <segment>
         <source>select.ad.font</source>
-        <target>Retrait à la librairie des Fontanilles ?</target>
+        <target>Retrait à la librairie des Fontanilles.</target>
       </segment>
     </unit>
     <unit id="MlxM03H" name="select.ad.other">
       <segment>
         <source>select.ad.other</source>
-        <target>Adresse de livraison différente de l'adresse de facturation ?</target>
+        <target>Adresse de livraison différente de l'adresse de facturation.</target>
       </segment>
     </unit>
     <unit id="GDNiQhU" name="order.choose.adliv">
@@ -3099,6 +3099,36 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>order-return.error</source>
         <target><![CDATA[Un problème est survenu.<br>Veuillez retourner au <a href="%link%">collections</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="m6d6qSk" name="footer.privacy">
+      <segment>
+        <source>footer.privacy</source>
+        <target>Confidentialité des données</target>
+      </segment>
+    </unit>
+    <unit id="JHdw1ZQ" name="order.summary.title">
+      <segment>
+        <source>order.summary.title</source>
+        <target>Mon panier</target>
+      </segment>
+    </unit>
+    <unit id="CmlcQv1" name="detail.pricettc">
+      <segment>
+        <source>detail.pricettc</source>
+        <target>detail.pricettc</target>
+      </segment>
+    </unit>
+    <unit id="r0WAwkC" name="detail.priceit">
+      <segment>
+        <source>detail.priceit</source>
+        <target>Prix TTC</target>
+      </segment>
+    </unit>
+    <unit id="dS7OcL2" name="detail.price">
+      <segment>
+        <source>detail.price</source>
+        <target>Prix HT</target>
       </segment>
     </unit>
     <unit id="gI_rNfE" name="logout.disconnect.text.black">
