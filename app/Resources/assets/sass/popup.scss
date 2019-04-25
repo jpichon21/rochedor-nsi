@@ -39,7 +39,6 @@
     .cart {
       display: block;
       position: relative;
-      padding: 0 20px;
       text-transform: uppercase;
       text-decoration: none;
       text-align: center;
@@ -75,7 +74,7 @@
   }
   .box {
     max-width: 1024px;
-    padding: 40px;
+    padding: 25px;
     font-size: 14px;
     line-height: 18px;
     color: $roche-yellow;
