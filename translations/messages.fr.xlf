@@ -3101,6 +3101,24 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target><![CDATA[Un problème est survenu.<br>Veuillez retourner au <a href="%link%">collections</a>.]]></target>
       </segment>
     </unit>
+    <unit id="rDUjt8k" name="consent.data">
+      <segment>
+        <source>consent.data</source>
+        <target>J'autorise les Éditions Roche d‘Or à conserver mes coordonnées afin d’en éviter la ressaisie lors d’une prochaine commande</target>
+      </segment>
+    </unit>
+    <unit id="aVxza2P" name="consent.news">
+      <segment>
+        <source>consent.news</source>
+        <target>J’autorise la Roche d’Or à m’informer par courriel (e-mail) des nouveautés</target>
+      </segment>
+    </unit>
+    <unit id="prZHbs8" name="form.retry">
+      <segment>
+        <source>form.retry</source>
+        <target>Recommencer</target>
+      </segment>
+    </unit>
     <unit id="m6d6qSk" name="footer.privacy">
       <segment>
         <source>footer.privacy</source>

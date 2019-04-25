@@ -73,6 +73,7 @@
                     </div>
                     <div class="panel registration">
                         <h3>{{ 'order.registration.one.title.registration' | trans | raw }}</h3>
+                        <form class="pure-g consent-form-render"></form>
                         <form class="pure-g you-form-render"></form>
                     </div>
                     <div class="panel reset">
@@ -229,15 +230,24 @@
 <script type="application/json" class="cart-json">
     {% if cart %}{{ cart.id }}{% endif %}
 </script>
+<script type="application/json" class="consent-json">
+    {% if app.user %} {{app.user.conData}} {% else %} false {% endif %}
+</script>
 <script type="text/template" class="welcome-template">
     <p>{{ 'order.registration.one.body.connected' | trans({ '%name%': '<%= you.prenom %> <%= you.nom %>' }) | raw }}</p>
     <div class="pure-g">
         <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1 pure-u-xl-1-2">
             <a href="#continue" class="button continue">{{ 'form.continue' | trans | raw }}</a>
         </div>
+        <% if (you.conData === true) { %>
         <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1 pure-u-xl-1-2">
             <a href="#disconnect" class="button black disconnect">{{ 'form.disconnect' | trans | raw }}</a>
         </div>
+        <% } else { %>
+        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1 pure-u-xl-1-2">
+            <a href="#retry" class="button black disconnect">{{ 'form.retry' | trans | raw }}</a>
+        </div>
+        <% }%>
     </div>    
 </script>
 <script type="text/template" class="you-template">
@@ -450,8 +460,8 @@
             <div class="product">
                 <div class="name" title="<%= product[i].name %>"><%= product[i].name %></div>
                 <div class="prices">
-                    <span class="ttc">{{ 'detail.priceit'|trans }}  <%= parseFloat(product[i].priceIT).toFixed(2) %> €</span>
-                    <span class="ht">{{ 'detail.price'|trans }}  <%= parseFloat(product[i].price).toFixed(2) %> € <i class="tva">({{ 'table.header.tax.rate' | trans }} <%= parseFloat(product[i].productTaxRate) %> %)</i></span>
+                    <span class="ttc">{{ 'product.detail.price.ttc'|trans({'%ttc%': '<%= parseFloat(product[i].priceIT) %>' }) | raw }}</span>
+                    <span class="ht">{{ 'product.detail.price.ht'|trans({'%ht%': '<%= parseFloat(product[i].price) %>' }) | raw }} <i class="tva">({{ 'table.header.tax.rate' | trans }} <%= parseFloat(product[i].productTaxRate) %> %)</i></span>
                 </div>
                 <div class="quantity">
                     <% if (product[i].quantity > 1) { %>
@@ -518,6 +528,12 @@
     <h3>{{ 'order.delay.title' | trans | raw }}</h3>
     <p>{{ 'order.delay.message'| trans({'%minliv%': '<%= country.minliv %>', '%maxliv%': '<%= country.maxliv %>' })|raw  }}</p>
 </script>
+<script type="text/template" class="consent-form-template">
+    <div class="pure-u-1 pure-u-md-1 newfich-wrapper conData">
+        <a href="#" class="input button radio conData <%= (client.conData === true) ? 'checked' : '' %>" >{{ 'consent.data' | trans | raw }}</a>
+        <input class="hidden checkbox newfich" value="<%= _.escape(client.conData) %>" name="conData" type="text" >
+    </div>
+</script>
 <script type="text/template" class="you-form-template">
     <input autocomplete="nope" type="hidden" value="<%= client.codcli %>" name="codcli">
     <input autocomplete="nope" type="hidden" value=<%= client.check %> name="check">
@@ -583,19 +599,25 @@
     <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" class="input email" required type="email" value="<%= _.escape(client.email) %>" name="email" placeholder="* {{ 'form.email' | trans | raw }}">
     </div>
-    <% if (!client.codcli) { %>
-    <div class="pure-u-1 pure-u-md-1-2">
-        <input autocomplete="nope" class="input username" required type="username" value="<%= _.escape(client.username) %>" name="username" placeholder="* {{ 'form.username' | trans | raw }}">
-    </div>
-    <% } %>
-    <% if (!client.codcli) { %>
-    <div class="pure-u-1 pure-u-md-1-2">
-        <input autocomplete="nope" class="input password" type="password" name="password" placeholder="* {{ 'form.password' | trans | raw }}">
-    </div>
-    <% } else { %>
-    <div class="pure-u-1 pure-u-md-1-2">
-        <input autocomplete="nope" class="input password" type="password" name="password" placeholder="{{ 'form.keep-password' | trans | raw }}">
-    </div>
+    <% if (client.conData === true) { %>
+        <% if (!client.codcli) { %>
+        <div class="pure-u-1 pure-u-md-1-2">
+            <input autocomplete="nope" class="input username" required type="username" value="<%= _.escape(client.username) %>" name="username" placeholder="* {{ 'form.username' | trans | raw }}">
+        </div>
+        <% } %>
+        <% if (!client.codcli) { %>
+        <div class="pure-u-1 pure-u-md-1-2">
+            <input autocomplete="nope" class="input password" type="password" name="password" placeholder="* {{ 'form.password' | trans | raw }}">
+        </div>
+        <% } else { %>
+        <div class="pure-u-1 pure-u-md-1-2">
+            <input autocomplete="nope" class="input password" type="password" name="password" placeholder="{{ 'form.keep-password' | trans | raw }}">
+        </div>
+        <% } %>
+        <div class="pure-u-1 pure-u-md-1 newfich-wrapper conNews">
+            <a href="#" class="input button radio conNews <%= (client.conNews === true) ? 'checked' : '' %>" >{{ 'consent.news' | trans | raw }}</a>
+            <input class="hidden checkbox newfich" value="<%= _.escape(client.conNews) %>" name="conNews" type="text" >
+        </div>
     <% } %>
     <div class="pure-u-1 pure-u-md-1">
         <hr>

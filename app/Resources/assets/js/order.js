@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { getContact, getDelivery } from './sample'
+import { getClient, getDelivery } from './sample'
 import { upFlashbag, upConfirmbox } from './popup'
 import { upLoader, downLoader } from './loader'
 import { changeItem } from './page'
@@ -25,6 +25,10 @@ import {
 
 const _cartId = parseInt(document.querySelector('.cart-json').innerHTML.trim())
 
+/* User */
+
+const _userConData = JSON.parse(document.querySelector('.consent-json').innerHTML.trim())
+
 /* Cancel Return */
 
 const _order = JSON.parse(document.querySelector('.order-json').innerHTML.trim())
@@ -47,10 +51,13 @@ const _countries = JSON.parse(document.querySelector('.countries-json').innerHTM
 /* Variables */
 
 let _you = {}
+_you.conData = false
+_you.conNews = false
 let _delivery = {}
 let _total = {}
 let _country = 'FR'
 let _dest = 'myAdd'
+let _RegisterFormSubmit = false
 
 const itemResume = document.querySelector('.item.resume')
 const itemConnection = document.querySelector('.item.connection')
@@ -66,6 +73,7 @@ const templateYou = _.template(document.querySelector('.you-template').innerHTML
 const templateDelivery = _.template(document.querySelector('.delivery-template').innerHTML)
 const templateTotal = _.template(document.querySelector('.total-template').innerHTML)
 const templateYouForm = _.template(document.querySelector('.you-form-template').innerHTML)
+const templateConsentForm = _.template(document.querySelector('.consent-form-template').innerHTML)
 const templateAdlivForm = _.template(document.querySelector('.adliv-form-template').innerHTML)
 const templateDelay = _.template(document.querySelector('.delay-template').innerHTML)
 const templateTerms = _.template(document.querySelector('.terms-template').innerHTML)
@@ -80,6 +88,7 @@ const renderYou = document.querySelector('.you-render')
 const renderDelivery = document.querySelector('.delivery-render')
 const renderTotal = document.querySelector('.total-render')
 const renderYouForms = document.querySelectorAll('.you-form-render')
+const renderConsentForm = document.querySelector('.consent-form-render')
 const renderAdlivForm = document.querySelector('.adliv-form-render')
 const renderDelay = document.querySelector('.delay-render')
 const renderTerms = document.querySelector('.terms-render')
@@ -137,6 +146,12 @@ const updateYouFormRender = () => {
         i18n.trans('form.civilite.soeur')
       ]
     })
+  })
+}
+
+const updateConsentFormRender = () => {
+  renderConsentForm.innerHTML = templateConsentForm({
+    client: _you,
   })
 }
 
@@ -198,7 +213,7 @@ const afterLogin = user => {
 }
 
 const formatParticipant = data => {
-  let participant = getContact()
+  let participant = getClient()
   data.map(obj => {
     participant[obj.name] = obj.value
   })
@@ -212,6 +227,11 @@ itemResume.onclick = event => {
     event.target.matches('.continue')
   ) {
     event.preventDefault()
+    if(_RegisterFormSubmit === true) {
+      updateWelcomeRender()
+    } else {
+      itemConnection.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'))
+    }
     changeItem(itemConnection)
   }
   if (
@@ -222,6 +242,9 @@ itemResume.onclick = event => {
       _total = data
       updateCartRender()
     })
+    if(_RegisterFormSubmit === true) {
+      updateCartRender()
+    }
   }
 }
 
@@ -266,28 +289,35 @@ itemConnection.onsubmit = event => {
     event.target.matches('.panel.registration form')
   ) {
     validateClient(event, event.target, participant => {
-      upLoader()
-      postRegister({
+      if(_you.conData === true){
+        postRegister({
         client: {
-          ...participant,
-          rue: participant.adresse
-        }
-      }).then(user => {
-        postLogin({
-          username: user.username,
-          password: participant.password
+            ...participant,
+            rue: participant.adresse,
+            conNews: _you.conNews,
+            conData: _you.conData
+          }
         }).then(user => {
+          postLogin({
+            username: user.username,
+            password: participant.password
+          }).then(user => {
+            downLoader()
+            afterLogin(user)
+          }).catch(err => {
+            downLoader()
+            upFlashbag(i18n.trans(`${err}`))
+          })
+        }).catch(error => {
           downLoader()
-          afterLogin(user)
-        }).catch(err => {
-          downLoader()
-          upFlashbag(i18n.trans(`${err}`))
+          upFlashbag(i18n.trans(`${error}`))
         })
-      }).catch(error => {
+      } else {
         downLoader()
-        upFlashbag(i18n.trans(`${error}`))
-      })
+        afterLogin(participant)
+      }
     })
+    _RegisterFormSubmit = true
   }
 }
 
@@ -305,10 +335,11 @@ itemConnection.onclick = event => {
         changeItem(itemConnection)
         break
       case 'registration':
-        _you = getContact()
+        _you = getClient()
         updateYouFormRender()
         itemConnection.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'))
         itemConnection.querySelector(`.panel.${which}`).classList.add('active')
+        updateConsentFormRender()
         changeItem(itemConnection)
         break
       case 'reset':
@@ -317,11 +348,18 @@ itemConnection.onclick = event => {
         break
       case 'continue':
         upLoader()
-        getLogin().then(user => {
+        if(_you.conData === true || _userConData === 1) {
+          getLogin().then(user => {
+            downLoader()
+            afterLogin(user)
+          })
+        } else {
           downLoader()
-          afterLogin(user)
-        })
+          changeItem(itemCard)
+        }
         break
+      case 'retry':
+        window.location.reload()
       case 'disconnect':
         getLogout(_locale)
         break
@@ -334,6 +372,26 @@ itemConnection.onclick = event => {
     event.preventDefault()
     event.target.classList.toggle('checked')
     itemConnection.querySelector('.newfich-wrapper .checkbox').value = event.target.classList.contains('checked')
+  }
+  if (
+    event.target &&
+    event.target.matches('.conData')
+  ) {
+    event.preventDefault()
+    event.target.classList.toggle('checked')
+    itemConnection.querySelector('.conData .checkbox').value = event.target.classList.contains('checked')
+    _you.conData = event.target.classList.contains('checked')
+    updateYouFormRender()
+    changeItem(itemConnection)
+  }
+  if (
+    event.target &&
+    event.target.matches('.conNews')
+  ) {
+    event.preventDefault()
+    event.target.classList.toggle('checked')
+    itemConnection.querySelector('.conNews .checkbox').value = event.target.classList.contains('checked')
+    _you.conNews = event.target.classList.contains('checked')
   }
   if (
     event.target &&
@@ -396,6 +454,15 @@ itemCard.onclick = event => {
     event.target.classList.toggle('checked')
     itemCard.querySelector('.newfich-wrapper .checkbox').value = event.target.classList.contains('checked')
   }
+  if (
+    event.target &&
+    event.target.matches('.conNews')
+  ) {
+    event.preventDefault()
+    event.target.classList.toggle('checked')
+    itemCard.querySelector('.conNews .checkbox').value = event.target.classList.contains('checked')
+    _you.conNews = event.target.classList.contains('checked')
+  }
 }
 
 const validateClient = (event, form, callback) => {
@@ -403,11 +470,13 @@ const validateClient = (event, form, callback) => {
   const data = serializeArray(form)
   const participant = formatParticipant(data)
   const validatedPhone = validatePhone(participant.tel, participant.mobil)
-  const validatedPassword = validatePassword(participant.password)
-  if (validatedPassword !== true) {
-    downLoader()
-    upFlashbag(validatedPassword)
-    return
+  if (_you.conData === true) {
+    const validatedPassword = validatePassword(participant.password)
+    if (validatedPassword !== true) {
+      downLoader()
+      upFlashbag(validatedPassword)
+      return
+    }
   }
   if (validatedPhone) {
     if (participant.tvaintra !== '') {
@@ -440,24 +509,36 @@ itemCard.onsubmit = event => {
   ) {
     upLoader()
     validateClient(event, event.target, user => {
-      postEditCli({
-        client: {
-          ...user,
-          rue: user.adresse
-        }
-      }).then(client => {
+      if (_you.conData === true){
+        postEditCli({
+          client: {
+            ...user,
+            rue: user.adresse,
+            conData: _you.conNews
+          }
+        }).then(client => {
+          downLoader()
+          _you = client
+          updateYouRender()
+          updateDelayRender()
+          updateAdlivForm('myAd')
+          changeItem(itemShipping).then(() => {
+            itemCard.querySelector('.panel.modify').classList.remove('active')
+          })
+        }).catch(error => {
+          downLoader()
+          upFlashbag(error)
+        })
+      } else {
         downLoader()
-        _you = client
+        _you = user
         updateYouRender()
         updateDelayRender()
         updateAdlivForm('myAd')
         changeItem(itemShipping).then(() => {
           itemCard.querySelector('.panel.modify').classList.remove('active')
         })
-      }).catch(error => {
-        downLoader()
-        upFlashbag(error)
-      })
+      }
     })
   }
 }
@@ -618,14 +699,38 @@ itemShipping.onclick = event => {
 
 const submitFormPayment = () => {
   upLoader()
-  postOrder(_delivery).then(res => {
-    window.location.href = res
-  }).catch(error => {
-    downLoader()
-    if (error) {
-      upFlashbag(error)
-    }
-  })
+  if (_you.conData === false) {
+    postRegister({
+      client: {
+          ..._you,
+          rue: _you.adresse,
+          conNews: _you.conNews,
+          conData: _you.conData
+        }
+      }).then(user => {
+          _delivery.clientId = user.codcli
+          postOrder(_delivery).then(response => {
+            window.location.href = response
+          }).catch(error => {
+            downLoader()
+            if (error) {
+              upFlashbag(error)
+            }
+          })
+      }).catch(error => {
+        downLoader()
+        upFlashbag(error)
+      })
+  } else {
+    postOrder(_delivery).then(res => {
+      window.location.href = res
+    }).catch(error => {
+      downLoader()
+      if (error) {
+        upFlashbag(error)
+      }
+    })
+  }
 }
 
 itemPayment.onclick = event => {

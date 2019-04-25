@@ -24,7 +24,7 @@ class Commande
     /**
      * @var int
      *
-     * @ORM\Column(name="CodCli", type="integer", nullable=false, options={"unsigned"=true})
+     * @ORM\Column(name="CodCli", type="integer", nullable=true, options={"unsigned"=true})
      */
     private $codcli;
 
@@ -85,18 +85,11 @@ class Commande
     private $destliv;
 
     /**
-     * @var string
+     * @var array
      *
-     * @ORM\Column(name="AdLiv", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="adliv", type="json", length=65535)
      */
     private $adliv;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="PaysLiv", type="string", length=2, nullable=false)
-     */
-    private $paysliv;
 
     /**
      * @var string
@@ -168,6 +161,13 @@ class Commande
      */
     private $datenreg;
 
+    /**
+     * @var array
+     * 
+     * @ORM\Column(name="adFact", type="json", length=65535)
+     */
+    private $adFact;
+
     public function __construct()
     {
         $this->montant = 0;
@@ -177,7 +177,7 @@ class Commande
         $this->validpaie = '';
         $this->destliv = '';
         $this->adliv = '';
-        $this->paysliv = '';
+        $this->adFact= '';
         $this->ttc = 0;
         $this->tva = 0;
         $this->poids = 0;
@@ -441,30 +441,6 @@ class Commande
     }
 
     /**
-     * Set paysliv.
-     *
-     * @param string $paysliv
-     *
-     * @return Commande
-     */
-    public function setPaysliv($paysliv)
-    {
-        $this->paysliv = $paysliv;
-
-        return $this;
-    }
-
-    /**
-     * Get paysliv.
-     *
-     * @return string
-     */
-    public function getPaysliv()
-    {
-        return $this->paysliv;
-    }
-
-    /**
      * Set ttc.
      *
      * @param string $ttc
@@ -702,5 +678,24 @@ class Commande
     public function getDatenreg()
     {
         return $this->datenreg;
+    }
+
+    public function getAdFact()
+    {
+        return $this->adFact;
+    }
+
+    /**
+     * Set adFact.
+     *
+     * @param array $adFact
+     *
+     * @return Commande
+     */
+    public function setAdFact($adFact)
+    {
+        $this->adFact = $adFact;
+
+        return $this;
     }
 }
