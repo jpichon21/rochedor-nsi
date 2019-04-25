@@ -129,4 +129,26 @@ class ClientRepository
         $query->setParameters(['token' => $token, 'now' => new \DateTime()]);
         return $query->getOneOrNullResult();
     }
+
+    /**
+     * Check if username is unique
+     *
+     * @param string $username
+     * @param int $codcli
+     * @return boolean
+     */
+    public function isUsernameUnique($username, $codcli = null)
+    {
+        $c = $this->findClientByUsername($username);
+        if ($c === null) {
+            return true;
+        }
+        if ($codcli === null) {
+            return false;
+        }
+        if ($c->getCodcli() !== $codcli) {
+            return false;
+        }
+        return true;
+    }
 }

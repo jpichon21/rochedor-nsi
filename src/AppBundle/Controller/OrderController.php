@@ -326,8 +326,13 @@ class OrderController extends Controller
         $cookies = $request->cookies;
         $cartId = $cookies->get('cart');
         $locale = $request->getLocale();
-
+         
         $delivery = $request->get('delivery');
+        if($this->getUser() === null) {
+            $user = $this->clientRepository->findClient($delivery['clientId']);
+        } else {
+            $user = $this->getUser();
+        }
         if (!$delivery) {
             return ['status' => 'ko', 'message' => 'You must provide delivery object'];
         }
@@ -364,13 +369,13 @@ class OrderController extends Controller
         if (!isset($delivery['modpaie'])) {
             return ['status' => 'ko', 'data' => 'payment.modpaie_unknown'];
         }
-        if ($order = $this->registerOrder($delivery, $cartId, $locale)) {
+        if ($order = $this->registerOrder($delivery, $cartId, $locale, $user)) {
             $paymentUrl = $this->paymentService->getUrl(
                 $delivery['modpaie'],
                 $order->getTtc(),
                 $order->getRefcom(),
                 $this->translator->trans('order.payment.title'),
-                $this->getUser()->getEmail(),
+                $user->getEmail(),
                 $locale,
                 'order'
             );
@@ -398,7 +403,7 @@ class OrderController extends Controller
         }
 
         $commande = $this->commandeRepository->findByRef($ref);
-        $user = $this->getUser();
+        $user = $this->clientRepository->findClient($commande->getCodcli());
         if ($commande === null || $user == null) {
             return $this->render('order/payment-return.html.twig', [
                 'chequemessage' => true,
@@ -435,7 +440,7 @@ class OrderController extends Controller
 
         $paysliv = $this
         ->tpaysRepository
-        ->findCountryByCode($commande->getPaysliv());
+        ->findCountryByCode(json_decode($commande->getAdFact(),true)['pays']);
         $minliv = $paysliv->getMinliv();
         $maxliv = $paysliv->getMaxliv();
         
@@ -533,7 +538,7 @@ class OrderController extends Controller
 
             $paysliv = $this
             ->tpaysRepository
-            ->findCountryByCode($commande->getPaysliv());
+            ->findCountryByCode(json_decode($commande->getAdFact(),true)['pays']);
             $minliv = $paysliv->getMinliv();
             $maxliv = $paysliv->getMaxliv();
     
@@ -612,25 +617,32 @@ class OrderController extends Controller
         return new Response('ok');
     }
 
-    private function registerOrder($delivery, $cartId, $locale)
+    private function registerOrder($delivery, $cartId, $locale, $user)
     {
-        
-        $user = $this->getUser();
         $codcli = $user->getCodcli();
         $cart = $this->cartRepository->find($delivery['cartId']);
 
         $datCom = new \DateTime();
         $modpaie = $delivery['modpaie'];
         $modliv = $delivery['modliv'];
-        $paysliv = $delivery['paysliv'];
+        $adfact = json_encode([
+            'civil' => $user->getCivil(),
+            'nom' => $user->getNom(),
+            'prenom' => $user->getPrenom(),
+            'cp' => $user->getCp(),
+            'rue' => $user->getRue(),
+            'ville' => $user->getVille(),
+            'pays' => $user->getPays()
+        ]);
 
         $data = $this->getCartPrices($delivery['cartId'], $delivery['paysliv'], $delivery['destliv']);
 
         $datpaie = new \DateTime('0000-00-00 00:00:00');
         $validpaie = $delivery['validpaie'];
         $destliv = $delivery['destliv'];
+        $delivery['adliv']['pays'] = $delivery['paysliv'];
         $adliv = json_encode($delivery['adliv']);
-        
+
         if (!isset($delivery['memocmd'])) {
             $memoCmd = "";
         } else {
@@ -659,7 +671,7 @@ class OrderController extends Controller
         $order->setValidpaie($validpaie);
         $order->setDestliv($destliv);
         $order->setAdLiv($adliv);
-        $order->setPaysliv($paysliv);
+        $order->setAdFact($adfact);
         $order->setTtc($priceit);
         $order->setTva($vat);
         $order->setPoids($weight);
@@ -697,7 +709,7 @@ class OrderController extends Controller
 
     private function notifyClient($order, $locale, $user, $withDelay)
     {
-        $paysliv = $this->tpaysRepository->findCountryByCode($order->getPaysliv());
+        $paysliv = $this->tpaysRepository->findCountryByCode(json_decode($order->getAdFact(),true)['pays']);
         $minliv = $paysliv->getMinliv();
         $maxliv = $paysliv->getMaxliv();
         $adliv = json_decode($order->getAdLiv(), true);
@@ -796,7 +808,7 @@ class OrderController extends Controller
                 'modliv' => $order->getModliv(),
                 'modpaie' => $order->getModpaie(),
                 'paysip' => $order->getPaysip(),
-                'paysliv' => $order->getPaysliv(),
+                'paysliv' => json_decode($order->getAdLiv(),true)['pays'],
                 'validpaie' => $order->getValidpaie()
             ]) : 'false',
             'user' => $cancelReturn ? json_encode([
@@ -806,7 +818,8 @@ class OrderController extends Controller
                 'adresse' => $user->getAdresse(),
                 'cp' => $user->getCp(),
                 'ville' => $user->getVille(),
-                'pays' => $user->getPays()
+                'pays' => $user->getPays(),
+                'conData' => $user->getConData()
             ]) : 'false',
             'page' => $page,
             'countries' => $countriesJSON,

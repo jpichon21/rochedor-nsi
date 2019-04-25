@@ -1,11 +1,7 @@
 const contact = {
-  professionnel: '',
-  tvaintra: '',
-  societe: '',
   nom: '',
   prenom: '',
   newfich: false,
-  codcli: '',
   codco: '',
   ident: '',
   civil: '',
@@ -26,7 +22,29 @@ const contact = {
   memo: '',
   check: false,
   aut16: 0,
-  datAut16: null
+  datAut16: null,
+}
+
+const client = {
+  professionnel: '',
+  tvaintra: '',
+  societe: '',
+  nom: '',
+  prenom: '',
+  codcli: '',
+  ident: '',
+  civil: '',
+  civil2: '',
+  adresse: '',
+  cp: '',
+  ville: '',
+  pays: '',
+  tel: '',
+  mobil: '',
+  email: '',
+  memo: '',
+  conNews: false,
+  conData: false
 }
 
 const delivery = {
@@ -58,4 +76,8 @@ export const getDelivery = () => {
 
 export const getContact = () => {
   return clone(contact)
+}
+
+export const getClient = () => {
+  return clone(client)
 }
