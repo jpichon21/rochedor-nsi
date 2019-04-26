@@ -215,8 +215,10 @@
 {% block javascripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
-<script type="application/json" class="locale-json">
-    {{ currentLocale }}
+<script>
+    const _locale = '{{ currentLocale }}'
+    const _cartId =  '{{ cart.id }}'
+    const _userConData = parseInt('{{app.user.conData}}')
 </script>
 <script type="application/json" class="countries-json">
     {{ countries | json_encode() | raw }}
@@ -226,12 +228,6 @@
 </script>
 <script type="application/json" class="user-json">
     {{ user | raw }}
-</script>
-<script type="application/json" class="cart-json">
-    {% if cart %}{{ cart.id }}{% endif %}
-</script>
-<script type="application/json" class="consent-json">
-    {% if app.user %} {{app.user.conData}} {% else %} false {% endif %}
 </script>
 <script type="text/template" class="welcome-template">
     <p>{{ 'order.registration.one.body.connected' | trans({ '%name%': '<%= you.prenom %> <%= you.nom %>' }) | raw }}</p>

@@ -21,13 +21,6 @@ import {
   getCartCount
 } from './order-api.js'
 
-/* Cart */
-
-const _cartId = parseInt(document.querySelector('.cart-json').innerHTML.trim())
-
-/* User */
-
-const _userConData = JSON.parse(document.querySelector('.consent-json').innerHTML.trim())
 
 /* Cancel Return */
 
@@ -39,8 +32,6 @@ const cancelReturn = _order !== false && _user !== false
 /* Translations */
 
 let i18n = new I18n()
-
-const _locale = document.querySelector('.locale-json').innerHTML.trim()
 
 moment.locale(_locale)
 
