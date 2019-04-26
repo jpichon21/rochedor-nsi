@@ -9,6 +9,12 @@ const updateHeightDropdown = () => {
   active.style.maxHeight = active.scrollHeight + 'px'
 }
 
+if (items.length === 1) {
+  items.forEach(item => {
+    item.classList.add('active')
+  })
+}
+
 export const changeItem = element => {
   return new Promise((resolve, reject) => {
     if (element[0] !== undefined) {
