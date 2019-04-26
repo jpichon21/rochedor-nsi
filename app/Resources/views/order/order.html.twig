@@ -220,7 +220,7 @@
 </script>
 <script type="application/json" class="countries-json">
     {{ countries | json_encode() | raw }}
-</script>
+</script> 
 <script type="application/json" class="order-json">
     {{ order | raw }}
 </script>
@@ -362,8 +362,12 @@
         <tbody>
             <% var sum = 0 %>
             <% for (var i = 0; i < product.length; i++) { %>
+            <% 
+                var urlProduct = '{{ url('collection-' ~ app.request.locale, { id: 1 }) }}'
+                urlProduct = urlProduct.substring(0,urlProduct.length-1) + product[i].codprd
+            %>
             <tr>
-                <td class="first" title="<%= product[i].name %>"><%= product[i].name %></td>
+                <td class="first" title="<%= product[i].name %>"><a href=<%= urlProduct %>><%= product[i].name %></a></td>
                 <td><%= parseFloat(product[i].priceIT) %> €</td>
                 <td class="quantity">
                 <% if (product[i].quantity > 1) { %>
