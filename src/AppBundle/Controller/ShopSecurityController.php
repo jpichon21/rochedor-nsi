@@ -128,12 +128,8 @@ class ShopSecurityController extends Controller
         if (!$clientReq) {
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide client object']);
         }
-
-        if (!$this->isToShortPassword($clientReq['password'])) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'security.password_too_small']);
-        }
         
-        if (!$repository->isEmailUnique($clientReq['email'])) {
+        if (!$this->clientRepository->isEmailUnique($clientReq['email'])) {
             return new JsonResponse(['status' => 'ko', 'message' => 'security.email_exists']);
         }
 
