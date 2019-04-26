@@ -251,10 +251,13 @@ body {
       }
     }
     .cart-container {
-      position: absolute;
+      position: relative;
       top: 20px;
       right: 175px;
       z-index: 1;
+    }
+    .menu-reduced {
+      display: none;
     }
     .options {
       position: absolute;
@@ -461,9 +464,12 @@ body {
   .header {
     .cart-container {
       position: absolute;
-      top: 80px;
-      right: 38px;
+      top: 40px;
+      right: 5px;
       z-index: 1;
+    }
+    .full-screen {
+      display: none;
     }
     .options {
       display: none;

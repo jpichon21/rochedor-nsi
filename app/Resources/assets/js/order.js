@@ -83,7 +83,7 @@ const templateDetailCart = _.template(document.querySelector('.detailCart-templa
 /* Renders */
 
 const renderWelcome = document.querySelector('.welcome-render')
-const renderCartCount = document.querySelector('.cartCount-render')
+const renderCartCounts = document.querySelectorAll('.cartCount-render')
 const renderYou = document.querySelector('.you-render')
 const renderDelivery = document.querySelector('.delivery-render')
 const renderTotal = document.querySelector('.total-render')
@@ -107,8 +107,10 @@ const updateWelcomeRender = () => {
 
 const updateCartCountRender = () => {
   getCartCount().then((res) => {
-    renderCartCount.innerHTML = templateCartCount({
-      cartCount: res
+    renderCartCounts.forEach(renderCartCount => {
+      renderCartCount.innerHTML = templateCartCount({
+        cartCount: res
+      })
     })
   })
 }
