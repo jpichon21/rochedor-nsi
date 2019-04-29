@@ -330,8 +330,10 @@ class OrderController extends Controller
         $delivery = $request->get('delivery');
         if($this->getUser() === null) {
             $user = $this->clientRepository->findClient($delivery['clientId']);
+            $email = $delivery['email'];
         } else {
             $user = $this->getUser();
+            $email = $user->getEmail();
         }
         if (!$delivery) {
             return ['status' => 'ko', 'message' => 'You must provide delivery object'];
@@ -369,13 +371,13 @@ class OrderController extends Controller
         if (!isset($delivery['modpaie'])) {
             return ['status' => 'ko', 'data' => 'payment.modpaie_unknown'];
         }
-        if ($order = $this->registerOrder($delivery, $cartId, $locale, $user)) {
+        if ($order = $this->registerOrder($delivery, $cartId, $locale, $user ,$email)) {
             $paymentUrl = $this->paymentService->getUrl(
                 $delivery['modpaie'],
                 $order->getTtc(),
                 $order->getRefcom(),
                 $this->translator->trans('order.payment.title'),
-                $user->getEmail(),
+                $email,
                 $locale,
                 'order'
             );
@@ -443,11 +445,17 @@ class OrderController extends Controller
         ->findCountryByCode(json_decode($commande->getAdFact(),true)['pays']);
         $minliv = $paysliv->getMinliv();
         $maxliv = $paysliv->getMaxliv();
-        
+
+        if($user->getEmail() === null) {
+            $email = json_decode($commande->getAdLiv(), true)['email'];
+        } else {
+            $email = $user->getEmail();
+        }
+
         if ($commande->getValidpaie() !== 'enAttente') {
             $this->mailer->send(
                 [
-                    $user->getEmail(),
+                    $email,
                     $this->getParameter('email_from_address')
                 ],
                 $this->translator->trans('order.notify.client.subject'),
@@ -617,7 +625,7 @@ class OrderController extends Controller
         return new Response('ok');
     }
 
-    private function registerOrder($delivery, $cartId, $locale, $user)
+    private function registerOrder($delivery, $cartId, $locale, $user, $email)
     {
         $codcli = $user->getCodcli();
         $cart = $this->cartRepository->find($delivery['cartId']);
@@ -632,7 +640,8 @@ class OrderController extends Controller
             'cp' => $user->getCp(),
             'rue' => $user->getRue(),
             'ville' => $user->getVille(),
-            'pays' => $user->getPays()
+            'pays' => $user->getPays(),
+            'email' => $email
         ]);
 
         $data = $this->getCartPrices($delivery['cartId'], $delivery['paysliv'], $delivery['destliv']);
@@ -641,8 +650,8 @@ class OrderController extends Controller
         $validpaie = $delivery['validpaie'];
         $destliv = $delivery['destliv'];
         $delivery['adliv']['pays'] = $delivery['paysliv'];
+        $delivery['adliv']['email'] = $delivery['email'];
         $adliv = json_encode($delivery['adliv']);
-
         if (!isset($delivery['memocmd'])) {
             $memoCmd = "";
         } else {
@@ -721,9 +730,15 @@ class OrderController extends Controller
             $adliv['city']
         ]);
 
+        if($user->getEmail() === null) {
+            $email = json_decode($order->getAdLiv(), true)['email'];
+        } else {
+            $email = $user->getEmail();
+        }
+
         $this->mailer->send(
             [
-                $user->getEmail(),
+                $email,
                 $this->getParameter('email_from_address')
             ],
             $this->translator->trans('order.notify.client.subject'),

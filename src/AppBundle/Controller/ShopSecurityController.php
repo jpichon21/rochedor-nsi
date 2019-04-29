@@ -142,7 +142,8 @@ class ShopSecurityController extends Controller
             $client
             ->setPassword($password)
             ->setUsername($username)
-            ->setDateConDonnees(null);
+            ->setDateConDonnees(null)
+            ->setEmail(null);
         } else {
             if (!$this->clientRepository->isUsernameUnique($clientReq['username'])) {
                 return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);
@@ -157,7 +158,8 @@ class ShopSecurityController extends Controller
             $client
             ->setPassword($password)
             ->setUsername($clientReq['username'])
-            ->setDateConDonnees(new \DateTime('now'));
+            ->setDateConDonnees(new \DateTime('now'))
+            ->setEmail($clientReq['email']);
         }
 
         $client
@@ -172,7 +174,6 @@ class ShopSecurityController extends Controller
         ->setPays($clientReq['pays'])
         ->setTel($clientReq['tel'])
         ->setMobil($clientReq['mobil'])
-        ->setEmail($clientReq['email'])
         ->setSociete($clientReq['societe'])
         ->setTvaintra($clientReq['tvaintra'])
         ->setMemocli($clientReq['memocli'])
@@ -209,6 +210,22 @@ class ShopSecurityController extends Controller
             'conNews' => $client->getConNews(),
             'professionnel' => $client->getProfessionnel()
         ]);
+    }
+
+    /**
+    * @Route("/shop/checkmail", name="shop-check-mail", requirements={"methods": "POST"})
+    */
+    public function checkMailAction(Request $request) {
+        $mail = $request->get('mail');
+        if (!$mail) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'You must provide mail object']);
+        }
+        
+        if (!$this->clientRepository->isEmailUnique($mail['email'])) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.email_exists']);
+        }
+
+        return new JsonResponse(['ok' => 'Mail Valide']);
     }
 
     function randomString($length) {

@@ -18,7 +18,8 @@ import {
   checkZipcode,
   patchProduct,
   removeCartline,
-  getCartCount
+  getCartCount,
+  checkMail
 } from './order-api.js'
 
 
@@ -297,17 +298,26 @@ itemConnection.onsubmit = event => {
           }).then(user => {
             downLoader()
             afterLogin(user)
-          }).catch(err => {
+          }).catch(loginError => {
             downLoader()
-            upFlashbag(i18n.trans(`${err}`))
+            upFlashbag(i18n.trans(`${loginError}`))
           })
-        }).catch(error => {
+        }).catch(registerError => {
           downLoader()
-          upFlashbag(i18n.trans(`${error}`))
+          upFlashbag(i18n.trans(`${registerError}`))
         })
       } else {
-        downLoader()
-        afterLogin(participant)
+        checkMail({
+            mail: {
+              email: participant.email
+            }
+        }).then(() => {
+          downLoader()
+          afterLogin(participant)
+        }).catch(mailError => {
+          downLoader()
+          upFlashbag(i18n.trans(`${mailError}`))
+        })
       }
     })
     _RegisterFormSubmit = true
@@ -701,6 +711,7 @@ const submitFormPayment = () => {
           conData: _you.conData
         }
       }).then(user => {
+          _delivery.email = _you.email
           _delivery.clientId = user.codcli
           postOrder(_delivery).then(response => {
             window.location.href = response
@@ -715,6 +726,7 @@ const submitFormPayment = () => {
         upFlashbag(error)
       })
   } else {
+    _delivery.email = _you.email
     postOrder(_delivery).then(res => {
       window.location.href = res
     }).catch(error => {

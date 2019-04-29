@@ -218,8 +218,12 @@
 <script>
     const _locale = '{{ currentLocale }}'
     const _cartId =  '{{ cart.id }}'
+</script>
+{% if app.user %}
+<script>
     const _userConData = parseInt('{{app.user.conData}}')
 </script>
+{% endif %}
 <script type="application/json" class="countries-json">
     {{ countries | json_encode() | raw }}
 </script> 

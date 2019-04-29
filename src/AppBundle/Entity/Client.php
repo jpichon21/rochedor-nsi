@@ -98,7 +98,7 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="eMail", type="string", length=255, nullable=false)
+     * @ORM\Column(name="eMail", type="string", length=255, nullable=true)
      */
     private $email;
 
