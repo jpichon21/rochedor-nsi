@@ -62,6 +62,7 @@ const itemPayment = document.querySelector('.item.payment')
 const templateWelcome = _.template(document.querySelector('.welcome-template').innerHTML)
 const templateCartCount = _.template(document.querySelector('.cartCount-template').innerHTML)
 const templateYou = _.template(document.querySelector('.you-template').innerHTML)
+const templateConsentDate = _.template(document.querySelector('.consent-date-template').innerHTML)
 const templateDelivery = _.template(document.querySelector('.delivery-template').innerHTML)
 const templateTotal = _.template(document.querySelector('.total-template').innerHTML)
 const templateYouForm = _.template(document.querySelector('.you-form-template').innerHTML)
@@ -77,6 +78,7 @@ const templateDetailCart = _.template(document.querySelector('.detailCart-templa
 const renderWelcome = document.querySelector('.welcome-render')
 const renderCartCounts = document.querySelectorAll('.cartCount-render')
 const renderYou = document.querySelector('.you-render')
+const renderConsentDate = document.querySelector('.consent-date-render')
 const renderDelivery = document.querySelector('.delivery-render')
 const renderTotal = document.querySelector('.total-render')
 const renderYouForms = document.querySelectorAll('.you-form-render')
@@ -109,6 +111,12 @@ const updateCartCountRender = () => {
 
 const updateYouRender = () => {
   renderYou.innerHTML = templateYou({
+    you: _you
+  })
+}
+
+const updateConsentDateRender = () => {
+  renderConsentDate.innerHTML = templateConsentDate({
     you: _you
   })
 }
@@ -197,6 +205,7 @@ const afterLogin = user => {
   _delivery.cartId = parseInt(_cartId)
   _you = user
   updateYouRender()
+  updateConsentDateRender()
   updateTotalRender()
   updateCartRender()
   updateDetailcartRender()
@@ -523,6 +532,7 @@ itemCard.onsubmit = event => {
           downLoader()
           _you = client
           updateYouRender()
+          updateConsentDateRender()
           updateDelayRender()
           updateAdlivForm('myAd')
           changeItem(itemShipping).then(() => {
@@ -536,6 +546,7 @@ itemCard.onsubmit = event => {
         downLoader()
         _you = user
         updateYouRender()
+        updateConsentDateRender()
         updateDelayRender()
         updateAdlivForm('myAd')
         changeItem(itemShipping).then(() => {
@@ -778,6 +789,7 @@ if (cancelReturn) {
     _total = data
     updateCartCountRender()
     updateYouRender()
+    updateConsentDateRender()
     updateDeliveryRender()
     updateCartRender()
     updateDetailcartRender()

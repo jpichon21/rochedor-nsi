@@ -3155,5 +3155,17 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Vous avez bien été déconnecté.</target>
       </segment>
     </unit>
+    <unit id="tc3IV0Q" name="con_data_date">
+      <segment>
+        <source>con_data_date</source>
+        <target>Vous avez consentie à l'équipe de la Roche D'Or le droit de conserver vos données le  </target>
+      </segment>
+    </unit>
+    <unit id="4bjoiW6" name="con_news_date">
+      <segment>
+        <source>con_news_date</source>
+        <target>Vous avez souscris au courriel (email) de nouveautés de l'équipe de la Roche D'Or le  </target>
+      </segment>
+    </unit>
   </file>
 </xliff>

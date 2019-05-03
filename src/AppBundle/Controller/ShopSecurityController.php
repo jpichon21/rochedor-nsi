@@ -113,6 +113,8 @@ class ShopSecurityController extends Controller
             'enregcli' => $client->getEnregcli(),
             'conData' => $client->getConData(),
             'conNews' => $client->getConNews(),
+            'dateConDonnes' => $client->getDateConDonnees(),
+            'dateNewsDonnes' => $client->getDateNewsDonnees(),
             'professionnel' => $client->getProfessionnel()
         ]);
     }
@@ -208,6 +210,8 @@ class ShopSecurityController extends Controller
             'enregcli' => $client->getEnregcli(),
             'conData' => $client->getConData(),
             'conNews' => $client->getConNews(),
+            'dateConDonnes' => $client->getDateConDonnees(),
+            'dateNewsDonnes' => $client->getDateNewsDonnees(),
             'professionnel' => $client->getProfessionnel()
         ]);
     }
@@ -309,7 +313,9 @@ class ShopSecurityController extends Controller
             'enregcli' => $client->getEnregcli(),
             'professionnel' => $client->getProfessionnel(),
             'conData' => $client->getConData(),
-            'conNews' => $client->getConNews()
+            'conNews' => $client->getConNews(),            
+            'dateConDonnes' => $client->getDateConDonnees(),
+            'dateNewsDonnes' => $client->getDateNewsDonnees(),
         ]);
     }
 
