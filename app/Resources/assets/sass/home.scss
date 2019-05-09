@@ -68,7 +68,12 @@ body {
     }
   }
   &.section-2-active {
-    .background,
+    .background {
+      transform: translate(0, calc(-13.088079235939158% + ((100vh - 17.686593562079943%) / 2)));
+      @include media('<medium') {
+        transform: translate(0, calc(-13.771186440677966% + ((100vh - 35.619703389830508%) / 2)));
+      }
+    }
     .sections {
       transform: translate(0, calc(-100% / 6));
       .section-2 {
@@ -78,7 +83,12 @@ body {
     }
   }
   &.section-3-active {
-    .background,
+    .background {
+      transform: translate(0, calc(-26.176158471878316% + ((100vh - 17.686593562079943%) / 2)));
+      @include media('<medium') {
+        transform: translate(0, calc(-27.67478813559322% + ((100vh - 35.619703389830508%) / 2)));
+      }
+    }
     .sections {
       transform: translate(0, calc(-200% / 6));
       .section-3 {
@@ -88,9 +98,17 @@ body {
     }
   }
   &.section-4-active {
-    .background,
+    .background {
+      transform: translate(0, calc(-39.529536611248674% + ((100vh - 17.686593562079943%) / 2)));
+      @include media('<medium') {
+        transform: translate(-50%, calc(-37.605932203389831% + ((100vh - 35.619703389830508%) / 2)));
+      }
+    }
     .sections {
-      transform: translate(-50%, calc(-300% / 6));
+      transform: translate(0, calc(-300% / 6));
+      @include media('<medium') {
+        transform: translate(-50%, calc(-300% / 6));
+      }
       .section-4 {
         opacity: 1;
         transition: opacity 2s cubic-bezier(0.755, 0.050, 0.855, 0.060);
@@ -98,7 +116,12 @@ body {
     }
   }
   &.section-5-active {
-    .background,
+    .background {
+      transform: translate(-50%, calc(-47.223204810753449% + ((100vh - 17.686593562079943%) / 2)));
+      @include media('<medium') {
+        transform: translate(-50%, calc(-50.979872881355932% + ((100vh - 35.619703389830508%) / 2)));
+      }
+    }
     .sections {
       transform: translate(-50%, calc(-400% / 6));
       .section-5 {
@@ -108,7 +131,12 @@ body {
     }
   }
   &.section-6-active {
-    .background,
+    .background {
+      transform: translate(-50%, calc(-71.80756986204457% + ((100vh - 17.686593562079943%) / 2)));
+      @include media('<medium') {
+        transform: translate(-50%, calc(-64.486228813559322% + ((100vh - 35.619703389830508%) / 2)));
+      }
+    }
     .sections {
       transform: translate(-50%, calc(-500% / 6));
       .section-6 {
@@ -156,17 +184,20 @@ body {
 }
 
 .background {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 200%;
-  height: 600%;
-  background-image: url('../img/background-home-desktop.jpg');
-  background-size: 100% 100%;
   z-index: 0;
   transition: transform 2s cubic-bezier(0.645, 0.045, 0.355, 1.000);
-  @include media('<large') {
-    background-image: url('../img/background-home-mobile.jpg');
+  &.mobile {
+    display: none;
+  }
+  @include media('<medium') {
+    &.desktop {
+      display: none;
+    }
+    &.mobile {
+      display: block;
+    }
   }
 }
 
@@ -202,45 +233,40 @@ body {
     &.section-1 {
       justify-content: space-between;
     }
-    &.section-1,
-    &.section-3,
-    &.section-5 {
-      .box {
-        margin-left: 40px;
-        padding-right: 40px;
-        @include media('>=large') {
-          em,
-          strong,
-          .button {
-            margin-left: 80px;
-          }
-        }
-      }
-    }
-    &.section-4,
-    &.section-2,
-    &.section-6 {
-      justify-content: flex-end;
-      .box {
-        margin-right: 40px;
-        padding-left: 40px;
-        text-align: right;
-        @include media('>=large') {
-          em,
-          strong,
-          .button {
-            margin-right: 80px;
-          }
-        }
-      }
-    }
-    &.section-4,
     &.section-5,
     &.section-6 {
       margin-left: 50%;
     }
+    @include media('<medium') {
+      &.section-4 {
+        margin-left: 50%;
+      }
+    }
+    @include media('>=medium') {
+      &.section-2,
+      &.section-4,
+      &.section-5 {
+        justify-content: flex-end;
+        .box {
+          margin-left: auto;
+          margin-right: 40px;
+          padding-right: auto;
+          padding-left: 40px;
+          text-align: right;
+        }
+      }
+    }
     .box {
+      margin-left: 40px;
+      padding-right: 40px;
       color: $roche-yellow;
+      @include media('>=large') {
+        em,
+        strong,
+        .button {
+          margin-left: 80px;
+        }
+      }
       @media screen and (max-width: 500px) {
         padding-top: 20%;
       }
