@@ -98,7 +98,7 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="eMail", type="string", length=255, nullable=false)
+     * @ORM\Column(name="eMail", type="string", length=255, nullable=true)
      */
     private $email;
 
@@ -141,7 +141,7 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     * @ORM\Column(name="password", type="string", length=255)
      * @Exclude
      */
     private $password;
@@ -173,6 +173,20 @@ class Client implements UserInterface, \Serializable
      * @ORM\Column(name="professionnel", type="boolean", nullable=false)
      */
     private $professionnel;
+
+    /**
+     * @var bool
+     *
+      * @ORM\Column(name="DateConDonnees", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
+     */
+    private $dateConDonnees;
+    
+    /**
+     * @var bool
+     *
+      * @ORM\Column(name="DateNewsDonnees", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
+     */
+    private $dateNewsDonnees;
 
     public function getRoles()
     {
@@ -720,5 +734,69 @@ class Client implements UserInterface, \Serializable
     public function getProfessionnel()
     {
         return $this->professionnel;
+    }
+
+    /**
+     * Set dateConDonnees.
+     *
+     * @param \DateTime|null $dateConDonnees
+     *
+     * @return Client
+     */
+    public function setDateConDonnees($dateConDonnees = null)
+    {
+        $this->dateConDonnees = $dateConDonnees;
+
+        return $this;
+    }
+
+    /**
+     * Get dateConDonnees.
+     *
+     * @return \DateTime|null
+     */
+    public function getDateConDonnees()
+    {
+        return $this->dateConDonnees;
+    }
+
+    /**
+     * Set dateNewsDonnees.
+     *
+     * @param \DateTime|null $dateNewsDonnees
+     *
+     * @return Client
+     */
+    public function setDateNewsDonnees($dateNewsDonnees = null)
+    {
+        $this->dateNewsDonnees = $dateNewsDonnees;
+
+        return $this;
+    }
+
+    /**
+     * Get DateNewsDonnees.
+     *
+     * @return \DateTime|null
+     */
+    public function getDateNewsDonnees()
+    {
+        return $this->dateNewsDonnees;
+    }
+
+    public function getConData()
+    {
+        if ($this->dateConDonnees === null) {
+            return false;
+        }
+        return true;
+    }
+
+    public function getConNews()
+    {
+        if ($this->dateNewsDonnees === null) {
+            return false;
+        }
+        return true;
     }
 }

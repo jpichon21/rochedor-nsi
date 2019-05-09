@@ -589,7 +589,7 @@
         <target>Mr</target>
       </segment>
     </unit>
-    <unit id="xsDsRUV" name="form.civility.abbe">
+    <unit id=".V17mpF" name="form.civility.abbe">
       <notes>
         <note priority="1">app/Resources/views/default/calendar-registration.html.twig:50</note>
         <note priority="1">app/Resources/views/default/calendar-registration.html.twig:159</note>
@@ -672,7 +672,7 @@
       </notes>
       <segment>
         <source>form.country</source>
-        <target>Pays</target>
+        <target>Pays et DOM-TOM</target>
       </segment>
     </unit>
     <unit id="vLNMGXN" name="form.phone">
@@ -1353,25 +1353,25 @@
     <unit id=".5a_NkK" name="select.ad.myAd">
       <segment>
         <source>select.ad.myAd</source>
-        <target>Envoyer à mon adresse</target>
+        <target>Envoyer à mon adresse.</target>
       </segment>
     </unit>
     <unit id="rznIWfL" name="select.ad.roche">
       <segment>
         <source>select.ad.roche</source>
-        <target>Retrait à la librairie de la Roche d'Or ?</target>
+        <target>Retrait à la librairie de la Roche d'Or.</target>
       </segment>
     </unit>
     <unit id="8QjWF9b" name="select.ad.font">
       <segment>
         <source>select.ad.font</source>
-        <target>Retrait à la librairie des Fontanilles ?</target>
+        <target>Retrait à la librairie des Fontanilles.</target>
       </segment>
     </unit>
     <unit id="MlxM03H" name="select.ad.other">
       <segment>
         <source>select.ad.other</source>
-        <target>Adresse de livraison différente de l'adresse de facturation ?</target>
+        <target>Adresse de livraison différente de l'adresse de facturation.</target>
       </segment>
     </unit>
     <unit id="GDNiQhU" name="order.choose.adliv">
@@ -1792,13 +1792,13 @@
         <target>Veuillez accepter les CGV</target>
       </segment>
     </unit>
-    <unit id="eGbXcnm" name="form.civilite.abbe">
+    <unit id="jV4lunC" name="form.civilite.abbe">
       <segment>
         <source>form.civilite.abbe</source>
         <target>Abbé</target>
       </segment>
     </unit>
-    <unit id="6mFCpN5" name="form.civilite.mme">
+    <unit id="eGbXcnm" name="form.civilite.mme">
       <segment>
         <source>form.civilite.mme</source>
         <target>Mme</target>
@@ -3099,6 +3099,72 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>order-return.error</source>
         <target><![CDATA[Un problème est survenu.<br>Veuillez retourner au <a href="%link%">collections</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="rDUjt8k" name="consent.data">
+      <segment>
+        <source>consent.data</source>
+        <target>J'autorise les Éditions Roche d‘Or à conserver mes coordonnées afin d’en éviter la ressaisie lors d’une prochaine commande</target>
+      </segment>
+    </unit>
+    <unit id="aVxza2P" name="consent.news">
+      <segment>
+        <source>consent.news</source>
+        <target>J’autorise la Roche d’Or à m’informer par courriel (e-mail) des nouveautés</target>
+      </segment>
+    </unit>
+    <unit id="prZHbs8" name="form.retry">
+      <segment>
+        <source>form.retry</source>
+        <target>Recommencer</target>
+      </segment>
+    </unit>
+    <unit id="m6d6qSk" name="footer.privacy">
+      <segment>
+        <source>footer.privacy</source>
+        <target>Confidentialité des données</target>
+      </segment>
+    </unit>
+    <unit id="JHdw1ZQ" name="order.summary.title">
+      <segment>
+        <source>order.summary.title</source>
+        <target>Mon panier</target>
+      </segment>
+    </unit>
+    <unit id="CmlcQv1" name="detail.pricettc">
+      <segment>
+        <source>detail.pricettc</source>
+        <target>detail.pricettc</target>
+      </segment>
+    </unit>
+    <unit id="r0WAwkC" name="detail.priceit">
+      <segment>
+        <source>detail.priceit</source>
+        <target>Prix TTC</target>
+      </segment>
+    </unit>
+    <unit id="dS7OcL2" name="detail.price">
+      <segment>
+        <source>detail.price</source>
+        <target>Prix HT</target>
+      </segment>
+    </unit>
+    <unit id="gI_rNfE" name="logout.disconnect.text.black">
+      <segment>
+        <source>logout.disconnect.text.black</source>
+        <target>Vous avez bien été déconnecté.</target>
+      </segment>
+    </unit>
+    <unit id="tc3IV0Q" name="con_data_date">
+      <segment>
+        <source>con_data_date</source>
+        <target>Vous avez consentie à l'équipe de la Roche D'Or le droit de conserver vos données le  </target>
+      </segment>
+    </unit>
+    <unit id="4bjoiW6" name="con_news_date">
+      <segment>
+        <source>con_news_date</source>
+        <target>Vous avez souscris au courriel (email) de nouveautés de l'équipe de la Roche D'Or le  </target>
       </segment>
     </unit>
   </file>

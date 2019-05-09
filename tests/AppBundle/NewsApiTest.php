@@ -213,8 +213,6 @@ class NewsApiTest extends WebTestCase
         $arrayResponse = json_decode($response, true);
         $newsTest = [
         ];
-        // dump($response);
-        // exit;
         $this->assertTrue(
             $arrayResponse === $newsTest
         );

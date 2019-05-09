@@ -62,6 +62,12 @@
           animation-name: upElement;
         }
       }
+      .top .left:not(.no-border), .top .right:not(.no-border), .top:not(.no-border) .full {
+        border-bottom: 1px solid white;
+      }
+      .top .left, .bottom .left {
+        border-right: 1px solid white;
+      }
       .top,
       .bottom {
         display: flex;
@@ -77,7 +83,7 @@
           background-size: cover;
           background-position: center;
           outline: none;
-          border: none;
+          // border: none;
           &:before {
             content: '';
             position: absolute;

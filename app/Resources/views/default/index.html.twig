@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
 {% endblock %}
 {% block content %}
+<h1>Communauté de la Roche d'Or</h1>
 <div class="intro">
     <div class="element">
         <div class="logo"></div>
@@ -24,7 +25,7 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][0].body|raw}}
-            <a class="button yellow" href="#">Découvrir</a>
+            <a class="button yellow" href="{{ localePath('la-communaute', app.request.locale)}}">Découvrir</a>
         </div>
         <div class="scroll-down">
             <img src="{{ asset('assets/img/scroll.png') }}" alt="Déroulez pour voir la suite">
@@ -49,7 +50,7 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][1].body|raw}}
-            <a class="button yellow" href="#">Découvrir</a>
+            <a class="button yellow" href="{{ localePath('venir-en-retraite', app.request.locale)}}">Découvrir</a>
         </div>
     </div>
     <div class="section section-3">
@@ -61,7 +62,7 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][2].body|raw}}
-            <a class="button yellow" href="#">Découvrir</a>
+            <a class="button yellow" href="{{ localePath('liste-retraites', app.request.locale)}}">Découvrir</a>
         </div>
     </div>
     <div class="section section-4">
@@ -73,7 +74,7 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][3].body|raw}}
-            <a class="button yellow" href="#">Découvrir</a>
+            <a class="button yellow" href="{{ localePath('dons', app.request.locale)}}">Découvrir</a>
         </div>
     </div>
     <div class="section section-5">
@@ -85,7 +86,7 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][4].body|raw}}
-            <a class="button yellow" href="#">Découvrir</a>
+            <a class="button yellow" href="{{ localePath('editions', app.request.locale) }}">Découvrir</a>
         </div>
     </div>
     <div class="section section-6">
@@ -97,7 +98,7 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][5].body|raw}}
-            <a class="button yellow" href="#">Découvrir</a>
+            <a class="button yellow" href="{{ localePath('contact-ro', app.request.locale) }}">Découvrir</a>
         </div>
     </div>
 </div>

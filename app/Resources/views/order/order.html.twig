@@ -20,7 +20,7 @@
         {% endif %}
         <div class="dropdown">
             <div class="item resume">
-                <h2>Récapitulatif</h2>
+                <h2>{{ 'order.summary.title' | trans }}</h2>
                 <div class="panel active">
                     <div class="cart-render"></div>
                 </div>
@@ -73,6 +73,7 @@
                     </div>
                     <div class="panel registration">
                         <h3>{{ 'order.registration.one.title.registration' | trans | raw }}</h3>
+                        <form class="pure-g consent-form-render"></form>
                         <form class="pure-g you-form-render"></form>
                     </div>
                     <div class="panel reset">
@@ -106,6 +107,7 @@
                 <div class="you-render"></div>
                 <p><i>{{ 'you.billing' | trans | raw }}</i></p>
                 <a href="#" class="modify-you">{{ 'form.update' | trans | raw }}</a>
+                <div class="consent-date-render"></div>
                 <div class="pure-g">
                     <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1 pure-u-xl-1-2">
                         <a href="#continue" class="button continue">{{ 'form.continue' | trans | raw }}</a>
@@ -214,20 +216,23 @@
 {% block javascripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
-<script type="application/json" class="locale-json">
-    {{ currentLocale }}
+<script>
+    const _locale = '{{ currentLocale }}'
+    const _cartId =  '{{ cart.id }}'
 </script>
+{% if app.user %}
+<script>
+    const _userConData = parseInt('{{app.user.conData}}')
+</script>
+{% endif %}
 <script type="application/json" class="countries-json">
     {{ countries | json_encode() | raw }}
-</script>
+</script> 
 <script type="application/json" class="order-json">
     {{ order | raw }}
 </script>
 <script type="application/json" class="user-json">
     {{ user | raw }}
-</script>
-<script type="application/json" class="cart-json">
-    {% if cart %}{{ cart.id }}{% endif %}
 </script>
 <script type="text/template" class="welcome-template">
     <p>{{ 'order.registration.one.body.connected' | trans({ '%name%': '<%= you.prenom %> <%= you.nom %>' }) | raw }}</p>
@@ -235,17 +240,32 @@
         <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1 pure-u-xl-1-2">
             <a href="#continue" class="button continue">{{ 'form.continue' | trans | raw }}</a>
         </div>
+        <% if (you.conData === true) { %>
         <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1 pure-u-xl-1-2">
             <a href="#disconnect" class="button black disconnect">{{ 'form.disconnect' | trans | raw }}</a>
         </div>
+        <% } else { %>
+        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1 pure-u-xl-1-2">
+            <a href="#retry" class="button black disconnect">{{ 'form.retry' | trans | raw }}</a>
+        </div>
+        <% }%>
     </div>    
 </script>
 <script type="text/template" class="you-template">
     <div class="you">
         <p>
             <%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
+            <% if (you.societe) { %><%= _.escape(you.societe) %><br><% } %>
             <%= _.escape(you.adresse) %> <%= _.escape(you.cp) %> <%= _.escape(you.ville) %> (<%= _.escape(you.pays) %>)
         </p>
+    </div>
+</script>
+<script type="text/template" class="consent-date-template">
+    <div class="consent-date-label">
+        <% if (you.conData) { %>{{'con_data_date'|trans}}<%= moment(you.dateConDonnes.date).format('DD/MM/YYYY') %><br><% } %>
+        <br>
+        <% if (you.conNews) { %>{{'con_news_date'|trans}}<%= moment(you.dateNewsDonnes.date).format('DD/MM/YYYY') %><br><% } %>
+        <br>
     </div>
 </script>
 <script type="text/template" class="terms-template">
@@ -266,6 +286,7 @@
     <p>
         <% if (delivery.destliv !== 'myAd') { %><b>{{ 'order.summary.title.delivery' | trans }}</b><% } %>
         <%= delivery.adliv.prenom %> <%= delivery.adliv.nom %><br>
+        <% if (delivery.adliv.societe) { %><%= delivery.adliv.societe %><br><% } %>
         <% if (delivery.destliv === 'Roche') { %>Librairie de la Roche d'Or<br><% } %>
         <% if (delivery.destliv === 'Font') { %>Librairie des Fontanilles<br><% } %>
         <%= delivery.adliv.adresse %> <%= delivery.adliv.zipcode %> <%= delivery.adliv.city %> (<%= delivery.paysliv %>)
@@ -350,8 +371,12 @@
         <tbody>
             <% var sum = 0 %>
             <% for (var i = 0; i < product.length; i++) { %>
+            <% 
+                var urlProduct = '{{ url('collection-' ~ app.request.locale, { id: 1 }) }}'
+                urlProduct = urlProduct.substring(0,urlProduct.length-1) + product[i].codprd
+            %>
             <tr>
-                <td class="first" title="<%= product[i].name %>"><%= product[i].name %></td>
+                <td class="first" title="<%= product[i].name %>"><a href=<%= urlProduct %>><%= product[i].name %></a></td>
                 <td><%= parseFloat(product[i].priceIT) %> €</td>
                 <td class="quantity">
                 <% if (product[i].quantity > 1) { %>
@@ -448,8 +473,8 @@
             <div class="product">
                 <div class="name" title="<%= product[i].name %>"><%= product[i].name %></div>
                 <div class="prices">
-                    <span class="ttc">{{ 'detail.pricettc'|trans({'%ttc%': '<%= parseFloat(product[i].priceIT) %>' }) | raw }}</span>
-                    <span class="ht">{{ 'detail.priceht'|trans({'%ht%': '<%= parseFloat(product[i].price) %>' }) | raw }} <i class="tva">({{ 'table.header.tax.rate' | trans }} <%= parseFloat(product[i].productTaxRate) %> %)</i></span>
+                    <span class="ttc">{{ 'product.detail.price.ttc'|trans({'%ttc%': '<%= parseFloat(product[i].priceIT) %>' }) | raw }}</span>
+                    <span class="ht">{{ 'product.detail.price.ht'|trans({'%ht%': '<%= parseFloat(product[i].price) %>' }) | raw }} <i class="tva">({{ 'table.header.tax.rate' | trans }} <%= parseFloat(product[i].productTaxRate) %> %)</i></span>
                 </div>
                 <div class="quantity">
                     <% if (product[i].quantity > 1) { %>
@@ -516,6 +541,12 @@
     <h3>{{ 'order.delay.title' | trans | raw }}</h3>
     <p>{{ 'order.delay.message'| trans({'%minliv%': '<%= country.minliv %>', '%maxliv%': '<%= country.maxliv %>' })|raw  }}</p>
 </script>
+<script type="text/template" class="consent-form-template">
+    <div class="pure-u-1 pure-u-md-1 newfich-wrapper conData">
+        <a href="#" class="input button radio conData <%= (client.conData === true) ? 'checked' : '' %>" >{{ 'consent.data' | trans | raw }}</a>
+        <input class="hidden checkbox newfich" value="<%= _.escape(client.conData) %>" name="conData" type="text" >
+    </div>
+</script>
 <script type="text/template" class="you-form-template">
     <input autocomplete="nope" type="hidden" value="<%= client.codcli %>" name="codcli">
     <input autocomplete="nope" type="hidden" value=<%= client.check %> name="check">
@@ -581,19 +612,25 @@
     <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" class="input email" required type="email" value="<%= _.escape(client.email) %>" name="email" placeholder="* {{ 'form.email' | trans | raw }}">
     </div>
-    <% if (!client.codcli) { %>
-    <div class="pure-u-1 pure-u-md-1-2">
-        <input autocomplete="nope" class="input username" required type="username" value="<%= _.escape(client.username) %>" name="username" placeholder="* {{ 'form.username' | trans | raw }}">
-    </div>
-    <% } %>
-    <% if (!client.codcli) { %>
-    <div class="pure-u-1 pure-u-md-1-2">
-        <input autocomplete="nope" class="input password" type="password" name="password" placeholder="* {{ 'form.password' | trans | raw }}">
-    </div>
-    <% } else { %>
-    <div class="pure-u-1 pure-u-md-1-2">
-        <input autocomplete="nope" class="input password" type="password" name="password" placeholder="{{ 'form.keep-password' | trans | raw }}">
-    </div>
+    <% if (client.conData === true) { %>
+        <% if (!client.codcli) { %>
+        <div class="pure-u-1 pure-u-md-1-2">
+            <input autocomplete="nope" class="input username" required type="username" value="<%= _.escape(client.username) %>" name="username" placeholder="* {{ 'form.username' | trans | raw }}">
+        </div>
+        <% } %>
+        <% if (!client.codcli) { %>
+        <div class="pure-u-1 pure-u-md-1-2">
+            <input autocomplete="nope" class="input password" type="password" name="password" placeholder="* {{ 'form.password' | trans | raw }}">
+        </div>
+        <% } else { %>
+        <div class="pure-u-1 pure-u-md-1-2">
+            <input autocomplete="nope" class="input password" type="password" name="password" placeholder="{{ 'form.keep-password' | trans | raw }}">
+        </div>
+        <% } %>
+        <div class="pure-u-1 pure-u-md-1 newfich-wrapper conNews">
+            <a href="#" class="input button radio conNews <%= (client.conNews === true) ? 'checked' : '' %>" >{{ 'consent.news' | trans | raw }}</a>
+            <input class="hidden checkbox newfich" value="<%= _.escape(client.conNews) %>" name="conNews" type="text" >
+        </div>
     <% } %>
     <div class="pure-u-1 pure-u-md-1">
         <hr>

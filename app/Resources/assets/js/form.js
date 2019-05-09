@@ -10,7 +10,6 @@ if (recaptcha != null) {
     const recaptchaResponse = recaptcha.querySelector('.g-recaptcha-response')
     if (recaptchaResponse.value === '') {
       event.preventDefault()
-      console.log(catchMessage)
       catchMessage.textContent = i18n.trans('form.please.recaptcha')
     }
   })

@@ -38,14 +38,21 @@ class ShopSecurityController extends Controller
      */
     private $pageService;
 
+    /**
+     * @var ClientRepository
+     */
+    private $clientRepository;
+
     public function __construct(
         Mailer $mailer,
         Translator $translator,
-        PageService $pageService
+        PageService $pageService,
+        ClientRepository $clientRepository
     ) {
         $this->mailer = $mailer;
         $this->translator = $translator;
         $this->pageService = $pageService;
+        $this->clientRepository = $clientRepository;
     }
 
     /**
@@ -86,7 +93,7 @@ class ShopSecurityController extends Controller
                 'status' => 'not logged in'
             ], 201);
         }
-
+        
         return new JsonResponse([
             'codcli' => $client->getCodcli(),
             'civil' => $client->getCivil(),
@@ -104,6 +111,10 @@ class ShopSecurityController extends Controller
             'tvaintra' => $client->getTvaintra(),
             'memocli' => $client->getMemocli(),
             'enregcli' => $client->getEnregcli(),
+            'conData' => $client->getConData(),
+            'conNews' => $client->getConNews(),
+            'dateConDonnes' => $client->getDateConDonnees(),
+            'dateNewsDonnes' => $client->getDateNewsDonnees(),
             'professionnel' => $client->getProfessionnel()
         ]);
     }
@@ -113,7 +124,6 @@ class ShopSecurityController extends Controller
     */
     public function registerAction(
         Request $request,
-        ClientRepository $repository,
         UserPasswordEncoderInterface $encoder
     ) {
         $clientReq = $request->get('client');
@@ -121,29 +131,44 @@ class ShopSecurityController extends Controller
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide client object']);
         }
         
-        if ($repository->findClientByUsername($clientReq['username'])) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);
+        if (!$this->clientRepository->isEmailUnique($clientReq['email'])) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.email_exists']);
         }
 
-
-        if (!$this->isBadPassword($clientReq['password'])) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'user.security_password']);
-        }
-
-
-        if (!$this->isToShortPassword($clientReq['password'])) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'security.password_too_small']);
-        }
-        
         $client = new Client();
-        $password = $encoder->encodePassword($client, $clientReq['password']);
+        
+        if($clientReq['conData'] === false){
+            $rawPassword = $this->randomString(20);
+            $password = $encoder->encodePassword($client, $rawPassword);
+            $username = $this->randomString(20);
+            $client
+            ->setPassword($password)
+            ->setUsername($username)
+            ->setDateConDonnees(null)
+            ->setEmail(null);
+        } else {
+            if (!$this->clientRepository->isUsernameUnique($clientReq['username'])) {
+                return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);
+            }
+            if (!$this->isBadPassword($clientReq['password'])) {
+                return new JsonResponse(['status' => 'ko', 'message' => 'user.security_password']);
+            }
+            if (!$this->isToShortPassword($clientReq['password'])) {
+                return new JsonResponse(['status' => 'ko', 'message' => 'security.password_too_small']);
+            }
+            $password = $encoder->encodePassword($client, $clientReq['password']);
+            $client
+            ->setPassword($password)
+            ->setUsername($clientReq['username'])
+            ->setDateConDonnees(new \DateTime('now'))
+            ->setEmail($clientReq['email']);
+        }
 
         $client
         ->setCivil($clientReq['civil'])
         ->setProfessionnel($this->parsePro($clientReq['professionnel']))
         ->setNom($clientReq['nom'])
         ->setPrenom($clientReq['prenom'])
-        ->setUsername($clientReq['username'])
         ->setRue($clientReq['rue'])
         ->setAdresse($clientReq['adresse'])
         ->setCp($clientReq['cp'])
@@ -151,12 +176,15 @@ class ShopSecurityController extends Controller
         ->setPays($clientReq['pays'])
         ->setTel($clientReq['tel'])
         ->setMobil($clientReq['mobil'])
-        ->setEmail($clientReq['email'])
-        ->setPassword($password)
         ->setSociete($clientReq['societe'])
         ->setTvaintra($clientReq['tvaintra'])
         ->setMemocli($clientReq['memocli'])
         ->setEnregcli(new \DateTime('now'));
+        if($clientReq['conNews'] === true){
+            $client->setDateNewsDonnees(new \DateTime('now'));
+        } else {
+            $client->setDateNewsDonnees(null);
+        }
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($client);
@@ -180,8 +208,41 @@ class ShopSecurityController extends Controller
             'tvaintra' => $client->getTvaintra(),
             'memocli' => $client->getMemocli(),
             'enregcli' => $client->getEnregcli(),
+            'conData' => $client->getConData(),
+            'conNews' => $client->getConNews(),
+            'dateConDonnes' => $client->getDateConDonnees(),
+            'dateNewsDonnes' => $client->getDateNewsDonnees(),
             'professionnel' => $client->getProfessionnel()
         ]);
+    }
+
+    /**
+    * @Route("/shop/checkmail", name="shop-check-mail", requirements={"methods": "POST"})
+    */
+    public function checkMailAction(Request $request) {
+        $mail = $request->get('mail');
+        if (!$mail) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'You must provide mail object']);
+        }
+        
+        if (!$this->clientRepository->isEmailUnique($mail['email'])) {
+            return new JsonResponse(['status' => 'ko', 'message' => 'security.email_exists']);
+        }
+
+        return new JsonResponse(['ok' => 'Mail Valide']);
+    }
+
+    function randomString($length) {
+        return substr(
+            str_shuffle(
+                str_repeat(
+                    $x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                    ceil($length/strlen($x)) 
+                )
+            ),
+            1,
+            $length
+        );
     }
 
   /**
@@ -189,7 +250,6 @@ class ShopSecurityController extends Controller
     */
     public function editCliAction(
         Request $request,
-        ClientRepository $repository,
         UserPasswordEncoderInterface $encoder
     ) {
         $clientReq = $request->get('client');
@@ -197,7 +257,7 @@ class ShopSecurityController extends Controller
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide client object']);
         }
 
-        $client = $repository->findClient($clientReq['codcli']);
+        $client = $this->clientRepository->findClient($clientReq['codcli']);
         $password = $encoder->encodePassword($client, $clientReq['password']);
 
 
@@ -222,6 +282,14 @@ class ShopSecurityController extends Controller
         ->setMemocli($clientReq['memocli'])
         ->setEnregcli(new \DateTime('now'));
 
+        if($clientReq['conNews'] === "false"){
+            $client->setDateNewsDonnees(null);
+        } else {
+            if($client->getDateNewsDonnees() === null){
+                $client->setDateNewsDonnees(new \DateTime('now'));
+            }
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($client);
         $em->flush();
@@ -243,14 +311,18 @@ class ShopSecurityController extends Controller
             'tvaintra' => $client->getTvaintra(),
             'memocli' => $client->getMemocli(),
             'enregcli' => $client->getEnregcli(),
-            'professionnel' => $client->getProfessionnel()
+            'professionnel' => $client->getProfessionnel(),
+            'conData' => $client->getConData(),
+            'conNews' => $client->getConNews(),            
+            'dateConDonnes' => $client->getDateConDonnees(),
+            'dateNewsDonnes' => $client->getDateNewsDonnees(),
         ]);
     }
 
     /**
     * @Route("/shop/password-request", name="shop-password-request", requirements={"methods": "POST"})
     */
-    public function passwordRequestAction(Request $request, ClientRepository $repository)
+    public function passwordRequestAction(Request $request)
     {
         $email = $request->get('email');
         $lastname = $request->get('lastname');
@@ -259,7 +331,7 @@ class ShopSecurityController extends Controller
             return new JsonResponse(['status' => 'ko', 'message' => 'security.password_request.missing_infos']);
         }
 
-        if (!$clients = $repository->findClientByInfos($email, $lastname, $firstname)) {
+        if (!$clients = $this->clientRepository->findClientByInfos($email, $lastname, $firstname)) {
             return new JsonResponse(['status' => 'ko', 'message' => 'security.password_request.not_found']);
         }
         
@@ -297,11 +369,10 @@ class ShopSecurityController extends Controller
     */
     public function passwordResetAction(
         Request $request,
-        ClientRepository $repository,
         UserPasswordEncoderInterface $encoder,
         $token
     ) {
-        $client = $repository->findClientByToken($token);
+        $client = $this->clientRepository->findClientByToken($token);
         if (!$client) {
             return $this->render('security/password-reset.html.twig', ['client' => null]);
         }

@@ -36,7 +36,6 @@ export const postRegister = (data) => {
     body: JSON.stringify(data)
   })
     .catch(res => {
-      console.error(res)
       throw (new Error('unknown_error'))
     })
     .then(res => res.json())
