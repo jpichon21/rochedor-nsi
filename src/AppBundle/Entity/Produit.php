@@ -107,9 +107,9 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="Dateparution", type="datetime", nullable=true)
+     * @ORM\Column(name="Datparution", type="datetime", nullable=true)
      */
-    private $dateparution;
+    private $datparution;
 
     /**
      * @var string
@@ -170,7 +170,7 @@ class Produit
     /**
      * @var int
      *
-     * @ORM\Column(name="nbPage", type="smallint", nullable=false)
+     * @ORM\Column(name="NbPage", type="smallint", nullable=false)
      */
     private $nbpage;
 
@@ -212,7 +212,7 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="urlBook", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="UrlBook", type="text", length=65535, nullable=false)
      */
     private $urlbook;
 
@@ -269,7 +269,7 @@ class Produit
      * @ORM\ManyToMany(targetEntity="Tax")
      * @ORM\JoinTable(name="produits_taxes",
      *      joinColumns={@ORM\JoinColumn(name="produit_codprd", referencedColumnName="CodPrd")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="tax_idtax", referencedColumnName="idTax")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tax_idtax", referencedColumnName="IdTax")}
      *      )
      */
     private $taxes;
@@ -288,7 +288,7 @@ class Produit
         $this->auteur = '';
         $this->editeur = '';
         $this->typprd = '';
-        $this->dateparution = new \DateTime();
+        $this->datparution = new \DateTime();
         $this->prix = 0;
         $this->prixht = 0;
         $this->promo = 0;
@@ -654,13 +654,13 @@ class Produit
     }
 
     /**
-     * Get dateparution.
+     * Get datparution.
      *
      * @return \DateTime|null
      */
-    public function getDateparution()
+    public function getDatparution()
     {
-        return $this->dateparution;
+        return $this->datparution;
     }
 
     /**
@@ -864,15 +864,15 @@ class Produit
     }
 
     /**
-     * Set dateparution.
+     * Set datparution.
      *
-     * @param \DateTime|null $dateparution
+     * @param \DateTime|null $datparution
      *
      * @return Produit
      */
-    public function setDateparution($dateparution = null)
+    public function setDatparution($datparution = null)
     {
-        $this->dateparution = $dateparution;
+        $this->datparution = $datparution;
 
         return $this;
     }

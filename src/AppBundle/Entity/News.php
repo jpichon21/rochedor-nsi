@@ -17,7 +17,7 @@ class News
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="Id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -27,7 +27,7 @@ class News
      * @var string
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="intro", type="text", nullable=true)
+     * @ORM\Column(name="Intro", type="text", nullable=true)
      */
     private $intro;
 
@@ -35,7 +35,7 @@ class News
      * @var string
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="Description", type="text")
      */
     private $description;
 
@@ -43,7 +43,7 @@ class News
      * @var string
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="url", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Url", type="string", length=255, nullable=true)
      */
     private $url;
 
@@ -51,7 +51,7 @@ class News
      * @var \DateTime
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="start", type="datetime")
+     * @ORM\Column(name="Start", type="datetime")
      */
     private $start;
 
@@ -59,7 +59,7 @@ class News
      * @var \DateTime
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="stop", type="datetime")
+     * @ORM\Column(name="Stop", type="datetime")
      */
     private $stop;
 
@@ -67,7 +67,7 @@ class News
     /**
      * @var string
      *
-     * @ORM\Column(name="locale", type="string", length=10, nullable=true)
+     * @ORM\Column(name="Locale", type="string", length=10, nullable=true)
      */
     private $locale;
 

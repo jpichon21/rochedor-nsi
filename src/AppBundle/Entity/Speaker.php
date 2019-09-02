@@ -17,7 +17,7 @@ class Speaker
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="Id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -27,7 +27,7 @@ class Speaker
      * @var string
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="Name", type="string", length=255)
      */
     private $name;
 
@@ -35,7 +35,7 @@ class Speaker
      * @var array
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="title", type="json_array")
+     * @ORM\Column(name="Title", type="json_array")
      */
     private $title;
 
@@ -43,7 +43,7 @@ class Speaker
      * @var array
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="description", type="json_array")
+     * @ORM\Column(name="Description", type="json_array")
      */
     private $description;
 
@@ -51,7 +51,7 @@ class Speaker
      * @var string
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="image", type="string", length=255)
+     * @ORM\Column(name="Image", type="string", length=255)
      */
     private $image;
 

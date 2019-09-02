@@ -15,7 +15,7 @@ class Tax
     /**
      * @var int
      *
-     * @ORM\Column(name="idTax", type="integer")
+     * @ORM\Column(name="IdTax", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -24,21 +24,21 @@ class Tax
     /**
      * @var string
      *
-     * @ORM\Column(name="libTax", type="string", length=20)
+     * @ORM\Column(name="LibTax", type="string", length=20)
      */
     private $name;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="rate", type="decimal", precision=10, scale=2)
+     * @ORM\Column(name="Rate", type="decimal", precision=10, scale=2)
      */
     private $rate;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="countries", type="json", length=65535)
+     * @ORM\Column(name="Countries", type="json", length=65535)
      */
     private $countries;
 

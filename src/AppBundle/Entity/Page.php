@@ -4,11 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
-use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Loggable\Entity\MappedSuperclass\AbstractLogEntry;
 use JMS\Serializer\Annotation\Type;
 
 /**
@@ -49,7 +46,7 @@ class Page
      * @var string
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="Title", type="string", length=255)
      */
     private $title;
 
@@ -57,7 +54,7 @@ class Page
      * @var string
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="subTitle", type="string", length=255)
+     * @ORM\Column(name="SubTitle", type="string", length=255)
      */
     private $subTitle;
 
@@ -65,7 +62,7 @@ class Page
      * @var string
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Description", type="string", length=255, nullable=true)
      */
     private $description;
 
@@ -73,26 +70,27 @@ class Page
      * @var array
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="content", type="json_array", nullable=true)
+     * @ORM\Column(name="Content", type="json_array", nullable=true)
      */
     private $content;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="background", type="integer", nullable=true)
+     * @ORM\Column(name="Background", type="integer", nullable=true)
      */
     private $background;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="locale", type="string", length=10, nullable=true)
+     * @ORM\Column(name="Locale", type="string", length=10, nullable=true)
      */
     private $locale;
 
     /**
      * @var AppBundle/Entity/Page
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      * @ORM\ManyToOne(targetEntity="Page", inversedBy="children", cascade={"persist", "remove"})
      */
     private $parent;
@@ -115,7 +113,7 @@ class Page
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated", type="datetime", nullable=true)
+     * @ORM\Column(name="Updated", type="datetime", nullable=true)
      */
     private $updated;
 
@@ -127,7 +125,7 @@ class Page
 
     /**
      * @var string
-     * @ORM\Column(name="immutableid", type="string", length=255)
+     * @ORM\Column(name="Immutableid", type="string", length=255)
      */
     private $immutableid;
 
@@ -139,7 +137,7 @@ class Page
 
     /**
      * @var string
-     * @ORM\Column(name="type", type="string", length=20)
+     * @ORM\Column(name="Type", type="string", length=20)
      */
     private $type;
 

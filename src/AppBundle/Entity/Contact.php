@@ -150,7 +150,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="eMail", type="string", length=50)
+     * @ORM\Column(name="EMail", type="string", length=50)
      * @Expose
      */
     private $email = '';
@@ -173,7 +173,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="mpCo", type="string", length=15)
+     * @ORM\Column(name="MpCo", type="string", length=15)
      */
     private $mpco = '';
 
@@ -202,7 +202,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="noLet", type="boolean")
+     * @ORM\Column(name="NoLet", type="boolean")
      */
     private $nolet = false;
 
@@ -244,7 +244,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="aboLet", type="boolean")
+     * @ORM\Column(name="AboLet", type="boolean")
      */
     private $abolet = false;
 
@@ -314,7 +314,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=60)
+     * @ORM\Column(name="Password", type="string", length=60)
      * @Assert\Length(
      *      min = 8,
      *      minMessage = "validation.password.length"
@@ -332,14 +332,14 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="plainPassword", type="string", length=255)
+     * @ORM\Column(name="PlainPassword", type="string", length=255)
      */
     private $plainpassword = '';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=50, unique=true, nullable=true)
+     * @ORM\Column(name="Username", type="string", length=50, unique=true, nullable=true)
      * @Expose
      */
     private $username;
@@ -347,63 +347,63 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var bool
      *
-     * @ORM\Column(name="letOca", type="boolean", nullable=false, options={"comment"="Lettre occasionnelle"})
+     * @ORM\Column(name="LetOca", type="boolean", nullable=false, options={"comment"="Lettre occasionnelle"})
      */
     private $letoca = false;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="letPaper", type="boolean", nullable=false, options={"comment"="Lettre annuelle papier"})
+     * @ORM\Column(name="LetPaper", type="boolean", nullable=false, options={"comment"="Lettre annuelle papier"})
      */
     private $letpaper = false;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="letMail", type="boolean", nullable=false, options={"comment"="Lettre annuelle par mail"})
+     * @ORM\Column(name="LetMail", type="boolean", nullable=false, options={"comment"="Lettre annuelle par mail"})
      */
     private $letmail = false;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="aut16", type="boolean", nullable=false)
+     * @ORM\Column(name="Aut16", type="boolean", nullable=false)
      */
     private $aut16 = false;
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="datLetOca", type="datetime", options={"comment"="Lettre occasionnelle"})
+     * @ORM\Column(name="DatLetOca", type="datetime", options={"comment"="Lettre occasionnelle"})
      */
     private $datletoca;
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="datLetPaper", type="datetime", options={"comment"="Lettre annuelle papier"})
+     * @ORM\Column(name="DatLetPaper", type="datetime", options={"comment"="Lettre annuelle papier"})
      */
     private $datletpaper;
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="datLetMail", type="datetime", options={"comment"="Lettre annuelle par mail"})
+     * @ORM\Column(name="DatLetMail", type="datetime", options={"comment"="Lettre annuelle par mail"})
      */
     private $datletmail;
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="datAut16", type="date")
+     * @ORM\Column(name="DatAut16", type="date")
      */
     private $dataut16;
 
     /**
      * @var array
      *
-     * @ORM\Column(name="roles", type="json", length=255)
+     * @ORM\Column(name="Roles", type="json", length=255)
      * @Type("array")
      * @Expose
      */
@@ -412,14 +412,14 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="resetToken", type="string", length=50, nullable=true)
+     * @ORM\Column(name="ResetToken", type="string", length=50, nullable=true)
      */
     private $resetToken;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="resetTokenExpire", type="datetime")
+     * @ORM\Column(name="ResetTokenExpire", type="datetime")
      */
     private $resetTokenExpiresAt;
 

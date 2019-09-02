@@ -80,14 +80,14 @@ class Commande
     /**
      * @var string
      *
-     * @ORM\Column(name="destLiv", type="string", length=6, nullable=false, options={"fixed"=true})
+     * @ORM\Column(name="DestLiv", type="string", length=6, nullable=false, options={"fixed"=true})
      */
     private $destliv;
 
     /**
      * @var array
      *
-     * @ORM\Column(name="adliv", type="json", length=65535)
+     * @ORM\Column(name="Adliv", type="json", length=65535)
      */
     private $adliv;
 
@@ -163,8 +163,8 @@ class Commande
 
     /**
      * @var array
-     * 
-     * @ORM\Column(name="adFact", type="json", length=65535)
+     *
+     * @ORM\Column(name="AdFact", type="json", length=65535)
      */
     private $adFact;
 

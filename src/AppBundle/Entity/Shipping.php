@@ -15,7 +15,7 @@ class Shipping
     /**
      * @var int
      *
-     * @ORM\Column(name="idPort", type="integer")
+     * @ORM\Column(name="IdPort", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -24,21 +24,21 @@ class Shipping
     /**
      * @var string
      *
-     * @ORM\Column(name="libPort", type="string", length=20)
+     * @ORM\Column(name="LibPort", type="string", length=20)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="poids", type="integer", length=11)
+     * @ORM\Column(name="Poids", type="integer", length=11)
      */
     private $weight;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prix", type="decimal", precision=10, scale=2, nullable=false)
+     * @ORM\Column(name="Prix", type="decimal", precision=10, scale=2, nullable=false)
      */
     private $price;
 
@@ -46,7 +46,7 @@ class Shipping
     /**
      * @var array
      *
-     * @ORM\Column(name="pays", type="json", length=65535)
+     * @ORM\Column(name="Pays", type="json", length=65535)
      */
     private $countries;
 

@@ -72,7 +72,7 @@ class CalL
     /**
      * @var int
      *
-     * @ORM\Column(name="hebLCal", type="integer", nullable=false)
+     * @ORM\Column(name="HebLCal", type="integer", nullable=false)
      */
     private $heblcal;
 

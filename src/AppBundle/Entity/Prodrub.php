@@ -45,7 +45,7 @@ class Prodrub
     /**
      * @var bool
      *
-     * @ORM\Column(name="rubHide", type="boolean", nullable=false)
+     * @ORM\Column(name="RubHide", type="boolean", nullable=false)
      */
     private $rubhide;
 

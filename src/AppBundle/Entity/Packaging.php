@@ -15,7 +15,7 @@ class Packaging
     /**
      * @var int
      *
-     * @ORM\Column(name="idPack", type="integer")
+     * @ORM\Column(name="IdPack", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -24,21 +24,21 @@ class Packaging
     /**
      * @var int
      *
-     * @ORM\Column(name="limitation", type="integer", length=11)
+     * @ORM\Column(name="Limitation", type="integer", length=11)
      */
     private $limit;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="france", type="integer", length=11)
+     * @ORM\Column(name="France", type="integer", length=11)
      */
     private $france;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="international", type="integer", length=11)
+     * @ORM\Column(name="International", type="integer", length=11)
      */
     private $international;
 

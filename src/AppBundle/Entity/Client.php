@@ -98,7 +98,7 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="eMail", type="string", length=255, nullable=true)
+     * @ORM\Column(name="EMail", type="string", length=255, nullable=true)
      */
     private $email;
 
@@ -112,14 +112,14 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="tvaIntra", type="string", length=255, nullable=true)
+     * @ORM\Column(name="TvaIntra", type="string", length=255, nullable=true)
      */
     private $tvaintra;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mpCli", type="string", length=15, nullable=true)
+     * @ORM\Column(name="MpCli", type="string", length=15, nullable=true)
      * @Exclude
      */
     private $mpcli;
@@ -141,7 +141,7 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(name="Password", type="string", length=255)
      * @Exclude
      */
     private $password;
@@ -149,44 +149,44 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="reset_token", type="string", nullable=true)
+     * @ORM\Column(name="Reset_token", type="string", nullable=true)
      */
     private $resetToken;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="reset_token_expires_at", type="datetime", nullable=true)
+     * @ORM\Column(name="Reset_token_expires_at", type="datetime", nullable=true)
      */
     private $resetTokenExpiresAt;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255, unique=true, nullable=true)
+     * @ORM\Column(name="Username", type="string", length=255, unique=true, nullable=true)
      */
     private $username;
     
     /**
      * @var bool
      *
-     * @ORM\Column(name="professionnel", type="boolean", nullable=false)
+     * @ORM\Column(name="Professionnel", type="boolean", nullable=false)
      */
     private $professionnel;
 
     /**
      * @var bool
      *
-      * @ORM\Column(name="DateConDonnees", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
+      * @ORM\Column(name="DatConDonnees", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $dateConDonnees;
+    private $datConDonnees;
     
     /**
      * @var bool
      *
-      * @ORM\Column(name="DateNewsDonnees", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
+      * @ORM\Column(name="DatNewsDonnees", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $dateNewsDonnees;
+    private $datNewsDonnees;
 
     public function getRoles()
     {
@@ -737,56 +737,56 @@ class Client implements UserInterface, \Serializable
     }
 
     /**
-     * Set dateConDonnees.
+     * Set datConDonnees.
      *
-     * @param \DateTime|null $dateConDonnees
+     * @param \DateTime|null $datConDonnees
      *
      * @return Client
      */
-    public function setDateConDonnees($dateConDonnees = null)
+    public function setDatConDonnees($datConDonnees = null)
     {
-        $this->dateConDonnees = $dateConDonnees;
+        $this->datConDonnees = $datConDonnees;
 
         return $this;
     }
 
     /**
-     * Get dateConDonnees.
+     * Get datConDonnees.
      *
      * @return \DateTime|null
      */
-    public function getDateConDonnees()
+    public function getDatConDonnees()
     {
-        return $this->dateConDonnees;
+        return $this->datConDonnees;
     }
 
     /**
-     * Set dateNewsDonnees.
+     * Set datNewsDonnees.
      *
-     * @param \DateTime|null $dateNewsDonnees
+     * @param \DateTime|null $datNewsDonnees
      *
      * @return Client
      */
-    public function setDateNewsDonnees($dateNewsDonnees = null)
+    public function setdatNewsDonnees($datNewsDonnees = null)
     {
-        $this->dateNewsDonnees = $dateNewsDonnees;
+        $this->datNewsDonnees = $datNewsDonnees;
 
         return $this;
     }
 
     /**
-     * Get DateNewsDonnees.
+     * Get datNewsDonnees.
      *
      * @return \DateTime|null
      */
-    public function getDateNewsDonnees()
+    public function getdatNewsDonnees()
     {
-        return $this->dateNewsDonnees;
+        return $this->datNewsDonnees;
     }
 
     public function getConData()
     {
-        if ($this->dateConDonnees === null) {
+        if ($this->datConDonnees === null) {
             return false;
         }
         return true;
@@ -794,7 +794,7 @@ class Client implements UserInterface, \Serializable
 
     public function getConNews()
     {
-        if ($this->dateNewsDonnees === null) {
+        if ($this->datNewsDonnees === null) {
             return false;
         }
         return true;

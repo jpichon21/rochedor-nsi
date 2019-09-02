@@ -15,7 +15,7 @@ class BaseL
     /**
      * @var int
      *
-     * @ORM\Column(name="cl1", type="integer")
+     * @ORM\Column(name="Cl1", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -24,21 +24,21 @@ class BaseL
     /**
      * @var int
      *
-     * @ORM\Column(name="clp", type="integer", nullable=false)
+     * @ORM\Column(name="Clp", type="integer", nullable=false)
      */
     private $clp;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="cl0", type="integer", nullable=false)
+     * @ORM\Column(name="Cl0", type="integer", nullable=false)
      */
     private $cl0;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="clL", type="integer", nullable=false)
+     * @ORM\Column(name="ClL", type="integer", nullable=false)
      */
     private $cll;
 

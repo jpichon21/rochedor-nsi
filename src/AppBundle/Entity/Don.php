@@ -66,7 +66,7 @@ class Don
     /**
      * @var integer
      *
-     * @ORM\Column(name="noDonR", type="integer", nullable=true)
+     * @ORM\Column(name="NoDonR", type="integer", nullable=true)
      */
     private $nodonr;
 
@@ -80,7 +80,7 @@ class Don
     /**
      * @var boolean
      *
-     * @ORM\Column(name="noRecu", type="boolean", nullable=true)
+     * @ORM\Column(name="NoRecu", type="boolean", nullable=true)
      */
     private $norecu;
 
@@ -166,7 +166,7 @@ class Don
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Status", type="string", length=255, nullable=true)
      */
     private $status;
 

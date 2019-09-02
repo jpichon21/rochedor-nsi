@@ -15,7 +15,7 @@ class Cartline
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="Id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -24,7 +24,7 @@ class Cartline
     /**
      * @var int
      *
-     * @ORM\Column(name="quantity", type="integer")
+     * @ORM\Column(name="Quantity", type="integer")
      */
     private $quantity;
 
@@ -40,7 +40,7 @@ class Cartline
      * @var \AppBundle\Entity\Cart
      *
      * @ORM\ManyToOne(targetEntity="Cart", inversedBy="cartlines")
-     * @ORM\JoinColumn(name="cart", referencedColumnName="id")
+     * @ORM\JoinColumn(name="cart", referencedColumnName="Id")
     */
     private $cart;
 

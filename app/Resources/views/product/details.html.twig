@@ -84,8 +84,8 @@
         <div class="left">
           <div class="line">
             <b>{{ 'editions.technicalreview.dateparution' | trans }}</b>
-            {% if product.dateparution %}
-              <span>{{ product.dateparution|localizeddate('medium', 'none', app.request.locale) }}</span>
+            {% if product.datparution %}
+              <span>{{ product.datparution|localizeddate('medium', 'none', app.request.locale) }}</span>
             {% else %}
               <span> - </span>
             {% endif %}

@@ -22,7 +22,7 @@ class User implements UserInterface, \Serializable, \JsonSerializable
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="Id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Expose
@@ -32,7 +32,7 @@ class User implements UserInterface, \Serializable, \JsonSerializable
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=25, unique=true)
+     * @ORM\Column(name="Username", type="string", length=25, unique=true)
      * @Expose
      */
     private $username;
@@ -40,7 +40,7 @@ class User implements UserInterface, \Serializable, \JsonSerializable
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=50, unique=true)
+     * @ORM\Column(name="Email", type="string", length=50, unique=true)
      * @Expose
      */
     private $email;
@@ -48,14 +48,14 @@ class User implements UserInterface, \Serializable, \JsonSerializable
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=60)
+     * @ORM\Column(name="Password", type="string", length=60)
      */
     private $password;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="name", type="string", length=60, nullable=true)
+     * @ORM\Column(name="Name", type="string", length=60, nullable=true)
      * @Expose
      */
     private $name;
@@ -63,7 +63,7 @@ class User implements UserInterface, \Serializable, \JsonSerializable
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="active", type="boolean")
+     * @ORM\Column(name="Active", type="boolean")
      * @Expose
      */
     private $active;
@@ -71,7 +71,7 @@ class User implements UserInterface, \Serializable, \JsonSerializable
     /**
      * @var json
      *
-     * @ORM\Column(name="roles", type="json")
+     * @ORM\Column(name="Roles", type="json")
      * @Type("array")
      * @Expose
      */
@@ -80,14 +80,14 @@ class User implements UserInterface, \Serializable, \JsonSerializable
     /**
      * @var string|null
      *
-     * @ORM\Column(name="resetToken", type="string", length=50, nullable=true)
+     * @ORM\Column(name="ResetToken", type="string", length=50, nullable=true)
      */
     private $resetToken;
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="resetTokenExpiresAt", type="datetime", length=255, nullable=true)
+     * @ORM\Column(name="ResetTokenExpiresAt", type="datetime", length=255, nullable=true)
      */
     private $resetTokenExpiresAt;
 

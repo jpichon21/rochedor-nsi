@@ -81,6 +81,9 @@ class CartController extends Controller
             $cart = $this->createCart();
         } else {
             $cart = $this->cartRepository->find($cartId);
+            if ($cart === null) {
+                $cart = $this->createCart();
+            }
         }
         
         if ($typeAction === "add") {

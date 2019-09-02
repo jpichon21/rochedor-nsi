@@ -82,7 +82,7 @@ class Base
     /**
      * @var int
      *
-     * @ORM\Column(name="bmem", type="integer", nullable=false)
+     * @ORM\Column(name="Bmem", type="integer", nullable=false)
      */
     private $bmem;
 

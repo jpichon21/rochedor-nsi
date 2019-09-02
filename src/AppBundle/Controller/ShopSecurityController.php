@@ -113,8 +113,8 @@ class ShopSecurityController extends Controller
             'enregcli' => $client->getEnregcli(),
             'conData' => $client->getConData(),
             'conNews' => $client->getConNews(),
-            'dateConDonnes' => $client->getDateConDonnees(),
-            'dateNewsDonnes' => $client->getDateNewsDonnees(),
+            'dateConDonnes' => $client->getDatConDonnees(),
+            'dateNewsDonnes' => $client->getDatNewsDonnees(),
             'professionnel' => $client->getProfessionnel()
         ]);
     }
@@ -137,14 +137,14 @@ class ShopSecurityController extends Controller
 
         $client = new Client();
         
-        if($clientReq['conData'] === false){
+        if ($clientReq['conData'] === false) {
             $rawPassword = $this->randomString(20);
             $password = $encoder->encodePassword($client, $rawPassword);
             $username = $this->randomString(20);
             $client
             ->setPassword($password)
             ->setUsername($username)
-            ->setDateConDonnees(null)
+            ->setDatConDonnees(null)
             ->setEmail(null);
         } else {
             if (!$this->clientRepository->isUsernameUnique($clientReq['username'])) {
@@ -160,10 +160,9 @@ class ShopSecurityController extends Controller
             $client
             ->setPassword($password)
             ->setUsername($clientReq['username'])
-            ->setDateConDonnees(new \DateTime('now'))
+            ->setDatConDonnees(new \DateTime('now'))
             ->setEmail($clientReq['email']);
         }
-
         $client
         ->setCivil($clientReq['civil'])
         ->setProfessionnel($this->parsePro($clientReq['professionnel']))
@@ -180,10 +179,10 @@ class ShopSecurityController extends Controller
         ->setTvaintra($clientReq['tvaintra'])
         ->setMemocli($clientReq['memocli'])
         ->setEnregcli(new \DateTime('now'));
-        if($clientReq['conNews'] === true){
-            $client->setDateNewsDonnees(new \DateTime('now'));
+        if ($clientReq['conNews'] === true) {
+            $client->setDatNewsDonnees(new \DateTime('now'));
         } else {
-            $client->setDateNewsDonnees(null);
+            $client->setDatNewsDonnees(null);
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -210,8 +209,8 @@ class ShopSecurityController extends Controller
             'enregcli' => $client->getEnregcli(),
             'conData' => $client->getConData(),
             'conNews' => $client->getConNews(),
-            'dateConDonnes' => $client->getDateConDonnees(),
-            'dateNewsDonnes' => $client->getDateNewsDonnees(),
+            'dateConDonnes' => $client->getDatConDonnees(),
+            'dateNewsDonnes' => $client->getDatNewsDonnees(),
             'professionnel' => $client->getProfessionnel()
         ]);
     }
@@ -219,7 +218,8 @@ class ShopSecurityController extends Controller
     /**
     * @Route("/shop/checkmail", name="shop-check-mail", requirements={"methods": "POST"})
     */
-    public function checkMailAction(Request $request) {
+    public function checkMailAction(Request $request)
+    {
         $mail = $request->get('mail');
         if (!$mail) {
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide mail object']);
@@ -232,12 +232,13 @@ class ShopSecurityController extends Controller
         return new JsonResponse(['ok' => 'Mail Valide']);
     }
 
-    function randomString($length) {
+    public function randomString($length)
+    {
         return substr(
             str_shuffle(
                 str_repeat(
-                    $x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-                    ceil($length/strlen($x)) 
+                    $x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                    ceil($length/strlen($x))
                 )
             ),
             1,
@@ -282,11 +283,11 @@ class ShopSecurityController extends Controller
         ->setMemocli($clientReq['memocli'])
         ->setEnregcli(new \DateTime('now'));
 
-        if($clientReq['conNews'] === "false"){
-            $client->setDateNewsDonnees(null);
+        if ($clientReq['conNews'] === "false") {
+            $client->setDatNewsDonnees(null);
         } else {
-            if($client->getDateNewsDonnees() === null){
-                $client->setDateNewsDonnees(new \DateTime('now'));
+            if ($client->getDatNewsDonnees() === null) {
+                $client->setDatNewsDonnees(new \DateTime('now'));
             }
         }
 
@@ -313,9 +314,9 @@ class ShopSecurityController extends Controller
             'enregcli' => $client->getEnregcli(),
             'professionnel' => $client->getProfessionnel(),
             'conData' => $client->getConData(),
-            'conNews' => $client->getConNews(),            
-            'dateConDonnes' => $client->getDateConDonnees(),
-            'dateNewsDonnes' => $client->getDateNewsDonnees(),
+            'conNews' => $client->getConNews(),
+            'dateConDonnes' => $client->getDatConDonnees(),
+            'dateNewsDonnes' => $client->getDatNewsDonnees(),
         ]);
     }
 

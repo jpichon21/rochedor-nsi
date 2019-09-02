@@ -22,7 +22,6 @@ import {
   checkMail
 } from './order-api.js'
 
-
 /* Cancel Return */
 
 const _order = JSON.parse(document.querySelector('.order-json').innerHTML.trim())

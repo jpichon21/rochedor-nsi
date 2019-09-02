@@ -11,16 +11,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use AppBundle\Entity\Cart;
-use AppBundle\Entity\Cartline;
 use AppBundle\Entity\Commande;
 use AppBundle\Entity\Produit;
 use AppBundle\Entity\Comprd;
-use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\CommandeRepository;
 use AppBundle\Repository\ProductRepository;
@@ -301,7 +295,7 @@ class OrderController extends Controller
         return $data;
     }
 
-    private function findShipping($weight, $country, $destliv)
+    private function findShipping($weight, $country, $destliv = null)
     {
         if (in_array($destliv, $this::FREE_SHIPPING_EXCEPTION)) {
             return ['supplementWeight' => 0, 'price' => 0];
@@ -328,7 +322,7 @@ class OrderController extends Controller
         $locale = $request->getLocale();
          
         $delivery = $request->get('delivery');
-        if($this->getUser() === null) {
+        if ($this->getUser() === null) {
             $user = $this->clientRepository->findClient($delivery['clientId']);
             $email = $delivery['email'];
         } else {
@@ -371,7 +365,7 @@ class OrderController extends Controller
         if (!isset($delivery['modpaie'])) {
             return ['status' => 'ko', 'data' => 'payment.modpaie_unknown'];
         }
-        if ($order = $this->registerOrder($delivery, $cartId, $locale, $user ,$email)) {
+        if ($order = $this->registerOrder($delivery, $cartId, $locale, $user, $email)) {
             $paymentUrl = $this->paymentService->getUrl(
                 $delivery['modpaie'],
                 $order->getTtc(),
@@ -412,7 +406,7 @@ class OrderController extends Controller
                 'status' => 'error',
             ]);
         }
-        if ($commande->getModpaie() !== 'CH' 
+        if ($commande->getModpaie() !== 'CH'
             || $user->getCodcli() !== $commande->getCodcli()) {
             return $this->render('order/payment-return.html.twig', [
                 'chequemessage' => true,
@@ -429,25 +423,25 @@ class OrderController extends Controller
             $addCom = $this->translator->trans('order.notify.client.font.adliv');
             $withDelay = false;
         } else {
-            $addCom = json_decode($commande->getAdLiv(), true);
+            $addCom = $commande->getAdLiv();
             $addCom = join(' ', [
-                $addCom['prenom'],
-                $addCom['nom'],
-                $addCom['adresse'],
-                $addCom['zipcode'],
-                $addCom['city']
+                $addCom['Prenom'],
+                $addCom['Nom'],
+                $addCom['Adresse'],
+                $addCom['CP'],
+                $addCom['Ville']
             ]);
             $withDelay = true;
         }
 
         $paysliv = $this
         ->tpaysRepository
-        ->findCountryByCode(json_decode($commande->getAdFact(),true)['pays']);
+        ->findCountryByCode($commande->getAdFact()['Pays']);
         $minliv = $paysliv->getMinliv();
         $maxliv = $paysliv->getMaxliv();
 
-        if($user->getEmail() === null) {
-            $email = json_decode($commande->getAdLiv(), true)['email'];
+        if ($user->getEmail() === null) {
+            $email = $commande->getAdLiv()['email'];
         } else {
             $email = $user->getEmail();
         }
@@ -533,20 +527,20 @@ class OrderController extends Controller
                 $addCom = $this->translator->trans('order.notify.client.font.adliv');
                 $withDelay = false;
             } else {
-                $addCom = json_decode($commande->getAdLiv(), true);
+                $addCom = $commande->getAdLiv();
                 $addCom = join(' ', [
-                    $addCom['prenom'],
-                    $addCom['nom'],
-                    $addCom['adresse'],
-                    $addCom['zipcode'],
-                    $addCom['city']
+                    $addCom['Prenom'],
+                    $addCom['Nom'],
+                    $addCom['Adresse'],
+                    $addCom['Zipcode'],
+                    $addCom['City']
                 ]);
                 $withDelay = true;
             }
 
             $paysliv = $this
             ->tpaysRepository
-            ->findCountryByCode(json_decode($commande->getAdFact(),true)['pays']);
+            ->findCountryByCode($commande->getAdFact()['Pays']);
             $minliv = $paysliv->getMinliv();
             $maxliv = $paysliv->getMaxliv();
     
@@ -633,25 +627,38 @@ class OrderController extends Controller
         $datCom = new \DateTime();
         $modpaie = $delivery['modpaie'];
         $modliv = $delivery['modliv'];
-        $adfact = json_encode([
-            'civil' => $user->getCivil(),
-            'nom' => $user->getNom(),
-            'prenom' => $user->getPrenom(),
-            'cp' => $user->getCp(),
-            'rue' => $user->getRue(),
-            'ville' => $user->getVille(),
-            'pays' => $user->getPays(),
-            'email' => $email
-        ]);
-
+        $adfact = [
+            'Civil' => $user->getCivil(),
+            'Nom' => $user->getNom(),
+            'Prenom' => $user->getPrenom(),
+            'Adresse' => $user->getAdresse(),
+            'CP' => $user->getCp(),
+            'Rue' => $user->getRue(),
+            'Ville' => $user->getVille(),
+            'Pays' => $user->getPays(),
+            'Tel' => $user->getTel(),
+            'Mobil' => $user->getMobil(),
+            'Professionnel' => $user->getProfessionnel(),
+            'Societe' => $user->getSociete(),
+            'TvaIntra' => $user->getTvaintra(),
+            'MemoCli' => $user->getMemocli(),
+            'Email' => $email
+        ];
         $data = $this->getCartPrices($delivery['cartId'], $delivery['paysliv'], $delivery['destliv']);
 
         $datpaie = new \DateTime('0000-00-00 00:00:00');
         $validpaie = $delivery['validpaie'];
         $destliv = $delivery['destliv'];
-        $delivery['adliv']['pays'] = $delivery['paysliv'];
-        $delivery['adliv']['email'] = $delivery['email'];
-        $adliv = json_encode($delivery['adliv']);
+        $delivery['adliv']['Pays'] = $delivery['paysliv'];
+        $delivery['adliv']['Email'] = $delivery['email'];
+        $adliv = [
+            'Nom' => $delivery['adliv']['nom'],
+            'Prenom' => $delivery['adliv']['prenom'],
+            'Adresse' => $delivery['adliv']['adresse'],
+            'CP' => $delivery['adliv']['zipcode'],
+            'Ville' => $delivery['adliv']['city'],
+            'Pays' => $delivery['adliv']['Pays']
+        ];
         if (!isset($delivery['memocmd'])) {
             $memoCmd = "";
         } else {
@@ -718,20 +725,20 @@ class OrderController extends Controller
 
     private function notifyClient($order, $locale, $user, $withDelay)
     {
-        $paysliv = $this->tpaysRepository->findCountryByCode(json_decode($order->getAdFact(),true)['pays']);
+        $paysliv = $this->tpaysRepository->findCountryByCode($order->getAdFact()['Pays']);
         $minliv = $paysliv->getMinliv();
         $maxliv = $paysliv->getMaxliv();
-        $adliv = json_decode($order->getAdLiv(), true);
+        $adliv = $order->getAdLiv();
         $adliv = join(' ', [
-            $adliv['prenom'],
-            $adliv['nom'],
-            $adliv['adresse'],
-            $adliv['zipcode'],
-            $adliv['city']
+            $adliv['Prenom'],
+            $adliv['Nom'],
+            $adliv['Adresse'],
+            $adliv['Zipcode'],
+            $adliv['City']
         ]);
 
-        if($user->getEmail() === null) {
-            $email = json_decode($order->getAdLiv(), true)['email'];
+        if ($user->getEmail() === null) {
+            $email = $order->getAdLiv()['email'];
         } else {
             $email = $user->getEmail();
         }
@@ -823,7 +830,7 @@ class OrderController extends Controller
                 'modliv' => $order->getModliv(),
                 'modpaie' => $order->getModpaie(),
                 'paysip' => $order->getPaysip(),
-                'paysliv' => json_decode($order->getAdLiv(),true)['pays'],
+                'paysliv' => $order->getAdLiv()['Pays'],
                 'validpaie' => $order->getValidpaie()
             ]) : 'false',
             'user' => $cancelReturn ? json_encode([
