@@ -42,6 +42,20 @@ class Tax
      */
     private $countries;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TypPrd", type="string", length=5)
+     */
+    private $typPrd;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Domaine", type="string", length=10)
+     */
+    private $domaine;
+
     public function __construct()
     {
         $this->name = '';
@@ -129,5 +143,53 @@ class Tax
     public function getCountries()
     {
         return $this->countries;
+    }
+
+    /**
+     * Set typPrd.
+     *
+     * @param string $typPrd
+     *
+     * @return Tax
+     */
+    public function setTypPrd($typPrd)
+    {
+        $this->typPrd = $typPrd;
+
+        return $this;
+    }
+
+    /**
+     * Get typPrd.
+     *
+     * @return string
+     */
+    public function getTypPrd()
+    {
+        return $this->typPrd;
+    }
+
+    /**
+     * Set domaine.
+     *
+     * @param string $domaine
+     *
+     * @return Tax
+     */
+    public function setDomaine($domaine)
+    {
+        $this->domaine = $domaine;
+
+        return $this;
+    }
+
+    /**
+     * Get domaine.
+     *
+     * @return string
+     */
+    public function getDomaine()
+    {
+        return $this->domaine;
     }
 }

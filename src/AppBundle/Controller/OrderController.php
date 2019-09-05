@@ -19,6 +19,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\CommandeRepository;
 use AppBundle\Repository\ProductRepository;
 use AppBundle\Repository\CartRepository;
+use AppBundle\Repository\TaxRepository;
 use AppBundle\Repository\ShippingRepository;
 use AppBundle\Repository\TpaysRepository;
 use AppBundle\Repository\ClientRepository;
@@ -75,6 +76,11 @@ class OrderController extends Controller
     private $productRepository;
 
     /**
+     * @var TaxRepository
+     */
+    private $taxRepository;
+
+    /**
      * @var Logger
      */
     private $logger;
@@ -122,7 +128,8 @@ class OrderController extends Controller
         EntityManagerInterface $em,
         PageService $pageService,
         CartService $cartService,
-        PaymentService $paymentService
+        PaymentService $paymentService,
+        TaxRepository $taxRepository
     ) {
         $this->commandeRepository = $commandeRepository;
         $this->productRepository = $productRepository;
@@ -137,6 +144,7 @@ class OrderController extends Controller
         $this->pageService = $pageService;
         $this->cartService = $cartService;
         $this->paymentService = $paymentService;
+        $this->taxRepository = $taxRepository;
     }
 
     /**
@@ -245,7 +253,7 @@ class OrderController extends Controller
             $i = 1;
             while ($i <= $cartline->getQuantity()) {
                 $product = $cartline->getProduct();
-                $tax = $this->productRepository->findTax($product->getCodPrd(), $country);
+                $tax = $this->taxRepository->findTax($product->getTypprd(), $country);
                 $product = $cartline->getProduct();
 
                 $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;

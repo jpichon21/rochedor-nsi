@@ -18,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Repository\ProductRepository;
+use AppBundle\Repository\TaxRepository;
 use AppBundle\Repository\CartRepository;
 use AppBundle\Entity\Produit;
 use AppBundle\Service\PageService;
@@ -33,6 +34,11 @@ class ProductController extends Controller
      * @var ProductRepository
      */
     private $productRepository;
+
+    /**
+     * @var TaxRepository
+     */
+    private $taxRepository;
 
     /**
      * @var Translator
@@ -54,13 +60,15 @@ class ProductController extends Controller
         CartRepository $cartRepository,
         Translator $translator,
         PageService $pageService,
-        CartService $cartService
+        CartService $cartService,
+        TaxRepository $taxRepository
     ) {
         $this->productRepository = $productRepository;
         $this->cartRepository = $cartRepository;
         $this->translator = $translator;
         $this->pageService = $pageService;
         $this->cartService = $cartService;
+        $this->taxRepository = $taxRepository;
     }
 
     /**
@@ -73,7 +81,7 @@ class ProductController extends Controller
     public function showProductAction($id, Request $request)
     {
         $product = $this->productRepository->findProduct($id);
-        $taxes = $this->productRepository->findTax($id, "FR");
+        $taxes = $this->taxRepository->findTax($id, "FR");
         return $this->render(
             'product/details.html.twig',
             [

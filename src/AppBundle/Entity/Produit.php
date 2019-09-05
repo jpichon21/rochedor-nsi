@@ -15,8 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Produit
 {
-    const TYP_BOOK = 'book';
-    const TYP_OTHER = 'other';
+    const TYP_BOOK = 'livre';
+    const TYP_OTHER = 'autre';
 
     /**
      * @var int
@@ -265,18 +265,8 @@ class Produit
      */
     private $themes;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Tax")
-     * @ORM\JoinTable(name="produits_taxes",
-     *      joinColumns={@ORM\JoinColumn(name="produit_codprd", referencedColumnName="CodPrd")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="tax_idtax", referencedColumnName="IdTax")}
-     *      )
-     */
-    private $taxes;
-
     public function __construct()
     {
-        $this->taxes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->refprd = 0;
         $this->produitcourt = '';
         $this->produitlong = '';
@@ -671,42 +661,6 @@ class Produit
     public function getEpaisseur()
     {
         return $this->epaisseur;
-    }
-
-    /**
-     * Add tax.
-     *
-     * @param \AppBundle\Entity\Tax $tax
-     *
-     * @return Cart
-     */
-    public function addTax(\AppBundle\Entity\Tax $tax)
-    {
-        $this->taxs[] = $tax;
-
-        return $this;
-    }
-
-    /**
-     * Remove tax.
-     *
-     * @param \AppBundle\Entity\Tax $tax
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeTax(\AppBundle\Entity\Tax $tax)
-    {
-        return $this->taxs->removeElement($tax);
-    }
-
-    /**
-     * Get taxs.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTaxs()
-    {
-        return $this->taxs;
     }
 
     /**
@@ -1193,15 +1147,5 @@ class Produit
         $this->themes = $themes;
 
         return $this;
-    }
-
-    /**
-     * Get taxes.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTaxes()
-    {
-        return $this->taxes;
     }
 }

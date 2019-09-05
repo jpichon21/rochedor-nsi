@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\EntityManagerInterface;
+
 /**
  * TaxRepository
  *
@@ -12,29 +14,30 @@ class TaxRepository extends \Doctrine\ORM\EntityRepository
 {
 
     /**
-    * @var EntityRepository
+    * @var EntityManagerInterface
     */
-    private $repository;
+    private $entityManager;
+    
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
     
     /**
     * Find Produit by its Id
     *
-    * @param int productId
+    * @param string productType
+    * @param string country
     * @return Produit
     */
-    public function findTax($productId, $country)
+    public function findTax($productType, $country)
     {
         $query = $this->entityManager
-        ->createQuery('SELECT t.name, t.rate, t.countries 
+        ->createQuery('SELECT t 
         FROM AppBundle\Entity\Tax t 
-        INNER JOIN AppBundle\Entity\Produit p
-        WHERE p.codprd=:productId');
-        $query->setParameter('productId', $productId);
-        $results =  $query->getResult();
-        foreach ($results as $k => $result) {
-            if (in_array($country, $result['countries'])) {
-                return $result;
-            }
-        }
+        WHERE t.typPrd=:productType
+        AND t.countries LIKE :country');
+        $query->setParameters(['productType' => $productType, 'country' => '%'.$country.'%']);
+        return $query->getOneOrNullResult();
     }
 }
