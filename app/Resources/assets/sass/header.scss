@@ -251,7 +251,6 @@ body {
       }
     }
     .cart-container {
-      position: relative;
       top: 20px;
       right: 175px;
       z-index: 1;
@@ -464,8 +463,8 @@ body {
   .header {
     .cart-container {
       position: absolute;
-      top: 40px;
-      right: 5px;
+      top: 3px;
+      right: 50px;
       z-index: 1;
     }
     .full-screen {
