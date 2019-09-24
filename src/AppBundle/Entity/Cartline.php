@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Cartline
  *
- * @ORM\Table(name="cartline")
+ * @ORM\Table(name="ligne_panier")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CartlineRepository")
  */
 class Cartline
@@ -15,7 +15,7 @@ class Cartline
     /**
      * @var int
      *
-     * @ORM\Column(name="Id", type="integer")
+     * @ORM\Column(name="idLPanier", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -24,7 +24,7 @@ class Cartline
     /**
      * @var int
      *
-     * @ORM\Column(name="Quantity", type="integer")
+     * @ORM\Column(name="Qte", type="integer")
      */
     private $quantity;
 
@@ -32,7 +32,7 @@ class Cartline
      * @var AppBundle\Entity\Produit
      *
      * @ORM\ManyToOne(targetEntity="Produit")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="CodPrd")
+     * @ORM\JoinColumn(name="IdProd", referencedColumnName="CodPrd")
     */
     private $product;
 
@@ -40,7 +40,7 @@ class Cartline
      * @var \AppBundle\Entity\Cart
      *
      * @ORM\ManyToOne(targetEntity="Cart", inversedBy="cartlines")
-     * @ORM\JoinColumn(name="cart", referencedColumnName="Id")
+     * @ORM\JoinColumn(name="panier", referencedColumnName="idPanier")
     */
     private $cart;
 

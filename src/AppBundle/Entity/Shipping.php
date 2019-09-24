@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Shipping
  *
- * @ORM\Table(name="shipping")
+ * @ORM\Table(name="transport")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ShippingRepository")
  */
 class Shipping
@@ -15,7 +15,7 @@ class Shipping
     /**
      * @var int
      *
-     * @ORM\Column(name="IdPort", type="integer")
+     * @ORM\Column(name="idTrans", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -144,7 +144,7 @@ class Shipping
      *
      * @param array $countries
      *
-     * @return Tax
+     * @return Shipping
     */
     public function setCountries($countries)
     {

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Media
  *
- * @ORM\Table(name="media")
+ * @ORM\Table(name="image")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MediaRepository")
  */
 class Media
@@ -15,7 +15,7 @@ class Media
     /**
      * @var int
      *
-     * @ORM\Column(name="Id", type="integer")
+     * @ORM\Column(name="idImage", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -24,21 +24,21 @@ class Media
     /**
      * @var string
      *
-     * @ORM\Column(name="Path", type="string", length=255, unique=true)
+     * @ORM\Column(name="Chemin", type="string", length=255, unique=true)
      */
     private $path;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="CreatedAt", type="datetime")
+     * @ORM\Column(name="Creation", type="datetime")
      */
     private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="UpdatedAt", type="datetime")
+     * @ORM\Column(name="Maj", type="datetime")
      */
     private $updatedAt;
 

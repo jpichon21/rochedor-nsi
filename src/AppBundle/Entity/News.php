@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * News
  *
- * @ORM\Table(name="news")
+ * @ORM\Table(name="actualite")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\NewsRepository")
  * @Gedmo\Loggable
  */
@@ -17,7 +17,7 @@ class News
     /**
      * @var int
      *
-     * @ORM\Column(name="Id", type="integer")
+     * @ORM\Column(name="idNews", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */

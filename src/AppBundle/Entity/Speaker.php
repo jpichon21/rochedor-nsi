@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Speaker
  *
- * @ORM\Table(name="speaker")
+ * @ORM\Table(name="intervenant")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SpeakerRepository")
  * @Gedmo\Loggable
  */
@@ -17,7 +17,7 @@ class Speaker
     /**
      * @var int
      *
-     * @ORM\Column(name="Id", type="integer")
+     * @ORM\Column(name="idInter", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -27,7 +27,7 @@ class Speaker
      * @var string
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="Name", type="string", length=255)
+     * @ORM\Column(name="Nom", type="string", length=255)
      */
     private $name;
 
@@ -35,7 +35,7 @@ class Speaker
      * @var array
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="Title", type="json_array")
+     * @ORM\Column(name="Titre", type="json_array", length=65535)
      */
     private $title;
 
@@ -43,7 +43,7 @@ class Speaker
      * @var array
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="Description", type="json_array")
+     * @ORM\Column(name="Description", type="json_array", length=65535)
      */
     private $description;
 

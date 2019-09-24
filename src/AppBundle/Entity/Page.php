@@ -96,7 +96,7 @@ class Page
     private $parent;
 
     /**
-     * @var AppBundle/Entity/Page
+     * @var AppBundle/Entity/Page[]\ArrayCollection
      * @ORM\OneToMany(targetEntity="Page", mappedBy="parent", cascade={"persist", "remove"})
      */
     private $children;
@@ -113,7 +113,7 @@ class Page
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Updated", type="datetime", nullable=true)
+     * @ORM\Column(name="Maj", type="datetime", nullable=true)
      */
     private $updated;
 

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tax
  *
- * @ORM\Table(name="tax")
+ * @ORM\Table(name="regles_taxes")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TaxRepository")
  */
 class Tax
@@ -31,14 +31,14 @@ class Tax
     /**
      * @var float
      *
-     * @ORM\Column(name="Rate", type="decimal", precision=10, scale=2)
+     * @ORM\Column(name="Taux", type="decimal", precision=10, scale=2)
      */
     private $rate;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Countries", type="json", length=65535)
+     * @ORM\Column(name="Pays", type="json", length=65535)
      */
     private $countries;
 

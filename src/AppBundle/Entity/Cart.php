@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Cart
  *
- * @ORM\Table(name="cart")
+ * @ORM\Table(name="panier")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CartRepository")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -16,7 +16,7 @@ class Cart
     /**
      * @var int
      *
-     * @ORM\Column(name="Id", type="integer")
+     * @ORM\Column(name="idPanier", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */

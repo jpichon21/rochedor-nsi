@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation\Type;
 /**
  * User
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="utilisateur_admin")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @UniqueEntity("username", message="validation.username.already_used", groups={"create"})
  */
@@ -71,7 +71,7 @@ class User implements UserInterface, \Serializable, \JsonSerializable
     /**
      * @var json
      *
-     * @ORM\Column(name="Roles", type="json")
+     * @ORM\Column(name="Roles", type="json", length=65535)
      * @Type("array")
      * @Expose
      */
