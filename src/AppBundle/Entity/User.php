@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation\Type;
 /**
  * User
  *
- * @ORM\Table(name="utilisateur_admin")
+ * @ORM\Table(name="utilisateur_adm")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @UniqueEntity("username", message="validation.username.already_used", groups={"create"})
  */
