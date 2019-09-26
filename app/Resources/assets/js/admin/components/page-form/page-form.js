@@ -131,6 +131,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
               }
             }} />
         </Grid>
+        { section.slides &&
         <Grid item xs={6}>
           <Tabs
             value={context.state.indexTabs[indexSection]}
@@ -290,6 +291,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
             <MenuItem onClick={() => { context.handleChangeLayoutMenu('1-1-1-1', indexSection) }}>4 Images</MenuItem>
           </Menu>
         </Grid>
+        }
       </Grid>
     </ExpansionPanelDetails>
     <Divider />
@@ -794,111 +796,115 @@ export class PageForm extends React.Component {
             <Button onClick={this.handleCloseAlertBlockquote} color='primary' autoFocus>J'ai compris !</Button>
           </DialogActions>
         </Dialog>
-        <Dialog
-          open={this.state.AlertVideoOpen}
-          onClose={this.handleCloseAlertVideo}>
-          <DialogTitle>Vidéo</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              <p>Vous êtes sur le point de renseigner l'URL de la vidéo. Ceci ne dispense pas d'ajouter une image !</p><br />
-              <TextField
-                autoComplete='off'
-                InputLabelProps={{ shrink: true }}
-                name='page.title'
-                label='URL Vidéo'
-                value={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].video}
-                onChange={(event) => { this.handleChangeVideo(event, noticeIndexSection, noticeIndexSlide, noticeIndexImage) }} />
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleCloseAlertVideo} color='secondary' autoFocus>Annuler</Button>
-            <Button onClick={this.handleCloseAlertVideo} color='primary' autoFocus>Valider</Button>
-          </DialogActions>
-        </Dialog>
-        <Dialog
-          open={this.state.AlertCropOpen}
-          onClose={this.handleCloseAlertCrop}>
-          <DialogTitle>Cadrage</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              <p>Veuillez sélectionnez la zone à privilégier si la photo doit être recadrée.<br />
-                Le sujet de la photo se situe plutôt vers :</p><br />
-              <div style={{ position: 'relative', display: 'inline-block', minWidth: 150, minHeight: 150, backgroundColor: 'whitesmoke' }}>
-                <img style={{ display: 'block', maxWidth: 400, maxHeight: 400, opacity: 0.5 }} src={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].url} />
-                <ArrowUpwardIcon
-                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'left top' ? 'secondary' : 'primary'}
-                  style={{ position: 'absolute', left: 20, top: 20, fontSize: 30, transform: 'rotate(-45deg)', cursor: 'pointer' }}
-                  onClick={() => { this.handleChangeCrop('left top', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
-                />
-                <ArrowUpwardIcon
-                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'left center' ? 'secondary' : 'primary'}
-                  style={{ position: 'absolute', left: 20, top: '50%', marginTop: -15, fontSize: 30, transform: 'rotate(-90deg)', cursor: 'pointer' }}
-                  onClick={() => { this.handleChangeCrop('left center', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
-                />
-                <ArrowUpwardIcon
-                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'left bottom' ? 'secondary' : 'primary'}
-                  style={{ position: 'absolute', left: 20, bottom: 20, fontSize: 30, transform: 'rotate(-135deg)', cursor: 'pointer' }}
-                  onClick={() => { this.handleChangeCrop('left bottom', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
-                />
-                <ArrowUpwardIcon
-                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'center top' ? 'secondary' : 'primary'}
-                  style={{ position: 'absolute', left: '50%', top: 20, marginLeft: -15, fontSize: 30, cursor: 'pointer' }}
-                  onClick={() => { this.handleChangeCrop('center top', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
-                />
-                <FilterCenterFocusIcon
-                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'center center' ? 'secondary' : 'primary'}
-                  style={{ position: 'absolute', left: '50%', top: '50%', marginLeft: -15, marginTop: -15, fontSize: 30, cursor: 'pointer' }}
-                  onClick={() => { this.handleChangeCrop('center center', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
-                />
-                <ArrowUpwardIcon
-                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'center bottom' ? 'secondary' : 'primary'}
-                  style={{ position: 'absolute', left: '50%', bottom: 20, marginLeft: -15, fontSize: 30, transform: 'rotate(-180deg)', cursor: 'pointer' }}
-                  onClick={() => { this.handleChangeCrop('center bottom', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
-                />
-                <ArrowUpwardIcon
-                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'right top' ? 'secondary' : 'primary'}
-                  style={{ position: 'absolute', right: 20, top: 20, fontSize: 30, transform: 'rotate(45deg)', cursor: 'pointer' }}
-                  onClick={() => { this.handleChangeCrop('right top', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
-                />
-                <ArrowUpwardIcon
-                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'right center' ? 'secondary' : 'primary'}
-                  style={{ position: 'absolute', right: 20, top: '50%', marginTop: -15, fontSize: 30, transform: 'rotate(90deg)', cursor: 'pointer' }}
-                  onClick={() => { this.handleChangeCrop('right center', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
-                />
-                <ArrowUpwardIcon
-                  color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'right bottom' ? 'secondary' : 'primary'}
-                  style={{ position: 'absolute', right: 20, bottom: 20, fontSize: 30, transform: 'rotate(135deg)', cursor: 'pointer' }}
-                  onClick={() => { this.handleChangeCrop('right bottom', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
-                />
-              </div>
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleCloseAlertCrop} color='secondary' autoFocus>Annuler</Button>
-            <Button onClick={this.handleCloseAlertCrop} color='primary' autoFocus>Valider</Button>
-          </DialogActions>
-        </Dialog>
-        <Dialog
-          open={this.state.AlertAltOpen}
-          onClose={this.handleCloseAlertAlt}>
-          <DialogTitle>Légende</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              <p>Vous êtes sur le point de renseigner la légende de l'image.</p><br />
-              <TextField
-                autoComplete='off'
-                InputLabelProps={{ shrink: true }}
-                name='page.title'
-                label='Légende'
-                value={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].alt}
-                onChange={(event) => { this.handleChangeAlt(event, noticeIndexSection, noticeIndexSlide, noticeIndexImage) }} />
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleCloseAlertAlt} color='secondary' autoFocus>Annuler</Button>
-            <Button onClick={this.handleCloseAlertAlt} color='primary' autoFocus>Valider</Button>
-          </DialogActions>
-        </Dialog>
+        { this.state.page.content.sections[noticeIndexSection].slides &&
+        <Fragment>
+          <Dialog
+            open={this.state.AlertVideoOpen}
+            onClose={this.handleCloseAlertVideo}>
+            <DialogTitle>Vidéo</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                <p>Vous êtes sur le point de renseigner l'URL de la vidéo. Ceci ne dispense pas d'ajouter une image !</p><br />
+                <TextField
+                  autoComplete='off'
+                  InputLabelProps={{ shrink: true }}
+                  name='page.title'
+                  label='URL Vidéo'
+                  value={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].video}
+                  onChange={(event) => { this.handleChangeVideo(event, noticeIndexSection, noticeIndexSlide, noticeIndexImage) }} />
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleCloseAlertVideo} color='secondary' autoFocus>Annuler</Button>
+              <Button onClick={this.handleCloseAlertVideo} color='primary' autoFocus>Valider</Button>
+            </DialogActions>
+          </Dialog>
+          <Dialog
+            open={this.state.AlertCropOpen}
+            onClose={this.handleCloseAlertCrop}>
+            <DialogTitle>Cadrage</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                <p>Veuillez sélectionnez la zone à privilégier si la photo doit être recadrée.<br />
+                  Le sujet de la photo se situe plutôt vers :</p><br />
+                <div style={{ position: 'relative', display: 'inline-block', minWidth: 150, minHeight: 150, backgroundColor: 'whitesmoke' }}>
+                  <img style={{ display: 'block', maxWidth: 400, maxHeight: 400, opacity: 0.5 }} src={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].url} />
+                  <ArrowUpwardIcon
+                    color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'left top' ? 'secondary' : 'primary'}
+                    style={{ position: 'absolute', left: 20, top: 20, fontSize: 30, transform: 'rotate(-45deg)', cursor: 'pointer' }}
+                    onClick={() => { this.handleChangeCrop('left top', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                  />
+                  <ArrowUpwardIcon
+                    color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'left center' ? 'secondary' : 'primary'}
+                    style={{ position: 'absolute', left: 20, top: '50%', marginTop: -15, fontSize: 30, transform: 'rotate(-90deg)', cursor: 'pointer' }}
+                    onClick={() => { this.handleChangeCrop('left center', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                  />
+                  <ArrowUpwardIcon
+                    color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'left bottom' ? 'secondary' : 'primary'}
+                    style={{ position: 'absolute', left: 20, bottom: 20, fontSize: 30, transform: 'rotate(-135deg)', cursor: 'pointer' }}
+                    onClick={() => { this.handleChangeCrop('left bottom', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                  />
+                  <ArrowUpwardIcon
+                    color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'center top' ? 'secondary' : 'primary'}
+                    style={{ position: 'absolute', left: '50%', top: 20, marginLeft: -15, fontSize: 30, cursor: 'pointer' }}
+                    onClick={() => { this.handleChangeCrop('center top', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                  />
+                  <FilterCenterFocusIcon
+                    color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'center center' ? 'secondary' : 'primary'}
+                    style={{ position: 'absolute', left: '50%', top: '50%', marginLeft: -15, marginTop: -15, fontSize: 30, cursor: 'pointer' }}
+                    onClick={() => { this.handleChangeCrop('center center', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                  />
+                  <ArrowUpwardIcon
+                    color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'center bottom' ? 'secondary' : 'primary'}
+                    style={{ position: 'absolute', left: '50%', bottom: 20, marginLeft: -15, fontSize: 30, transform: 'rotate(-180deg)', cursor: 'pointer' }}
+                    onClick={() => { this.handleChangeCrop('center bottom', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                  />
+                  <ArrowUpwardIcon
+                    color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'right top' ? 'secondary' : 'primary'}
+                    style={{ position: 'absolute', right: 20, top: 20, fontSize: 30, transform: 'rotate(45deg)', cursor: 'pointer' }}
+                    onClick={() => { this.handleChangeCrop('right top', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                  />
+                  <ArrowUpwardIcon
+                    color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'right center' ? 'secondary' : 'primary'}
+                    style={{ position: 'absolute', right: 20, top: '50%', marginTop: -15, fontSize: 30, transform: 'rotate(90deg)', cursor: 'pointer' }}
+                    onClick={() => { this.handleChangeCrop('right center', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                  />
+                  <ArrowUpwardIcon
+                    color={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].crop === 'right bottom' ? 'secondary' : 'primary'}
+                    style={{ position: 'absolute', right: 20, bottom: 20, fontSize: 30, transform: 'rotate(135deg)', cursor: 'pointer' }}
+                    onClick={() => { this.handleChangeCrop('right bottom', noticeIndexSection, noticeIndexSlide, noticeIndexImage) }}
+                  />
+                </div>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleCloseAlertCrop} color='secondary' autoFocus>Annuler</Button>
+              <Button onClick={this.handleCloseAlertCrop} color='primary' autoFocus>Valider</Button>
+            </DialogActions>
+          </Dialog>
+          <Dialog
+            open={this.state.AlertAltOpen}
+            onClose={this.handleCloseAlertAlt}>
+            <DialogTitle>Légende</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                <p>Vous êtes sur le point de renseigner la légende de l'image.</p><br />
+                <TextField
+                  autoComplete='off'
+                  InputLabelProps={{ shrink: true }}
+                  name='page.title'
+                  label='Légende'
+                  value={this.state.page.content.sections[noticeIndexSection].slides[noticeIndexSlide].images[noticeIndexImage].alt}
+                  onChange={(event) => { this.handleChangeAlt(event, noticeIndexSection, noticeIndexSlide, noticeIndexImage) }} />
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleCloseAlertAlt} color='secondary' autoFocus>Annuler</Button>
+              <Button onClick={this.handleCloseAlertAlt} color='primary' autoFocus>Valider</Button>
+            </DialogActions>
+          </Dialog>
+        </Fragment>
+        }
         <Typography variant='display1' className={classes.title}>
           SEO
         </Typography>
