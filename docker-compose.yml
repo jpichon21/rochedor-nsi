@@ -1,0 +1,63 @@
+version: '3'
+ 
+services:
+    db:
+        container_name: lrdo_mysql_con
+        image: mysql:5.6
+        volumes:
+            - ./var/logs/mysql:/var/log/mysql
+            - ./database:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: mysql
+            MYSQL_DATABASE: lrdo
+        ports:
+            - 3307:3307
+    php:
+        container_name: lrdo_php_con
+        image: thecodingmachine/php:7.2-v2-apache
+        volumes:
+            - .:/var/www/html/:rw
+            - ./var/logs/php:/usr/local/etc/logs
+            - ./var/cache/composer:/var/www/.composer/cache
+            - ./docker/apache.conf:/etc/apache2/sites-enabled/000-default.conf
+            - ./docker/server.crt:/etc/apache2/ssl/server.crt
+            - ./docker/server.key:/etc/apache2/ssl/server.key
+        links:
+          - db:db
+          - smtp:smtp
+        environment:
+            APACHE_DOCUMENT_ROOT: web/
+            PHP_INI_ERROR_REPORTING: E_ALL & ~E_NOTICE
+            APP_ENV: dev
+            PHP_EXTENSION_INTL: 1
+            PHP_EXTENSION_SSL: 1
+            PHP_INI_MEMORY_LIMIT: 2048M
+            APACHE_EXTENSION_SSL: 1
+            APACHE_EXTENSION_SOCACHE_SHMCB: 1
+        ports:
+            - 8001:80
+            - 443:443
+    phpmyadmin:
+        container_name: lrdo_phpmyadmin_con
+        image: phpmyadmin/phpmyadmin:latest
+        ports:
+            - 9001:80
+        links:
+            - db:db
+    node:
+        container_name: lrdo_node_con
+        image: node:10.15.1-slim
+        ports:
+            - 8080:8080
+        volumes: 
+            - .:/app
+        working_dir: /app
+        command: bash -c "yarn install && yarn encore dev --watch"
+    smtp:
+        container_name: lrdo_smtp_con
+        image: bornholm/fake-smtp
+        ports:
+            -  2525:2525
+            -  8083:8080
+        volumes:
+            - ./var/smtp:/fake-smtp/data/smtp
