@@ -9,6 +9,22 @@
 @import './header';
 @import './footer';
 
+//FONTS
+/*@font-face {
+  font-family: 'Playfair Italic';
+  src: url('../fonts/Playfair/PlayfairDisplay-Italic.woff2') format('woff2'),
+      url('../fonts/Playfair/PlayfairDisplay-Italic.woff') format('woff'),
+      url('../fonts/Playfair/PlayfairDisplay-Italic.tff') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}*/
+
+
+
+.intro{
+  display: none;
+}
+
 html {
   background-color: #000000;
   // Fix for Magnific Popup

@@ -181,16 +181,25 @@ body {
   border: 1px transparent solid;
   background-repeat: no-repeat;
   background-position: calc(100% - 10px) center;
+  transition: 0.5s ease;
   &.black {
     color: #000000;
     border-color: #000000;
     background-image: url('../img/button-arrow-right-black.png');
+    background-position-y: 10px;
   }
   &.yellow {
     color: $roche-yellow;
     border-color: $roche-yellow;
     background-image: url('../img/button-arrow-right-yellow.png');
+    background-position-y: 10px;
   }
+}
+.yellow:hover, .yellow:focus, .yellow-active{
+    color: black;
+    background-color: $roche-yellow;
+    background-image: url('../img/button-arrow-right-black.png');
+    transition: 0.5s ease;
 }
 
 .background {
@@ -285,6 +294,7 @@ body {
       }
       h2 {
         font-size: 31px;
+        line-height: 34px;
         font-weight: 100;
         text-transform: uppercase;
         margin-bottom: 55px;
@@ -441,6 +451,31 @@ body {
         }
       }
     }
+  }
+}
+
+.box{
+  p{
+    font-family: 'Playfair Display Regular';
+    font-style: italic;
+    max-width: 340px;
+    font-size: 18px;
+    line-height: 25px;
+    margin-bottom: 55px;
+    position: relative;
+  }
+  p:before{
+    content: '“';
+  }
+  p:after{
+    content: '”';
+    position: absolute;
+    bottom: -25px;
+  }
+  p:before, p:after{
+    font-family: 'essones-display';
+    font-size: 60px;
+    opacity: 0.4;
   }
 }
 
