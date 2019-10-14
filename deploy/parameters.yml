@@ -1,0 +1,14 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: '%env(DATABASE_HOST)%'
+    database_port: null
+    database_name: '%env(DATABASE_NAME)%'
+    database_user: '%env(DATABASE_USER)%'
+    database_password: '%env(DATABASE_PASSWORD)%'
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_port: 2525
+    mailer_user: null
+    mailer_password: null
+    secret: ThisTokenIsNotSoSecretChangeIt
+    locale: 'fr'
