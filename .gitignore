@@ -23,3 +23,4 @@ yarn-error.log
 /tests/reports/*
 /web/biblio/*
 .vscode/*
+/database
