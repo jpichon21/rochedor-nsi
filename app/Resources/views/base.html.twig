@@ -21,7 +21,7 @@
 {% if 'home' in bodyClass %}
 <body class="{{ bodyClass }}">
 {% else %}
-<body class="{{ bodyClass|default('') }}" style="{{ bodyBackground|default(0)|constantBackground }}">
+<body class="{{ bodyClass|default('') }} {{ page.title }}">
 {% endif %}
 {% if app.request.attributes.get('_route_params') and app.request.attributes.get('_route') %}
     {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}

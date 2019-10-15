@@ -29,6 +29,7 @@ body {
   .dropdown {
     position: relative;
     margin: 0 0 20px -20px;
+    max-width: 780px;
     &:after {
       content: '';
       width: 7px;
@@ -409,4 +410,14 @@ body {
   content: '”';
   position: absolute;
   bottom: -25px;
+}
+
+//backgrounds
+.Venir, .Retraites, .Intervenants{
+  background-image: linear-gradient(black, black), url('../img/retraites.png');
+  background-size: cover;
+  background-blend-mode: saturation;
+  @include media('<=15inches') {
+    background-image:linear-gradient(black, black),  url('../img/retraites-s.png');
+  }
 }
