@@ -1,8 +1,3 @@
-{% set bodyClass = "page" %}
-{% if page.type %}
-    {% set bodyClass = bodyClass ~ ' ' ~ page.type %}
-{% endif %}
-{% set bodyBackground = page.background %}
 {% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
 {% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
 {% extends 'base.html.twig' %}
@@ -13,7 +8,7 @@
 {% endif %}
 {% endblock %}
 {% block content %}
-<div class="content">
+<div class="content test">
     <div class="left">
         <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
         {% if page.content.intro %}

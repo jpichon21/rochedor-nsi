@@ -25,7 +25,7 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][0].body|raw}}
-            <a class="button yellow" href="{{ localePath('la-communaute', app.request.locale)}}">Découvrir</a>
+            <a class="button yellow" href="{{ localePath('la-communaute', app.request.locale)}}">Découvrir <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
         </div>
         <div class="scroll-down">
             <img src="{{ asset('assets/img/scroll.png') }}" alt="Déroulez pour voir la suite">
@@ -37,7 +37,7 @@
                 <div class="text">
                     <p>{{lastNews.description}}</p>
                 </div>
-                <a class="button black" href="{{lastNews.url}}">Lire la suite</a>
+                <a class="button black" href="{{lastNews.url}}">Lire la suite <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
             </div>
         {% endif %}
     </div>
@@ -50,7 +50,7 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][1].body|raw}}
-            <a class="button yellow" href="{{ localePath('venir-en-retraite', app.request.locale)}}">Découvrir</a>
+            <a class="button yellow" href="{{ localePath('venir-en-retraite', app.request.locale)}}">Découvrir <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
         </div>
     </div>
     <div class="section section-3">
@@ -62,7 +62,7 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][2].body|raw}}
-            <a class="button yellow" href="{{ localePath('liste-retraites', app.request.locale)}}">Découvrir</a>
+            <a class="button yellow" href="{{ localePath('liste-retraites', app.request.locale)}}">Découvrir <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
         </div>
     </div>
     <div class="section section-4">
@@ -74,7 +74,7 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][3].body|raw}}
-            <a class="button yellow" href="{{ localePath('dons', app.request.locale)}}">Découvrir</a>
+            <a class="button yellow" href="{{ localePath('dons', app.request.locale)}}">Découvrir <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
         </div>
     </div>
     <div class="section section-5">
@@ -86,7 +86,7 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][4].body|raw}}
-            <a class="button yellow" href="{{ localePath('editions', app.request.locale) }}">Découvrir</a>
+            <a class="button yellow" href="{{ localePath('editions', app.request.locale) }}">Découvrir <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
         </div>
     </div>
     <div class="section section-6">
@@ -98,7 +98,7 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][5].body|raw}}
-            <a class="button yellow" href="{{ localePath('contact-ro', app.request.locale) }}">Découvrir</a>
+            <a class="button yellow" href="{{ localePath('contact-ro', app.request.locale) }}">Découvrir <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
         </div>
     </div>
 </div>

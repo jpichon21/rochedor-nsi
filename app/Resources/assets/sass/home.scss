@@ -170,6 +170,12 @@ body {
   z-index: 2;
 }
 
+.button-arrow{
+  vertical-align: text-top;
+  margin-left: 6px;
+  margin-right: -12px;
+}
+
 .button {
   display: inline-block;
   padding: 0 25px 0 10px;
@@ -184,13 +190,29 @@ body {
   &.black {
     color: #000000;
     border-color: #000000;
-    background-image: url('../img/button-arrow-right-black.png');
+    transition: 0.5s ease;
   }
   &.yellow {
     color: $roche-yellow;
     border-color: $roche-yellow;
-    background-image: url('../img/button-arrow-right-yellow.png');
+    transition: 0.5s ease;
   }
+}
+.button.yellow:hover, .button.yellow:active, .button.yellow:focus{
+  color: #000000;
+  transition: 0.5s ease;
+  background: linear-gradient(to left, #000000 50%, $roche-yellow 50%);
+  background-size: 200% 100%;
+  background-position:left bottom;
+  .button-arrow{
+    filter: brightness(0);
+  }
+}
+
+.button.black:hover, .button.black:active, .button.black:focus{
+  color: $roche-yellow;
+  background-color: #000000;
+  transition: 0.5s ease;
 }
 
 .background {
@@ -275,7 +297,7 @@ body {
         em,
         strong,
         .button {
-          margin-left: 80px;
+          margin-left: 24px;
         }
       }
       @media screen and (max-width: 500px) {
@@ -290,6 +312,7 @@ body {
         text-transform: uppercase;
         margin-bottom: 55px;
         letter-spacing: 1px;
+        line-height: 32px;
         @include media('<large') {
           margin-bottom: 20px;
           font-size: 25px;

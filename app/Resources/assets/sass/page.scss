@@ -172,16 +172,18 @@ body {
         }
         em {
           margin-bottom: 30px;
-          font-family: 'Playfair Display', serif;
+          font-family: 'Playfair Display Regular', serif;
           font-size: 19px;
           font-style: italic;
           line-height: 24px;
         }
         strong {
           font-family: 'Lato', sans-serif;
-          font-size: 14px;
+          font-size: 12px;
           font-style: normal;
           text-transform: uppercase;
+          display: block;
+          margin-top: 32px;
         }
       }
       .input,
@@ -391,4 +393,20 @@ body {
 @keyframes blockquoteEnter {
   from { transform: translateX(40px); }
   to { transform: translateX(0px); }
+}
+
+.content .dropdown .item blockquote em:before, .content .dropdown .item blockquote em:after{
+  font-family: 'essones-display';
+  font-size: 60px;
+  opacity: 0.4;
+}
+.content .dropdown .item blockquote em:before{
+  content: '“';
+  position: absolute;
+  left: -36px;
+}
+.content .dropdown .item blockquote em:after{
+  content: '”';
+  position: absolute;
+  bottom: -25px;
 }
