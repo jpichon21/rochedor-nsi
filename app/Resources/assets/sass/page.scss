@@ -29,7 +29,10 @@ body {
   .dropdown {
     position: relative;
     margin: 0 0 20px -20px;
-    max-width: 680px;
+    max-width: 480px;
+    @include media('>laptop') {
+      max-width: 680px;
+    }
     &:after {
       content: '';
       width: 7px;
@@ -413,7 +416,7 @@ body {
 }
 
 //backgrounds
-.Venir, .Retraites, .Intervenants, .Faire, .Donner, .Contact, .La, .Les, .Infos, .Accueil, .Liens, .Nous{
+.Venir, .Retraites, .Intervenants, .Faire, .Donner, .Contact, .La, .Les, .Infos, .Informations, .Accueil, .Liens, .Nous{
   background-size: cover;
   background-blend-mode: saturation;
   @include media('<=laptop') {
@@ -450,6 +453,6 @@ body {
   }
 }
 
-.Infos, .Accueil, .Liens{
+.Infos, .Informations, .Accueil, .Liens{
   background-image: linear-gradient(black, black), url('../img/bg-fallback.jpg');
 }
