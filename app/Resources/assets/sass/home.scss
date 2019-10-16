@@ -211,8 +211,10 @@ body {
 
 .button.black:hover, .button.black:active, .button.black:focus{
   color: $roche-yellow;
-  background-color: #000000;
   transition: 0.5s ease;
+  background: linear-gradient(to left, transparent 50%, #000000 50%);
+  background-size: 200% 100%;
+  background-position:left bottom;
 }
 
 .background {
@@ -391,7 +393,6 @@ body {
           right: 40px;
           width: 6px;
           height: 11px;
-          background-image: url('../img/button-arrow-right-yellow.png');
           transform: rotate(-90deg);
           z-index: -1;
         }
@@ -444,7 +445,6 @@ body {
           float: none;
           color: $roche-yellow;
           border-color: $roche-yellow;
-          background-image: url('../img/button-arrow-right-yellow.png');
         }
         &:after,
         &:before {

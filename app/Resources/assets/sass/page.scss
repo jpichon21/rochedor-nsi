@@ -413,7 +413,7 @@ body {
 }
 
 //backgrounds
-.Venir, .Retraites, .Intervenants, .Faire, .Donner, .Contact, .La, .Les, .Infos, .Accueil, .Liens{
+.Venir, .Retraites, .Intervenants, .Faire, .Donner, .Contact, .La, .Les, .Infos, .Accueil, .Liens, .Nous{
   background-size: cover;
   background-blend-mode: saturation;
   @include media('<=laptop') {
@@ -429,7 +429,7 @@ body {
   }
 }
 
-.Faire, .Donner{
+.Faire, .Donner, .Nous{
   background-image: linear-gradient(black, black), url('../img/soutenir.jpg');
   @include media('<=laptop') {
     background-image:linear-gradient(black, black),  url('../img/soutenir-s.jpg');
