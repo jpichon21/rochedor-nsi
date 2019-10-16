@@ -511,13 +511,13 @@ h1 {
       padding: 40px 15px 10px;
       text-align: left;
       z-index: 1;
-      background-image: linear-gradient(black, black), url('../img/calendar.png');
+      background-image: linear-gradient(black, black), url('../img/calendar.jpg');
       background-blend-mode: saturation;
       background-size: 100% auto;
       background-attachment: fixed;
       background-position: top;
       @include media('<=laptop') {
-        background-image:linear-gradient(black, black),  url('../img/calendar-s.png');
+        background-image:linear-gradient(black, black),  url('../img/calendar-s.jpg');
       }
       &:after {
         content: '';
