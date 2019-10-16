@@ -6,7 +6,7 @@ import AppMenu from '../app-menu/app-menu'
 import { locales } from '../../locales'
 import Alert from '../alert/alert'
 import IsAuthorized, { ACTION_SPEAKER_CREATE } from '../../isauthorized/isauthorized'
-import Redirect from 'react-router-dom/Redirect';
+import Redirect from 'react-router-dom/Redirect'
 
 export class SpeakerCreate extends React.Component {
   constructor (props) {
@@ -27,7 +27,7 @@ export class SpeakerCreate extends React.Component {
   }
   handleClose () {
     this.props.dispatch(initStatus())
-    this.setState({alertOpen: false})
+    this.setState({ alertOpen: false })
   }
   render () {
     return (

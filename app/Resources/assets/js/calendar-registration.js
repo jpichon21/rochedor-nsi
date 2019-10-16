@@ -14,7 +14,7 @@ import {
   getRegistered,
   postRegistered,
   postRegister } from './calendar-api.js'
-import {limitMenuReduced} from './variables'
+import { limitMenuReduced } from './variables'
 
 /* Infos */
 
@@ -373,7 +373,7 @@ function validatePassword (password) {
   if (password.length < 8 && password.length !== 0) {
     return i18n.trans('security.password_too_small')
   }
-  if (password === "") {
+  if (password === '') {
     return i18n.trans('user.security_password')
   }
   return true
@@ -391,12 +391,12 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
     if (validatedDate) {
       if (validatedPhone) {
         validateChild(participant).then(participantValidated => {
-          if(participantValidated.transport !== 'train') {
+          if (participantValidated.transport !== 'train') {
             participantValidated.navette = 'false'
             participantValidated.lieu = ''
             participantValidated.arriv = ''
           }
-          if(participantValidated.navette !== 'true') {
+          if (participantValidated.navette !== 'true') {
             participantValidated.lieu = ''
             participantValidated.arriv = ''
           }

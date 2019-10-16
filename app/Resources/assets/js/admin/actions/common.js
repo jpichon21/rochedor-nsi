@@ -22,7 +22,7 @@ export function initStatus () {
 
 export function setMessage (message, error = false) {
   return dispatch => {
-    dispatch({ type: SET_MESSAGE, ...{message: message, error: error} })
+    dispatch({ type: SET_MESSAGE, ...{ message: message, error: error } })
   }
 }
 
@@ -34,19 +34,19 @@ export function resetMessage () {
 
 export function setTitle (title) {
   return dispatch => {
-    dispatch({ type: SET_TITLE, ...{title: title} })
+    dispatch({ type: SET_TITLE, ...{ title: title } })
   }
 }
 
 export function setLocale (locale) {
   return dispatch => {
-    dispatch({ type: SET_LOCALE, ...{locale: locale} })
+    dispatch({ type: SET_LOCALE, ...{ locale: locale } })
   }
 }
 
 export function setAlert (text) {
   return dispatch => {
-    dispatch({ type: SET_ALERT, ...{alertText: text} })
+    dispatch({ type: SET_ALERT, ...{ alertText: text } })
   }
 }
 export function openAlert () {

@@ -89,7 +89,7 @@ export class UserForm extends React.Component {
       if (this.props.edit) {
         this.props.dispatch(putUser(this.state.user)).then((res) => {
           if (res.message === 'User Updated') {
-            this.setState({snackbarContent: 'Utilisateur enregistré', snackbarOpen: true})
+            this.setState({ snackbarContent: 'Utilisateur enregistré', snackbarOpen: true })
           } else {
             this.setState({
               status: this.i18n.trans(res.message),
@@ -127,15 +127,15 @@ export class UserForm extends React.Component {
   }
 
   handleCloseSnack () {
-    this.setState({snackbarOpen: false, snackbarContent: ''})
+    this.setState({ snackbarOpen: false, snackbarContent: '' })
   }
 
   handleClose () {
-    this.setState({status: '', alertOpen: false})
+    this.setState({ status: '', alertOpen: false })
   }
 
   handleTabChange (event, value) {
-    this.setState({currentTab: value})
+    this.setState({ currentTab: value })
   }
 
   toggleRole (event, value) {
@@ -219,7 +219,7 @@ export class UserForm extends React.Component {
         <Typography variant='display1' className={classes.title}>
           Utilisateur
         </Typography>
-        <AppBar position={'static'} style={{marginBottom: '40px'}}>
+        <AppBar position={'static'} style={{ marginBottom: '40px' }}>
           <Tabs value={this.state.currentTab} onChange={this.handleTabChange}>
             <Tab label='Paramètres' />
             <Tab label='Droits' />

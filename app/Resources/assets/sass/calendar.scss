@@ -643,11 +643,11 @@ h1 {
 }
 
 .CALENDRIER{
-  background-image: linear-gradient(black, black), url('../img/calendar.png');
+  background-image: linear-gradient(black, black), url('../img/calendar.jpg');
   background-size: cover;
   background-blend-mode: saturation;
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/calendar-s.png');
+    background-image:linear-gradient(black, black),  url('../img/calendar-s.jpg');
     background-size: cover;
     background-blend-mode: saturation;
   }

@@ -12,7 +12,7 @@ class HomeAdmin extends React.Component {
         <Card>
           <CardMedia
             image={`/assets/img/bg-${Math.floor(Math.random() * Math.floor(7) + 1)}.jpg`}
-            style={{height: 0, paddingTop: '20%'}}
+            style={{ height: 0, paddingTop: '20%' }}
           />
           <CardContent>
             <Typography gutterBottom variant='headline' component='h2'>
@@ -25,23 +25,23 @@ class HomeAdmin extends React.Component {
           </CardContent>
           <CardActions>
             <IsAuthorized action={ACTION_HOME_EDIT}>
-              <NavLink to='/home-edit' style={{textDecoration: 'none'}}>
-                <Button style={{margin: '0 15px'}} variant='outlined' color='primary'>Modifier la page d'accueil</Button>
+              <NavLink to='/home-edit' style={{ textDecoration: 'none' }}>
+                <Button style={{ margin: '0 15px' }} variant='outlined' color='primary'>Modifier la page d'accueil</Button>
               </NavLink>
             </IsAuthorized>
             <IsAuthorized action={ACTION_CONTENT_EDIT}>
-              <NavLink to='/content-list' style={{textDecoration: 'none'}}>
-                <Button style={{margin: '0 15px'}} variant='outlined' color='primary'>Modifier les contenus</Button>
+              <NavLink to='/content-list' style={{ textDecoration: 'none' }}>
+                <Button style={{ margin: '0 15px' }} variant='outlined' color='primary'>Modifier les contenus</Button>
               </NavLink>
             </IsAuthorized>
             <IsAuthorized action={ACTION_NEWS_CREATE}>
-              <NavLink to='/news-create' style={{textDecoration: 'none'}}>
-                <Button style={{margin: '0 15px'}} variant='outlined' color='primary'>Ajouter une nouveauté</Button>
+              <NavLink to='/news-create' style={{ textDecoration: 'none' }}>
+                <Button style={{ margin: '0 15px' }} variant='outlined' color='primary'>Ajouter une nouveauté</Button>
               </NavLink>
             </IsAuthorized>
             <IsAuthorized action={ACTION_SPEAKER_EDIT}>
-              <NavLink to='/speaker-list' style={{textDecoration: 'none'}}>
-                <Button style={{margin: '0 15px'}} variant='outlined' color='primary'>Modifier les intervenants</Button>
+              <NavLink to='/speaker-list' style={{ textDecoration: 'none' }}>
+                <Button style={{ margin: '0 15px' }} variant='outlined' color='primary'>Modifier les intervenants</Button>
               </NavLink>
             </IsAuthorized>
           </CardActions>
@@ -52,7 +52,7 @@ class HomeAdmin extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {fullname: state.fullname}
+  return { fullname: state.fullname }
 }
 
 export default connect(mapStateToProps)(HomeAdmin)

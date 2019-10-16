@@ -423,30 +423,30 @@ body {
 }
 
 .Venir, .Retraites, .Intervenants{
-  background-image: linear-gradient(black, black), url('../img/retraites.png');
+  background-image: linear-gradient(black, black), url('../img/retraites.jpg');
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/retraites-s.png');
+    background-image:linear-gradient(black, black),  url('../img/retraites-s.jpg');
   }
 }
 
 .Faire, .Donner{
-  background-image: linear-gradient(black, black), url('../img/soutenir.png');
+  background-image: linear-gradient(black, black), url('../img/soutenir.jpg');
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/soutenir-s.png');
+    background-image:linear-gradient(black, black),  url('../img/soutenir-s.jpg');
   }
 }
 
 .Contact{
-  background-image: linear-gradient(black, black), url('../img/infocontact.png');
+  background-image: linear-gradient(black, black), url('../img/infocontact.jpg');
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/infocontact-s.png');
+    background-image:linear-gradient(black, black),  url('../img/infocontact-s.jpg');
   }
 }
 
 .La, .Les{
-  background-image: linear-gradient(black, black), url('../img/communaute.png');
+  background-image: linear-gradient(black, black), url('../img/communaute.jpg');
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/communaute-s.png');
+    background-image:linear-gradient(black, black),  url('../img/communaute-s.jpg');
   }
 }
 

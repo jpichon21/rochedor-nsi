@@ -11,8 +11,6 @@ let i18n = new I18n()
 
 JsBarcode('.barcode').init()
 
-
-
 const themesForm = document.querySelector('.filter.themes form')
 const filtersForm = document.querySelector('.filters form')
 

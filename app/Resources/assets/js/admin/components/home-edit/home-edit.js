@@ -28,13 +28,13 @@ export class HomeEdit extends React.Component {
   }
   componentDidMount () {
     this.props.dispatch(getHome(this.props.locale)).then((res) => {
-      this.setState({home: res})
+      this.setState({ home: res })
       this.props.dispatch(getHomeVersions(res.id))
     })
   }
   onSubmit (home) {
     this.props.dispatch(putHome(home)).then((res) => {
-      this.setState({snackbarContent: 'Page enregistrée', snackbarOpen: true})
+      this.setState({ snackbarContent: 'Page enregistrée', snackbarOpen: true })
     })
   }
   onVersionChange (version) {
@@ -48,10 +48,10 @@ export class HomeEdit extends React.Component {
   }
   handleClose () {
     this.props.dispatch(initStatus())
-    this.setState({alertOpen: false})
+    this.setState({ alertOpen: false })
   }
   handleCloseSnack () {
-    this.setState({snackbarOpen: false, snackbarContent: ''})
+    this.setState({ snackbarOpen: false, snackbarContent: '' })
   }
   render () {
     return (

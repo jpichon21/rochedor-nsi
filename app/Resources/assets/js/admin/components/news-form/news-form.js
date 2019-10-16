@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React, { Fragment } from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -50,11 +50,11 @@ export class NewsForm extends React.Component {
   }
 
   handleCloseVersion () {
-    this.setState({anchorVersion: null})
+    this.setState({ anchorVersion: null })
   }
 
   handleVersionOpen (event) {
-    this.setState({anchorVersion: event.currentTarget})
+    this.setState({ anchorVersion: event.currentTarget })
   }
 
   handleInputChange (event) {
@@ -118,7 +118,7 @@ export class NewsForm extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.news) {
-      this.setState({news: nextProps.news})
+      this.setState({ news: nextProps.news })
     }
     if (nextProps.locale) {
       this.setState((prevState) => {

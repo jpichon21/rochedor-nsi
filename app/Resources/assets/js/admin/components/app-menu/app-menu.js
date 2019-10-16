@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Menu, MenuItem, AppBar, Toolbar, Typography, IconButton, Tooltip, Button, Divider } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import IsAuthorized, { ACTION_SPEAKER_VIEW, ACTION_HOME_VIEW, ACTION_CONTENT_VIEW, ACTION_NEWS_VIEW, ACTION_PAGE_VIEW, ACTION_USER_VIEW} from '../../isauthorized/isauthorized'
+import IsAuthorized, { ACTION_SPEAKER_VIEW, ACTION_HOME_VIEW, ACTION_CONTENT_VIEW, ACTION_NEWS_VIEW, ACTION_PAGE_VIEW, ACTION_USER_VIEW } from '../../isauthorized/isauthorized'
 
 class AppMenu extends React.Component {
   constructor (props) {

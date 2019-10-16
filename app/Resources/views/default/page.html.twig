@@ -6,9 +6,11 @@
 {% if page.type and page.type != 'page' %}
     <link rel="stylesheet" href="{{ asset('assets/css/' ~ page.type ~ '.css') }}">
 {% endif %}
+    <script src="{{ asset('assets/js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('assets/js/smoothState.js') }}"></script>
 {% endblock %}
 {% block content %}
-<div class="content test new">
+<div class="content scene_element scene_element--fadein">
     <div class="left">
         <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
         {% if page.content.intro %}

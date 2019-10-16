@@ -50,7 +50,7 @@ function initEncore () {
       from: './app/Resources/assets/img',
       to: 'img'
     }]))
-    .addPlugin(new webpack.EnvironmentPlugin({'NODE_ENV': ((Encore.isProduction) ? 'prod' : 'dev')}))
+    .addPlugin(new webpack.EnvironmentPlugin({ 'NODE_ENV': ((Encore.isProduction) ? 'prod' : 'dev') }))
     .autoProvideVariables({
       $: 'jquery',
       jQuery: 'jquery',
@@ -66,7 +66,7 @@ const alias = {
 }
 
 initEncore()
-Encore.addPlugin(new webpack.EnvironmentPlugin({'PAYMENT_ENV': 'development'}))
+Encore.addPlugin(new webpack.EnvironmentPlugin({ 'PAYMENT_ENV': 'development' }))
 const configDev = Encore.getWebpackConfig()
 configDev.name = 'configDev'
 if (Encore.isProduction()) {
@@ -82,7 +82,7 @@ configDev.resolve.alias = alias
 Encore.reset()
 
 initEncore()
-Encore.addPlugin(new webpack.EnvironmentPlugin({'PAYMENT_ENV': 'production'}))
+Encore.addPlugin(new webpack.EnvironmentPlugin({ 'PAYMENT_ENV': 'production' }))
 const configProd = Encore.getWebpackConfig()
 configProd.name = 'configProd'
 if (Encore.isProduction()) {

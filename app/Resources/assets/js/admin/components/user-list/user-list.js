@@ -26,19 +26,19 @@ export class UserList extends React.Component {
 
   componentWillMount () {
     this.props.dispatch(getUsers()).then(res => {
-      this.setState({users: res})
+      this.setState({ users: res })
     })
   }
 
   componentWillReceiveProps (nextProps) {
     if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully') || nextProps.error) {
-      this.setState({alertOpen: true})
+      this.setState({ alertOpen: true })
     }
   }
 
   handleClose () {
     this.props.dispatch(initStatus())
-    this.setState({alertOpen: false})
+    this.setState({ alertOpen: false })
   }
 
   render () {
