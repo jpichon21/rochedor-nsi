@@ -511,11 +511,13 @@ h1 {
       padding: 40px 15px 10px;
       text-align: left;
       z-index: 1;
-      @include media('>=xxlarge') {
-        background-image: url('../img/bg-fallback.jpg');
-        background-size: 100% auto;
-        background-attachment: fixed;
-        background-position: top;
+      background-image: linear-gradient(black, black), url('../img/calendar.png');
+      background-blend-mode: saturation;
+      background-size: 100% auto;
+      background-attachment: fixed;
+      background-position: top;
+      @include media('<=laptop') {
+        background-image:linear-gradient(black, black),  url('../img/calendar-s.png');
       }
       &:after {
         content: '';
@@ -637,5 +639,16 @@ h1 {
         background: linear-gradient(to bottom, $roche-yellow 0%, transparent 100%);
       }
     }
+  }
+}
+
+.CALENDRIER{
+  background-image: linear-gradient(black, black), url('../img/calendar.png');
+  background-size: cover;
+  background-blend-mode: saturation;
+  @include media('<=laptop') {
+    background-image:linear-gradient(black, black),  url('../img/calendar-s.png');
+    background-size: cover;
+    background-blend-mode: saturation;
   }
 }

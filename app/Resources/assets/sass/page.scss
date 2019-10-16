@@ -29,7 +29,7 @@ body {
   .dropdown {
     position: relative;
     margin: 0 0 20px -20px;
-    max-width: 780px;
+    max-width: 680px;
     &:after {
       content: '';
       width: 7px;
@@ -413,13 +413,43 @@ body {
 }
 
 //backgrounds
-.Venir, .Retraites, .Intervenants{
-  background-image: linear-gradient(black, black), url('../img/retraites.png');
+.Venir, .Retraites, .Intervenants, .Faire, .Donner, .Contact, .La, .Les, .Infos, .Accueil, .Liens{
   background-size: cover;
   background-blend-mode: saturation;
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/retraites-s.png');
     background-size: cover;
     background-blend-mode: saturation;
   }
+}
+
+.Venir, .Retraites, .Intervenants{
+  background-image: linear-gradient(black, black), url('../img/retraites.png');
+  @include media('<=laptop') {
+    background-image:linear-gradient(black, black),  url('../img/retraites-s.png');
+  }
+}
+
+.Faire, .Donner{
+  background-image: linear-gradient(black, black), url('../img/soutenir.png');
+  @include media('<=laptop') {
+    background-image:linear-gradient(black, black),  url('../img/soutenir-s.png');
+  }
+}
+
+.Contact{
+  background-image: linear-gradient(black, black), url('../img/infocontact.png');
+  @include media('<=laptop') {
+    background-image:linear-gradient(black, black),  url('../img/infocontact-s.png');
+  }
+}
+
+.La, .Les{
+  background-image: linear-gradient(black, black), url('../img/communaute.png');
+  @include media('<=laptop') {
+    background-image:linear-gradient(black, black),  url('../img/communaute-s.png');
+  }
+}
+
+.Infos, .Accueil, .Liens{
+  background-image: linear-gradient(black, black), url('../img/bg-fallback.jpg');
 }
