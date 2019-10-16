@@ -417,7 +417,9 @@ body {
   background-image: linear-gradient(black, black), url('../img/retraites.png');
   background-size: cover;
   background-blend-mode: saturation;
-  @include media('<=15inches') {
+  @include media('<=laptop') {
     background-image:linear-gradient(black, black),  url('../img/retraites-s.png');
+    background-size: cover;
+    background-blend-mode: saturation;
   }
 }
