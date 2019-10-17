@@ -330,13 +330,6 @@ class Contact implements UserInterface, \Serializable
     private $region = '';
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="PlainPassword", type="string", length=255)
-     */
-    private $plainpassword = '';
-
-    /**
      * @var string
      *
      * @ORM\Column(name="Username", type="string", length=50, unique=true, nullable=true)
@@ -1455,30 +1448,6 @@ class Contact implements UserInterface, \Serializable
     public function getRegion()
     {
         return $this->region;
-    }
-
-    /**
-     * Set plainpassword.
-     *
-     * @param string|null $plainpassword
-     *
-     * @return Contact
-     */
-    public function setPlainpassword($plainpassword = null)
-    {
-        $this->plainpassword = $plainpassword;
-
-        return $this;
-    }
-
-    /**
-     * Get plainpassword.
-     *
-     * @return string|null
-     */
-    public function getPlainpassword()
-    {
-        return $this->plainpassword;
     }
 
     /**
