@@ -129,7 +129,7 @@ function updateYouFormRender () {
       i18n.trans('form.civilite.soeur')
     ]
   }))
-  Inputmask().mask(document.querySelectorAll('.datnaiss'))
+  Inputmask().mask(document.querySelectorAll('.datnaiss, .input.arriv'))
 }
 
 function updateHimFormRender () {
@@ -147,7 +147,7 @@ function updateHimFormRender () {
       i18n.trans('form.civilite.soeur')
     ]
   }))
-  Inputmask().mask(document.querySelectorAll('.datnaiss'))
+  Inputmask().mask(document.querySelectorAll('.datnaiss, .input.arriv'))
 }
 
 /* Actions */
