@@ -137,9 +137,13 @@ function applyFilters (filters) {
     return moment(retreat.dateOut).isSameOrBefore(filters['dateOut'])
   }).filter((retreat) => {
     if (filters['keywords'].length === 0) { return true }
-    return retreat.event.toLowerCase().includes(filters['keywords'].toLowerCase())
+    return stripAccents(retreat.event.toLowerCase()).includes(stripAccents(filters['keywords'].toLowerCase()))
   })
   updateRetreats(retreats)
+}
+
+function stripAccents (str) {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 }
 
 function updateFilters () {

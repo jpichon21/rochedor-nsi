@@ -269,7 +269,7 @@
         </select>
     </div>
     <div class="pure-u-1 pure-u-md-1-2 arriv-wrapper <% if (participant.navette === 'false' || participant.navette === '' || participant.transport !== 'train') { %> hidden <% } %>">
-        <input autocomplete="nope" class="input arriv" value="<%= _.escape(participant.arriv) %>" name="arriv" type="text" pattern="[0-2][0-9]:[0-5][0-9]" placeholder="{{ 'form.arriv' | trans | raw }}">
+        <input autocomplete="nope" class="input arriv" value="<%= _.escape(participant.arriv) %>" name="arriv" type="text" data-inputmask="'mask': '99:99'" pattern="[0-2][0-9]:[0-5][0-9]" placeholder="{{ 'form.arriv' | trans | raw }}">
     </div>
     <div class="pure-u-1 pure-u-md-1">
         <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= _.escape(participant.memo) %></textarea>
@@ -381,7 +381,7 @@
         </select>
     </div>
     <div class="pure-u-1 pure-u-md-1-2 arriv-wrapper <% if (participant.navette === 'false' || participant.navette === '' || participant.transport !== 'train') { %> hidden <% } %>">
-        <input autocomplete="nope" class="input arriv" value="<%= _.escape(participant.arriv) %>" name="arriv" type="text" pattern="[0-2][0-9]:[0-5][0-9]" placeholder="{{ 'form.arriv' | trans | raw }}">
+        <input autocomplete="nope" class="input arriv" value="<%= _.escape(participant.arriv) %>" name="arriv" type="text" data-inputmask="'mask': '99:99'" pattern="[0-2][0-9]:[0-5][0-9]" placeholder="{{ 'form.arriv' | trans | raw }}">
     </div>
     <div class="pure-u-1 pure-u-md-1">
         <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= _.escape(participant.memo) %></textarea>
