@@ -163,7 +163,7 @@ document.onclick = event => {
 
 // Buttons
 
-document.querySelectorAll('.button .black').addEventListener('mouseover', function () {
+document.getElementsByClassName('.black').addEventListener('mouseover', function () {
   this.src = "{{ asset('assets/img/button-arrow-right-black.png') }}"
 })
 
