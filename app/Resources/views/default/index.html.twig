@@ -53,7 +53,7 @@
                 <div class="text">
                     <p>{{lastNews.description}}</p>
                 </div>
-                <a class="button black" href="{{lastNews.url}}">Lire la suite <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-black.png') }}"></a>
+                <a class="button black" href="{{lastNews.url}}">Lire la suite <img class="button-arrow"  onmouseenter='this.src ={{ asset('assets/img/button-arrow-right-yellow.png') }}' onmouseleave='this.src ={{ asset('assets/img/button-arrow-right-black.png') }} src="{{ asset('assets/img/button-arrow-right-black.png') }}"></a>
             </div>
         {% endif %}
     </div>

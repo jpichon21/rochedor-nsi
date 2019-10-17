@@ -160,13 +160,6 @@ document.onclick = event => {
     focusTrap.activate()
   }
 }
-
-// Buttons
-
-document.getElementsByClassName('.black').addEventListener('mouseover', function () {
-  this.src = "{{ asset('assets/img/button-arrow-right-black.png') }}"
-})
-
 // Action filters
 
 const showFilters = document.querySelector('.show-filters')
