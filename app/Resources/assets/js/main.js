@@ -160,6 +160,13 @@ document.onclick = event => {
     focusTrap.activate()
   }
 }
+
+// Buttons
+
+$('.black').hover(function () {
+  $('#black').attr('src', 'button-arrow-right-yellow.png')
+})
+
 // Action filters
 
 const showFilters = document.querySelector('.show-filters')

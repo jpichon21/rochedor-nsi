@@ -42,6 +42,8 @@
 <script>
     var flashbags = {{ flashbags|json_encode()|raw }}
 </script>
+<script src="{{ asset('assets/js/jquery-3.4.1.min.js') }}"></script>
+<script src="{{ asset('assets/js/smoothState.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 {% block javascripts %}{% endblock %}
 </body>
