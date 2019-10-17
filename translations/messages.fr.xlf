@@ -1872,7 +1872,7 @@
       <segment>
         <source>calendar.registration.three.header</source>
         <target><![CDATA[
-					<p>Nous vous remercions de l’attention que vous portez à la Roche d’Or.<br>Votre demande d’inscription à une retraite est prise en compte sous le numéro :</p><p><center><br>%entry_number%</br></center></p>
+					<p>Nous vous remercions de l’attention que vous portez à la Roche d’Or.<br>Votre demande d’inscription est prise en compte sous le numéro :</p><p><center><br>%entry_number%</br></center></p>
 				]]></target>
       </segment>
     </unit>
@@ -2319,7 +2319,7 @@
     <unit id="Y4EtXZD" name="form.newfich">
       <segment>
         <source>form.newfich</source>
-        <target>Première inscription à une retraite</target>
+        <target>Première inscription à une retraite de la Roche d'Or</target>
       </segment>
     </unit>
     <unit id="I8rtEKM" name="gift.title">
