@@ -211,6 +211,12 @@ body {
 
 .hidden{
   display: none;
+  transition: 0.5s ease;
+}
+
+.visible{
+  display: inline-block;
+  transition: 0.5s ease;
 }
 
 .button.black:hover, .button.black:active, .button.black:focus{
@@ -221,9 +227,11 @@ body {
   background-position:0 110%;
   .visible{
     display: none;
+    transition: 0.5s ease;
   }
   .hidden{
     display: inline-block!important;
+    transition: 0.5s ease;
   }
 }
 
