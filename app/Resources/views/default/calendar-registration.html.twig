@@ -164,7 +164,7 @@
         <% var him = participants[i] %>
             <div class="him">
                 <p><%= _.escape(him.prenom) %> <%= _.escape(him.nom) %><br>
-                    <%= _.escape(him.adresse) %> <%= _.escape(him.cp) %> <%= _.escape(him.ville) %> (<%= _.escape(him.pays) %>)<br>
+                    <%= _.escape(him.adresse) %> <%= _.escape(him.cp) %> <%= _.escape(him.ville) %> <%= (him.pays) ? '('+_.escape(him.pays)+')': '' %><br>
                     <%= transports[_.escape(him.transport)] %></p>
             </div>
         <% } %>
@@ -178,7 +178,7 @@
         <% var him = registered[i] %>
             <div class="him">
                 <p><%= _.escape(him.prenom) %> <%= _.escape(him.nom) %><br>
-                    <%= _.escape(him.adresse) %> <%= _.escape(him.cp) %> <%= _.escape(him.ville) %> (<%= _.escape(him.pays) %>)</p>
+                    <%= _.escape(him.adresse) %> <%= _.escape(him.cp) %> <%= _.escape(him.ville) %> <%= (him.pays) ? '('+_.escape(him.pays)+')': '' %></p>
                 <a href="#" data-id="<%= _.escape(him.codco) %>" class="modify-him button" rel="nofollow">{{ 'form.modify' | trans | raw }}</a>
                 <a href="#" data-id="<%= _.escape(him.codco) %>" class="participate-him button radio <%= (him.check) ? 'checked' : '' %>" rel="nofollow">{{ 'form.participate' | trans | raw }}</a>
             </div>
