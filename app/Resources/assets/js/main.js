@@ -161,6 +161,12 @@ document.onclick = event => {
   }
 }
 
+// Buttons
+
+document.querySelectorAll('.button .black').addEventListener('mouseover', function () {
+  this.src = "{{ asset('assets/img/button-arrow-right-black.png') }}"
+})
+
 // Action filters
 
 const showFilters = document.querySelector('.show-filters')
