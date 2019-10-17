@@ -38,7 +38,7 @@ deploy_staging:
         - curl -L https://deployer.org/releases/v6.4.3/deployer.phar > /usr/local/bin/deployer && chmod +x /usr/local/bin/deployer
         - deployer -f=deploy/deploy.php deploy staging
 
-deploy_staging:
+deploy_demo:
   stage: deploy
   image: php:7-cli-alpine
   before_script:
