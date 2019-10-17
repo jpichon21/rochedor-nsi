@@ -161,12 +161,6 @@ document.onclick = event => {
   }
 }
 
-// Buttons
-
-$('.black').hover(function () {
-  $('#black').attr('src', 'button-arrow-right-yellow.png')
-})
-
 // Action filters
 
 const showFilters = document.querySelector('.show-filters')

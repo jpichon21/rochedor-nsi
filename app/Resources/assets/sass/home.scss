@@ -209,12 +209,22 @@ body {
   }
 }
 
+.hidden{
+  display: none;
+}
+
 .button.black:hover, .button.black:active, .button.black:focus{
   color: $roche-yellow;
   transition: 0.5s ease;
   background: linear-gradient(to left, transparent 50%, #000000 50%);
   background-size: 200% 100%;
   background-position:0 110%;
+  .visible{
+    display: none;
+  }
+  .hidden{
+    display: inline-block;
+  }
 }
 
 .background {
