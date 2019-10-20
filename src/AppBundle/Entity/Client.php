@@ -98,28 +98,28 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="EMail", type="string", length=255, nullable=true)
+     * @ORM\Column(name="EMail", type="string", length=255, nullable=false)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Societe", type="string", length=40, nullable=true)
+     * @ORM\Column(name="Societe", type="string", length=40, nullable=false)
      */
     private $societe;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="TvaIntra", type="string", length=255, nullable=true)
+     * @ORM\Column(name="TvaIntra", type="string", length=255, nullable=false)
      */
     private $tvaintra;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="MpCli", type="string", length=15, nullable=true)
+     * @ORM\Column(name="MpCli", type="string", length=15, nullable=false)
      * @Exclude
      */
     private $mpcli;
@@ -149,21 +149,21 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="Reset_token", type="string", nullable=true)
+     * @ORM\Column(name="Reset_token", type="string", nullable=false)
      */
     private $resetToken;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Reset_token_expires_at", type="datetime", nullable=true)
+     * @ORM\Column(name="Reset_token_expires_at", type="datetime", nullable=false)
      */
     private $resetTokenExpiresAt;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Username", type="string", length=255, unique=true, nullable=true)
+     * @ORM\Column(name="Username", type="string", length=255, unique=true, nullable=false)
      */
     private $username;
     
@@ -188,6 +188,15 @@ class Client implements UserInterface, \Serializable
      */
     private $datNewsDonnees;
 
+    public function __construct()
+    {
+        $this->mpcli = '';
+        $this->societe = false;
+        $this->tvaintra = '';
+        $this->username = '';
+        $this->resetToken = '';
+        $this->resetTokenExpiresAt = new \DateTime('0000-00-00');
+    }
     public function getRoles()
     {
         return ['ROLE_SHOP_USER'];
