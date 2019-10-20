@@ -166,7 +166,7 @@ class Don
     /**
      * @var string
      *
-     * @ORM\Column(name="Status", type="string", length=255, nullable=false)
+     * @ORM\Column(name="Status", type="string", length=10, nullable=false)
      */
     private $status;
 

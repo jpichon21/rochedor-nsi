@@ -98,7 +98,7 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="EMail", type="string", length=255, nullable=false)
+     * @ORM\Column(name="EMail", type="string", length=50, nullable=false)
      */
     private $email;
 
@@ -112,7 +112,7 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="TvaIntra", type="string", length=255, nullable=false)
+     * @ORM\Column(name="TvaIntra", type="string", length=20, nullable=false)
      */
     private $tvaintra;
 
@@ -141,7 +141,7 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="Password", type="string", length=255)
+     * @ORM\Column(name="Password", type="string", length=100)
      * @Exclude
      */
     private $password;
@@ -163,7 +163,7 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="Username", type="string", length=255, unique=true, nullable=false)
+     * @ORM\Column(name="Username", type="string", length=50, unique=true, nullable=false)
      */
     private $username;
     
