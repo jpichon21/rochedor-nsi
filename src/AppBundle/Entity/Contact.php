@@ -332,7 +332,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="Username", type="string", length=50, unique=true, nullable=false)
+     * @ORM\Column(name="Username", type="string", length=50, unique=true, nullable=true)
      * @Expose
      */
     private $username;
@@ -434,7 +434,6 @@ class Contact implements UserInterface, \Serializable
         $this->dataut16 = new \DateTime('0000-00-00');
         $this->resetTokenExpiresAt = new \DateTime('0000-00-00');
         $this->resetToken = null;
-        $this->username = '';
     }
 
 

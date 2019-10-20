@@ -32,7 +32,7 @@ class Cartline
      * @var AppBundle\Entity\Produit
      *
      * @ORM\ManyToOne(targetEntity="Produit")
-     * @ORM\JoinColumn(name="IdProd", referencedColumnName="CodPrd", nullable=false)
+     * @ORM\JoinColumn(name="IdProd", referencedColumnName="CodPrd")
     */
     private $product;
 
@@ -40,7 +40,7 @@ class Cartline
      * @var \AppBundle\Entity\Cart
      *
      * @ORM\ManyToOne(targetEntity="Cart", inversedBy="cartlines")
-     * @ORM\JoinColumn(name="panier", referencedColumnName="idPanier", nullable=false)
+     * @ORM\JoinColumn(name="panier", referencedColumnName="idPanier")
     */
     private $cart;
 
