@@ -133,6 +133,7 @@ h1 {
         box-shadow: 20px 20px 100px 10px #000000;
         overflow: auto;
         z-index: 99999;
+        width: 100%;
         li {
           input {
             display: none;
@@ -172,10 +173,10 @@ h1 {
       .value {
         padding: 10px;
         font-size: 10px;
-        text-transform: uppercase;
         letter-spacing: 1.4px;
       }
       .value {
+        text-transform: uppercase;
         border: 1px $roche-yellow solid;
         background-image: url('../img/filter-arrow-down.png');
         background-position: calc(100% - 11px) center;
@@ -222,7 +223,7 @@ h1 {
       position: absolute;
       width: 100%;
       max-width: 200px;
-      margin-top: -1px;
+      margin-top: -32px;
       padding: 10px 10px 0 10px;
       font-size: 12px;
       border: 1px $roche-yellow solid;
@@ -242,6 +243,7 @@ h1 {
       }
       &.active {
         display: block;
+        min-width: 100%;
       }
       .clndr-next-button,
       .clndr-previous-button {
