@@ -162,9 +162,10 @@ h1 {
             .name {
               flex: 1;
               padding-right: 10px;
-              white-space: nowrap;
               text-overflow: ellipsis;
               overflow: hidden;
+              white-space: pre-wrap;;
+              line-height: 16px;
             }
           }
         }
