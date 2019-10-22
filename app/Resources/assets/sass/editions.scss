@@ -660,8 +660,9 @@ h2 {
           margin-bottom: 10px;
         }
         b {
-          font-weight: 500;
+          font-weight: 600;
           margin-right: 5px;
+          font-family: "Azo Sans Light";
           @include media('<large') {
             display: block;
             margin-bottom: 5px;
