@@ -36,7 +36,7 @@ h2 {
     display: block;
     margin-bottom: 5px;
     font-size: 14px;
-    font-weight: 800;
+    font-weight: 500;
     text-transform: uppercase;
   }
 }
@@ -635,7 +635,7 @@ h2 {
         padding: 40px 20px;
       }
       h1 {
-        font-family: "Azo Sans Light", sans-serif;
+        font-family: "Azo Sans Thin", sans-serif;
         font-size: 24px;
         font-weight: 100;
         margin-bottom: 20px;
@@ -649,7 +649,7 @@ h2 {
         color: #000000;
       }
       .subtitle {
-        font-family: "Azo Sans Light", sans-serif;
+        font-family: "Azo Sans Thin", sans-serif;
         margin-bottom: 5px;
         font-size: 14px;
         font-weight: 100;
@@ -660,7 +660,7 @@ h2 {
           margin-bottom: 10px;
         }
         b {
-          font-weight: 800;
+          font-weight: 500;
           margin-right: 5px;
           @include media('<large') {
             display: block;
@@ -669,7 +669,7 @@ h2 {
         }
       }
       .price {
-        font-family: "Azo Sans Light", sans-serif;
+        font-family: "Azo Sans Thin", sans-serif;
         padding-top: 10px;
         margin-bottom: 40px;
         font-size: 30px;
