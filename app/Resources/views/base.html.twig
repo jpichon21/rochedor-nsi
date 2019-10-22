@@ -20,11 +20,8 @@
 </head>
 {% if 'home' in bodyClass %}
 <body class="{{ bodyClass }}">
-{% endif %}
-{% if page is defined and page != null %}
-<body class="{{ bodyClass|default('') }} {{ page.title }} m-scene">
 {% else %}
-<body class="default-body m-scene">
+<body class="{{ bodyClass|default('') }} {{ page.title }} m-scene">
 {% endif %}
 {% if app.request.attributes.get('_route_params') and app.request.attributes.get('_route') %}
     {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
@@ -45,8 +42,6 @@
 <script>
     var flashbags = {{ flashbags|json_encode()|raw }}
 </script>
-<script src="{{ asset('assets/js/jquery-3.4.1.min.js') }}"></script>
-<script src="{{ asset('assets/js/smoothState.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 {% block javascripts %}{% endblock %}
 </body>
