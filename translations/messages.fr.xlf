@@ -468,7 +468,7 @@
       <segment>
         <source>calendar.registration.three.body</source>
         <target><![CDATA[					
-        <p><strong>Une réponse à votre demande vous sera transmise prochainement</strong> par e-mail ou par courrier postal si vous ne disposez pas d'une adresse e-mail. Cette réponse dépend essentiellement des places encore disponibles et de notre capacité à vous accueillir dans les meilleures conditions.</p><p>Si vous ne recevez pas de mail d'ici ces quelques minutes, veuillez vérifier votre dossier SPAM.</p><p><i>Protection des données personnelles: la Roche d'Or s'engage à être le seul et unique destinataire des informations que vous venez de lui communiquer. Pour plus d'information, merci de vous reporter à notre politique de confidentialité qui prend en compte les exigences de la réglementation européenne sur la protection des données (RGPD)</i></p>
+        <p><strong>Une réponse à votre demande vous sera transmise prochainement</strong> par e-mail ou par courrier postal si vous ne disposez pas d'une adresse e-mail. Cette réponse dépend essentiellement des places encore disponibles et de notre capacité à vous accueillir dans les meilleures conditions.</p><p>Si vous ne recevez pas de mail d'ici ces quelques minutes, veuillez vérifier votre dossier SPAM.</p><p><i>Protection des données personnelles : la Roche d’Or s'engage à être le seul et unique destinataire des informations que vous venez de lui communiquer. Pour plus d’information, merci de vous reporter à notre politique de confidentialité qui prend en compte les exigences de la réglementation européenne sur la protection des données (RGPD).</i></p>
         
 				]]></target>
       </segment>
@@ -1215,6 +1215,12 @@
         <target>Effacer les filtres</target>
       </segment>
     </unit>
+    <unit id="A9HWtXN" name="filter.submit.button">
+      <segment>
+        <source>filter.submit.button</source>
+        <target>Appliquer les filtres</target>
+      </segment>
+    </unit>
     <unit id="cvwzHYX" name="form.password.reset">
       <segment>
         <source>form.password.reset</source>
@@ -1872,7 +1878,7 @@
       <segment>
         <source>calendar.registration.three.header</source>
         <target><![CDATA[
-					<p>Nous vous remercions de l’attention que vous portez à la Roche d’Or. Votre demande d’inscription est prise en compte sous le numéro :</p><p><center><br>%entry_number%</br></center></p>
+					<p>Nous vous remercions de l’attention que vous portez à la Roche d’Or.<br>Votre demande d’inscription est prise en compte sous le numéro :</p><p><center><br>%entry_number%</br></center></p>
 				]]></target>
       </segment>
     </unit>
@@ -1909,7 +1915,19 @@
     <unit id="dJfmInP" name="form.lieu.viotte">
       <segment>
         <source>form.lieu.viotte</source>
-        <target>Viotte</target>
+        <target>Besançon Viotte (centre-ville)</target>
+      </segment>
+    </unit>
+    <unit id="dfgdJfmInP" name="form.lieu.besancon-tgv">
+      <segment>
+        <source>form.lieu.besancon-tgv</source>
+        <target>Besançon Franche-Comté TGV (à 16km de Besançon centre)</target>
+      </segment>
+    </unit>
+    <unit id="dfgdJfmInP" name="form.lieu.ne-sait-pas-encore">
+      <segment>
+        <source>form.lieu.ne-sait-pas-encore</source>
+        <target>Ne sait pas encore</target>
       </segment>
     </unit>
     <unit id="qm_COTU" name="form.cancel">
@@ -2020,6 +2038,12 @@
       <segment>
         <source>order.registration.three.title.you</source>
         <target>Choisissez une adresse de livraison</target>
+      </segment>
+    </unit>
+    <unit id="DLSDG91rE" name="form.message.required">
+      <segment>
+        <source>form.message.required</source>
+        <target>Ce champ est requis</target>
       </segment>
     </unit>
     <unit id="TTOaJf7" name="form.message.pro_invalid">
@@ -2319,7 +2343,7 @@
     <unit id="Y4EtXZD" name="form.newfich">
       <segment>
         <source>form.newfich</source>
-        <target>Première inscription à une retraite</target>
+        <target>Première inscription à une retraite de la Roche d'Or</target>
       </segment>
     </unit>
     <unit id="I8rtEKM" name="gift.title">
@@ -3165,6 +3189,30 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
       <segment>
         <source>con_news_date</source>
         <target>Vous avez souscris au courriel (email) de nouveautés de l'équipe de la Roche D'Or le  </target>
+      </segment>
+    </unit>
+    <unit id="EW9UxB0" name="train">
+      <segment>
+        <source>train</source>
+        <target>Train</target>
+      </segment>
+    </unit>
+    <unit id="8lwH_Nr" name="besancon-tgv">
+      <segment>
+        <source>besancon-tgv</source>
+        <target>Besançon Franche-Comté TGV</target>
+      </segment>
+    </unit>
+    <unit id="8lwH_Nr" name="viotte">
+      <segment>
+        <source>viotte</source>
+        <target>Besançon Viotte</target>
+      </segment>
+    </unit>
+    <unit id="8lwH_Nr" name="ne-sait-pas-encore">
+      <segment>
+        <source>ne-sait-pas-encore</source>
+        <target>Ne sait pas encore</target>
       </segment>
     </unit>
   </file>

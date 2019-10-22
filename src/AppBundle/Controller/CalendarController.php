@@ -321,7 +321,6 @@ class CalendarController extends Controller
                     [
                         'Arriv' => [
                             'Transport' => $a['transport'],
-                            'Navette' => (array_key_exists('navette', $a)) ? ($a['navette'] == 'true') : '',
                             'Lieu' => $a['lieu'],
                             'Heure' => ($a['arriv'] !== '') ? explode(':', $a['arriv'])[0]: '',
                             'Mn' => ($a['arriv'] !== '') ? explode(':', $a['arriv'])[1]: '',
@@ -372,9 +371,10 @@ class CalendarController extends Controller
         $password = array_key_exists('password', $attendee) && $attendee['password'] !== ''
             ? $attendee['password']
             : $this->randomPassword(8);
-        
-        $passwordEncoded = $this->encoder->encodePassword($contact, $password);
-        $contact->setPassword($passwordEncoded);
+        if ($password) {
+            $passwordEncoded = $this->encoder->encodePassword($contact, $password);
+            $contact->setPassword($passwordEncoded);
+        }
 
         return $contact;
     }

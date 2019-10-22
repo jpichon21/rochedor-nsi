@@ -405,7 +405,7 @@ class Contact implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="ResetToken", type="string", length=50, nullable=false)
+     * @ORM\Column(name="ResetToken", type="string", length=50, nullable=true)
      */
     private $resetToken;
 
@@ -433,7 +433,6 @@ class Contact implements UserInterface, \Serializable
         $this->datletmail = new \DateTime('0000-00-00');
         $this->dataut16 = new \DateTime('0000-00-00');
         $this->resetTokenExpiresAt = new \DateTime('0000-00-00');
-        $this->resetToken = null;
     }
 
 

@@ -104,6 +104,7 @@ const retreatsTableTemplate = _.template($('.retreats-table-template').html())
 const retreatsListTemplate = _.template($('.retreats-list-template').html())
 
 function updateRetreats (data) {
+  $('.content').stop().animate({ scrollTop: 0 }, 500, 'swing')
   $('.retreats-table tbody').html(retreatsTableTemplate({ retreats: data }))
   $('.retreats-list ul').html(retreatsListTemplate({ retreats: data }))
 }
@@ -137,9 +138,13 @@ function applyFilters (filters) {
     return moment(retreat.dateOut).isSameOrBefore(filters['dateOut'])
   }).filter((retreat) => {
     if (filters['keywords'].length === 0) { return true }
-    return retreat.event.toLowerCase().includes(filters['keywords'].toLowerCase())
+    return stripAccents(retreat.event.toLowerCase()).includes(stripAccents(filters['keywords'].toLowerCase()))
   })
   updateRetreats(retreats)
+}
+
+function stripAccents (str) {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 }
 
 function updateFilters () {
@@ -169,12 +174,6 @@ function updateFilters () {
   applyFilters(filtersActived)
 }
 
-/* Keywords */
-
-$('.filter-keywords').on('keyup', 'input', function () {
-  updateFilters()
-})
-
 /* RAZ */
 
 $('.filter-raz').on('click', function (event) {
@@ -202,10 +201,15 @@ $('.filter-raz').on('click', function (event) {
     .text(dateEnd)
   $('.filter-keywords').find('input')
     .val('')
-    .trigger('keyup')
+    .trigger('submit')
+})
+$('.filter-submit').on('click', function (event) {
+  updateFilters()
+  event.preventDefault()
 })
 
 $('.filter-keywords').on('submit', function (event) {
+  updateFilters()
   event.preventDefault()
 })
 
