@@ -635,6 +635,7 @@ h2 {
         padding: 40px 20px;
       }
       h1 {
+        font-family: "Azo Sans Light", sans-serif;
         font-size: 24px;
         font-weight: 100;
         margin-bottom: 20px;
@@ -648,6 +649,7 @@ h2 {
         color: #000000;
       }
       .subtitle {
+        font-family: "Azo Sans Light", sans-serif;
         margin-bottom: 5px;
         font-size: 14px;
         font-weight: 100;
@@ -658,7 +660,7 @@ h2 {
           margin-bottom: 10px;
         }
         b {
-          font-weight: 500;
+          font-weight: 800;
           margin-right: 5px;
           @include media('<large') {
             display: block;
@@ -667,6 +669,7 @@ h2 {
         }
       }
       .price {
+        font-family: "Azo Sans Light", sans-serif;
         padding-top: 10px;
         margin-bottom: 40px;
         font-size: 30px;
@@ -690,8 +693,9 @@ h2 {
       .description {
         line-height: 18px;
         font-size: 14px;
-        font-weight: 100;
+        font-weight: 400;
         margin-bottom: 40px;
+        font-family: "Lato", sans-serif;
       }
       .actions {
         margin-bottom: 40px;
