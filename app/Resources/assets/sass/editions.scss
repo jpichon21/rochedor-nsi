@@ -17,6 +17,10 @@ body {
   }
 }
 
+.editions{
+  background-image: url("../img/bg-7.jpg");
+}
+
 h1 {
   color: #000000;
 }
@@ -146,13 +150,22 @@ h2 {
 
 .button {
   float: right;
-  padding: 9px 20px;
+  padding: 9px 10px;
   font-size: 12px;
   letter-spacing: 1.4px;
   color: #000000;
   text-decoration: none;
   text-transform: uppercase;
   border: 1px #000000 solid;
+  transition: 0.5s ease;
+  &:hover, &:focus, &:active{
+    color: #ffffff;
+    transition: 0.5s ease;
+    background: linear-gradient(to left, transparent 50%, $roche-orange 50%);
+    background-size: 200% 100%;
+    background-position:0 110%;
+    border: 1px $roche-orange solid;
+  }
   &.right-arrow {
     //margin-bottom: 40px;
     margin-bottom: 86px;
@@ -637,19 +650,21 @@ h2 {
       h1 {
         font-family: "Azo Sans Thin", sans-serif;
         font-size: 24px;
-        font-weight: 100;
-        margin-bottom: 20px;
+        font-weight: 600;
+        //margin-bottom: 20px;
+        margin-bottom: 8px;
         @include media('<large') {
           font-size: 18px;
         }
       }
       h2 {
-        font-weight: 100;
+        font-family: "Azo Sans Thin", sans-serif;
+        font-weight: 600;
         margin-bottom: 20px;
         color: #000000;
       }
       .subtitle {
-        font-family: "Azo Sans Thin", sans-serif;
+        font-family: "Azo Sans Light", sans-serif;
         margin-bottom: 5px;
         font-size: 14px;
         font-weight: 100;
@@ -662,8 +677,8 @@ h2 {
         b {
           font-weight: 600;
           margin-right: 5px;
-          font-family: "Azo Sans Light";
-          font-weight: 500;
+          font-family: "Azo Sans Regular";
+          font-weight: 600;
           margin-right: 5px;
           @include media('<large') {
             display: block;
@@ -673,10 +688,10 @@ h2 {
       }
       .price {
         font-family: "Azo Sans Thin", sans-serif;
-        padding-top: 10px;
+        padding-top: 12px;
         margin-bottom: 40px;
         font-size: 30px;
-        font-weight: 100;
+        font-weight: 600;
         color: $roche-orange;
         @include media('<large') {
           font-size: 26px;
@@ -699,9 +714,10 @@ h2 {
         font-weight: 400;
         margin-bottom: 40px;
         font-family: "Lato", sans-serif;
+        max-width: 580px;
       }
       .actions {
-        margin-bottom: 40px;
+        margin-bottom: 68px;
         a {
           display: inline-block;
           float: none;
@@ -714,9 +730,11 @@ h2 {
           }
         }
         .choice {
+          font-size: 10px;
+          font-family: "Lato";
+          font-weight: 600;
           display: inline-block;
           margin: 0 10px;
-          font-size: 12px;
           text-transform: uppercase;
           @include media('<large') {
             display: none;
@@ -744,6 +762,7 @@ h2 {
             justify-content: space-between;
             width: 100%;
             border-bottom: 2px #ffffff solid;
+            margin-bottom: 8px;
             b {
               font-size: 12px;
               font-weight: 500;
@@ -752,6 +771,7 @@ h2 {
               padding: 7px 0;
             }
             span {
+              font-family: "Azo Sans Light";
               margin-left: 40px;
               font-size: 14px;
               line-height: 18px;
