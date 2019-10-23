@@ -522,6 +522,9 @@ h1 {
       @include media('<=laptop') {
         background-image:linear-gradient(black, black),  url('../img/calendar-s.jpg');
       }
+      @include media('<=xxlarge') {
+        background-image:linear-gradient(black, black),  url('../img/calendar-xs.jpg');
+      }
       &:after {
         content: '';
         position: absolute;
@@ -658,6 +661,12 @@ h1 {
     background-image:linear-gradient(black, black),  url('../img/calendar-s.jpg');
     background-size: cover;
     background-blend-mode: saturation;
+  }
+  @include media('<=xxlarge') {
+    background-image:linear-gradient(black, black),  url('../img/calendar-xs.jpg');
+  }
+  @include media('<=large') {
+    background-image:linear-gradient(black, black),  url('../img/calendar-xxs.jpg');
   }
 }
 
