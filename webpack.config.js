@@ -13,6 +13,7 @@ function initEncore () {
     .addEntry('js/main', './app/Resources/assets/js/main.js')
     .addEntry('js/home', './app/Resources/assets/js/home.js')
     .addEntry('js/page', './app/Resources/assets/js/page.js')
+    .addEntry('js/transition', './app/Resources/assets/js/transition.js')
     .addEntry('js/speaker', './app/Resources/assets/js/speaker.js')
     .addEntry('js/calendar', './app/Resources/assets/js/calendar.js')
     .addEntry('js/calendar-api', './app/Resources/assets/js/calendar-api.js')

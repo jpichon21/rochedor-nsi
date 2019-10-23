@@ -427,23 +427,23 @@ body {
 }
 
 .Venir, .Retraites, .Intervenants{
-  background-image: linear-gradient(black, black), url('../img/retraites.jpg');
+  background-image: url('../img/black-50.png'), linear-gradient(black, black), url('../img/retraites.jpg');
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/retraites-s.jpg');
+    background-image: url('../img/black-50.png'), linear-gradient(black, black),  url('../img/retraites-s.jpg');
   }
 }
 
 .Faire, .Donner, .Nous{
-  background-image: linear-gradient(black, black), url('../img/soutenir.jpg');
+  background-image:  url('../img/black-70.png'), linear-gradient(black, black), url('../img/soutenir.jpg');
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/soutenir-s.jpg');
+    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-s.jpg');
   }
 }
 
 .Contact{
-  background-image: linear-gradient(black, black), url('../img/infocontact.jpg');
+  background-image:  url('../img/black-70.png'), linear-gradient(black, black), url('../img/infocontact.jpg');
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/infocontact-s.jpg');
+    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/infocontact-s.jpg');
   }
 }
 
@@ -455,11 +455,11 @@ body {
 }
 
 .DEMANDE{
-  background-image: linear-gradient(black, black), url('../img/calendar.jpg');
+  background-image:  url('../img/black-60.png'), linear-gradient(black, black), url('../img/calendar.jpg');
   background-size: cover;
   background-blend-mode: saturation;
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/calendar-s.jpg');
+    background-image: url('../img/black-60.png'), linear-gradient(black, black),  url('../img/calendar-s.jpg');
     background-size: cover;
     background-blend-mode: saturation;
   }

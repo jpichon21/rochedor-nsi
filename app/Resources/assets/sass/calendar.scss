@@ -514,7 +514,7 @@ h1 {
       padding: 40px 15px 10px;
       text-align: left;
       z-index: 1;
-      background-image: linear-gradient(black, black), url('../img/calendar.jpg');
+      /*background-image: linear-gradient(black, black), url('../img/calendar.jpg');
       background-blend-mode: saturation;
       background-size: 100% auto;
       background-attachment: fixed;
@@ -524,7 +524,7 @@ h1 {
       }
       @include media('<=xxlarge') {
         background-image:linear-gradient(black, black),  url('../img/calendar-xs.jpg');
-      }
+      }*/
       &:after {
         content: '';
         position: absolute;
@@ -649,16 +649,16 @@ h1 {
 }
 
 .CALENDRIER{
-  background-image: linear-gradient(black, black), url('../img/calendar.jpg');
+  background-image: url('../img/black-60.png'), linear-gradient(black, black), url('../img/calendar.jpg');
   background-size: cover;
   background-blend-mode: saturation;
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/calendar-s.jpg');
+    background-image: url('../img/black-60.png'), linear-gradient(black, black),  url('../img/calendar-s.jpg');
     background-size: cover;
     background-blend-mode: saturation;
   }
   @include media('<=xxlarge') {
-    background-image:linear-gradient(black, black),  url('../img/calendar-xs.jpg');
+    background-image: url('../img/black-60.png'), linear-gradient(black, black),  url('../img/calendar-xs.jpg');
   }
 }
 
