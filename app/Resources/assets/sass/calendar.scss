@@ -660,9 +660,6 @@ h1 {
   @include media('<=xxlarge') {
     background-image:linear-gradient(black, black),  url('../img/calendar-xs.jpg');
   }
-  @include media('<=large') {
-    background-image:linear-gradient(black, black),  url('../img/calendar-xxs.jpg');
-  }
 }
 
 
