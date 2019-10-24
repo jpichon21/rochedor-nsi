@@ -1,5 +1,6 @@
 import $ from 'jquery'
 
+/*
 $(document).ready(function () {
 
   $('.menu a, button').click(function() {
@@ -14,9 +15,9 @@ $(document).ready(function () {
         window.location = newLocation;
     }
     
-});
+});*/
 
-/*$(document).ready(function () {
+$(document).ready(function () {
 
   $('.menu a, button').click(function() {
       var $this = this
@@ -30,4 +31,4 @@ $(document).ready(function () {
           window.location = newLocation;
       }
       
-  });*/
+});
