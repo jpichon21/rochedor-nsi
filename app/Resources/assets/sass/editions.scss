@@ -26,7 +26,7 @@ h1 {
 }
 
 h2 {
-  font-family: "Azo Sans Thin", sans-serif;
+  font-family: "azo-sans-web", sans-serif;
   margin-bottom: 20px;
   font-size: 23px;
   font-weight: 200;
@@ -36,7 +36,7 @@ h2 {
     margin-bottom: 40px;
   }
   small {
-    font-family: "Azo Sans Regular", sans-serif;
+    font-family: "azo-sans-web", sans-serif;
     display: block;
     margin-bottom: 5px;
     font-size: 14px;
@@ -678,9 +678,9 @@ h2 {
         padding: 40px 20px;
       }
       h1 {
-        font-family: "Azo Sans Thin", sans-serif;
+        font-family: "azo-sans-web", sans-serif;
         font-size: 24px;
-        font-weight: 600;
+        font-weight: 300;
         //margin-bottom: 20px;
         margin-bottom: 8px;
         @include media('<large') {
@@ -688,16 +688,16 @@ h2 {
         }
       }
       h2 {
-        font-family: "Azo Sans Thin", sans-serif;
-        font-weight: 600;
+        font-family: "azo-sans-web", sans-serif;
+        font-weight: 300;
         margin-bottom: 20px;
         color: #000000;
       }
       .subtitle {
-        font-family: "Azo Sans Light", sans-serif;
+        font-family: "azo-sans-web", sans-serif;
         margin-bottom: 5px;
         font-size: 14px;
-        font-weight: 100;
+        font-weight: 300;
         text-transform: uppercase;
         letter-spacing: 1.4px;
         @include media('<large') {
@@ -705,10 +705,8 @@ h2 {
           margin-bottom: 10px;
         }
         b {
-          font-weight: 600;
-          margin-right: 5px;
-          font-family: "Azo Sans Regular";
-          font-weight: 600;
+          font-family: "azo-sans-web", sans-serif;
+          font-weight: 500;
           margin-right: 5px;
           @include media('<large') {
             display: block;
@@ -717,11 +715,11 @@ h2 {
         }
       }
       .price {
-        font-family: "Azo Sans Thin", sans-serif;
+        font-family: "azo-sans-web", sans-serif;
         padding-top: 12px;
         margin-bottom: 40px;
         font-size: 30px;
-        font-weight: 600;
+        font-weight: 300;
         color: $roche-orange;
         @include media('<large') {
           font-size: 26px;
@@ -801,11 +799,11 @@ h2 {
               padding: 7px 0;
             }
             span {
-              font-family: "Azo Sans Light";
+              font-family: "azo-sans-web", sans-serif;
               margin-left: 40px;
               font-size: 14px;
               line-height: 18px;
-              font-weight: 100;
+              font-weight: 300;
               padding: 6px 0;
             }
           }
