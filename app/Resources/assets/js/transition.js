@@ -2,7 +2,7 @@ import $ from 'jquery'
 
 $(document).ready(function () {
 
-  $('.menu a, .home.button').click(function() {
+  $('.menu a, .yellow, .black').click(function() {
     console.log("test");
     var $this = this;
     event.preventDefault();
