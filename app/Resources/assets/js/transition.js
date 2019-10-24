@@ -6,7 +6,7 @@ $(document).ready(function () {
     var $this = this
     event.preventDefault();
     var newLocation = $this.href;
-    $('body').fadeOut(600, newpage(newLocation));
+    $('body').fadeOut(1000, newpage(newLocation));
    
   });
 
