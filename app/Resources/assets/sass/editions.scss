@@ -148,6 +148,26 @@ h2 {
   }
 }
 
+.hidden{
+  display: none;
+  transition: .5s ease;
+}
+
+.visible{
+  display: inline-block;
+  transition: .5s ease;
+}
+
+.button:active .hidden, .button:focus .hidden, .button:hover .hidden {
+  display: inline-block!important;
+  transition: .5s ease;
+}
+
+.button:active .visible, .button:focus .visible, .button:hover .visible {
+  display: none!important;
+  transition: .5s ease;
+}
+
 .button {
   float: right;
   padding: 9px 10px;
@@ -159,6 +179,9 @@ h2 {
   border: 1px #000000 solid;
   transition: 0.5s ease-in-out;
   background-position: 100% 0%;
+  img{
+    padding-left: 10px;
+  }
   &:hover, &:focus, &:active{
     color: #ffffff;
     transition: 0.5s ease-in-out;
@@ -166,10 +189,10 @@ h2 {
     background-size: 200% 100%;
     background-position:0 110%;
     border: 1px $roche-orange solid;
-    &:after{
+   /* &:after{
       background-image: url('../img/button-arrow-right-yellow.png');
       transition: 0.5s ease-in-out;
-    }
+    }*/
   }
   &.right-arrow {
     //margin-bottom: 40px;
@@ -177,7 +200,7 @@ h2 {
     @include media('<large') {
       float: left;
     }
-    &:after {
+    /*&:after {
       content: '';
       padding-right: 6px;
       margin-left: 10px;
@@ -186,7 +209,7 @@ h2 {
       background-position: center;
       background-repeat: no-repeat;
       transition: 0.5s ease-in-out;
-    }
+    }*/
   }
 }
 
