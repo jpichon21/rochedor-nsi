@@ -2,23 +2,13 @@ import $ from 'jquery'
 
 $(document).ready(function () {
 
-  $('.menu a, .yellow, .black').click(function() {
+  $('.menu a, .yellow, .black').click(function(event) {
     console.log("test");
     var $this = this;
     event.preventDefault();
     var newLocation = $this.href;
     $('body').fadeOut(1000, newpage(newLocation));  
   });
-
-    function newpage(newLocation) {
-      window.location = newLocation;
-      $('body').fadeIn(1000);
-    }
-
-   /* function fadeNew(){
-      $('body').fadeIn(600);
-    }
-    */
 });
 
 /*$(document).ready(function () {
