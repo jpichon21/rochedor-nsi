@@ -2,6 +2,7 @@ import { changeCarousel } from './carousel.js'
 import $ from 'jquery'
 
 $(document).ready(function () {
+  console.log("test");
   $('body').fadeIn(1000);
 });
 

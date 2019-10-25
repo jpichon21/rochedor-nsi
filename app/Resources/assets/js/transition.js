@@ -3,7 +3,6 @@ import $ from 'jquery'
 $(document).ready(function () {
 
   $('.menu a, .yellow, .black').click(function(event) {
-    console.log("test");
     var $this = this;
     event.preventDefault();
     var newLocation = $this.href;
@@ -14,7 +13,6 @@ $(document).ready(function () {
 
     function newpage(newLocation) {
       window.location = newLocation;
-      /*$('body').fadeIn(1000);*/
     }
 
 });
