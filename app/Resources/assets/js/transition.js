@@ -7,19 +7,18 @@ $(document).ready(function () {
     var $this = this;
     event.preventDefault();
     var newLocation = $this.href;
-    $('body').fadeOut(600, newpage(newLocation));
-   
+    $('body').fadeOut(600, newpage(newLocation));  
   });
 
     function newpage(newLocation) {
       window.location = newLocation;
-      fadeNew();
-    }
-
-    function fadeNew(){
       $('body').fadeIn(600);
     }
-    
+
+   /* function fadeNew(){
+      $('body').fadeIn(600);
+    }
+    */
 });
 
 /*$(document).ready(function () {
