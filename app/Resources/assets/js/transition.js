@@ -7,12 +7,12 @@ $(document).ready(function () {
     var $this = this;
     event.preventDefault();
     var newLocation = $this.href;
-    $('body').fadeOut(600, newpage(newLocation));  
+    $('body').fadeOut(1000, newpage(newLocation));  
   });
 
     function newpage(newLocation) {
       window.location = newLocation;
-      $('body').fadeIn(600);
+      $('body').fadeIn(1000);
     }
 
    /* function fadeNew(){
