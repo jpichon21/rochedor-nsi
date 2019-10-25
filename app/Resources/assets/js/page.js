@@ -1,5 +1,5 @@
 import { changeCarousel } from './carousel.js'
-import $ from jQuery
+import $ from 'jquery'
 
 $(document).ready(function () {
   $('body').fadeIn(1000);
