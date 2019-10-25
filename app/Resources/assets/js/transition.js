@@ -7,7 +7,9 @@ $(document).ready(function () {
     var $this = this;
     event.preventDefault();
     var newLocation = $this.href;
-    $('body').fadeOut(1000, newpage(newLocation));  
+    $('body').fadeOut(1000, function() {
+        newpage(newLocation)
+      });
   });
 
     function newpage(newLocation) {
