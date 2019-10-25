@@ -14,7 +14,7 @@ $(document).ready(function () {
 
     function newpage(newLocation) {
       window.location = newLocation;
-      $('body').fadeIn(1000);
+      /*$('body').fadeIn(1000);*/
     }
 
 });
