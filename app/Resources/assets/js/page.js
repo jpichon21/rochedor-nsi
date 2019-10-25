@@ -2,8 +2,8 @@ import { changeCarousel } from './carousel.js'
 import $ from 'jquery'
 
 $(document).ready(function () {
-  console.log("test window load");
-  $('body').fadeIn(2000);
+  console.log("test fadeout");
+  $('body').fadeOut(2000);
 });
 
 const body = document.querySelector('body')
