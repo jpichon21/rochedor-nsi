@@ -3,6 +3,7 @@ import $ from 'jquery'
 
 $(document).ready(function () {
   console.log("test fadeIn");
+  $('body').css("display", "none");
   $('body').fadefIn(2000);
 });
 
