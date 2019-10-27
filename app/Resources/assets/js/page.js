@@ -2,7 +2,7 @@ import { changeCarousel } from './carousel.js'
 import $ from 'jquery'
 
 $(document).ready(function () {
-  $('body').fadeIn(500);
+  $('body').fadeIn(300);
   $('body').removeClass('hidden');
 });
 
