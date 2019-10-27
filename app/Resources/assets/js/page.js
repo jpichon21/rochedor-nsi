@@ -4,7 +4,7 @@ import $ from 'jquery'
 $(document).ready(function () {
   console.log("test fadeIn");
   $('body').css("display", "none");
-  $('body').fadefIn(2000);
+  $('body').fadefIn(1000);
 });
 
 const body = document.querySelector('body')
