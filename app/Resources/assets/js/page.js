@@ -3,8 +3,8 @@ import $ from 'jquery'
 
 $(document).ready(function () {
   console.log("test fadeIn");
-  $('body').css("display", "none");
   $('body').fadeIn(1000);
+  $('body').removeClass('hidden');
 });
 
 const body = document.querySelector('body')
