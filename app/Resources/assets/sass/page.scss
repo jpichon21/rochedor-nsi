@@ -432,9 +432,6 @@ body {
   @include media('<=laptop') {
     background-image: url('../img/black-50.png'), linear-gradient(black, black),  url('../img/retraites-s.jpg');
   }
-  @include media('<=large') {
-    background-image: url('../img/black-50.png'), linear-gradient(black, black),  url('../img/retraites-xs.jpg');
-  }
 }
 
 .Faire, .Donner, .Nous{
@@ -442,18 +439,12 @@ body {
   @include media('<=laptop') {
     background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-s.jpg');
   }
-  @include media('<=large') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-xs.jpg');
-  }
 }
 
 .Contact{
   background-image:  url('../img/black-70.png'), linear-gradient(black, black), url('../img/infocontact.jpg');
   @include media('<=laptop') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-s.jpg');
-  }
-  @include media('<=large') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-xs.jpg');
+    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/infocontact-s.jpg');
   }
 }
 
@@ -461,9 +452,6 @@ body {
   background-image: linear-gradient(black, black), url('../img/communaute.jpg');
   @include media('<=laptop') {
     background-image:linear-gradient(black, black),  url('../img/communaute-s.jpg');
-  }
-  @include media('<=large') {
-    background-image:linear-gradient(black, black),  url('../img/communaute-xs.jpg');
   }
 }
 
@@ -473,9 +461,8 @@ body {
   background-blend-mode: saturation;
   @include media('<=laptop') {
     background-image: url('../img/black-60.png'), linear-gradient(black, black),  url('../img/calendar-s.jpg');
-  }
-  @include media('<=large') {
-    background-image: url('../img/black-60.png'), linear-gradient(black, black),  url('../img/calendar-xs.jpg');
+    background-size: cover;
+    background-blend-mode: saturation;
   }
 }
 
