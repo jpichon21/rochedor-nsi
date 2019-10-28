@@ -34,12 +34,15 @@ let _amount = 0
 let _allocation = {}
 let _modpaie = ''
 let _note = ''
+let _dateDebVir = ''
+let _virPeriod = ''
 
 const itemConnection = $('.item.connection')
 const itemCard = $('.item.card')
 const itemAmount = $('.item.amount')
 const itemAllocation = $('.item.allocation')
 const itemPayment = $('.item.payment')
+const itemPrelevement = $('.item.prelevement')
 const content = $('.content')
 
 /* Dropdowns */
@@ -50,20 +53,26 @@ function backToTop () {
     window.scroll({ top: 0, behavior: 'smooth' })
   }
 }
-function changeItem (elmt) {
+
+function changeItem(elmt) {
   $('.dropdown .item').each(function () {
     this.style.maxHeight = null
     this.classList.remove('active')
   })
-  elmt[0].classList.add('active')
-  elmt[0].style.maxHeight = elmt[0].scrollHeight + 'px'
+  elmt.forEach(function (item) {
+    item.addClass('active')
+    item.css('maxHeight', item.prop('scrollHeight') + 'px')
+  })
   backToTop()
 }
 
 $(document).ready(function () {
-  setTimeout(function () {
-    changeItem(itemConnection)
-  }, 500)
+  $('.dropdown .item').each(function () {
+    if (this.classList.contains('amount') || this.classList.contains('allocation') || this.classList.contains('payment')) {
+      this.style.maxHeight = this.scrollHeight + 'px'
+      this.classList.add('active')
+    }
+  })
 })
 
 /* Renders */
@@ -94,23 +103,121 @@ function updateYouFormRender () {
 
 function updateAmountRender () {
   $('.amount-render').html(amountTemplate({
-    amount: _amount,
-    allocation: _allocation,
     reduction: i18n.trans('gift.summary.reduction').replace('%reduction%', parseFloat(_amount * 0.66).toFixed(2))
   }))
 }
 
 /* Actions */
 
+$('.item.amount h2, .item.allocation h2, .item.payment h2').on('click', function () {
+  changeItem([itemAmount, itemAllocation, itemPayment])
+})
+
+$('.item.connection h2').on('click', function () {
+  changeItem([itemConnection])
+})
+
+/* CHOIX DU MONTANT */
+
+itemAmount.on('click', '.button.radio', function (event) {
+  event.preventDefault()
+  $('.panel.amount .button.radio').removeClass('checked')
+  const amount = $(this).addClass('checked').attr('href').substring(1)
+  let $amountTextAmount = $('.panel.amount .input.amount')
+  if ($(this).hasClass('other')) {
+    $amountTextAmount.parent().removeClass('hidden')
+    $amountTextAmount.val('').focus()
+  }
+  else {
+    $amountTextAmount.parent().addClass('hidden')
+    $amountTextAmount.val(amount)
+    _amount = $amountTextAmount.val()
+    updateAmountRender()
+  }
+})
+
+itemAmount.on('keyup', '.input.amount', function () {
+  _amount = $(this).val()
+  updateAmountRender()
+})
+
+/* CHOIX DE L'ALLOCATION */
+
+itemAllocation.on('change', '.select-allocation', function (event) {
+  event.preventDefault()
+  _allocation = {
+    name: $(this).find('option:selected').text(),
+    value: $(this).val()
+  }
+})
+
+itemAllocation.on('change', '.gift-note', function (event) {
+  event.preventDefault()
+  _note = $(this).val()
+})
+
+/* CHOIX DU MOYEN DE PAIEMENT */
+
+itemPayment.on('click', '.button.radio', function (event) {
+  event.preventDefault()
+  itemPayment.find('.button.radio').removeClass('checked')
+  itemPayment.find('input[name="payment_method"]').val($(this).addClass('checked').attr('href').substring(1))
+  _modpaie = itemPayment.find('input[name="payment_method"]').val()
+
+  if (_modpaie === 'VIR' || _modpaie === 'VIRREG') {
+    itemPrelevement.removeClass('hidden')
+  }
+  else {
+    itemPrelevement.addClass('hidden')
+  }
+})
+
+itemPayment.on('change', '.select-modpaie', function (event) {
+  event.preventDefault()
+  _modpaie = $(this).val()
+})
+
+itemPayment.on('submit', '.panel.payment form', function (event) {
+  event.preventDefault()
+
+  if (_modpaie === 'VIR' || _modpaie === 'VIRREG') {
+    changeItem([itemPrelevement])
+    Inputmask().mask(document.querySelectorAll('.date_virement'))
+    if (_modpaie === 'VIRREG') {
+      itemPrelevement.find('.select-period').removeClass('hidden')
+    }
+  }
+  else {
+    changeItem([itemConnection])
+  }
+})
+
+/* PRELEVEMENT */
+
+itemPrelevement.on('submit', 'form', function (event) {
+  event.preventDefault()
+  _dateDebVir = moment(itemPrelevement.find('.date_virement').val(), 'DD/MM/YYYY').format()
+  _virPeriod = itemPrelevement.find('.select-period').val()
+
+  console.log(_dateDebVir)
+  console.log(_virPeriod)
+  changeItem([itemConnection])
+})
+
+/* CONNEXION / INSCRIPTION */
+
 function afterLogin (user, bypass) {
   const contact = getContact()
   _you = { ...contact, ...user }
   updateYouRender()
-  if (bypass) {
-    changeItem(itemAmount)
-  } else {
-    changeItem(itemCard)
-  }
+  upLoader()
+  postGift(_amount, _allocation.value, _modpaie, _note, _dateDebVir, _virPeriod).then(data => {
+    window.location.href = data
+  }).catch(err => {
+    downLoader()
+    upFlashbag(err)
+    console.error(err)
+  })
 }
 
 function formatContact (data) {
@@ -230,7 +337,7 @@ itemConnection.on('click', 'a', function (event) {
       getLogout(_locale)
       break
   }
-  changeItem(itemConnection)
+  changeItem([itemConnection])
 })
 
 function validateDate (date) {
@@ -240,124 +347,68 @@ function validateDate (date) {
 function validatePhone (phone, mobile) {
   return !(phone === '' && mobile === '')
 }
-
-itemCard.on('click', '.continue', function (event) {
-  event.preventDefault()
-  changeItem(itemAmount)
-})
-
-itemCard.on('click', '.modify-you', function (event) {
-  event.preventDefault()
-  $('.panel', itemCard).hide()
-  $('.panel.modify', itemCard).show()
-  updateYouFormRender()
-  changeItem(itemCard)
-})
-
-itemCard.on('click', '.cancel', function (event) {
-  event.preventDefault()
-  $('.panel.modify', itemCard).slideUp(800, function () {
-    $('.panel', itemCard).hide()
-  })
-})
-
-itemCard.on('submit', '.panel.modify form', function (event) {
-  event.preventDefault()
-  const data = $(this).serializeArray()
-  const contact = formatContact(data)
-  upLoader()
-  const validatedPassword = validatePassword(contact.password)
-  if (validatedPassword !== true) {
-    downLoader()
-    upFlashbag(validatedPassword)
-    return
-  }
-  if (validateDate(contact.datnaiss)) {
-    if (validatePhone(contact.tel, contact.mobil)) {
-      postModify({
-        contact: contact
-      }).then(user => {
-        downLoader()
-        afterLogin({ ...user, password: contact.password }, false)
-        $('.panel.modify').slideUp(800, function () {
-          backToTop()
-          $(this).hide()
-        })
-      }).catch(error => {
-        downLoader()
-        upFlashbag(error)
-      })
-    } else {
-      downLoader()
-      upFlashbag(i18n.trans('form.message.phone_invalid'))
-    }
-  } else {
-    downLoader()
-    upFlashbag(i18n.trans('form.message.date_invalid'))
-  }
-})
-
-$('.panel.amount').on('click', '.button.radio', function (event) {
-  event.preventDefault()
-  $('.panel.amount .button.radio').removeClass('checked')
-  const amount = $(this).addClass('checked').attr('href').substring(1)
-  $('.panel.amount .input.amount').val(amount)
-})
-
-$('.panel.amount').on('focus', '.input.amount', function (event) {
-  event.preventDefault()
-  $('.panel.amount .button.radio').removeClass('checked')
-  $(this).val('')
-})
-
-itemAmount.on('submit', '.panel.amount form', function (event) {
-  event.preventDefault()
-  _amount = $('.panel.amount .input.amount').val()
-  updateAmountRender()
-  changeItem(itemAllocation)
-})
-
-itemAllocation.on('change', '.select-allocation', function (event) {
-  event.preventDefault()
-  _allocation = {
-    name: $(this).find('option:selected').text(),
-    value: $(this).val()
-  }
-})
-
-itemAllocation.on('change', '.gift-note', function (event) {
-  event.preventDefault()
-  _note = $(this).val()
-})
-
-itemAllocation.on('submit', '.panel.allocation form', function (event) {
-  event.preventDefault()
-  updateAmountRender()
-  changeItem(itemPayment)
-})
-
-itemPayment.on('change', '.select-modpaie', function (event) {
-  event.preventDefault()
-  _modpaie = $(this).val()
-})
-
-itemPayment.on('submit', '.panel.payment form', function (event) {
-  event.preventDefault()
-  upLoader()
-  postGift(_amount, _allocation.value, _modpaie, _note).then(data => {
-    window.location.href = data
-  }).catch(err => {
-    downLoader()
-    upFlashbag(err)
-    console.error(err)
-  })
-})
+//
+// itemCard.on('click', '.continue', function (event) {
+//   event.preventDefault()
+//   changeItem([itemAmount])
+// })
+//
+// itemCard.on('click', '.modify-you', function (event) {
+//   event.preventDefault()
+//   $('.panel', itemCard).hide()
+//   $('.panel.modify', itemCard).show()
+//   updateYouFormRender()
+//   changeItem([itemCard])
+// })
+//
+// itemCard.on('click', '.cancel', function (event) {
+//   event.preventDefault()
+//   $('.panel.modify', itemCard).slideUp(800, function () {
+//     $('.panel', itemCard).hide()
+//   })
+// })
+//
+// itemCard.on('submit', '.panel.modify form', function (event) {
+//   event.preventDefault()
+//   const data = $(this).serializeArray()
+//   const contact = formatContact(data)
+//   upLoader()
+//   const validatedPassword = validatePassword(contact.password)
+//   if (validatedPassword !== true) {
+//     downLoader()
+//     upFlashbag(validatedPassword)
+//     return
+//   }
+//   if (validateDate(contact.datnaiss)) {
+//     if (validatePhone(contact.tel, contact.mobil)) {
+//       postModify({
+//         contact: contact
+//       }).then(user => {
+//         downLoader()
+//         afterLogin({ ...user, password: contact.password }, false)
+//         $('.panel.modify').slideUp(800, function () {
+//           backToTop()
+//           $(this).hide()
+//         })
+//       }).catch(error => {
+//         downLoader()
+//         upFlashbag(error)
+//       })
+//     } else {
+//       downLoader()
+//       upFlashbag(i18n.trans('form.message.phone_invalid'))
+//     }
+//   } else {
+//     downLoader()
+//     upFlashbag(i18n.trans('form.message.date_invalid'))
+//   }
+// })
 
 itemConnection.on('click', '.panel.reset .cancel', function (event) {
   event.preventDefault()
   $('.panel.reset').slideUp(800, function () {
     $(this).hide()
     backToTop()
-    changeItem(itemConnection)
+    changeItem([itemConnection])
   })
 })

@@ -425,14 +425,14 @@ class Contact implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->datnaiss = new \DateTime('0000-00-00');
-        $this->datdem = new \DateTime('0000-00-00');
+        $this->datnaiss = new \DateTime();
+        $this->datdem = new \DateTime();
         $this->enregco = new \DateTime();
-        $this->datletoca = new \DateTime('0000-00-00');
-        $this->datletpaper = new \DateTime('0000-00-00');
-        $this->datletmail = new \DateTime('0000-00-00');
-        $this->dataut16 = new \DateTime('0000-00-00');
-        $this->resetTokenExpiresAt = new \DateTime('0000-00-00');
+        $this->datletoca = new \DateTime();
+        $this->datletpaper = new \DateTime();
+        $this->datletmail = new \DateTime();
+        $this->dataut16 = new \DateTime();
+        $this->resetTokenExpiresAt = new \DateTime();
     }
 
 

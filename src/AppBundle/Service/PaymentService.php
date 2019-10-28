@@ -8,9 +8,11 @@ use AppBundle\Repository\TpaysRepository;
 
 class PaymentService
 {
-    const METHOD_PBX = 'PBX';
+    const METHOD_CB = 'PBX';
     const METHOD_PAYPAL = 'PAYPAL';
     const METHOD_CHEQUE = 'CH';
+    const METHOD_VIREMENT = 'VIR';
+    const METHOD_VIREMENT_REGULIER = 'VIRREG';
 
     private $container;
     private $tPaysRepository;
@@ -37,6 +39,7 @@ class PaymentService
      * @param string $locale
      * @param string $returnUrl
      * @param string $notifyUrl
+     * @param string $baseRoute
      * @return string
      */
     public function getUrl(
@@ -46,16 +49,21 @@ class PaymentService
         $itemName,
         $email,
         $locale,
-        $baseRoute
+        $baseRoute,
+        $dateDebutVir = null,
+        $periodVir = null
     ) {
-        if ($method === $this::METHOD_PBX) {
-            return $this->getPayboxUrl($amount, $objectId, $email, $locale, $baseRoute);
-        }
-        if ($method === $this::METHOD_PAYPAL) {
-            return $this->getPaypalUrl($amount, $objectId, $itemName, $email, $locale, $baseRoute);
-        }
-        if ($method === $this::METHOD_CHEQUE) {
-            return $this->getChequeUrl($objectId, $locale, $baseRoute);
+        switch ($method) {
+            case self::METHOD_PAYPAL:
+                return $this->getPaypalUrl($amount, $objectId, $itemName, $email, $locale, $baseRoute);
+            case self::METHOD_CHEQUE:
+                return $this->getChequeUrl($objectId, $locale, $baseRoute);
+            case self::METHOD_VIREMENT:
+                return $this->getPrelevementUrl($objectId, $locale, $dateDebutVir);
+            case self::METHOD_VIREMENT_REGULIER:
+                return $this->getPrelevementRegulierUrl($objectId, $locale, $dateDebutVir, $periodVir);
+            default:
+                return $this->getPayboxUrl($amount, $objectId, $email, $locale, $baseRoute);
         }
     }
 
@@ -102,7 +110,7 @@ class PaymentService
             'PBX_RETOUR' => 'Amount:M;Ref:R;Auto:A;Erreur:E;Trans:T;Pays:I',
             'PBX_HASH' => 'SHA512',
             'PBX_TIME' => date('c'),
-            'PBX_LANGUE' => $this->countryCode($this::METHOD_PBX, $locale)
+            'PBX_LANGUE' => $this->countryCode($this::METHOD_CB, $locale)
         ];
         $url = $this->container->getParameter('paybox_url');
         $url .= '?' . http_build_query($params);
@@ -151,15 +159,35 @@ class PaymentService
         return $url;
     }
 
-    private function getChequeUrl(
-        $objectId,
-        $locale,
-        $baseRoute
-    ) {
-
+    private function getChequeUrl($objectId, $locale, $baseRoute)
+    {
         $url = $this->router->generate(
             $baseRoute . '_paymentcheque_return',
             ['_locale' => $locale, 'ref' => $objectId],
+            RouterInterface::ABSOLUTE_URL
+        );
+        return $url;
+    }
+
+    private function getPrelevementUrl($objectId, $locale, $dateDebutVir)
+    {
+        $url = $this->router->generate(
+            'gift_paymentvir_return',
+            [
+                '_locale' => $locale, 'ref' => $objectId, 'dateDebut' => $dateDebutVir
+            ],
+            RouterInterface::ABSOLUTE_URL
+        );
+        return $url;
+    }
+
+    private function getPrelevementRegulierUrl($objectId, $locale, $dateDebutVir, $virPeriod)
+    {
+        $url = $this->router->generate(
+            'gift_paymentvir_regulier_return',
+            [
+            '_locale' => $locale, 'ref' => $objectId, 'dateDebut' => $dateDebutVir, 'period' => $virPeriod
+            ],
             RouterInterface::ABSOLUTE_URL
         );
         return $url;
@@ -171,7 +199,7 @@ class PaymentService
 
         if (!$code) {
             switch ($method) {
-                case $this::METHOD_PBX:
+                case $this::METHOD_CB:
                     return 'FRA';
                 break;
                 case $this::METHOD_PAYPAL:
@@ -180,7 +208,7 @@ class PaymentService
             }
         }
         switch ($method) {
-            case $this::METHOD_PBX:
+            case $this::METHOD_CB:
                 return $code['codpayspbx'];
             break;
             case $this::METHOD_PAYPAL:

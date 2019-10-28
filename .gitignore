@@ -24,3 +24,4 @@ yarn-error.log
 /web/biblio/*
 .vscode/*
 /database
+.idea/

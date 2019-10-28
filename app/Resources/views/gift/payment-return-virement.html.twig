@@ -1,0 +1,19 @@
+{% set bodyClass = "page gift" %}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/gift.css") }}">
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="left">
+        <div class="intro">
+            <p>Virement le : {{ dateDebVirement|date('d/m/Y') }}</p>
+            {% if period is defined %}
+                <p>Périodicité : {{ period|trans }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="right">
+    </div>
+</div>
+{% endblock %}

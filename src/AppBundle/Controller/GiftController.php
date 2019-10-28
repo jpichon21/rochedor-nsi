@@ -121,14 +121,13 @@ class GiftController extends Controller
 
     /**
      * @Rest\Post("/xhr/gift/create", name="post_gift_create")
-     * @Security("has_role('ROLE_USER')")
      * @Rest\View()
      */
     public function xhrPostGiftCreateAction(Request $request)
     {
-
         $user = $this->getUser();
         $gift = $request->get('gift');
+        dump($gift);
         if (!$gift) {
             return ['status' => 'ko', 'message' => 'You must provide a gift object'];
         }
@@ -137,10 +136,10 @@ class GiftController extends Controller
         $don->setMntdon($gift['mntdon'])
         ->setContact($user)
         ->setDestdon($gift['destdon'])
-        ->setModdon(($gift['moddon'] === 'PBX') ? 'CB' : 'PAYPAL')
+        ->setModdon($gift['moddon'])
         ->setMemodon($gift['memodon'])
         ->setRefdon($ref)
-        ->setEnregdon(new \DateTime('0000-00-00 00:00:00'))
+        ->setEnregdon(new \DateTime())
         ->setDatdon(new \DateTime())
         ->setValidDon(0)
         ->setBanqdon(9)
@@ -156,7 +155,9 @@ class GiftController extends Controller
             $this->translator->trans('gift.payment.title'),
             $this->getUser()->getEmail(),
             $request->getLocale(),
-            'gift'
+            'gift',
+            !empty($gift['dateDebVir']) ? $gift['dateDebVir'] : null,
+            !empty($gift['virPeriod']) ? $gift['virPeriod'] : null
         );
         if (!$paymentUrl) {
             return ['status' => 'ko', 'message' => 'an error as occured'];
@@ -183,10 +184,43 @@ class GiftController extends Controller
                 'status' => $status,
                 'method' => $method
             ]);
-        }          
+        }
         return $this->render('gift/payment-return.html.twig', [
             'status' => $status,
             'method' => $method
+        ]);
+    }
+
+    /**
+     * @Route("/{_locale}/gift/payment-return-cheque", name="gift_paymentcheque_return")
+     */
+    public function paymentReturnChequeAction()
+    {
+        return $this->render('gift/payment-return-cheque.html.twig');
+    }
+
+    /**
+     * @Route("/{_locale}/gift/payment-return-virement", name="gift_paymentvir_return")
+     */
+    public function paymentReturnVirementAction(Request $request)
+    {
+        $dateDebVirement = $request->query->get('dateDebut');
+        return $this->render('gift/payment-return-virement.html.twig', [
+            'dateDebVirement' => $dateDebVirement
+        ]);
+    }
+
+    /**
+     * @Route("/{_locale}/gift/payment-return-virement-regulier", name="gift_paymentvir_regulier_return")
+     */
+    public function paymentReturnVirementRegulierAction(Request $request)
+    {
+        $dateDebVirement = $request->query->get('dateDebut');
+        $period = $request->query->get('period');
+
+        return $this->render('gift/payment-return-virement.html.twig', [
+            'dateDebVirement' => $dateDebVirement,
+            'period' => $period
         ]);
     }
 
