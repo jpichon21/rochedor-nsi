@@ -657,8 +657,11 @@ h1 {
     background-size: cover;
     background-blend-mode: saturation;
   }
-  @include media('<=xxlarge') {
+  @include media('<=large') {
     background-image: url('../img/black-60.png'), linear-gradient(black, black),  url('../img/calendar-xs.jpg');
+  }
+  @include media('<=medium') {
+    background-image: url('../img/black-60.png'), linear-gradient(black, black),  url('../img/calendar-xxs.jpg');
   }
 }
 

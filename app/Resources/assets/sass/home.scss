@@ -314,10 +314,14 @@ body {
       margin-left: 40px;
       padding-right: 40px;
       color: $roche-yellow;
+      .button {
+        margin-left: 26px;
+        padding-left: 14px;
+        padding-top: 2px;
+      }
       @include media('>=large') {
         em,
-        strong,
-        .button {
+        strong {
           margin-left: 26px;
           padding-left: 14px;
           padding-top: 2px;
