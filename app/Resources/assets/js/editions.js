@@ -5,6 +5,13 @@ import { upCartBox } from './popup'
 import I18n from './i18n'
 import { patchProduct, getCartCount } from './order-api.js'
 
+/* Fade */
+
+$(document).ready(function () {
+  $('body').fadeIn(100);
+  $('body').removeClass('hidden');
+});
+
 /* Translations */
 
 let i18n = new I18n()
