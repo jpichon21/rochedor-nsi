@@ -468,7 +468,7 @@
       <segment>
         <source>calendar.registration.three.body</source>
         <target><![CDATA[					
-        <p><strong>Une réponse à votre demande vous sera transmise prochainement</strong> par e-mail ou par courrier postal si vous ne disposez pas d'une adresse e-mail. Cette réponse dépend essentiellement des places encore disponibles et de notre capacité à vous accueillir dans les meilleures conditions.</p><p>Si vous ne recevez pas de mail d'ici ces quelques minutes, veuillez vérifier votre dossier SPAM.</p><p><i>Protection des données personnelles : la Roche d’Or s'engage à être le seul et unique destinataire des informations que vous venez de lui communiquer. Pour plus d’information, merci de vous reporter à notre politique de confidentialité qui prend en compte les exigences de la réglementation européenne sur la protection des données (RGPD).</i></p>
+        <p><strong>Une réponse à votre demande vous sera transmise prochainement</strong> par e-mail ou par courrier postal si vous ne disposez pas d'une adresse e-mail. Cette réponse dépend essentiellement des places encore disponibles et de notre capacité à vous accueillir dans les meilleures conditions.</p><p>Si vous ne recevez pas d'email (courriel) d'ici ces quelques minutes, veuillez vérifier votre dossier SPAM.</p><p>En cas <strong>d'empêchement</strong> et de <strong>désistement</strong>, merci d’avertir rapidement par courriel ou par téléphone. La place disponible pourra ainsi être proposée à une autre personne en liste d'attente.</p><p><i>Protection des données personnelles : la Roche d’Or s'engage à être le seul et unique destinataire des informations que vous venez de lui communiquer. Pour plus d’information, merci de vous reporter à notre politique de confidentialité qui prend en compte les exigences de la réglementation européenne sur la protection des données (RGPD).</i></p>
         
 				]]></target>
       </segment>
@@ -795,7 +795,7 @@
       </notes>
       <segment>
         <source>form.participate</source>
-        <target>Participera</target>
+        <target>Inscrire avec moi</target>
       </segment>
     </unit>
     <unit id="YWzPHVB" name="calendar.notify.attendee.subject">
@@ -1053,7 +1053,7 @@
     <unit id="N_ACgte" name="calendar.registration.intro">
       <segment>
         <source>calendar.registration.intro</source>
-        <target><![CDATA[					Vous êtes sur le point de vous inscrire à une retraite.<br> Complétez les informations suivantes si vous souhaitez continuer, sinon pour retourner au calendrier cliquer <a href="%link%">ici</a>.
+        <target><![CDATA[					Vous êtes sur le point de vous inscrire à une retraite %location%.<br> Complétez les informations suivantes si vous souhaitez continuer, sinon pour retourner au calendrier cliquer <a href="%link%">ici</a>.
 				]]></target>
       </segment>
     </unit>
@@ -1215,7 +1215,7 @@
         <target>Effacer les filtres</target>
       </segment>
     </unit>
-    <unit id="A9HWtXN" name="filter.submit.button">
+    <unit id="_H1zBdI" name="filter.submit.button">
       <segment>
         <source>filter.submit.button</source>
         <target>Appliquer les filtres</target>
@@ -1837,7 +1837,7 @@
     <unit id="LVTrH3N" name="form.message.does_child_have_autpar">
       <segment>
         <source>form.message.does_child_have_autpar</source>
-        <target>L'enfant que vous inscrivez dispose-t'il d'un accord parental ou tutorial ?</target>
+        <target>L'enfant que vous inscrivez a moins de 16 ans. Dispose-t'il d'un accord parental ou tutorial pour cela ? (RGPD)</target>
       </segment>
     </unit>
     <unit id="LLzWehQ" name="calendar.registration.error">
@@ -1918,13 +1918,13 @@
         <target>Besançon Viotte (centre-ville)</target>
       </segment>
     </unit>
-    <unit id="dfgdJfmInP" name="form.lieu.besancon-tgv">
+    <unit id="SpLNBrL" name="form.lieu.besancon-tgv">
       <segment>
         <source>form.lieu.besancon-tgv</source>
         <target>Besançon Franche-Comté TGV (à 16km de Besançon centre)</target>
       </segment>
     </unit>
-    <unit id="dfgdJfmInP" name="form.lieu.ne-sait-pas-encore">
+    <unit id="2VSNKO." name="form.lieu.ne-sait-pas-encore">
       <segment>
         <source>form.lieu.ne-sait-pas-encore</source>
         <target>Ne sait pas encore</target>
@@ -1951,7 +1951,7 @@
     <unit id="dSfs_7v" name="form.message.no_transport">
       <segment>
         <source>form.message.no_transport</source>
-        <target>n'a pas de mode de transport</target>
+        <target>mode de transport à renseigner</target>
       </segment>
     </unit>
     <unit id="REqCb2s" name="participant_not_valid">
@@ -2040,7 +2040,7 @@
         <target>Choisissez une adresse de livraison</target>
       </segment>
     </unit>
-    <unit id="DLSDG91rE" name="form.message.required">
+    <unit id="xs6dvwx" name="form.message.required">
       <segment>
         <source>form.message.required</source>
         <target>Ce champ est requis</target>
@@ -3203,16 +3203,59 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Besançon Franche-Comté TGV</target>
       </segment>
     </unit>
-    <unit id="8lwH_Nr" name="viotte">
+    <unit id="JO7B9EX" name="viotte">
       <segment>
         <source>viotte</source>
         <target>Besançon Viotte</target>
       </segment>
     </unit>
-    <unit id="8lwH_Nr" name="ne-sait-pas-encore">
+    <unit id="16wRCRF" name="ne-sait-pas-encore">
       <segment>
         <source>ne-sait-pas-encore</source>
         <target>Ne sait pas encore</target>
+      </segment>
+    </unit>
+    <unit id="pAajur7" name="calendar.registration.two.title.went">
+      <segment>
+        <source>calendar.registration.two.title.went</source>
+        <target>Déjà venus avec vous</target>
+      </segment>
+    </unit>
+    <unit id="Gk1qIzk" name="form.message.update_participant">
+      <segment>
+        <source>form.message.update_participant</source>
+        <target>Merci de vérifier les informations du participant et de renseigner son mode de transport</target>
+      </segment>
+    </unit>
+    <unit id="HGrHboY" name="form.message.update_you">
+      <segment>
+        <source>form.message.update_you</source>
+        <target>Merci de vérifier vos informations et de renseigner votre mode de transport</target>
+      </segment>
+    </unit>
+    <unit id="ZsdepjW" name="Les Fontanilles">
+      <segment>
+        <source>Les Fontanilles</source>
+        <target>Les Fontanilles</target>
+      </segment>
+    </unit>
+    <unit id="bJLKce7" name="calendar.registration.intro.Les Fontanilles">
+      <segment>
+        <source>calendar.registration.intro.Les Fontanilles</source>
+        <target>aux Fontanilles</target>
+      </segment>
+    </unit>
+    <unit id="JVpEdHQ" name="calendar.registration.intro.La Roche d'Or">
+      <segment>
+        <source>calendar.registration.intro.La Roche d'Or</source>
+        <target>à La Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="9B8TMG7" name="logout.disconnect.calendar">
+      <segment>
+        <source>logout.disconnect.calendar</source>
+        <target>Vous avez été déconnecté du module inscription.
+Pour réaliser une nouvelle inscription, cliquer sur Calendrier.</target>
       </segment>
     </unit>
   </file>

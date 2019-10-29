@@ -35,6 +35,7 @@ const _countries = JSON.parse($('.countries-json').html())
 
 let _you = {}
 let _registered = []
+let _went = []
 let _participant = {}
 let _participants = []
 
@@ -42,14 +43,6 @@ const itemConnection = $('.item.connection')
 const itemParticipants = $('.item.participants')
 const itemValidation = $('.item.validation')
 const content = $('.content')
-/* Dropdowns */
-function backToTop () {
-  if (window.innerWidth >= limitMenuReduced) {
-    content[0].scroll({ top: 0, behavior: 'smooth' })
-  } else {
-    window.scroll({ top: 0, behavior: 'smooth' })
-  }
-}
 
 function changeItem (elmt) {
   $('.dropdown .item').each(function () {
@@ -77,6 +70,7 @@ $('.registered-render').on('click', '.button.radio', function (event) {
 
 const youTemplate = _.template($('.you-template').html())
 const registeredTemplate = _.template($('.registered-template').html())
+const wentTemplate = _.template($('.went-template').html())
 const participantsTemplate = _.template($('.participants-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
 const himFormTemplate = _.template($('.him-form-template').html())
@@ -88,7 +82,10 @@ function updateYouRender () {
 
 function updateRegisteredRender () {
   $('.registered-render').html(registeredTemplate({
-    registered: _registered
+    registered: _registered.filter(p => p.check)
+  }))
+  $('.went-render').html(wentTemplate({
+    registered: _went
   }))
 }
 
@@ -144,7 +141,7 @@ function updateHimFormRender (errors = [], updatedParticipant = {}) {
     errors: errors,
     participant: {..._participant,...updatedParticipant},
     countries: _countries,
-    registered: _registered,
+    registered: _registered.filter(p => p.check),
     you: _you,
     civilites: [
       i18n.trans('form.civilite.mr'),
@@ -169,10 +166,13 @@ function afterLogin (user) {
     _registered = registered.map(obj => {
       return { ...participant, ...obj }
     })
+    _went = [..._registered]
     downLoader()
     updateRegisteredRender()
     updateParticipantsRender()
     changeItem(itemParticipants)
+    upFlashbag(i18n.trans('form.message.update_you'))
+    $('.modify-you', itemParticipants).click()
   })
 }
 
@@ -319,7 +319,8 @@ itemParticipants.on('change', '.transport', function () {
   changeItem(itemParticipants)
 })
 
-itemParticipants.on('click', '.newfich', function () {
+itemParticipants.on('click', '.newfich', function (event) {
+  event.preventDefault()
   const boolean = $(this).toggleClass('checked').hasClass('checked')
   $('.newfich-wrapper .checkbox', itemParticipants).val(boolean)
 })
@@ -340,7 +341,7 @@ function validatePhone (phone, mobile) {
 
 function validateChild (participant) {
   return new Promise((resolve, reject) => {
-    if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
+    if (moment(_infos.datdeb.date).diff(moment(participant.datnaiss), 'years') >= 16) {
       resolve(participant)
     } else {
       if (participant.coltyp === 'enfan' || participant.coltyp === 'accom') {
@@ -453,7 +454,6 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
         updateParticipants()
         $(`.panel.${action}`).slideUp(800, function () {
           $(this).hide()
-          backToTop()
           changeItem(itemParticipants)
         })
       }).catch(error => {
@@ -462,6 +462,11 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
           upFlashbag(i18n.trans(`${error}`))
         }
       })
+    }).catch(error => {
+      if (error) {
+        downLoader()
+        upFlashbag(i18n.trans(`${error}`))
+      }
     })
   }
 }
@@ -486,9 +491,14 @@ panelYouForm.on('submit', function (event) {
 
 panelHimForm.on('submit', function (event) {
   callbackSubmit(event, $(this), 'him', false, function (res) {
+    res.checked = true
     _registered = _registered.map(obj => {
       if (obj.codco === res.codco) { return res }
       return obj
+    })
+    _went = _went.map(p => {
+      p.added = (p.codco === res.codco)
+      return p
     })
   })
 })
@@ -541,8 +551,7 @@ itemParticipants.on('click', '.participate-him', function (event) {
   _registered = _registered.map(participant => {
     if (participant.codco === id) {
       if (!participant.check) {
-        if (validateParticipant(participant) !== true) {
-          upFlashbag(i18n.trans('form.message.participant_not_valid'))
+        upFlashbag(i18n.trans('form.message.update_participant'))
           modifyClick(event, 'him', updateHimFormRender, () => {
             const selected = parseInt($(this).attr('data-id'))
             const participants = _registered.filter(registered => registered.codco === selected)
@@ -550,9 +559,8 @@ itemParticipants.on('click', '.participate-him', function (event) {
           })
           $(this).removeClass('checked')
           return participant
-        }
       }
-      participant.check = !participant.check
+      participant.check = true
     }
     return participant
   })
@@ -566,7 +574,7 @@ function modifyClick (event, action, callUpdater, callFunction) {
   $('.panel', itemParticipants).hide()
   $(`.panel.${action}`, itemParticipants).show()
   changeItem(itemParticipants)
-  backToTop()
+
   setTimeout(() => {
     const content = document.querySelector('.content')
     const panel = content.querySelector(`.panel.${action}`)
@@ -606,7 +614,6 @@ itemParticipants.on('click', '.validate-participants', function (event) {
       $('.result', itemValidation).html(result)
       downLoader()
       updateEndMessageRender()
-      backToTop()
       changeItem(itemValidation)
     }).catch(error => {
       downLoader()

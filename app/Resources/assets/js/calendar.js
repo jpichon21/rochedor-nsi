@@ -201,20 +201,16 @@ $('.filter-raz').on('click', function (event) {
     .text(dateEnd)
   $('.filter-keywords').find('input')
     .val('')
-    .trigger('submit')
-})
-$('.filter-submit').on('click', function (event) {
-  updateFilters()
-  event.preventDefault()
+    updateFilters()
 })
 
-$('.filter-keywords').on('submit', function (event) {
-  updateFilters()
+$('.filter-keywords').on('keyup', function (event) {
   event.preventDefault()
+  updateFilters()
 })
 
 /* Animate Retreats Mobile */
 
-$('.retreats-list .retreat').click(function () {
+$('.retreats-list').on('click', '.retreat', function () {
   $(this).toggleClass('active')
 })

@@ -1,4 +1,3 @@
-import createFocusTrap from 'focus-trap'
 import { limitMenuReduced } from './variables'
 
 // Zoom
@@ -129,36 +128,6 @@ let formLock = false
 
 function getForm (element) {
   return element.tagName === 'FORM' ? element : getForm(element.parentElement)
-}
-
-document.onkeydown = event => {
-  if (event.which === 9 && !formLock) { event.preventDefault() }
-}
-
-let focusTrap
-
-document.onclick = event => {
-  const element = event.target
-  if (
-    element &&
-    !element.classList.contains('submit') &&
-    (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA')
-  ) {
-    const form = getForm(element)
-    if (formLock) {
-      focusTrap.deactivate()
-    }
-    focusTrap = createFocusTrap(form, {
-      onActivate: () => { formLock = true },
-      onDeactivate: () => { formLock = false },
-      clickOutsideDeactivates: true,
-      returnFocusOnDeactivate: null
-    })
-    form.onsubmit = () => {
-      focusTrap.deactivate()
-    }
-    focusTrap.activate()
-  }
 }
 
 // Action filters

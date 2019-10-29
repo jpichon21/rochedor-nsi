@@ -12,6 +12,10 @@
                 {{ 'filter.button.show' | trans }}
             </span>
             <div class="filters">
+                <form class="filter-keywords">
+                    <span class="title">{{ 'filter.title.keyword' | trans }}</span>
+                    <input autocomplete="off" type="text" name="keywords" placeholder="{{ 'filter.inner.keyword' | trans }}">
+                </form>
                 {% include 'parts/filter.html.twig' with {
                     'name': 'site',
                     'items': sites,
@@ -41,11 +45,6 @@
                     'items': translations,
                     'title': 'filter.title.translations' | trans,
                     'abbreviation': false } %}
-                <form class="filter-keywords">
-                    <span class="title">{{ 'filter.title.keyword' | trans }}</span>
-                    <input autocomplete="off" type="text" name="keywords" placeholder="{{ 'filter.inner.keyword' | trans }}">
-                </form>
-                <a class="filter-submit" href="#submit" rel="nofollow">{{ 'filter.submit.button' | trans }}</a>
                 <a class="filter-raz" href="#reset" rel="nofollow">{{ 'filter.raz.button' | trans }}</a>
                 <span class="hide-filters">{{ 'filter.close.button' | trans }}</span>
             </div>
@@ -133,6 +132,9 @@
                 {{ 'retreat.speaker.of' | trans }} <%= speakers %>
             </div>
         <% } %>
+        <div class="type full" style="color: <%= retreats[i].type.color %>"><%= retreats[i].type.name %></div>
+        <div class="site full" style="color: <%= retreats[i].site.color %>"><%= retreats[i].site.name %></div>
+        <div class="translation full"><%= retreats[i].translation %></div>
         <a class="button" href="{{ url('register_calendar' ~ '-' ~ app.request.locale) }}?id=<%= retreats[i].id %>">Choisir</a>
     </li>
 <% } %>

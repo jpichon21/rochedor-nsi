@@ -456,6 +456,9 @@ h1 {
     .site,
     .type,
     .translation {
+      &.full {
+        position: static;
+      }
       position: absolute;
       top: 15px;
     }
