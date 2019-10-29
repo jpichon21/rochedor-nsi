@@ -33,7 +33,7 @@
                   <a class="full"
                     title="{{ featured.produitcourt }}"
                     href="{{ url('collection-' ~ app.request.locale, { id: featured.codprd }) }}"
-                    style="{{ asset(slide) | background }}">
+                    style="{{ asset(slide)|imagine_filter('product_highlight')|background }}">
                   </a>
                 </div>
               </div>

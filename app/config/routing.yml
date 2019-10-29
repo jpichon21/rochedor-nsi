@@ -1,3 +1,5 @@
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.yaml"
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
