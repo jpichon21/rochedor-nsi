@@ -46,7 +46,7 @@ class Page
      * @var string
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="Title", type="string", length=255)
+     * @ORM\Column(name="Title", type="string", length=100)
      */
     private $title;
 
@@ -54,7 +54,7 @@ class Page
      * @var string
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="SubTitle", type="string", length=255)
+     * @ORM\Column(name="SubTitle", type="string", length=100)
      */
     private $subTitle;
 
@@ -125,7 +125,7 @@ class Page
 
     /**
      * @var string
-     * @ORM\Column(name="Immutableid", type="string", length=255)
+     * @ORM\Column(name="Immutableid", type="string", length=100)
      */
     private $immutableid;
 

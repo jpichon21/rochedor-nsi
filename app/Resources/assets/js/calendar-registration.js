@@ -35,6 +35,7 @@ const _countries = JSON.parse($('.countries-json').html())
 
 let _you = {}
 let _registered = []
+let _went = []
 let _participant = {}
 let _participants = []
 
@@ -42,14 +43,6 @@ const itemConnection = $('.item.connection')
 const itemParticipants = $('.item.participants')
 const itemValidation = $('.item.validation')
 const content = $('.content')
-/* Dropdowns */
-function backToTop () {
-  if (window.innerWidth >= limitMenuReduced) {
-    content[0].scroll({ top: 0, behavior: 'smooth' })
-  } else {
-    window.scroll({ top: 0, behavior: 'smooth' })
-  }
-}
 
 function changeItem (elmt) {
   $('.dropdown .item').each(function () {
@@ -77,6 +70,7 @@ $('.registered-render').on('click', '.button.radio', function (event) {
 
 const youTemplate = _.template($('.you-template').html())
 const registeredTemplate = _.template($('.registered-template').html())
+const wentTemplate = _.template($('.went-template').html())
 const participantsTemplate = _.template($('.participants-template').html())
 const youFormTemplate = _.template($('.you-form-template').html())
 const himFormTemplate = _.template($('.him-form-template').html())
@@ -88,7 +82,10 @@ function updateYouRender () {
 
 function updateRegisteredRender () {
   $('.registered-render').html(registeredTemplate({
-    registered: _registered
+    registered: _registered.filter(p => p.check)
+  }))
+  $('.went-render').html(wentTemplate({
+    registered: _went
   }))
 }
 
@@ -107,6 +104,11 @@ function updateParticipantsRender () {
 function updateEndMessageRender () {
   $('.end-message-render').html(endMessageTemplate({
     participants: _participants,
+    lieux: {
+      'viotte': i18n.trans('viotte'),
+      'besancon-tgv': i18n.trans('besancon-tgv'),
+      'ne-sait-pas-encore': i18n.trans('ne-sait-pas-encore')
+    },
     transports: {
       'perso': i18n.trans('form.transport.perso'),
       'train': i18n.trans('form.transport.train'),
@@ -116,9 +118,11 @@ function updateEndMessageRender () {
   }))
 }
 
-function updateYouFormRender () {
+function updateYouFormRender (errors = [], updatedParticipant = {}, register = false) {
   $('.you-form-render').html(youFormTemplate({
-    participant: _participant,
+    register: register,
+    errors: errors,
+    participant: {..._participant, ...updatedParticipant},
     countries: _countries,
     civilites: [
       i18n.trans('form.civilite.mr'),
@@ -132,11 +136,12 @@ function updateYouFormRender () {
   Inputmask().mask(document.querySelectorAll('.datnaiss, .input.arriv'))
 }
 
-function updateHimFormRender () {
+function updateHimFormRender (errors = [], updatedParticipant = {}) {
   $('.him-form-render').html(himFormTemplate({
-    participant: _participant,
+    errors: errors,
+    participant: {..._participant,...updatedParticipant},
     countries: _countries,
-    registered: _registered,
+    registered: _registered.filter(p => p.check),
     you: _you,
     civilites: [
       i18n.trans('form.civilite.mr'),
@@ -161,10 +166,13 @@ function afterLogin (user) {
     _registered = registered.map(obj => {
       return { ...participant, ...obj }
     })
+    _went = [..._registered]
     downLoader()
     updateRegisteredRender()
     updateParticipantsRender()
     changeItem(itemParticipants)
+    upFlashbag(i18n.trans('form.message.update_you'))
+    $('.modify-you', itemParticipants).click()
   })
 }
 
@@ -225,63 +233,55 @@ itemConnection.on('click', '.panel.registration .cancel', function (event) {
 })
 
 itemConnection.on('change', '.transport', function () {
-  $('.navette-wrapper', itemConnection).toggleClass('hidden', $(this).val() !== 'train')
-  if ($('.navette').hasClass('checked')) {
-    $('.lieu-wrapper, .arriv-wrapper', itemConnection).toggleClass('hidden', $(this).val() !== 'train')
-  }
+  $('.lieu-wrapper, .arriv-wrapper', itemConnection).toggleClass('hidden', $(this).val() !== 'train')
   changeItem(itemConnection)
-})
-
-itemConnection.on('click', '.navette', function () {
-  const boolean = $(this).toggleClass('checked').hasClass('checked')
-  $('.navette-wrapper .checkbox', itemConnection).val(boolean)
-  $('.lieu-wrapper, .arriv-wrapper', itemConnection).toggleClass('hidden', !boolean)
 })
 
 itemConnection.on('submit', '.panel.registration form', function (event) {
   event.preventDefault()
-  upLoader()
   const data = $(this).serializeArray()
   const participant = formatParticipant(data)
-  const validatedDate = validateDate(participant.datnaiss)
-  const validatedPhone = validatePhone(participant.tel, participant.mobil)
-  const validatedPassword = validatePassword(participant.password)
-  if (validatedPassword === true) {
-    if (validatedDate) {
-      if (validatedPhone) {
-        postRegister({
-          contact: participant
-        }).then(user => {
-          postLogin({
-            username: user.username,
-            password: participant.password
-          }).then(user => {
-            afterLogin({
-              ...user,
-              transport: participant.transport,
-              arriv: participant.arriv,
-              lieu: participant.lieu,
-              navette: participant.navette
-            })
-          }).catch(err => {
-            downLoader()
-            upFlashbag(i18n.trans(`${err}`))
-          })
-        }).catch(error => {
-          downLoader()
-          upFlashbag(i18n.trans(`${error}`))
+  var errors = []
+  errors = validateRegister(data)
+  var error = null
+  error = validatePassword(participant.password, true)
+  if (error) {
+    errors['password'] = error
+    error = null
+  }
+  error = validateDate(participant.datnaiss)
+  if (error) {
+    errors['datnaiss'] = error
+    error = null
+  }
+  error = validatePhone(participant.tel, participant.mobil)
+  if (error) {
+    errors['tel'] = error
+  }
+  updateYouFormRender(errors, {...participant}, true)
+  if (Object.keys(errors).length === 0) {
+    upLoader()
+    postRegister({
+      contact: participant
+    }).then(user => {
+      postLogin({
+        username: user.username,
+        password: participant.password
+      }).then(user => {
+        afterLogin({
+          ...user,
+          transport: participant.transport,
+          arriv: participant.arriv,
+          lieu: participant.lieu
         })
-      } else {
+      }).catch(err => {
         downLoader()
-        upFlashbag(i18n.trans('form.message.phone_invalid'))
-      }
-    } else {
+        upFlashbag(i18n.trans(`${err}`))
+      })
+    }).catch(error => {
       downLoader()
-      upFlashbag(i18n.trans('form.message.date_invalid'))
-    }
-  } else {
-    downLoader()
-    upFlashbag(validatedPassword)
+      upFlashbag(i18n.trans(`${error}`))
+    })
   }
 })
 
@@ -294,7 +294,7 @@ itemConnection.on('click', 'a', function (event) {
       $('.panel', itemConnection).hide()
       $(`.panel.${which}`, itemConnection).show()
       _participant = getContact()
-      updateYouFormRender()
+      updateYouFormRender([], [], true)
       break
     case 'reset':
       $('.panel.reset', itemConnection).show()
@@ -309,37 +309,39 @@ itemConnection.on('click', 'a', function (event) {
   changeItem(itemConnection)
 })
 
+content.on('click', '.toggle-password', function (event) {
+  event.preventDefault()
+  togglePasswordVisibility(this.previousElementSibling)
+})
+
 itemParticipants.on('change', '.transport', function () {
-  $('.navette-wrapper', itemParticipants).toggleClass('hidden', $(this).val() !== 'train')
-  if ($('.navette').hasClass('checked')) {
-    $('.lieu-wrapper, .arriv-wrapper', itemParticipants).toggleClass('hidden', $(this).val() !== 'train')
-  }
+  $('.lieu-wrapper, .arriv-wrapper', itemParticipants).toggleClass('hidden', $(this).val() !== 'train')
   changeItem(itemParticipants)
 })
 
-itemParticipants.on('click', '.navette', function () {
-  const boolean = $(this).toggleClass('checked').hasClass('checked')
-  $('.navette-wrapper .checkbox', itemParticipants).val(boolean)
-  $('.lieu-wrapper, .arriv-wrapper', itemParticipants).toggleClass('hidden', !boolean)
-  changeItem(itemParticipants)
-})
-
-itemParticipants.on('click', '.newfich', function () {
+itemParticipants.on('click', '.newfich', function (event) {
+  event.preventDefault()
   const boolean = $(this).toggleClass('checked').hasClass('checked')
   $('.newfich-wrapper .checkbox', itemParticipants).val(boolean)
 })
 
 function validateDate (date) {
-  return moment(date).isValid() && moment(date).isBefore(new Date())
+  if (moment(date).isValid() && moment(date).isBefore(new Date())) {
+    return null
+  }
+  return i18n.trans('form.message.date_invalid')
 }
 
 function validatePhone (phone, mobile) {
-  return !(phone === '' && mobile === '')
+  if (phone === '' && mobile === '') {
+    return i18n.trans('form.message.phone_invalid')
+  }
+  return null
 }
 
 function validateChild (participant) {
   return new Promise((resolve, reject) => {
-    if (moment().diff(moment(participant.datnaiss), 'years') >= 16) {
+    if (moment(_infos.datdeb.date).diff(moment(participant.datnaiss), 'years') >= 16) {
       resolve(participant)
     } else {
       if (participant.coltyp === 'enfan' || participant.coltyp === 'accom') {
@@ -366,75 +368,114 @@ function validateChild (participant) {
   })
 }
 
-function validatePassword (password) {
-  if (!password) {
-    return true
+function validatePassword (password, notEmpty = false) {
+  if (!password && !notEmpty) {
+    return null
   }
   if (password.length < 8 && password.length !== 0) {
     return i18n.trans('security.password_too_small')
   }
-  if (password === "") {
-    return i18n.trans('user.security_password')
+  if (password === '' || (password === null && notEmpty)) {
+    return i18n.trans('form.message.required')
   }
-  return true
+  return null
+}
+const REQUIRED_FIELDS_COMMON = ['civil', 'prenom', 'nom', 'transport']
+const REQUIRED_FIELDS_HIM = ['coltyp', 'colp']
+const REQUIRED_FIELDS_YOU = ['adresse', 'cp', 'ville', 'pays', 'email']
+const REQUIRED_FIELDS_REGISTER = ['username']
+function validateHim (data) {
+  return validateRequired(data, [...REQUIRED_FIELDS_COMMON, ...REQUIRED_FIELDS_HIM])
+}
+function validateYou (data) {
+  return validateRequired(data, [...REQUIRED_FIELDS_COMMON, ...REQUIRED_FIELDS_YOU])
+}
+function validateRegister (data) {
+  return validateRequired(data, [...REQUIRED_FIELDS_COMMON, ...REQUIRED_FIELDS_YOU, ...REQUIRED_FIELDS_REGISTER])
+}
+
+function validateRequired (data, requiredFields) {
+  var errors = []
+  data.forEach(function (item) {
+    if (requiredFields.includes(item.name) && item.value === '') {
+      errors[item.name] = i18n.trans('form.message.required')
+    }
+  })
+  requiredFields.forEach(function (item) {
+    if (!data.find(el => el.name === item)) {
+      errors[item] = i18n.trans('form.message.required')
+    }
+  })
+  return errors
 }
 
 function callbackSubmit (event, context, action, phoneControl, callback) {
   event.preventDefault()
-  upLoader()
   const data = context.serializeArray()
   const participant = formatParticipant(data)
-  const validatedDate = validateDate(participant.datnaiss)
-  const validatedPhone = phoneControl ? validatePhone(participant.tel, participant.mobil) : true
-  const validatedPassword = validatePassword(participant.password)
-  if (validatedPassword === true) {
-    if (validatedDate) {
-      if (validatedPhone) {
-        validateChild(participant).then(participantValidated => {
-          if(participantValidated.transport !== 'train') {
-            participantValidated.navette = 'false'
-            participantValidated.lieu = ''
-            participantValidated.arriv = ''
-          }
-          if(participantValidated.navette !== 'true') {
-            participantValidated.lieu = ''
-            participantValidated.arriv = ''
-          }
-          postParticipant(participantValidated).then(res => {
-            const participantUpdated = { ...participantValidated, ...res }
-            downLoader()
-            callback(participantUpdated)
-            updateYouRender()
-            updateRegisteredRender()
-            updateParticipants()
-            $(`.panel.${action}`).slideUp(800, function () {
-              $(this).hide()
-              backToTop()
-              changeItem(itemParticipants)
-            })
-          }).catch(error => {
-            if (error) {
-              downLoader()
-              upFlashbag(i18n.trans(`${error}`))
-            }
-          })
-        }).catch(error => {
-          if (error) {
-            downLoader()
-            upFlashbag(i18n.trans(`${error}`))
-          }
-        })
-      } else {
-        downLoader()
-        upFlashbag(i18n.trans('form.message.phone_invalid'))
-      }
-    } else {
-      downLoader()
-      upFlashbag(i18n.trans('form.message.date_invalid'))
-    }
+  var errors = []
+  errors = action === 'you' ? validateYou(data) : validateHim(data)
+  var error = null
+  error = validatePassword(participant.password)
+  if (error) {
+    errors['password'] = error
+    error = null
+  }
+  error = validateDate(participant.datnaiss)
+  if (error) {
+    errors['datnaiss'] = error
+    error = null
+  }
+  error = phoneControl ? validatePhone(participant.tel, participant.mobil) : false
+  if (error) {
+    errors['tel'] = error
+  }
+  if (action === 'you') {
+    updateYouFormRender(errors, {...participant})
   } else {
-    downLoader()
-    upFlashbag(validatedPassword)
+    updateHimFormRender(errors, {...participant})
+  }
+  if (Object.keys(errors).length === 0) {
+    if (participant.password === '') {
+      participant.password = null
+    }
+    validateChild(participant).then(participantValidated => {
+      if (participantValidated.transport !== 'train') {
+        participantValidated.lieu = ''
+        participantValidated.arriv = ''
+      }
+      upLoader()
+      postParticipant(participantValidated).then(res => {
+        const participantUpdated = { ...participantValidated, ...res }
+        downLoader()
+        callback(participantUpdated)
+        updateYouRender()
+        updateRegisteredRender()
+        updateParticipants()
+        $(`.panel.${action}`).slideUp(800, function () {
+          $(this).hide()
+          changeItem(itemParticipants)
+        })
+      }).catch(error => {
+        if (error) {
+          downLoader()
+          upFlashbag(i18n.trans(`${error}`))
+        }
+      })
+    }).catch(error => {
+      if (error) {
+        downLoader()
+        upFlashbag(i18n.trans(`${error}`))
+      }
+    })
+  }
+}
+
+function togglePasswordVisibility (el) {
+  if (el.getAttribute('type') === 'password') {
+    el.setAttribute('type', 'text')
+  } else {
+    el.setAttribute('type', 'password')
   }
 }
 
@@ -450,9 +491,14 @@ panelYouForm.on('submit', function (event) {
 
 panelHimForm.on('submit', function (event) {
   callbackSubmit(event, $(this), 'him', false, function (res) {
+    res.checked = true
     _registered = _registered.map(obj => {
       if (obj.codco === res.codco) { return res }
       return obj
+    })
+    _went = _went.map(p => {
+      p.added = (p.codco === res.codco)
+      return p
     })
   })
 })
@@ -505,8 +551,7 @@ itemParticipants.on('click', '.participate-him', function (event) {
   _registered = _registered.map(participant => {
     if (participant.codco === id) {
       if (!participant.check) {
-        if (validateParticipant(participant) !== true) {
-          upFlashbag(i18n.trans('form.message.participant_not_valid'))
+        upFlashbag(i18n.trans('form.message.update_participant'))
           modifyClick(event, 'him', updateHimFormRender, () => {
             const selected = parseInt($(this).attr('data-id'))
             const participants = _registered.filter(registered => registered.codco === selected)
@@ -514,9 +559,8 @@ itemParticipants.on('click', '.participate-him', function (event) {
           })
           $(this).removeClass('checked')
           return participant
-        }
       }
-      participant.check = !participant.check
+      participant.check = true
     }
     return participant
   })
@@ -530,7 +574,7 @@ function modifyClick (event, action, callUpdater, callFunction) {
   $('.panel', itemParticipants).hide()
   $(`.panel.${action}`, itemParticipants).show()
   changeItem(itemParticipants)
-  backToTop()
+
   setTimeout(() => {
     const content = document.querySelector('.content')
     const panel = content.querySelector(`.panel.${action}`)
@@ -570,7 +614,6 @@ itemParticipants.on('click', '.validate-participants', function (event) {
       $('.result', itemValidation).html(result)
       downLoader()
       updateEndMessageRender()
-      backToTop()
       changeItem(itemValidation)
     }).catch(error => {
       downLoader()

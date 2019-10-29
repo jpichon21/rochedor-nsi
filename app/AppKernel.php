@@ -3,7 +3,6 @@
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle;
 
 class AppKernel extends Kernel
 {
@@ -25,6 +24,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

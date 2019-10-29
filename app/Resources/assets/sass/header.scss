@@ -17,6 +17,7 @@ body {
       background-image: url('../img/burger-open.png');
     }
     .header {
+      position: relative;
       .left,
       .right,
       .options {
@@ -461,6 +462,7 @@ body {
 }
 @include media('<limitMenuReduced') {
   .header {
+    position: static;
     .cart-container {
       position: absolute;
       top: 3px;

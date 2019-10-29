@@ -1,5 +1,5 @@
 <a href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}" class="product">
-    <div class="illustration" style="{{ asset(product.adimg) | background }}"></div>
+    <div class="illustration" style="{{ asset(product.adimg)|imagine_filter('product_card')|background }}"></div>
     <div class="description">
         <div class="title">
             <h3>{{ product.produitcourt }}</h3>

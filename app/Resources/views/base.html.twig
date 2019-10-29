@@ -13,6 +13,7 @@
     {% endif %}
     <link rel="stylesheet" href="https://use.typekit.net/ozm6rkb.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display">
+    <link rel="stylesheet" href="https://use.typekit.net/vaw2sbi.css">
     <link rel="stylesheet" href="{{ asset("assets/css/main.css") }}">
     {% block metadescription %}{% endblock %}
     {% block stylesheets %}{% endblock %}
@@ -20,7 +21,7 @@
 {% if 'home' in bodyClass %}
 <body class="{{ bodyClass }}">
 {% else %}
-<body class="{{ bodyClass|default('') }}" style="{{ bodyBackground|default(0)|constantBackground }}">
+<body class="{{ bodyClass|default('') }} {{ page is defined  ? page.title : '' }} m-scene">
 {% endif %}
 {% if app.request.attributes.get('_route_params') and app.request.attributes.get('_route') %}
     {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}

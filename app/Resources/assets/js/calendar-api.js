@@ -73,7 +73,7 @@ export const getLogout = (locale) => {
     credentials: 'include'
   })
     .then(() => {
-      window.location.replace('/' + locale + '/logout-message/roche')
+      window.location.replace('/' + locale + '/logout-message/calendar')
     })
     .catch(res => {
       throw (new Error('unknown_error'))

@@ -14,8 +14,8 @@
   {% for attendee in attendees %}
   <tr>
     <td>{{ attendee.civil }} {{ attendee.nom }} {{ attendee.prenom }}</td>
-    <td>{{ attendee.transport }}</td>
-    <td>{{ attendee.lieu }}</td>
+    <td>{{ attendee.transport|trans }}</td>
+    <td>{{ attendee.lieu|trans }}</td>
     <td>{{ attendee.arriv }}</td>
   </tr>
   {% endfor %}
