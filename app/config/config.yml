@@ -145,6 +145,11 @@ doctrine_migrations:
     dir_name: "%kernel.root_dir%/doctrine_migrations"
 
 liip_imagine:
+    loaders:
+        default:
+            filesystem:
+                data_root: 
+                    - "%upload_root_path%"
     resolvers:
         default:
             web_path: ~

@@ -30,3 +30,4 @@ parameters:
     paypal_url: 'https://www.sandbox.paypal.com/cgi-bin/webscr'
     paypal_email: 'paypal.roche@rochedor.org'
     paypal_btn_id: 'GRWYKF7S4BT2U'
+    upload_root_path: '%kernel.project_dir%/web/uploads'
