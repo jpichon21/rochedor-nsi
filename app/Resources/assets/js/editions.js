@@ -97,8 +97,4 @@ function addProduct (event, product) {
 const body = document.querySelector('body')
 const content = document.querySelector('.content')
 
-content.onscroll = function () {
-  content.scrollTop > 20
-    ? body.classList.add('scrollTop')
-    : body.classList.remove('scrollTop')
-}
+
