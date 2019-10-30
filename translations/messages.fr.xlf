@@ -1173,6 +1173,12 @@
         <target>Les enfants doivent être accompagnés par une personne de plus de 18 ans</target>
       </segment>
     </unit>
+    <unit id="0hdf4JUpBY" name="form.message.do_you_have_agreement">
+      <segment>
+        <source>form.message.do_you_have_agreement</source>
+        <target><![CDATA[Vous avez moins de 16 ans.<br>Disposez-vous d'un accord parental ou tutorial pour cela ? (RGPD)]]></target>
+      </segment>
+    </unit>
     <unit id="Cr.q521" name="form.message.date_invalid">
       <segment>
         <source>form.message.date_invalid</source>

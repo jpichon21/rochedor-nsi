@@ -489,9 +489,6 @@ class CalendarController extends Controller
             return strlen($k['color']) == 7 ;
         }, ARRAY_FILTER_USE_BOTH);
 
-        foreach ($speakers as $key => $speaker) {
-             $speakers[$key]['name'] = strtoupper($speaker['name']);
-        }
         $data['sites'] = $this::SITES;
         $data['types'] = $eventTypes;
         $data['speakers'] = $speakers;
