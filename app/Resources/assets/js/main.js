@@ -151,7 +151,6 @@ if (hideFilters != null) {
 // Toggle password
 content.onclick = event => {
   if (event.target.classList.contains('toggle-password')) {
-    console.log(event)
     event.preventDefault()
     togglePasswordVisibility(event.target.previousElementSibling)
   }
