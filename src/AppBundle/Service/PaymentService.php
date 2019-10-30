@@ -1,10 +1,16 @@
 <?php
+
 namespace AppBundle\Service;
 
-use Psr\Log\LoggerInterface;
+use AppBundle\Entity\Contact;
+use AppBundle\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\RouterInterface;
 use AppBundle\Repository\TpaysRepository;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Translation\TranslatorInterface;
+use Twig\Error\Error;
 
 class PaymentService
 {
@@ -17,15 +23,27 @@ class PaymentService
     private $container;
     private $tPaysRepository;
     private $router;
+    private $tokenStorage;
+    private $entityManager;
+    private $mailer;
+    private $translator;
 
     public function __construct(
         ContainerInterface $container,
         TpaysRepository $tPaysRepository,
-        RouterInterface $router
+        RouterInterface $router,
+        TokenStorageInterface $tokenStorage,
+        EntityManagerInterface $entityManager,
+        Mailer $mailer,
+        TranslatorInterface $translator
     ) {
         $this->container = $container;
         $this->tPaysRepository = $tPaysRepository;
         $this->router = $router;
+        $this->tokenStorage = $tokenStorage;
+        $this->entityManager = $entityManager;
+        $this->mailer = $mailer;
+        $this->translator = $translator;
     }
 
     /**
@@ -40,6 +58,11 @@ class PaymentService
      * @param string $returnUrl
      * @param string $notifyUrl
      * @param string $baseRoute
+     * @param string|null $periodVir
+     * @param string|null $destDon
+     *
+     * @throws Error
+     *
      * @return string
      */
     public function getUrl(
@@ -50,18 +73,46 @@ class PaymentService
         $email,
         $locale,
         $baseRoute,
-        $dateDebutVir = null,
-        $periodVir = null
+        $periodVir = null,
+        $destDon = null
     ) {
         switch ($method) {
             case self::METHOD_PAYPAL:
                 return $this->getPaypalUrl($amount, $objectId, $itemName, $email, $locale, $baseRoute);
             case self::METHOD_CHEQUE:
-                return $this->getChequeUrl($objectId, $locale, $baseRoute);
+                $contact = $this->getContact();
+                $this->sendValidationMail(
+                    $contact,
+                    $destDon,
+                    $amount,
+                    'emails/gift/gift-notify-cheque.html.twig',
+                    $this->translator->trans('payment.cheque')
+                );
+
+                return $this->getChequeUrl($objectId, $locale, $baseRoute, $amount, $contact, $destDon);
             case self::METHOD_VIREMENT:
-                return $this->getPrelevementUrl($objectId, $locale, $dateDebutVir);
+                $contact = $this->getContact();
+                $this->sendValidationMail(
+                    $contact,
+                    $destDon,
+                    $amount,
+                    'emails/gift/gift-notify-virement.html.twig',
+                    $this->translator->trans('payment.virement')
+                );
+
+                return $this->getVirementUrl($objectId, $locale, $amount, $contact);
             case self::METHOD_VIREMENT_REGULIER:
-                return $this->getPrelevementRegulierUrl($objectId, $locale, $dateDebutVir, $periodVir);
+                $contact = $this->getContact();
+                $this->sendValidationMail(
+                    $contact,
+                    $destDon,
+                    $amount,
+                    'emails/gift/gift-notify-virement-regular.html.twig',
+                    $this->translator->trans('payment.virement_reg'),
+                    $periodVir
+                );
+
+                return $this->getVirementRegulierUrl($objectId, $locale, $amount, $periodVir, $contact);
             default:
                 return $this->getPayboxUrl($amount, $objectId, $email, $locale, $baseRoute);
         }
@@ -159,34 +210,50 @@ class PaymentService
         return $url;
     }
 
-    private function getChequeUrl($objectId, $locale, $baseRoute)
+    private function getChequeUrl($objectId, $locale, $baseRoute, $amount, Contact $contact, $destDon)
     {
         $url = $this->router->generate(
             $baseRoute . '_paymentcheque_return',
-            ['_locale' => $locale, 'ref' => $objectId],
-            RouterInterface::ABSOLUTE_URL
-        );
-        return $url;
-    }
-
-    private function getPrelevementUrl($objectId, $locale, $dateDebutVir)
-    {
-        $url = $this->router->generate(
-            'gift_paymentvir_return',
             [
-                '_locale' => $locale, 'ref' => $objectId, 'dateDebut' => $dateDebutVir
+                '_locale' => $locale,
+                'ref' => $objectId,
+                'amount' => $amount,
+                'civility' => $contact->getCivil(),
+                'name' => $contact->getNom(),
+                'affectation' => $this->translator->trans('select.allocation.'.strtolower($destDon)),
             ],
             RouterInterface::ABSOLUTE_URL
         );
         return $url;
     }
 
-    private function getPrelevementRegulierUrl($objectId, $locale, $dateDebutVir, $virPeriod)
+    private function getVirementUrl($objectId, $locale, $amount, Contact $contact)
+    {
+        $url = $this->router->generate(
+            'gift_paymentvir_return',
+            [
+                '_locale' => $locale,
+                'ref' => $objectId,
+                'amount' => $amount,
+                'civility' => $contact->getCivil(),
+                'name' => $contact->getNom()
+            ],
+            RouterInterface::ABSOLUTE_URL
+        );
+        return $url;
+    }
+
+    private function getVirementRegulierUrl($objectId, $locale, $amount, $virPeriod, Contact $contact)
     {
         $url = $this->router->generate(
             'gift_paymentvir_regulier_return',
             [
-            '_locale' => $locale, 'ref' => $objectId, 'dateDebut' => $dateDebutVir, 'period' => $virPeriod
+                '_locale' => $locale,
+                'ref' => $objectId,
+                'amount' => $amount,
+                'civility' => $contact->getCivil(),
+                'name' => $contact->getNom(),
+                'period' => $virPeriod
             ],
             RouterInterface::ABSOLUTE_URL
         );
@@ -215,5 +282,52 @@ class PaymentService
                 return $code['codpayspaypal'];
             break;
         }
+    }
+
+    /**
+     * @return Contact|object|null
+     */
+    private function getContact()
+    {
+        /** @var User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+
+        return $this->entityManager->getRepository(Contact::class)->findOneBy([
+            'username' => $user->getUsername()
+        ]);
+    }
+
+    /**
+     * @param Contact $contact
+     * @param $destDon
+     * @param $amount
+     * @param $template
+     * @param $subject
+     * @param null $periodVir
+     *
+     * @throws Error
+     */
+    private function sendValidationMail(Contact $contact, $destDon, $amount, $template, $subject, $periodVir = null)
+    {
+        $bankName = $this->container->getParameter('bank_name.'.$destDon);
+        $bankAccount = $this->container->getParameter('bank_account.'.$destDon);
+        $bankIban = $this->container->getParameter('bank_iban.'.$destDon);
+        $bankBic = $this->container->getParameter('bank_bic.'.$destDon);
+
+        $this->mailer->send(
+            [$contact->getEmail() => $contact->getPrenom().' '.$contact->getNom()],
+            $subject,
+            $this->container->get('templating')->render($template, [
+                'amount' => $amount,
+                'civility' => $contact->getCivil(),
+                'name' => $contact->getNom(),
+                'affectation' => $this->translator->trans('select.allocation.'.strtolower($destDon)),
+                'bank_name' => $bankName,
+                'bank_account' => $bankAccount,
+                'bank_iban' => $bankIban,
+                'bank_bic' => $bankBic,
+                'period' => $periodVir
+            ])
+        );
     }
 }

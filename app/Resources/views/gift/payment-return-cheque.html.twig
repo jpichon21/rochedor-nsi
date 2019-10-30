@@ -7,11 +7,7 @@
 <div class="content">
     <div class="left">
         <div class="intro">
-            <p><ins>Pour faire un don ponctuel par chèque</ins></p>
-            <p>Imprimer et renseigner le document ci-contre ou indiquer sur papier libre les informations demandées dans le document ci-dessous&nbsp;:</p>
-            <p style="text-align:center;"><a href="/uploads/don-ponctuel-par-chque-v61544091117.pdf" target="_self">Formulaire - Don par chèque  </a></p>
-            <p>Envoyer ces indications et votre don (chèque à l'ordre de la Communauté de la Roche d’Or) à&nbsp;:&nbsp;</p>
-            <p>Communauté de La Roche d’Or<br>25042 BESANÇON CEDEX</p>
+            <p>{{ 'gift.payment.return.cheque'|trans({'%civility%': civility, '%name%': name, '%amount%': amount, '%affectation%': affectation})|raw }}</p>
         </div>
     </div>
     <div class="right">

@@ -7,9 +7,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Contact;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\Repository\CalendarRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
@@ -127,7 +127,6 @@ class GiftController extends Controller
     {
         $user = $this->getUser();
         $gift = $request->get('gift');
-        dump($gift);
         if (!$gift) {
             return ['status' => 'ko', 'message' => 'You must provide a gift object'];
         }
@@ -156,8 +155,8 @@ class GiftController extends Controller
             $this->getUser()->getEmail(),
             $request->getLocale(),
             'gift',
-            !empty($gift['dateDebVir']) ? $gift['dateDebVir'] : null,
-            !empty($gift['virPeriod']) ? $gift['virPeriod'] : null
+            !empty($gift['virPeriod']) ? $gift['virPeriod'] : null,
+            $don->getDestdon()
         );
         if (!$paymentUrl) {
             return ['status' => 'ko', 'message' => 'an error as occured'];
@@ -175,14 +174,20 @@ class GiftController extends Controller
             $gift = $this
                         ->donRepository
                         ->findByRef($request->query->get('Ref'));
+            /** @var Contact $contact */
             $contact = $gift->getContact();
             $parsedContact = $contact->getCivil().' '.$contact->getNom().' '.$contact->getPrenom();
-            
+
             return $this->render('gift/payment-return.html.twig', [
                 'name' => $parsedContact,
                 'amount' => $gift->getMntdon(),
                 'status' => $status,
-                'method' => $method
+                'method' => $method,
+                'email' => $contact->getEmail(),
+                'address' => $contact->getAdresse(),
+                'zipcode' => $contact->getCp(),
+                'city' => $contact->getVille(),
+                'country' => $contact->getPays(),
             ]);
         }
         return $this->render('gift/payment-return.html.twig', [
@@ -193,34 +198,44 @@ class GiftController extends Controller
 
     /**
      * @Route("/{_locale}/gift/payment-return-cheque", name="gift_paymentcheque_return")
+     * @Security("has_role('ROLE_USER')")
      */
-    public function paymentReturnChequeAction()
+    public function paymentReturnChequeAction(Request $request)
     {
-        return $this->render('gift/payment-return-cheque.html.twig');
+        return $this->render('gift/payment-return-cheque.html.twig', [
+            'civility' => $request->query->get('civility'),
+            'name' => $request->query->get('name'),
+            'amount' => $request->query->get('amount'),
+            'affectation' => $request->query->get('affectation')
+        ]);
     }
 
     /**
      * @Route("/{_locale}/gift/payment-return-virement", name="gift_paymentvir_return")
+     * @Security("has_role('ROLE_USER')")
      */
     public function paymentReturnVirementAction(Request $request)
     {
-        $dateDebVirement = $request->query->get('dateDebut');
         return $this->render('gift/payment-return-virement.html.twig', [
-            'dateDebVirement' => $dateDebVirement
+            'regular' => false,
+            'civility' => $request->query->get('civility'),
+            'name' => $request->query->get('name'),
+            'amount' => $request->query->get('amount')
         ]);
     }
 
     /**
      * @Route("/{_locale}/gift/payment-return-virement-regulier", name="gift_paymentvir_regulier_return")
+     * @Security("has_role('ROLE_USER')")
      */
     public function paymentReturnVirementRegulierAction(Request $request)
     {
-        $dateDebVirement = $request->query->get('dateDebut');
-        $period = $request->query->get('period');
-
         return $this->render('gift/payment-return-virement.html.twig', [
-            'dateDebVirement' => $dateDebVirement,
-            'period' => $period
+            'regular' => true,
+            'civility' => $request->query->get('civility'),
+            'name' => $request->query->get('name'),
+            'amount' => $request->query->get('amount'),
+            'period' => $request->query->get('period')
         ]);
     }
 
@@ -260,6 +275,24 @@ class GiftController extends Controller
             ->setStatus('success')
             ->setTransdon($status)
             ->setValidDon(1);
+
+            /** @var Contact $contact */
+            $contact = $don->getContact();
+            $this->get('app.mailer')->send(
+                [$contact->getEmail() => $contact->getPrenom().' '.$contact->getNom()],
+                $this->get('translator')->trans('gift.title'),
+                $this->container->get('templating')->render('emails/gift/gift-notify-online.html.twig', [
+                    'name' => $contact->getCivil().' '.$contact->getNom().' '.$contact->getPrenom(),
+                    'amount' => $don->getMntdon(),
+                    'status' => $status,
+                    'method' => $method,
+                    'email' => $contact->getEmail(),
+                    'address' => $contact->getAdresse(),
+                    'zipcode' => $contact->getCp(),
+                    'city' => $contact->getVille(),
+                    'country' => $contact->getPays(),
+                ])
+            );
         }
         $this->em->persist($don);
         $this->em->flush();

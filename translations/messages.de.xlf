@@ -2406,12 +2406,6 @@ Kommentar erstellt</target>
         <target>Zur freien Verwendung</target>
       </segment>
     </unit>
-    <unit id="yOQ0eC8" name="select.allocation.souttx">
-      <segment>
-        <source>select.allocation.souttx</source>
-        <target>Eindringlicher Appell</target>
-      </segment>
-    </unit>
     <unit id="otNY7_F" name="select.allocation.viecom">
       <segment>
         <source>select.allocation.viecom</source>

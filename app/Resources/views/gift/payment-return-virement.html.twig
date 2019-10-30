@@ -7,9 +7,12 @@
 <div class="content">
     <div class="left">
         <div class="intro">
-            <p>Virement le : {{ dateDebVirement|date('d/m/Y') }}</p>
-            {% if period is defined %}
-                <p>Périodicité : {{ period|trans }}</p>
+            {% if regular %}
+                {% set period = period ~ '_label' %}
+                {% set periodLabel = period|trans %}
+                <p>{{ 'gift.payment.return.virement_regular'|trans({'%civility%': civility, '%name%': name, '%amount%': amount, '%period%': periodLabel})|raw }}</p>
+            {% else %}
+                <p>{{ 'gift.payment.return.virement'|trans({'%civility%': civility, '%name%': name, '%amount%': amount})|raw }}</p>
             {% endif %}
         </div>
     </div>

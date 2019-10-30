@@ -63,7 +63,6 @@ function changeItem(elmt) {
     item.addClass('active')
     item.css('maxHeight', item.prop('scrollHeight') + 'px')
   })
-  backToTop()
 }
 
 $(document).ready(function () {
@@ -181,11 +180,14 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
   event.preventDefault()
 
   if (_modpaie === 'VIR' || _modpaie === 'VIRREG') {
-    changeItem([itemPrelevement])
     Inputmask().mask(document.querySelectorAll('.date_virement'))
+    itemPrelevement.find('.virement').removeClass('hidden')
     if (_modpaie === 'VIRREG') {
       itemPrelevement.find('.select-period').removeClass('hidden')
+      itemPrelevement.find('.virement-reg').removeClass('hidden')
+      itemPrelevement.find('.virement').addClass('hidden')
     }
+    changeItem([itemPrelevement])
   }
   else {
     changeItem([itemConnection])
@@ -199,8 +201,6 @@ itemPrelevement.on('submit', 'form', function (event) {
   _dateDebVir = moment(itemPrelevement.find('.date_virement').val(), 'DD/MM/YYYY').format()
   _virPeriod = itemPrelevement.find('.select-period').val()
 
-  console.log(_dateDebVir)
-  console.log(_virPeriod)
   changeItem([itemConnection])
 })
 
