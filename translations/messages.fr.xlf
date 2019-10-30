@@ -1107,6 +1107,12 @@
         <target>Se déconnecter</target>
       </segment>
     </unit>
+    <unit id="9gZriSj" name="form.back">
+      <segment>
+        <source>form.back</source>
+        <target>Retour</target>
+      </segment>
+    </unit>
     <unit id="wYBophx" name="calendar.registration.two.title.modify.you">
       <segment>
         <source>calendar.registration.two.title.modify.you</source>

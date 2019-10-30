@@ -112,10 +112,6 @@ $('.item.amount h2, .item.allocation h2, .item.payment h2').on('click', function
   changeItem([itemAmount, itemAllocation, itemPayment])
 })
 
-$('.item.connection h2').on('click', function () {
-  changeItem([itemConnection])
-})
-
 /* CHOIX DU MONTANT */
 
 itemAmount.on('click', '.button.radio', function (event) {
@@ -204,6 +200,11 @@ itemPrelevement.on('submit', 'form', function (event) {
   changeItem([itemConnection])
 })
 
+itemPrelevement.on('click', '.back', function (event) {
+  event.preventDefault()
+  changeItem([itemAmount, itemAllocation, itemPayment])
+})
+
 /* CONNEXION / INSCRIPTION */
 
 function afterLogin (user, bypass) {
@@ -274,6 +275,11 @@ itemConnection.on('click', '.cancel', function (event) {
   $('.panel.registration', itemConnection).slideUp(800, function () {
     $(this).hide()
   })
+})
+
+itemConnection.on('click', '.back', function (event) {
+  event.preventDefault()
+  changeItem([itemAmount, itemAllocation, itemPayment])
 })
 
 itemConnection.on('submit', '.panel.registration form', function (event) {
