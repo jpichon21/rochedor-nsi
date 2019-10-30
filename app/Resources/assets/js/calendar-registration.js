@@ -59,6 +59,12 @@ $(document).ready(function () {
   }, 500)
 })
 
+function scrollTop () {
+  setTimeout(() => {
+    document.querySelector('.content').scroll({ top: 0, left: 0, behavior: 'smooth' })
+  }, 200)
+}
+
 /* Button Radio */
 
 $('.registered-render').on('click', '.button.radio', function (event) {
@@ -171,6 +177,7 @@ function afterLogin (user) {
     updateRegisteredRender()
     updateParticipantsRender()
     changeItem(itemParticipants)
+    scrollTop()
     if (_you.transport === '') {
       upFlashbag(i18n.trans('form.message.update_you'))
       $('.modify-you', itemParticipants).click()
@@ -470,6 +477,7 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
         $(`.panel.${action}`).slideUp(800, function () {
           $(this).hide()
           changeItem(itemParticipants)
+          scrollTop()
         })
       }).catch(error => {
         if (error) {
@@ -582,11 +590,11 @@ function modifyClick (event, action, callUpdater, callFunction) {
   $(`.panel.${action}`, itemParticipants).show()
   changeItem(itemParticipants)
 
-  setTimeout(() => {
-    const content = document.querySelector('.content')
-    const panel = content.querySelector(`.panel.${action}`)
-    content.scroll({ top: panel.offsetTop, left: 0, behavior: 'smooth' })
-  }, 200)
+  // setTimeout(() => {
+  //   const content = document.querySelector('.content')
+  //   const panel = content.querySelector(`.panel.${action}`)
+  //   content.scroll({ top: 0, left: 0, behavior: 'smooth' })
+  // }, 200)
 }
 
 itemParticipants.on('click', '.modify-you', function (event) {
