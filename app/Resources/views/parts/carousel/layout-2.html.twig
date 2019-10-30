@@ -1,3 +1,3 @@
 <div class="top no-border">
-    <a class="full {% if (images[0].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[0].alt }}" href="{% if (images[0].video != '') %}{{ asset(images[0].video) }}{% else %}{{ asset(images[0].url) }}{% endif %}" style="{{ asset(images[0].url)|background ~ (images[0].crop is defined ? images[0].crop|position : '') }}"></a>
+    <a class="full {% if (images[0].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[0].alt }}" href="{% if (images[0].video != '') %}{{ asset(images[0].video) }}{% else %}{{ asset(images[0].url)|imagine_filter('page_carousel_full') }}{% endif %}" style="{{ asset(images[0].url)|imagine_filter('page_carousel_small') | background ~ (images[0].crop is defined ? images[0].crop|position : '')}}"></a>
 </div>

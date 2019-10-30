@@ -10,7 +10,7 @@
     <div class="left">
         <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
         <div class="intro">
-            {{ 'calendar.registration.intro'|trans({'%link%': path('calendar-' ~ app.request.locale)}) | raw }}
+            {{ 'calendar.registration.intro'|trans({'%link%': path('calendar-' ~ app.request.locale), '%location%': ('calendar.registration.intro.' ~ activity.sitact)|trans}) | raw }}
         </div>
         <div class="dropdown without-link">
             <div class="item connection">
@@ -79,49 +79,56 @@
             </div>
             <div class="item participants">
                 <h2>{{ 'calendar.registration.two.title' | trans | raw }}</h2>
-                <h3>{{ 'calendar.registration.two.title.you' | trans | raw }}</h3>
-                <div class="you-render"></div>
-                <h3>{{ 'calendar.registration.two.title.registered' | trans | raw }}</h3>
-                <div class="registered-render"></div>
-                <a href="#" class="add-participant" rel="nofollow">{{ 'calendar.registration.two.add_participant' | trans | raw }}</a>
-                <a href="#" class="validate-participants button" rel="nofollow">{{ 'calendar.registration.two.validate_participants' | trans | raw }}</a>
-                <div class="panel you">
-                    <h3>{{ 'calendar.registration.two.title.modify.you' | trans | raw }}</h3>
-                    <form class="pure-g you-form-render"></form>
-                </div>
-                <div class="panel add">
-                    <h3>{{ 'calendar.registration.two.title.registration' | trans | raw }}</h3>
-                    <form class="pure-g him-form-render"></form>
-                </div>
-                <div class="panel him">
-                    <h3>{{ 'calendar.registration.two.title.modify.him' | trans | raw }}</h3>
-                    <form class="pure-g him-form-render"></form>
+                <div class="item-content">
+                    <div class="panel you">
+                        <h3>{{ 'calendar.registration.two.title.modify.you' | trans | raw }}</h3>
+                        <form class="pure-g you-form-render"></form>
+                    </div>
+                    <div class="panel add">
+                        <h3>{{ 'calendar.registration.two.title.registration' | trans | raw }}</h3>
+                        <form class="pure-g him-form-render"></form>
+                    </div>
+                    <h3>{{ 'calendar.registration.two.title.you' | trans | raw }}</h3>
+                    <div class="panel him">
+                        <h3>{{ 'calendar.registration.two.title.modify.him' | trans | raw }}</h3>
+                        <form class="pure-g him-form-render"></form>
+                    </div>
+                    <div class="you-render"></div>
+                    <h3>{{ 'calendar.registration.two.title.registered' | trans | raw }}</h3>
+                    <div class="registered-render"></div>
+                    <h3>{{ 'calendar.registration.two.title.went' | trans | raw }}</h3>
+                    <div class="went-render"></div>
+                    <a href="#" class="add-participant" rel="nofollow">{{ 'calendar.registration.two.add_participant' | trans | raw }}</a>
+                    <a href="#" class="validate-participants button" rel="nofollow">{{ 'calendar.registration.two.validate_participants' | trans | raw }}</a>
+                    
                 </div>
             </div>
             <div class="item validation">
                 <h2>{{ 'calendar.registration.three.title' | trans | raw }}</h2>
-                <div class="result">
-                    {{ 'calendar.registration.three.header' | trans | raw }}
-                    <p class="text-center"><strong>"{{ activity.libact }}"</strong><br>{{ 'filter.inner.date.in' | trans | raw }}<strong> {{ activity.datdeb | localizeddate('medium', 'none', app.request.locale ) }}</strong> {{ 'filter.inner.date.out' | trans | lower | raw }} <strong>{{ activity.datfin | localizeddate('medium', 'none', app.request.locale ) }}</strong> ({{ activity.sitact }})</p>
-                    <table class="tab-end-message">
-                        <thead>
-                            <tr>
-                                <th>{{'calendar.registration.two.title '|trans}}</th>
-                                <th>{{'calendar.registration.table.header.transport'|trans}}</th>
-                                <th>{{'calendar.registration.table.header.come'|trans}}</th>
-                                <th>{{'calendar.registration.table.header.schedule'|trans}}</th>
-                            </tr>
-                        </thead>
-                        <tbody class="end-message-render">
-                        </tbody>
-                    </table>
-                    {{ 'calendar.registration.three.body' | trans | raw }}     
-                    <div class="pure-g">
-                        <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
-                            <p><a class="button" href="{{ path('home') }}">{{ 'homepage' | trans }}</a></p>
-                        </div>
-                        <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
-                            <p><a class="button" href="{{ path('calendar-' ~ currentLocale) }}">{{ 'calendar' | trans }}</a></p>
+                <div class="item-content">
+                    <div class="result">
+                        {{ 'calendar.registration.three.header' | trans | raw }}
+                        <p class="text-center"><strong>"{{ activity.libact }}"</strong><br>{{ 'filter.inner.date.in' | trans | raw }}<strong> {{ activity.datdeb | localizeddate('medium', 'none', app.request.locale ) }}</strong> {{ 'filter.inner.date.out' | trans | lower | raw }} <strong>{{ activity.datfin | localizeddate('medium', 'none', app.request.locale ) }}</strong> ({{ activity.sitact }})</p>
+                        <table class="tab-end-message">
+                            <thead>
+                                <tr>
+                                    <th>{{'calendar.registration.two.title '|trans}}</th>
+                                    <th>{{'calendar.registration.table.header.transport'|trans}}</th>
+                                    <th>{{'calendar.registration.table.header.come'|trans}}</th>
+                                    <th>{{'calendar.registration.table.header.schedule'|trans}}</th>
+                                </tr>
+                            </thead>
+                            <tbody class="end-message-render">
+                            </tbody>
+                        </table>
+                        {{ 'calendar.registration.three.body' | trans | raw }}     
+                        <div class="pure-g">
+                            <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
+                                <p><a class="button" href="{{ path('logout-message', {'from': 'calendar'}) }}">{{ 'logout.disconnect.title' | trans }}</a></p>
+                            </div>
+                            <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
+                                <p><a class="button" href="{{ path('calendar-' ~ currentLocale) }}">{{ 'calendar' | trans }}</a></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -153,7 +160,7 @@
 </script>
 <script type="text/template" class="you-template">
     <div class="you">
-        <p><%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
+        <p><%= _.escape(you.civil) %> <%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
             <%= _.escape(you.adresse) %> <%= _.escape(you.cp) %> <%= _.escape(you.ville) %> (<%= _.escape(you.pays) %>)</p>
         <a href="#" data-id="<%= _.escape(you.codco) %>" class="modify-you button">{{ 'form.modify' | trans | raw }}</a>
         <a href="#" class="button radio hidden <%= (you.check) ? 'checked' : '' %>">{{ 'form.participate' | trans | raw }}</a>
@@ -164,7 +171,7 @@
         <% for (var i = 0; i < participants.length; i++) { %>
         <% var him = participants[i] %>
             <div class="him">
-                <p><%= _.escape(him.prenom) %> <%= _.escape(him.nom) %><br>
+                <p><%= _.escape(him.civil) %> <%= _.escape(him.prenom) %> <%= _.escape(him.nom) %><br>
                     <% if (him.adresse) { %>
                     <%= _.escape(him.adresse) %> <%= _.escape(him.cp) %> <%= _.escape(him.ville) %> <%= (him.pays) ? '('+_.escape(him.pays)+')': '' %><br>
                     <% } %>
@@ -180,11 +187,24 @@
     <% if (registered.length) { %>
         <% for (var i = 0; i < registered.length; i++) { %>
         <% var him = registered[i] %>
-            <div class="him">
-                <p><%= _.escape(him.prenom) %> <%= _.escape(him.nom) %><br>
+        <div class="him">
+            <p><%= _.escape(him.civil) %> <%= _.escape(him.prenom) %> <%= _.escape(him.nom) %><br>
+                <%= _.escape(him.adresse) %> <%= _.escape(him.cp) %> <%= _.escape(him.ville) %> <%= (him.pays) ? '('+_.escape(him.pays)+')': '' %></p>
+            <a href="#" data-id="<%= _.escape(him.codco) %>" class="modify-him button" rel="nofollow">{{ 'form.modify' | trans | raw }}</a>
+        </div>
+        <% } %>
+    <% } else { %>
+        <p>{{ 'form.no_participants' | trans }}</p>
+    <% } %>
+</script>
+<script type="text/template" class="went-template">
+    <% if (registered.length) { %>
+        <% for (var i = 0; i < registered.length; i++) { %>
+        <% var him = registered[i] %>
+            <div class="him<%= him.added && ' added'%>">
+                <p><%= _.escape(him.civil) %> <%= _.escape(him.prenom) %> <%= _.escape(him.nom) %><br>
                     <%= _.escape(him.adresse) %> <%= _.escape(him.cp) %> <%= _.escape(him.ville) %> <%= (him.pays) ? '('+_.escape(him.pays)+')': '' %></p>
-                <a href="#" data-id="<%= _.escape(him.codco) %>" class="modify-him button" rel="nofollow">{{ 'form.modify' | trans | raw }}</a>
-                <a href="#" data-id="<%= _.escape(him.codco) %>" class="participate-him button radio <%= (him.check) ? 'checked' : '' %>" rel="nofollow">{{ 'form.participate' | trans | raw }}</a>
+                <a href="#" data-id="<%= _.escape(him.codco) %>" class="participate-him button" rel="nofollow">{{ 'form.participate' | trans | raw }}</a>
             </div>
         <% } %>
     <% } else { %>
@@ -234,11 +254,11 @@
         <div class="error-message"><%= errors.pays %></div>
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
-        <input autocomplete="off" class="input tel<%= errors.tel && ' error' %>" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.tel) %>" name="tel" placeholder="* {{ 'form.phone' | trans | raw }}">
-        <div class="error-message"><%= errors.tel %></div>
+        <input autocomplete="off" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.mobil) %>" name="mobil" placeholder="* {{ 'form.mobile' | trans | raw }}">
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
-        <input autocomplete="off" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.mobil) %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
+        <input autocomplete="off" class="input tel<%= errors.tel && ' error' %>" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.tel) %>" name="tel" placeholder="* {{ 'form.phone' | trans | raw }}">
+        <div class="error-message"><%= errors.tel %></div>
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="off" class="input email<%= errors.email && ' error' %>" type="email" value="<%= _.escape(participant.email) %>" name="email" placeholder="* {{ 'form.email' | trans | raw }}" maxlength="40">
@@ -368,10 +388,10 @@
         </select>
     </div>
     <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
-        <input autocomplete="off" class="input tel" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.tel) %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
+        <input autocomplete="off" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.mobil) %>" name="mobil" placeholder="* {{ 'form.mobile' | trans | raw }}">
     </div>
     <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
-        <input autocomplete="off" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.mobil) %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
+        <input autocomplete="off" class="input tel" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.tel) %>" name="tel" placeholder="* {{ 'form.phone' | trans | raw }}">
     </div>
     <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
         <input autocomplete="off" class="input email" type="email" value="<%= _.escape(participant.email) %>" name="email" placeholder="{{ 'form.email' | trans | raw }}" maxlength="40">

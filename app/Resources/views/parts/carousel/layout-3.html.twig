@@ -1,8 +1,8 @@
 <div class="top">
     <div class="left">
-        <a class="full {% if (images[0].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[0].alt }}" href="{% if (images[0].video != '') %}{{ asset(images[0].video) }}{% else %}{{ asset(images[0].url) }}{% endif %}" style="{{ asset(images[0].url)|background ~ (images[0].crop is defined ? images[0].crop|position : '') }}"></a>
+        <a class="full {% if (images[0].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[0].alt }}" href="{% if (images[0].video != '') %}{{ asset(images[0].video) }}{% else %}{{ asset(images[0].url)|imagine_filter('page_carousel_small')}}{% endif %}" style="{{ asset(images[0].url)|imagine_filter('page_carousel_small') | background ~ (images[0].crop is defined ? images[0].crop|position : '') }}"></a>
     </div>
     <div class="right">
-        <a class="full {% if (images[1].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[1].alt }}" href="{% if (images[1].video != '') %}{{ asset(images[1].video) }}{% else %}{{ asset(images[1].url) }}{% endif %}" style="{{ asset(images[1].url)|background ~ (images[1].crop is defined ? images[1].crop|position : '') }}"></a>
+        <a class="full {% if (images[1].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[1].alt }}" href="{% if (images[1].video != '') %}{{ asset(images[1].video) }}{% else %}{{ asset(images[1].url|imagine_filter('page_carousel_small')) }}{% endif %}" style="{{ asset(images[1].url)|imagine_filter('page_carousel_small') |background ~ (images[1].crop is defined ? images[1].crop|position : '') }}"></a>
     </div>
 </div>
