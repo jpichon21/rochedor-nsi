@@ -107,7 +107,7 @@ function updateEndMessageRender () {
     lieux: {
       'viotte': i18n.trans('viotte'),
       'besancon-tgv': i18n.trans('besancon-tgv'),
-      'ne-sait-pas-encore': i18n.trans('ne-sait-pas-encore')
+      'ne-sait-pas': i18n.trans('ne-sait-pas')
     },
     transports: {
       'perso': i18n.trans('form.transport.perso'),
@@ -171,8 +171,10 @@ function afterLogin (user) {
     updateRegisteredRender()
     updateParticipantsRender()
     changeItem(itemParticipants)
-    upFlashbag(i18n.trans('form.message.update_you'))
-    $('.modify-you', itemParticipants).click()
+    if (_you.transport === '') {
+      upFlashbag(i18n.trans('form.message.update_you'))
+      $('.modify-you', itemParticipants).click()
+    }
   })
 }
 
@@ -258,29 +260,37 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
   if (error) {
     errors['tel'] = error
   }
+  
   updateYouFormRender(errors, {...participant}, true)
   if (Object.keys(errors).length === 0) {
-    upLoader()
-    postRegister({
-      contact: participant
-    }).then(user => {
-      postLogin({
-        username: user.username,
-        password: participant.password
+    validateChild(participant, true).then(participant => {
+      upLoader()
+      postRegister({
+        contact: participant
       }).then(user => {
-        afterLogin({
-          ...user,
-          transport: participant.transport,
-          arriv: participant.arriv,
-          lieu: participant.lieu
+        postLogin({
+          username: user.username,
+          password: participant.password
+        }).then(user => {
+          afterLogin({
+            ...user,
+            transport: participant.transport,
+            arriv: participant.arriv,
+            lieu: participant.lieu
+          })
+        }).catch(err => {
+          downLoader()
+          upFlashbag(i18n.trans(`${err}`))
         })
-      }).catch(err => {
+      }).catch(error => {
         downLoader()
-        upFlashbag(i18n.trans(`${err}`))
+        upFlashbag(i18n.trans(`${error}`))
       })
     }).catch(error => {
-      downLoader()
-      upFlashbag(i18n.trans(`${error}`))
+      if (error) {
+        downLoader()
+        upFlashbag(i18n.trans(`${error}`))
+      }
     })
   }
 })
@@ -309,11 +319,6 @@ itemConnection.on('click', 'a', function (event) {
   changeItem(itemConnection)
 })
 
-content.on('click', '.toggle-password', function (event) {
-  event.preventDefault()
-  togglePasswordVisibility(this.previousElementSibling)
-})
-
 itemParticipants.on('change', '.transport', function () {
   $('.lieu-wrapper, .arriv-wrapper', itemParticipants).toggleClass('hidden', $(this).val() !== 'train')
   changeItem(itemParticipants)
@@ -339,30 +344,40 @@ function validatePhone (phone, mobile) {
   return null
 }
 
-function validateChild (participant) {
+function validateChild (participant, isYou=false) {
   return new Promise((resolve, reject) => {
     if (moment(_infos.datdeb.date).diff(moment(participant.datnaiss), 'years') >= 16) {
       resolve(participant)
     } else {
-      if (participant.coltyp === 'enfan' || participant.coltyp === 'accom') {
-        const people = [..._registered, _you]
-        const filtered = people.filter(person => person.codco === parseInt(participant.colp))
-        const parent = filtered.shift()
-        if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
-          upConfirmbox(i18n.trans('form.message.does_child_have_autpar')).then(() => {
-            resolve({
-              ...participant,
-              aut16: 1,
-              datAut16: moment().format()
-            })
-          }).catch(() => {
-            reject(i18n.trans('form.message.child_must_have_autpar'))
+      if (isYou) {
+        upConfirmbox(i18n.trans('form.message.do_you_have_agreement')).then(() => {
+          resolve({
+            ...participant,
+            aut16: 1,
+            datAut16: moment().format()
           })
-        } else {
-          reject(i18n.trans('form.message.parent_must_be_adult'))
-        }
+        })
       } else {
-        reject(i18n.trans('form.message.child_must_come_with_adult'))
+        if (participant.coltyp === 'enfan' || participant.coltyp === 'accom') {
+          const people = [..._registered, _you]
+          const filtered = people.filter(person => person.codco === parseInt(participant.colp))
+          const parent = filtered.shift()
+          if (moment().diff(moment(parent.datnaiss), 'years') >= 18) {
+            upConfirmbox(i18n.trans('form.message.does_child_have_autpar')).then(() => {
+              resolve({
+                ...participant,
+                aut16: 1,
+                datAut16: moment().format()
+              })
+            }).catch(() => {
+              reject(i18n.trans('form.message.child_must_have_autpar'))
+            })
+          } else {
+            reject(i18n.trans('form.message.parent_must_be_adult'))
+          }
+        } else {
+          reject(i18n.trans('form.message.child_must_come_with_adult'))
+        }
       }
     }
   })
@@ -439,7 +454,7 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
     if (participant.password === '') {
       participant.password = null
     }
-    validateChild(participant).then(participantValidated => {
+    validateChild(participant, action === 'you').then(participantValidated => {
       if (participantValidated.transport !== 'train') {
         participantValidated.lieu = ''
         participantValidated.arriv = ''
@@ -468,14 +483,6 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
         upFlashbag(i18n.trans(`${error}`))
       }
     })
-  }
-}
-
-function togglePasswordVisibility (el) {
-  if (el.getAttribute('type') === 'password') {
-    el.setAttribute('type', 'text')
-  } else {
-    el.setAttribute('type', 'password')
   }
 }
 

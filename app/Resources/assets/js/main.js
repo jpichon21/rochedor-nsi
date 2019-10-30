@@ -147,3 +147,20 @@ if (hideFilters != null) {
     filters.classList.remove('active')
   }
 }
+
+// Toggle password
+content.onclick = event => {
+  if (event.target.classList.contains('toggle-password')) {
+    console.log(event)
+    event.preventDefault()
+    togglePasswordVisibility(event.target.previousElementSibling)
+  }
+}
+
+function togglePasswordVisibility (el) {
+  if (el.getAttribute('type') === 'password') {
+    el.setAttribute('type', 'text')
+  } else {
+    el.setAttribute('type', 'password')
+  }
+}
