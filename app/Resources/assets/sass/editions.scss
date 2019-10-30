@@ -183,16 +183,22 @@ h2 {
     padding-left: 10px;
   }
   &:hover, &:focus, &:active{
-    color: #ffffff;
+    /*color: #ffffff;
     transition: 0.5s ease-in-out;
     background: linear-gradient(to left, transparent 50%, $roche-orange 50%);
     background-size: 200% 100%;
     background-position:0 110%;
+    border: 1px $roche-orange solid;*/
+    color: #ffffff;
+    -webkit-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+    background: -webkit-gradient(linear, right top, left top, color-stop(50%, transparent), color-stop(50%, $roche-orange));
+    background: -o-linear-gradient(right, transparent 50%, $roche-orange 50%);
+    background: linear-gradient(to left, transparent 50%, $roche-orange 50%);
+    background-size: 200% 100%;
+    background-position:0 110%;
     border: 1px $roche-orange solid;
-   /* &:after{
-      background-image: url('../img/button-arrow-right-yellow.png');
-      transition: 0.5s ease-in-out;
-    }*/
   }
   &.right-arrow {
     //margin-bottom: 40px;
@@ -200,16 +206,6 @@ h2 {
     @include media('<large') {
       float: left;
     }
-    /*&:after {
-      content: '';
-      padding-right: 6px;
-      margin-left: 10px;
-      padding-top: 3px;
-      background-image: url('../img/button-arrow-right-black.png');
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: 0.5s ease-in-out;
-    }*/
   }
 }
 

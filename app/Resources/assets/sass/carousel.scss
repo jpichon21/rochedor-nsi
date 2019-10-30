@@ -25,7 +25,6 @@
     margin-top: -34px;
     width: 68px;
     height: 68px;
-    background-image: url('../img/arrow-left.png');
     z-index: 1;
     cursor: pointer;
     @include media('<large') {
@@ -35,12 +34,23 @@
       background-size: 100%;
     }
   }
+  .prev:hover, .prev:focus, .prev:active{
+    background: #fff url('../img/icons/arrow-left.svg');
+    transition: 0.5s ease;
+  }
   .prev {
     left: 0;
+    background: #000 url('../img/icons/arrow-left-gold.svg');
+    transition: 0.5s ease;
   }
   .next {
     right: 0;
-    background-image: url('../img/arrow-right.png');
+    background: #000 url('../img/icons/arrow-right-gold.svg');
+    transition: 0.5s ease;
+  }
+  .next:hover, .next:focus, .next:active {
+    background: #fff url('../img/icons/arrow-right.svg');
+    transition: 0.5s ease;
   }
   .slides {
     position: relative;
@@ -94,6 +104,20 @@
             transition: 0.5s;
             z-index: 0;
           }
+          &:hover{
+            &:after{
+              content: '';
+              position: absolute;
+              top: 0;
+              right: 0;
+              width: 45px;
+              height: 45px;
+              background: #fff url('../img/icons/plus.svg');
+              background-size: 100%;
+              z-index: 1;
+              transition: 0.5s ease;
+            }
+          }
           &:after {
             content: '';
             position: absolute;
@@ -101,7 +125,8 @@
             right: 0;
             width: 45px;
             height: 45px;
-            background-image: url('../img/plus.png');
+            //background-image: url('../img/plus.png');
+            background: #000 url('../img/icons/plus-gold.svg');
             background-size: 100%;
             z-index: 1;
           }
