@@ -309,11 +309,6 @@ itemConnection.on('click', 'a', function (event) {
   changeItem(itemConnection)
 })
 
-content.on('click', '.toggle-password', function (event) {
-  event.preventDefault()
-  togglePasswordVisibility(this.previousElementSibling)
-})
-
 itemParticipants.on('change', '.transport', function () {
   $('.lieu-wrapper, .arriv-wrapper', itemParticipants).toggleClass('hidden', $(this).val() !== 'train')
   changeItem(itemParticipants)
@@ -468,14 +463,6 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
         upFlashbag(i18n.trans(`${error}`))
       }
     })
-  }
-}
-
-function togglePasswordVisibility (el) {
-  if (el.getAttribute('type') === 'password') {
-    el.setAttribute('type', 'text')
-  } else {
-    el.setAttribute('type', 'password')
   }
 }
 
