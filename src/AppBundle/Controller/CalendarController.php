@@ -321,7 +321,7 @@ class CalendarController extends Controller
                     [
                         'Arriv' => [
                             'Transport' => $a['transport'],
-                            'Lieu' => $a['lieu'],
+                            'Lieu' => ucwords($a['lieu']),
                             'Heure' => ($a['arriv'] !== '') ? explode(':', $a['arriv'])[0]: '',
                             'Mn' => ($a['arriv'] !== '') ? explode(':', $a['arriv'])[1]: '',
                             'Memo' => $a['memo']
@@ -489,9 +489,6 @@ class CalendarController extends Controller
             return strlen($k['color']) == 7 ;
         }, ARRAY_FILTER_USE_BOTH);
 
-        foreach ($speakers as $key => $speaker) {
-             $speakers[$key]['name'] = strtoupper($speaker['name']);
-        }
         $data['sites'] = $this::SITES;
         $data['types'] = $eventTypes;
         $data['speakers'] = $speakers;

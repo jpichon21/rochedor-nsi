@@ -156,10 +156,6 @@ class SecurityController extends Controller
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide contact object']);
         }
  
-        if (!$this->isAdult($contactReq['datnaiss'], $contactReq['startDate'])) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'user.security_child']);
-        }
-
         if ($repository->findContactByUsername($contactReq['username'])) {
             return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);
         }
@@ -423,14 +419,6 @@ class SecurityController extends Controller
             default:
                 return $this->render('default/logout-message-black.html.twig', array('background' => 4));
         }
-    }
-
-    private function isAdult(string $datnaiss, string $date)
-    {
-        $datnaiss = new \DateTime($datnaiss);
-        $date = new \DateTime($date);
-        $diff = $datnaiss->diff($date);
-        return ($diff->y >= $this::YEARS_ADULT);
     }
 
     private function isBadPassword(string $password)
