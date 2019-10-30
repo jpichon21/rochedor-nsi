@@ -107,7 +107,7 @@ function updateEndMessageRender () {
     lieux: {
       'viotte': i18n.trans('viotte'),
       'besancon-tgv': i18n.trans('besancon-tgv'),
-      'ne-sait-pas-encore': i18n.trans('ne-sait-pas-encore')
+      'ne-sait-pas': i18n.trans('ne-sait-pas')
     },
     transports: {
       'perso': i18n.trans('form.transport.perso'),

@@ -321,7 +321,7 @@ class CalendarController extends Controller
                     [
                         'Arriv' => [
                             'Transport' => $a['transport'],
-                            'Lieu' => $a['lieu'],
+                            'Lieu' => ucwords($a['lieu']),
                             'Heure' => ($a['arriv'] !== '') ? explode(':', $a['arriv'])[0]: '',
                             'Mn' => ($a['arriv'] !== '') ? explode(':', $a['arriv'])[1]: '',
                             'Memo' => $a['memo']

@@ -1924,9 +1924,9 @@
         <target>Besançon Franche-Comté TGV (à 16km de Besançon centre)</target>
       </segment>
     </unit>
-    <unit id="2VSNKO." name="form.lieu.ne-sait-pas-encore">
+    <unit id="2VSNKO." name="form.lieu.ne-sait-pas">
       <segment>
-        <source>form.lieu.ne-sait-pas-encore</source>
+        <source>form.lieu.ne-sait-pas</source>
         <target>Ne sait pas encore</target>
       </segment>
     </unit>
@@ -3209,9 +3209,9 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
         <target>Besançon Viotte</target>
       </segment>
     </unit>
-    <unit id="16wRCRF" name="ne-sait-pas-encore">
+    <unit id="16wRCRF" name="ne-sait-pas">
       <segment>
-        <source>ne-sait-pas-encore</source>
+        <source>ne-sait-pas</source>
         <target>Ne sait pas encore</target>
       </segment>
     </unit>
