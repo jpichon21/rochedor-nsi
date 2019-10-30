@@ -416,6 +416,8 @@ class SecurityController extends Controller
                 return $this->render('default/logout-message-white.html.twig', array());
             case 'calendar':
                 return $this->render('default/logout-message-calendar.html.twig', array('background' => 4));
+            case 'don-ponctuel':
+                return $this->render('default/logout-message-dons.html.twig', array('background' => 4));
             default:
                 return $this->render('default/logout-message-black.html.twig', array('background' => 4));
         }

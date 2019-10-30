@@ -65,7 +65,7 @@ export const getLogout = (locale) => {
     credentials: 'include'
   })
     .then(() => {
-      window.location.replace('/' + locale + '/logout-message/roche')
+      window.location.replace('/' + locale + '/logout-message/don-ponctuel')
     })
 }
 

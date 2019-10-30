@@ -3426,6 +3426,13 @@ Si vous relevez de la fiscalité française, la réduction est équivalente à 6
 Pour réaliser une nouvelle inscription, cliquer sur Calendrier.</target>
       </segment>
     </unit>
+    <unit id="9B8TMG7" name="logout.disconnect.dons">
+      <segment>
+        <source>logout.disconnect.dons</source>
+        <target>Vous avez été déconnecté du module de dons.
+Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou réguliers.</target>
+      </segment>
+    </unit>
     <unit id="7tCDwib" name="form.choose.period">
       <segment>
         <source>form.choose.period</source>
