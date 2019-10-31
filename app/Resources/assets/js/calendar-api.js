@@ -87,6 +87,7 @@ export const getLogin = () => {
   })
     .then(res => {
       if (!res.ok) { res.json().then(res => { throw res.message }) }
+      if (res.status === 201) { throw new Error('not_logged_in') }
       return res.json()
     })
     .catch(res => {
