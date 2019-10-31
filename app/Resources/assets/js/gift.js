@@ -38,7 +38,6 @@ let _dateDebVir = ''
 let _virPeriod = ''
 
 const itemConnection = $('.item.connection')
-const itemCard = $('.item.card')
 const itemAmount = $('.item.amount')
 const itemAllocation = $('.item.allocation')
 const itemPayment = $('.item.payment')
@@ -84,9 +83,10 @@ function updateYouRender () {
   $('.you-render').html(youTemplate({ you: _you }))
 }
 
-function updateYouFormRender () {
+function updateYouFormRender (errors = [], contact = {}) {
   $('.you-form-render').html(youFormTemplate({
-    you: _you,
+    you: contact,
+    errors: errors,
     countries: _countries,
     civilites: [
       i18n.trans('form.civilite.mr'),
@@ -100,17 +100,35 @@ function updateYouFormRender () {
   Inputmask().mask(document.querySelectorAll('.datnaiss'))
 }
 
+const REQUIRED_FIELDS_COMMON = ['civil', 'prenom', 'nom']
+const REQUIRED_FIELDS_YOU = ['adresse', 'cp', 'ville', 'pays', 'email']
+
+function validateYou (data) {
+  return validateRequired(data, [...REQUIRED_FIELDS_COMMON, ...REQUIRED_FIELDS_YOU])
+}
+
+function validateRequired (data, requiredFields) {
+  var errors = []
+  data.forEach(function (item) {
+    if (requiredFields.includes(item.name) && item.value === '') {
+      errors[item.name] = i18n.trans('form.message.required')
+    }
+  })
+  requiredFields.forEach(function (item) {
+    if (!data.find(el => el.name === item)) {
+      errors[item] = i18n.trans('form.message.required')
+    }
+  })
+  return errors
+}
+
 function updateAmountRender () {
   $('.amount-render').html(amountTemplate({
-    reduction: i18n.trans('gift.summary.reduction').replace('%reduction%', parseFloat(_amount * 0.66).toFixed(2))
+    reduction: i18n.trans('gift.summary.reduction').replace('%reduction%', parseFloat(_amount * 0.33).toFixed(2))
   }))
 }
 
 /* Actions */
-
-$('.item.amount h2, .item.allocation h2, .item.payment h2').on('click', function () {
-  changeItem([itemAmount, itemAllocation, itemPayment])
-})
 
 /* CHOIX DU MONTANT */
 
@@ -174,19 +192,29 @@ itemPayment.on('change', '.select-modpaie', function (event) {
 
 itemPayment.on('submit', '.panel.payment form', function (event) {
   event.preventDefault()
-
-  if (_modpaie === 'VIR' || _modpaie === 'VIRREG') {
-    Inputmask().mask(document.querySelectorAll('.date_virement'))
-    itemPrelevement.find('.virement').removeClass('hidden')
-    if (_modpaie === 'VIRREG') {
-      itemPrelevement.find('.select-period').removeClass('hidden')
-      itemPrelevement.find('.virement-reg').removeClass('hidden')
-      itemPrelevement.find('.virement').addClass('hidden')
+  let toValidate = $('input[name="amount"], select.select-allocation, input[name="payment_method"]')
+  let valid = true
+  toValidate.each(function () {
+    if ($(this).val() === '' || $(this).val() === null) {
+      valid = false
     }
-    changeItem([itemPrelevement])
-  }
-  else {
-    changeItem([itemConnection])
+  })
+
+  if (valid === false) {
+    upFlashbag(i18n.trans('gift.invalid_form.amount'))
+  } else {
+    if (_modpaie === 'VIR' || _modpaie === 'VIRREG') {
+      Inputmask().mask(document.querySelectorAll('.date_virement'))
+      itemPrelevement.find('.virement').removeClass('hidden')
+      if (_modpaie === 'VIRREG') {
+        itemPrelevement.find('.select-period').removeClass('hidden')
+        itemPrelevement.find('.virement-reg').removeClass('hidden')
+        itemPrelevement.find('.virement').addClass('hidden')
+      }
+      changeItem([itemPrelevement])
+    } else {
+      changeItem([itemConnection])
+    }
   }
 })
 
@@ -197,7 +225,22 @@ itemPrelevement.on('submit', 'form', function (event) {
   _dateDebVir = moment(itemPrelevement.find('.date_virement').val(), 'DD/MM/YYYY').format()
   _virPeriod = itemPrelevement.find('.select-period').val()
 
-  changeItem([itemConnection])
+  let toValidate = $('input[name="date_virement"]')
+  let valid = true
+  if (_modpaie === 'VIRREG') {
+    toValidate = $('input[name="date_virement"], select.select-period')
+  }
+  toValidate.each(function () {
+    if ($(this).val() === '' || $(this).val() === null) {
+      valid = false
+    }
+  })
+
+  if (valid === false) {
+    upFlashbag(i18n.trans('gift.invalid_form.virement'))
+  } else {
+    changeItem([itemConnection])
+  }
 })
 
 itemPrelevement.on('click', '.back', function (event) {
@@ -231,11 +274,17 @@ function formatContact (data) {
   return contact
 }
 
-function validatePassword (password) {
+function validatePassword (password, notEmpty = false) {
+  if (!password && !notEmpty) {
+    return null
+  }
   if (password.length < 8 && password.length !== 0) {
     return i18n.trans('security.password_too_small')
   }
-  return true
+  if (password === '' || (password === null && notEmpty)) {
+    return i18n.trans('form.message.required')
+  }
+  return null
 }
 
 itemConnection.on('submit', '.panel.connection form', function (event) {
@@ -284,41 +333,48 @@ itemConnection.on('click', '.back', function (event) {
 
 itemConnection.on('submit', '.panel.registration form', function (event) {
   event.preventDefault()
+  upLoader()
   const data = $(this).serializeArray()
   const contact = formatContact(data)
-  upLoader()
-  const validatedPassword = validatePassword(contact.password)
-  if (validatedPassword !== true) {
-    downLoader()
-    upFlashbag(validatedPassword)
-    return
+  var errors = []
+  errors = validateYou(data)
+  var error = null
+  error = validatePassword(contact.password)
+  if (error) {
+    errors['password'] = error
+    error = null
   }
-  if (validateDate(contact.datnaiss)) {
-    if (validatePhone(contact.tel, contact.mobil)) {
-      postRegister({
-        contact: contact
+  error = validateDate(contact.datnaiss)
+  if (error) {
+    errors['datnaiss'] = error
+    error = null
+  }
+  error = validatePhone(contact.tel, contact.mobil)
+  if (error) {
+    errors['tel'] = error
+  }
+  updateYouFormRender(errors, contact)
+  if (Object.keys(errors).length === 0) {
+    postRegister({
+      contact: contact
+    }).then(user => {
+      postLogin({
+        username: contact.username,
+        password: contact.password
       }).then(user => {
-        postLogin({
-          username: contact.username,
-          password: contact.password
-        }).then(user => {
-          downLoader()
-          afterLogin(user, true)
-        }).catch((error) => {
-          downLoader()
-          upFlashbag(i18n.trans(error))
-        })
+        downLoader()
+        afterLogin(user, true)
       }).catch((error) => {
         downLoader()
         upFlashbag(i18n.trans(error))
       })
-    } else {
+    }).catch((error) => {
       downLoader()
-      upFlashbag(i18n.trans('form.message.phone_invalid'))
-    }
-  } else {
+      upFlashbag(i18n.trans(error))
+    })
+  }
+  else {
     downLoader()
-    upFlashbag(i18n.trans('form.message.date_invalid'))
   }
 })
 
@@ -347,68 +403,18 @@ itemConnection.on('click', 'a', function (event) {
 })
 
 function validateDate (date) {
-  return moment(date).isValid()
+  if (moment(date).isValid() && moment(date).isBefore(new Date())) {
+    return null
+  }
+  return i18n.trans('form.message.date_invalid')
 }
 
 function validatePhone (phone, mobile) {
-  return !(phone === '' && mobile === '')
+  if (phone === '' && mobile === '') {
+    return i18n.trans('form.message.phone_invalid')
+  }
+  return null
 }
-//
-// itemCard.on('click', '.continue', function (event) {
-//   event.preventDefault()
-//   changeItem([itemAmount])
-// })
-//
-// itemCard.on('click', '.modify-you', function (event) {
-//   event.preventDefault()
-//   $('.panel', itemCard).hide()
-//   $('.panel.modify', itemCard).show()
-//   updateYouFormRender()
-//   changeItem([itemCard])
-// })
-//
-// itemCard.on('click', '.cancel', function (event) {
-//   event.preventDefault()
-//   $('.panel.modify', itemCard).slideUp(800, function () {
-//     $('.panel', itemCard).hide()
-//   })
-// })
-//
-// itemCard.on('submit', '.panel.modify form', function (event) {
-//   event.preventDefault()
-//   const data = $(this).serializeArray()
-//   const contact = formatContact(data)
-//   upLoader()
-//   const validatedPassword = validatePassword(contact.password)
-//   if (validatedPassword !== true) {
-//     downLoader()
-//     upFlashbag(validatedPassword)
-//     return
-//   }
-//   if (validateDate(contact.datnaiss)) {
-//     if (validatePhone(contact.tel, contact.mobil)) {
-//       postModify({
-//         contact: contact
-//       }).then(user => {
-//         downLoader()
-//         afterLogin({ ...user, password: contact.password }, false)
-//         $('.panel.modify').slideUp(800, function () {
-//           backToTop()
-//           $(this).hide()
-//         })
-//       }).catch(error => {
-//         downLoader()
-//         upFlashbag(error)
-//       })
-//     } else {
-//       downLoader()
-//       upFlashbag(i18n.trans('form.message.phone_invalid'))
-//     }
-//   } else {
-//     downLoader()
-//     upFlashbag(i18n.trans('form.message.date_invalid'))
-//   }
-// })
 
 itemConnection.on('click', '.panel.reset .cancel', function (event) {
   event.preventDefault()

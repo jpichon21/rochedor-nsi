@@ -3481,5 +3481,21 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
         <target>semestres</target>
       </segment>
     </unit>
+    <unit id="tHsOKUn" name="gift.invalid_form.amount">
+      <segment>
+        <source>gift.invalid_form.amount</source>
+        <target>
+            Merci de sélectionner un montant, une affectation et un moyen de paiement pour continuer.
+        </target>
+      </segment>
+    </unit>
+    <unit id="aHsOKUn" name="gift.invalid_form.virement">
+      <segment>
+        <source>gift.invalid_form.virement</source>
+        <target>
+            Merci de remplir tous les champs pour continuer.
+        </target>
+      </segment>
+    </unit>
   </file>
 </xliff>
