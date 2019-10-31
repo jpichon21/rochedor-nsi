@@ -467,23 +467,28 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
         participantValidated.arriv = ''
       }
       upLoader()
-      postParticipant(participantValidated).then(res => {
-        const participantUpdated = { ...participantValidated, ...res }
-        downLoader()
-        callback(participantUpdated)
-        updateYouRender()
-        updateRegisteredRender()
-        updateParticipants()
-        $(`.panel.${action}`).slideUp(800, function () {
-          $(this).hide()
-          changeItem(itemParticipants)
-          scrollTop()
-        })
-      }).catch(error => {
-        if (error) {
+      getLogin().then((res) => {
+        postParticipant(participantValidated).then(res => {
+          const participantUpdated = { ...participantValidated, ...res }
           downLoader()
-          upFlashbag(i18n.trans(`${error}`))
-        }
+          callback(participantUpdated)
+          updateYouRender()
+          updateRegisteredRender()
+          updateParticipants()
+          $(`.panel.${action}`).slideUp(800, function () {
+            $(this).hide()
+            changeItem(itemParticipants)
+            scrollTop()
+          })
+        }).catch(error => {
+          if (error) {
+            downLoader()
+            upFlashbag(i18n.trans(`${error}`))
+          }
+        })  
+      }).catch(error => {
+        downLoader()
+        upFlashbag(i18n.trans('session_expired'))
       })
     }).catch(error => {
       if (error) {
@@ -589,12 +594,6 @@ function modifyClick (event, action, callUpdater, callFunction) {
   $('.panel', itemParticipants).hide()
   $(`.panel.${action}`, itemParticipants).show()
   changeItem(itemParticipants)
-
-  // setTimeout(() => {
-  //   const content = document.querySelector('.content')
-  //   const panel = content.querySelector(`.panel.${action}`)
-  //   content.scroll({ top: 0, left: 0, behavior: 'smooth' })
-  // }, 200)
 }
 
 itemParticipants.on('click', '.modify-you', function (event) {
@@ -623,16 +622,21 @@ itemParticipants.on('click', '.validate-participants', function (event) {
   if (validate === true) {
     upLoader()
     setParent()
-    postRegistered(_participants, _infos.idact).then(res => {
-      let result = $('.result', itemValidation).html()
-      result = result.replace('%entry_number%', res)
-      $('.result', itemValidation).html(result)
-      downLoader()
-      updateEndMessageRender()
-      changeItem(itemValidation)
+    getLogin().then((res) => {
+      postRegistered(_participants, _infos.idact).then(res => {
+        let result = $('.result', itemValidation).html()
+        result = result.replace('%entry_number%', res)
+        $('.result', itemValidation).html(result)
+        downLoader()
+        updateEndMessageRender()
+        changeItem(itemValidation)
+      }).catch(error => {
+        downLoader()
+        upFlashbag(error)
+      })
     }).catch(error => {
       downLoader()
-      upFlashbag(error)
+      upFlashbag(i18n.trans('session_expired'))
     })
   } else {
     upFlashbag(validate)

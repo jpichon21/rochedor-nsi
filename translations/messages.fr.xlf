@@ -3264,5 +3264,11 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
 Pour réaliser une nouvelle inscription, cliquer sur Calendrier.</target>
       </segment>
     </unit>
+    <unit id="sdhufn9B8TMG7" name="session_expired">
+      <segment>
+        <source>session_expired</source>
+        <target>Votre session est expirée, veuillez raffraichir la page de votre navigateur.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
