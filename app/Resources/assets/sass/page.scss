@@ -99,6 +99,7 @@ body {
       &.active {
         color: #ffffff;
         padding-bottom: 20px;
+        overflow: visible;
         &:before {
           background-color: #ffffff;
         }
@@ -377,9 +378,6 @@ body {
       margin: 0 -20px;
       &:after {
         left: 20px;
-      }
-      .item .active{
-        overflow: visible;
       }
       .item {
         //padding: 0 20px 0 40px;
