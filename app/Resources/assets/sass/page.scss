@@ -169,7 +169,7 @@ body {
           left: 35px;
           width: 1px;
           background: linear-gradient(to bottom, #ffffff 0%, #000000 25%, #000000 75%, $roche-yellow 100%);
-          z-index: 0;
+          z-index: -1;
         }
         em,
         strong {
