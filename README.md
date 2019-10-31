@@ -38,3 +38,15 @@ Pour lancer les vérifications à la main:
 Les environnements de dev et de test sont configurés pour envoyer les emails sur le port 2525.    
 Utiliser l'outil [faketools](https://github.com/Bornholm/faketools) pour lancer un serveur smtp local écoutant sur le port 2525     
 `docker run --rm -p 2525:2525 -p 8080:8080 -it bornholm/faketools`
+
+
+# Production
+
+
+## Serveur
+Les environnements staging, dev sont hébergés sur https://ns3058686.ip-193-70-12.eu:2087 et sont accessibles respectivement sur https://staging.rochedor.fr https://nsi.rochedor.fr 
+
+## Déploiement
+Le déploiement des branches dev et staging est automatique
+
+Le script fait un dump du schema update à la racine de l'espace de déploiement
