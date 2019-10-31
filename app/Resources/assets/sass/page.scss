@@ -156,7 +156,7 @@ body {
       blockquote {
         position: relative;
         //margin: 0 0 20px 36px;
-        margin: 0 0 20px -16px;
+        margin: 0 0 20px -52px;
         padding: 20px 0;
         color: $roche-yellow;
         z-index: 1;
@@ -165,7 +165,7 @@ body {
           position: absolute;
           top: -75px;
           bottom: -75px;
-          left: -1px;
+          left: 35px;
           width: 1px;
           background: linear-gradient(to bottom, #ffffff 0%, #000000 25%, #000000 75%, $roche-yellow 100%);
           z-index: 0;
@@ -380,6 +380,7 @@ body {
       }
       .item {
         //padding: 0 20px 0 40px;
+        overflow: visible;
         &:after {
           left: 23px;
         }
