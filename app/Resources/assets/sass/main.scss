@@ -104,7 +104,24 @@ i {
 .text-center {
   text-align: center;
 }
-
+.edtions{
+  .content{
+    .left {
+      padding: 100px 0 40px 40px;
+      @include media('<xxlarge') {
+        padding: 20px 40px;
+      }
+    }
+    .right {
+      padding: 100px 40px 40px 0;
+      overflow: auto;
+      @include media('<xxlarge') {
+        padding: 20px 40px;
+      }
+      margin-left: 0px;
+    }
+  }
+}
 .content {
   position: relative;
   width: 100%;
