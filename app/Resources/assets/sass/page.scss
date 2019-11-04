@@ -8,6 +8,9 @@ body {
       display: block;
     }
   }
+  background-image: url(../img/bg-fallback.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .content {
