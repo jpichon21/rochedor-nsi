@@ -347,7 +347,7 @@ h2 {
       z-index: 2;
     }
     &:before {                
-      background-image: url('../img/plus-white.png');
+      background-image: url('../img/icons/plus-orange.svg');
       z-index: 3;
     }
     @include media('>=large') {
