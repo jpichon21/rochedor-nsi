@@ -57,6 +57,8 @@
         opacity: 0;
       }
       .description {
+        width: 99%;
+        padding-right: 17%;
         @include media('>=medium') {
           top: 0;
         }
