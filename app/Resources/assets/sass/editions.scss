@@ -301,6 +301,16 @@ h2 {
   }
 }
 
+.news{
+  .products{
+    .product{
+      .description{
+        top: 195px;
+      }
+    }
+  }
+}
+
 .products {
   position: relative;
   display: flex;
@@ -333,7 +343,7 @@ h2 {
       }
     }
     &:after {
-      background-image: url('../img/plus-orange.png');
+      background-image: url('../img/icons/plus-white.svg');
       z-index: 2;
     }
     &:before {                
@@ -978,15 +988,5 @@ h2 {
   .button {
     color: $roche-orange;
     border: 1px $roche-orange solid;
-  }
-}
-
-.news{
-  .products{
-    .product{
-      .description{
-        top: 195px;
-      }
-    }
   }
 }

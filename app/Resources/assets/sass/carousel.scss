@@ -22,7 +22,7 @@
   .next {
     position: absolute;
     //top: 50%;
-    top: 90%;
+    top: 92%;
     margin-top: -34px;
     width: 68px;
     height: 68px;
@@ -119,7 +119,7 @@
               right: 0;
               width: 45px;
               height: 45px;
-              background: #fff url('../img/icons/plus.svg');
+              background: url('../img/icons/plus-white.svg');
               background-size: 100%;
               z-index: 1;
               transition: 0.5s ease;
@@ -133,7 +133,7 @@
             width: 45px;
             height: 45px;
             //background-image: url('../img/plus.png');
-            background: #000 url('../img/icons/plus-gold.svg');
+            background: url('../img/icons/plus-orange.svg');
             background-size: 100%;
             z-index: 1;
           }
@@ -177,6 +177,6 @@
 .editions .carousel{
   .prev,
   .next {
-    top: 90%;
+    top: 92%;
   }
 }
