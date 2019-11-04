@@ -259,6 +259,7 @@ h2 {
       position: absolute;
       right: 50px;
       bottom: 10px;
+      margin-bottom: 26px;
       @include media('<large') {
         position: relative;
         right: auto;
@@ -293,10 +294,10 @@ h2 {
     }
   }
   .prev {
-    background-image: url('../img/arrow-left-orange.png');
+    background-image: url('../img/icons/arrow-left-orange.svg');
   }
   .next {
-    background-image: url('../img/arrow-right-orange.png');
+    background-image: url('../img/icons/arrow-right-orange.svg');
   }
 }
 
