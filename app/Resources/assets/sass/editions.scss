@@ -991,3 +991,8 @@ h2 {
     border: 1px $roche-orange solid;
   }
 }
+
+.continueCart:hover, .cart:hover{
+  color: $roche-orange;
+  background-color: transparent;
+}
