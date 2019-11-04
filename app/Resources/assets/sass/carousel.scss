@@ -24,8 +24,8 @@
     //top: 50%;
     top: 92%;
     margin-top: -34px;
-    width: 68px;
-    height: 68px;
+    width: 92px;
+    height: 92px;
     z-index: 1;
     cursor: pointer;
     @include media('<large') {
@@ -117,8 +117,10 @@
               position: absolute;
               top: 0;
               right: 0;
-              width: 45px;
-              height: 45px;
+              //width: 45px;
+              //height: 45px;
+              width: 68px;
+              height: 68px;
               background: url('../img/icons/plus-white.svg');
               background-size: 100%;
               z-index: 1;
@@ -130,8 +132,10 @@
             position: absolute;
             top: 0;
             right: 0;
-            width: 45px;
-            height: 45px;
+            //width: 45px;
+            //height: 45px;
+            width: 68px;
+            height: 68px;
             //background-image: url('../img/plus.png');
             background: url('../img/icons/plus-gold.svg');
             background-size: 100%;
@@ -177,6 +181,6 @@
 .editions .carousel{
   .prev,
   .next {
-    top: 92%;
+    top: 90%;
   }
 }
