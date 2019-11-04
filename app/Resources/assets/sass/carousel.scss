@@ -22,10 +22,10 @@
   .next {
     position: absolute;
     //top: 50%;
-    top: 92%;
+    top: 91%;
     margin-top: -34px;
-    width: 92px;
-    height: 92px;
+    width: 105px;
+    height: 105px;
     z-index: 1;
     cursor: pointer;
     @include media('<large') {
@@ -181,6 +181,6 @@
 .editions .carousel{
   .prev,
   .next {
-    top: 90%;
+    top: 85.5%;
   }
 }
