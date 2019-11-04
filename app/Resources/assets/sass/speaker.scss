@@ -59,6 +59,7 @@
       .description {
         width: 99%;
         padding-right: 17%;
+        overflow: auto;
         @include media('>=medium') {
           top: 0;
         }
@@ -97,9 +98,6 @@
       box-sizing: border-box;
       transition: 0.5s;
       z-index: 1;
-      width: 99%;
-      padding-right: 17%;
-      overflow: auto;
       @include media('>=medium') {
         position: absolute;
         left: 20px;
