@@ -8,9 +8,6 @@ body {
       display: block;
     }
   }
-  background-image: url(../img/bg-fallback.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 .content {
@@ -442,69 +439,69 @@ body {
 }
 
 .Venir, .Retraites, .Intervenants{
-  background-image: url('../img/black-50.png'), linear-gradient(black, black), url('../img/retraites.jpg');
+  background-image: url('../img/black-50.png'), linear-gradient(black, black), url('../img/retraites.jpg') !important;
   @include media('<=laptop') {
-    background-image: url('../img/black-50.png'), linear-gradient(black, black),  url('../img/retraites-s.jpg');
+    background-image: url('../img/black-50.png'), linear-gradient(black, black),  url('../img/retraites-s.jpg') !important;
   }
   @include media('<=large') {
-    background-image: url('../img/black-50.png'), linear-gradient(black, black),  url('../img/retraites-xs.jpg');
+    background-image: url('../img/black-50.png'), linear-gradient(black, black),  url('../img/retraites-xs.jpg')!important;
   }
   @include media('<=medium') {
-    background-image: url('../img/black-50.png'), linear-gradient(black, black),  url('../img/retraites-xxs.jpg');
+    background-image: url('../img/black-50.png'), linear-gradient(black, black),  url('../img/retraites-xxs.jpg')!important;
   }
 }
 
 .Faire, .Donner, .Nous{
-  background-image:  url('../img/black-70.png'), linear-gradient(black, black), url('../img/soutenir.jpg');
+  background-image:  url('../img/black-70.png'), linear-gradient(black, black), url('../img/soutenir.jpg') !important;
   @include media('<=laptop') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-s.jpg');
+    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-s.jpg') !important;
   }
   @include media('<=large') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-xs.jpg');
+    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-xs.jpg') !important;
   }
   @include media('<=medium') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-xxs.jpg');
+    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-xxs.jpg') !important;
   }
 }
 
 .Contact{
-  background-image:  url('../img/black-70.png'), linear-gradient(black, black), url('../img/infocontact.jpg');
+  background-image:  url('../img/black-70.png'), linear-gradient(black, black), url('../img/infocontact.jpg') !important;
   @include media('<=laptop') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/infocontact-s.jpg');
+    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/infocontact-s.jpg') !important;
   }
   @include media('<=large') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/infocontact-xs.jpg');
+    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/infocontact-xs.jpg') !important;
   }
   @include media('<=medium') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/infocontact-xxs.jpg');
+    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/infocontact-xxs.jpg') !important;
   }
 }
 
 .La, .Les{
-  background-image: linear-gradient(black, black), url('../img/communaute.jpg');
+  background-image: linear-gradient(black, black), url('../img/communaute.jpg') !important;
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/communaute-s.jpg');
+    background-image:linear-gradient(black, black),  url('../img/communaute-s.jpg') !important;
   }
   @include media('<=large') {
-    background-image: linear-gradient(black, black),  url('../img/communaute-xs.jpg');
+    background-image: linear-gradient(black, black),  url('../img/communaute-xs.jpg') !important;
   }
   @include media('<=medium') {
-    background-image: linear-gradient(black, black),  url('../img/communaute-xxs.jpg');
+    background-image: linear-gradient(black, black),  url('../img/communaute-xxs.jpg') !important;
   }
 }
 
 .DEMANDE{
-  background-image:  url('../img/black-60.png'), linear-gradient(black, black), url('../img/calendar.jpg');
+  background-image:  url('../img/black-60.png'), linear-gradient(black, black), url('../img/calendar.jpg') !important;
   background-size: cover;
   background-blend-mode: saturation;
   @include media('<=laptop') {
-    background-image: url('../img/black-60.png'), linear-gradient(black, black),  url('../img/calendar-s.jpg');
+    background-image: url('../img/black-60.png'), linear-gradient(black, black),  url('../img/calendar-s.jpg') !important;
   }
   @include media('<=large') {
-    background-image: linear-gradient(black, black),  url('../img/calendar-xs.jpg');
+    background-image: linear-gradient(black, black),  url('../img/calendar-xs.jpg') !important;
   }
   @include media('<=medium') {
-    background-image: linear-gradient(black, black),  url('../img/calendar-xxs.jpg');
+    background-image: linear-gradient(black, black),  url('../img/calendar-xxs.jpg') !important;
   }
 }
 
