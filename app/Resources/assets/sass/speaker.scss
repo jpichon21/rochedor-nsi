@@ -52,6 +52,22 @@
     @include media('<medium') {
       padding: 0;
     }
+    .clicked{
+      .description {
+        width: 99%;
+        padding-right: 17%;
+        overflow: auto;
+        @include media('>=medium') {
+          top: 0;
+        }
+        .text {
+          .short {
+            opacity: 0;
+          }
+          .long {
+            opacity: 1;
+          }
+    }
     &:hover {
       &:before {
         opacity: 0;
