@@ -117,7 +117,7 @@ i {
     }
     .right {
       padding: 100px 40px 40px 0;
-      overflow: auto;
+      overflow: hidden;
       @include media('<xxlarge') {
         padding: 20px 40px;
       }
