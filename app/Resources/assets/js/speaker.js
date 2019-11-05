@@ -23,6 +23,7 @@ $('.carousel .prev').on('click', () => {
   slickIntervenants.slick('prev')
 })
 
-$('.slide:before').on('click', () => {
+$('.slide').on('click', () => {
   console.log("test")
+  this.addClass('clicked')
 })
