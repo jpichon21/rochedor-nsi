@@ -17,14 +17,16 @@
             <div class="slide">
                 <div class="portrait" style="{{ speaker.image | background }}"></div>
                 <div class="description">
-                    <h2>{{ speaker.name }}</h2>
-                    <span>{{ speaker.title }}</span>
-                    <div class="text">
-                        <div class="short">
-                            <p>{{ speaker.description | truncate(300, true) }}</p>
-                        </div>
-                        <div class="long">
-                            <p>{{ speaker.description | truncate(700, true) }}</p>
+                    <div class="inner">
+                        <h2>{{ speaker.name }}</h2>
+                        <span>{{ speaker.title }}</span>
+                        <div class="text">
+                            <div class="short">
+                                <p>{{ speaker.description | truncate(300, true) }}</p>
+                            </div>
+                            <div class="long">
+                                <p>{{ speaker.description | truncate(700, true) }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
