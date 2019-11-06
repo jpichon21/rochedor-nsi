@@ -23,9 +23,9 @@ $('.carousel .prev').on('click', () => {
   slickIntervenants.slick('prev')
 })
 
-$('.slide').on('click', () => {
+$('.slide').on('click'(function() {
   var target = $(this).find('.description');
   console.log(target)
   console.log("test")
   target.addClass('clicked')
-})
+}))
