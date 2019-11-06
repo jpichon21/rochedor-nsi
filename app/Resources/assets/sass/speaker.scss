@@ -160,7 +160,7 @@
 }
 
 .clicked{ 
-    width: 99%;
+    //width: 99%;
     overflow: hidden;
     top: 0px !important;
     @include media('>=medium') {
@@ -170,14 +170,13 @@
       width: 100%;
       padding-right: 17%!important;
       overflow: auto;
-      
-    }
-    .text {
-      .short {
-        opacity: 0;
-      }
-      .long {
-        opacity: 1!important;
+      .text {
+        .short {
+          opacity: 0;
+        }
+        .long {
+          opacity: 1!important;
+        }
       }
     }
   }
