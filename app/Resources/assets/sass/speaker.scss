@@ -161,7 +161,7 @@
 
 .clicked{ 
     width: 99%;
-    padding-right: 17%;
+    padding-right: 17%!important;
     overflow: auto;
     top: 0px !important;
     @include media('>=medium') {
