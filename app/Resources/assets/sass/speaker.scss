@@ -163,6 +163,7 @@
     width: 99%;
     padding-right: 17%;
     overflow: auto;
+    top: 0px !important;
     @include media('>=medium') {
       top: 0;
     }
@@ -171,7 +172,7 @@
         opacity: 0;
       }
       .long {
-        opacity: 1;
+        opacity: 1!important;
       }
     }
   }
