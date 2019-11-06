@@ -161,11 +161,16 @@
 
 .clicked{ 
     width: 99%;
-    padding-right: 17%!important;
-    overflow: auto;
+    overflow: hidden;
     top: 0px !important;
     @include media('>=medium') {
       top: 0;
+    }
+    .inner{
+      width: 100%;
+      padding-right: 17%!important;
+      overflow: auto;
+      
     }
     .text {
       .short {
