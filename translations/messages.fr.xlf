@@ -768,7 +768,7 @@
       </notes>
       <segment>
         <source>calendar.registration.two.validate_participants</source>
-        <target>Valider l'inscription</target>
+        <target>Valider la demande d'inscription</target>
       </segment>
     </unit>
     <unit id="B0VCgO_" name="form.username">
@@ -1176,7 +1176,7 @@
     <unit id="0hdf4JUpBY" name="form.message.do_you_have_agreement">
       <segment>
         <source>form.message.do_you_have_agreement</source>
-        <target><![CDATA[Vous avez moins de 16 ans.<br>Disposez-vous d'un accord parental ou tutorial pour cela ? (RGPD)]]></target>
+        <target><![CDATA[Vous avez moins de 16 ans.<br>Disposez-vous d'un accord parental ou tutorial pour vous inscrire ? (RGPD)]]></target>
       </segment>
     </unit>
     <unit id="Cr.q521" name="form.message.date_invalid">
@@ -1843,7 +1843,7 @@
     <unit id="LVTrH3N" name="form.message.does_child_have_autpar">
       <segment>
         <source>form.message.does_child_have_autpar</source>
-        <target>L'enfant que vous inscrivez a moins de 16 ans. Dispose-t'il d'un accord parental ou tutorial pour cela ? (RGPD)</target>
+        <target><![CDATA[L'enfant que vous inscrivez a moins de 16 ans.<br> Dispose-t'il d'un accord parental ou tutorial pour s'inscrire ? (RGPD)]]></target>
       </segment>
     </unit>
     <unit id="LLzWehQ" name="calendar.registration.error">
@@ -3260,14 +3260,20 @@ Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu a
     <unit id="9B8TMG7" name="logout.disconnect.calendar">
       <segment>
         <source>logout.disconnect.calendar</source>
-        <target>Vous avez été déconnecté du module inscription.
-Pour réaliser une nouvelle inscription, cliquer sur Calendrier.</target>
+        <target><![CDATA[Vous avez été déconnecté du module inscription.<br>
+Pour réaliser une nouvelle inscription, cliquer sur Calendrier.]]></target>
       </segment>
     </unit>
     <unit id="sdhufn9B8TMG7" name="session_expired">
       <segment>
         <source>session_expired</source>
         <target>Votre session est expirée, veuillez raffraichir la page de votre navigateur.</target>
+      </segment>
+    </unit>
+    <unit id="sdhufn9B8TMG8" name="calendar.registration.tooltip">
+      <segment>
+        <source>calendar.registration.tooltip</source>
+        <target>Indique uniquement les membres de votre famille.</target>
       </segment>
     </unit>
   </file>

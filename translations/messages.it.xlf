@@ -663,7 +663,7 @@
       </notes>
       <segment>
         <source>calendar.registration.two.validate_participants</source>
-        <target></target>
+        <target>Convalida la richiesta di registrazione</target>
       </segment>
     </unit>
     <unit id="UzRFO5C" name="calendar.registration.three.title">

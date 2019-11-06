@@ -377,7 +377,6 @@ function validateChild (participant, isYou=false) {
                 datAut16: moment().format()
               })
             }).catch(() => {
-              reject(i18n.trans('form.message.child_must_have_autpar'))
             })
           } else {
             reject(i18n.trans('form.message.parent_must_be_adult'))
@@ -517,7 +516,9 @@ panelHimForm.on('submit', function (event) {
       return obj
     })
     _went = _went.map(p => {
-      p.added = (p.codco === res.codco)
+      if (p.codco === res.codco) {
+        p.added = true
+      }
       return p
     })
   })

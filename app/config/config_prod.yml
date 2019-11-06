@@ -2,6 +2,11 @@ imports:
     - { resource: config.yml }
 monolog:
     handlers:
+        doctrine:
+            type: stream
+            path: '%kernel.logs_dir%/%kernel.environment%_doctrine.log'
+            level: debug
+            channels: ['doctrine']
         main:
             type: fingers_crossed
             action_level: error
@@ -10,6 +15,7 @@ monolog:
             type: stream
             path: '%kernel.logs_dir%/%kernel.environment%.log'
             level: debug
+            channels: ['!doctrine']
         mail:
             type: fingers_crossed
             action_level: critical

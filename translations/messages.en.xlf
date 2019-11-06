@@ -688,7 +688,7 @@
       </notes>
       <segment>
         <source>calendar.registration.three.title</source>
-        <target></target>
+        <target>Validate the registration request</target>
       </segment>
     </unit>
     <unit id="YR9sNBD" name="calendar.registration.three.body">
