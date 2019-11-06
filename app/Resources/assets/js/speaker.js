@@ -25,6 +25,8 @@ $('.carousel .prev').on('click', () => {
 
 $('.slide').on('click', () => {
   var $this = $(this)
+  var target =$this.closest('.slide');
+  console.log($this)
   console.log("test")
-  $this.addClass('clicked')
+  target.addClass('clicked')
 })
