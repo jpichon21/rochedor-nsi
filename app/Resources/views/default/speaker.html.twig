@@ -15,7 +15,7 @@
         <div class="slick">
             {% for speaker in speakers %}
             <div class="slide">
-                <div class="portrait" style="{{ speaker.image | background }}"></div>
+                    <div class="portrait" style="{{ speaker.image | background }}"></div>
                 <div class="description">
                     <div class="inner">
                         <h2>{{ speaker.name }}</h2>
@@ -29,7 +29,6 @@
                                 </div>
                             </div>
                     </div>
-                </div>
                 </div>
             </div>
             {% endfor %}
