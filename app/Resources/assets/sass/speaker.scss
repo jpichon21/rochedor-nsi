@@ -159,6 +159,13 @@
   }   
 }
 
+.targeted{
+  &:before {
+    opacity: 0;
+    transition: 0.5s;
+  }
+}
+
 .clicked{ 
     //width: 99%;
     overflow: hidden;

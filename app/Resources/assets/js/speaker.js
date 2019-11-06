@@ -24,6 +24,7 @@ $('.carousel .prev').on('click', () => {
 })
 
 $('.slide').click(function() {
+  $(this).toggleClass('targeted');
   var target = $(this).find('.description');
-  target.toggleClass('clicked')
+  target.toggleClass('clicked');
 })
