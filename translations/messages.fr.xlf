@@ -1509,7 +1509,7 @@
     <unit id="gik7lYM" name="editions.technicalreview.nbpage">
       <segment>
         <source>editions.technicalreview.nbpage</source>
-        <target>Nb. de page</target>
+        <target>Nb. de pages</target>
       </segment>
     </unit>
     <unit id="SsON85Z" name="editions.technicalreview.rubrique">
