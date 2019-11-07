@@ -28,3 +28,11 @@ $('.slide').on("click touch", function() {
   var target = $(this).find('.description');
   target.toggleClass('clicked');
 })
+
+$( window ).resize(function() {
+  $('.slide').on("click touch", function() {
+    $(this).toggleClass('targeted');
+    var target = $(this).find('.description');
+    target.toggleClass('clicked');
+  })
+});
