@@ -160,7 +160,7 @@ body {
           text-decoration: none;
           transition: 0.5s ease;
           &:hover, &:active, &:focus{
-            color: #ffffff;
+            color: #000;
             transition: 0.5s ease;
           }
         }
@@ -190,7 +190,7 @@ body {
       transition: 0.5s ease;
       cursor: pointer;
       &:hover, &:active, &:focus{
-        color: #ffffff;
+        color: #000;
         transition: 0.5s ease;
         background-color: $roche-yellow;
       }
