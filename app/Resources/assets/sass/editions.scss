@@ -83,9 +83,19 @@ h2 {
     .languages {
       ul li a {
         color: #000000;
+        transition: 0.5s ease;
+          &:hover, &:active, &:focus{
+            color: #ffffff;
+            transition: 0.5s ease;
+          }
       }
       .current li {
         border-color: #000000;
+        transition: 0.5s ease;
+          &:hover, &:active, &:focus{
+            border-color: $roche-orange;
+            transition: 0.5s ease;
+          }
         @include media('<limitMenuReduced') {
           a {
             color: #ffffff;
@@ -100,6 +110,12 @@ h2 {
     .zoom li {
       color: #000000;
       border-color: #000000;
+      transition: 0.5s ease;
+        &:hover, &:active, &:focus{
+          color: #ffffff;
+          border-color: $roche-orange;
+          transition: 0.5s ease;
+        }
     }
   }
   .logo {
