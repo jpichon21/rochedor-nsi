@@ -23,8 +23,7 @@ $('.carousel .prev').on('click', () => {
   slickIntervenants.slick('prev')
 })
 
-$('.slide').on('click touch', function () {
-//$('.slide').click(function() {
+$('.slide').click(function() {
   $(this).toggleClass('targeted');
   var target = $(this).find('.description');
   target.toggleClass('clicked');
