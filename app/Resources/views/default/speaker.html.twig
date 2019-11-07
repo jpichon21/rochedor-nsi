@@ -38,4 +38,11 @@
 {% endblock %}
 {% block javascripts %}
 <script src="{{ asset('assets/js/speaker.js') }}"></script>
+<script>
+$('.slide').on("click touch", function() {
+  $(this).toggleClass('targeted');
+  var target = $(this).find('.description');
+  target.toggleClass('clicked');
+});
+</script>
 {% endblock %}
