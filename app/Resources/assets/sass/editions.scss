@@ -93,6 +93,7 @@ h2 {
         border-color: #000000;
         transition: 0.5s ease;
           &:hover, &:active, &:focus{
+            background-color: $roche-orange;
             border-color: $roche-orange;
             transition: 0.5s ease;
           }
