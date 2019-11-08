@@ -43,6 +43,7 @@ body {
   align-items: center;
   z-index: 2;
   @include media('<=mobile') {
+    background-color: #000000c9;
     height: 80px;
     box-shadow: 0 30px 60px black;
   }
