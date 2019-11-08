@@ -42,6 +42,10 @@ body {
   flex-direction: column;
   align-items: center;
   z-index: 2;
+  @include media('<=mobile') {
+    height: 80px;
+    box-shadow: 0 30px 60px black;
+  }
   .burger {
     position: absolute;
     top: 30px;
