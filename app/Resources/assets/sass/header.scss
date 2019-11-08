@@ -57,7 +57,7 @@ body {
   .logo {
     position: relative;
     @include media('<=mobile') {
-      padding: 15px 0px;
+      padding: 15px 0px!important;
     }
     &:after {
       content: 'Communauté\A de la Roche d\'Or';
@@ -87,7 +87,7 @@ body {
     }
     img {
       width: 90px;
-      @include media('<=medium') {
+      @include media('<=mobile') {
         width: 60px;
       }
     }
