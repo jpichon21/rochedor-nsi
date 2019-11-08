@@ -56,6 +56,9 @@ body {
   }
   .logo {
     position: relative;
+    @include media('<=mobile') {
+      padding: 15px 0px;
+    }
     &:after {
       content: 'Communauté\A de la Roche d\'Or';
       position: absolute;
@@ -72,11 +75,8 @@ body {
       white-space: pre-line;
       transition: 0.2s;
       opacity: 1;
-      @include media('<=medium') {
-        width: 60px;
-      }
       @include media('<=mobile') {
-        padding: 15px 0px;
+        display: none;
       }
       @include media('>=limitMenuReduced') {
         content: none;
@@ -84,14 +84,12 @@ body {
       @media screen and (max-height: 500px) {
         content: none;
       }
-      &:after{
-        @include media('<=mobile') {
-          display: none;
-        }
-      }
     }
     img {
       width: 90px;
+      @include media('<=medium') {
+        width: 60px;
+      }
     }
     .editions {
       display: none;
