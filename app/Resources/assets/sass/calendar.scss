@@ -388,10 +388,6 @@ h1 {
     max-height: 45px;
     overflow: hidden;
     transition: 0.5s ease;
-    &:hover, &:active, &:focus{
-        background-color: #faf28e33;
-        transition: 0.5s ease;
-    }
     &:before {
       content: '';
       position: absolute;
@@ -515,6 +511,7 @@ h1 {
     font-weight: 500;
     letter-spacing: 1.4px;
     text-transform: uppercase;
+    border-bottom: 1px solid #faf28e36;
     th {
      // position: sticky;
       top: 0;
@@ -700,4 +697,11 @@ h1 {
 @-o-keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+tr{
+  &:hover, &:active, &:focus{
+    background-color: #faf28e33;
+    transition: 0.5s ease;
+  }
 }
