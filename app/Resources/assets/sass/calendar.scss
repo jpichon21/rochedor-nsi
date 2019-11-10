@@ -387,6 +387,11 @@ h1 {
     line-height: 18px;
     max-height: 45px;
     overflow: hidden;
+    transition: 0.5s ease;
+    &:hover, &:active, &:focus{
+        background-color: #faf28e33;
+        transition: 0.5s ease;
+    }
     &:before {
       content: '';
       position: absolute;
