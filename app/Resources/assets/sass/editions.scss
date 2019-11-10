@@ -786,11 +786,17 @@ h2 {
         }
       }
       .description {
-        line-height: 18px;
+        /*line-height: 18px;
         font-size: 14px;
         font-weight: 400;
         margin-bottom: 40px;
         font-family: "lato", sans-serif;
+        max-width: 580px;*/
+        line-height: 20px;
+        font-size: 17px;
+        font-weight: 300;
+        margin-bottom: 40px;
+        font-family: lato,sans-serif;
         max-width: 580px;
       }
       .actions {
