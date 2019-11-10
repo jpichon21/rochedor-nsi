@@ -699,7 +699,7 @@ h1 {
   to   { opacity: 1; }
 }
 
-.retreat{
+.retreat, .value li, .value div{
   &:hover, &:active, &:focus{
     background-color: #faf28e33;
     transition: 0.5s ease;
