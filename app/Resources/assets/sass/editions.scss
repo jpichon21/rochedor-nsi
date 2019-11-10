@@ -722,6 +722,7 @@ h2 {
     }
     > .right {
       position: relative;
+      overflow: visible;
       @include media('<large') {
         padding: 40px 20px;
       }
