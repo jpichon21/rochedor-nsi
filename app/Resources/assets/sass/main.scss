@@ -205,6 +205,13 @@ i {
   }
 }
 
+.validation{
+  transition: 0.5s ease;
+  &:hover, &:active, &:focus{
+    background-color: $roche-yellow;
+    color: white;
+  }
+}
 
 
 //FADE IN
