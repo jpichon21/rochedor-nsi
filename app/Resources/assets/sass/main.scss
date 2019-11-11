@@ -159,7 +159,7 @@ i {
       //overflow: auto;
       margin-left: -88px;
       @include media('<=laptop') {
-        padding: 0px;
+        margin-left: 0px;
       }
     }
     .zone,
