@@ -153,6 +153,9 @@ i {
     }
     .left {
       padding: 100px 0 40px 128px;
+      @include media('<=laptop') {
+        padding: 20px 80px;
+      }
     }
     .right {
       padding: 100px 40px 40px 0;
