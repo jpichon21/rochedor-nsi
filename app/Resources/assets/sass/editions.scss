@@ -1,6 +1,10 @@
 @import '~include-media/dist/_include-media.scss';
 @import './variables';
 
+html{
+  background-color: #ffffff!important;
+}
+
 body {
   background-color: #ffffff;
   &.scrollTop {
