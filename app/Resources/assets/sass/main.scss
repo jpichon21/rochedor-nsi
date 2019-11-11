@@ -153,14 +153,14 @@ i {
     }
     .left {
       padding: 100px 0 40px 128px;
-      @include media('<=laptop') {
-        padding: 20px 80px;
-      }
     }
     .right {
       padding: 100px 40px 40px 0;
       //overflow: auto;
       margin-left: -88px;
+      @include media('<=laptop') {
+        padding: 0px;
+      }
     }
     .zone,
     .left,
@@ -170,6 +170,9 @@ i {
       }
       @include media('<large') {
         padding: 20px;
+      }
+      @include media('<=laptop') {
+        padding: 20px 80px;
       }
     }
     .right {
