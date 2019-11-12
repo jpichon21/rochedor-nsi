@@ -12,6 +12,20 @@
                 {{ 'filter.button.show' | trans }}
             </span>
             <div class="filters">
+                 {% include 'parts/filter.html.twig' with {
+                    'name': 'speaker',
+                    'items': speakers,
+                    'title': 'filter.title.speakers' | trans,
+                    'abbreviation': false } %}
+                {% include 'parts/filter.html.twig' with {
+                    'name': 'translation',
+                    'items': translations,
+                    'title': 'filter.title.translations' | trans,
+                    'abbreviation': false } %}
+                <form class="filter-keywords">
+                    <span class="title">{{ 'filter.title.keyword' | trans }}</span>
+                    <input autocomplete="nope" type="text" name="keywords" placeholder="{{ 'filter.inner.keyword' | trans }}">
+                </form>
                 {% include 'parts/filter.html.twig' with {
                     'name': 'site',
                     'items': sites,
@@ -31,20 +45,7 @@
                     <input class="date-out-value" name="dateOut" type="hidden">
                     <div class="calendar-out"></div>
                 </form>
-                {% include 'parts/filter.html.twig' with {
-                    'name': 'speaker',
-                    'items': speakers,
-                    'title': 'filter.title.speakers' | trans,
-                    'abbreviation': false } %}
-                {% include 'parts/filter.html.twig' with {
-                    'name': 'translation',
-                    'items': translations,
-                    'title': 'filter.title.translations' | trans,
-                    'abbreviation': false } %}
-                <form class="filter-keywords">
-                    <span class="title">{{ 'filter.title.keyword' | trans }}</span>
-                    <input autocomplete="nope" type="text" name="keywords" placeholder="{{ 'filter.inner.keyword' | trans }}">
-                </form>
+           
                 <a class="filter-raz" href="#reset" rel="nofollow">{{ 'filter.raz.button' | trans }}</a>
                 <span class="hide-filters">{{ 'filter.close.button' | trans }}</span>
             </div>
