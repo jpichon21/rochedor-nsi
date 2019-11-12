@@ -13,11 +13,7 @@
                 {{ 'filter.button.show' | trans }}
             </span>
             <div class="filters">
-                          <form class="filter-keywords">
-                    <span class="title">{{ 'filter.title.keyword' | trans }}</span>
-                    <input autocomplete="nope" type="text" name="keywords"
-                        placeholder="{{ 'filter.inner.keyword' | trans }}">
-                </form>
+        
                 {% include 'parts/filter.html.twig' with {
                     'name': 'site',
                     'items': sites,
