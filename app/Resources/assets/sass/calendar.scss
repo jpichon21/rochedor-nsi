@@ -704,7 +704,7 @@ h1 {
   to   { opacity: 1; }
 }
 
-.retreat, .select li, .select, .select span{
+.retreat, .select li, .select{
   &:hover, &:active, &:focus{
     background-color: #faf28e33;
     transition: 0.5s ease;
