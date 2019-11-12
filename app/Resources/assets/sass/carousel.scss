@@ -22,12 +22,10 @@
   .next {
     position: absolute;
     //top: 50%;
-    top: 90%;
+    top: 91%;
     margin-top: -34px;
-    //width: 105px;
-    //height: 105px;
-    width: 132px;
-    height: 132px;
+    width: 105px;
+    height: 105px;
     z-index: 1;
     cursor: pointer;
     @include media('<large') {
@@ -38,7 +36,7 @@
     }
   }
   .prev:hover, .prev:focus, .prev:active{
-    background: url('../img/icons/arrow-left-white.svg');
+    background: url('../img/icons/arrow-left-grey.svg');
     transition: 0.5s ease;
   }
   .prev {
@@ -61,7 +59,7 @@
     transition: 0.5s ease;
   }
   .next:hover, .next:focus, .next:active {
-    background: url('../img/icons/arrow-right-white.svg');
+    background: url('../img/icons/arrow-right-grey.svg');
     transition: 0.5s ease;
   }
   .slides {
