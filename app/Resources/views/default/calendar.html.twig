@@ -8,12 +8,10 @@
     <div class="zone">
         <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
         <div class="flex">
-
             <span class="show-filters">
                 {{ 'filter.button.show' | trans }}
             </span>
             <div class="filters">
-        
                 {% include 'parts/filter.html.twig' with {
                     'name': 'site',
                     'items': sites,
@@ -24,7 +22,6 @@
                     'items': types,
                     'title': 'filter.title.type' | trans,
                     'abbreviation': true } %}
-  
                 <form class="filter-dates">
                     <span class="title">Dates</span>
                     <div class="date-in">{{ 'filter.inner.date.in' | trans }} <span></span></div>
@@ -44,7 +41,10 @@
                     'items': translations,
                     'title': 'filter.title.translations' | trans,
                     'abbreviation': false } %}
-
+                <form class="filter-keywords">
+                    <span class="title">{{ 'filter.title.keyword' | trans }}</span>
+                    <input autocomplete="nope" type="text" name="keywords" placeholder="{{ 'filter.inner.keyword' | trans }}">
+                </form>
                 <a class="filter-raz" href="#reset" rel="nofollow">{{ 'filter.raz.button' | trans }}</a>
                 <span class="hide-filters">{{ 'filter.close.button' | trans }}</span>
             </div>
@@ -105,7 +105,7 @@
     <span class="clndr-close">Fermer</span>
 </script>
 <script type="text/template" class="retreats-list-template">
-    <% var lastMonth = 0 %>
+<% var lastMonth = 0 %>
 <% var firstOfMonth = false %>
 <% for (var i = 0; i < retreats.length; i++) { %>
     <% if (retreats[i].dateIn.format('M') !== lastMonth) { %>
@@ -137,7 +137,7 @@
 <% } %>
 </script>
 <script type="text/template" class="retreats-table-template">
-    <% var lastMonth = 0 %>
+<% var lastMonth = 0 %>
 <% for (var i = 0; i < retreats.length; i++) { %>
     <% if (retreats[i].dateIn.format('M') !== lastMonth) { %>
     <% var lastMonth = retreats[i].dateIn.format('M') %>
@@ -175,13 +175,7 @@
 <% } %>
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
-<script type="text/json" class="retreats-data">
-    {
-        {
-            retreatsData | raw
-        }
-    }
-</script>
+<script type="text/json" class="retreats-data">{{ retreatsData | raw }}</script>
 <script src="{{ asset("assets/js/calendar.js") }}"></script>
 <script src="{{ asset('assets/js/page.js') }}"></script>
 {% endblock %}
