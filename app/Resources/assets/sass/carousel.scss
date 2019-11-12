@@ -22,10 +22,12 @@
   .next {
     position: absolute;
     //top: 50%;
-    top: 91%;
+    top: 90%;
     margin-top: -34px;
-    width: 105px;
-    height: 105px;
+    //width: 105px;
+    //height: 105px;
+    width: 132px;
+    height: 132px;
     z-index: 1;
     cursor: pointer;
     @include media('<large') {
