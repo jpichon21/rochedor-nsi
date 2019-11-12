@@ -629,6 +629,10 @@ h2 {
       color: #ffffff;
       background-color: $roche-brown;
       white-space: nowrap;
+      @include media('<=mobile'){
+        width: 100%;
+        text-align: center;
+      }
       @include media('>=xxlarge'){
         margin-top: 22px;
       }
