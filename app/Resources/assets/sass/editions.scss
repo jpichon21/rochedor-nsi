@@ -658,7 +658,7 @@ h2 {
       //height: 24.5vw;
       width: 386px;
       height: 420px;
-      @include media('>=laptop') {
+      @include media('<=laptop') {
         width: 100%;
         height: 442px;
       }
@@ -666,8 +666,7 @@ h2 {
         height: 442px;
       }
       @include media('<=large') {
-        width: 529px;
-        height: 576px;
+        height: 442px;
       }
       @include media('<=medium') {
         width: 386px;
