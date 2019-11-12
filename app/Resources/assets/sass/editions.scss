@@ -240,7 +240,7 @@ h2 {
   @include media('<large') {
     flex-direction: column;
     width: auto;
-    height: auto;
+    //height: auto;
     margin: 0 -20px 40px;
   }
   .left {
@@ -350,6 +350,7 @@ h2 {
     @include media('<medium') {
       width: auto;
       margin: 0 -20px 40px;
+      height: 358px;
     }
     &:after,
     &:before {
@@ -458,7 +459,8 @@ h2 {
       }
       .price {
         position: absolute;
-        bottom: 80px;
+        //bottom: 80px;
+        top: 20px;
         right: 20px;
         line-height: 100%;
         font-size: 23px;

@@ -49,6 +49,9 @@
   }
   .next {
     right: 0;
+    @include media('<=mobile') {
+      right: 18px;
+    }
     background-size: 120px;
     background-repeat: no-repeat;
     background-position: center;
