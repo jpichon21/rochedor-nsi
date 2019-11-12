@@ -654,10 +654,8 @@ h2 {
   .products {
     flex-wrap: nowrap;
     .product {
-      //width: 50%;
-      //height: 24.5vw;
-      width: 386px;
-      height: 420px;
+      width: 100%;
+      height: 600px;
       @include media('<=laptop') {
         width: 100%;
         height: 442px;
