@@ -27,11 +27,11 @@
     <div class="logo">
         {% if app.request.locale == 'fr' %}
         <a class="normal" href="/">
-            <img src="{{ asset('assets/img/logo.png') }}" alt="La Roche d'Or">
+            <img src="{{ asset('assets/img/logo.svg') }}" alt="La Roche d'Or">
         </a>
         {% else %}
         <a class="normal" href="/{{app.request.locale}}">
-            <img src="{{ asset('assets/img/logo.png') }}" alt="La Roche d'Or">
+            <img src="{{ asset('assets/img/logo.svg') }}" alt="La Roche d'Or">
         </a>
         {% endif %}
         <a class="editions" href="{{ localePath('editions-nouveautes', app.request.locale) }}">
