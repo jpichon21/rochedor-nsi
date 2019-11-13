@@ -5,6 +5,10 @@ html{
   background-color: #ffffff!important;
 }
 
+body:before {
+  background: linear-gradient(180deg,rgba(255, 255, 255, 0.9) 200px,transparent);
+}
+
 body {
   background-color: #ffffff;
   &.scrollTop {
