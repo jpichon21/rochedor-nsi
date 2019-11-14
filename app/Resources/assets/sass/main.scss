@@ -172,7 +172,7 @@ i {
         padding: 20px;
       }
       @include media('>medium','<=laptop') {
-        padding: 20px 80px;
+        padding: 40px 80px;
       }
       @include media('<=medium') {
         padding: 20px;
