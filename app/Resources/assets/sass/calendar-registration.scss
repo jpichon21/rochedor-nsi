@@ -26,6 +26,14 @@
         display: block;
       }
     }
+
+    &.participants {
+      .newfich-wrapper .newfich {
+        @media screen and (max-width: 500px) {
+          min-height: 40px;
+        }
+      }
+    }
   }
 }
 .add-participant {

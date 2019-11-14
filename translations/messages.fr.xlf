@@ -1945,7 +1945,13 @@
     <unit id=".55gGPd" name="form.message.not_with_an_adult">
       <segment>
         <source>form.message.not_with_an_adult</source>
-        <target>n'est pas accompagné d'un adulte</target>
+        <target><![CDATA[n'est pas accompagné d'un adulte<br><a href="%url_contact%">Nous contacter</a>]]></target>
+      </segment>
+    </unit>
+    <unit id=".56gGPd" name="contact_us">
+      <segment>
+        <source>contact_us</source>
+        <target>Nous contacter></target>
       </segment>
     </unit>
     <unit id="ch5nrMQ" name="form.message.not_accompanied">

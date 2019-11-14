@@ -224,6 +224,8 @@ class Contact implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="JSCo", type="text", length=65535)
+     *
+     * @Expose
      */
     private $jsco = '';
 
@@ -415,6 +417,16 @@ class Contact implements UserInterface, \Serializable
      * @ORM\Column(name="ResetTokenExpire", type="datetime")
      */
     private $resetTokenExpiresAt;
+
+    /**
+     * @Expose
+     */
+    public $colp;
+
+    /**
+     * @Expose
+     */
+    public $coltyp;
 
     /**
      * @var bool
