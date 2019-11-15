@@ -6,12 +6,18 @@ rochedor-nsi
 ## Prérequis
 - php7.x
 - php-json
-- php-openssl
 - php-pcre
 - php-pdo 
 - php-sqlite
 - node-js v8.15.0
 - yarn
+
+## Setup
+No docker for the app (yet), check `script/bootstrap` for base deps ;
+```
+sudo apt install php73 php-json php-pdo php-mysql
+```
+
 
 ## Lancement
 script/bootstrap` Pour installer les dépendances et mettre à jour la bdd (à lancer après chaque `git pull`)   

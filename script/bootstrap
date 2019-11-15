@@ -54,8 +54,10 @@ echo "==> Installing NPM dependencies… ${do_update:+'(force update)'}"
 yarn install ${do_update:+'--force'}
 
 
-# echo "==> Creating database…"
-# php bin/console doctrine:database:create > /dev/null
+echo "==> Setting up DB…"
+unzip lrdonsi.sql.zip
+docker-compose up -d
+rm lrdonsi.sql
 
 echo "==> Update database schema…"
 php bin/console doctrine:schema:update --force
