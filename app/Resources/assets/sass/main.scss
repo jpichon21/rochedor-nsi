@@ -166,7 +166,7 @@ i {
     .left,
     .right {
       @include media('<xxlarge') {
-        padding: 20px 40px;
+        padding: 20px 80px;
       }
       @include media('<large') {
         padding: 20px;
