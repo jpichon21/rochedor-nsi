@@ -546,6 +546,11 @@ body {
     margin-bottom: 55px;
     position: relative;
     margin-left: 26px;
+    @include media('<=mobile') {
+      font-size: 16px;
+      line-height: 20px;
+      margin-bottom: 25px;
+    }
   }
   p:before{
     content: '“';
