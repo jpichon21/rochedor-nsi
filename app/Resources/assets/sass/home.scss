@@ -99,7 +99,7 @@ body {
         transform: translate(0, calc(-27.67478813559322% + ((100vh - 35.619703389830508%) / 2)));
       }
       @include media('<=mobile') {
-        transform: translateY(calc(-20.674788% + ((100vh - 35.619703%) / 2)));
+        transform: translateY(calc(-42.674788% + ((100vh - 35.619703%) / 2)));
       }
     }
     .sections {
@@ -153,6 +153,9 @@ body {
       transform: translate(-50%, calc(-71.80756986204457% + ((100vh - 17.686593562079943%) / 2)));
       @include media('<medium') {
         transform: translate(-50%, calc(-64.486228813559322% + ((100vh - 35.619703389830508%) / 2)));
+      }
+      @include media('<=mobile') {
+        transform: translate(-50%, calc(-60.486228813559322% + ((100vh - 35.619703389830508%) / 2)));
       }
     }
     .sections {
