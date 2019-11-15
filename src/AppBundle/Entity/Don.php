@@ -23,7 +23,7 @@ class Don
     private $refdon;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Contact", inversedBy="dons")
+     * @ORM\ManyToOne(targetEntity="Contact")
      * @ORM\JoinColumn(name="DonCo", referencedColumnName="CodCo")
      */
     private $contact;
