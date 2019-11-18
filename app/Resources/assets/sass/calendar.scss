@@ -672,6 +672,9 @@ h1 {
   @include media('<=medium') {
     background-image: url('../img/black-60.png'), linear-gradient(black, black),  url('../img/calendar-xxs.jpg');
   }
+  @include media('<=mobile') {
+    background-image: linear-gradient(black, black),  url('../img/calendar-mobile.jpg');
+  }
 }
 
 
