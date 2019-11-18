@@ -6,6 +6,7 @@ body {
   position: fixed;
   width: 100%;
   height: 100%;
+  background-image: none!important;
   &:before {
     z-index: 3;
   }
@@ -81,10 +82,18 @@ body {
     }
   }
   &.section-2-active {
+    .overlay {
+      @include media('<=mobile') {
+        opacity: 0.3;
+      }
+    }
     .background {
       transform: translate(0, calc(-13.088079235939158% + ((100vh - 26.686593562079943%) / 2)));
       @include media('<medium') {
         transform: translate(0, calc(-13.771186440677966% + ((100vh - 35.619703389830508%) / 2)));
+      }
+      @include media('<=mobile') {
+        transform: translate(0, calc(-4.771186440677966% + ((100vh - 35.619703389830508%) / 2)));
       }
     }
     .sections {
@@ -96,13 +105,18 @@ body {
     }
   }
   &.section-3-active {
+    .overlay {
+      @include media('<=mobile') {
+        opacity: 0.3;
+      }
+    }
     .background {
       transform: translate(0, calc(-26.176158471878316% + ((100vh - 13.686593562079943%) / 2)));
       @include media('<medium') {
         transform: translate(0, calc(-27.67478813559322% + ((100vh - 35.619703389830508%) / 2)));
       }
       @include media('<=mobile') {
-        transform: translateY(calc(-42.674788% + ((100vh - 35.619703%) / 2)));
+        transform: translateY(calc(-12.674788% + ((100vh - 35.619703%) / 2)));
       }
     }
     .sections {
@@ -114,13 +128,18 @@ body {
     }
   }
   &.section-4-active {
+    .overlay {
+      @include media('<=mobile') {
+        opacity: 0.3;
+      }
+    }
     .background {
       transform: translate(0, calc(-39.529536611248674% + ((100vh - 8.686593562079943%) / 2)));
       @include media('<medium') {
         transform: translate(-50%, calc(-37.605932203389831% + ((100vh - 35.619703389830508%) / 2)));
       }
       @include media('<=mobile') {
-        transform: translate(-50%,calc(-32.605932203389834% + ((100vh - 35.619703389830505%) / 2)));
+        transform: translate(-0%,calc(-39.605932% + ((100vh - 35.619703%) / 2)));
       }
       
 
@@ -137,10 +156,18 @@ body {
     }
   }
   &.section-5-active {
+    .overlay {
+      @include media('<=mobile') {
+        opacity: 0.3;
+      }
+    }
     .background {
       transform: translate(-50%, calc(-47.223204810753449% + ((100vh - 17.686593562079943%) / 2)));
       @include media('<medium') {
         transform: translate(-50%, calc(-50.979872881355932% + ((100vh - 35.619703389830508%) / 2)));
+      }
+      @include media('<=mobile') {
+        transform: translate(-50%,calc(-38.97987288135593% + ((100vh - 35.619703389830505%) / 2)));
       }
     }
     .sections {
@@ -153,12 +180,17 @@ body {
   }
   &.section-6-active {
     .background {
+      .overlay {
+        @include media('<=mobile') {
+          opacity: 0.3;
+        }
+      }
       transform: translate(-50%, calc(-71.80756986204457% + ((100vh - 17.686593562079943%) / 2)));
       @include media('<medium') {
         transform: translate(-50%, calc(-64.486228813559322% + ((100vh - 35.619703389830508%) / 2)));
       }
       @include media('<=mobile') {
-        transform: translate(-50%, calc(-60.486228813559322% + ((100vh - 35.619703389830508%) / 2)));
+        transform: translate(-50%,calc(-65.486229% + ((100vh - 35.619703389830505%) / 2)));
       }
     }
     .sections {
