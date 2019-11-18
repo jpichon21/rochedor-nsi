@@ -84,9 +84,6 @@ body {
       white-space: pre-line;
       transition: 0.2s;
       opacity: 1;
-      @include media('<=mobile') {
-        display: none;
-      }
       @include media('>=limitMenuReduced') {
         content: none;
       }
@@ -96,9 +93,6 @@ body {
     }
     img {
       width: 90px;
-      @include media('<=mobile') {
-        width: 60px;
-      }
     }
     .editions {
       display: none;
