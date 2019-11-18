@@ -39,9 +39,9 @@ body {
 .home{
   .header{
     @include media('<=mobile') {
-      background-color: #000000c9;
+      /*background-color: #000000c9;
       height: 80px;
-      box-shadow: 0 30px 60px black;
+      box-shadow: 0 30px 60px black;*/
     }
   }
 }
@@ -84,6 +84,10 @@ body {
       white-space: pre-line;
       transition: 0.2s;
       opacity: 1;
+      @include media('<=mobile') {
+        bottom: -36px;
+        line-height: 22px;
+      }
       @include media('>=limitMenuReduced') {
         content: none;
       }
@@ -93,6 +97,9 @@ body {
     }
     img {
       width: 90px;
+      @include media('<=mobile') {
+        width: 82px
+      }
     }
     .editions {
       display: none;

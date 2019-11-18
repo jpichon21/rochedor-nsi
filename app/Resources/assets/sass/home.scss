@@ -344,7 +344,7 @@ body {
       padding-right: 40px;
       color: $roche-yellow;
       @include media('<=mobile') {
-        margin-left: 20px;
+        margin-left: 10px;
       }
       .button {
         margin-left: 26px;
@@ -360,7 +360,8 @@ body {
         }
       }
       @media screen and (max-width: 500px) {
-        padding-top: 20%;
+        //padding-top: 20%;
+        padding-top: 0%;
       }
       br {
         display: none;
@@ -374,11 +375,11 @@ body {
         line-height: 32px;
         padding-left: 26px;
         @include media('<=mobile') {
-          line-height: 22px;
+          line-height: 25px;
           margin-bottom: 20px;
         }
         @include media('<large') {
-          font-size: 25px;
+          font-size: 26px;
         }
         small {
           display: block;
