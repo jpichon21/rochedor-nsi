@@ -38,6 +38,7 @@ let _registered = []
 let _went = []
 let _participant = {}
 let _participants = []
+let _existingRef = ''
 
 const itemConnection = $('.item.connection')
 const itemParticipants = $('.item.participants')
@@ -62,6 +63,12 @@ $(document).ready(function () {
 function scrollTop () {
   setTimeout(() => {
     document.querySelector('.content').scroll({ top: 0, left: 0, behavior: 'smooth' })
+  }, 200)
+}
+
+function scrollToElement ($element) {
+  setTimeout(() => {
+    document.querySelector('.content').scroll({ top: $element.offset().top, left: 0, behavior: 'smooth' })
   }, 200)
 }
 
@@ -168,11 +175,42 @@ function afterLogin (user) {
   _you = { ...participant, ...user }
   _participants = [_you]
   updateYouRender()
-  getRegistered().then(registered => {
+  getRegistered(_infos.idact).then(data => {
+    let attendees = data.attendees
+    let registered = []
+    _existingRef = data.alreadyRegisteredRef
+    let alreadyRegisteredYou = data.alreadyRegisteredYou
+    let alreadyRegistered = data.alreadyRegistered
+
+    // Formattage des participants accompagnants (modif inscription)
+    alreadyRegistered.forEach(function(element) {
+      let participant = getContact()
+      let transport = JSON.parse(element.jsco)
+      participant.transport = transport.Arriv.Transport
+      participant.lieu = transport.Arriv.Lieu
+      participant.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      participant.memo = transport.Arriv.Memo
+      participant[element.name] = element.value
+      participant.codco = parseInt(participant.codco)
+      participant.datnaiss = moment(participant.datnaiss, 'DD/MM/YYYY').format()
+      element.check = true
+      registered.push({ ...participant, ...element })
+      _participants.push({ ...participant, ...element })
+    })
+
+    // Formattage de l'utilisateur courant (modif inscription)
+    if (alreadyRegisteredYou) {
+      let transport = JSON.parse(alreadyRegisteredYou.jsco)
+      _you.transport = transport.Arriv.Transport
+      _you.lieu = transport.Arriv.Lieu
+      _you.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      _you.memo = transport.Arriv.Memo
+    }
+
     _registered = registered.map(obj => {
       return { ...participant, ...obj }
     })
-    _went = [..._registered]
+    _went = [...attendees]
     downLoader()
     updateRegisteredRender()
     updateParticipantsRender()
@@ -312,6 +350,9 @@ itemConnection.on('click', 'a', function (event) {
       $(`.panel.${which}`, itemConnection).show()
       _participant = getContact()
       updateYouFormRender([], [], true)
+      setTimeout(() => {
+        scrollToElement($(`.panel.${which}`))
+      }, 200)
       break
     case 'reset':
       $('.panel.reset', itemConnection).show()
@@ -624,13 +665,14 @@ itemParticipants.on('click', '.validate-participants', function (event) {
     upLoader()
     setParent()
     getLogin().then((res) => {
-      postRegistered(_participants, _infos.idact).then(res => {
+      postRegistered(_participants, _infos.idact, _existingRef).then(res => {
         let result = $('.result', itemValidation).html()
         result = result.replace('%entry_number%', res)
         $('.result', itemValidation).html(result)
         downLoader()
         updateEndMessageRender()
         changeItem(itemValidation)
+        _existingRef = ''
       }).catch(error => {
         downLoader()
         upFlashbag(error)
@@ -681,7 +723,13 @@ function validateParticipant (participant) {
   }
 
   if (isYoung(participant) && !isWithAdult(participant)) {
-    return i18n.trans('form.message.not_with_an_adult')
+    let urlContact = '/' + _locale + '/contact-ro'
+    if (_infos.sitact === 'Les Fontanilles') {
+      urlContact = '/' + _locale + '/contact-ft'
+    }
+    let message = i18n.trans('form.message.not_with_an_adult')
+    message = message.replace('%url_contact%', urlContact)
+    return message
   }
   return true
 }

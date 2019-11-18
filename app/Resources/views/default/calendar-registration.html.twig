@@ -169,7 +169,7 @@
 <script type="text/template" class="participants-template">
     <% if (participants.length) { %>
         <% for (var i = 0; i < participants.length; i++) { %>
-        <% var him = participants[i] %>
+            <% var him = participants[i] %>
             <div class="him">
                 <p><%= _.escape(him.civil) %> <%= _.escape(him.prenom) %> <%= _.escape(him.nom) %><br>
                     <% if (him.adresse) { %>
