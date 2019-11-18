@@ -10,7 +10,7 @@ body:before {
 }
 
 body {
-  background-color: #ffffff;
+  background-color: #ffffff!important;
   &.scrollTop {
     .logo {
       &:after {

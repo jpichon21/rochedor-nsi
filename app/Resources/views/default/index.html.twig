@@ -92,19 +92,7 @@
         </div>
     </div>
     <div class="section section-5">
-   <div class="box">
-            <h2>
-                <small>{{page.content['sections'][5].title|raw}}</small>
-                {% if 'sub_title' in page.content['sections'][5]|keys %}
-                {{page.content['sections'][5].sub_title|raw}}
-                {% endif %}
-            </h2>
-            {{page.content['sections'][5].body|raw}}
-            <a class="button yellow" href="{{ localePath('contact-ro', app.request.locale) }}">Découvrir <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
-        </div>
-    </div>
-    <div class="section section-6">
-      <div class="box">
+        <div class="box">
             <h2>
                 <small>{{page.content['sections'][4].title|raw}}</small>
                 {% if 'sub_title' in page.content['sections'][4]|keys %}
@@ -114,7 +102,18 @@
             {{page.content['sections'][4].body|raw}}
             <a class="button yellow" href="{{ localePath('editions', app.request.locale) }}">Découvrir <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
         </div>
-       
+    </div>
+    <div class="section section-6">
+        <div class="box">
+            <h2>
+                <small>{{page.content['sections'][5].title|raw}}</small>
+                {% if 'sub_title' in page.content['sections'][5]|keys %}
+                {{page.content['sections'][5].sub_title|raw}}
+                {% endif %}
+            </h2>
+            {{page.content['sections'][5].body|raw}}
+            <a class="button yellow" href="{{ localePath('contact-ro', app.request.locale) }}">Découvrir <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+        </div>
     </div>
 </div>
 {% endblock %}
