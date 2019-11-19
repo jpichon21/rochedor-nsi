@@ -411,7 +411,7 @@ body {
         padding-left: 26px;
         @include media('<=mobile') {
           line-height: 25px;
-          margin-bottom: 20px;
+          margin-bottom: 32px;
         }
         @include media('<large') {
           font-size: 26px;
@@ -585,7 +585,7 @@ body {
     @include media('<=mobile') {
       font-size: 16px;
       line-height: 20px;
-      margin-bottom: 25px;
+      margin-bottom: 32px;
     }
   }
   p:before{

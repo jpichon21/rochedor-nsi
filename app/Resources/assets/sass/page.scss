@@ -137,11 +137,17 @@ body {
         opacity: 0;
         transition: opacity 0.8s;
         transition-delay: 0.2s;
+        @include media('<=mobile') {
+          padding-right: 10px;
+        }
       }
       a {
         color: $roche-yellow;
         text-decoration: none;
         border-bottom: 1px $roche-yellow solid;
+        @include media('<=mobile') {
+          border-bottom: 0px;
+        }
       }
       strong {
         font-weight: 500;
