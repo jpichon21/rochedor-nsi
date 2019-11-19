@@ -85,7 +85,7 @@ body {
     .overlay {
       opacity: 0;
       @include media('<=mobile') {
-        opacity: 0.3;
+        opacity: 0.3!important;
       }
     }
     .background {
@@ -109,7 +109,7 @@ body {
     .overlay {
       opacity: 0;
       @include media('<=mobile') {
-        opacity: 0.3;
+        opacity: 0.3!important;
       }
     }
     .background {
@@ -133,7 +133,7 @@ body {
     .overlay {
       opacity: 0;
       @include media('<=mobile') {
-        opacity: 0.3;
+        opacity: 0.3!important;
       }
     }
     .background {
@@ -162,7 +162,7 @@ body {
     .overlay {
       opacity: 0;
       @include media('<=mobile') {
-        opacity: 0.5;
+        opacity: 0.5!important;
       }
     }
     .background {
@@ -183,13 +183,13 @@ body {
     }
   }
   &.section-6-active {
-    .background {
-      .overlay {
-        opacity: 0;
-        @include media('<=mobile') {
-          opacity: 0.3;
-        }
+    .overlay {
+      opacity: 0;
+      @include media('<=mobile') {
+        opacity: 0.3!important;
       }
+    }
+    .background {
       transform: translate(-50%, calc(-71.80756986204457% + ((100vh - 17.686593562079943%) / 2)));
       @include media('<medium') {
         transform: translate(-50%, calc(-64.486228813559322% + ((100vh - 35.619703389830508%) / 2)));
