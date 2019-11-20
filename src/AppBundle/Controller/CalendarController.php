@@ -427,13 +427,21 @@ class CalendarController extends Controller
         if (isset($attendee['username'])) {
             $contact->setUsername($attendee['username']);
         }
+        if (isset($attendee['colp'])) {
+            $contact->colp = $attendee['colp'];
+        }
+        if (isset($attendee['coltyp'])) {
+            $contact->coltyp = $attendee['coltyp'];
+        }
 
-        $password = array_key_exists('password', $attendee) && $attendee['password'] !== ''
-            ? $attendee['password']
-            : $this->randomPassword(8);
-        if ($password) {
-            $passwordEncoded = $this->encoder->encodePassword($contact, $password);
-            $contact->setPassword($passwordEncoded);
+        if (empty($contact->getPassword())) {
+            $password = array_key_exists('password', $attendee) && $attendee['password'] !== ''
+                ? $attendee['password']
+                : $this->randomPassword(8);
+            if ($password) {
+                $passwordEncoded = $this->encoder->encodePassword($contact, $password);
+                $contact->setPassword($passwordEncoded);
+            }
         }
 
         return $contact;
