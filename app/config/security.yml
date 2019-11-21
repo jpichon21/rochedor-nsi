@@ -57,6 +57,7 @@ security:
                 path:   /logout
                 invalidate_session: true
                 target: /
+            access_denied_handler: AppBundle\Security\AccessDeniedHandler
 
     access_control:
         - { path: ^/api, role: ROLE_ADMIN}

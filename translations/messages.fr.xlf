@@ -3276,6 +3276,12 @@ Pour réaliser une nouvelle inscription, cliquer sur Calendrier.]]></target>
         <target>Votre session est expirée, veuillez raffraichir la page de votre navigateur.</target>
       </segment>
     </unit>
+    <unit id="sdhufn9B8TMG8" name="forbidden">
+      <segment>
+        <source>forbidden</source>
+        <target>Vous n'avez pas les droits suffisants pour réaliser cette action</target>
+      </segment>
+    </unit>
     <unit id="sdhufn9B8TMG8" name="calendar.registration.tooltip">
       <segment>
         <source>calendar.registration.tooltip</source>
