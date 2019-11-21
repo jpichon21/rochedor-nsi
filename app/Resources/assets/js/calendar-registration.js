@@ -181,6 +181,7 @@ function afterLogin (user) {
     _existingRef = data.alreadyRegisteredRef
     let alreadyRegisteredYou = data.alreadyRegisteredYou
     let alreadyRegistered = data.alreadyRegistered
+    let alreadyRegisteredIds = []
 
     // Formattage des participants accompagnants (modif inscription)
     alreadyRegistered.forEach(function(element) {
@@ -196,6 +197,18 @@ function afterLogin (user) {
       element.check = true
       registered.push({ ...participant, ...element })
       _participants.push({ ...participant, ...element })
+      alreadyRegisteredIds.push(element.codco)
+    })
+
+    // Formattage des membres de la famille
+    attendees.forEach(function(element) {
+      if (element.coltyp === 'conjo' || element.codtyp === 'enfan' || element.codtyp === 'paren') {
+        // Si l'utilisateur est déjà présent dans la liste des inscrits,
+        if (alreadyRegisteredIds.includes(element.codco)) {
+          element.added = true
+        }
+        registered.push(element)
+      }
     })
 
     // Formattage de l'utilisateur courant (modif inscription)
