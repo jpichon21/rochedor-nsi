@@ -1,9 +1,10 @@
 .intro {
+  display: block;
   position: fixed;
   width: 100vw;
   height: 100vh;
   animation-name: intro-hidden;
-  animation-delay: 10s;
+  animation-delay: 20s;
   animation-fill-mode: forwards;
   z-index: 4;
   &:before {
@@ -13,8 +14,8 @@
     height: 100%;
     background: #000000;
     animation-name: intro-opacity-reverse;
-    animation-duration: 2.5s;
-    animation-delay: 5s;
+    animation-duration: 5s;
+    animation-delay: 10s;
     animation-fill-mode: forwards;
     z-index: 0;
   }
@@ -24,8 +25,8 @@
     left: 50%;
     margin-left: -91px;
     animation-name: intro-mount;
-    animation-duration: 2.5s;
-    animation-delay: 5s;
+    animation-duration: 5s;
+    animation-delay: 10s;
     animation-fill-mode: forwards;
     z-index: 1;
     .logo {
@@ -33,7 +34,7 @@
       height: 122px;
       background: url('../img/logo-icon.png') no-repeat;
       animation-name: intro-opacity;
-      animation-duration: 2s;
+      animation-duration: 4s;
       animation-delay: 1s;
       animation-fill-mode: forwards;
       opacity: 0;
@@ -58,8 +59,8 @@
       &:after {
         background-image: url('../img/logo-text.png');
         animation-name: intro-opacity-text;
-        animation-duration: 4s;
-        animation-delay: 3s;
+        animation-duration: 8s;
+        animation-delay: 6s;
         opacity: 0;
         z-index: 2;
       }
@@ -83,16 +84,16 @@ body {
     }
     .header,
     .footer {
-      animation-delay: 7s;
+      animation-delay: 15s;
     }
     .section {
-      animation-delay: 8s;
+      animation-delay: 17s;
     }
     .section {
-      animation-delay: 8s;
+      animation-delay: 17s;
     }
     .scroll-down {
-      animation-delay: 9s;
+      animation-delay: 19s;
     }
   }
   
