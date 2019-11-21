@@ -14,8 +14,8 @@
     height: 100%;
     background: #000000;
     animation-name: intro-opacity-reverse;
-    animation-duration: 10s;
-    animation-delay: 5s;
+    animation-duration: 5s;
+    animation-delay: 2s;
     animation-fill-mode: forwards;
     z-index: 0;
   }
@@ -38,6 +38,7 @@
       animation-delay: 1s;
       animation-fill-mode: forwards;
       opacity: 0;
+      margin-left: 6px;
       &:before,
       &:after {
         content: '';
