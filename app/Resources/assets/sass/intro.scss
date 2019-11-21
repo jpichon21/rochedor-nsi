@@ -4,7 +4,7 @@
   width: 100vw;
   height: 100vh;
   animation-name: intro-hidden;
-  animation-delay: 20s;
+  animation-delay: 10s;
   animation-fill-mode: forwards;
   z-index: 4;
   &:before {
@@ -85,7 +85,7 @@ body {
     }
     .header,
     .footer {
-      animation-delay: 2s;
+      animation-delay: 10s;
     }
     .section {
       animation-delay: 17s;
