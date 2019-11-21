@@ -32,7 +32,7 @@
     .logo {
       width: 160px;
       height: 122px;
-      background: url('../img/logo-icon.png') no-repeat;
+      background: url('../img/logo.svg') no-repeat;
       animation-name: intro-opacity;
       animation-duration: 4s;
       animation-delay: 1s;
@@ -59,8 +59,8 @@
       &:after {
         background-image: url('../img/logo-text.png');
         animation-name: intro-opacity-text;
-        animation-duration: 8s;
-        animation-delay: 6s;
+        animation-duration: 4s;
+        animation-delay: 3s;
         opacity: 0;
         z-index: 2;
       }
