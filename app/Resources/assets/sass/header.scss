@@ -95,10 +95,22 @@ body {
         content: none;
       }
     }
+    img:hover{
+      &:after {
+        opacity: 1;
+        transition: 2s ease;
+      }
+    }
     img {
       width: 90px;
       transform: scale(1);
       transition: 2s ease;
+      &:after {
+        background-image: url('../img/logo-text.png');
+        z-index: 2;
+        opacity: 0;
+        transition: 2s ease;
+      }
       &:hover{
         transform: scale(0.85);
         transition: 2s ease
