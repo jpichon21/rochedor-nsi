@@ -100,7 +100,7 @@ body {
       transform: scale(1);
       transition: 2s ease;
       &:hover{
-        transform: scale(1.1);
+        transform: scale(0.85);
         transition: 2s ease
       }
       @include media('<=mobile') {
