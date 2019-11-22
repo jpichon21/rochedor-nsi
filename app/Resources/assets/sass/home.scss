@@ -67,7 +67,7 @@ body {
   }
   &.section-1-active {
     .overlay {
-      opacity: 0.45;
+      opacity: 0.35;
       @include media('<=mobile') {
         opacity: 0.5;
       }
