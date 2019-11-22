@@ -138,6 +138,11 @@
         <a class="button" href="{{ url('register_calendar' ~ '-' ~ app.request.locale) }}?id=<%= retreats[i].id %>">Choisir</a>
     </li>
 <% } %>
+<% if (retreats.length < 1) { %>
+<li class="month">
+    {{ noRetreatsMessage }}
+</li>
+<% } %>
 </script>
 <script type="text/template" class="retreats-table-template">
 <% var lastMonth = 0 %>
