@@ -95,18 +95,6 @@ body {
         content: none;
       }
     }
-    &:after {
-      background-image: url('../img/logo-text.png');
-      z-index: 2;
-      opacity: 0;
-      transition: 2s ease;
-    }
-    &:hover{
-      &:after {
-        opacity: 1;
-        transition: 2s ease;
-      }
-    }
     img {
       width: 90px;
       transform: scale(1);
@@ -616,5 +604,14 @@ body {
            color: #ffffff;
       }
     }
+  }
+}
+
+.logo{
+  &:after {
+    background-image: url('../img/logo-text.png');
+    z-index: 2;
+    opacity: 1;
+    transition: 2s ease;
   }
 }
