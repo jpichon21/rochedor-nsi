@@ -102,7 +102,7 @@ body {
 
       &:hover{
         transform: scale(0.85);
-        transition: 2s ease
+        transition: 2s ease;
       }
       @include media('<=mobile') {
         width: 82px
@@ -611,7 +611,17 @@ body {
 #logoTaglineContainer{
   position: absolute;
   width: 100%;
+  top:38px;
+  opacity: 0;
+  transition: 2s ease;
   #logoTagline{
 
+  }
+}
+
+.logo:hover{
+  #logoTaglineContainer{
+    opacity: 1;
+    transition: 2s ease;
   }
 }
