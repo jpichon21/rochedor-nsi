@@ -670,7 +670,8 @@ class CalendarController extends Controller
                 'speakers' => $filters['speakers'],
                 'translations' => $filters['translations'],
                 'retreatsData' => json_encode($retreatsData),
-                'availableLocales' => $availableLocales
+                'availableLocales' => $availableLocales,
+                'noRetreatsMessage' => $this->translator->trans('calendar.no_retreat')
             ]);
     }
 }

@@ -3288,5 +3288,11 @@ Pour réaliser une nouvelle inscription, cliquer sur Calendrier.]]></target>
         <target>Indique uniquement les membres de votre famille.</target>
       </segment>
     </unit>
+    <unit id="sdhufn9B8TMG9" name="calendar.no_retreat">
+      <segment>
+        <source>calendar.no_retreat</source>
+        <target>Aucune retraite ne correspond à votre recherche</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

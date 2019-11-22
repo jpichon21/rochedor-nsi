@@ -176,6 +176,11 @@
         <td class="translation center"><%= retreats[i].translation %></td>
     </tr>
 <% } %>
+<% if (retreats.length < 1) { %>
+<tr class="month">
+    <td>{{ noRetreatsMessage }}</td>
+</tr>
+<% } %>
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
 <script type="text/json" class="retreats-data">{{ retreatsData | raw }}</script>
