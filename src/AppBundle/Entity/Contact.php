@@ -689,10 +689,6 @@ class Contact implements UserInterface, \Serializable
      */
     public function setNom($nom = null)
     {
-        if (is_string($nom)) {
-            $nom = ucfirst(strtolower($nom));
-        }
-
         $this->nom = $nom;
 
         return $this;
@@ -717,10 +713,6 @@ class Contact implements UserInterface, \Serializable
      */
     public function setPrenom($prenom = null)
     {
-        if (is_string($prenom)) {
-            $prenom = ucfirst(strtolower($prenom));
-        }
-
         $this->prenom = $prenom;
 
         return $this;

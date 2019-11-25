@@ -1945,7 +1945,7 @@
     <unit id=".55gGPd" name="form.message.not_with_an_adult">
       <segment>
         <source>form.message.not_with_an_adult</source>
-        <target><![CDATA[n'est pas accompagné d'un adulte<br><a href="%url_contact%">Nous contacter</a>]]></target>
+        <target><![CDATA[n'est pas accompagné d'un adulte<br><a href="%url_contact%" target=_blank>Contacter %lieu%</a>]]></target>
       </segment>
     </unit>
     <unit id=".56gGPd" name="contact_us">
@@ -3276,10 +3276,22 @@ Pour réaliser une nouvelle inscription, cliquer sur Calendrier.]]></target>
         <target>Votre session est expirée, veuillez raffraichir la page de votre navigateur.</target>
       </segment>
     </unit>
+    <unit id="sdhufn9B8TMG8" name="forbidden">
+      <segment>
+        <source>forbidden</source>
+        <target>Vous n'avez pas les droits suffisants pour réaliser cette action</target>
+      </segment>
+    </unit>
     <unit id="sdhufn9B8TMG8" name="calendar.registration.tooltip">
       <segment>
         <source>calendar.registration.tooltip</source>
         <target>Indique uniquement les membres de votre famille.</target>
+      </segment>
+    </unit>
+    <unit id="sdhufn9B8TMG9" name="calendar.no_retreat">
+      <segment>
+        <source>calendar.no_retreat</source>
+        <target>Aucune retraite ne correspond à votre recherche</target>
       </segment>
     </unit>
   </file>

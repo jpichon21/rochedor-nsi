@@ -367,7 +367,6 @@ class CalendarController extends Controller
                     $em->persist($contactl);
                 }
 
-
                 if ($attendee['aut16'] == 1) {
                     $contact->setDataut16(new \DateTime($attendee['datAut16']));
                     $em->persist($contact);
@@ -375,7 +374,7 @@ class CalendarController extends Controller
                 $calL = new CalL();
                 $calL->setCodcal($activityId)
                 ->setLcal($contact->getCodco())
-                ->setTyplcal('coIns')
+                ->setTyplcal($attendee['coltyp'])
                 ->setReflcal($refLcal)
                 ->setJslcal(json_encode(
                     [
@@ -671,7 +670,8 @@ class CalendarController extends Controller
                 'speakers' => $filters['speakers'],
                 'translations' => $filters['translations'],
                 'retreatsData' => json_encode($retreatsData),
-                'availableLocales' => $availableLocales
+                'availableLocales' => $availableLocales,
+                'noRetreatsMessage' => $this->translator->trans('calendar.no_retreat')
             ]);
     }
 }

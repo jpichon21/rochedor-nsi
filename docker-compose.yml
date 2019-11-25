@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  db:
+    container_name: db
+    image: mariadb:10.2
+    ports:
+      - '3306:3306'
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./lrdonsi.sql:/docker-entrypoint-initdb.d/dump.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=changeme
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=apiuser
+      - MYSQL_PASSWORD=changeme
+    restart: always
+
+volumes:
+  db-data: {}

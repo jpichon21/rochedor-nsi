@@ -68,7 +68,12 @@ function scrollTop () {
 
 function scrollToElement ($element) {
   setTimeout(() => {
-    document.querySelector('.content').scroll({ top: $element.offset().top, left: 0, behavior: 'smooth' })
+    // a bit bruteforced, but it works ...
+    // for mobile
+    window.scrollTo({ top: $element.offset().top, left: 0, behavior: 'smooth' })
+    // for screen
+    // watch out for the forced offset of -120 if you reuse this method
+    document.querySelector('.content').scroll({ top: ($element.offset().top - 120), left: 0, behavior: 'smooth' })
   }, 200)
 }
 
@@ -181,6 +186,7 @@ function afterLogin (user) {
     _existingRef = data.alreadyRegisteredRef
     let alreadyRegisteredYou = data.alreadyRegisteredYou
     let alreadyRegistered = data.alreadyRegistered
+    let alreadyRegisteredIds = []
 
     // Formattage des participants accompagnants (modif inscription)
     alreadyRegistered.forEach(function(element) {
@@ -196,6 +202,18 @@ function afterLogin (user) {
       element.check = true
       registered.push({ ...participant, ...element })
       _participants.push({ ...participant, ...element })
+      alreadyRegisteredIds.push(element.codco)
+    })
+
+    // Formattage des membres de la famille
+    attendees.forEach(function(element) {
+      if (element.coltyp === 'conjo' || element.codtyp === 'enfan' || element.codtyp === 'paren') {
+        // Si l'utilisateur est déjà présent dans la liste des inscrits,
+        if (alreadyRegisteredIds.includes(element.codco)) {
+          element.added = true
+        }
+        registered.push(element)
+      }
     })
 
     // Formattage de l'utilisateur courant (modif inscription)
@@ -230,7 +248,49 @@ function formatParticipant (data) {
   })
   participant.codco = parseInt(participant.codco)
   participant.datnaiss = moment(participant.datnaiss, 'DD/MM/YYYY').format()
+
+  let nomPrenom = NomPropre(participant.prenom + '#' + participant.nom)
+  participant.prenom = nomPrenom.substr(0, nomPrenom.indexOf('#'))
+  participant.nom = nomPrenom.substr(nomPrenom.indexOf('#') + 1, nomPrenom.length)
   return participant
+}
+
+// Fonction fournie par Hubert de LRDO pour formattage des noms/prénom
+function NomPropre(SMot, Opt) {
+  var Lig, C1, C2, C3, C4, C5, Mot, M1, M2, Mx
+  if (!SMot) return ""
+  Mx = SMot.length
+
+  Mot = SMot.toLowerCase()
+  Lig = Mot.substr(0,1).toUpperCase()
+  var C = 1
+  for (C=1; C<Mx; C++) {
+    C1 = Mot.substr(C-1,1)
+    C2 = Mot.substr(C,1)
+    if (C+1<Mx)  C3 = Mot.substr(C+1,1);  else  C3=" "
+    if (C+2<Mx)  C4 = Mot.substr(C+2,1);  else  C4=" "
+    if (C+3<Mx)  C5 = Mot.substr(C+3,1);  else  C5=" "
+    M1 = C2 + C3 + C4;  M2 = M1 + C5
+    if ("de du d' le la l' et ".indexOf(M1)>=0 || "rue des les ".indexOf(M2)>=0) {
+      Lig=Lig + C2
+    }else{
+      if (" ,;./-'".indexOf(C1)>=0)  Lig += C2.toUpperCase();  else  Lig += C2
+    }
+  }
+
+  return Lig
+}
+
+// Fonction fournie par Hubert de LRDO pour formattage des noms/prénom
+function CasseUniq(Mot) {
+  var C, C1, nbMin=0, nbMaj=0
+  var Mx = Mot.length
+  for (C=0; C<Mx; C++) {
+    C1 = Mot.substr(C,1)
+    if (C1>="A" && C1<="Z")  nbMaj++
+    if (C1>="a" && C1<="z")  nbMin++
+  }
+  return !(nbMin>0 && nbMaj>0)
 }
 
 itemConnection.on('submit', '.panel.connection form', function (event) {
@@ -729,6 +789,7 @@ function validateParticipant (participant) {
     }
     let message = i18n.trans('form.message.not_with_an_adult')
     message = message.replace('%url_contact%', urlContact)
+    message = message.replace('%lieu%', _infos.sitact)
     return message
   }
   return true

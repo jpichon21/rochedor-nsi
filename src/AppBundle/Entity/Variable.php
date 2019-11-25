@@ -15,7 +15,7 @@ class Variable
     /**
      * @var int
      *
-     * @ORM\Column(name="CodVar", type="integer")
+     * @ORM\Column(name="codVar", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */

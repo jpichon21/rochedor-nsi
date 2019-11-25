@@ -15,4 +15,4 @@ done
 php bin/console server:run -q $port &
 echo "Webserver is running on http://127.0.0.1:$port"
 
-./node_modules/.bin/encore dev-server --hot --config-name configDev
+./node_modules/.bin/encore dev --watch --hot --config-name configDev
