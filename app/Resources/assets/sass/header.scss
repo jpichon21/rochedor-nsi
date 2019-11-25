@@ -100,10 +100,6 @@ body {
       transform: scale(1);
       transition: 2s ease;
       z-index: 2;
-      &:hover, &:active, &:focus{
-        transform: scale(0.85);
-        transition: 2s ease;
-      }
       @include media('<=mobile') {
         width: 82px
       }
@@ -626,5 +622,12 @@ body {
     top: 36px;
     opacity: 1;
     transition: 1s ease;
+  }
+}
+
+.logo:hover, .logo:active, .logo:focus{
+  #mainLogo{
+    transform: scale(0.85);
+    transition: 2s ease;
   }
 }
