@@ -113,7 +113,8 @@ export class NewsForm extends React.Component {
   }
 
   isSubmitEnabled () {
-    return (this.state.news.intro !== '')
+    const {intro, start, stop} = this.state.news;
+    return start < stop && (intro !== '')
   }
 
   componentWillReceiveProps (nextProps) {

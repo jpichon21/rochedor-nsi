@@ -53,6 +53,8 @@ export class UserForm extends React.Component {
     this.handleClose = this.handleClose.bind(this)
     this.handleTabChange = this.handleTabChange.bind(this)
     this.toggleRole = this.toggleRole.bind(this)
+    this.hasPasswordFieldError = this.hasPasswordFieldError.bind(this);
+
     this.i18n = new I18n('fr')
   }
 
@@ -176,6 +178,14 @@ export class UserForm extends React.Component {
     this.setState(state)
   }
 
+  hasPasswordFieldError () {
+    if (this.state.password !== this.state.repeat) {
+      return true
+    }
+
+    return this.state.password !== '' && this.state.password.length < 8
+  }
+
   isSubmitEnabled () {
     if (this.state.password !== '' && this.state.password.length < 8) {
       return false
@@ -297,9 +307,10 @@ export class UserForm extends React.Component {
               onOpen={this.handleTooltipOpen}
               open={this.state.open}
               placement='bottom'
-              title={`Renseigner le mot de passe`}
+              title={`Renseigner le mot de passe (8 caratères minimum)`}
             >
               <TextField
+                error={this.hasPasswordFieldError()}
                 autoComplete='off'
                 InputLabelProps={{ shrink: true }}
                 className={classes.textfield}
@@ -321,6 +332,7 @@ export class UserForm extends React.Component {
               title={`Répéter le mot de passe`}
             >
               <TextField
+                error={this.hasPasswordFieldError()}
                 autoComplete='off'
                 InputLabelProps={{ shrink: true }}
                 className={classes.textfield}

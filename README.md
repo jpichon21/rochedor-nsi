@@ -38,3 +38,6 @@ Pour lancer les vérifications à la main:
 Les environnements de dev et de test sont configurés pour envoyer les emails sur le port 2525.    
 Utiliser l'outil [faketools](https://github.com/Bornholm/faketools) pour lancer un serveur smtp local écoutant sur le port 2525     
 `docker run --rm -p 2525:2525 -p 8080:8080 -it bornholm/faketools`
+
+## Users
+- admin::admin

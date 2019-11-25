@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { Link, NavLink, Redirect } from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Menu, MenuItem, AppBar, Toolbar, Typography, IconButton, Tooltip, Button, Divider } from '@material-ui/core'
@@ -144,11 +144,11 @@ class AppMenu extends React.Component {
             open={menuOpen}
             onClose={this.handleCloseMenu}>
 
-            <Link to='/' target='_blank' className={classes.link}>
+            <a href='/' target='_blank' className={classes.link}>
               <MenuItem className={classes.visit} onClick={this.handleCloseMenu}>
                 Voir le site
               </MenuItem>
-            </Link>
+            </a>
             <Divider className={'divider'} />
             <IsAuthorized action={ACTION_HOME_VIEW} alternative={null}>
               <NavLink to='/home-edit' className={classes.link}>
