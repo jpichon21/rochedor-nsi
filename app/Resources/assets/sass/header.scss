@@ -611,9 +611,9 @@ body {
 #logoTaglineContainer{
   position: absolute;
   width: 100%;
-  top: 30px;
+  top: 10px;
   opacity: 0;
-  transition: 2s ease;
+  transition: 1s ease;
   #logoTagline{
     width: 132px!important;
     left: 60px;
@@ -625,6 +625,6 @@ body {
   #logoTaglineContainer{
     top: 36px;
     opacity: 1;
-    transition: 2s ease;
+    transition: 1s ease;
   }
 }
