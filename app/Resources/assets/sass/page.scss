@@ -29,7 +29,7 @@ body {
   .dropdown {
     position: relative;
     margin: 0 0 20px -20px;
-    max-width: 480px;
+    max-width: 490px;
     @include media('>laptop') {
       max-width: 680px;
     }
