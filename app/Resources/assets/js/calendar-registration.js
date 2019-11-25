@@ -68,7 +68,12 @@ function scrollTop () {
 
 function scrollToElement ($element) {
   setTimeout(() => {
-    document.querySelector('.content').scroll({ top: $element.offset().top, left: 0, behavior: 'smooth' })
+    // a bit bruteforced, but it works ...
+    // for mobile
+    window.scrollTo({ top: $element.offset().top, left: 0, behavior: 'smooth' })
+    // for screen
+    // watch out for the forced offset of -120 if you reuse this method
+    document.querySelector('.content').scroll({ top: ($element.offset().top - 120), left: 0, behavior: 'smooth' })
   }, 200)
 }
 
