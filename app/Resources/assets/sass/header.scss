@@ -99,7 +99,7 @@ body {
       width: 90px;
       transform: scale(1);
       transition: 2s ease;
-
+      z-index: 2;
       &:hover{
         transform: scale(0.85);
         transition: 2s ease;
@@ -611,12 +611,13 @@ body {
 #logoTaglineContainer{
   position: absolute;
   width: 100%;
-  top: 56px;
+  top: 50px;
   opacity: 0;
   transition: 2s ease;
   #logoTagline{
-    width: 170px!important;
+    width: 10px!important;
     left: 40px;
+    z-index: 2; 
   }
 }
 
