@@ -611,11 +611,12 @@ body {
 #logoTaglineContainer{
   position: absolute;
   width: 100%;
-  top:38px;
+  top: 56px;
   opacity: 0;
   transition: 2s ease;
   #logoTagline{
     width: 170px!important;
+    left: 40px;
   }
 }
 
