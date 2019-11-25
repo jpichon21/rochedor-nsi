@@ -611,7 +611,7 @@ body {
 #logoTaglineContainer{
   position: absolute;
   width: 100%;
-  top: 36px;
+  top: 30px;
   opacity: 0;
   transition: 2s ease;
   #logoTagline{
@@ -623,6 +623,7 @@ body {
 
 .logo:hover{
   #logoTaglineContainer{
+    top: 30px;
     opacity: 1;
     transition: 2s ease;
   }
