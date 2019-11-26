@@ -625,6 +625,12 @@ body {
   }
 }
 
+.editions{
+    #logoTaglineContainer{
+      display: none!important;
+    }
+}
+
 .logo:hover, .logo:active, .logo:focus{
   #mainLogo{
     transform: scale(0.85);
