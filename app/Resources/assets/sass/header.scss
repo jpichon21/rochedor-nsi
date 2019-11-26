@@ -630,6 +630,14 @@ body {
       display: none!important;
     }
 }
+.Éditions{
+  .logo:hover, .logo:active, .logo:focus{
+    #mainLogo{
+      transform: scale(1)!important;
+      transition: 2s ease;
+    }
+  }
+}
 
 .logo:hover, .logo:active, .logo:focus{
   #mainLogo{
