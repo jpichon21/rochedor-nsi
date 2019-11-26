@@ -11,6 +11,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\Role\RoleHierarchy;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -134,8 +136,31 @@ class UserController extends Controller
      */
     public function listAction(Request $request)
     {
-        return $this->userRepository->findAll();
+        /** @var Serializer $serializer */
+        $serializer = $this->get('serializer');
+        return array_values(array_map(function (User $user) use ($serializer) {
+            return array_merge($serializer->normalize($user), ['roles' => $this->getRoles($user)]);
+        }, $this->userRepository->findAll()));
     }
+    /**
+     * @param User $user
+     * @return array
+     */
+    protected function getRoles(User $user)
+    {
+        /** @var RoleHierarchy $roleHierarchy */
+        $roleHierarchy = $this->get('security.role_hierarchy');
+
+        return array_map(
+            function (Role $role) {
+                return $role->getRole();
+            },
+            $roleHierarchy->getReachableRoles(array_map(function ($rawle) {
+                return new Role($rawle);
+            }, $user->getRoles()))
+        );
+    }
+
 
     /**
      * @Rest\Get("/user/{id}")

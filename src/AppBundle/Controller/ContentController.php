@@ -50,7 +50,7 @@ class ContentController extends Controller
     /**
      * @Rest\Get("/content")
      * @Rest\View()
-     * @Security("has_role('ROLE_ADMIN_CONTENT_VIEW')")
+     * @Security("is_granted('ROLE_ADMIN_CONTENT_VIEW')")
      * @SWG\Get(
      *  path="/content",
      *      summary="Get requested locale content' list",
@@ -73,6 +73,8 @@ class ContentController extends Controller
             $request->query->get('locale') :
             $this->container->getParameter('locale');
         $pages = $this->getDoctrine()->getRepository('AppBundle:Page')->findByLocale($locale);
+
+        // remove homepage
         foreach ($pages as $key => $page) {
             if (count($page->getRoutes()) > 0) {
                 if ($page->getRoutes()[0]->getName() === $page->getLocale()) {
@@ -80,7 +82,20 @@ class ContentController extends Controller
                 }
             }
         }
-        return $pages;
+
+        // remove pages based on rights
+        if (! $this->isGranted('ROLE_ADMIN_CONTENT_ASSOCIATION_VIEW')) {
+            $pages = array_filter($pages, function (Page $page) {
+                return strlen($page->getType()) && $page->getType() !== Page::TYPE_ASSOCIATION;
+            });
+        }
+        if (! $this->isGranted('ROLE_ADMIN_CONTENT_EDITION_VIEW')) {
+            $pages = array_filter($pages, function (Page $page) {
+                return $page->getType() !== Page::TYPE_EDITIONS;
+            });
+        }
+
+        return array_values($pages);
     }
   
     /**
@@ -212,7 +227,6 @@ class ContentController extends Controller
      */
     public function putAction($id, Request $request)
     {
-
         $title = $request->get('title');
         $subTitle = $request->get('sub_title');
         $description = $request->get('description');
@@ -221,7 +235,9 @@ class ContentController extends Controller
         $url = $request->get('url');
         $locale = $request->get('locale');
         $em = $this->getDoctrine()->getManager();
+        /** @var Page $page */
         $page = $em->find('AppBundle\Entity\Page', $id);
+
         if (empty($page)) {
             return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
         } else {
@@ -251,6 +267,10 @@ class ContentController extends Controller
                 }
             }
 
+            if ($this->isGranted('ROLE_SUPER_ADMIN')) {
+                $page->setCategory($request->get('category'));
+                $page->setType($request->get('type'));
+            }
             
             $em->persist($page);
             $em->flush();

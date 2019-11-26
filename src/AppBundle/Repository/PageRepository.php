@@ -42,13 +42,10 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 
     public function findByLocale($locale)
     {
-        return $this->getEntityManager()
-            ->createQuery(
-                'SELECT partial p.{id,title,updated,subTitle, immutableid}
-                FROM AppBundle:Page p
-                WHERE p.locale = :locale'
-            )
+        return $this->getEntityManager()->getRepository(Page::class)
+            ->createQueryBuilder('p')
+            ->where('p.locale = :locale')
             ->setParameter('locale', $locale)
-            ->getResult();
+            ->getQuery()->execute();
     }
 }

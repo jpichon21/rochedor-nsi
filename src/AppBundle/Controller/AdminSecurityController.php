@@ -10,6 +10,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\Role\RoleHierarchy;
+use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -19,22 +24,21 @@ use AppBundle\Entity\User;
 
 class AdminSecurityController extends Controller
 {
-     /**
-     * @var Mailer
-     */
     private $mailer;
-
-    /**
-     * @var Translator
-     */
     private $translator;
+    protected $serializer;
+    protected $roleHierarchy;
 
     public function __construct(
         Mailer $mailer,
-        Translator $translator
+        Translator $translator,
+        SerializerInterface $serializer,
+        RoleHierarchyInterface $roleHierarchy
     ) {
         $this->mailer = $mailer;
         $this->translator = $translator;
+        $this->serializer = $serializer;
+        $this->roleHierarchy = $roleHierarchy;
     }
 
     /**
@@ -59,7 +63,25 @@ class AdminSecurityController extends Controller
             ], 401);
         }
 
-        return new JsonResponse($user);
+        /** @var Serializer $serializer */
+        $serializer = $this->get('serializer');
+        return new JsonResponse(array_merge($serializer->normalize($user), ['roles' => $this->getRoles($user)]));
+    }
+
+    /**
+     * @param User $user
+     * @return array
+     */
+    protected function getRoles(User $user)
+    {
+        return array_map(
+            function (Role $role) {
+                return $role->getRole();
+            },
+            $this->roleHierarchy->getReachableRoles(array_map(function ($rawle) {
+                return new Role($rawle);
+            }, $user->getRoles()))
+        );
     }
 
     /**

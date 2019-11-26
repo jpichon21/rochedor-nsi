@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Menu, MenuItem, AppBar, Toolbar, Typography, IconButton, Tooltip, Button, Divider } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import IsAuthorized, { ACTION_SPEAKER_VIEW, ACTION_HOME_VIEW, ACTION_CONTENT_VIEW, ACTION_NEWS_VIEW, ACTION_PAGE_VIEW, ACTION_USER_VIEW} from '../../isauthorized/isauthorized'
+import IsAuthorized, { ACTION_SPEAKER_VIEW, ACTION_HOME_VIEW, ACTION_CONTENT_ASSOCIATION_VIEW, ACTION_CONTENT_EDITION_VIEW, ACTION_NEWS_VIEW, ACTION_PAGE_VIEW, ACTION_USER_VIEW} from '../../isauthorized/isauthorized'
 import PeopleIcon from '@material-ui/icons/People'
 import RecentActorsIcon from '@material-ui/icons/RecentActors'
 import TocIcon from '@material-ui/icons/Toc'
@@ -15,6 +15,7 @@ import EditIcon from '@material-ui/icons/Edit'
 import AnnouncementIcon from '@material-ui/icons/Announcement'
 import LaunchIcon from '@material-ui/icons/Launch'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import DashboardIcon from '@material-ui/icons/Dashboard'
 
 class AppMenu extends React.Component {
   constructor (props) {
@@ -151,6 +152,45 @@ class AppMenu extends React.Component {
             open={menuOpen}
             onClose={this.handleCloseMenu}>
 
+            <NavLink to='/' className={classes.link}>
+              <MenuItem onClick={this.handleCloseMenu}>
+                <DashboardIcon />{' '}
+                Tableau de bord
+              </MenuItem>
+            </NavLink>
+
+            <IsAuthorized action={ACTION_NEWS_VIEW} alternative={null}>
+              <Divider className={'divider'} />
+              <NavLink to='/news-list' className={classes.link}>
+                <MenuItem onClick={this.handleCloseMenu}>
+                  <AnnouncementIcon />{' '}
+                  Nouveautés
+                </MenuItem>
+              </NavLink>
+            </IsAuthorized>
+
+            <Divider className={'divider'} />
+
+            <IsAuthorized action={[ACTION_CONTENT_ASSOCIATION_VIEW, ACTION_CONTENT_EDITION_VIEW]} alternative={null}>
+              <NavLink to='/content-list' className={classes.link}>
+                <MenuItem onClick={this.handleCloseMenu}>
+                  <TocIcon />{' '}
+                  Contenus
+                </MenuItem>
+              </NavLink>
+            </IsAuthorized>
+
+            <IsAuthorized action={ACTION_HOME_VIEW} alternative={null}>
+              <NavLink to='/home-edit' className={classes.link}>
+                <MenuItem onClick={this.handleCloseMenu}>
+                  <EditIcon />{' '}
+                  Page d'accueil
+                </MenuItem>
+              </NavLink>
+            </IsAuthorized>
+
+            <Divider className={'divider'} />
+
             <IsAuthorized action={ACTION_USER_VIEW} alternative={null}>
               <NavLink to='/user-list' className={classes.link}>
                 <MenuItem onClick={this.handleCloseMenu}>
@@ -170,46 +210,7 @@ class AppMenu extends React.Component {
             </IsAuthorized>
 
             <Divider className={'divider'} />
-            <IsAuthorized action={ACTION_CONTENT_VIEW} alternative={null}>
-              <NavLink to='/content-list' className={classes.link}>
-                <MenuItem onClick={this.handleCloseMenu}>
-                  <TocIcon />{' '}
-                  Contenus
-                </MenuItem>
-              </NavLink>
-            </IsAuthorized>
 
-            <IsAuthorized action={ACTION_HOME_VIEW} alternative={null}>
-              <NavLink to='/home-edit' className={classes.link}>
-                <MenuItem onClick={this.handleCloseMenu}>
-                  <EditIcon />{' '}
-                  Page d'accueil
-                </MenuItem>
-              </NavLink>
-            </IsAuthorized>
-
-            <IsAuthorized action={ACTION_HOME_VIEW || ACTION_CONTENT_VIEW}>
-              <IsAuthorized action={[ACTION_SPEAKER_VIEW || ACTION_PAGE_VIEW || ACTION_NEWS_VIEW]}>
-                <Divider className={'divider'} />
-              </IsAuthorized>
-            </IsAuthorized>
-            <IsAuthorized action={ACTION_NEWS_VIEW} alternative={null}>
-              <NavLink to='/news-list' className={classes.link}>
-                <MenuItem onClick={this.handleCloseMenu}>
-                  <AnnouncementIcon />{' '}
-                  Nouveautés
-                </MenuItem>
-              </NavLink>
-            </IsAuthorized>
-            {/* <IsAuthorized action={ACTION_PAGE_VIEW} alternative={null}>
-              <NavLink to='/page-list' className={classes.link}>
-                <MenuItem onClick={this.handleCloseMenu}>
-                Liste des pages
-                </MenuItem>
-              </NavLink>
-            </IsAuthorized> */}
-
-            <Divider className={'divider'} />
             <a href='/' target='_blank' className={classes.link}>
               <MenuItem className={classes.visit} onClick={this.handleCloseMenu}>
                 <LaunchIcon />{' '}

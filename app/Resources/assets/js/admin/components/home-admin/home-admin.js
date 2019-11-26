@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import AppMenu from '../../components/app-menu/app-menu'
 import { Card, CardContent, Typography, CardMedia, CardActions, Button } from '@material-ui/core'
-import IsAuthorized, { ACTION_HOME_EDIT, ACTION_NEWS_CREATE, ACTION_CONTENT_EDIT, ACTION_SPEAKER_EDIT } from '../../isauthorized/isauthorized'
+import IsAuthorized, { ACTION_HOME_EDIT, ACTION_NEWS_CREATE, ACTION_CONTENT_ASSOCIATION_VIEW, ACTION_CONTENT_EDITION_VIEW, ACTION_SPEAKER_EDIT } from '../../isauthorized/isauthorized'
 import { NavLink } from 'react-router-dom'
 class HomeAdmin extends React.Component {
   render () {
@@ -29,7 +29,7 @@ class HomeAdmin extends React.Component {
                 <Button style={{margin: '0 15px'}} variant='outlined' color='primary'>Modifier la page d'accueil</Button>
               </NavLink>
             </IsAuthorized>
-            <IsAuthorized action={ACTION_CONTENT_EDIT}>
+            <IsAuthorized action={[ACTION_CONTENT_ASSOCIATION_VIEW, ACTION_CONTENT_EDITION_VIEW]}>
               <NavLink to='/content-list' style={{textDecoration: 'none'}}>
                 <Button style={{margin: '0 15px'}} variant='outlined' color='primary'>Modifier les contenus</Button>
               </NavLink>

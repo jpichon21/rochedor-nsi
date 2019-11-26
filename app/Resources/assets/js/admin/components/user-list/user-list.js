@@ -10,7 +10,12 @@ import Moment from 'moment'
 import { NavLink, Link } from 'react-router-dom'
 import AppMenu from '../app-menu/app-menu'
 import Alert from '../alert/alert'
-import IsAuthorized, { ACTION_USER_VIEW, ACTION_USER_CREATE, ACTION_USER_EDIT } from '../../isauthorized/isauthorized'
+import IsAuthorized, {
+  ACTION_USER_VIEW,
+  ACTION_USER_CREATE,
+  ACTION_USER_EDIT,
+  ROLE_ADMIN_ASSOCIATION, ROLE_SUPER_ADMIN, ROLE_ADMIN_EDITION
+} from '../../isauthorized/isauthorized'
 import Redirect from 'react-router-dom/Redirect'
 
 export class UserList extends React.Component {
@@ -57,8 +62,14 @@ export class UserList extends React.Component {
               <NavLink className={classes.link} to={`/user-edit/${user.id}`}>{user.username}</NavLink>
             </IsAuthorized>
           </TableCell>
-          <TableCell>{(user.roles.includes('ROLE_SUPER_ADMIN')) ? <Icon>check</Icon> : ''}</TableCell>
-          <TableCell>{(user.active) ? <Icon>check</Icon> : ''}</TableCell>
+
+          <TableCell>
+            {getRoles(user).join(', ')}
+            {/* (user.roles.includes('ROLE_SUPER_ADMIN')) ? <Icon>check</Icon> : '' */}
+          </TableCell>
+          <TableCell>
+            {(user.active) ? <Icon>check</Icon> : ''}
+          </TableCell>
         </TableRow>
       )
     })
@@ -79,7 +90,7 @@ export class UserList extends React.Component {
                         <TableRow>
                           <TableCell>Nom</TableCell>
                           <TableCell>Identifiant</TableCell>
-                          <TableCell>Administrateur</TableCell>
+                          <TableCell>Droit(s)</TableCell>
                           <TableCell>Actif</TableCell>
                         </TableRow>
                       </TableHead>
@@ -111,6 +122,22 @@ export class UserList extends React.Component {
       </div>
     )
   }
+}
+
+const getRoles = ({roles}) => {
+  if (roles.includes(ROLE_SUPER_ADMIN)) {
+    return ['Administrateur (tous les droits)']
+  }
+
+  const mainRoles = []
+  if (roles.includes(ROLE_ADMIN_ASSOCIATION)) {
+    mainRoles.push('Contenu Association')
+  }
+  if (roles.includes(ROLE_ADMIN_EDITION)) {
+    mainRoles.push('Contenu Édition')
+  }
+
+  return mainRoles
 }
 
 const styles = theme => ({
