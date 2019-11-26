@@ -1,6 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+export const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN'
+export const ROLE_ADMIN_ASSOCIATION = 'ROLE_ADMIN_ASSOCIATION'
+export const ROLE_ADMIN_EDITION = 'ROLE_ADMIN_EDITION'
+
 export const ACTION_SPEAKER_VIEW = 'SPEAKER_VIEW'
 export const ACTION_SPEAKER_CREATE = 'SPEAKER_CREATE'
 export const ACTION_SPEAKER_EDIT = 'SPEAKER_EDIT'
@@ -9,10 +13,6 @@ export const ACTION_HOME_VIEW = 'HOME_VIEW'
 export const ACTION_HOME_CREATE = 'HOME_CREATE'
 export const ACTION_HOME_EDIT = 'HOME_EDIT'
 export const ACTION_HOME_DELETE = 'HOME_DELETE'
-export const ACTION_CONTENT_VIEW = 'CONTENT_VIEW'
-export const ACTION_CONTENT_CREATE = 'CONTENT_CREATE'
-export const ACTION_CONTENT_EDIT = 'CONTENT_EDIT'
-export const ACTION_CONTENT_DELETE = 'CONTENT_DELETE'
 export const ACTION_NEWS_VIEW = 'NEWS_VIEW'
 export const ACTION_NEWS_CREATE = 'NEWS_CREATE'
 export const ACTION_NEWS_EDIT = 'NEWS_EDIT'
@@ -26,11 +26,23 @@ export const ACTION_USER_CREATE = 'USER_CREATE'
 export const ACTION_USER_EDIT = 'USER_EDIT'
 export const ACTION_USER_DELETE = 'USER_DELETE'
 
+export const ACTION_CONTENT_SUPER_ADMIN = 'CONTENT_SUPER_ADMIN'
+
+export const ACTION_CONTENT_ASSOCIATION_VIEW = 'CONTENT_ASSOCIATION_VIEW'
+export const ACTION_CONTENT_ASSOCIATION_CREATE = 'CONTENT_ASSOCIATION_CREATE'
+export const ACTION_CONTENT_ASSOCIATION_EDIT = 'CONTENT_ASSOCIATION_EDIT'
+export const ACTION_CONTENT_ASSOCIATION_DELETE = 'CONTENT_ASSOCIATION_DELETE'
+export const ACTION_CONTENT_EDITION_VIEW = 'CONTENT_EDITION_VIEW'
+export const ACTION_CONTENT_EDITION_CREATE = 'CONTENT_EDITION_CREATE'
+export const ACTION_CONTENT_EDITION_EDIT = 'CONTENT_EDITION_EDIT'
+export const ACTION_CONTENT_EDITION_DELETE = 'CONTENT_EDITION_DELETE'
+
 export class IsAuthorized extends React.Component {
   isAuthorized (action) {
-    if (this.hasRole('ROLE_SUPER_ADMIN') || this.hasRole('ROLE_GOD')) {
+    if (this.hasRole(ROLE_SUPER_ADMIN)) {
       return true
     }
+
     let authorized = false
     if (Array.isArray(action)) {
       action.forEach(a => {
@@ -66,14 +78,7 @@ export class IsAuthorized extends React.Component {
         return this.hasRole('ROLE_ADMIN_HOME_EDIT')
       case ACTION_HOME_DELETE:
         return this.hasRole('ROLE_ADMIN_HOME_DELETE')
-      case ACTION_CONTENT_VIEW:
-        return this.hasRole('ROLE_ADMIN_CONTENT_VIEW')
-      case ACTION_CONTENT_CREATE:
-        return this.hasRole('ROLE_ADMIN_CONTENT_CREATE')
-      case ACTION_CONTENT_EDIT:
-        return this.hasRole('ROLE_ADMIN_CONTENT_EDIT')
-      case ACTION_CONTENT_DELETE:
-        return this.hasRole('ROLE_ADMIN_CONTENT_DELETE')
+
       case ACTION_NEWS_VIEW:
         return this.hasRole('ROLE_ADMIN_NEWS_VIEW')
       case ACTION_NEWS_CREATE:
@@ -83,13 +88,18 @@ export class IsAuthorized extends React.Component {
       case ACTION_NEWS_DELETE:
         return this.hasRole('ROLE_ADMIN_NEWS_DELETE')
       case ACTION_PAGE_VIEW:
+      case ACTION_PAGE_CREATE:
+      case ACTION_PAGE_EDIT:
+      case ACTION_PAGE_DELETE:
+        return true;
+      /* case ACTION_PAGE_VIEW:
         return this.hasRole('ROLE_ADMIN_PAGE_VIEW')
       case ACTION_PAGE_CREATE:
         return this.hasRole('ROLE_ADMIN_PAGE_CREATE')
       case ACTION_PAGE_EDIT:
         return this.hasRole('ROLE_ADMIN_PAGE_EDIT')
       case ACTION_PAGE_DELETE:
-        return this.hasRole('ROLE_ADMIN_PAGE_DELETE')
+        return this.hasRole('ROLE_ADMIN_PAGE_DELETE') */
       case ACTION_USER_VIEW:
         return this.hasRole('ROLE_ADMIN_USER_VIEW')
       case ACTION_USER_CREATE:
@@ -98,6 +108,27 @@ export class IsAuthorized extends React.Component {
         return this.hasRole('ROLE_ADMIN_USER_EDIT')
       case ACTION_USER_DELETE:
         return this.hasRole('ROLE_ADMIN_USER_DELETE')
+
+      case ACTION_CONTENT_ASSOCIATION_VIEW:
+        return this.hasRole('ROLE_ADMIN_CONTENT_ASSOCIATION_VIEW')
+      case ACTION_CONTENT_ASSOCIATION_CREATE:
+        return this.hasRole('ROLE_ADMIN_CONTENT_ASSOCIATION_CREATE')
+      case ACTION_CONTENT_ASSOCIATION_EDIT:
+        return this.hasRole('ROLE_ADMIN_CONTENT_ASSOCIATION_EDIT')
+      case ACTION_CONTENT_ASSOCIATION_DELETE:
+        return this.hasRole('ROLE_ADMIN_CONTENT_ASSOCIATION_DELETE')
+
+      case ACTION_CONTENT_EDITION_VIEW:
+        return this.hasRole('ROLE_ADMIN_CONTENT_EDITION_VIEW')
+      case ACTION_CONTENT_EDITION_CREATE:
+        return this.hasRole('ROLE_ADMIN_CONTENT_EDITION_CREATE')
+      case ACTION_CONTENT_EDITION_EDIT:
+        return this.hasRole('ROLE_ADMIN_CONTENT_EDITION_EDIT')
+      case ACTION_CONTENT_EDITION_DELETE:
+        return this.hasRole('ROLE_ADMIN_CONTENT_EDITION_DELETE')
+
+      case ACTION_CONTENT_SUPER_ADMIN:
+        return this.hasRole(ROLE_SUPER_ADMIN)
       default:
         return false
     }
