@@ -60,6 +60,10 @@ export class NewsList extends React.Component {
     Moment.locale(this.props.locale)
     const { classes } = this.props
 
+    this.props.newsSet.forEach(news => {
+      console.log(news.intro, news.start, news.stop, Moment().isBetween(Moment(news.start), Moment(news.stop)))
+    })
+
     const categories = ['Actuelles', 'Futures', 'Anciennes']
     return (
       <div>
@@ -89,11 +93,11 @@ export class NewsList extends React.Component {
                             {this.props.newsSet.filter(news => {
                               switch (category) {
                                 case 'Actuelles':
-                                  return Moment(news.start) <= Moment() && Moment(news.end) >= Moment()
+                                  return Moment().isBetween(Moment(news.start), Moment(news.stop))
                                 case 'Futures':
-                                  return Moment(news.start) >= Moment()
+                                  return Moment(news.start).isAfter(Moment())
                                 case 'Anciennes':
-                                  return Moment(news.end) >= Moment()
+                                  return Moment(news.stop).isBefore(Moment())
                               }
                             }).map(news => {
                               return (
