@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\News;
+
 /**
  * NewsRepository
  *
@@ -18,16 +20,29 @@ class NewsRepository extends \Doctrine\ORM\EntityRepository
         ->setParameters(['locale' => $locale, 'now' => new \DateTime()])
         ->getResult();
     }
-    
-    public function findCurrent($locale)
+
+    public function findAllSorted(string $locale)
     {
-        return $this->getEntityManager()->createQuery(
-            'SELECT n FROM AppBundle:News n
-            WHERE :now BETWEEN n.start AND n.stop
-            AND n.locale = :locale
-            ORDER BY n.start DESC'
-        )
-        ->setParameters(['locale' => $locale, 'now' => new \DateTime('now')])
-        ->getResult();
+        return $this->getEntityManager()->getRepository(News::class)->createQueryBuilder('n')
+            ->andWhere('n.locale = :locale')
+            ->orderBy('n.start', 'DESC')
+            ->setParameters([
+                'locale' => $locale,
+            ])
+            ->getQuery()->execute();
+    }
+
+    public function findForHomepage(string $locale, $limit = 3)
+    {
+        return $this->getEntityManager()->getRepository(News::class)->createQueryBuilder('n')
+            ->where(':now BETWEEN n.start AND n.stop')
+            ->andWhere('n.locale = :locale')
+            ->orderBy('n.start', 'DESC')
+            ->setParameters([
+                'locale' => $locale,
+                'now' => new \DateTime()
+            ])
+            ->setMaxResults($limit)
+        ->getQuery()->execute();
     }
 }

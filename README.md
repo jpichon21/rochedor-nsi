@@ -47,3 +47,11 @@ Utiliser l'outil [faketools](https://github.com/Bornholm/faketools) pour lancer 
 
 ## Users
 - admin::admin
+
+## Deployment
+**WARNING** The deployment needs an extra step! 
+
+The results for `bin/console doctrine:schema:update` is not forced on the database but generated in an sql which must be manually run.
+
+### TODO before prod deployment
+- [ ] list/create all pages in all languages

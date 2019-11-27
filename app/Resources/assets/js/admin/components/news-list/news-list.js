@@ -3,7 +3,18 @@ import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getNewsSet, initStatus, setLocale } from '../../actions'
-import { Table, TableBody, TableCell, TableHead, TableRow, Tooltip, Button, CircularProgress, Paper } from '@material-ui/core'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Tooltip,
+  Button,
+  CircularProgress,
+  Paper,
+  Typography
+} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
@@ -48,41 +59,58 @@ export class NewsList extends React.Component {
   render () {
     Moment.locale(this.props.locale)
     const { classes } = this.props
-    const items = this.props.newsSet.map(news => {
-      return (
-        <TableRow key={news.id}>
-          <TableCell><IsAuthorized action={ACTION_NEWS_EDIT} alternative={news.intro}><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{news.intro}</NavLink></IsAuthorized></TableCell>
-          <TableCell><IsAuthorized action={ACTION_NEWS_EDIT} alternative={Moment(news.start).format('DD/MM/YY')}><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{Moment(news.start).format('DD/MM/YY')}</NavLink></IsAuthorized></TableCell>
-          <TableCell><IsAuthorized action={ACTION_NEWS_EDIT} alternative={Moment(news.stop).format('DD/MM/YY')}><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{Moment(news.stop).format('DD/MM/YY')}</NavLink></IsAuthorized></TableCell>
-        </TableRow>
-      )
-    })
+
+    const categories = ['Actuelles', 'Futures', 'Anciennes']
     return (
       <div>
         <IsAuthorized action={ACTION_NEWS_VIEW} alternaative={<Redirect to={'/'} />}>
           <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
           <AppMenu title={'Liste des nouveautés'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
           <div className={classes.container}>
-            <Paper className={classes.paper}>
-              {
-                this.props.loading
-                  ? <CircularProgress size={50} />
-                  : (
-                    <Table>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Introduction</TableCell>
-                          <TableCell>Début</TableCell>
-                          <TableCell>Fin</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {items}
-                      </TableBody>
-                    </Table>
-                  )
-              }
-            </Paper>
+            {categories.map(category => (
+              <div key={category} style={{marginBottom: '30px'}}>
+                <Typography variant='headline' className={classes.title}>
+                  {category}
+                </Typography>
+                <Paper className={classes.list}>
+                  {
+                    this.props.loading
+                      ? <CircularProgress size={50} />
+                      : (
+                        <Table>
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Introduction</TableCell>
+                              <TableCell>Début</TableCell>
+                              <TableCell>Fin</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {this.props.newsSet.filter(news => {
+                              switch (category) {
+                                case 'Actuelles':
+                                  return Moment(news.start) <= Moment() && Moment(news.end) >= Moment()
+                                case 'Futures':
+                                  return Moment(news.start) >= Moment()
+                                case 'Anciennes':
+                                  return Moment(news.end) >= Moment()
+                              }
+                            }).map(news => {
+                              return (
+                                <TableRow key={news.id}>
+                                  <TableCell><IsAuthorized action={ACTION_NEWS_EDIT} alternative={news.intro}><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{news.intro}</NavLink></IsAuthorized></TableCell>
+                                  <TableCell><IsAuthorized action={ACTION_NEWS_EDIT} alternative={Moment(news.start).format('DD/MM/YY')}><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{Moment(news.start).format('DD/MM/YY')}</NavLink></IsAuthorized></TableCell>
+                                  <TableCell><IsAuthorized action={ACTION_NEWS_EDIT} alternative={Moment(news.stop).format('DD/MM/YY')}><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{Moment(news.stop).format('DD/MM/YY')}</NavLink></IsAuthorized></TableCell>
+                                </TableRow>
+                              )
+                            })}
+                          </TableBody>
+                        </Table>
+                      )
+                  }
+                </Paper>
+              </div>
+            ))}
             <div className={classes.buttons}>
               <IsAuthorized action={ACTION_NEWS_CREATE}>
                 <Tooltip

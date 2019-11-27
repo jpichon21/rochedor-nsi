@@ -600,6 +600,11 @@ export class PageForm extends React.Component {
   }
 
   handleAddSlide (indexSection) {
+    // encounter an
+    if (!this.state.page.content.sections || !this.state.page.content.sections[indexSection]) {
+      return
+    }
+
     const emptySlide = PageForm.defaultProps.page.content.sections[0].slides[0]
     const position = this.state.page.content.sections[indexSection].slides.length
     const state = immutable.insert(this.state, `page.content.sections.${indexSection}.slides`, emptySlide, position)
@@ -825,7 +830,7 @@ export class PageForm extends React.Component {
             <Button onClick={this.handleCloseAlertBlockquote} color='primary' autoFocus>J'ai compris !</Button>
           </DialogActions>
         </Dialog>
-        { this.state.page.content.sections[noticeIndexSection].slides &&
+        { (this.state.page.content.sections[noticeIndexSection] && this.state.page.content.sections[noticeIndexSection].slides) &&
         <Fragment>
           <Dialog
             open={this.state.AlertVideoOpen}
@@ -944,7 +949,7 @@ export class PageForm extends React.Component {
                 <TooltipWrapper
                   title='Détermine qui a les droits de voir/modifier ce contenu'
                 >
-                  <FormControl style={{ width: '100%', marginBottom: '30px' }}>
+                  <FormControl style={{ width: '100%', marginBottom: '75px' }}>
                     <InputLabel htmlFor={'type'} shrink>Type de page</InputLabel>
                     <Select
                       id={'type'}
@@ -1060,7 +1065,7 @@ export class PageForm extends React.Component {
         <Typography variant='display1' className={classes.title}>
           Contenu
         </Typography>
-        <form className={classes.form} onSubmit={this.handleSubmit}>
+        <form className={classes.form} onSubmit={this.handleSubmit} style={{ marginBottom: '30px' }}>
           <TooltipWrapper
             title="Renseigner l'introduction de votre page"
           >

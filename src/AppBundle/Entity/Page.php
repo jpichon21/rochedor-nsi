@@ -144,7 +144,7 @@ class Page
 
     /**
      * @var string
-     * @ORM\Column(name="Category", type="string", length=20)
+     * @ORM\Column(name="Category", type="string", length=255)
      */
     private $category;
 

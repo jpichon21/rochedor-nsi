@@ -44,14 +44,21 @@
         <div class="scroll-down">
             <img src="{{ asset('assets/img/scroll.png') }}" alt="Déroulez pour voir la suite">
         </div>
-        {% if lastNews %}
+        {% if news|length %}
             <div class="nouveautes">
                 <h2>Nouveautés</h2>
-                <i>{{lastNews.intro}}</i>
-                <div class="text">
-                    <p>{{lastNews.description}}</p>
-                </div>
-                <a class="button black" href="{{lastNews.url}}">Découvrir <img class="button-arrow visible" src="{{ asset('assets/img/button-arrow-right-black.png') }}"><img class="button-arrow hidden" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+                {% for article in news %}
+                    <i>{{article.intro}}</i>
+                    <div class="text">
+                        <p>{{article.description}}</p>
+                    </div>
+                    {% if article.url %}
+                        <a class="button black" href="{{article.url}}">
+                            Découvrir <img class="button-arrow visible" src="{{ asset('assets/img/button-arrow-right-black.png') }}">
+                            <img class="button-arrow hidden" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}">
+                        </a>
+                    {% endif %}
+                {% endfor %}
             </div>
         {% endif %}
     </div>
