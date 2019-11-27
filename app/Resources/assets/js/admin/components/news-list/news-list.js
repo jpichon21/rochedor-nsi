@@ -64,7 +64,11 @@ export class NewsList extends React.Component {
       console.log(news.intro, news.start, news.stop, Moment().isBetween(Moment(news.start), Moment(news.stop)))
     })
 
-    const categories = ['Actuelles', 'Futures', 'Anciennes']
+    const categories = [
+      { label: 'Actuelles', rule: (start, stop) => Moment().isBetween(Moment(start), Moment(stop)) },
+      { label: 'Futures', rule: (start, stop) => Moment().isBefore(start) },
+      { label: 'Anciennes', rule: (start, stop) => Moment().isAfter(stop) }
+    ]
     return (
       <div>
         <IsAuthorized action={ACTION_NEWS_VIEW} alternaative={<Redirect to={'/'} />}>
@@ -72,9 +76,9 @@ export class NewsList extends React.Component {
           <AppMenu title={'Liste des nouveautés'} localeHandler={this.onLocaleChange} locales={locales} locale={this.props.locale} />
           <div className={classes.container}>
             {categories.map(category => (
-              <div key={category} style={{marginBottom: '30px'}}>
+              <div key={category.label} style={{marginBottom: '30px'}}>
                 <Typography variant='headline' className={classes.title}>
-                  {category}
+                  {category.label}
                 </Typography>
                 <Paper className={classes.list}>
                   {
@@ -90,24 +94,13 @@ export class NewsList extends React.Component {
                             </TableRow>
                           </TableHead>
                           <TableBody>
-                            {this.props.newsSet.filter(news => {
-                              switch (category) {
-                                case 'Actuelles':
-                                  return Moment().isBetween(Moment(news.start), Moment(news.stop))
-                                case 'Futures':
-                                  return Moment(news.start).isAfter(Moment())
-                                case 'Anciennes':
-                                  return Moment(news.stop).isBefore(Moment())
-                              }
-                            }).map(news => {
-                              return (
-                                <TableRow key={news.id}>
-                                  <TableCell><IsAuthorized action={ACTION_NEWS_EDIT} alternative={news.intro}><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{news.intro}</NavLink></IsAuthorized></TableCell>
-                                  <TableCell><IsAuthorized action={ACTION_NEWS_EDIT} alternative={Moment(news.start).format('DD/MM/YY')}><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{Moment(news.start).format('DD/MM/YY')}</NavLink></IsAuthorized></TableCell>
-                                  <TableCell><IsAuthorized action={ACTION_NEWS_EDIT} alternative={Moment(news.stop).format('DD/MM/YY')}><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{Moment(news.stop).format('DD/MM/YY')}</NavLink></IsAuthorized></TableCell>
-                                </TableRow>
-                              )
-                            })}
+                            {this.props.newsSet.filter(news => category.rule(news.start, news.stop)).map(news => (
+                              <TableRow key={news.id}>
+                                <TableCell><IsAuthorized action={ACTION_NEWS_EDIT} alternative={news.intro}><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{news.intro}</NavLink></IsAuthorized></TableCell>
+                                <TableCell><IsAuthorized action={ACTION_NEWS_EDIT} alternative={Moment(news.start).format('DD/MM/YY')}><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{Moment(news.start).format('DD/MM/YY')}</NavLink></IsAuthorized></TableCell>
+                                <TableCell><IsAuthorized action={ACTION_NEWS_EDIT} alternative={Moment(news.stop).format('DD/MM/YY')}><NavLink className={classes.link} to={`/news-edit/${news.id}`}>{Moment(news.stop).format('DD/MM/YY')}</NavLink></IsAuthorized></TableCell>
+                              </TableRow>
+                            ))}
                           </TableBody>
                         </Table>
                       )
