@@ -33,12 +33,12 @@ class HomeAdmin extends React.Component {
           <CardActions>
             <IsAuthorized action={ACTION_HOME_EDIT}>
               <NavLink to='/home-edit' style={{textDecoration: 'none'}}>
-                <Button style={{margin: '0 15px'}} variant='outlined' color='primary'>Modifier la page d'accueil</Button>
+                <Button style={{margin: '0 15px'}} variant='outlined' color='primary'>Page d'accueil</Button>
               </NavLink>
             </IsAuthorized>
             <IsAuthorized action={[ACTION_CONTENT_ASSOCIATION_VIEW, ACTION_CONTENT_EDITION_VIEW]}>
               <NavLink to='/content-list' style={{textDecoration: 'none'}}>
-                <Button style={{margin: '0 15px'}} variant='outlined' color='primary'>Modifier les contenus</Button>
+                <Button style={{margin: '0 15px'}} variant='outlined' color='primary'>Contenus</Button>
               </NavLink>
             </IsAuthorized>
             <IsAuthorized action={ACTION_NEWS_VIEW}>
@@ -48,7 +48,7 @@ class HomeAdmin extends React.Component {
             </IsAuthorized>
             <IsAuthorized action={ACTION_SPEAKER_EDIT}>
               <NavLink to='/speaker-list' style={{textDecoration: 'none'}}>
-                <Button style={{margin: '0 15px'}} variant='outlined' color='primary'>Modifier les intervenants</Button>
+                <Button style={{margin: '0 15px'}} variant='outlined' color='primary'>Intervenants</Button>
               </NavLink>
             </IsAuthorized>
           </CardActions>

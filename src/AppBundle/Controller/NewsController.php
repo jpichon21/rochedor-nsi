@@ -99,7 +99,7 @@ class NewsController extends Controller
         $locale = ($request->query->has('locale')) ?
             $request->query->get('locale') :
             $this->container->getParameter('locale');
-        $news = $this->getDoctrine()->getRepository('AppBundle:News')->findNextByLocale($locale);
+        $news = $this->getDoctrine()->getRepository('AppBundle:News')->findAllSorted($locale);
         return $news;
     }
 
