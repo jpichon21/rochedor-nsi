@@ -51,7 +51,12 @@
                 <div class="text">
                     <p>{{lastNews.description}}</p>
                 </div>
-                <a class="button black" href="{{lastNews.url}}">Découvrir <img class="button-arrow visible" src="{{ asset('assets/img/button-arrow-right-black.png') }}"><img class="button-arrow hidden" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+                {% if lastNews.url %}
+                    <a class="button black" href="{{lastNews.url}}">
+                        Découvrir <img class="button-arrow visible" src="{{ asset('assets/img/button-arrow-right-black.png') }}">
+                        <img class="button-arrow hidden" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}">
+                    </a>
+                {% endif %}
             </div>
         {% endif %}
     </div>
