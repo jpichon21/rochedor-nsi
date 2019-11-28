@@ -13,7 +13,7 @@ import {
   postLogin,
   resetLogin,
   postGift } from './gift-api.js'
-import {limitMenuReduced} from './variables'
+import { limitMenuReduced } from './variables'
 
 /* Translations */
 
@@ -53,6 +53,17 @@ function backToTop () {
   }
 }
 
+function scrollToElement ($element) {
+  setTimeout(() => {
+    // a bit bruteforced, but it works ...
+    // for mobile
+    window.scrollTo({ top: $element.offset().top, left: 0, behavior: 'smooth' })
+    // for screen
+    // watch out for the forced offset of -120 if you reuse this method
+    document.querySelector('.content').scroll({ top: ($element.offset().top - 120), left: 0, behavior: 'smooth' })
+  }, 200)
+}
+
 function changeItem(elmt) {
   $('.dropdown .item').each(function () {
     this.style.maxHeight = null
@@ -60,14 +71,15 @@ function changeItem(elmt) {
   })
   elmt.forEach(function (item) {
     item.addClass('active')
-    item.css('maxHeight', item.prop('scrollHeight') + 'px')
+    // item.css('maxHeight', item.prop('scrollHeight') + 'px')
+    item.css('maxHeight', 'fit-content')
   })
 }
 
 $(document).ready(function () {
   $('.dropdown .item').each(function () {
     if (this.classList.contains('amount') || this.classList.contains('allocation') || this.classList.contains('payment')) {
-      this.style.maxHeight = this.scrollHeight + 'px'
+      this.style.maxHeight = 'fit-content'
       this.classList.add('active')
     }
   })
@@ -123,6 +135,11 @@ function validateRequired (data, requiredFields) {
 }
 
 function updateAmountRender () {
+  if (!_amount) {
+    $('.amount-render').html('')
+    return
+  }
+
   $('.amount-render').html(amountTemplate({
     reduction: i18n.trans('gift.summary.reduction').replace('%reduction%', parseFloat(_amount * 0.33).toFixed(2))
   }))
@@ -140,13 +157,13 @@ itemAmount.on('click', '.button.radio', function (event) {
   if ($(this).hasClass('other')) {
     $amountTextAmount.parent().removeClass('hidden')
     $amountTextAmount.val('').focus()
-  }
-  else {
+    _amount = ''
+  } else {
     $amountTextAmount.parent().addClass('hidden')
     $amountTextAmount.val(amount)
     _amount = $amountTextAmount.val()
-    updateAmountRender()
   }
+  updateAmountRender()
 })
 
 itemAmount.on('keyup', '.input.amount', function () {
@@ -203,18 +220,21 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
   if (valid === false) {
     upFlashbag(i18n.trans('gift.invalid_form.amount'))
   } else {
+    // init hidden
+    itemPrelevement.find('.virement').addClass('hidden')
+    itemPrelevement.find('.virement-reg').addClass('hidden')
     if (_modpaie === 'VIR' || _modpaie === 'VIRREG') {
       Inputmask().mask(document.querySelectorAll('.date_virement'))
-      itemPrelevement.find('.virement').removeClass('hidden')
       if (_modpaie === 'VIRREG') {
-        itemPrelevement.find('.select-period').removeClass('hidden')
         itemPrelevement.find('.virement-reg').removeClass('hidden')
-        itemPrelevement.find('.virement').addClass('hidden')
+      }
+      else {
+        itemPrelevement.find('.virement').removeClass('hidden')
       }
       changeItem([itemPrelevement])
-    } else {
-      changeItem([itemConnection])
+      return
     }
+    changeItem([itemConnection])
   }
 })
 
@@ -380,7 +400,11 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
 
 itemConnection.on('click', 'a', function (event) {
   event.preventDefault()
-  const which = $(this).attr('href').substring(1)
+  if ($(this).hasClass('back')) {
+    return
+  }
+
+  const which = $(this).attr('href') ? $(this).attr('href').substring(1) : ''
   switch (which) {
     case 'connection':
     case 'registration':
@@ -388,6 +412,9 @@ itemConnection.on('click', 'a', function (event) {
       $(`.panel.${which}`, itemConnection).show()
       _you = getContact()
       updateYouFormRender()
+      setTimeout(() => {
+        scrollToElement($(`.panel.${which}`))
+      }, 200)
       break
     case 'reset':
       $('.panel.reset', itemConnection).show()

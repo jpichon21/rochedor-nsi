@@ -37,6 +37,15 @@ body {
     }
   }
 }
+.home{
+  .header{
+    @include media('<=mobile') {
+      /*background-color: #000000c9;
+      height: 80px;
+      box-shadow: 0 30px 60px black;*/
+    }
+  }
+}
 .header {
   position: relative;
   display: flex;
@@ -57,6 +66,9 @@ body {
   }
   .logo {
     position: relative;
+    @include media('<=mobile') {
+      padding: 15px 0px!important;
+    }
     &:after {
       content: 'Communauté\A de la Roche d\'Or';
       position: absolute;
@@ -73,6 +85,10 @@ body {
       white-space: pre-line;
       transition: 0.2s;
       opacity: 1;
+      @include media('<=mobile') {
+        bottom: -36px;
+        line-height: 22px;
+      }
       @include media('>=limitMenuReduced') {
         content: none;
       }
@@ -80,8 +96,14 @@ body {
         content: none;
       }
     }
-    img {
+    #mainLogo {
       width: 90px;
+      transform: scale(1);
+      transition: 2s ease;
+      z-index: 2;
+      @include media('<=mobile') {
+        width: 82px
+      }
     }
     .editions {
       display: none;
@@ -106,8 +128,15 @@ body {
         display: block;
         padding: 9px 20px;
         border: 1px #000000 solid;
+        transition: 0.5s ease;
         @include media('<large') {
             display: none;
+        }
+        &:hover, &:active, &:focus{
+          background: $roche-orange;
+          transition: 0.5s ease;
+          border: 1px solid $roche-orange;
+          color: #ffffff;
         }
       }
       small {
@@ -138,6 +167,11 @@ body {
         float: left;
         margin-right: -1px;
         border: 1px $roche-yellow solid;
+        transition: 0.5s ease;
+          &:hover, &:active, &:focus{
+            background-color: $roche-yellow;
+            transition: 0.5s ease;
+          }
         a {
           display: block;
           width: 30px;
@@ -147,6 +181,11 @@ body {
           text-align: center;
           text-transform: uppercase;
           text-decoration: none;
+          transition: 0.5s ease;
+          &:hover, &:active, &:focus{
+            color: #000;
+            transition: 0.5s ease;
+          }
         }
       }
     }
@@ -171,7 +210,13 @@ body {
       text-transform: uppercase;
       text-decoration: none;
       border: 1px $roche-yellow solid;
+      transition: 0.5s ease;
       cursor: pointer;
+      &:hover, &:active, &:focus{
+        color: #000;
+        transition: 0.5s ease;
+        background-color: $roche-yellow;
+      }
     }
   }
   .left,
@@ -248,7 +293,7 @@ body {
         position: absolute;
         left: 50%;
         bottom: -20px;
-        margin-left: -53px;
+        margin-left: -45px;
       }
     }
     .cart-container {
@@ -543,5 +588,62 @@ body {
         }
       }
     }
+  }
+}
+
+.editions{
+  .cartSpan, .current, .available, .minus, .plus {
+    &:hover, &:active, &:focus{
+      background: $roche-orange;
+      transition: 0.5s ease;
+      border: 1px solid $roche-orange;
+      color: #ffffff;
+      a{
+           color: #ffffff;
+      }
+    }
+  }
+}
+
+
+#logoTaglineContainer{
+  position: absolute;
+  width: 100%;
+  top: 10px;
+  opacity: 0;
+  transition: 1s ease;
+  #logoTagline{
+    width: 132px!important;
+    left: 60px;
+    z-index: 2; 
+  }
+}
+
+.logo:hover{
+  #logoTaglineContainer{
+    top: 36px;
+    opacity: 1;
+    transition: 1s ease;
+  }
+}
+
+.Éditions{
+    #logoTaglineContainer{
+      display: none!important;
+    }
+}
+.Éditions{
+  .logo:hover, .logo:active, .logo:focus{
+    #mainLogo{
+      transform: scale(1)!important;
+      transition: 2s ease;
+    }
+  }
+}
+
+.logo:hover, .logo:active, .logo:focus{
+  #mainLogo{
+    transform: scale(0.85);
+    transition: 2s ease;
   }
 }

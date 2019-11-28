@@ -4,7 +4,8 @@
 {% set bodyClass = "editions details" %}
 {% set bodyBackground = 7 %}
 {% block title %}{{ product.produitcourt }} - La Roche d'Or{% endblock %}
-{% block metadescription %}<meta name="description" content="{{ product.memoprd }}">{% endblock %}
+{% block metadescription %}
+<meta name="description" content="{{ product.memoprd }}">{% endblock %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('assets/css/carousel.css') }}">
@@ -13,122 +14,110 @@
 {% block content %}
 {% include 'parts/popup.html.twig' %}
 <div class="content">
-    <div class="left">
-      <div class="carousel active">
-        <div class="slides">
-          {% for slide in slides %}
-          {% if slide != '' %}
-          {% set slidesCount = slidesCount + 1 %}
-          <div class="slide {% if loop.first %}active{% endif %}">
-            <div class="top">
-              <a class="full image"
-                title="{{ product.produitcourt }}"
-                href="{{ slide }}"
-                style="{{ asset(slide)|imagine_filter('product_carousel_full')|background }}">
-                <img src="{{ asset(slide)|imagine_filter('product_carousel_full') }}" alt="{{ product.produitcourt }}">
-              </a>
-            </div>
-          </div>
-          {% endif %}
-          {% endfor %}
-        </div>
-        {% if slidesCount > 1 %}
-        <div class="prev"></div>
-        <div class="next"></div>
-        {% endif %}
-      </div>
-      <div class="thumbnails">
+  <div class="left">
+    <div class="carousel active">
+      <div class="slides">
         {% for slide in slides %}
         {% if slide != '' %}
-        <div class="thumb {% if loop.first %}active{% endif %}" style="{{ asset(slide)|imagine_filter('product_carousel_small')|background }}"></div>
-        {% else %}
-        <div class="empty"></div>
+        {% set slidesCount = slidesCount + 1 %}
+        <div class="slide {% if loop.first %}active{% endif %}">
+          <div class="top">
+            <a class="full image" title="{{ product.produitcourt }}" href="{{ slide }}"
+              style="{{ asset(slide) | background }}">
+              <img src="{{ asset(slide) }}" alt="{{ product.produitcourt }}">
+            </a>
+          </div>
+        </div>
         {% endif %}
         {% endfor %}
       </div>
-    </div>
-    <div class="hole">
-    </div>
-    <div class="right">
-      <h1>{{ product.produitlong }}</h1>
-      <div class="subtitle">
-        <b>{{ 'editions.author' | trans }}</b>
-        {{ product.auteur }}
-      </div>
-      <div class="subtitle">
-        <b>{{ 'editions.collection' | trans }}</b>
-        {{ product.rubrique }}
-      </div>
-      <div class="price">
-        <span>{{ 'product.detail.price.ttc'|trans({'%ttc%': product.prix}) | raw }}</span>
-        <br>
-        <span class="ht">
-          {{ 'product.detail.price.ht'|trans({'%ht%': product.prixht}) | raw }}
-          {% if taxes != null %}
-            <span class="tva">{{ 'product.detail.price.tva'|trans({'%tva%': taxes.rate}) | raw }}</span>
-          {% endif %}
-        </span>
-      </div>
-      <div class="description">
-        {{ product.pageprd }}
-      </div>
-      <div class="actions">
-        <a class="button addToCart" data-id="{{ product.codprd }}" href="#">{{ 'editions.addtocart' | trans }}</a>
-        {% if product.urlbook != '' %}
-        <div class="choice">{{ 'editions.or' | trans }}</div>
-        <a class="button" target="_blank" href="{{ product.urlbook }}">{{ 'editions.ebookversion' | trans }}</a>
-        {% endif %}
-      </div>
-      <h2>{{ 'editions.technicalreview' | trans }}</h2>
-      <div class="technical-review">
-        <div class="left">
-          <div class="line">
-            <b>{{ 'editions.technicalreview.dateparution' | trans }}</b>
-            {% if product.datparution %}
-              <span>{{ product.datparution|localizeddate('medium', 'none', app.request.locale) }}</span>
-            {% else %}
-              <span> - </span>
-            {% endif %}
-          </div>
-          <div class="line">
-            <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
-            <span>{{ product.isbn }}</span>
-          </div>
-          <div class="line">
-            <b>{{ 'editions.technicalreview.dimensions' | trans }}</b>
-            <span>{{ product.largeur / 10 }} cm x {{ product.hauteur / 10 }} cm x {{ product.epaisseur / 10 }} cm</span>
-          </div>
-          <div class="line">
-            <b>{{ 'editions.technicalreview.editeur' | trans }}</b>
-            <span>{{ product.editeur }}</span>
-          </div>
-        </div>
-        <div class="right">
-          <div class="line">
-            <b>{{ 'editions.technicalreview.ean' | trans }}</b>
-            <span>{{ product.ean }}</span>
-          </div>
-          <div class="line">
-            <b>{{ 'editions.technicalreview.nbpage' | trans }}</b>
-            <span>{{ product.nbpage }}</span>
-          </div>
-          <div class="line">
-            <b>{{ 'editions.technicalreview.rubrique' | trans }}</b>
-            <span>{{ product.rubrique }}</span>
-          </div>
-          <div class="line">
-            <b>{{ 'editions.technicalreview.poids' | trans }}</b>
-            <span>{{ product.poids}} g</span>
-          </div>
-        </div>
-      </div>
-      {% if product.ean != ''  and product.ean|length == 13 and product.ean matches '/^\\d+$/' %}
-      <svg class="barcode"
-        jsbarcode-format="EAN13"
-        jsbarcode-value="{{ product.ean }}">
-      </svg>
+      {% if slidesCount > 1 %}
+      <div class="prev"></div>
+      <div class="next"></div>
       {% endif %}
     </div>
+    <div class="thumbnails">
+      {% for slide in slides %}
+      {% if slide != '' %}
+      <div class="thumb {% if loop.first %}active{% endif %}" style="{{ asset(slide) | background }}"></div>
+      {% else %}
+      <div class="empty"></div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <div class="hole">
+  </div>
+  <div class="right">
+    <h1>{{ product.produitlong }}</h1>
+    <div class="subtitle">
+      <b>{{ 'editions.author' | trans }}</b>
+      {{ product.auteur }}
+    </div>
+    <div class="subtitle">
+      <b>{{ 'editions.collection' | trans }}</b>
+      {{ product.rubrique }}
+    </div>
+    <div class="price">
+      <span>{{ 'product.detail.price.ttc'|trans({'%ttc%': product.prix}) | raw }}</span>
+      <br>
+      <span class="ht">
+        {{ 'product.detail.price.ht'|trans({'%ht%': product.prixht}) | raw }}
+        {% if taxes != null %}
+        <span class="tva">{{ 'product.detail.price.tva'|trans({'%tva%': taxes.rate}) | raw }}</span>
+        {% endif %}
+      </span>
+    </div>
+    <div class="description">
+      {{ product.pageprd }}
+    </div>
+    <div class="actions">
+      <a class="button addToCart" data-id="{{ product.codprd }}" href="#">{{ 'editions.addtocart' | trans }}</a>
+      {% if product.urlbook != '' %}
+      <div class="choice">{{ 'editions.or' | trans }}</div>
+      <a class="button" target="_blank" href="{{ product.urlbook }}">{{ 'editions.ebookversion' | trans }}</a>
+      {% endif %}
+    </div>
+    <h2>{{ 'editions.technicalreview' | trans }}</h2>
+    <div class="technical-review">
+      <div class="left">
+        <div class="line">
+          <b>{{ 'editions.technicalreview.dateparution' | trans }}</b>
+          {% if product.datparution %}
+          <span>{{ product.datparution|localizeddate('medium', 'none', app.request.locale) }}</span>
+          {% else %}
+          <span> - </span>
+          {% endif %}
+        </div>
+        <div class="line">
+          <b>{{ 'editions.technicalreview.editeur' | trans }}</b>
+          <span>{{ product.editeur }}</span>
+        </div>
+        <div class="line">
+          <b>{{ 'editions.technicalreview.nbpage' | trans }}</b>
+          <span>{{ product.nbpage }}</span>
+        </div>
+        <div class="line">
+          <b>{{ 'editions.technicalreview.dimensions' | trans }}</b>
+          <span>{{ product.largeur / 10 }} cm x {{ product.hauteur / 10 }} cm x {{ product.epaisseur / 10 }} cm</span>
+        </div>
+      </div>
+      <div class="right">
+        <div class="line">
+          <b>{{ 'editions.technicalreview.poids' | trans }}</b>
+          <span>{{ product.poids}} g</span>
+        </div>
+        <div class="line">
+          <b>{{ 'editions.technicalreview.ean' | trans }}</b>
+          <span>{{ product.ean }}</span>
+        </div>
+        <div class="line">
+          <b>{{ 'editions.technicalreview.isbn' | trans }}</b>
+          <span>{{ product.isbn }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 {% block javascripts %}

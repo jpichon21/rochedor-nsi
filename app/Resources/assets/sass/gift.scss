@@ -1,6 +1,18 @@
 @import './variables';
 @import './page';
 
+// overrides radio button display
+.page.gift {
+  .content .dropdown .item .button.radio {
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+    &:after {
+      display: none;
+    }
+  }
+}
+
 .content {
     .dropdown {
     .item {

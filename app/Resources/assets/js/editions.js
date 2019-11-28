@@ -5,13 +5,18 @@ import { upCartBox } from './popup'
 import I18n from './i18n'
 import { patchProduct, getCartCount } from './order-api.js'
 
+/* Fade */
+
+$(document).ready(function () {
+  $('body').fadeIn(100);
+  $('body').removeClass('hidden');
+});
+
 /* Translations */
 
 let i18n = new I18n()
 
 JsBarcode('.barcode').init()
-
-
 
 const themesForm = document.querySelector('.filter.themes form')
 const filtersForm = document.querySelector('.filters form')
@@ -91,6 +96,7 @@ function addProduct (event, product) {
 
 const body = document.querySelector('body')
 const content = document.querySelector('.content')
+
 
 content.onscroll = function () {
   content.scrollTop > 20

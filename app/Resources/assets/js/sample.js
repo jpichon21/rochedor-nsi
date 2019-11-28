@@ -22,7 +22,7 @@ const contact = {
   memo: '',
   check: false,
   aut16: 0,
-  datAut16: null,
+  datAut16: null
 }
 
 const client = {

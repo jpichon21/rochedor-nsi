@@ -41,7 +41,7 @@ export class NewsEdit extends React.Component {
   }
   onSubmit (news) {
     this.props.dispatch(putNews(news)).then((res) => {
-      this.setState({snackbarContent: 'Nouveauté enregistrée et publiée', snackbarOpen: true})
+      this.setState({ snackbarContent: 'Nouveauté enregistrée et publiée', snackbarOpen: true })
       this.props.dispatch(getNews(news.id))
     })
   }
@@ -53,7 +53,7 @@ export class NewsEdit extends React.Component {
   }
   onDelete (news) {
     this.props.dispatch(deleteNews(news)).then((res) => {
-      this.setState({snackbarOpen: true, snackbarContent: 'Nouveauté supprimée'})
+      this.setState({ snackbarOpen: true, snackbarContent: 'Nouveauté supprimée' })
       setTimeout(() => {
         this.props.history.push(`/news-list`)
       }, 500)
@@ -66,7 +66,7 @@ export class NewsEdit extends React.Component {
   }
 
   handleCloseSnack () {
-    this.setState({snackbarOpen: false, snackbarContent: ''})
+    this.setState({ snackbarOpen: false, snackbarContent: '' })
   }
 
   render () {

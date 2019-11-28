@@ -14,7 +14,6 @@ import {
   getRegistered,
   postRegistered,
   postRegister } from './calendar-api.js'
-import {limitMenuReduced} from './variables'
 
 /* Infos */
 
@@ -43,7 +42,6 @@ let _existingRef = ''
 const itemConnection = $('.item.connection')
 const itemParticipants = $('.item.participants')
 const itemValidation = $('.item.validation')
-const content = $('.content')
 
 function changeItem (elmt) {
   $('.dropdown .item').each(function () {
@@ -365,7 +363,7 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
   if (error) {
     errors['tel'] = error
   }
-  
+
   updateYouFormRender(errors, {...participant}, true)
   if (Object.keys(errors).length === 0) {
     validateChild(participant, true).then(participant => {
@@ -585,7 +583,7 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
             downLoader()
             upFlashbag(i18n.trans(`${error}`))
           }
-        })  
+        })
       }).catch(error => {
         downLoader()
         upFlashbag(i18n.trans('session_expired'))

@@ -1527,7 +1527,7 @@
     <unit id="gik7lYM" name="editions.technicalreview.nbpage">
       <segment>
         <source>editions.technicalreview.nbpage</source>
-        <target>Nb. de page</target>
+        <target>Nb. de pages</target>
       </segment>
     </unit>
     <unit id="SsON85Z" name="editions.technicalreview.rubrique">
@@ -2415,7 +2415,10 @@
     <unit id="VCdu1Ue" name="gift.virement.descr">
       <segment>
         <source>gift.virement.descr</source>
-        <target>Toutes les informations pour procéder à votre virement bancaire, selon l'affectation de votre don, vont vous être adressées par courriel (e-mail) après l'indication de la date prévue de virement.</target>
+        <target>
+        Toutes les informations pour procéder à votre virement bancaire, selon l'affectation de votre don, vont vous être adressées par courriel (e-mail).
+        Si vous ne recevez pas de message dans les minutes qui suivent, nous vous invitons à consulter votre boîte SPAM ou vos courriers indésirables.
+        </target>
       </segment>
     </unit>
     <unit id="csOG4aQ" name="gift.three.title">

@@ -28,28 +28,28 @@ export class Login extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully') || nextProps.error) {
-      this.setState({alertOpen: true})
+      this.setState({ alertOpen: true })
     }
   }
 
   handleClose () {
     this.props.dispatch(initStatus())
-    this.setState({alertOpen: false})
-    this.setState({error: ''})
+    this.setState({ alertOpen: false })
+    this.setState({ error: '' })
   }
 
   handleSubmit (event) {
     this.props.dispatch(doLogin(this.state.username, this.state.password)).then((res) => {
       if (res.error) {
-        this.setState({error: this.i18n.trans(res.error)})
-        this.setState({alertOpen: true})
+        this.setState({ error: this.i18n.trans(res.error) })
+        this.setState({ alertOpen: true })
       }
     })
     event.preventDefault()
   }
 
   handleInputChange (event) {
-    this.setState({[event.target.name]: event.target.value})
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   render () {

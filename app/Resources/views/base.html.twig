@@ -19,7 +19,7 @@
     {% block stylesheets %}{% endblock %}
 </head>
 
-<body class="{{ page is defined  ? page.title : '' }} m-scene">
+<body class="{{ bodyClass|default('') }} {{ page.title }} m-scene hidden-fade">
 {% if app.request.attributes.get('_route_params') and app.request.attributes.get('_route') %}
     {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
 {% else %}
@@ -40,6 +40,7 @@
     var flashbags = {{ flashbags|json_encode()|raw }}
 </script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
+<script src="{{ asset('assets/js/transition.js') }}"></script>
 {% block javascripts %}{% endblock %}
 </body>
 </html>
