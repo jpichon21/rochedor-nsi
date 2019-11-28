@@ -220,18 +220,21 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
   if (valid === false) {
     upFlashbag(i18n.trans('gift.invalid_form.amount'))
   } else {
+    // init hidden
+    itemPrelevement.find('.virement').addClass('hidden')
+    itemPrelevement.find('.virement-reg').addClass('hidden')
     if (_modpaie === 'VIR' || _modpaie === 'VIRREG') {
       Inputmask().mask(document.querySelectorAll('.date_virement'))
-      itemPrelevement.find('.virement').removeClass('hidden')
       if (_modpaie === 'VIRREG') {
-        itemPrelevement.find('.select-period').removeClass('hidden')
         itemPrelevement.find('.virement-reg').removeClass('hidden')
-        itemPrelevement.find('.virement').addClass('hidden')
+      }
+      else {
+        itemPrelevement.find('.virement').removeClass('hidden')
       }
       changeItem([itemPrelevement])
-    } else {
-      changeItem([itemConnection])
+      return
     }
+    changeItem([itemConnection])
   }
 })
 
@@ -397,7 +400,11 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
 
 itemConnection.on('click', 'a', function (event) {
   event.preventDefault()
-  const which = $(this).attr('href').substring(1)
+  if ($(this).hasClass('back')) {
+    return
+  }
+
+  const which = $(this).attr('href') ? $(this).attr('href').substring(1) : ''
   switch (which) {
     case 'connection':
     case 'registration':
