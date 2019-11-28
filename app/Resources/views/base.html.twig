@@ -18,11 +18,8 @@
     {% block metadescription %}{% endblock %}
     {% block stylesheets %}{% endblock %}
 </head>
-{% if 'home' in bodyClass %}
-<body class="{{ bodyClass }}">
-{% else %}
-<body class="{{ bodyClass|default('') }} {{ page is defined  ? page.title : '' }} m-scene">
-{% endif %}
+
+<body class="{{ page is defined  ? page.title : '' }} m-scene">
 {% if app.request.attributes.get('_route_params') and app.request.attributes.get('_route') %}
     {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
 {% else %}

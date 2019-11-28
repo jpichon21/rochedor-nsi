@@ -65,7 +65,7 @@ export const getLogout = (locale) => {
     credentials: 'include'
   })
     .then(() => {
-      window.location.replace('/' + locale + '/logout-message/roche')
+      window.location.replace('/' + locale + '/logout-message/don-ponctuel')
     })
 }
 
@@ -92,7 +92,7 @@ export const getCountryCode = (country, method) => {
     })
 }
 
-export const postGift = (amount, allocation, method, memo) => {
+export const postGift = (amount, allocation, method, memo, dateDebVir, virPeriod) => {
   return window.fetch(`/xhr/gift/create`, {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
@@ -103,7 +103,9 @@ export const postGift = (amount, allocation, method, memo) => {
           'mntdon': amount,
           'destdon': allocation,
           'moddon': method,
-          'memodon': memo
+          'memodon': memo,
+          'dateDebVir': dateDebVir,
+          'virPeriod': virPeriod
         }
       }
     )
