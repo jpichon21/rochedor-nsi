@@ -11,6 +11,8 @@ rochedor-nsi
 - php-sqlite
 - node-js v8.15.0
 - yarn
+- curl & php-curl
+
 
 ## Setup
 No docker for the app (yet), check `script/bootstrap` for base deps ;
