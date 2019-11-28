@@ -43,6 +43,7 @@
     padding: 0;
   }
   .slide {
+    cursor: pointer;
     position: relative;
     min-height: 450px;
     box-sizing: border-box;
@@ -52,11 +53,15 @@
     @include media('<medium') {
       padding: 0;
     }
+    
     &:hover {
-      &:before {
+     /*. &:before {
         opacity: 0;
       }
-      .description {
+      description {
+        width: 99%;
+        padding-right: 17%;
+        overflow: auto;
         @include media('>=medium') {
           top: 0;
         }
@@ -68,7 +73,7 @@
             opacity: 1;
           }
         }
-      }
+      }*/
     }
     &:before {
       content: '';
@@ -153,3 +158,36 @@
     }
   }   
 }
+
+.targeted{
+  &:before {
+    opacity: 0;
+    transition: 0.5s;
+  }
+}
+
+.clicked{ 
+    //width: 99%;
+    overflow: hidden;
+    top: 0px !important;
+    @include media('>=medium') {
+      top: 0;
+    }
+    .inner{
+      width: 100%;
+      padding-right: 20%!important;
+      overflow: auto;
+      height: 100%;
+    }
+  }
+
+  .clicked{ 
+      .text {
+        .short {
+          opacity: 0;
+        }
+        .long {
+          opacity: 1!important;
+        }
+      }
+    }

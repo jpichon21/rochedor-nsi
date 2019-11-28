@@ -27,17 +27,21 @@
     <div class="logo">
         {% if app.request.locale == 'fr' %}
         <a class="normal" href="/">
-            <img src="{{ asset('assets/img/logo.png') }}" alt="La Roche d'Or">
+            <img id="mainLogo" src="{{ asset('assets/img/logo.svg') }}" alt="La Roche d'Or">
         </a>
         {% else %}
         <a class="normal" href="/{{app.request.locale}}">
-            <img src="{{ asset('assets/img/logo.png') }}" alt="La Roche d'Or">
+            <img id="mainLogo" src="{{ asset('assets/img/logo.svg') }}" alt="La Roche d'Or">
         </a>
         {% endif %}
         <a class="editions" href="{{ localePath('editions-nouveautes', app.request.locale) }}">
-            <img src="{{ asset('assets/img/logo-editions.png') }}" alt="Les Editions Roche d'Or">
+            <img id="mainLogo" src="{{ asset('assets/img/logo-editions.svg') }}" alt="Les Editions Roche d'Or">
         </a>
+        <div id="logoTaglineContainer">
+          <img id="logoTagline" src="{{ asset('assets/img/logo-text.png') }}" width="170"  border="0">
+        </div>
     </div>
+  
     <div class="right">
         <ul class="menu">
             <li data-menu="defrgt">
@@ -84,7 +88,7 @@
             %}
             <a href="{{ path('order-' ~ app.request.locale) }}" class="cart">
                 <span class="cartSpan">{{ 'menu.cart' | trans }}</span>
-                <img src="/assets/img/cartMobile.png" alt="Panier">
+                <img src="/assets/img/cart.svg" alt="Panier" width="30px">
                 <small class="cartCount-render"></small>
             </a>
             {% endif %}
@@ -119,7 +123,10 @@
             <li class="plus">A +</li>
         </ul>
     </div>
-    <div class="burger">    
+    <div class="burger hamburger hamburger--minus">  
+        <div class="hamburger-box">
+            <div class="hamnburger-inner"></div>
+        </div>  
         <span class="cart-container menu-reduced">
             {% if
                 product is defined
@@ -130,7 +137,7 @@
             %}
             <a href="{{ path('order-' ~ app.request.locale) }}" class="cart">
                 <span class="cartSpan">{{ 'menu.cart' | trans }}</span>
-                <img src="/assets/img/cartMobile.png" alt="Panier">
+                <img src="/assets/img/cart.svg" width="30px" alt="Panier">
                 <small class="cartCount-render"></small>
             </a>
             {% endif %}

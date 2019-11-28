@@ -62,7 +62,7 @@
               with { 'product': product } %}
           {% endfor %}
           </div>
-          <a class="button right-arrow" href="{{ currentPath ~ '?collection=' ~ category.id }}">{{ 'editions.seeallproducts' | trans }}</a>
+          <a class="button right-arrow"  href="{{ currentPath ~ '?collection=' ~ category.id }}">{{ 'editions.seeallproducts' | trans }}<img class="button-arrow visible" src="{{ asset('assets/img/button-arrow-right-black.png') }}"><img class="button-arrow hidden" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
         </div>
       {% endfor %}
     {% else %}

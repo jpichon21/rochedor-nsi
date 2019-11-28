@@ -102,7 +102,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
             <TextField
               required
               autoComplete='off'
-              InputLabelProps={{shrink: true}}
+              InputLabelProps={{ shrink: true }}
               className={classes.textfield}
               fullWidth
               multiline
@@ -167,7 +167,7 @@ const SortableItem = SortableElement(({ section, indexSection, state, classes, c
                     {
                       tileData[slide.layout].map((tile, indexImage) => (
                         <GridListTile key={tile.id} cols={tile.cols} rows={tile.rows}>
-                          <div className={classes.tile} style={{backgroundImage: `url('${slide.images[tile.id].url}')`}}>
+                          <div className={classes.tile} style={{ backgroundImage: `url('${slide.images[tile.id].url}')` }}>
                             {
                               context.state.fileUploading.isUploading &&
                               context.state.fileUploading.type === 'image' &&
@@ -525,11 +525,11 @@ export class PageForm extends React.Component {
   }
 
   handleCloseVersion () {
-    this.setState({anchorVersion: null})
+    this.setState({ anchorVersion: null })
   }
 
   handleVersionOpen (event) {
-    this.setState({anchorVersion: event.currentTarget})
+    this.setState({ anchorVersion: event.currentTarget })
   }
 
   handleChangeVideo (event, indexSection, indexSlide, indexImage) {
@@ -1018,7 +1018,7 @@ export class PageForm extends React.Component {
             <TextField
               required
               autoComplete='off'
-              InputLabelProps={{shrink: true}}
+              InputLabelProps={{ shrink: true }}
               className={classes.textfield}
               fullWidth
               name='page.title'
@@ -1039,7 +1039,7 @@ export class PageForm extends React.Component {
             <TextField
               required
               autoComplete='off'
-              InputLabelProps={{shrink: true}}
+              InputLabelProps={{ shrink: true }}
               className={classes.textfield}
               fullWidth
               name='page.sub_title'
@@ -1060,7 +1060,7 @@ export class PageForm extends React.Component {
             <TextField
               required
               autoComplete='off'
-              InputLabelProps={{shrink: true}}
+              InputLabelProps={{ shrink: true }}
               className={classes.textfield}
               fullWidth
               name='page.url'
@@ -1082,7 +1082,7 @@ export class PageForm extends React.Component {
             <TextField
               required
               autoComplete='off'
-              InputLabelProps={{shrink: true}}
+              InputLabelProps={{ shrink: true }}
               className={classes.textfield}
               fullWidth
               multiline
@@ -1108,7 +1108,7 @@ export class PageForm extends React.Component {
           >
             <TextField
               autoComplete='off'
-              InputLabelProps={{shrink: true}}
+              InputLabelProps={{ shrink: true }}
               className={classes.textfield}
               fullWidth
               multiline

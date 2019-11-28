@@ -22,14 +22,14 @@ export class UserEdit extends React.Component {
   }
   componentWillMount () {
     const { match: { params } } = this.props
-    this.setState({userId: params.userId})
+    this.setState({ userId: params.userId })
   }
   handleClose () {
     this.props.dispatch(initStatus())
-    this.setState({alertOpen: false})
+    this.setState({ alertOpen: false })
   }
   handleCloseSnack () {
-    this.setState({snackbarOpen: false, snackbarContent: ''})
+    this.setState({ snackbarOpen: false, snackbarContent: '' })
   }
   render () {
     return (

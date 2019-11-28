@@ -13,7 +13,7 @@ import {
   postLogin,
   resetLogin,
   postGift } from './gift-api.js'
-import {limitMenuReduced} from './variables'
+import { limitMenuReduced } from './variables'
 
 /* Translations */
 
