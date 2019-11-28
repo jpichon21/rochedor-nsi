@@ -186,6 +186,7 @@ class CalendarController extends Controller
     {
         $attendees = $request->get('attendees');
         $activityId = $request->get('activityId');
+        $existingRef = $request->get('existingRef');
         if (!$attendees || !$activityId) {
             return ['status' => 'ko', 'message' => 'You must provide attendees object and activityId'];
         }
@@ -193,7 +194,7 @@ class CalendarController extends Controller
             return ['status' => 'ko', 'message' => 'Missing major tutor for a child'];
         }
 
-        if (!$calL = $this->registerAttendees($attendees, $activityId)) {
+        if (!$calL = $this->registerAttendees($attendees, $activityId, $existingRef)) {
             return ['status' => 'ko', 'message' => 'The registration has failed'];
         }
 
@@ -245,10 +246,55 @@ class CalendarController extends Controller
      * @Security("has_role('ROLE_USER')")
      * @Rest\View()
      */
-    public function xhrGetLastAttendeesAction()
+    public function xhrGetLastAttendeesAction(Request $request)
     {
-        $attendees = $this->getParents($this->getUser());
-        return ['status' => 'ok', 'data' => $attendees];
+        /** @var Contact $contact */
+        $contact = $this->getUser();
+        $attendees = $this->getParents($contact);
+        $activityId = $request->query->get('activityId');
+        list($contacts, $user, $refLcal) = $this->getAlreadyRegisteredContacts($activityId);
+        return ['status' => 'ok', 'data' => [
+            'attendees' => $attendees,
+            'alreadyRegistered' => $contacts,
+            'alreadyRegisteredYou' => $user,
+            'alreadyRegisteredRef' => $refLcal
+        ]];
+    }
+
+    private function getAlreadyRegisteredContacts($activityId)
+    {
+        /** @var CalL $registeredContact */
+        $currentUser = $this->getUser();
+        $calendarLRepository = $this->getDoctrine()->getManager()->getRepository(CalL::class);
+        $registeredContact = $calendarLRepository->findOneBy([
+            'lcal' => $currentUser->getCodco(),
+            'codcal' => $activityId,
+            'etaplcal' => 'attent'
+        ]);
+
+        // Si on trouve une demande d'inscription déjà existante pour cet utilisateur
+        $contacts = [];
+        $user = null;
+        $refLCal = '';
+        if (!empty($registeredContact)) {
+            $refLCal = $registeredContact->getRefLCal();
+            $addedContacts = $calendarLRepository->findBy(['reflcal' => $refLCal]);
+            /** @var CalL $addedContact */
+            foreach ($addedContacts as $addedContact) {
+                $contact = $this->contactRepository->findContact($addedContact->getLcal());
+                if ($currentUser === $contact) {
+                    $contact->setJsco($addedContact->getJslcal());
+                    $user = $contact;
+                } else {
+                    $contact->setJsco($addedContact->getJslcal());
+                    $contact->coltyp = $addedContact->getTyplcal();
+                    $contact->colp = $currentUser->getCodCo();
+                    $contacts[] = $contact;
+                }
+            }
+        }
+
+        return [$contacts, $user, $refLCal];
     }
 
     public function getCalendarAction($id)
@@ -264,67 +310,80 @@ class CalendarController extends Controller
         return $calendar;
     }
     
-    private function registerAttendees($attendees, $activityId)
+    private function registerAttendees($attendees, $activityId, $existingRef = '')
     {
         $em = $this->getDoctrine()->getManager();
         $calendar = $this->calendarRepository->findCalendar($activityId);
-        $site = $calendar['sitact'];
-        $registrationCount = (int) $this->calendarRepository->findRegistrationCount($site)['valeurn'] + 1;
-        $refLcal = $this->refCal($registrationCount, $site);
-        $this->calendarRepository->updateRegistrationCounter($site, $registrationCount);
-        foreach ($attendees as $a) {
-            if ($contact = $this->contactRepository->findContact($a['codco'])) {
-                if (isset($a['username'])) {
-                    if (!$this->contactRepository->isUsernameUnique($a['username'], $a['codco'])) {
+        if (empty($existingRef)) {
+            $site = $calendar['sitact'];
+            $registrationCount = (int) $this->calendarRepository->findRegistrationCount($site)['valeurn'] + 1;
+            list($refLcal, $registrationCount) = $this->refCal($registrationCount, $site);
+            $this->calendarRepository->updateRegistrationCounter($site, $registrationCount);
+        } else {
+            $refLcal = $existingRef;
+
+            // Si on a une ref transmise, c'est qu'on veut modifier une inscription
+            $calendarLRepository = $this->getDoctrine()->getManager()->getRepository(CalL::class);
+            $registered = $calendarLRepository->findBy(['reflcal' => $existingRef]);
+            foreach ($registered as $oneRegistered) {
+                $this->getDoctrine()->getManager()->remove($oneRegistered);
+            }
+        }
+        foreach ($attendees as $attendee) {
+            if ($contact = $this->contactRepository->findContact($attendee['codco'])) {
+                if (isset($attendee['username'])) {
+                    if (!$this->contactRepository->isUsernameUnique($attendee['username'], $attendee['codco'])) {
                         return ['status' => 'ko', 'message' => 'security.username_exists'];
                     }
                 }
-                $contact = $this->setContact($contact, $a);
+                $contact = $this->setContact($contact, $attendee);
                 $em->persist($contact);
 
-                if ($a['coltyp'] === 'enfan' || $a['coltyp'] === 'conjo' || $a['coltyp'] === 'paren') {
-                    if (!$contactl = $this->contactRepository->findContactL($contact->getCodco(), $a['colp'])) {
+                if ($attendee['coltyp'] === 'enfan' ||
+                    $attendee['coltyp'] === 'conjo' ||
+                    $attendee['coltyp'] === 'paren'
+                ) {
+                    if (!$contactl = $this->contactRepository->findContactL($contact->getCodco(), $attendee['colp'])) {
                         $contactl = new ContactL();
-                        $contactl->setCol((int) $a['codco']);
+                        $contactl->setCol((int) $attendee['codco']);
                     }
-                    if ($a['coltyp'] === 'paren') {
-                        $contactl->setColp((int) $a['codco']);
+                    if ($attendee['coltyp'] === 'paren') {
+                        $contactl->setColp((int) $attendee['codco']);
                     } else {
-                        $contactl->setColp((int) $a['colp']);
+                        $contactl->setColp((int) $attendee['colp']);
                     }
                     $contactl->setColt('famil')
                     ->setColrel(1)
-                    ->setColtyp($a['coltyp']);
+                    ->setColtyp($attendee['coltyp']);
                     $em->persist($contactl);
                 }
-                if ($a['coltyp'] === 'accom') {
+                if ($attendee['coltyp'] === 'accom') {
                     $contactl = new ContactL();
-                    $contactl->setCol((int) $a['codco'])
-                    ->setColp((int) $a['colp'])
+                    $contactl->setCol((int) $attendee['codco'])
+                    ->setColp((int) $attendee['colp'])
                     ->setColt('accom')
                     ->setColrel(1)
-                    ->setColtyp($a['coltyp']);
+                    ->setColtyp($attendee['coltyp']);
                     $em->persist($contactl);
                 }
 
-
-                if ($a['aut16'] == 1) {
-                    $contact->setDataut16(new \DateTime($a['datAut16']));
+                if ($attendee['aut16'] == 1) {
+                    $contact->setDataut16(new \DateTime($attendee['datAut16']));
                     $em->persist($contact);
                 }
                 $calL = new CalL();
                 $calL->setCodcal($activityId)
                 ->setLcal($contact->getCodco())
-                ->setTyplcal('coIns')
+                ->setTyplcal($attendee['coltyp'])
                 ->setReflcal($refLcal)
                 ->setJslcal(json_encode(
                     [
                         'Arriv' => [
-                            'Transport' => $a['transport'],
-                            'Lieu' => ucwords($a['lieu']),
-                            'Heure' => ($a['arriv'] !== '') ? explode(':', $a['arriv'])[0]: '',
-                            'Mn' => ($a['arriv'] !== '') ? explode(':', $a['arriv'])[1]: '',
-                            'Memo' => $a['memo']
+                            'Transport' => $attendee['transport'],
+                            'Lieu' => ucwords($attendee['lieu']),
+                            'Heure' => ($attendee['arriv'] !== '') ? explode(':', $attendee['arriv'])[0]: '',
+                            'Mn' => ($attendee['arriv'] !== '') ? explode(':', $attendee['arriv'])[1]: '',
+                            'Memo' => $attendee['memo']
                         ]
                     ]
                 ));
@@ -367,13 +426,21 @@ class CalendarController extends Controller
         if (isset($attendee['username'])) {
             $contact->setUsername($attendee['username']);
         }
+        if (isset($attendee['colp'])) {
+            $contact->colp = $attendee['colp'];
+        }
+        if (isset($attendee['coltyp'])) {
+            $contact->coltyp = $attendee['coltyp'];
+        }
 
-        $password = array_key_exists('password', $attendee) && $attendee['password'] !== ''
-            ? $attendee['password']
-            : $this->randomPassword(8);
-        if ($password) {
-            $passwordEncoded = $this->encoder->encodePassword($contact, $password);
-            $contact->setPassword($passwordEncoded);
+        if (empty($contact->getPassword())) {
+            $password = array_key_exists('password', $attendee) && $attendee['password'] !== ''
+                ? $attendee['password']
+                : $this->randomPassword(8);
+            if ($password) {
+                $passwordEncoded = $this->encoder->encodePassword($contact, $password);
+                $contact->setPassword($passwordEncoded);
+            }
         }
 
         return $contact;
@@ -398,7 +465,14 @@ class CalendarController extends Controller
         $ref = strtoupper(substr($site, 0, 1));
         $ref .= $now->format('y');
         $ref .= '-'.str_pad($count, 5, '0', STR_PAD_LEFT);
-        return $ref;
+
+        // S'assure que la référence n'existe pas déjà
+        $existingRef = $this->getDoctrine()->getManager()->getRepository(CalL::class)->findBy(['reflcal' => $ref]);
+        if (!empty($existingRef)) {
+            return $this->refCal($count + 1, $site);
+        }
+
+        return array($ref, $count);
     }
     
     private function hasParent($child, $attendees)
@@ -596,7 +670,8 @@ class CalendarController extends Controller
                 'speakers' => $filters['speakers'],
                 'translations' => $filters['translations'],
                 'retreatsData' => json_encode($retreatsData),
-                'availableLocales' => $availableLocales
+                'availableLocales' => $availableLocales,
+                'noRetreatsMessage' => $this->translator->trans('calendar.no_retreat')
             ]);
     }
 }

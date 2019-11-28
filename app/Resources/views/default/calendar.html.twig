@@ -138,6 +138,11 @@
         <a class="button" href="{{ url('register_calendar' ~ '-' ~ app.request.locale) }}?id=<%= retreats[i].id %>">Choisir</a>
     </li>
 <% } %>
+<% if (retreats.length < 1) { %>
+<li class="month">
+    {{ noRetreatsMessage }}
+</li>
+<% } %>
 </script>
 <script type="text/template" class="retreats-table-template">
 <% var lastMonth = 0 %>
@@ -175,6 +180,11 @@
         <td class="duration center"><%= retreats[i].duration %> {{ 'calendar.days' | trans }}</td>
         <td class="translation center"><%= retreats[i].translation %></td>
     </tr>
+<% } %>
+<% if (retreats.length < 1) { %>
+<tr class="month">
+    <td>{{ noRetreatsMessage }}</td>
+</tr>
 <% } %>
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>

@@ -26,13 +26,21 @@
         display: block;
       }
     }
+
+    &.participants {
+      .newfich-wrapper .newfich {
+        @media screen and (max-width: 500px) {
+          min-height: 40px;
+        }
+      }
+    }
   }
 }
 .add-participant {
   display: table;
   font-size: 14px;
 }
-.validate-participants {
+.validate-participants, .cancel-registration {
   display: inline-block;
   margin: 30px 0 10px;
 }

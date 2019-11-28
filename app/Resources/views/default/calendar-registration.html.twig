@@ -96,11 +96,11 @@
                     <div class="you-render"></div>
                     <h3>{{ 'calendar.registration.two.title.registered' | trans | raw }}</h3>
                     <div class="registered-render"></div>
-                    <h3>{{ 'calendar.registration.two.title.went' | trans | raw }}</h3>
+                    <h3 data-tooltip class="top" tabindex="2" title="{{ 'calendar.registration.tooltip' | trans | raw }}">{{ 'calendar.registration.two.title.went' | trans | raw }}</h3>
                     <div class="went-render"></div>
                     <a href="#" class="add-participant" rel="nofollow">{{ 'calendar.registration.two.add_participant' | trans | raw }}</a>
                     <a href="#" class="validate-participants button" rel="nofollow">{{ 'calendar.registration.two.validate_participants' | trans | raw }}</a>
-                    
+                    <a href="{{ path('calendar-' ~ currentLocale) }}" class="cancel-registration button" rel="nofollow">{{ 'form.cancel' | trans | raw }}</a>
                 </div>
             </div>
             <div class="item validation">
@@ -169,7 +169,7 @@
 <script type="text/template" class="participants-template">
     <% if (participants.length) { %>
         <% for (var i = 0; i < participants.length; i++) { %>
-        <% var him = participants[i] %>
+            <% var him = participants[i] %>
             <div class="him">
                 <p><%= _.escape(him.civil) %> <%= _.escape(him.prenom) %> <%= _.escape(him.nom) %><br>
                     <% if (him.adresse) { %>
@@ -201,7 +201,7 @@
     <% if (registered.length) { %>
         <% for (var i = 0; i < registered.length; i++) { %>
         <% var him = registered[i] %>
-            <div class="him<%= him.added && ' added'%>">
+            <div class="him <%= him.added && 'added'%>">
                 <p><%= _.escape(him.civil) %> <%= _.escape(him.prenom) %> <%= _.escape(him.nom) %><br>
                     <%= _.escape(him.adresse) %> <%= _.escape(him.cp) %> <%= _.escape(him.ville) %> <%= (him.pays) ? '('+_.escape(him.pays)+')': '' %></p>
                 <a href="#" data-id="<%= _.escape(him.codco) %>" class="participate-him button" rel="nofollow">{{ 'form.participate' | trans | raw }}</a>

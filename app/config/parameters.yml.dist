@@ -1,32 +1,30 @@
-# This file is a "template" of what your parameters.yml file should look like
-# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
-# https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+# This file is auto-generated during the composer install
 parameters:
-    database_driver: pdo_sqlite
+    database_driver: pdo_mysql
     database_host: 127.0.0.1
-    database_port: null
-    database_name: database_name
-    database_user: database_user
-    database_password: database_password
-    database_path: '%kernel.project_dir%/var/data/data.sqlite'
+    database_port: 3306
+    database_name: db
+    database_user: apiuser
+    database_password: changeme
+    database_path: '%kernel.project_dir%/var/data.sqlite'
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
     secret: ThisTokenIsNotSoSecretChangeIt
-    admin_password:
-    email_from_name: 
-    email_from_address: 
-    email_contact_address:
-    kiwi_host:
-    payment_env: 'dev'
-    recaptcha_secret:
-    recaptcha_key:
+    admin_password: pass
+    email_from_name: 'La Roche d''Or'
+    email_from_address: null
+    email_contact_address: null
+    kiwi_host: null
+    payment_env: dev
+    recaptcha_secret: null
+    recaptcha_key: null
     paybox_url: 'https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi'
     paybox_site: '1999888'
     paybox_rang: '32'
     paybox_identifiant: '2'
-    paybox_key: '0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF'
+    paybox_key: 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
     paypal_url: 'https://www.sandbox.paypal.com/cgi-bin/webscr'
     paypal_email: 'paypal.roche@rochedor.org'
     paypal_btn_id: 'GRWYKF7S4BT2U'

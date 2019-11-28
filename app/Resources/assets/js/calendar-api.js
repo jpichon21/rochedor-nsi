@@ -1,3 +1,7 @@
+import I18n from './i18n'
+
+let i18n = new I18n()
+
 export const postLogin = (data) => {
   return window.fetch('/login', {
     headers: { 'Content-Type': 'application/json' },
@@ -10,7 +14,7 @@ export const postLogin = (data) => {
       return res.json()
     })
     .catch(res => {
-      throw (new Error('unknown_error'))
+      throw (new Error(i18n.trans('Error: unknown_error')))
     })
 }
 
@@ -36,7 +40,7 @@ export const postRegister = (data) => {
     body: JSON.stringify(data)
   })
     .catch(res => {
-      throw (new Error('unknown_error'))
+      throw (new Error(i18n.trans('Error: unknown_error')))
     })
     .then(res => res.json())
     .then(res => {
@@ -62,7 +66,7 @@ export const postParticipant = (data) => {
       return res.data
     })
     .catch(res => {
-      throw (new Error('unknown_error'))
+      throw (new Error(i18n.trans('Error: unknown_error')))
     })
 }
 
@@ -76,7 +80,7 @@ export const getLogout = (locale) => {
       window.location.replace('/' + locale + '/logout-message/calendar')
     })
     .catch(res => {
-      throw (new Error('unknown_error'))
+      throw (new Error(i18n.trans('Error: unknown_error')))
     })
 }
 
@@ -87,15 +91,16 @@ export const getLogin = () => {
   })
     .then(res => {
       if (!res.ok) { res.json().then(res => { throw res.message }) }
+      if (res.status === 201) { throw new Error('not_logged_in') }
       return res.json()
     })
     .catch(res => {
-      throw (new Error('unknown_error'))
+      throw (new Error(i18n.trans('Error: unknown_error')))
     })
 }
 
-export const getRegistered = () => {
-  return window.fetch('/xhr/calendar/attendees', {
+export const getRegistered = (activityId) => {
+  return window.fetch('/xhr/calendar/attendees?activityId=' + activityId, {
     headers: { 'Content-Type': 'application/json' },
     method: 'GET',
     credentials: 'include'
@@ -106,26 +111,35 @@ export const getRegistered = () => {
       return res.data
     })
     .catch(res => {
-      throw (new Error('unknown_error'))
+      throw (new Error(i18n.trans('Error: unknown_error')))
     })
 }
 
-export const postRegistered = (data, id) => {
+export const postRegistered = (data, id, existingRef) => {
   return window.fetch('/xhr/calendar/attendees', {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',
     body: JSON.stringify({
       attendees: data,
-      activityId: id
+      activityId: id,
+      existingRef: existingRef
     })
   })
     .then(res => res.json())
     .then(res => {
+      if (res.error !== undefined) {
+        console.log(res.error)
+        throw res.error
+      }
       if (res.status !== 'ok') { throw res.message }
       return res.data
     })
-    .catch(res => {
-      throw (new Error('unknown_error'))
+    .catch(err => {
+      if (err.code === 403) {
+        throw (new Error(i18n.trans('forbidden')))
+      } else {
+        throw (new Error(i18n.trans('Error: unknown_error')))
+      }
     })
 }

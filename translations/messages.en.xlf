@@ -688,7 +688,7 @@
       </notes>
       <segment>
         <source>calendar.registration.three.title</source>
-        <target></target>
+        <target>Validate the registration request</target>
       </segment>
     </unit>
     <unit id="YR9sNBD" name="calendar.registration.three.body">
@@ -986,6 +986,12 @@
       <segment>
         <source>menu.cart</source>
         <target>Basket</target>
+      </segment>
+    </unit>
+    <unit id="sdhufn9B8TMG9" name="calendar.no_retreat">
+      <segment>
+        <source>calendar.no_retreat</source>
+        <target>No retreats matches your search</target>
       </segment>
     </unit>
   </file>

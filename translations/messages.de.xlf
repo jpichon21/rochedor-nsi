@@ -691,7 +691,7 @@
       </notes>
       <segment>
         <source>calendar.registration.two.validate_participants</source>
-        <target>Die Anmeldung bestätigen</target>
+        <target>Bestätigen Sie die Registrierungsanfrage</target>
       </segment>
     </unit>
     <unit id="UzRFO5C" name="calendar.registration.three.title">
@@ -1933,7 +1933,7 @@ Kommentar erstellt</target>
     <unit id=".55gGPd" name="form.message.not_with_an_adult">
       <segment>
         <source>form.message.not_with_an_adult</source>
-        <target>Wird nicht von einem Erwachsenen begleitet</target>
+        <target><![CDATA[wird nicht von einem Erwachsenen begleitet<br><a href="%url_contact%" target=_blank>Kontakt %lieu%</a>]]></target>
       </segment>
     </unit>
     <unit id="ch5nrMQ" name="form.message.not_accompanied">

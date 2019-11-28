@@ -38,6 +38,7 @@ let _registered = []
 let _went = []
 let _participant = {}
 let _participants = []
+let _existingRef = ''
 
 const itemConnection = $('.item.connection')
 const itemParticipants = $('.item.participants')
@@ -62,6 +63,17 @@ $(document).ready(function () {
 function scrollTop () {
   setTimeout(() => {
     document.querySelector('.content').scroll({ top: 0, left: 0, behavior: 'smooth' })
+  }, 200)
+}
+
+function scrollToElement ($element) {
+  setTimeout(() => {
+    // a bit bruteforced, but it works ...
+    // for mobile
+    window.scrollTo({ top: $element.offset().top, left: 0, behavior: 'smooth' })
+    // for screen
+    // watch out for the forced offset of -120 if you reuse this method
+    document.querySelector('.content').scroll({ top: ($element.offset().top - 120), left: 0, behavior: 'smooth' })
   }, 200)
 }
 
@@ -168,11 +180,55 @@ function afterLogin (user) {
   _you = { ...participant, ...user }
   _participants = [_you]
   updateYouRender()
-  getRegistered().then(registered => {
+  getRegistered(_infos.idact).then(data => {
+    let attendees = data.attendees
+    let registered = []
+    _existingRef = data.alreadyRegisteredRef
+    let alreadyRegisteredYou = data.alreadyRegisteredYou
+    let alreadyRegistered = data.alreadyRegistered
+    let alreadyRegisteredIds = []
+
+    // Formattage des participants accompagnants (modif inscription)
+    alreadyRegistered.forEach(function(element) {
+      let participant = getContact()
+      let transport = JSON.parse(element.jsco)
+      participant.transport = transport.Arriv.Transport
+      participant.lieu = transport.Arriv.Lieu
+      participant.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      participant.memo = transport.Arriv.Memo
+      participant[element.name] = element.value
+      participant.codco = parseInt(participant.codco)
+      participant.datnaiss = moment(participant.datnaiss, 'DD/MM/YYYY').format()
+      element.check = true
+      registered.push({ ...participant, ...element })
+      _participants.push({ ...participant, ...element })
+      alreadyRegisteredIds.push(element.codco)
+    })
+
+    // Formattage des membres de la famille
+    attendees.forEach(function(element) {
+      if (element.coltyp === 'conjo' || element.codtyp === 'enfan' || element.codtyp === 'paren') {
+        // Si l'utilisateur est déjà présent dans la liste des inscrits,
+        if (alreadyRegisteredIds.includes(element.codco)) {
+          element.added = true
+        }
+        registered.push(element)
+      }
+    })
+
+    // Formattage de l'utilisateur courant (modif inscription)
+    if (alreadyRegisteredYou) {
+      let transport = JSON.parse(alreadyRegisteredYou.jsco)
+      _you.transport = transport.Arriv.Transport
+      _you.lieu = transport.Arriv.Lieu
+      _you.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      _you.memo = transport.Arriv.Memo
+    }
+
     _registered = registered.map(obj => {
       return { ...participant, ...obj }
     })
-    _went = [..._registered]
+    _went = [...attendees]
     downLoader()
     updateRegisteredRender()
     updateParticipantsRender()
@@ -192,7 +248,49 @@ function formatParticipant (data) {
   })
   participant.codco = parseInt(participant.codco)
   participant.datnaiss = moment(participant.datnaiss, 'DD/MM/YYYY').format()
+
+  let nomPrenom = NomPropre(participant.prenom + '#' + participant.nom)
+  participant.prenom = nomPrenom.substr(0, nomPrenom.indexOf('#'))
+  participant.nom = nomPrenom.substr(nomPrenom.indexOf('#') + 1, nomPrenom.length)
   return participant
+}
+
+// Fonction fournie par Hubert de LRDO pour formattage des noms/prénom
+function NomPropre(SMot, Opt) {
+  var Lig, C1, C2, C3, C4, C5, Mot, M1, M2, Mx
+  if (!SMot) return ""
+  Mx = SMot.length
+
+  Mot = SMot.toLowerCase()
+  Lig = Mot.substr(0,1).toUpperCase()
+  var C = 1
+  for (C=1; C<Mx; C++) {
+    C1 = Mot.substr(C-1,1)
+    C2 = Mot.substr(C,1)
+    if (C+1<Mx)  C3 = Mot.substr(C+1,1);  else  C3=" "
+    if (C+2<Mx)  C4 = Mot.substr(C+2,1);  else  C4=" "
+    if (C+3<Mx)  C5 = Mot.substr(C+3,1);  else  C5=" "
+    M1 = C2 + C3 + C4;  M2 = M1 + C5
+    if ("de du d' le la l' et ".indexOf(M1)>=0 || "rue des les ".indexOf(M2)>=0) {
+      Lig=Lig + C2
+    }else{
+      if (" ,;./-'".indexOf(C1)>=0)  Lig += C2.toUpperCase();  else  Lig += C2
+    }
+  }
+
+  return Lig
+}
+
+// Fonction fournie par Hubert de LRDO pour formattage des noms/prénom
+function CasseUniq(Mot) {
+  var C, C1, nbMin=0, nbMaj=0
+  var Mx = Mot.length
+  for (C=0; C<Mx; C++) {
+    C1 = Mot.substr(C,1)
+    if (C1>="A" && C1<="Z")  nbMaj++
+    if (C1>="a" && C1<="z")  nbMin++
+  }
+  return !(nbMin>0 && nbMaj>0)
 }
 
 itemConnection.on('submit', '.panel.connection form', function (event) {
@@ -312,6 +410,9 @@ itemConnection.on('click', 'a', function (event) {
       $(`.panel.${which}`, itemConnection).show()
       _participant = getContact()
       updateYouFormRender([], [], true)
+      setTimeout(() => {
+        scrollToElement($(`.panel.${which}`))
+      }, 200)
       break
     case 'reset':
       $('.panel.reset', itemConnection).show()
@@ -377,7 +478,6 @@ function validateChild (participant, isYou=false) {
                 datAut16: moment().format()
               })
             }).catch(() => {
-              reject(i18n.trans('form.message.child_must_have_autpar'))
             })
           } else {
             reject(i18n.trans('form.message.parent_must_be_adult'))
@@ -467,23 +567,28 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
         participantValidated.arriv = ''
       }
       upLoader()
-      postParticipant(participantValidated).then(res => {
-        const participantUpdated = { ...participantValidated, ...res }
-        downLoader()
-        callback(participantUpdated)
-        updateYouRender()
-        updateRegisteredRender()
-        updateParticipants()
-        $(`.panel.${action}`).slideUp(800, function () {
-          $(this).hide()
-          changeItem(itemParticipants)
-          scrollTop()
-        })
-      }).catch(error => {
-        if (error) {
+      getLogin().then((res) => {
+        postParticipant(participantValidated).then(res => {
+          const participantUpdated = { ...participantValidated, ...res }
           downLoader()
-          upFlashbag(i18n.trans(`${error}`))
-        }
+          callback(participantUpdated)
+          updateYouRender()
+          updateRegisteredRender()
+          updateParticipants()
+          $(`.panel.${action}`).slideUp(800, function () {
+            $(this).hide()
+            changeItem(itemParticipants)
+            scrollTop()
+          })
+        }).catch(error => {
+          if (error) {
+            downLoader()
+            upFlashbag(i18n.trans(`${error}`))
+          }
+        })  
+      }).catch(error => {
+        downLoader()
+        upFlashbag(i18n.trans('session_expired'))
       })
     }).catch(error => {
       if (error) {
@@ -512,7 +617,9 @@ panelHimForm.on('submit', function (event) {
       return obj
     })
     _went = _went.map(p => {
-      p.added = (p.codco === res.codco)
+      if (p.codco === res.codco) {
+        p.added = true
+      }
       return p
     })
   })
@@ -589,12 +696,6 @@ function modifyClick (event, action, callUpdater, callFunction) {
   $('.panel', itemParticipants).hide()
   $(`.panel.${action}`, itemParticipants).show()
   changeItem(itemParticipants)
-
-  // setTimeout(() => {
-  //   const content = document.querySelector('.content')
-  //   const panel = content.querySelector(`.panel.${action}`)
-  //   content.scroll({ top: 0, left: 0, behavior: 'smooth' })
-  // }, 200)
 }
 
 itemParticipants.on('click', '.modify-you', function (event) {
@@ -623,16 +724,22 @@ itemParticipants.on('click', '.validate-participants', function (event) {
   if (validate === true) {
     upLoader()
     setParent()
-    postRegistered(_participants, _infos.idact).then(res => {
-      let result = $('.result', itemValidation).html()
-      result = result.replace('%entry_number%', res)
-      $('.result', itemValidation).html(result)
-      downLoader()
-      updateEndMessageRender()
-      changeItem(itemValidation)
+    getLogin().then((res) => {
+      postRegistered(_participants, _infos.idact, _existingRef).then(res => {
+        let result = $('.result', itemValidation).html()
+        result = result.replace('%entry_number%', res)
+        $('.result', itemValidation).html(result)
+        downLoader()
+        updateEndMessageRender()
+        changeItem(itemValidation)
+        _existingRef = ''
+      }).catch(error => {
+        downLoader()
+        upFlashbag(error)
+      })
     }).catch(error => {
       downLoader()
-      upFlashbag(error)
+      upFlashbag(i18n.trans('session_expired'))
     })
   } else {
     upFlashbag(validate)
@@ -676,7 +783,14 @@ function validateParticipant (participant) {
   }
 
   if (isYoung(participant) && !isWithAdult(participant)) {
-    return i18n.trans('form.message.not_with_an_adult')
+    let urlContact = '/' + _locale + '/contact-ro'
+    if (_infos.sitact === 'Les Fontanilles') {
+      urlContact = '/' + _locale + '/contact-ft'
+    }
+    let message = i18n.trans('form.message.not_with_an_adult')
+    message = message.replace('%url_contact%', urlContact)
+    message = message.replace('%lieu%', _infos.sitact)
+    return message
   }
   return true
 }

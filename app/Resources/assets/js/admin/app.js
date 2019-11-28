@@ -48,15 +48,20 @@ export class App extends React.Component {
               <PrivateRoute path='/news-list/' exact component={NewsList} />
               <PrivateRoute path='/news-create/' exact component={NewsCreate} />
               <PrivateRoute path='/news-edit/:newsId' exact component={NewsEdit} />
+
               <PrivateRoute path='/speaker-list/' exact component={SpeakerList} />
               <PrivateRoute path='/speaker-edit/:speakerId' exact component={SpeakerEdit} />
               <PrivateRoute path='/speaker-create/' exact component={SpeakerCreate} />
+
               <PrivateRoute path='/content-list/' exact component={ContentList} />
               <PrivateRoute path='/content-edit/:pageId' exact component={ContentEdit} />
+
               <PrivateRoute path='/home-edit/' exact component={HomeEdit} />
+
               <PrivateRoute path='/user-list/' exact component={UserList} />
               <PrivateRoute path='/user-edit/:userId' exact component={UserEdit} />
               <PrivateRoute path='/user-create/' exact component={UserCreate} />
+
               <PrivateRoute path='/logout' exact component={Logout} />
               <Route path='/login' exact component={Login} />
             </Switch>
