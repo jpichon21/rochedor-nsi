@@ -196,7 +196,7 @@ export class UserForm extends React.Component {
     // trying to remove password autofill
     setTimeout(() => {
       document.getElementsByClassName('disable_password_autofill')[0].getElementsByTagName('input')[0].value = ''
-    }, 150)
+    }, 800)
   }
 
   render () {
