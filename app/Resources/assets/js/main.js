@@ -1,3 +1,4 @@
+import createFocusTrap from 'focus-trap'
 import { limitMenuReduced } from './variables'
 
 // Zoom
@@ -130,6 +131,36 @@ function getForm (element) {
   return element.tagName === 'FORM' ? element : getForm(element.parentElement)
 }
 
+document.onkeydown = event => {
+  if (event.which === 9 && !formLock) { event.preventDefault() }
+}
+
+let focusTrap
+
+document.onclick = event => {
+  const element = event.target
+  if (
+    element &&
+    !element.classList.contains('submit') &&
+    (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA')
+  ) {
+    const form = getForm(element)
+    if (formLock) {
+      focusTrap.deactivate()
+    }
+    focusTrap = createFocusTrap(form, {
+      onActivate: () => { formLock = true },
+      onDeactivate: () => { formLock = false },
+      clickOutsideDeactivates: true,
+      returnFocusOnDeactivate: null
+    })
+    form.onsubmit = () => {
+      focusTrap.deactivate()
+    }
+    focusTrap.activate()
+  }
+}
+
 // Action filters
 
 const showFilters = document.querySelector('.show-filters')
@@ -145,21 +176,5 @@ if (showFilters != null) {
 if (hideFilters != null) {
   hideFilters.onclick = function () {
     filters.classList.remove('active')
-  }
-}
-
-// Toggle password
-content.onclick = event => {
-  if (event.target.classList.contains('toggle-password')) {
-    event.preventDefault()
-    togglePasswordVisibility(event.target.previousElementSibling)
-  }
-}
-
-function togglePasswordVisibility (el) {
-  if (el.getAttribute('type') === 'password') {
-    el.setAttribute('type', 'text')
-  } else {
-    el.setAttribute('type', 'password')
   }
 }
