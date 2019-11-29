@@ -4,7 +4,30 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import immutable from 'object-path-immutable'
-import { Snackbar, TextField, Button, Tooltip, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Switch, FormControlLabel, AppBar, Tabs, Tab, Table, TableHead, TableCell, TableBody, TableRow, Checkbox } from '@material-ui/core'
+import {
+  Snackbar,
+  TextField,
+  Button,
+  Tooltip,
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Switch,
+  FormControlLabel,
+  AppBar,
+  Tabs,
+  Tab,
+  Table,
+  TableHead,
+  TableCell,
+  TableBody,
+  TableRow,
+  Checkbox,
+  MenuItem, Select
+} from '@material-ui/core'
 import SaveIcon from '@material-ui/icons/Save'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { withStyles } from '@material-ui/core/styles'
@@ -52,8 +75,8 @@ export class UserForm extends React.Component {
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this)
     this.handleCloseSnack = this.handleCloseSnack.bind(this)
     this.handleClose = this.handleClose.bind(this)
-    this.toggleRole = this.toggleRole.bind(this)
-    this.hasPasswordFieldError = this.hasPasswordFieldError.bind(this);
+    this.handleChangeRole = this.handleChangeRole.bind(this)
+    this.hasPasswordFieldError = this.hasPasswordFieldError.bind(this)
 
     this.i18n = new I18n('fr')
   }
@@ -136,41 +159,8 @@ export class UserForm extends React.Component {
     this.setState({status: '', alertOpen: false})
   }
 
-  toggleRole (event, value) {
-    let roles = this.state.user.roles
-    let splitedRoles = event.target.name.split('_')
-    let toggledRoles = splitedRoles[3]
-    let familyRole = splitedRoles[2]
-    if (value) {
-      if (!roles.includes(event.target.name)) {
-        if (toggledRoles !== 'VIEW') {
-          if (!roles.includes('ROLE_ADMIN_' + familyRole + '_VIEW')) {
-            roles.push('ROLE_ADMIN_' + familyRole + '_VIEW')
-          }
-          if (toggledRoles === 'DELETE' && !roles.includes('ROLE_ADMIN_' + familyRole + '_EDIT')) {
-            roles.push('ROLE_ADMIN_' + familyRole + '_EDIT')
-          }
-        }
-        roles.push(event.target.name)
-      }
-    } else {
-      if (roles.includes(event.target.name)) {
-        if (toggledRoles === 'VIEW') {
-          roles = roles.filter(e => {
-            return (
-              e !== 'ROLE_ADMIN_' + familyRole + '_CREATE' &&
-              e !== 'ROLE_ADMIN_' + familyRole + '_EDIT' &&
-              e !== 'ROLE_ADMIN_' + familyRole + '_DELETE'
-            )
-          })
-        }
-        if (toggledRoles === 'EDIT') {
-          roles = roles.filter(e => e !== 'ROLE_ADMIN_' + familyRole + '_DELETE')
-        }
-        roles = roles.filter(e => e !== event.target.name)
-      }
-    }
-    const state = immutable.set(this.state, 'user.roles', roles)
+  handleChangeRole (value) {
+    const state = immutable.set(this.state, 'user.roles', [value])
     this.setState(state)
   }
 
@@ -313,30 +303,28 @@ export class UserForm extends React.Component {
                 value={this.state.repeat}
                 onChange={this.handleInputChange} />
             </TooltipWrapper>
-            <div>
-              <Typography className={classes.label}>Roles</Typography>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Super admin</TableCell>
-                    <TableCell>Association</TableCell>
-                    <TableCell>Édition</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    {[ROLE_SUPER_ADMIN, ROLE_ADMIN_ASSOCIATION, ROLE_ADMIN_EDITION].map(roleName => (
-                      <TableCell key={roleName}>
-                        <Checkbox onChange={this.toggleRole} name={roleName} checked={this.state.user.roles.includes(roleName)} />
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableBody>
-              </Table>
-              <br/>
-              <br/>
-            </div>
 
+            <TooltipWrapper
+              title={`Role de l'utilisateur`}
+            >
+              <Select
+                id={'type'}
+                fullWidth
+                className={classes.select}
+                value={this.state.user.roles[0] || ''}
+                onChange={e => this.handleChangeRole(e.target.value)}
+              >
+                {[
+                  {roleName: ROLE_SUPER_ADMIN, label: 'Admin'},
+                  {roleName: ROLE_ADMIN_ASSOCIATION, label: 'Association'},
+                  {roleName: ROLE_ADMIN_EDITION, label: 'Editions'}
+                ].map(({roleName, label}) => (
+                  <MenuItem key={roleName} value={roleName}>{label}</MenuItem>
+                ))}
+              </Select>
+            </TooltipWrapper>
+            <br />
+            <br />
           </form>
         </div>
         <div className={classes.buttons}>

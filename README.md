@@ -11,13 +11,13 @@ rochedor-nsi
 - php-sqlite
 - node-js v8.15.0
 - yarn
+- jpegoptim
 - curl & php-curl
-
 
 ## Setup
 No docker for the app (yet), check `script/bootstrap` for base deps ;
 ```
-sudo apt install php73 php-json php-pdo php-mysql
+sudo apt install php73 php-json php-pdo php-mysql jpegoptim
 ```
 
 
