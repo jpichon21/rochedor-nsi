@@ -18,7 +18,9 @@
     {% block metadescription %}{% endblock %}
     {% block stylesheets %}{% endblock %}
 </head>
-
+{% if 'home' in bodyClass %}
+<body class="{{ bodyClass }}">
+{% endif %}
 <body class="{{ bodyClass|default('') }} {{ page.title }} m-scene hidden-fade">
 {% if app.request.attributes.get('_route_params') and app.request.attributes.get('_route') %}
     {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
