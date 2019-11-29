@@ -192,6 +192,11 @@ export class UserForm extends React.Component {
         this.setState({ user: { ...user } })
       })
     }
+
+    // trying to remove password autofill
+    setTimeout(() => {
+      document.getElementsByClassName('disable_password_autofill')[0].getElementsByTagName('input')[0].value = ''
+    }, 150)
   }
 
   render () {
@@ -280,7 +285,7 @@ export class UserForm extends React.Component {
                 error={this.hasPasswordFieldError()}
                 autoComplete='off'
                 InputLabelProps={{ shrink: true }}
-                className={classes.textfield}
+                className={`${classes.textfield} disable_password_autofill`}
                 fullWidth
                 type='password'
                 name='password'
