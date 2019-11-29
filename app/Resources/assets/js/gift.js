@@ -64,22 +64,25 @@ function scrollToElement ($element) {
   }, 200)
 }
 
-function changeItem(elmt) {
+function changeItem (elmt) {
   $('.dropdown .item').each(function () {
     this.style.maxHeight = null
     this.classList.remove('active')
   })
   elmt.forEach(function (item) {
     item.addClass('active')
-    // item.css('maxHeight', item.prop('scrollHeight') + 'px')
-    item.css('maxHeight', 'fit-content')
+    resizeItem(item)
   })
+}
+
+function resizeItem ($item) {
+  $item.css('maxHeight', $item.prop('scrollHeight') + 'px')
 }
 
 $(document).ready(function () {
   $('.dropdown .item').each(function () {
     if (this.classList.contains('amount') || this.classList.contains('allocation') || this.classList.contains('payment')) {
-      this.style.maxHeight = 'fit-content'
+      resizeItem($(this))
       this.classList.add('active')
     }
   })
@@ -169,6 +172,7 @@ itemAmount.on('click', '.button.radio', function (event) {
 itemAmount.on('keyup', '.input.amount', function () {
   _amount = $(this).val()
   updateAmountRender()
+  resizeItem($(this).parents('.item.amount.active'))
 })
 
 /* CHOIX DE L'ALLOCATION */
