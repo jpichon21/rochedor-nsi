@@ -2,22 +2,21 @@ import React from 'react'
 import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { doLogin, initStatus } from '../../actions'
-import { TextField, Button, Typography } from '@material-ui/core'
+import { doForgottenPassword, initStatus } from '../../actions'
+import { TextField, Button, Typography, Snackbar } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
-import { NavLink, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import Alert from '../alert/alert'
 import I18n from '../../../i18n'
 
-export class Login extends React.Component {
+export class ForgottenPassword extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      username: '',
-      password: '',
-      error: '',
-      alertOpen: false
+      email: '',
+      alertOpen: false,
+      submitted: false,
     }
 
     this.handleClose = this.handleClose.bind(this)
@@ -39,11 +38,15 @@ export class Login extends React.Component {
   }
 
   handleSubmit (event) {
-    this.props.dispatch(doLogin(this.state.username, this.state.password)).then((res) => {
+    this.props.dispatch(doForgottenPassword(this.state.email)).then((res) => {
       if (res.error) {
         this.setState({ error: this.i18n.trans(res.error) })
         this.setState({ alertOpen: true })
+        return
       }
+      // console.log(this.props);
+      this.setState({ submitted: true })
+      setTimeout(() => this.props.history.push('/'), 2000)
     })
     event.preventDefault()
   }
@@ -58,11 +61,19 @@ export class Login extends React.Component {
     return (
       <div>
         <div className={classes.container}>
+          {this.state.submitted && <Snackbar
+            open
+            autoHideDuration={4000}
+            ContentProps={{
+              'aria-describedby': 'snackbar-fab-message-id'
+            }}
+            message={<span id='snackbar-fab-message-id'>Email envoyé</span>}
+          />}
           {this.props.isLoggedIn && <Redirect to={'/'} />}
           <Alert open={this.state.alertOpen} content={this.state.error} onClose={this.handleClose} />
           <div className={classes.container}>
             <Typography variant='display1' className={classes.title}>
-              Connexion
+              Mot de passe oublié
             </Typography>
             <form onSubmit={this.handleSubmit} className={classes.form}>
               <TextField
@@ -71,27 +82,13 @@ export class Login extends React.Component {
                 InputLabelProps={{ shrink: true }}
                 className={classes.textfield}
                 fullWidth
-                name='username'
-                label='Entrer votre Identifiant'
-                placeholder='Identifiant'
-                value={this.state.username}
+                name='email'
+                type='email'
+                label='Entrer votre email'
+                placeholder='Email'
+                value={this.state.email}
                 onChange={this.handleInputChange} />
-              <TextField
-                type={'password'}
-                autoComplete='off'
-                InputLabelProps={{ shrink: true }}
-                className={classes.textfield}
-                fullWidth
-                name='password'
-                label='Entrer votre mot de passe'
-                placeholder='Mot de passe'
-                value={this.state.password}
-                onChange={this.handleInputChange} />
-              <Button type={'submit'} color='primary'>Connexion</Button>
-              <NavLink to='/mot-de-passe-oublie' style={{textDecoration: 'none'}}>
-                <Button type={'submit'} color='secondary' style={{float: 'right'}}>Mot de passe oublié ?</Button>
-              </NavLink>
-
+              <Button type={'submit'} color='primary'>Envoyer</Button>
             </form>
           </div>
         </div>
@@ -113,8 +110,8 @@ const mapStateToProps = state => {
   }
 }
 
-Login.propTypes = {
+ForgottenPassword.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default compose(withStyles(styles), connect(mapStateToProps))(Login)
+export default compose(withStyles(styles), connect(mapStateToProps))(ForgottenPassword)

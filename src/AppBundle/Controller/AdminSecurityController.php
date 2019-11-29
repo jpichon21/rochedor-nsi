@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -162,34 +164,36 @@ class AdminSecurityController extends Controller
     public function passwordRequestAction(Request $request)
     {
         $email = $request->get('email');
-        $lastname = $request->get('lastname');
-        $firstname = $request->get('firstname');
-        if (!$email || !$lastname || !$firstname) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'security.password_request.missing_infos']);
+        $user = $this->get('doctrine')->getRepository(User::class)->findOneBy(['email' => $email]);
+        if (! $user) {
+            return new JsonResponse([
+                'error' => 'user not found.'
+            ], 401);
         }
-        
-        
+
         $token = sha1(random_bytes(15));
         $expiresAt = new \DateTime();
         $expiresAt->add(new \DateInterval('PT4H'));
-        foreach ($users as $user) {
-            $user->setResetToken($token)
-            ->setResetTokenExpiresAt($expiresAt);
-            
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-            $link = $this->generateUrl('password-reset', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
-            $this->mailer->send(
-                $email,
-                $this->translator->trans('security.reset_password_request.subject'),
-                $this->renderView(
-                    'emails/security-reset-password-request-'.$request->getLocale().'.html.twig',
-                    ['link' => $link, 'user' => $user]
-                )
-            );
-        }
-        return new JsonResponse(['status' => 'ok', 'message' => 'The email has been sent']);
+
+        $user->setResetToken($token);
+        $user->setResetTokenExpiresAt($expiresAt);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        $link = $this->generateUrl('admin-password-reset', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $this->mailer->send(
+            $email,
+            $this->translator->trans('security.reset_password_request.subject'),
+            $this->renderView(
+                'emails/security-reset-password-request-'.$request->getLocale().'.html.twig',
+                ['link' => $link, 'contact' => $user]
+            )
+        );
+
+        return new JsonResponse(['status' => 'ok', 'message' => 'The email has been sent', 'removeMe' => $link]);
     }
     /**
     * @Route("/admin/password-reset/{token}",
@@ -200,11 +204,11 @@ class AdminSecurityController extends Controller
         UserPasswordEncoderInterface $encoder,
         $token
     ) {
-        $user = $repository->findUserByToken($token);
+        $user = $this->get('doctrine')->getRepository(User::class)->findOneBy(['resetToken' => $token]);
         if (!$user) {
-            return $this->render('security/password-reset.html.twig', ['user' => null]);
+            return $this->redirect($this->generateUrl('admin'));
         }
-        
+
         $form = $this->createFormBuilder($user)
         ->add('password', RepeatedType::class, array(
             'type' => PasswordType::class,

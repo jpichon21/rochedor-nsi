@@ -14,6 +14,10 @@ export const DO_LOGIN = 'DO_LOGIN'
 export const DO_LOGIN_SUCCESS = 'DO_LOGIN_SUCCESS'
 export const DO_LOGIN_FAILURE = 'DO_LOGIN_FAILURE'
 
+export const DO_FORGOTTEN_PASSWORD = 'DO_FORGOTTEN_PASSWORD'
+export const DO_FORGOTTEN_PASSWORD_SUCCESS = 'DO_FORGOTTEN_PASSWORD_SUCCESS'
+export const DO_FORGOTTEN_PASSWORD_FAILURE = 'DO_FORGOTTEN_PASSWORD_FAILURE'
+
 export function initStatus () {
   return dispatch => {
     dispatch({ type: INIT_STATUS })
@@ -77,6 +81,29 @@ export function doCheckLogin () {
       })
       .then(res => dispatch({ type: DO_LOGINCHECK_SUCCESS, ...res }))
       .catch(error => dispatch({ type: DO_LOGINCHECK_FAILURE, error: error.message }))
+  }
+}
+
+export function doForgottenPassword (email) {
+  return dispatch => {
+    dispatch({ type: DO_FORGOTTEN_PASSWORD, email })
+    return window.fetch('/api/password-request', {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({ email })
+    })
+      .then(res => {
+        if (!res.ok) {
+          return res.json()
+            .then(res => {
+              throw new Error(res.error)
+            })
+        }
+        return res.json()
+      })
+      .then(res => dispatch({ type: DO_FORGOTTEN_PASSWORD_SUCCESS, ...res }))
+      .catch(error => dispatch({ type: DO_FORGOTTEN_PASSWORD_FAILURE, error: error.message }))
   }
 }
 
