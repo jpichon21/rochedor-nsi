@@ -42,13 +42,13 @@ export class NewsList extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully' && nextProps.status !== 'News Updated') || nextProps.error) {
-      this.setState({alertOpen: true})
+      this.setState({ alertOpen: true })
     }
   }
 
   handleClose () {
     this.props.dispatch(initStatus())
-    this.setState({alertOpen: false})
+    this.setState({ alertOpen: false })
   }
 
   onLocaleChange (locale) {

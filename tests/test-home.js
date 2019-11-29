@@ -1,5 +1,5 @@
 const Nightmare = require('nightmare')
-const addContext = require('mochawesome/addContext');
+const addContext = require('mochawesome/addContext')
 
 const imgDir = './tests/reports/screenshots/'
 const baseUrl = 'https://staging.rochedor.fr'
@@ -16,17 +16,17 @@ const pages = [
   { 'name': 'home-it', 'url': '/it' }
 ]
 viewports.forEach((viewport) => {
-  describe (`Captures ${viewport.width}x${viewport.height}`, function () {
+  describe(`Captures ${viewport.width}x${viewport.height}`, function () {
     let nightmare = null
-    beforeEach (() => {
+    beforeEach(() => {
       nightmare = new Nightmare({ waitTimeout: 2000 })
       nightmare.viewport(viewport.width, viewport.height)
     })
     pages.forEach((page) => {
       this.timeout('30s')
       const url = `${baseUrl}${page.url}`
-      describe (`${page.name} ${url}`, () => {
-        it (`la page ${url} doit se charger sans erreur`, function (done) {
+      describe(`${page.name} ${url}`, () => {
+        it(`la page ${url} doit se charger sans erreur`, function (done) {
           addContext(this, `./screenshots/${page.name}-${viewport.width}x${viewport.height}.png`)
           nightmare
             .goto(url)

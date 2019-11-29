@@ -211,7 +211,7 @@
       </notes>
       <segment>
         <source>menu.six.one</source>
-        <target><![CDATA[Donner<br> du temps
+        <target><![CDATA[Dons ponctuels<br> ou réguliers
 				]]></target>
       </segment>
     </unit>
@@ -221,7 +221,7 @@
       </notes>
       <segment>
         <source>menu.six.two</source>
-        <target><![CDATA[Faire<br> un don
+        <target><![CDATA[Autres formes<br> de dons
 				]]></target>
       </segment>
     </unit>
@@ -1107,6 +1107,12 @@
         <target>Se déconnecter</target>
       </segment>
     </unit>
+    <unit id="9gZriSj" name="form.back">
+      <segment>
+        <source>form.back</source>
+        <target>Retour</target>
+      </segment>
+    </unit>
     <unit id="wYBophx" name="calendar.registration.two.title.modify.you">
       <segment>
         <source>calendar.registration.two.title.modify.you</source>
@@ -1521,7 +1527,7 @@
     <unit id="gik7lYM" name="editions.technicalreview.nbpage">
       <segment>
         <source>editions.technicalreview.nbpage</source>
-        <target>Nb. de page</target>
+        <target>Nb. de pages</target>
       </segment>
     </unit>
     <unit id="SsON85Z" name="editions.technicalreview.rubrique">
@@ -2367,7 +2373,7 @@
     <unit id="GQMkF8_" name="gift.intro">
       <segment>
         <source>gift.intro</source>
-        <target><![CDATA[Vous êtes sur le point d'effectuer un don ponctuel en ligne. Veuillez compléter le formulaire suivant ou retournez à la <a href="%link%">page de don</a>.]]></target>
+        <target><![CDATA[Pour vous joindre au mouvement de solidrarité des Amis de la Roche d'Or et soutenir notre action évangélique, merci de nous indiquer votre choix.]]></target>
       </segment>
     </unit>
     <unit id="0scb9.5" name="gift.one.title">
@@ -2385,13 +2391,34 @@
     <unit id="UZ.im44" name="gift.two.title">
       <segment>
         <source>gift.two.title</source>
-        <target>Fiche donateur</target>
+        <target>Préparer votre virement bancaire</target>
       </segment>
     </unit>
     <unit id="VAdu1Ue" name="gift.two.title.modify.you">
       <segment>
         <source>gift.two.title.modify.you</source>
         <target>Modifier vos informations</target>
+      </segment>
+    </unit>
+    <unit id="VBdu1Ue" name="gift.virementreg.date">
+      <segment>
+        <source>gift.virementreg.date</source>
+        <target>Date de début de votre virement</target>
+      </segment>
+    </unit>
+    <unit id="VBdu2Ue" name="gift.virement.date">
+      <segment>
+        <source>gift.virement.date</source>
+        <target>Date de votre virement</target>
+      </segment>
+    </unit>
+    <unit id="VCdu1Ue" name="gift.virement.descr">
+      <segment>
+        <source>gift.virement.descr</source>
+        <target>
+        Toutes les informations pour procéder à votre virement bancaire, selon l'affectation de votre don, vont vous être adressées par courriel (e-mail).
+        Si vous ne recevez pas de message dans les minutes qui suivent, nous vous invitons à consulter votre boîte SPAM ou vos courriers indésirables.
+        </target>
       </segment>
     </unit>
     <unit id="csOG4aQ" name="gift.three.title">
@@ -2415,7 +2442,7 @@
     <unit id="GD5xKg." name="gift.four.title">
       <segment>
         <source>gift.four.title</source>
-        <target>Affectation</target>
+        <target>Choix de son affectation</target>
       </segment>
     </unit>
     <unit id="jWH3OC7" name="gift.choose.allocation">
@@ -2434,12 +2461,6 @@
       <segment>
         <source>select.allocation.libre</source>
         <target>En libre affectation</target>
-      </segment>
-    </unit>
-    <unit id="yOQ0eC8" name="select.allocation.souttx">
-      <segment>
-        <source>select.allocation.souttx</source>
-        <target>Appel pressant</target>
       </segment>
     </unit>
     <unit id="otNY7_F" name="select.allocation.viecom">
@@ -2475,7 +2496,13 @@
     <unit id="jTQM.5t" name="gift.choose.payment">
       <segment>
         <source>gift.choose.payment</source>
-        <target>Choisissez une méthode de paiement</target>
+        <target>Mode de paiement</target>
+      </segment>
+    </unit>
+    <unit id="jTQM.6t" name="tax.title">
+      <segment>
+        <source>tax.title</source>
+        <target>Si vous êtes imposable</target>
       </segment>
     </unit>
     <unit id="Yj_Ar2s" name="gift.summary.title">
@@ -2548,14 +2575,44 @@
       <segment>
         <source>gift-return.success</source>
         <target><![CDATA[
-        
-        <p>Bonjour %name%,</p>
-        <p>L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.</p>
-        <p>Par votre participation de %amount% euros, vous vous joignez au mouvement de solidarité des Amis de la Roche d’Or pour soutenir notre mission d’annonce de l’Évangile.</p>
-        <p>Soyez-en encore remercié(e).</p>
-        <p>Danièle VALÈS</p>
-        <br>Retour à la page des <a href="%link%">dons</a>.
-        
+            Bonjour %name%,<br><br>
+            Laissez-nous vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, devient aussi la vôtre.<br>
+            Par votre don de %amount% euros, vous vous joignez au mouvement de solidarité des Amis de la Roche d’Or pour soutenir notre action évangélique.<br>
+            Soyez-en encore remercié(e).<br><br>
+            Un message vous est immédiatement adressé par courriel/email. Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou dans les courriers indésirables.<br>
+            Unis par la grâce de Celui qui tisse entre nous des liens de fraternité, nous vous redisons toute notre amitié.<br><br>
+            La Communauté<br><br>
+            Un reçu fiscal vous sera adressé en début d’année prochaine par courriel à l’adresse suivante : %email%<br>
+            Sinon, par courrier à :<br>
+            %name%<br>
+            %address% (3 lignes possibles)<br>
+            %zipcode% %city%<br>
+             %country%<br><br>
+            Contact secrétariat : 03 81 41 47 47 ou secretariat@rochedor.org<br>
+            Notre site : www.rochedor.fr<br>
+            Pour toute information et correspondance, rappelez-nous le numéro de référence de votre don : 19-00531
+        ]]></target>
+      </segment>
+    </unit>
+    <unit id="1yLloTj" name="gift-return.success.mail">
+      <segment>
+        <source>gift-return.success.mail</source>
+        <target><![CDATA[
+            Bonjour %name%,<br><br>
+            Laissez-nous vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, devient aussi la vôtre.<br>
+            Par votre don de %amount% euros, vous vous joignez au mouvement de solidarité des Amis de la Roche d’Or pour soutenir notre action évangélique.<br>
+            Soyez-en encore remercié(e).<br><br>
+            Unis par la grâce de Celui qui tisse entre nous des liens de fraternité, nous vous redisons toute notre amitié.<br><br>
+            La Communauté<br><br>
+            Un reçu fiscal vous sera adressé en début d’année prochaine par courriel à l’adresse suivante : %email%<br>
+            Sinon, par courrier à :<br>
+            %name%<br>
+            %address% (3 lignes possibles)<br>
+            %zipcode% %city%<br>
+             %country%<br><br>
+            Contact secrétariat : 03 81 41 47 47 ou secretariat@rochedor.org<br>
+            Notre site : www.rochedor.fr<br>
+            Pour toute information et correspondance, rappelez-nous le numéro de référence de votre don : 19-00531
         ]]></target>
       </segment>
     </unit>
@@ -2593,6 +2650,92 @@
       <segment>
         <source>gift.summary.reduction</source>
         <target>Si je suis imposable, ce don me revient à %reduction% € après déduction fiscale.</target>
+      </segment>
+    </unit>
+    <unit id="mccDfN1" name="gift.payment.return.cheque">
+      <segment>
+        <source>gift.payment.return.cheque</source>
+        <target><![CDATA[Bonjour %civility% %name%,<br><br>
+                L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
+                Par votre participation de %amount% euros en %affectation%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
+                Merci d'adresser votre chèque à :<br><br>
+                Communauté de La Roche d'Or<br>
+                25042 BESANÇON CEDEX<br><br>
+                Laissez-moi encore une fois vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br><br>
+                Danièle VALÈS]]></target>
+      </segment>
+    </unit>
+    <unit id="mccDfN8" name="gift.payment.mail.cheque">
+      <segment>
+        <source>gift.payment.mail.cheque</source>
+        <target><![CDATA[Bonjour %civility% %name%,<br><br>
+                 L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
+                 Par votre participation de %amount% euros en %affectation%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
+                 Merci d’adresser votre chèque à :<br>
+                 Communauté de La Roche d’Or <br>
+                 25042 BESANÇON CEDEX<br><br>
+                 Laissez-moi encore une fois vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br>
+                 Danièle VALÈS<br><br>
+                 Contact secrétariat : 03 81 41 47 47 ou secretariat@rochedor.org<br>
+                 Notre site : www.rochedor.fr]]></target>
+      </segment>
+    </unit>
+    <unit id="mccDfN2" name="gift.payment.return.virement">
+      <segment>
+        <source>gift.payment.return.virement</source>
+        <target><![CDATA[Bonjour %civility% %name%,<br><br>
+                L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
+                Par votre participation de %amount% euros, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br>
+                Un courriel (e-mail) vient de vous être envoyé. Il vous indique le compte bancaire sur lequel effectuer votre virement.<br><br>
+                Un reçu fiscal vous sera adressé en début d’année prochaine. Il fera apparaître l’ensemble de vos dons à la Roche d’Or.<br>
+                Laissez-moi vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br><br>
+                Danièle VALÈS]]></target>
+      </segment>
+    </unit>
+    <unit id="mccIfN2" name="gift.payment.mail.virement">
+      <segment>
+        <source>gift.payment.mail.virement</source>
+        <target><![CDATA[Bonjour %civility% %name%,<br><br>
+                 L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
+                 Par votre participation de %amount% euros en %affectation%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
+                 Nous vous remercions de faire votre virement sur le compte :<br>
+                 Banque : %bank_name%<br>
+                 Numéro de compte : %bank_account%<br>
+                 IBAN : %bank_iban%<br>
+                 SWIFT/BIC : %bank_bic%<br><br>
+                 Laissez-moi encore une fois vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br>
+                 Danièle VALÈS<br><br>
+                 Contact secrétariat : 03 81 41 47 47 ou secretariat@rochedor.org<br>
+                 Notre site : www.rochedor.fr]]></target>
+      </segment>
+    </unit>
+    <unit id="mccDf3" name="gift.payment.return.virement_regular">
+      <segment>
+        <source>gift.payment.return.virement_regular</source>
+        <target><![CDATA[Bonjour %civility% %name%,<br><br>
+                L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
+                Par votre participation de %amount% euros tous les %period%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br>
+                Un courriel (e-mail) vient de vous être envoyé. Il vous indique le compte bancaire sur lequel effectuer votre virement. Vous pourrez à tout moment interompre ce virement ou en changer le montant.<br><br>
+                Un reçu fiscal vous sera adressé en début d’année de chaque année. Il fera apparaître l’ensemble de vos dons à la Roche d’Or.<br>
+                Laissez-moi vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br><br>
+                Danièle VALÈS]]></target>
+      </segment>
+    </unit>
+    <unit id="mccDf4" name="gift.payment.mail.virement_regular">
+      <segment>
+        <source>gift.payment.mail.virement_regular</source>
+        <target><![CDATA[Bonjour %civility% %name%,<br><br>
+                 L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
+                 Par votre participation de %amount% euros par %period% en %affectation%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
+                 Nous vous remercions de faire votre virement sur le compte :<br>
+                 Banque : %bank_name%<br>
+                 Numéro de compte : %bank_account%<br>
+                 IBAN : %bank_iban%<br>
+                 SWIFT/BIC : %bank_bic%<br><br>
+                 Laissez-moi encore une fois vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br>
+                 Danièle VALÈS<br><br>
+                 Contact secrétariat : 03 81 41 47 47 ou secretariat@rochedor.org<br>
+                 Notre site : www.rochedor.fr]]></target>
       </segment>
     </unit>
     <unit id="kwp2jus" name="global.page-not-found">
@@ -2660,7 +2803,7 @@
     <unit id="l4A0hfj" name="global.secure-datas">
       <segment>
         <source>global.secure-datas</source>
-        <target>Sécurité des données</target>
+        <target>Sécurité des dons en ligne</target>
       </segment>
     </unit>
     <unit id="mo2Qk4k" name="order.accept-terms.disclaimer">
@@ -2673,16 +2816,44 @@
     <unit id="WSRB_P4" name="global.tax-code">
       <segment>
         <source>global.tax-code</source>
-        <target><![CDATA[Si vous êtes imposable en France et dans les pays européens qui le permettent, vous bénéficiez d'une réduction d'impôt.<br>
-Si vous relevez de la fiscalité française, la réduction est équivalente à 66 % du montant de votre don, dans la limite de 20 % du revenu imposable. L’excédent peut être reporté sur les 5 années suivantes et ouvre droit à la réduction d’impôt dans les mêmes conditions (Article 200 du CGI). Pour accéder au Code Général des Impôts, cliquer <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=
-LEGIARTI000018619914&cidTexte=LEGITEXT000006069577" target="_blank">ICI</a>.<br>
-Depuis 2009, la possibilité d’émission d’un reçu fiscal a été étendu aux dons et versements consentis au profit d’organismes étrangers établis dans un État membre de l’Union européenne ou dans un État membre de l’Espace économique européen ayant conclu avec la France une convention fiscale comportant une clause d’assistance administrative en vue de lutter contre la fraude ou l’évasion fiscale. Ceci est par exemple le cas pour la Belgique (en citer d’autres)]]></target>
+        <target><![CDATA[Si vous êtes imposable en France et dans les pays européens qui le permettent, vous bénéficiez d'une réduction d'impôt.<br><br>
+Si vous relevez de la fiscalité française, la réduction est équivalente à 66 % du montant de votre don, dans la limite de 20 % du revenu imposable. L’excédent peut être reporté sur les 5 années suivantes et ouvre droit à la réduction d’impôt dans les mêmes conditions (Article 200 du CGI)]]></target>
       </segment>
     </unit>
     <unit id="I3qXsyQ" name="security.email_exists">
       <segment>
         <source>security.email_exists</source>
         <target>Cette adresse email est déjà utilisée</target>
+      </segment>
+    </unit>
+    <unit id="I4qXsyQ" name="payment.cb">
+      <segment>
+        <source>payment.cb</source>
+        <target>Don ponctuel en ligne par CB</target>
+      </segment>
+    </unit>
+    <unit id="I5qXsyQ" name="payment.paypal">
+      <segment>
+        <source>payment.paypal</source>
+        <target>Don ponctuel en ligne par Paypal</target>
+      </segment>
+    </unit>
+    <unit id="I6qXsyQ" name="payment.virement">
+      <segment>
+        <source>payment.virement</source>
+        <target>Don ponctuel par virement</target>
+      </segment>
+    </unit>
+    <unit id="I7qXsyQ" name="payment.cheque">
+      <segment>
+        <source>payment.cheque</source>
+        <target>Don ponctuel par chèque</target>
+      </segment>
+    </unit>
+    <unit id="I8qXsyQ" name="payment.virement_reg">
+      <segment>
+        <source>payment.virement_reg</source>
+        <target>Don régulier par virement</target>
       </segment>
     </unit>
     <unit id="qr0aiUo" name="Invalid credentials.">
@@ -3292,6 +3463,71 @@ Pour réaliser une nouvelle inscription, cliquer sur Calendrier.]]></target>
       <segment>
         <source>calendar.no_retreat</source>
         <target>Aucune retraite ne correspond à votre recherche</target>
+      </segment>
+    </unit>
+    <unit id="9B8TMG7" name="logout.disconnect.dons">
+      <segment>
+        <source>logout.disconnect.dons</source>
+        <target>Vous avez été déconnecté du module de dons.
+Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou réguliers.</target>
+      </segment>
+    </unit>
+    <unit id="7tCDwib" name="form.choose.period">
+      <segment>
+        <source>form.choose.period</source>
+        <target>Périodicité</target>
+      </segment>
+    </unit>
+    <unit id="yOQ1eC8" name="select.period.monthly">
+      <segment>
+        <source>select.period.monthly</source>
+        <target>Mensuelle</target>
+      </segment>
+    </unit>
+    <unit id="9rO5qFQ" name="select.period.trimestre">
+      <segment>
+        <source>select.period.trimestre</source>
+        <target>Trimestrielle</target>
+      </segment>
+    </unit>
+    <unit id="otNY8_F" name="select.period.semestre">
+      <segment>
+        <source>select.period.semestre</source>
+        <target>Semestrielle</target>
+      </segment>
+    </unit>
+    <unit id="aOQ1eC8" name="select.period.monthly_label">
+      <segment>
+        <source>select.period.monthly_label</source>
+        <target>mois</target>
+      </segment>
+    </unit>
+    <unit id="xrO5qFQ" name="select.period.trimestre_label">
+      <segment>
+        <source>select.period.trimestre_label</source>
+        <target>trimestres</target>
+      </segment>
+    </unit>
+    <unit id="utNY8_F" name="select.period.semestre_label">
+      <segment>
+        <source>select.period.semestre_label</source>
+        <target>semestres</target>
+      </segment>
+    </unit>
+    <unit id="tHsOKUn" name="gift.invalid_form.amount">
+      <segment>
+        <source>gift.invalid_form.amount</source>
+        <target>
+            Merci de sélectionner un montant, une affectation et un moyen de paiement pour continuer.
+        </target>
+      </segment>
+    </unit>
+    <unit id="aHsOKUn" name="gift.invalid_form.virement">
+      <segment>
+        <source>gift.invalid_form.virement</source>
+        <target>
+            Merci de remplir tous les champs pour continuer.
+        </target>
       </segment>
     </unit>
   </file>

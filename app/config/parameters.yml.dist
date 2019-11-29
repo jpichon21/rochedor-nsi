@@ -26,6 +26,26 @@ parameters:
     paybox_identifiant: '2'
     paybox_key: 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
     paypal_url: 'https://www.sandbox.paypal.com/cgi-bin/webscr'
-    paypal_email: paypal.roche@rochedor.org
-    paypal_btn_id: GRWYKF7S4BT2U
+    paypal_email: 'paypal.roche@rochedor.org'
+    paypal_btn_id: 'GRWYKF7S4BT2U'
     upload_root_path: '%kernel.project_dir%/web/uploads'
+    bank_name.VieCom: Crédit Mutuel
+    bank_account.VieCom: 25885545
+    bank_iban.VieCom: FR76 1027 8080 0300 0258 8554 522
+    bank_bic.VieCom: CMCIFR2A
+    bank_name.Itin: Caisse d'Epargne
+    bank_account.Itin: 08800713808 43
+    bank_iban.Itin: FR76 1213 5003 00088007 1380 843
+    bank_bic.Itin: CEPAFRPP213
+    bank_name.RochTx: Crédit Agricole
+    bank_account.RochTx: 56039987469
+    bank_iban.RochTx: FR76 1250 6200 4956 0399 8746 932
+    bank_bic.RochTx: AGRIFRPP825
+    bank_name.FontTx: Crédit Lyonnais
+    bank_account.FontTx: 62004 L
+    bank_iban.FontTx: FR63 3000 2025 5500 0006 2004 L68
+    bank_bic.FontTx: CRLYFRPP
+    bank_name.Libre: Crédit Agricole
+    bank_account.Libre: 56039987469
+    bank_iban.Libre: FR76 1250 6200 4956 0399 8746 932
+    bank_bic.Libre: AGRIFRPP825

@@ -22,7 +22,7 @@ export class SpeakerEdit extends React.Component {
   }
   componentWillMount () {
     const { match: { params } } = this.props
-    this.setState({speakerId: params.speakerId})
+    this.setState({ speakerId: params.speakerId })
   }
   componentWillReceiveProps (nextProps) {
     if ((nextProps.status !== 'speaker-edit-ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully') || nextProps.error) {

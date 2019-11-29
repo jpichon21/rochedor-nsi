@@ -32,16 +32,16 @@ export const postRegister = (data) => {
     credentials: 'include',
     body: JSON.stringify(data)
   })
-  .catch(res => {
-    throw (new Error('unknown_error'))
-  })
-  .then(res => res.json())
-  .then(res => {
-    if (res.status === 'ko') {
-      throw res.message
-    }
-    return res
-  })
+    .catch(res => {
+      throw (new Error('unknown_error'))
+    })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status === 'ko') {
+        throw res.message
+      }
+      return res
+    })
 }
 
 export const checkMail = (data) => {
@@ -51,16 +51,16 @@ export const checkMail = (data) => {
     credentials: 'include',
     body: JSON.stringify(data)
   })
-  .catch(res => {
-    throw (new Error('unknown_error'))
-  })
-  .then(res => res.json())
-  .then(res => {
-    if (res.status === 'ko') {
-      throw res.message
-    }
-    return res
-  })
+    .catch(res => {
+      throw (new Error('unknown_error'))
+    })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status === 'ko') {
+        throw res.message
+      }
+      return res
+    })
 }
 
 export const postEditCli = (data) => {

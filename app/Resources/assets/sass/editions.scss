@@ -1,8 +1,17 @@
 @import '~include-media/dist/_include-media.scss';
 @import './variables';
 
+html{
+  background-color: #ffffff!important;
+}
+
+body:before {
+  background: linear-gradient(180deg,rgba(255, 255, 255, 0.9) 200px,transparent);
+}
+
 body {
-  background-color: #ffffff;
+  background-color: #ffffff!important;
+  background-image: none!important;
   &.scrollTop {
     .logo {
       &:after {
@@ -16,12 +25,20 @@ body {
     }
   }
 }
+.header .logo .editions{
+  background-image: none!important;
+}
+
+.editions{
+  background-image: url("../img/bg-7.jpg");
+}
 
 h1 {
   color: #000000;
 }
 
 h2 {
+  font-family: "azo-sans-web", sans-serif;
   margin-bottom: 20px;
   font-size: 23px;
   font-weight: 200;
@@ -31,6 +48,7 @@ h2 {
     margin-bottom: 40px;
   }
   small {
+    font-family: "azo-sans-web", sans-serif;
     display: block;
     margin-bottom: 5px;
     font-size: 14px;
@@ -77,9 +95,20 @@ h2 {
     .languages {
       ul li a {
         color: #000000;
+        transition: 0.5s ease;
+          &:hover, &:active, &:focus{
+            color: #ffffff;
+            transition: 0.5s ease;
+          }
       }
       .current li {
         border-color: #000000;
+        transition: 0.5s ease;
+          &:hover, &:active, &:focus{
+            background-color: $roche-orange;
+            border-color: $roche-orange;
+            transition: 0.5s ease;
+          }
         @include media('<limitMenuReduced') {
           a {
             color: #ffffff;
@@ -94,6 +123,13 @@ h2 {
     .zoom li {
       color: #000000;
       border-color: #000000;
+      transition: 0.5s ease;
+        &:hover, &:active, &:focus{
+          color: #ffffff;
+          border-color: $roche-orange;
+          background-color: $roche-orange;
+          transition: 0.5s ease;
+        }
     }
   }
   .logo {
@@ -142,27 +178,63 @@ h2 {
   }
 }
 
+.hidden{
+  display: none;
+  transition: .5s ease;
+}
+
+.visible{
+  display: inline-block;
+  transition: .5s ease;
+}
+
+.button:active .hidden, .button:focus .hidden, .button:hover .hidden {
+  display: inline-block!important;
+  transition: .5s ease;
+}
+
+.button:active .visible, .button:focus .visible, .button:hover .visible {
+  display: none!important;
+  transition: .5s ease;
+}
+
 .button {
   float: right;
-  padding: 9px 20px;
+  padding: 9px 10px;
   font-size: 12px;
   letter-spacing: 1.4px;
   color: #000000;
   text-decoration: none;
   text-transform: uppercase;
   border: 1px #000000 solid;
+  transition: 0.5s ease-in-out;
+  background-position: 100% 0%;
+  img{
+    padding-left: 10px;
+  }
+  &:hover, &:focus, &:active{
+    /*color: #ffffff;
+    transition: 0.5s ease-in-out;
+    background: linear-gradient(to left, transparent 50%, $roche-orange 50%);
+    background-size: 200% 100%;
+    background-position:0 110%;
+    border: 1px $roche-orange solid;*/
+    color: #ffffff;
+    -webkit-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+    background: -webkit-gradient(linear, right top, left top, color-stop(50%, transparent), color-stop(50%, $roche-orange));
+    background: -o-linear-gradient(right, transparent 50%, $roche-orange 50%);
+    background: linear-gradient(to left, transparent 50%, $roche-orange 50%);
+    background-size: 200% 100%;
+    background-position:0 110%;
+    border: 1px $roche-orange solid;
+  }
   &.right-arrow {
-    margin-bottom: 40px;
+    //margin-bottom: 40px;
+    margin-bottom: 86px;
     @include media('<large') {
       float: left;
-    }
-    &:after {
-      content: '';
-      padding-right: 6px;
-      margin-left: 10px;
-      background-image: url('../img/button-arrow-right-black.png');
-      background-position: center;
-      background-repeat: no-repeat;
     }
   }
 }
@@ -176,7 +248,7 @@ h2 {
   @include media('<large') {
     flex-direction: column;
     width: auto;
-    height: auto;
+    //height: auto;
     margin: 0 -20px 40px;
   }
   .left {
@@ -217,6 +289,7 @@ h2 {
       position: absolute;
       right: 50px;
       bottom: 10px;
+      margin-bottom: 26px;
       @include media('<large') {
         position: relative;
         right: auto;
@@ -251,10 +324,20 @@ h2 {
     }
   }
   .prev {
-    background-image: url('../img/arrow-left-orange.png');
+    background-image: url('../img/icons/arrow-left-orange.svg');
   }
   .next {
-    background-image: url('../img/arrow-right-orange.png');
+    background-image: url('../img/icons/arrow-right-orange.svg');
+  }
+}
+
+.news{
+  .products{
+    .product{
+      .description{
+        top: 195px;
+      }
+    }
   }
 }
 
@@ -270,11 +353,12 @@ h2 {
     position: relative;
     margin-bottom: 40px;
     width: 24%;
-    height: 315px;
+    height: 365px;
     overflow: hidden;
     @include media('<medium') {
       width: auto;
       margin: 0 -20px 40px;
+      height: 358px;
     }
     &:after,
     &:before {
@@ -290,11 +374,11 @@ h2 {
       }
     }
     &:after {
-      background-image: url('../img/plus-orange.png');
+      background-image: url('../img/icons/plus-white.svg');
       z-index: 2;
     }
     &:before {                
-      background-image: url('../img/plus-white.png');
+      background-image: url('../img/icons/plus-orange.svg');
       z-index: 3;
     }
     @include media('>=large') {
@@ -321,13 +405,18 @@ h2 {
           }
           .price {
             bottom: 20px;
+            //top: 20px;
           }
         }
       }
     }
     .illustration {
       position: relative;
-      height: 250px;
+      //height: 250px;
+      height: 295px;
+      @include media('>=laptop') {
+        height: 450px; 
+      }
       background-size: cover;
       background-position:  center;
       z-index: 0;
@@ -335,7 +424,11 @@ h2 {
     .description {
       position: absolute;
       width: 100%;
-      top: 190px;
+      //top: 190px;
+      top: 295px; 
+      @include media('>=laptop') {
+        top: 450px; 
+      }
       bottom: 0;
       padding: 20px;
       font-size: 12px;
@@ -375,7 +468,8 @@ h2 {
       }
       .price {
         position: absolute;
-        bottom: 80px;
+        //bottom: 80px;
+        top: 20px;
         right: 20px;
         line-height: 100%;
         font-size: 23px;
@@ -389,6 +483,8 @@ h2 {
         }
       }
       .text {
+        font-size: 14px;
+        line-height: 18px;
         position: relative;
         color: #000000;
         .long,
@@ -515,7 +611,7 @@ h2 {
         width: 100%;
         padding: 5px 40px 5px 20px;
         line-height: 20px;
-        font-family: 'Lato', sans-serif;
+        font-family: "lato", sans-serif;
         font-size: 12px;
         text-transform: uppercase;
         border: 1px $roche-brown solid;
@@ -545,6 +641,10 @@ h2 {
       color: #ffffff;
       background-color: $roche-brown;
       white-space: nowrap;
+      @include media('<=mobile'){
+        width: 100%;
+        text-align: center;
+      }
       @include media('>=xxlarge'){
         margin-top: 22px;
       }
@@ -563,9 +663,24 @@ h2 {
   .products {
     flex-wrap: nowrap;
     .product {
-      width: 50%;
+      width: 100%;
+      height: 600px;
+      @include media('<=laptop') {
+        width: 100%;
+        height: 442px;
+      }
+      @include media('<=xxlarge') {
+        height: 442px;
+      }
+      @include media('<=large') {
+        height: 442px;
+      }
+      @include media('<=medium') {
+        width: 386px;
+        height: 442px;
+      }
       margin-right: 20px;
-      @include media('<medium') {
+      @include media('<=mobile') {
         width: auto;
         margin: 0 -20px 40px;
       }
@@ -604,6 +719,7 @@ h2 {
       flex: 1;
       margin-right: 10px;
       height: 100px;
+ 
       &:last-child {
         margin-right: 0;
       }
@@ -611,7 +727,8 @@ h2 {
     .thumb {
       flex: 1;
       margin-right: 10px;
-      height: 100px;
+      //height: 100px;
+      height: 200px;
       background-size: cover;
       background-position: center;
       box-sizing: border-box;
@@ -628,26 +745,31 @@ h2 {
     }
     > .right {
       position: relative;
+      overflow: visible;
       @include media('<large') {
         padding: 40px 20px;
       }
       h1 {
+        font-family: "azo-sans-web", sans-serif;
         font-size: 24px;
-        font-weight: 100;
-        margin-bottom: 20px;
+        font-weight: 300;
+        //margin-bottom: 20px;
+        margin-bottom: 8px;
         @include media('<large') {
           font-size: 18px;
         }
       }
       h2 {
-        font-weight: 100;
+        font-family: "azo-sans-web", sans-serif;
+        font-weight: 300;
         margin-bottom: 20px;
         color: #000000;
       }
       .subtitle {
+        font-family: "azo-sans-web", sans-serif;
         margin-bottom: 5px;
         font-size: 14px;
-        font-weight: 100;
+        font-weight: 300;
         text-transform: uppercase;
         letter-spacing: 1.4px;
         @include media('<large') {
@@ -655,6 +777,7 @@ h2 {
           margin-bottom: 10px;
         }
         b {
+          font-family: "azo-sans-web", sans-serif;
           font-weight: 500;
           margin-right: 5px;
           @include media('<large') {
@@ -664,10 +787,11 @@ h2 {
         }
       }
       .price {
-        padding-top: 10px;
+        font-family: "azo-sans-web", sans-serif;
+        padding-top: 12px;
         margin-bottom: 40px;
         font-size: 30px;
-        font-weight: 100;
+        font-weight: 300;
         color: $roche-orange;
         @include media('<large') {
           font-size: 26px;
@@ -685,13 +809,21 @@ h2 {
         }
       }
       .description {
-        line-height: 18px;
+        /*line-height: 18px;
         font-size: 14px;
-        font-weight: 100;
+        font-weight: 400;
         margin-bottom: 40px;
+        font-family: "lato", sans-serif;
+        max-width: 580px;*/
+        line-height: 20px;
+        font-size: 17px;
+        font-weight: 300;
+        margin-bottom: 40px;
+        font-family: lato,sans-serif;
+        max-width: 580px;
       }
       .actions {
-        margin-bottom: 40px;
+        margin-bottom: 68px;
         a {
           display: inline-block;
           float: none;
@@ -704,9 +836,11 @@ h2 {
           }
         }
         .choice {
+          font-size: 10px;
+          font-family: "lato", sans-serif;
+          font-weight: 600;
           display: inline-block;
           margin: 0 10px;
-          font-size: 12px;
           text-transform: uppercase;
           @include media('<large') {
             display: none;
@@ -729,23 +863,27 @@ h2 {
           flex: 1;
           display: flex;
           flex-direction: column;
+          padding: 20px 20px 20px 0px;
           .line {
             display: flex;
             justify-content: space-between;
             width: 100%;
             border-bottom: 2px #ffffff solid;
+            margin-bottom: 8px;
             b {
               font-size: 12px;
               font-weight: 500;
               line-height: 16px;
               text-transform: uppercase;
               padding: 7px 0;
+              letter-spacing: 1px;
             }
             span {
+              font-family: "azo-sans-web", sans-serif;
               margin-left: 40px;
               font-size: 14px;
               line-height: 18px;
-              font-weight: 100;
+              font-weight: 300;
               padding: 6px 0;
             }
           }
@@ -900,4 +1038,9 @@ h2 {
     color: $roche-orange;
     border: 1px $roche-orange solid;
   }
+}
+
+.continueCart:hover, .cart:hover{
+  color: $roche-orange;
+  background: transparent;
 }
