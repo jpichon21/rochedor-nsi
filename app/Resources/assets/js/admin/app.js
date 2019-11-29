@@ -20,6 +20,7 @@ import UserCreate from './components/user-create/user-create'
 import HomeEdit from './components/home-edit/home-edit'
 import HomeAdmin from './components/home-admin/home-admin'
 import Login from './components/login/login'
+import ForgottenPassword from './components/forgottenPassword/forgottenPassword'
 import Logout from './components/logout/logout'
 import PrivateRoute from './components/private-route/private-route'
 import { doCheckLogin } from './actions'
@@ -64,6 +65,7 @@ export class App extends React.Component {
 
               <PrivateRoute path='/logout' exact component={Logout} />
               <Route path='/login' exact component={Login} />
+              <Route path='/mot-de-passe-oublie' exact component={ForgottenPassword} />
             </Switch>
           </Fragment>
         </HashRouter>
