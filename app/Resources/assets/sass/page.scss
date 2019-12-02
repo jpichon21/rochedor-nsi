@@ -134,7 +134,7 @@ body {
         color: $roche-yellow;
       }
       p {
-        font-family: 'lato', sans-serif;
+        font-family: 'lato', lato, sans-serif;
         font-weight: 300;
         line-height: 20px;
         font-size: 17px;
@@ -197,7 +197,7 @@ body {
           display: block;
         }
         strong {
-          font-family: 'Lato', sans-serif;
+          font-family: 'lato', lato, sans-serif;
           font-size: 12px;
           font-style: normal;
           text-transform: uppercase;
@@ -213,7 +213,7 @@ body {
         margin-bottom: 20px;
         padding: 5px 20px;
         color: #ffffff;
-        font-family: 'Lato', sans-serif;
+        font-family: 'lato', lato, sans-serif;
         border: 1px solid $roche-yellow;
         border-radius: 0;
         box-sizing: border-box;
@@ -453,7 +453,7 @@ body {
 }
 
 .content .dropdown .item blockquote em:before, .content .dropdown .item blockquote em:after{
-  font-family: 'essones-display';
+  font-family: essonnes-display, 'essonnes-display', serif;
   font-size: 60px;
   opacity: 0.4;
 }
@@ -565,6 +565,10 @@ body {
   background-size: cover;
 }
 
+
+.content{
+  overflow-y: hidden!important;
+}
 
 //FADE IN
 
