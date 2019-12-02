@@ -437,13 +437,11 @@ export class PageForm extends React.Component {
     })
   }
 
-  handleConvertFromRaw (sections) {
-    return sections.map(section => {
-      section.bodyRaw && (
-        section.body = draftToHtml(convertToRaw(section.bodyRaw.getCurrentContent()))
-      )
-      return section
-    })
+  convertFromRaw (sections) {
+    return sections.map(({bodyRaw, body, ...section}) => ({
+      ...section,
+      body: bodyRaw ? draftToHtml(convertToRaw(bodyRaw.getCurrentContent())) : body
+    }))
   }
 
   handleChangeTabs (indexTabs, indexSection) {
@@ -478,7 +476,7 @@ export class PageForm extends React.Component {
   }
 
   handleInputChange (event) {
-    event.preventDefault();
+    event.preventDefault()
     const state = immutable.set(this.state, event.target.name, event.target.value)
     this.setState(state)
   }
@@ -489,11 +487,15 @@ export class PageForm extends React.Component {
   }
 
   handleSubmit (event) {
-    event.preventDefault();
-    const sections = this.handleConvertFromRaw(this.state.page.content.sections)
-    const state = immutable.set(this.state, 'page.content.sections', sections)
-    this.setState(state, () => {
-      this.props.submitHandler(this.state.page)
+    event.preventDefault()
+    const {page: { content: { sections, ...content }, ...page }} = this.state
+
+    this.props.submitHandler({
+      ...page,
+      content: {
+        ...content,
+        sections: this.convertFromRaw(sections)
+      }
     })
   }
 
