@@ -84,6 +84,11 @@ class ContentController extends Controller
         }
 
         // remove pages based on rights
+        if (! $this->isGranted('ROLE_SUPER_ADMIN')) {
+            $pages = array_filter($pages, function (Page $page) {
+                return strlen($page->getType()) && $page->getType() !== Page::TYPE_ADMIN;
+            });
+        }
         if (! $this->isGranted('ROLE_ADMIN_CONTENT_ASSOCIATION_VIEW')) {
             $pages = array_filter($pages, function (Page $page) {
                 return strlen($page->getType()) && $page->getType() !== Page::TYPE_ASSOCIATION;

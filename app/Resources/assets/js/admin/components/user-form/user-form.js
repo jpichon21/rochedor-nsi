@@ -26,7 +26,7 @@ import {
   TableBody,
   TableRow,
   Checkbox,
-  MenuItem, Select
+  MenuItem, Select, InputLabel, FormControl
 } from '@material-ui/core'
 import SaveIcon from '@material-ui/icons/Save'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -312,21 +312,24 @@ export class UserForm extends React.Component {
             <TooltipWrapper
               title={`Role de l'utilisateur`}
             >
-              <Select
-                id={'type'}
-                fullWidth
-                className={classes.select}
-                value={this.state.user.roles[0] || ''}
-                onChange={e => this.handleChangeRole(e.target.value)}
-              >
-                {[
-                  {roleName: ROLE_SUPER_ADMIN, label: 'Admin'},
-                  {roleName: ROLE_ADMIN_ASSOCIATION, label: 'Association'},
-                  {roleName: ROLE_ADMIN_EDITION, label: 'Editions'}
-                ].map(({roleName, label}) => (
-                  <MenuItem key={roleName} value={roleName}>{label}</MenuItem>
-                ))}
-              </Select>
+              <FormControl style={{ width: '100%', marginBottom: '30px' }}>
+                <InputLabel htmlFor={'type'} shrink>Droits</InputLabel>
+                <Select
+                  id={'type'}
+                  fullWidth
+                  className={classes.select}
+                  value={this.state.user.roles[0] || ''}
+                  onChange={e => this.handleChangeRole(e.target.value)}
+                >
+                  {[
+                    {roleName: ROLE_SUPER_ADMIN, label: 'Admin'},
+                    {roleName: ROLE_ADMIN_ASSOCIATION, label: 'Association'},
+                    {roleName: ROLE_ADMIN_EDITION, label: 'Editions'}
+                  ].map(({roleName, label}) => (
+                    <MenuItem key={roleName} value={roleName}>{label}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </TooltipWrapper>
             <br />
             <br />

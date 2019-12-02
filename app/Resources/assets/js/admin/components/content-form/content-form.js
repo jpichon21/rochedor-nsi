@@ -951,7 +951,7 @@ export class PageForm extends React.Component {
                 <TooltipWrapper
                   title='Détermine qui a les droits de voir/modifier ce contenu'
                 >
-                  <FormControl style={{ width: '100%', marginBottom: '75px' }}>
+                  <FormControl style={{ width: '100%', marginBottom: '25px' }}>
                     <InputLabel htmlFor={'type'} shrink>Type de page</InputLabel>
                     <Select
                       id={'type'}
@@ -959,6 +959,8 @@ export class PageForm extends React.Component {
                       value={this.state.page.type || ''}
                       onChange={e => this.handleChangeType(e.target.value)}
                     >
+                      <MenuItem value={''}></MenuItem>
+                      <MenuItem value={'admin'}>Admin</MenuItem>
                       <MenuItem value={'association'}>Association</MenuItem>
                       <MenuItem value={'editions'}>Édition</MenuItem>
                     </Select>

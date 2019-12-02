@@ -32,6 +32,8 @@ class Page
     const TYPE_PAGE = 'page';
     const TYPE_EDITIONS = 'editions';
     const TYPE_ASSOCIATION = 'association';
+    const TYPE_ADMIN = 'admin';
+
     const TYPE_MINIMAL = 'minimal';
 
     /**
