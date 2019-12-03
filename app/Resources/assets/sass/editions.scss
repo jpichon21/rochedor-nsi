@@ -142,6 +142,9 @@ h2 {
       @include media('<limitMenuReduced') {
         bottom: -10px;
       }
+      @include media('<=mobile') {
+      bottom: -22px;
+      }
     }
     .normal {
       display: none;
@@ -813,7 +816,7 @@ h2 {
         font-size: 14px;
         font-weight: 400;
         margin-bottom: 40px;
-        font-family: "lato", sans-serif;
+        font-family: 'lato', lato, sans-serif;
         max-width: 580px;*/
         line-height: 20px;
         font-size: 17px;

@@ -605,6 +605,9 @@ body {
 
 
 #logoTaglineContainer{
+  @include media('<=mobile') {
+    display: none!important;
+  }
   position: absolute;
   width: 100%;
   top: 10px;
