@@ -450,7 +450,7 @@ body {
   }
   @include media('<=mobile') {
     background-image: linear-gradient(black, black),  url('../img/retraites-mobile.jpg')!important;
-    background-size:cover;
+    //background-size:cover;
   }
 }
 
@@ -467,7 +467,7 @@ body {
   }
   @include media('<=mobile') {
     background-image: linear-gradient(black, black),  url('../img/soutenir-mobile.jpg')!important;
-    background-size:cover;
+   // background-size:cover;
   }
 }
 
@@ -484,7 +484,7 @@ body {
   }
   @include media('<=mobile') {
     background-image: linear-gradient(black, black),  url('../img/infocontact-mobile.jpg')!important;
-    background-size:cover;
+   // background-size:cover;
   }
 }
 
@@ -501,7 +501,7 @@ body {
   }
   @include media('<=mobile') {
     background-image: linear-gradient(black, black),  url('../img/communaute-mobile.jpg')!important;
-    background-size:cover;
+   // background-size:cover;
   }
 }
 
@@ -520,13 +520,13 @@ body {
   }
   @include media('<=mobile') {
     background-image: linear-gradient(black, black),  url('../img/calendar-mobile.jpg')!important;
-    background-size:cover;
+   // background-size:cover;
   }
 }
 
 .Infos, .Informations, .Accueil, .Liens, .default-body{
   background-image: url('../img/bg-fallback.jpg');
-  background-size: cover;
+  //background-size: cover;
 }
 
 
