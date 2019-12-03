@@ -1,5 +1,7 @@
 import createFocusTrap from 'focus-trap'
-import { limitMenuReduced } from './variables'
+import {
+  limitMenuReduced
+} from './variables'
 
 // Zoom
 
@@ -14,22 +16,42 @@ const updateHeightDropdown = () => {
 }
 
 const handleClickZoomMinus = () => {
-  const a = 'zoom-4x'; const b = 'zoom-2x'
-  if (bodyClass.contains(a)) { bodyClass.remove(a); bodyClass.add(b) } else { if (bodyClass.contains(b)) { bodyClass.remove(b) } }
+  const a = 'zoom-4x';
+  const b = 'zoom-2x'
+  if (bodyClass.contains(a)) {
+    bodyClass.remove(a);
+    bodyClass.add(b)
+  } else {
+    if (bodyClass.contains(b)) {
+      bodyClass.remove(b)
+    }
+  }
   updateHeightDropdown()
 }
 
 const handleClickZoomPlus = () => {
-  const a = 'zoom-2x'; const b = 'zoom-4x'
-  if (bodyClass.contains(a)) { bodyClass.remove(a); bodyClass.add(b) } else { if (!bodyClass.contains(b)) { bodyClass.add(a) } }
+  const a = 'zoom-2x';
+  const b = 'zoom-4x'
+  if (bodyClass.contains(a)) {
+    bodyClass.remove(a);
+    bodyClass.add(b)
+  } else {
+    if (!bodyClass.contains(b)) {
+      bodyClass.add(a)
+    }
+  }
   updateHeightDropdown()
 }
 
 const zoomMinus = document.querySelector('.zoom .minus')
 const zoomPlus = document.querySelector('.zoom .plus')
 
-zoomMinus.onclick = () => { handleClickZoomMinus() }
-zoomPlus.onclick = () => { handleClickZoomPlus() }
+zoomMinus.onclick = () => {
+  handleClickZoomMinus()
+}
+zoomPlus.onclick = () => {
+  handleClickZoomPlus()
+}
 
 // Menu
 
@@ -43,9 +65,9 @@ const handleMenuHover = event => {
   const reference = menu.getAttribute('data-menu')
   let elements = document.querySelectorAll('[data-menu="' + reference + '"]')
   elements.forEach(element => {
-    event.type === 'mouseenter'
-      ? element.classList.add('active')
-      : element.classList.remove('active')
+    event.type === 'mouseenter' ?
+      element.classList.add('active') :
+      element.classList.remove('active')
   })
 }
 
@@ -53,6 +75,10 @@ const handleMenuClick = event => {
   const menu = event.target.parentNode
   const reference = menu.getAttribute('data-menu')
   let elements = document.querySelectorAll('[data-menu="' + reference + '"]')
+  let elementsAll = document.querySelectorAll('[data-menu]');
+  elementsAll.forEach(element => {
+    element.classList.remove('active')
+  })
   elements.forEach(element => {
     if (event.type === 'click') {
       element.classList.toggle('active')
@@ -61,16 +87,16 @@ const handleMenuClick = event => {
 }
 
 const handleMenuEvent = event => {
-  window.innerWidth >= limitMenuReduced
-    ? handleMenuHover(event)
-    : handleMenuClick(event)
+  window.innerWidth >= limitMenuReduced ?
+    handleMenuHover(event) :
+    handleMenuClick(event)
 }
 
 const handleHeaderHover = event => {
   if (window.innerWidth >= limitMenuReduced) {
-    event.type === 'mouseenter'
-      ? body.classList.add('menuOpened')
-      : body.classList.remove('menuOpened')
+    event.type === 'mouseenter' ?
+      body.classList.add('menuOpened') :
+      body.classList.remove('menuOpened')
   }
 }
 
@@ -127,12 +153,14 @@ document.onchange = event => {
 
 let formLock = false
 
-function getForm (element) {
+function getForm(element) {
   return element.tagName === 'FORM' ? element : getForm(element.parentElement)
 }
 
 document.onkeydown = event => {
-  if (event.which === 9 && !formLock) { event.preventDefault() }
+  if (event.which === 9 && !formLock) {
+    event.preventDefault()
+  }
 }
 
 let focusTrap
@@ -149,8 +177,12 @@ document.onclick = event => {
       focusTrap.deactivate()
     }
     focusTrap = createFocusTrap(form, {
-      onActivate: () => { formLock = true },
-      onDeactivate: () => { formLock = false },
+      onActivate: () => {
+        formLock = true
+      },
+      onDeactivate: () => {
+        formLock = false
+      },
       clickOutsideDeactivates: true,
       returnFocusOnDeactivate: null
     })
