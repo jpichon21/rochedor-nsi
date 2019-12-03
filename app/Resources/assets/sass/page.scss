@@ -163,13 +163,14 @@ body {
         margin: 0 0 20px 36px;
         padding: 20px 0;
         color: $roche-yellow;
+        margin-left: -8px;
         z-index: 1;
         &:before {
           content: '';
           position: absolute;
           top: -50px;
           bottom: -50px;
-          left: -53px;
+          left: -9px;
           width: 1px;
           background: linear-gradient(to bottom, #ffffff 0%, #000000 25%, #000000 75%, $roche-yellow 100%);
           z-index: 0;
