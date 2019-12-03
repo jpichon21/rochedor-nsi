@@ -84,7 +84,7 @@ const handleMenuClick = event => {
     allSubMenus.forEach(element => {
       element.classList.remove('active');
     });
-    submenu.classList.add('active');
+    submenu.classList.toggle('active');
   }
   /*const menu = event.target.parentNode
   const reference = menu.getAttribute('data-menu')
