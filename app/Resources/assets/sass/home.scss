@@ -225,7 +225,7 @@ body {
   vertical-align: text-top;
   margin-left: 6px;
   margin-right: -12px;
-  padding-top: 1px;
+  padding-top: 2px;
 }
 
 .button {
@@ -390,7 +390,7 @@ body {
       .button {
         margin-left: 26px;
         padding-left: 14px;
-        padding-top: 2px;
+        padding-top: 0px;
       }
       @include media('>=large') {
         em,
