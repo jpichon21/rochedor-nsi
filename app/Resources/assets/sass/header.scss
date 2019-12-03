@@ -554,8 +554,10 @@ body {
     .sub-menu {
       position: relative;
       border-top: 1px rgba(255, 243, 141, 0.2) solid;
+      transition: 1s ease;
       &.active {
         padding-top: 15px;
+        transition: 1s ease;
       }
       li {
         > a, span {
