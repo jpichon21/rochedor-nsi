@@ -72,7 +72,21 @@ const handleMenuHover = event => {
 }
 
 const handleMenuClick = event => {
-  const menu = event.target.parentNode
+  const element = event.target;
+  const parent = element.parentNode;
+  const menu = parent.parentNode;
+  const submenu = parent.querySelector('.sub-menu');
+
+  if (submenu.classList.contains('active')) {
+    submenu.classList.remove('active');
+  } else {
+    const allSubMenus = menu.querySelectorAll('.sub-menu');
+    allSubMenus.forEach(element => {
+      element.classList.remove('active');
+    });
+    submenu.classList.add('active');
+  }
+  /*const menu = event.target.parentNode
   const reference = menu.getAttribute('data-menu')
   let elements = document.querySelectorAll('[data-menu="' + reference + '"]')
   let elementsAll = document.querySelectorAll('[data-menu]');
@@ -83,7 +97,7 @@ const handleMenuClick = event => {
     if (event.type === 'click') {
       element.classList.toggle('active')
     }
-  })
+  })*/
 }
 
 const handleMenuEvent = event => {
