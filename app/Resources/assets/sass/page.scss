@@ -489,18 +489,18 @@ body {
 }
 
 .La, .Les{
-  background-image: linear-gradient(black, black), url('../img/communaute.jpg');
+  background-image: linear-gradient(black, black), url('../img/communaute-new.jpg');
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/communaute-s.jpg');
+    background-image:linear-gradient(black, black),  url('../img/communaute-s-new.jpg');
   }
   @include media('<=large') {
-    background-image: linear-gradient(black, black),  url('../img/communaute-xs.jpg');
+    background-image: linear-gradient(black, black),  url('../img/communaute-xs-new.jpg');
   }
   @include media('<=medium') {
-    background-image: linear-gradient(black, black),  url('../img/communaute-xxs.jpg');
+    background-image: linear-gradient(black, black),  url('../img/communaute-xxs-new.jpg');
   }
   @include media('<=mobile') {
-    background-image: linear-gradient(black, black),  url('../img/communaute-mobile.jpg')!important;
+    background-image: linear-gradient(black, black),  url('../img/communaute-mobile-new.jpg')!important;
     background-size:cover;
   }
 }
