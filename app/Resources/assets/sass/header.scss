@@ -609,7 +609,7 @@ body {
 
 
 #logoTaglineContainer{
-  @include media('<=mobile') {
+  @include media('<=xxlarge') {
     display: none!important;
   }
   position: absolute;
