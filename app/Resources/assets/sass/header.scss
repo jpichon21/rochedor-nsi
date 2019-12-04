@@ -1,10 +1,11 @@
 body {
   &.menuReduced {
     display: block;
-   // height: auto;
-    height: 100%;
+    //height: auto;
+    //height: 100%;
     min-height: 100vh;
     overflow-y: auto;
+    background-attachment: fixed!important;
     .footer {
       position: fixed;
       top: calc(100% - 35px);
