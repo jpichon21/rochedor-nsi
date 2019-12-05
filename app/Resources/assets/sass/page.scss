@@ -99,6 +99,9 @@ body {
       &.active {
         color: #ffffff;
         padding-bottom: 20px;
+        h2{
+          color: #fff!important;
+        }
         &:before {
           background-color: #ffffff;
         }

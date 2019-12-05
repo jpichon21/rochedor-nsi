@@ -71,6 +71,7 @@ const handleMenuHover = event => {
   })
 }
 
+
 const handleMenuClick = event => {
   const element = event.target;
   const parent = element.parentNode;
