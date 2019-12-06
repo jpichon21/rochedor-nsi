@@ -60,7 +60,7 @@ const content = document.querySelector('.content')
 const header = document.querySelector('.header')
 const menus = document.querySelectorAll('[data-menu]')
 
-const handleMenuHover = event => {
+/*const handleMenuHover = event => {
   const menu = event.target
   const reference = menu.getAttribute('data-menu')
   let elements = document.querySelectorAll('[data-menu="' + reference + '"]')
@@ -69,7 +69,7 @@ const handleMenuHover = event => {
       element.classList.add('active') :
       element.classList.remove('active')
   })
-}
+}*/
 
 
 const handleMenuClick = event => {
