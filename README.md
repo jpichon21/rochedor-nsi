@@ -57,4 +57,3 @@ The results for `bin/console doctrine:schema:update` is not forced on the databa
 
 ### TODO before prod deployment
 - [ ] list/create all pages in all languages
-- [ ] change url /don-ponctuel to /faire-un-don (check Controller)
