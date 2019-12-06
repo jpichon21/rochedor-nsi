@@ -38,7 +38,7 @@ h1 {
 }
 
 h2 {
-  font-family: "azo-sans-web", sans-serif;
+  font-family: "azo-sans-web", azo-sans-web, sans-serif;
   margin-bottom: 20px;
   font-size: 23px;
   font-weight: 200;
@@ -48,7 +48,7 @@ h2 {
     margin-bottom: 40px;
   }
   small {
-    font-family: "azo-sans-web", sans-serif;
+    font-family: "azo-sans-web", azo-sans-web, sans-serif;
     display: block;
     margin-bottom: 5px;
     font-size: 14px;
@@ -141,6 +141,9 @@ h2 {
       color: #000000;
       @include media('<limitMenuReduced') {
         bottom: -10px;
+      }
+      @include media('<=mobile') {
+      bottom: -22px;
       }
     }
     .normal {
@@ -611,7 +614,7 @@ h2 {
         width: 100%;
         padding: 5px 40px 5px 20px;
         line-height: 20px;
-        font-family: "lato", sans-serif;
+        font-family: 'lato', lato, sans-serif;
         font-size: 12px;
         text-transform: uppercase;
         border: 1px $roche-brown solid;
@@ -750,7 +753,7 @@ h2 {
         padding: 40px 20px;
       }
       h1 {
-        font-family: "azo-sans-web", sans-serif;
+        font-family: "azo-sans-web", azo-sans-web, sans-serif;
         font-size: 24px;
         font-weight: 300;
         //margin-bottom: 20px;
@@ -760,13 +763,13 @@ h2 {
         }
       }
       h2 {
-        font-family: "azo-sans-web", sans-serif;
+        font-family: "azo-sans-web", azo-sans-web, sans-serif;
         font-weight: 300;
         margin-bottom: 20px;
         color: #000000;
       }
       .subtitle {
-        font-family: "azo-sans-web", sans-serif;
+        font-family: "azo-sans-web", azo-sans-web, sans-serif;
         margin-bottom: 5px;
         font-size: 14px;
         font-weight: 300;
@@ -777,7 +780,7 @@ h2 {
           margin-bottom: 10px;
         }
         b {
-          font-family: "azo-sans-web", sans-serif;
+          font-family: "azo-sans-web", azo-sans-web, sans-serif;
           font-weight: 500;
           margin-right: 5px;
           @include media('<large') {
@@ -787,7 +790,7 @@ h2 {
         }
       }
       .price {
-        font-family: "azo-sans-web", sans-serif;
+        font-family: "azo-sans-web", azo-sans-web, sans-serif;
         padding-top: 12px;
         margin-bottom: 40px;
         font-size: 30px;
@@ -813,13 +816,13 @@ h2 {
         font-size: 14px;
         font-weight: 400;
         margin-bottom: 40px;
-        font-family: "lato", sans-serif;
+        font-family: 'lato', lato, sans-serif;
         max-width: 580px;*/
         line-height: 20px;
         font-size: 17px;
         font-weight: 300;
         margin-bottom: 40px;
-        font-family: lato,sans-serif;
+        font-family: 'lato', lato, sans-serif;
         max-width: 580px;
       }
       .actions {
@@ -837,7 +840,7 @@ h2 {
         }
         .choice {
           font-size: 10px;
-          font-family: "lato", sans-serif;
+          font-family: 'lato', lato, sans-serif;
           font-weight: 600;
           display: inline-block;
           margin: 0 10px;
@@ -879,7 +882,7 @@ h2 {
               letter-spacing: 1px;
             }
             span {
-              font-family: "azo-sans-web", sans-serif;
+              font-family: "azo-sans-web", azo-sans-web, sans-serif;
               margin-left: 40px;
               font-size: 14px;
               line-height: 18px;
