@@ -77,15 +77,16 @@ const handleMenuClick = event => {
   const parent = element.parentNode;
   const menu = parent.parentNode;
   const submenu = parent.querySelector('.sub-menu');
-
-  if (submenu.classList.contains('active')) {
-    submenu.classList.remove('active');
-  } else {
-    const allSubMenus = menu.querySelectorAll('.sub-menu');
-    allSubMenus.forEach(element => {
-      element.classList.remove('active');
-    });
-    submenu.classList.toggle('active');
+  if (event.type === 'click') {
+    if (submenu.classList.contains('active')) {
+      submenu.classList.remove('active');
+    } else {
+      const allSubMenus = menu.querySelectorAll('.sub-menu');
+      allSubMenus.forEach(element => {
+        element.classList.remove('active');
+      });
+      submenu.classList.toggle('active');
+    }
   }
   /*const menu = event.target.parentNode
   const reference = menu.getAttribute('data-menu')
