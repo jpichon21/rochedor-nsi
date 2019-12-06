@@ -60,7 +60,7 @@ const content = document.querySelector('.content')
 const header = document.querySelector('.header')
 const menus = document.querySelectorAll('[data-menu]')
 
-/*const handleMenuHover = event => {
+const handleMenuHover = event => {
   const menu = event.target
   const reference = menu.getAttribute('data-menu')
   let elements = document.querySelectorAll('[data-menu="' + reference + '"]')
@@ -69,7 +69,7 @@ const menus = document.querySelectorAll('[data-menu]')
       element.classList.add('active') :
       element.classList.remove('active')
   })
-}*/
+}
 
 
 const handleMenuClick = event => {
@@ -77,15 +77,16 @@ const handleMenuClick = event => {
   const parent = element.parentNode;
   const menu = parent.parentNode;
   const submenu = parent.querySelector('.sub-menu');
-
-  if (submenu.classList.contains('active')) {
-    submenu.classList.remove('active');
-  } else {
-    const allSubMenus = menu.querySelectorAll('.sub-menu');
-    allSubMenus.forEach(element => {
-      element.classList.remove('active');
-    });
-    submenu.classList.toggle('active');
+  if (event.type === 'click') {
+    if (submenu.classList.contains('active')) {
+      submenu.classList.remove('active');
+    } else {
+      const allSubMenus = menu.querySelectorAll('.sub-menu');
+      allSubMenus.forEach(element => {
+        element.classList.remove('active');
+      });
+      submenu.classList.toggle('active');
+    }
   }
   /*const menu = event.target.parentNode
   const reference = menu.getAttribute('data-menu')
