@@ -84,6 +84,11 @@ class ContentController extends Controller
         }
 
         // remove pages based on rights
+        if (! $this->isGranted('ROLE_SUPER_ADMIN')) {
+            $pages = array_filter($pages, function (Page $page) {
+                return strlen($page->getType()) && $page->getType() !== Page::TYPE_ADMIN;
+            });
+        }
         if (! $this->isGranted('ROLE_ADMIN_CONTENT_ASSOCIATION_VIEW')) {
             $pages = array_filter($pages, function (Page $page) {
                 return strlen($page->getType()) && $page->getType() !== Page::TYPE_ASSOCIATION;
@@ -129,6 +134,7 @@ class ContentController extends Controller
     {
         if ($version === null) {
             $em = $this->getDoctrine()->getManager();
+            /** @var Page $page */
             $page = $em->getRepository('AppBundle:Page')->findOneById($id);
             if ($page === null) {
                 return new JsonResponse(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
@@ -140,6 +146,7 @@ class ContentController extends Controller
         } else {
             $em = $this->getDoctrine()->getManager();
             $repo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry'); // we use default log entry class
+            /** @var Page $page */
             $page = $em->getRepository('AppBundle:Page')->findOneById($id);
             $logs = $repo->getLogEntries($page);
             $countLogs = count($logs) - 1;
@@ -162,7 +169,7 @@ class ContentController extends Controller
                 $page->setDescription($oldPage['description']);
             }
             if (isset($oldPage['content'])) {
-                $page->setPage($oldPage['content']);
+                $page->setContent($oldPage['content']);
             }
             if ($page->getRoutes()) {
                 $page->setTempUrl($page->getRoutes()[0]->getName());

@@ -6,7 +6,7 @@
   animation-name: intro-hidden;
   animation-delay: 13s;
   animation-fill-mode: forwards;
-  z-index: 4;
+  z-index: 3;
   &:before {
     content: '';
     position: absolute;
@@ -73,13 +73,14 @@
 }
 
 body {
-  &.intro {
+
     .intro {
       display: block;
     }
     .header,
     .footer,
     .scroll-down,
+    .logo,
     .section {
       opacity: 0;
       animation-name: intro-opacity;
@@ -88,6 +89,9 @@ body {
     }
     .header,
     .footer {
+      animation-delay: 5s;
+    }
+    .logo {
       animation-delay: 10s;
     }
     .section {
@@ -99,7 +103,7 @@ body {
     .scroll-down {
       animation-delay: 19s;
     }
-  }
+
   
 }
 
