@@ -112,7 +112,7 @@ class GiftController extends Controller
             throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
         }
         $availableLocales = $this->pageService->getAvailableLocales($page);
-        return $this->render('default/giftr.html.twig', [
+        return $this->render('default/gift.html.twig', [
             'page' => $page,
             'availableLocales' => array(),
             'countries' => $countriesJSON
