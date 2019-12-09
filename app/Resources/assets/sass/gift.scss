@@ -44,10 +44,18 @@
   .form.payment {
     width: 700px;
 
+    @include media('<medium') {
+      width: auto;
+    }
+
     label {
       display: block;
       font-size: 0.8rem;
       text-align: center;
+
+      @include media('<medium') {
+        margin-bottom: 30px;
+      }
     }
   }
   .reduction {
