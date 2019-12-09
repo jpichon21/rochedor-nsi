@@ -1,9 +1,11 @@
 body {
   &.menuReduced {
     display: block;
-    height: auto;
+    //height: auto;
+    //height: 100%;
     min-height: 100vh;
     overflow-y: auto;
+    background-attachment: fixed!important;
     .footer {
       position: fixed;
       top: calc(100% - 35px);
@@ -554,8 +556,10 @@ body {
     .sub-menu {
       position: relative;
       border-top: 1px rgba(255, 243, 141, 0.2) solid;
+      transition: 1s ease;
       &.active {
         padding-top: 15px;
+        transition: 1s ease;
       }
       li {
         > a, span {
@@ -605,6 +609,9 @@ body {
 
 
 #logoTaglineContainer{
+  @include media('<=xxlarge') {
+    display: none!important;
+  }
   position: absolute;
   width: 100%;
   top: 10px;

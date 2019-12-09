@@ -142,6 +142,9 @@ h2 {
       @include media('<limitMenuReduced') {
         bottom: -10px;
       }
+      @include media('<=mobile') {
+      bottom: -22px;
+      }
     }
     .normal {
       display: none;

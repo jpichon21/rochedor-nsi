@@ -140,12 +140,13 @@ function validateRequired (data, requiredFields) {
 function updateAmountRender () {
   if (!_amount) {
     $('.amount-render').html('')
-    return
+  } else {
+    $('.amount-render').html(amountTemplate({
+      reduction: i18n.trans('gift.summary.reduction').replace('%reduction%', parseFloat(_amount * 0.33).toFixed(2))
+    }))
   }
 
-  $('.amount-render').html(amountTemplate({
-    reduction: i18n.trans('gift.summary.reduction').replace('%reduction%', parseFloat(_amount * 0.33).toFixed(2))
-  }))
+  resizeItem($('.item.amount.active'))
 }
 
 /* Actions */
@@ -155,7 +156,8 @@ function updateAmountRender () {
 itemAmount.on('click', '.button.radio', function (event) {
   event.preventDefault()
   $('.panel.amount .button.radio').removeClass('checked')
-  const amount = $(this).addClass('checked').attr('href').substring(1)
+  const amount = $(this).val()
+
   let $amountTextAmount = $('.panel.amount .input.amount')
   if ($(this).hasClass('other')) {
     $amountTextAmount.parent().removeClass('hidden')
@@ -166,13 +168,14 @@ itemAmount.on('click', '.button.radio', function (event) {
     $amountTextAmount.val(amount)
     _amount = $amountTextAmount.val()
   }
+  $(this).addClass('checked')
   updateAmountRender()
 })
 
 itemAmount.on('keyup', '.input.amount', function () {
   _amount = $(this).val()
   updateAmountRender()
-  resizeItem($(this).parents('.item.amount.active'))
+  // resizeItem($(this).parents('.item.amount.active'))
 })
 
 /* CHOIX DE L'ALLOCATION */

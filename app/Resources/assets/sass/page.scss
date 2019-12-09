@@ -103,6 +103,9 @@ body {
       &.active {
         color: #ffffff;
         padding-bottom: 20px;
+        h2{
+          color: #fff!important;
+        }
         &:before {
           background-color: #ffffff;
         }
@@ -167,13 +170,14 @@ body {
         margin: 0 0 20px 36px;
         padding: 20px 0;
         color: $roche-yellow;
+        margin-left: -8px;
         z-index: 1;
         &:before {
           content: '';
           position: absolute;
           top: -50px;
           bottom: -50px;
-          left: -53px;
+          left: -9px;
           width: 1px;
           background: linear-gradient(to bottom, #ffffff 0%, #000000 25%, #000000 75%, $roche-yellow 100%);
           z-index: 0;
@@ -446,7 +450,7 @@ body {
     }
   }
 }
-  
+
 @keyframes blockquoteEnter {
   from { transform: translateX(40px); }
   to { transform: translateX(0px); }
@@ -491,6 +495,7 @@ body {
   }
   @include media('<=mobile') {
     background-image: linear-gradient(black, black),  url('../img/retraites-mobile.jpg')!important;
+    background-size:cover;
   }
 }
 
@@ -507,6 +512,7 @@ body {
   }
   @include media('<=mobile') {
     background-image: linear-gradient(black, black),  url('../img/soutenir-mobile.jpg')!important;
+    background-size:cover;
   }
 }
 
@@ -523,22 +529,24 @@ body {
   }
   @include media('<=mobile') {
     background-image: linear-gradient(black, black),  url('../img/infocontact-mobile.jpg')!important;
+    background-size:cover;
   }
 }
 
 .La, .Les{
-  background-image: linear-gradient(black, black), url('../img/communaute.jpg');
+  background-image: linear-gradient(black, black), url('../img/communaute-new.jpg');
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/communaute-s.jpg');
+    background-image:linear-gradient(black, black),  url('../img/communaute-s-new.jpg');
   }
   @include media('<=large') {
-    background-image: linear-gradient(black, black),  url('../img/communaute-xs.jpg');
+    background-image: linear-gradient(black, black),  url('../img/communaute-xs-new.jpg');
   }
   @include media('<=medium') {
-    background-image: linear-gradient(black, black),  url('../img/communaute-xxs.jpg');
+    background-image: linear-gradient(black, black),  url('../img/communaute-xxs-new.jpg');
   }
   @include media('<=mobile') {
-    background-image: linear-gradient(black, black),  url('../img/communaute-mobile.jpg')!important;
+    background-image: linear-gradient(black, black),  url('../img/communaute-mobile-new.jpg')!important;
+    background-size:cover;
   }
 }
 
@@ -557,6 +565,7 @@ body {
   }
   @include media('<=mobile') {
     background-image: linear-gradient(black, black),  url('../img/calendar-mobile.jpg')!important;
+    background-size:cover;
   }
 }
 
@@ -567,7 +576,7 @@ body {
 
 
 .content{
-  overflow-y: hidden!important;
+  //overflow-y: hidden!important;
 }
 
 //FADE IN
