@@ -1092,7 +1092,7 @@
     <unit id="UfVO5kV" name="calendar.registration.one.body.disconnected">
       <segment>
         <source>calendar.registration.one.body.disconnected</source>
-        <target>Avez-vous déjà participé à une retraite à la Roche d'Or ou aux Fontanilles ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
+        <target><![CDATA[Avez-vous déjà participé à une retraite à la Roche d'Or ou aux Fontanilles ? <span class="italic">(nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</span>]]></target>
       </segment>
     </unit>
     <unit id="Hp62ZON" name="form.continue">

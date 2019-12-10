@@ -1121,7 +1121,7 @@
     <unit id="UfVO5kV" name="calendar.registration.one.body.disconnected">
       <segment>
         <source>calendar.registration.one.body.disconnected</source>
-        <target>Haben Sie schon an Einkehrtagent in Roche d'Or oder den Fontanilles teilgenommen? (wir würden gerne wissen, ob wir Ihre Kontaktdaten bereits haben oder nicht)</target>
+        <target><![CDATA[Haben Sie schon an Einkehrtagent in Roche d'Or oder den Fontanilles teilgenommen? <span class="italic">(wir würden gerne wissen, ob wir Ihre Kontaktdaten bereits haben oder nicht)</span>]]></target>
       </segment>
     </unit>
     <unit id="Hp62ZON" name="form.continue">
