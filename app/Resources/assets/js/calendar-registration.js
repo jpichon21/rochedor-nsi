@@ -30,6 +30,7 @@ moment.locale(_locale)
 /* Countries */
 
 const _countries = JSON.parse($('.countries-json').html())
+const _preferredCountries = JSON.parse($('.preferred-countries-json').html())
 
 /* Variables */
 
@@ -137,6 +138,7 @@ function updateYouFormRender (errors = [], updatedParticipant = {}, register = f
     errors: errors,
     participant: {..._participant, ...updatedParticipant},
     countries: _countries,
+    preferredCountries: _preferredCountries,
     civilites: [
       i18n.trans('form.civilite.mr'),
       i18n.trans('form.civilite.mme'),
@@ -154,6 +156,7 @@ function updateHimFormRender (errors = [], updatedParticipant = {}) {
     errors: errors,
     participant: {..._participant,...updatedParticipant},
     countries: _countries,
+    preferredCountries: _preferredCountries,
     registered: _registered.filter(p => p.check),
     you: _you,
     civilites: [
