@@ -252,13 +252,12 @@ function formatParticipant (data) {
 
 // Fonction fournie par Hubert de LRDO pour formattage des noms/prénom
 function NomPropre(SMot, Opt) {
-  var Lig, C1, C2, C3, C4, C5, Mot, M1, M2, Mx
+  var Lig, C, C1, C2, C3, C4, C5, Mot, Mx, M1, M2
   if (!SMot) return ""
   Mx = SMot.length
 
   Mot = SMot.toLowerCase()
   Lig = Mot.substr(0,1).toUpperCase()
-  var C = 1
   for (C=1; C<Mx; C++) {
     C1 = Mot.substr(C-1,1)
     C2 = Mot.substr(C,1)
@@ -269,7 +268,7 @@ function NomPropre(SMot, Opt) {
     if ("de du d' le la l' et ".indexOf(M1)>=0 || "rue des les ".indexOf(M2)>=0) {
       Lig=Lig + C2
     }else{
-      if (" ,;./-'".indexOf(C1)>=0)  Lig += C2.toUpperCase();  else  Lig += C2
+      if (" ,;./-'#".indexOf(C1)>=0)  Lig += C2.toUpperCase();  else  Lig += C2
     }
   }
 
