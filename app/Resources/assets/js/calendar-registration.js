@@ -40,11 +40,18 @@ let _went = []
 let _participant = {}
 let _participants = []
 let _existingRef = ''
+let _registrationBegan = false
 
 const itemConnection = $('.item.connection')
 const itemParticipants = $('.item.participants')
 const itemValidation = $('.item.validation')
 const content = $('.content')
+
+window.addEventListener('beforeunload', (event) => {
+  if (_registrationBegan) {
+    event.returnValue = i18n.trans('registration.not_finished')
+  }
+})
 
 function changeItem (elmt) {
   $('.dropdown .item').each(function () {
@@ -179,6 +186,7 @@ function afterLogin (user) {
   _participants = [_you]
   updateYouRender()
   getRegistered(_infos.idact).then(data => {
+    _registrationBegan = true
     let attendees = data.attendees
     let registered = []
     _existingRef = data.alreadyRegisteredRef
@@ -727,6 +735,7 @@ itemParticipants.on('click', '.validate-participants', function (event) {
     setParent()
     getLogin().then((res) => {
       postRegistered(_participants, _infos.idact, _existingRef).then(res => {
+        _registrationBegan = false
         let result = $('.result', itemValidation).html()
         result = result.replace('%entry_number%', res)
         $('.result', itemValidation).html(result)

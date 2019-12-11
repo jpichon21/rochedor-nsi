@@ -3294,5 +3294,11 @@ Pour réaliser une nouvelle inscription, cliquer sur Calendrier.]]></target>
         <target>Aucune retraite ne correspond à votre recherche</target>
       </segment>
     </unit>
+    <unit id="sdhufn9B9TMG9" name="registration.not_finished">
+      <segment>
+        <source>registration.not_finished</source>
+        <target>Votre demande d'inscription n'est pas finalisée, êtes-vous sûr(e) de vouloir quitter la page ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

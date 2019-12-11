@@ -2790,5 +2790,11 @@ Kommentar erstellt</target>
         <target>Filter schliessen</target>
       </segment>
     </unit>
+    <unit id="sdhufn9B9TMG9" name="registration.not_finished">
+      <segment>
+        <source>registration.not_finished</source>
+        <target>Ihre Registrierungsanfrage wurde nicht abgeschlossen. Möchten Sie die Seite wirklich verlassen?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

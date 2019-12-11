@@ -966,5 +966,11 @@
         <target></target>
       </segment>
     </unit>
+    <unit id="sdhufn9B9TMG9" name="registration.not_finished">
+      <segment>
+        <source>registration.not_finished</source>
+        <target>Su solicitud de registro no se ha finalizado, ¿está seguro de que desea abandonar la página?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
