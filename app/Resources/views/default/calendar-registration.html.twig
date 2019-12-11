@@ -309,10 +309,10 @@
     
     <div class="pure-u-1 pure-u-md-1-2 lieu-wrapper <% if (participant.transport !== 'train') { %> hidden <% } %>">
         <select class="select lieu <%= (_.escape(participant.lieu) != '') ? 'white' : '' %>" name="lieu">
-            <option <%= (_.escape(participant.lieu) == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
-            <option <%= (_.escape(participant.lieu) == 'viotte') ? 'selected' : '' %> value="viotte">{{ 'form.lieu.viotte' | trans | raw }}</option>
-            <option <%= (_.escape(participant.lieu) == 'besancon-tgv') ? 'selected' : '' %> value="besancon-tgv">{{ 'form.lieu.besancon-tgv' | trans | raw }}</option>
-            <option <%= (_.escape(participant.lieu) == 'ne-sait-pas') ? 'selected' : '' %> value="ne-sait-pas">{{ 'form.lieu.ne-sait-pas' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == 'viotte') ? 'selected' : '' %> value="viotte">{{ 'form.lieu.viotte' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == 'besancon-tgv') ? 'selected' : '' %> value="besancon-tgv">{{ 'form.lieu.besancon-tgv' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == 'ne-sait-pas') ? 'selected' : '' %> value="ne-sait-pas">{{ 'form.lieu.ne-sait-pas' | trans | raw }}</option>
         </select>
     </div>
     <div class="pure-u-1 pure-u-md-1-2 arriv-wrapper <% if (participant.transport !== 'train') { %> hidden <% } %>">
@@ -431,10 +431,10 @@
     </div>
     <div class="pure-u-1 pure-u-md-1-2 lieu-wrapper <% if (participant.transport !== 'train') { %> hidden <% } %>">
         <select class="select lieu <%= (_.escape(participant.lieu) != '') ? 'white' : '' %>" name="lieu">
-            <option <%= (_.escape(participant.lieu) == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
-            <option <%= (_.escape(participant.lieu) == 'viotte') ? 'selected' : '' %> value="viotte">{{ 'form.lieu.viotte' | trans | raw }}</option>
-            <option <%= (_.escape(participant.lieu) == 'besancon-tgv') ? 'selected' : '' %> value="besancon-tgv">{{ 'form.lieu.besancon-tgv' | trans | raw }}</option>
-            <option <%= (_.escape(participant.lieu) == 'ne-sait-pas') ? 'selected' : '' %> value="ne-sait-pas">{{ 'form.lieu.ne-sait-pas' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == 'viotte') ? 'selected' : '' %> value="viotte">{{ 'form.lieu.viotte' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == 'besancon-tgv') ? 'selected' : '' %> value="besancon-tgv">{{ 'form.lieu.besancon-tgv' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == 'ne-sait-pas') ? 'selected' : '' %> value="ne-sait-pas">{{ 'form.lieu.ne-sait-pas' | trans | raw }}</option>
         </select>
     </div>
     <div class="pure-u-1 pure-u-md-1-2 arriv-wrapper <% if (participant.transport !== 'train') { %> hidden <% } %>">
