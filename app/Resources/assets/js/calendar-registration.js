@@ -253,6 +253,10 @@ function formatParticipant (data) {
   return participant
 }
 
+// $(document).on('change', '.input.prenom, .input.nom', function() {
+//   console.log($(this).val())
+//   $(this).val(NomPropre($(this).val()))
+// })
 // Fonction fournie par Hubert de LRDO pour formattage des noms/prénom
 function NomPropre(SMot, Opt) {
   var Lig, C, C1, C2, C3, C4, C5, Mot, Mx, M1, M2
