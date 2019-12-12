@@ -14,7 +14,7 @@ deploy_dev:
     - echo "$SSH_PRIVATE_KEY" | ssh-add -
   environment:
     name: dev
-    url: https://nsi.cartron.fr
+    url: https://nsi.rochedor.fr
   only: 
     - dev
   script:

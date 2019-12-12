@@ -67,17 +67,25 @@
             <div class="nouveautes">
                 <h2>Nouveautés</h2>
                 {% for article in news %}
-                    <i>{{article.intro}}</i>
-                    <div class="text">
-                        <p>{{article.description}}</p>
+                    <div {% if not loop.first %}style="display: none"{% endif %}>
+                        <i>{{article.intro}}</i>
+                        <div class="text">
+                            <p>{{article.description}}</p>
+                        </div>
+                        {% if article.url %}
+                            <a class="button black" href="{{article.url}}">
+                                Découvrir <img class="button-arrow visible" src="{{ asset('assets/img/button-arrow-right-black.png') }}">
+                                <img class="button-arrow hidden" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}">
+                            </a>
+                        {% endif %}
                     </div>
-                    {% if article.url %}
-                        <a class="button black" href="{{article.url}}">
-                            Découvrir <img class="button-arrow visible" src="{{ asset('assets/img/button-arrow-right-black.png') }}">
-                            <img class="button-arrow hidden" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}">
-                        </a>
-                    {% endif %}
                 {% endfor %}
+                {% if news|length > 1 %}
+                    <div class="news_nav">
+                        <button class="news_nav_prev" />
+                        <button class="news_nav_next" />
+                    </div>
+                {% endif %}
             </div>
         {% endif %}
     </div>

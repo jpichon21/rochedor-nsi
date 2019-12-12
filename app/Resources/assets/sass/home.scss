@@ -462,7 +462,7 @@ body {
       position: relative;
       width: 25%;
       margin-right: 40px;
-      overflow: hidden;
+      //overflow: hidden;
       z-index: 2;
       @include media('<xlarge') {
         width: 35%
@@ -500,6 +500,19 @@ body {
           z-index: -1;
         }
       }
+
+      .news_nav {
+        position: absolute;
+        bottom: -30px;
+        button {
+          width: 30px;
+          height: 30px;
+
+          background: transparent;
+          border: 1px #000 solid;
+        }
+      }
+
       h2 {
         margin-bottom: 20px;
         font-size: 20px;
