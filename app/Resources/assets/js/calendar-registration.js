@@ -255,16 +255,13 @@ function formatParticipant (data) {
   participant.codco = parseInt(participant.codco)
   participant.datnaiss = moment(participant.datnaiss, 'DD/MM/YYYY').format()
 
-  let nomPrenom = NomPropre(participant.prenom + '#' + participant.nom)
-  participant.prenom = nomPrenom.substr(0, nomPrenom.indexOf('#'))
-  participant.nom = nomPrenom.substr(nomPrenom.indexOf('#') + 1, nomPrenom.length)
   return participant
 }
 
-// $(document).on('change', '.input.prenom, .input.nom', function() {
-//   console.log($(this).val())
-//   $(this).val(NomPropre($(this).val()))
-// })
+$(document).on('change', '.input.prenom, .input.nom, .input.ville', function() {
+  $(this).val(NomPropre($(this).val()))
+})
+
 // Fonction fournie par Hubert de LRDO pour formattage des noms/prénom
 function NomPropre(SMot, Opt) {
   var Lig, C, C1, C2, C3, C4, C5, Mot, Mx, M1, M2
