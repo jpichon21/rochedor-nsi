@@ -58,14 +58,17 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver: '%database_driver%'
-        host: '%database_host%'
-        port: '%database_port%'
-        dbname: '%database_name%'
-        user: '%database_user%'
-        password: '%database_password%'
-        path: '%database_path%'
-        charset: UTF8
+        connections:
+            default:
+                driver: '%database_driver%'
+                host: '%database_host%'
+                port: '%database_port%'
+                dbname: '%database_name%'
+                user: '%database_user%'
+                password: '%database_password%'
+                path: '%database_path%'
+                charset: UTF8
+                logging: true
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
@@ -144,3 +147,57 @@ nelmio_cors:
 
 doctrine_migrations:
     dir_name: "%kernel.root_dir%/doctrine_migrations"
+
+liip_imagine:
+    loaders:
+        default:
+            filesystem:
+                data_root:
+                    - "%upload_root_path%"
+    resolvers:
+        default:
+            web_path: ~
+    filter_sets:
+        cache: ~
+        page_carousel_small:
+            quality: 75
+            filters:
+                downscale:
+                    max: [960, 960]
+            post_processors:
+                jpegoptim: { strip_all: true, progressive: true }
+        page_carousel_full:
+            quality: 75
+            filters:
+                downscale:
+                    max: [2048, 1024]
+            post_processors:
+                jpegoptim: { strip_all: true, progressive: true }
+        product_card:
+            quality: 75
+            filters:
+                downscale:
+                    max: [800, 500]
+            post_processors:
+                jpegoptim: { strip_all: true, progressive: true }
+        product_carousel_small:
+            quality: 75
+            filters:
+                downscale:
+                    max: [500, 200]
+            post_processors:
+                jpegoptim: { strip_all: true, progressive: true }
+        product_carousel_full:
+            quality: 75
+            filters:
+                downscale:
+                    max: [1600, 1000]
+            post_processors:
+                jpegoptim: { strip_all: true, progressive: true }
+        product_highlight:
+            quality: 75
+            filters:
+                downscale:
+                    max: [2500, 1000]
+            post_processors:
+                jpegoptim: { strip_all: true, progressive: true }

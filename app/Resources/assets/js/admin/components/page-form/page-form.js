@@ -56,7 +56,19 @@ import {
   Tooltip,
   Icon
 } from '@material-ui/core'
-import IsAuthorized, { ACTION_PAGE_DELETE } from '../../isauthorized/isauthorized'
+import IsAuthorized, { ACTION_CONTENT_SUPER_ADMIN, ACTION_PAGE_DELETE } from '../../isauthorized/isauthorized'
+
+const TooltipWrapper = ({children, title}) => (
+  <Tooltip
+    enterDelay={300}
+    id='tooltip-controlled'
+    leaveDelay={100}
+    placement='bottom'
+    title={title}
+  >
+    {children}
+  </Tooltip>
+)
 
 const DragHandle = SortableHandle(() => <Icon style={{ 'cursor': 'move' }}>sort</Icon>)
 const SortableItem = SortableElement(({ section, indexSection, state, classes, context }) =>
@@ -388,6 +400,8 @@ export class PageForm extends React.Component {
     this.handleCloseAlertCrop = this.handleCloseAlertCrop.bind(this)
     this.handleOpenAlertAlt = this.handleOpenAlertAlt.bind(this)
     this.handleCloseAlertAlt = this.handleCloseAlertAlt.bind(this)
+    this.handleChangeType = this.handleChangeType.bind(this)
+    this.handleParent = this.handleParent.bind(this)
   }
 
   handleSortSections ({ oldIndex, newIndex }) {
@@ -449,12 +463,14 @@ export class PageForm extends React.Component {
 
   handleParent (event) {
     const parentKey = event.target.value
+    const parent = this.props.parents.find(page => page.id === parentKey)
     this.setState((prevState) => {
       return {
         ...prevState,
         page: {
           ...prevState.page,
-          parent_id: this.props.parents[parentKey].id
+          parent,
+          parent_id: parent.id
         },
         parentKey: parentKey
       }
@@ -743,6 +759,18 @@ export class PageForm extends React.Component {
   handleCloseAlertAlt () {
     this.setState({ AlertAltOpen: false })
   }
+  handleChangeType (value) {
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        page: {
+          ...prevState.page,
+          type: value
+        },
+        forceRefresh: Math.random()
+      }
+    })
+  }
 
   render () {
     document.addEventListener('click', event => {
@@ -905,6 +933,74 @@ export class PageForm extends React.Component {
           </Dialog>
         </Fragment>
         }
+        <IsAuthorized action={ACTION_CONTENT_SUPER_ADMIN}>
+          <Typography variant='display1' className={classes.title}>
+            ADMIN
+          </Typography>
+          <form className={classes.form}>
+            {this.state.page.locale === 'fr' && (
+              <div>
+                <TooltipWrapper
+                  title='Détermine qui a les droits de voir/modifier ce contenu'
+                >
+                  <FormControl style={{ width: '100%', marginBottom: '30px' }}>
+                    <InputLabel htmlFor={'type'} shrink>Type de page</InputLabel>
+                    <Select
+                      id={'type'}
+                      className={classes.select}
+                      value={this.state.page.type || ''}
+                      onChange={e => this.handleChangeType(e.target.value)}
+                    >
+                      <MenuItem value={'association'}>Association</MenuItem>
+                      <MenuItem value={'editions'}>Édition</MenuItem>
+                    </Select>
+                  </FormControl>
+                </TooltipWrapper>
+                <TooltipWrapper
+                  title={`La catégorie dans laquelle est rangée la page dans l'admin`}
+                >
+                  <TextField
+                    autoComplete='off'
+                    InputLabelProps={{ shrink: true }}
+                    className={classes.textfield}
+                    fullWidth
+                    multiline
+                    name='page.category'
+                    label='Catégorie'
+                    value={this.state.page.category}
+                    onChange={this.handleInputChange} />
+                </TooltipWrapper>
+              </div>
+            )}
+            {this.state.page.locale !== 'fr' &&
+              <Tooltip
+                enterDelay={300}
+                id='tooltip-controlled'
+                leaveDelay={100}
+                onClose={this.handleTooltipClose}
+                onOpen={this.handleTooltipOpen}
+                open={this.state.open}
+                placement='bottom'
+                title='Renseigner la traduction française associée'
+              >
+                <FormControl style={{ width: '100%' }}>
+                  <InputLabel htmlFor={'parent'} shrink>Page parente</InputLabel>
+                  <Select
+                    id={'parent'}
+                    className={classes.select}
+                    value={this.state.page.parent ? this.state.page.parent.id : ''}
+                    onChange={this.handleParent}
+                    inputProps={{
+                      name: 'parent_key',
+                      id: 'parent_key'
+                    }}>
+                    {parents}
+                  </Select>
+                </FormControl>
+              </Tooltip>
+            }
+          </form>
+        </IsAuthorized>
         <Typography variant='display1' className={classes.title}>
           SEO
         </Typography>
@@ -995,36 +1091,6 @@ export class PageForm extends React.Component {
               value={this.state.page.description}
               onChange={this.handleInputChange} />
           </Tooltip>
-          {
-            !this.props.edit &&
-            this.props.parents.length > 0 &&
-            this.state.page.locale !== 'fr' &&
-            <Tooltip
-              enterDelay={300}
-              id='tooltip-controlled'
-              leaveDelay={100}
-              onClose={this.handleTooltipClose}
-              onOpen={this.handleTooltipOpen}
-              open={this.state.open}
-              placement='bottom'
-              title='Renseigner la traduction française associée'
-            >
-              <FormControl style={{ width: '100%' }}>
-                <InputLabel htmlFor={'parent'} shrink>Page parente</InputLabel>
-                <Select
-                  id={'parent'}
-                  className={classes.textfield}
-                  value={this.state.parentKey}
-                  onChange={this.handleParent}
-                  inputProps={{
-                    name: 'parent_key',
-                    id: 'parent_key'
-                  }}>
-                  {parents}
-                </Select>
-              </FormControl>
-            </Tooltip>
-          }
         </form>
         <Typography variant='display1' className={classes.title}>
           Contenu
@@ -1256,7 +1322,7 @@ PageForm.propTypes = {
 }
 
 PageForm.defaultProps = {
-  parents: {},
+  parents: [],
   parentKey: 0,
   versions: [],
   page: {

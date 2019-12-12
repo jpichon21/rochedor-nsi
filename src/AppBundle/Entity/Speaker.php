@@ -27,7 +27,7 @@ class Speaker
      * @var string
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="Nom", type="string", length=255)
+     * @ORM\Column(name="Nom", type="string", length=50)
      */
     private $name;
 

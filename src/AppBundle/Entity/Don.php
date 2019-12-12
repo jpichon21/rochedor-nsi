@@ -18,12 +18,12 @@ class Don
     /**
      * @var string
      *
-     * @ORM\Column(name="RefDon", type="string", length=9, nullable=true)
+     * @ORM\Column(name="RefDon", type="string", length=9, nullable=false)
      */
     private $refdon;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Contact", inversedBy="dons")
+     * @ORM\ManyToOne(targetEntity="Contact")
      * @ORM\JoinColumn(name="DonCo", referencedColumnName="CodCo")
      */
     private $contact;
@@ -31,133 +31,133 @@ class Don
     /**
      * @var string
      *
-     * @ORM\Column(name="MntDon", type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(name="MntDon", type="decimal", precision=10, scale=2, nullable=false)
      */
     private $mntdon;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="MonDon", type="string", length=2, nullable=true)
+     * @ORM\Column(name="MonDon", type="string", length=2, nullable=false)
      */
     private $mondon;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="DestDon", type="string", length=6, nullable=true)
+     * @ORM\Column(name="DestDon", type="string", length=6, nullable=false)
      */
     private $destdon;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="BanqDon", type="integer", nullable=true)
+     * @ORM\Column(name="BanqDon", type="integer", nullable=false)
      */
     private $banqdon;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ModDon", type="string", length=6, nullable=true)
+     * @ORM\Column(name="ModDon", type="string", length=6, nullable=false)
      */
     private $moddon;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="NoDonR", type="integer", nullable=true)
+     * @ORM\Column(name="NoDonR", type="integer", nullable=false)
      */
     private $nodonr;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="ValidDon", type="boolean", nullable=true)
+     * @ORM\Column(name="ValidDon", type="boolean", nullable=false)
      */
     private $validdon;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="NoRecu", type="boolean", nullable=true)
+     * @ORM\Column(name="NoRecu", type="boolean", nullable=false)
      */
     private $norecu;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="Adhesion", type="boolean", nullable=true)
+     * @ORM\Column(name="Adhesion", type="boolean", nullable=false)
      */
     private $adhesion;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="MemoDon", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="MemoDon", type="text", length=65535, nullable=false)
      */
     private $memodon;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="DatDon", type="datetime", nullable=true)
+     * @ORM\Column(name="DatDon", type="datetime", nullable=false)
      */
     private $datdon;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="DatRecu", type="date", nullable=true)
+     * @ORM\Column(name="DatRecu", type="date", nullable=false)
      */
     private $datrecu;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="TransDon", type="string", length=20, nullable=true)
+     * @ORM\Column(name="TransDon", type="string", length=20, nullable=false)
      */
     private $transdon;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="PaysDon", type="string", length=4, nullable=true)
+     * @ORM\Column(name="PaysDon", type="string", length=4, nullable=false)
      */
     private $paysdon;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="MsgBanq", type="string", length=20, nullable=true)
+     * @ORM\Column(name="MsgBanq", type="string", length=20, nullable=false)
      */
     private $msgbanq;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="EnregDon", type="datetime", nullable=true)
+     * @ORM\Column(name="EnregDon", type="datetime", nullable=false)
      */
     private $enregdon;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="CreatDon", type="string", length=15, nullable=true)
+     * @ORM\Column(name="CreatDon", type="string", length=15, nullable=false)
      */
     private $creatdon;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="OldDon", type="integer", nullable=true)
+     * @ORM\Column(name="OldDon", type="integer", nullable=false)
      */
     private $olddon;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="CodDon", type="integer", nullable=true)
+     * @ORM\Column(name="CodDon", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -166,7 +166,7 @@ class Don
     /**
      * @var string
      *
-     * @ORM\Column(name="Status", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Status", type="string", length=10, nullable=false)
      */
     private $status;
 
@@ -184,8 +184,8 @@ class Don
         $this->norecu = 0;
         $this->adhesion = 0;
         $this->memodon = '';
-        $this->datdon = new \DateTime('0000-00-00 00:00:00');
-        $this->datrecu = new \DateTime('0000-00-00 00:00:00');
+        $this->datdon = new \DateTime();
+        $this->datrecu = new \DateTime();
         $this->transdon = '';
         $this->paysdon = '';
         $this->msgbanq = '';

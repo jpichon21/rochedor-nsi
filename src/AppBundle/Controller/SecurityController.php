@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Service\Mailer;
 use AppBundle\Entity\Contact;
 use AppBundle\Form\RegisterType;
@@ -155,10 +156,6 @@ class SecurityController extends Controller
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide contact object']);
         }
  
-        if (!$this->isAdult($contactReq['datnaiss'])) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'user.security_child']);
-        }
-
         if ($repository->findContactByUsername($contactReq['username'])) {
             return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);
         }
@@ -410,24 +407,20 @@ class SecurityController extends Controller
     /**
     * @Route("{_locale}/logout-message/{from}", name="logout-message")
     */
-    public function logoutMessageAction(Request $request, $from)
-    {  
-        if ($from === "edition"){
-            return $this->render('default/logout-message-white.html.twig', array(
-            ));
-        } else {
-            return $this->render('default/logout-message-black.html.twig', array(
-                'background' => 4
-            ));
-        }
-    }
-
-    private function isAdult(string $datnaiss)
+    public function logoutMessageAction(Request $request, $from = null)
     {
-        $datnaiss = new \DateTime($datnaiss);
-        $now = new \DateTime();
-        $diff = $datnaiss->diff($now);
-        return ($diff->y >= $this::YEARS_ADULT);
+        $session = new Session();
+        $session->invalidate();
+        switch ($from) {
+            case 'edition':
+                return $this->render('default/logout-message-white.html.twig', array());
+            case 'calendar':
+                return $this->render('default/logout-message-calendar.html.twig', array('background' => 4));
+            case 'don-ponctuel':
+                return $this->render('default/logout-message-dons.html.twig', array('background' => 4));
+            default:
+                return $this->render('default/logout-message-black.html.twig', array('background' => 4));
+        }
     }
 
     private function isBadPassword(string $password)

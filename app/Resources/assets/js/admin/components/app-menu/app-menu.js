@@ -1,13 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { Link, NavLink, Redirect } from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Menu, MenuItem, AppBar, Toolbar, Typography, IconButton, Tooltip, Button, Divider } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import IsAuthorized, { ACTION_SPEAKER_VIEW, ACTION_HOME_VIEW, ACTION_CONTENT_VIEW, ACTION_NEWS_VIEW, ACTION_PAGE_VIEW, ACTION_USER_VIEW } from '../../isauthorized/isauthorized'
+import IsAuthorized, { ACTION_SPEAKER_VIEW, ACTION_HOME_VIEW, ACTION_CONTENT_ASSOCIATION_VIEW, ACTION_CONTENT_EDITION_VIEW, ACTION_NEWS_VIEW, ACTION_PAGE_VIEW, ACTION_USER_VIEW} from '../../isauthorized/isauthorized'
+import PeopleIcon from '@material-ui/icons/People'
+import RecentActorsIcon from '@material-ui/icons/RecentActors'
+import TocIcon from '@material-ui/icons/Toc'
+import EditIcon from '@material-ui/icons/Edit'
+import AnnouncementIcon from '@material-ui/icons/Announcement'
+import LaunchIcon from '@material-ui/icons/Launch'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import DashboardIcon from '@material-ui/icons/Dashboard'
 
 class AppMenu extends React.Component {
   constructor (props) {
@@ -82,7 +90,7 @@ class AppMenu extends React.Component {
                     className={classes.leftButton}
                     onClick={this.handleGoBack}
                     color='inherit'>
-                    <ArrowBackIcon />
+                    <ArrowBackIcon />{' '}
                   </IconButton>
                 </Tooltip>
               )
@@ -103,7 +111,7 @@ class AppMenu extends React.Component {
                     aria-haspopup='true'
                     onClick={this.handleMenu}
                     color='inherit'>
-                    <MenuIcon />
+                    <MenuIcon />{' '}
                   </IconButton>
                 </Tooltip>
               )
@@ -144,65 +152,78 @@ class AppMenu extends React.Component {
             open={menuOpen}
             onClose={this.handleCloseMenu}>
 
-            <Link to='/' target='_blank' className={classes.link}>
-              <MenuItem className={classes.visit} onClick={this.handleCloseMenu}>
-                Voir le site
+            <NavLink to='/' className={classes.link}>
+              <MenuItem onClick={this.handleCloseMenu}>
+                <DashboardIcon />{' '}
+                Tableau de bord
               </MenuItem>
-            </Link>
+            </NavLink>
+
+            <IsAuthorized action={ACTION_NEWS_VIEW} alternative={null}>
+              <Divider className={'divider'} />
+              <NavLink to='/news-list' className={classes.link}>
+                <MenuItem onClick={this.handleCloseMenu}>
+                  <AnnouncementIcon />{' '}
+                  Nouveautés
+                </MenuItem>
+              </NavLink>
+            </IsAuthorized>
+
             <Divider className={'divider'} />
+
+            <IsAuthorized action={[ACTION_CONTENT_ASSOCIATION_VIEW, ACTION_CONTENT_EDITION_VIEW]} alternative={null}>
+              <NavLink to='/content-list' className={classes.link}>
+                <MenuItem onClick={this.handleCloseMenu}>
+                  <TocIcon />{' '}
+                  Contenus
+                </MenuItem>
+              </NavLink>
+            </IsAuthorized>
+
             <IsAuthorized action={ACTION_HOME_VIEW} alternative={null}>
               <NavLink to='/home-edit' className={classes.link}>
                 <MenuItem onClick={this.handleCloseMenu}>
+                  <EditIcon />{' '}
                   Page d'accueil
                 </MenuItem>
               </NavLink>
             </IsAuthorized>
-            <IsAuthorized action={ACTION_CONTENT_VIEW} alternative={null}>
-              <NavLink to='/content-list' className={classes.link}>
-                <MenuItem onClick={this.handleCloseMenu}>
-                Liste des contenus
-                </MenuItem>
-              </NavLink>
-            </IsAuthorized>
-            <IsAuthorized action={ACTION_HOME_VIEW || ACTION_CONTENT_VIEW}>
-              <IsAuthorized action={[ACTION_SPEAKER_VIEW || ACTION_PAGE_VIEW || ACTION_NEWS_VIEW]}>
-                <Divider className={'divider'} />
-              </IsAuthorized>
-            </IsAuthorized>
-            <IsAuthorized action={ACTION_NEWS_VIEW} alternative={null}>
-              <NavLink to='/news-list' className={classes.link}>
-                <MenuItem onClick={this.handleCloseMenu}>
-                Liste des nouveautés
-                </MenuItem>
-              </NavLink>
-            </IsAuthorized>
-            <IsAuthorized action={ACTION_PAGE_VIEW} alternative={null}>
-              <NavLink to='/page-list' className={classes.link}>
-                <MenuItem onClick={this.handleCloseMenu}>
-                Liste des pages
-                </MenuItem>
-              </NavLink>
-            </IsAuthorized>
-            <IsAuthorized action={ACTION_SPEAKER_VIEW}>
-              <NavLink to='/speaker-list' className={classes.link}>
-                <MenuItem onClick={this.handleCloseMenu}>
-                  Liste des intervenants
-                </MenuItem>
-              </NavLink>
-            </IsAuthorized>
+
             <Divider className={'divider'} />
+
             <IsAuthorized action={ACTION_USER_VIEW} alternative={null}>
               <NavLink to='/user-list' className={classes.link}>
                 <MenuItem onClick={this.handleCloseMenu}>
-                Liste des utilisateurs
+                  <PeopleIcon />{' '}
+                  Utilisateurs
                 </MenuItem>
               </NavLink>
             </IsAuthorized>
+
+            <IsAuthorized action={ACTION_SPEAKER_VIEW}>
+              <NavLink to='/speaker-list' className={classes.link}>
+                <MenuItem onClick={this.handleCloseMenu}>
+                  <RecentActorsIcon />{' '}
+                  Intervenants
+                </MenuItem>
+              </NavLink>
+            </IsAuthorized>
+
+            <Divider className={'divider'} />
+
+            <a href='/' target='_blank' className={classes.link}>
+              <MenuItem className={classes.visit} onClick={this.handleCloseMenu}>
+                <LaunchIcon />{' '}
+                Voir le site
+              </MenuItem>
+            </a>
+            <Divider className={'divider'} />
             {
               isConnected
                 ? (
                   <NavLink to='/logout' className={classes.link}>
                     <MenuItem className={classes.logout} onClick={this.handleCloseMenu}>
+                      <ExitToAppIcon />{' '}
                       Déconnexion
                     </MenuItem>
                   </NavLink>

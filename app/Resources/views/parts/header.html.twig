@@ -44,13 +44,16 @@
   
     <div class="right">
         <ul class="menu">
-            <li data-menu="hbgvfc">
-                <span>{{ 'menu.four' | trans | raw }}</span>
-                <ul class="sub-menu" data-menu="hbgvfc">
-                    <li><a href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">{{ 'menu.four.one' | trans | raw }}</a></li>
-                    <li><a href="{{ localePath('infos-pratiques-des-fontanilles', app.request.locale) }}">{{ 'menu.four.two' | trans | raw }}</a></li>
-                    <li><a href="{{ localePath('accueil-des-enfants', app.request.locale) }}">{{ 'menu.four.three' | trans | raw }}</a></li>
-                    <li><a href="{{ localePath('liens-amis', app.request.locale) }}">{{ 'menu.four.four' | trans | raw }}</a></li>
+            <li data-menu="defrgt">
+                <span>{{ 'menu.six' | trans | raw }}</span>
+                <ul class="sub-menu" data-menu="defrgt">
+                    <li class="blank"></li>
+                    <li class="blank"></li>
+                    <li class="blank"></li>
+                    <li class="blank"></li>
+                    <li class="blank"></li>
+                    <li><a href="{{ localePath('don-ponctuel', app.request.locale) }}">{{ 'menu.six.one' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('dons', app.request.locale) }}">{{ 'menu.six.two' | trans | raw }}</a></li>
                 </ul>
             </li>
             <li data-menu="qzsedr">
@@ -63,16 +66,13 @@
                     <li><a href="{{ localePath('editions-collections', app.request.locale) }}">{{ 'menu.five.three' | trans | raw }}</a></li>
                 </ul>
             </li>
-            <li data-menu="defrgt">
-                <span>{{ 'menu.six' | trans | raw }}</span>
-                <ul class="sub-menu" data-menu="defrgt">
-                    <li class="blank"></li>
-                    <li class="blank"></li>
-                    <li class="blank"></li>
-                    <li class="blank"></li>
-                    <li class="blank"></li>
-                    <li><a href="{{ localePath('donner-du-temps', app.request.locale) }}">{{ 'menu.six.one' | trans | raw }}</a></li>
-                    <li><a href="{{ localePath('dons', app.request.locale) }}">{{ 'menu.six.two' | trans | raw }}</a></li>
+            <li data-menu="hbgvfc">
+                <span>{{ 'menu.four' | trans | raw }}</span>
+                <ul class="sub-menu" data-menu="hbgvfc">
+                    <li><a href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">{{ 'menu.four.one' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('infos-pratiques-des-fontanilles', app.request.locale) }}">{{ 'menu.four.two' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('accueil-des-enfants', app.request.locale) }}">{{ 'menu.four.three' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('liens-amis', app.request.locale) }}">{{ 'menu.four.four' | trans | raw }}</a></li>
                 </ul>
             </li>
         </ul>

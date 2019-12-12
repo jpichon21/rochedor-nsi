@@ -44,7 +44,7 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="Produitlong", type="text", nullable=true)
+     * @ORM\Column(name="Produitlong", type="text", nullable=false)
      */
     private $produitlong;
 
@@ -72,7 +72,7 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="Ean", type="string", length=20, nullable=true, options={"fixed"=true})
+     * @ORM\Column(name="Ean", type="string", length=20, nullable=false, options={"fixed"=true})
      */
     private $ean;
 
@@ -93,7 +93,7 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="Editeur", type="string", length=40, nullable=true)
+     * @ORM\Column(name="Editeur", type="string", length=40, nullable=false)
      */
     private $editeur;
 
@@ -107,7 +107,7 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="Datparution", type="datetime", nullable=true)
+     * @ORM\Column(name="Datparution", type="datetime", nullable=false)
      */
     private $datparution;
 
@@ -233,7 +233,7 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="Presentation", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="Presentation", type="text", length=65535, nullable=false)
      */
     private $presentation;
 
@@ -254,7 +254,7 @@ class Produit
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="Nouveaute", type="boolean", nullable=true)
+     * @ORM\Column(name="Nouveaute", type="boolean", nullable=false)
      */
     private $nouveaute;
 

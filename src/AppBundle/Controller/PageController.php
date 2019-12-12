@@ -156,7 +156,6 @@ class PageController extends Controller
     /**
      * @Rest\Get("/pages")
      * @Rest\View()
-     * @Security("has_role('ROLE_ADMIN_PAGE_VIEW')")
      * @SWG\Get(
      *  path="/pages",
      *      summary="Get requested locale pages' list",

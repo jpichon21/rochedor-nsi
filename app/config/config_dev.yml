@@ -8,17 +8,34 @@ framework:
         strict_requirements: true
     profiler: { only_exceptions: false }
 
+liip_imagine:
+    loaders:
+        default:
+            filesystem:
+                data_root:
+                    - "%upload_root_path%"
+    resolvers:
+        default:
+            web_path:
+                web_root: "%upload_root_path%"
+                cache_prefix: "images/cache"
+
 web_profiler:
     toolbar: true
     intercept_redirects: false
 
 monolog:
     handlers:
+        doctrine:
+            type: stream
+            path: '%kernel.logs_dir%/%kernel.environment%_doctrine.log'
+            level: debug
+            channels: ['doctrine']
         main:
             type: stream
             path: '%kernel.logs_dir%/%kernel.environment%.log'
             level: debug
-            channels: ['!event']
+            channels: ['!event', '!doctrine']
         console:
             type: console
             process_psr_3_messages: false

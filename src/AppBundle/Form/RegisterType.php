@@ -34,7 +34,7 @@ class RegisterType extends AbstractType
             'class' => 'input',
             'placeholder' => 'form.address']
         ])
-        ->add('cp', NumberType::class, [ 'required' => false, 'attr' => [
+        ->add('cp', TextType::class, [ 'required' => false, 'attr' => [
             'class' => 'input',
             'placeholder' => 'form.zipcode']
         ])
@@ -46,11 +46,11 @@ class RegisterType extends AbstractType
             'class' => 'input',
             'placeholder' => 'form.country']
         ])
-        ->add('tel', NumberType::class, [ 'required' => false, 'attr' => [
+        ->add('tel', TextType::class, [ 'required' => false, 'attr' => [
             'class' => 'input',
             'placeholder' => 'form.phone']
         ])
-        ->add('mobil', NumberType::class, [ 'required' => false, 'attr' => [
+        ->add('mobil', TextType::class, [ 'required' => false, 'attr' => [
             'class' => 'input',
             'placeholder' => 'form.mobile']
         ])

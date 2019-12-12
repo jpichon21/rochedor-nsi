@@ -9,7 +9,11 @@ body {
     }
   }
 }
-
+.error-message {
+  color: $roche-error-red;
+  font-style: italic;
+  font-size: 0.8em;
+}
 .content {
   .intro {
     font-style: italic;
@@ -133,7 +137,7 @@ body {
         color: $roche-yellow;
       }
       p {
-        font-family: 'lato', sans-serif;
+        font-family: 'lato', lato, sans-serif;
         font-weight: 300;
         line-height: 23px;
         font-size: 17px;
@@ -196,7 +200,7 @@ body {
           display: block;
         }
         strong {
-          font-family: 'Lato', sans-serif;
+          font-family: 'lato', lato, sans-serif;
           font-size: 12px;
           font-style: normal;
           text-transform: uppercase;
@@ -207,11 +211,12 @@ body {
       .input,
       .select,
       .textarea {
+        height:31px;
         width: 100%;
         margin-bottom: 20px;
         padding: 5px 20px;
         color: #ffffff;
-        font-family: 'Lato', sans-serif;
+        font-family: 'lato', lato, sans-serif;
         border: 1px solid $roche-yellow;
         border-radius: 0;
         box-sizing: border-box;
@@ -219,7 +224,7 @@ body {
         outline: none;
         resize: none;
         @include media('<medium') {
-          margin-bottom: 10px;
+          margin-bottom: 25px;
         }
         &::placeholder {
           color: $roche-yellow;
@@ -233,6 +238,43 @@ body {
           color: #ffffff;
           opacity: 0.5;
           cursor: not-allowed;
+        }
+        &.error {
+          & + .error-message {
+            margin-top: -15px;
+            margin-bottom: 15px;
+          }
+        }
+      }
+
+      .password-container {
+        display: flex;
+        height: 36px;
+        .password {
+          flex:1;
+          width: calc(100% - 30px);
+        }
+        .toggle-password {
+          padding: 0;
+          margin: 0;
+          background-color: $roche-yellow;
+          background-image: url('../img/eye-regular.svg');
+          background-size: cover;
+          background-size: 18px;
+          background-repeat: no-repeat;
+          background-position: 50%;
+          top: 0px;
+          right: 0px;
+          height: 31px;
+          border: none;
+          width: 30px;
+          cursor: pointer;
+          &:focus {
+            outline: none;
+          }
+        }
+        .password[type="text"]+.toggle-password {
+          background-image: url('../img/eye-slash-solid.svg');
         }
       }
       .select {
@@ -407,14 +449,14 @@ body {
     }
   }
 }
-  
+
 @keyframes blockquoteEnter {
   from { transform: translateX(40px); }
   to { transform: translateX(0px); }
 }
 
 .content .dropdown .item blockquote em:before, .content .dropdown .item blockquote em:after{
-  font-family: 'essones-display';
+  font-family: essonnes-display, 'essonnes-display', serif;
   font-size: 60px;
   opacity: 0.4;
 }

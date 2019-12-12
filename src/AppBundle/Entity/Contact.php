@@ -224,6 +224,8 @@ class Contact implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="JSCo", type="text", length=65535)
+     *
+     * @Expose
      */
     private $jsco = '';
 
@@ -330,13 +332,6 @@ class Contact implements UserInterface, \Serializable
     private $region = '';
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="PlainPassword", type="string", length=255)
-     */
-    private $plainpassword = '';
-
-    /**
      * @var string
      *
      * @ORM\Column(name="Username", type="string", length=50, unique=true, nullable=true)
@@ -424,6 +419,16 @@ class Contact implements UserInterface, \Serializable
     private $resetTokenExpiresAt;
 
     /**
+     * @Expose
+     */
+    public $colp;
+
+    /**
+     * @Expose
+     */
+    public $coltyp;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="NewFich", type="boolean", nullable=false)
@@ -432,14 +437,14 @@ class Contact implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->datnaiss = new \DateTime('0000-00-00');
-        $this->datdem = new \DateTime('0000-00-00');
+        $this->datnaiss = new \DateTime();
+        $this->datdem = new \DateTime();
         $this->enregco = new \DateTime();
-        $this->datletoca = new \DateTime('0000-00-00');
-        $this->datletpaper = new \DateTime('0000-00-00');
-        $this->datletmail = new \DateTime('0000-00-00');
-        $this->dataut16 = new \DateTime('0000-00-00');
-        $this->resetTokenExpiresAt = new \DateTime('0000-00-00');
+        $this->datletoca = new \DateTime();
+        $this->datletpaper = new \DateTime();
+        $this->datletmail = new \DateTime();
+        $this->dataut16 = new \DateTime();
+        $this->resetTokenExpiresAt = new \DateTime();
     }
 
 
@@ -1455,30 +1460,6 @@ class Contact implements UserInterface, \Serializable
     public function getRegion()
     {
         return $this->region;
-    }
-
-    /**
-     * Set plainpassword.
-     *
-     * @param string|null $plainpassword
-     *
-     * @return Contact
-     */
-    public function setPlainpassword($plainpassword = null)
-    {
-        $this->plainpassword = $plainpassword;
-
-        return $this;
-    }
-
-    /**
-     * Get plainpassword.
-     *
-     * @return string|null
-     */
-    public function getPlainpassword()
-    {
-        return $this->plainpassword;
     }
 
     /**

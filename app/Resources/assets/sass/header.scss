@@ -131,7 +131,7 @@ body {
         border: 1px #000000 solid;
         transition: 0.5s ease;
         @include media('<large') {
-            display: none;
+          display: none;
         }
         &:hover, &:active, &:focus{
           background: $roche-orange;
@@ -169,10 +169,10 @@ body {
         margin-right: -1px;
         border: 1px $roche-yellow solid;
         transition: 0.5s ease;
-          &:hover, &:active, &:focus{
-            background-color: $roche-yellow;
-            transition: 0.5s ease;
-          }
+        &:hover, &:active, &:focus{
+          background-color: $roche-yellow;
+          transition: 0.5s ease;
+        }
         a {
           display: block;
           width: 30px;
@@ -250,10 +250,10 @@ body {
     padding-top: 0;
     opacity: 0;
     transition:
-      visibility 0s 0.2s,
-      max-height 0.2s,
-      padding-top 0.2s,
-      opacity 0.2s linear;
+            visibility 0s 0.2s,
+            max-height 0.2s,
+            padding-top 0.2s,
+            opacity 0.2s linear;
     &.active {
       visibility: visible;
       opacity: 1;
@@ -601,7 +601,7 @@ body {
       border: 1px solid $roche-orange;
       color: #ffffff;
       a{
-           color: #ffffff;
+        color: #ffffff;
       }
     }
   }
@@ -620,7 +620,7 @@ body {
   #logoTagline{
     width: 132px!important;
     left: 60px;
-    z-index: 2; 
+    z-index: 2;
   }
 }
 
@@ -633,9 +633,9 @@ body {
 }
 
 .Éditions{
-    #logoTaglineContainer{
-      display: none!important;
-    }
+  #logoTaglineContainer{
+    display: none!important;
+  }
 }
 .Éditions{
   .logo:hover, .logo:active, .logo:focus{

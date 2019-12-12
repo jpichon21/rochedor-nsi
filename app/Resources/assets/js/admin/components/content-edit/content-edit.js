@@ -110,7 +110,14 @@ export class ContentEdit extends React.Component {
             </Button>
           }
         />
-        <ContentForm page={this.props.page} submitHandler={this.onSubmit} versionHandler={this.onVersionChange} edit translations={this.props.translations} />
+        <ContentForm
+          page={this.props.page}
+          submitHandler={this.onSubmit}
+          versionHandler={this.onVersionChange}
+          edit
+          translations={this.props.translations}
+          parents={this.props.parents}
+        />
       </div>
     )
   }
@@ -122,7 +129,8 @@ const mapStateToProps = state => {
     page: state.page,
     status: state.status,
     error: state.error,
-    translations: state.pageTranslations
+    translations: state.pageTranslations,
+    parents: state.pages
   }
 }
 

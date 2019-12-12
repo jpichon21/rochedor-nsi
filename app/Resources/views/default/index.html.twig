@@ -63,17 +63,22 @@
         <div class="scroll-down">
             <img src="{{ asset('assets/img/scroll.png') }}" alt="Déroulez pour voir la suite">
         </div>
-        {% if lastNews %}
-        <div class="nouveautes">
-            <h2>Nouveautés</h2>
-            <i>{{lastNews.intro}}</i>
-            <div class="text">
-                <p>{{lastNews.description}}</p>
+        {% if news|length %}
+            <div class="nouveautes">
+                <h2>Nouveautés</h2>
+                {% for article in news %}
+                    <i>{{article.intro}}</i>
+                    <div class="text">
+                        <p>{{article.description}}</p>
+                    </div>
+                    {% if article.url %}
+                        <a class="button black" href="{{article.url}}">
+                            Découvrir <img class="button-arrow visible" src="{{ asset('assets/img/button-arrow-right-black.png') }}">
+                            <img class="button-arrow hidden" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}">
+                        </a>
+                    {% endif %}
+                {% endfor %}
             </div>
-            <a class="button black" href="{{lastNews.url}}">Lire la suite <img class="button-arrow visible"
-                    src="{{ asset('assets/img/button-arrow-right-black.png') }}"><img class="button-arrow hidden"
-                    src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
-        </div>
         {% endif %}
     </div>
     <div class="section section-2">
@@ -129,7 +134,6 @@
         </div>
     </div>
     <div class="section section-6">
-
         <div class="box">
             <h2>
                 <small>{{page.content['sections'][5].title|raw}}</small>

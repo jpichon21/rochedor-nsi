@@ -16,6 +16,7 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+/web/images/
 /node_modules/
 /web/assets/*
 yarn-error.log
@@ -24,3 +25,5 @@ yarn-error.log
 /web/biblio/*
 .vscode/*
 /database
+/web/media
+.idea/
