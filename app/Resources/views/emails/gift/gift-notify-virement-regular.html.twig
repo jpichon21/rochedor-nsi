@@ -1,0 +1,5 @@
+<h2><center>{{ 'payment.virement_reg'|trans|raw }}</center></h2>
+
+{% set period = period ~ '_label' %}
+{% set periodLabel = period|trans %}
+<p>{{ 'gift.payment.mail.virement_regular'|trans({'%civility%': civility, '%name%': name, '%amount%': amount, '%period%': periodLabel, '%affectation%': affectation, '%bank_name%': bank_name, '%bank_account%': bank_account, '%bank_iban%': bank_iban, '%bank_bic%': bank_bic})|raw }}</p>

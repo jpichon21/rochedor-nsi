@@ -27,26 +27,33 @@
     <div class="logo">
         {% if app.request.locale == 'fr' %}
         <a class="normal" href="/">
-            <img src="{{ asset('assets/img/logo.png') }}" alt="La Roche d'Or">
+            <img id="mainLogo" src="{{ asset('assets/img/logo.svg') }}" alt="La Roche d'Or">
         </a>
         {% else %}
         <a class="normal" href="/{{app.request.locale}}">
-            <img src="{{ asset('assets/img/logo.png') }}" alt="La Roche d'Or">
+            <img id="mainLogo" src="{{ asset('assets/img/logo.svg') }}" alt="La Roche d'Or">
         </a>
         {% endif %}
         <a class="editions" href="{{ localePath('editions-nouveautes', app.request.locale) }}">
-            <img src="{{ asset('assets/img/logo-editions.png') }}" alt="Les Editions Roche d'Or">
+            <img id="mainLogo" src="{{ asset('assets/img/logo-editions.svg') }}" alt="Les Editions Roche d'Or">
         </a>
+        <div id="logoTaglineContainer">
+          <img id="logoTagline" src="{{ asset('assets/img/logo-text.png') }}" width="170"  border="0">
+        </div>
     </div>
+  
     <div class="right">
         <ul class="menu">
-            <li data-menu="hbgvfc">
-                <span>{{ 'menu.four' | trans | raw }}</span>
-                <ul class="sub-menu" data-menu="hbgvfc">
-                    <li><a href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">{{ 'menu.four.one' | trans | raw }}</a></li>
-                    <li><a href="{{ localePath('infos-pratiques-des-fontanilles', app.request.locale) }}">{{ 'menu.four.two' | trans | raw }}</a></li>
-                    <li><a href="{{ localePath('accueil-des-enfants', app.request.locale) }}">{{ 'menu.four.three' | trans | raw }}</a></li>
-                    <li><a href="{{ localePath('liens-amis', app.request.locale) }}">{{ 'menu.four.four' | trans | raw }}</a></li>
+            <li data-menu="defrgt">
+                <span>{{ 'menu.six' | trans | raw }}</span>
+                <ul class="sub-menu" data-menu="defrgt">
+                    <li class="blank"></li>
+                    <li class="blank"></li>
+                    <li class="blank"></li>
+                    <li class="blank"></li>
+                    <li class="blank"></li>
+                    <li><a href="{{ localePath('don-ponctuel', app.request.locale) }}">{{ 'menu.six.one' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('dons', app.request.locale) }}">{{ 'menu.six.two' | trans | raw }}</a></li>
                 </ul>
             </li>
             <li data-menu="qzsedr">
@@ -59,16 +66,13 @@
                     <li><a href="{{ localePath('editions-collections', app.request.locale) }}">{{ 'menu.five.three' | trans | raw }}</a></li>
                 </ul>
             </li>
-            <li data-menu="defrgt">
-                <span>{{ 'menu.six' | trans | raw }}</span>
-                <ul class="sub-menu" data-menu="defrgt">
-                    <li class="blank"></li>
-                    <li class="blank"></li>
-                    <li class="blank"></li>
-                    <li class="blank"></li>
-                    <li class="blank"></li>
-                    <li><a href="{{ localePath('donner-du-temps', app.request.locale) }}">{{ 'menu.six.one' | trans | raw }}</a></li>
-                    <li><a href="{{ localePath('dons', app.request.locale) }}">{{ 'menu.six.two' | trans | raw }}</a></li>
+            <li data-menu="hbgvfc">
+                <span>{{ 'menu.four' | trans | raw }}</span>
+                <ul class="sub-menu" data-menu="hbgvfc">
+                    <li><a href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">{{ 'menu.four.one' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('infos-pratiques-des-fontanilles', app.request.locale) }}">{{ 'menu.four.two' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('accueil-des-enfants', app.request.locale) }}">{{ 'menu.four.three' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('liens-amis', app.request.locale) }}">{{ 'menu.four.four' | trans | raw }}</a></li>
                 </ul>
             </li>
         </ul>
@@ -84,7 +88,7 @@
             %}
             <a href="{{ path('order-' ~ app.request.locale) }}" class="cart">
                 <span class="cartSpan">{{ 'menu.cart' | trans }}</span>
-                <img src="/assets/img/cartMobile.png" alt="Panier">
+                <img src="/assets/img/cart.svg" alt="Panier" width="30px">
                 <small class="cartCount-render"></small>
             </a>
             {% endif %}
@@ -119,7 +123,10 @@
             <li class="plus">A +</li>
         </ul>
     </div>
-    <div class="burger">    
+    <div class="burger hamburger hamburger--minus">  
+        <div class="hamburger-box">
+            <div class="hamnburger-inner"></div>
+        </div>  
         <span class="cart-container menu-reduced">
             {% if
                 product is defined
@@ -130,7 +137,7 @@
             %}
             <a href="{{ path('order-' ~ app.request.locale) }}" class="cart">
                 <span class="cartSpan">{{ 'menu.cart' | trans }}</span>
-                <img src="/assets/img/cartMobile.png" alt="Panier">
+                <img src="/assets/img/cart.svg" width="30px" alt="Panier">
                 <small class="cartCount-render"></small>
             </a>
             {% endif %}

@@ -1,8 +1,117 @@
 @import './variables';
 @import './page';
 
+
+.page.gift {
+  .content .dropdown {
+    max-width: 625px;
+
+    .item {
+      .panel {
+        padding-top: 12px;
+
+        &:before {
+          background: transparent;
+        }
+      }
+
+      .button {
+        font-size: 12px;
+      }
+
+      // overrides radio button display
+      .button.radio {
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+
+        &:after {
+          display: none;
+        }
+      }
+    }
+    .panel.allocation textarea {
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.item.payment.active {
+  overflow: visible;
+}
+
+.panel.payment {
+  .form.payment {
+    width: 700px;
+
+    @include media('<medium') {
+      width: auto;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      text-align: center;
+
+      @include media('<medium') {
+        margin-bottom: 30px;
+      }
+    }
+  }
+  .reduction {
+    span {
+      display: inline-block;
+      margin-bottom: 10px;
+      line-height: 24px;
+      border-bottom: 1px #fff solid;
+    }
+    font-size: 16px;
+    line-height: 18px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+}
+#input_payment_cb,
+#input_payment_paypal,
+#input_payment_virement,
+#input_payment_cheque,
+#input_payment_virement_reg {
+  background-image: url('../img/icons/icons-yellow.png');
+  background-repeat: no-repeat;
+  background-size: 500% 100%;
+  height: 74px;
+  width: 131px;
+  border: 0;
+  margin-bottom: 0;
+}
+#input_payment_cb.checked,
+#input_payment_paypal.checked,
+#input_payment_virement.checked,
+#input_payment_cheque.checked,
+#input_payment_virement_reg.checked {
+  background-image: url('../img/icons/icons-white.png');
+}
+
+#input_payment_cb {
+  background-position: 0 0;
+}
+#input_payment_paypal {
+  background-position: 25% 0;
+}
+#input_payment_virement {
+  background-position: 50% 0;
+}
+#input_payment_cheque {
+  background-position: 75% 0;
+}
+#input_payment_virement_reg {
+  background-position: 100% 0;
+}
+
+
+
 .content {
-    .dropdown {
+  .dropdown {
     .item {
       h2 {
         cursor: default;
@@ -41,7 +150,7 @@
 .table {
   width: 100%;
   margin-bottom: 40px;
-  font-family: 'Lato', sans-serif;
+  font-family: 'lato', lato, sans-serif;
   color: $roche-yellow;
   thead {
     font-size: 12px;

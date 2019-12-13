@@ -145,11 +145,11 @@ export class HomeForm extends React.Component {
   }
 
   handleCloseVersion () {
-    this.setState({anchorVersion: null})
+    this.setState({ anchorVersion: null })
   }
 
   handleVersionOpen (event) {
-    this.setState({anchorVersion: event.currentTarget})
+    this.setState({ anchorVersion: event.currentTarget })
   }
 
   isSubmitEnabled () {

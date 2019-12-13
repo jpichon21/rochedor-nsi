@@ -23,7 +23,7 @@ class Don
     private $refdon;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Contact", inversedBy="dons")
+     * @ORM\ManyToOne(targetEntity="Contact")
      * @ORM\JoinColumn(name="DonCo", referencedColumnName="CodCo")
      */
     private $contact;
@@ -184,8 +184,8 @@ class Don
         $this->norecu = 0;
         $this->adhesion = 0;
         $this->memodon = '';
-        $this->datdon = new \DateTime('0000-00-00 00:00:00');
-        $this->datrecu = new \DateTime('0000-00-00 00:00:00');
+        $this->datdon = new \DateTime();
+        $this->datrecu = new \DateTime();
         $this->transdon = '';
         $this->paysdon = '';
         $this->msgbanq = '';

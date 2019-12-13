@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -10,6 +12,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\Role\RoleHierarchy;
+use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -19,22 +26,21 @@ use AppBundle\Entity\User;
 
 class AdminSecurityController extends Controller
 {
-     /**
-     * @var Mailer
-     */
     private $mailer;
-
-    /**
-     * @var Translator
-     */
     private $translator;
+    protected $serializer;
+    protected $roleHierarchy;
 
     public function __construct(
         Mailer $mailer,
-        Translator $translator
+        Translator $translator,
+        SerializerInterface $serializer,
+        RoleHierarchyInterface $roleHierarchy
     ) {
         $this->mailer = $mailer;
         $this->translator = $translator;
+        $this->serializer = $serializer;
+        $this->roleHierarchy = $roleHierarchy;
     }
 
     /**
@@ -59,7 +65,25 @@ class AdminSecurityController extends Controller
             ], 401);
         }
 
-        return new JsonResponse($user);
+        /** @var Serializer $serializer */
+        $serializer = $this->get('serializer');
+        return new JsonResponse(array_merge($serializer->normalize($user), ['roles' => $this->getRoles($user)]));
+    }
+
+    /**
+     * @param User $user
+     * @return array
+     */
+    protected function getRoles(User $user)
+    {
+        return array_map(
+            function (Role $role) {
+                return $role->getRole();
+            },
+            $this->roleHierarchy->getReachableRoles(array_map(function ($rawle) {
+                return new Role($rawle);
+            }, $user->getRoles()))
+        );
     }
 
     /**
@@ -140,34 +164,36 @@ class AdminSecurityController extends Controller
     public function passwordRequestAction(Request $request)
     {
         $email = $request->get('email');
-        $lastname = $request->get('lastname');
-        $firstname = $request->get('firstname');
-        if (!$email || !$lastname || !$firstname) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'security.password_request.missing_infos']);
+        $user = $this->get('doctrine')->getRepository(User::class)->findOneBy(['email' => $email]);
+        if (! $user) {
+            return new JsonResponse([
+                'error' => 'user not found.'
+            ], 401);
         }
-        
-        
+
         $token = sha1(random_bytes(15));
         $expiresAt = new \DateTime();
         $expiresAt->add(new \DateInterval('PT4H'));
-        foreach ($users as $user) {
-            $user->setResetToken($token)
-            ->setResetTokenExpiresAt($expiresAt);
-            
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-            $link = $this->generateUrl('password-reset', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
-            $this->mailer->send(
-                $email,
-                $this->translator->trans('security.reset_password_request.subject'),
-                $this->renderView(
-                    'emails/security-reset-password-request-'.$request->getLocale().'.html.twig',
-                    ['link' => $link, 'user' => $user]
-                )
-            );
-        }
-        return new JsonResponse(['status' => 'ok', 'message' => 'The email has been sent']);
+
+        $user->setResetToken($token);
+        $user->setResetTokenExpiresAt($expiresAt);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        $link = $this->generateUrl('admin-password-reset', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $this->mailer->send(
+            $email,
+            $this->translator->trans('security.reset_password_request.subject'),
+            $this->renderView(
+                'emails/security-reset-password-request-'.$request->getLocale().'.html.twig',
+                ['link' => $link, 'contact' => $user]
+            )
+        );
+
+        return new JsonResponse(['status' => 'ok', 'message' => 'The email has been sent', 'removeMe' => $link]);
     }
     /**
     * @Route("/admin/password-reset/{token}",
@@ -178,11 +204,11 @@ class AdminSecurityController extends Controller
         UserPasswordEncoderInterface $encoder,
         $token
     ) {
-        $user = $repository->findUserByToken($token);
+        $user = $this->get('doctrine')->getRepository(User::class)->findOneBy(['resetToken' => $token]);
         if (!$user) {
-            return $this->render('security/password-reset.html.twig', ['user' => null]);
+            return $this->redirect($this->generateUrl('admin'));
         }
-        
+
         $form = $this->createFormBuilder($user)
         ->add('password', RepeatedType::class, array(
             'type' => PasswordType::class,

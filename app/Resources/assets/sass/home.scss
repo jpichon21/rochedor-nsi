@@ -6,6 +6,7 @@ body {
   position: fixed;
   width: 100%;
   height: 100%;
+  background-image: none!important;
   &:before {
     z-index: 3;
   }
@@ -49,6 +50,7 @@ body {
         padding: 20px 40px 40px;
         max-height: none;
         border-color: transparent;
+
         &:before {
           background-color: rgba(0, 0, 0, 0.4);
           transition: 0.2s;
@@ -66,7 +68,10 @@ body {
   }
   &.section-1-active {
     .overlay {
-      opacity: 0.8;
+      opacity: 0.35;
+      @include media('<=mobile') {
+        opacity: 0.5;
+      }
     }
     .background,
     .sections {
@@ -78,10 +83,19 @@ body {
     }
   }
   &.section-2-active {
+    .overlay {
+      opacity: 0;
+      @include media('<=mobile') {
+        opacity: 0.3!important;
+      }
+    }
     .background {
-      transform: translate(0, calc(-13.088079235939158% + ((100vh - 17.686593562079943%) / 2)));
+      transform: translate(0, calc(-13.088079235939158% + ((100vh - 26.686593562079943%) / 2)));
       @include media('<medium') {
         transform: translate(0, calc(-13.771186440677966% + ((100vh - 35.619703389830508%) / 2)));
+      }
+      @include media('<=mobile') {
+        transform: translate(0, calc(-4.771186440677966% + ((100vh - 35.619703389830508%) / 2)));
       }
     }
     .sections {
@@ -93,10 +107,19 @@ body {
     }
   }
   &.section-3-active {
+    .overlay {
+      opacity: 0;
+      @include media('<=mobile') {
+        opacity: 0.3!important;
+      }
+    }
     .background {
-      transform: translate(0, calc(-26.176158471878316% + ((100vh - 17.686593562079943%) / 2)));
+      transform: translate(0, calc(-26.176158471878316% + ((100vh - 13.686593562079943%) / 2)));
       @include media('<medium') {
         transform: translate(0, calc(-27.67478813559322% + ((100vh - 35.619703389830508%) / 2)));
+      }
+      @include media('<=mobile') {
+        transform: translateY(calc(-12.674788% + ((100vh - 35.619703%) / 2)));
       }
     }
     .sections {
@@ -108,11 +131,22 @@ body {
     }
   }
   &.section-4-active {
+    .overlay {
+      opacity: 0;
+      @include media('<=mobile') {
+        opacity: 0.3!important;
+      }
+    }
     .background {
-      transform: translate(0, calc(-39.529536611248674% + ((100vh - 17.686593562079943%) / 2)));
+      transform: translate(0, calc(-39.529536611248674% + ((100vh - 8.686593562079943%) / 2)));
       @include media('<medium') {
         transform: translate(-50%, calc(-37.605932203389831% + ((100vh - 35.619703389830508%) / 2)));
       }
+      @include media('<=mobile') {
+        transform: translate(-0%,calc(-39.605932% + ((100vh - 35.619703%) / 2)));
+      }
+      
+
     }
     .sections {
       transform: translate(0, calc(-300% / 6));
@@ -126,10 +160,19 @@ body {
     }
   }
   &.section-5-active {
+    .overlay {
+      opacity: 0;
+      @include media('<=mobile') {
+        opacity: 0.5!important;
+      }
+    }
     .background {
       transform: translate(-50%, calc(-47.223204810753449% + ((100vh - 17.686593562079943%) / 2)));
       @include media('<medium') {
         transform: translate(-50%, calc(-50.979872881355932% + ((100vh - 35.619703389830508%) / 2)));
+      }
+      @include media('<=mobile') {
+        transform: translate(-50%,calc(-38.97987288135593% + ((100vh - 35.619703389830505%) / 2)));
       }
     }
     .sections {
@@ -141,10 +184,19 @@ body {
     }
   }
   &.section-6-active {
+    .overlay {
+      opacity: 0;
+      @include media('<=mobile') {
+        opacity: 0.5!important;
+      }
+    }
     .background {
       transform: translate(-50%, calc(-71.80756986204457% + ((100vh - 17.686593562079943%) / 2)));
       @include media('<medium') {
         transform: translate(-50%, calc(-64.486228813559322% + ((100vh - 35.619703389830508%) / 2)));
+      }
+      @include media('<=mobile') {
+        transform: translate(-50%,calc(-65.486229% + ((100vh - 35.619703389830505%) / 2)));
       }
     }
     .sections {
@@ -170,26 +222,87 @@ body {
   z-index: 2;
 }
 
+.button-arrow{
+  vertical-align: text-top;
+  margin-left: 6px;
+  margin-right: -12px;
+  padding-top: 3px;
+}
+
 .button {
   display: inline-block;
   padding: 0 25px 0 10px;
   line-height: 33px;
-  font-size: 12px;
+  font-size: 13px;
   text-transform: uppercase;
   text-decoration: none;
   letter-spacing: 1.4px;
   border: 1px transparent solid;
   background-repeat: no-repeat;
-  background-position: calc(100% - 10px) center;
+  background-position: 100% 0%;
   &.black {
     color: #000000;
     border-color: #000000;
-    background-image: url('../img/button-arrow-right-black.png');
+    transition: 0.5s ease;
   }
   &.yellow {
     color: $roche-yellow;
     border-color: $roche-yellow;
-    background-image: url('../img/button-arrow-right-yellow.png');
+    transition: 0.5s ease;
+  }
+}
+.button.yellow:hover, .button.yellow:active, .button.yellow:focus{
+  /*color: #000000;
+  transition: 0.5s ease;
+  background: linear-gradient(to left, #000000 50%, $roche-yellow 50%);
+  background-size: 200% 100%;
+  background-position:0 110%;*/
+  color: #000000;
+  -webkit-transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+  transition: 0.5s ease;
+  background: -webkit-gradient(linear, right top, left top, color-stop(50%, #000000), color-stop(50%, $roche-yellow));
+  background: -o-linear-gradient(right, #000000 50%, $roche-yellow 50%);
+  background: linear-gradient(to left, #000000 50%, $roche-yellow 50%);
+  background-size: 200% 100%;
+  background-position:0 110%;
+  .button-arrow{
+    filter: brightness(0);
+  }
+}
+
+.hidden{
+  display: none;
+  transition: 0.5s ease;
+}
+
+.visible{
+  display: inline-block;
+  transition: 0.5s ease;
+}
+
+.button.black:hover, .button.black:active, .button.black:focus{
+  /*color: $roche-yellow;
+  transition: 0.5s ease;
+  background: linear-gradient(to left, transparent 50%, #000000 50%);
+  background-size: 200% 100%;
+  background-position:0 110%;*/
+  color: $roche-yellow;
+  -webkit-transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+  transition: 0.5s ease;
+  background: -webkit-gradient(linear, right top, left top, color-stop(50%, transparent), color-stop(50%, #000000));
+  background: -o-linear-gradient(right, transparent 50%, #000000 50%);
+  background: linear-gradient(to left, transparent 50%, #000000 50%);
+  background-size: 200% 100%;
+  background-position:0 110%;
+  .visible{
+    display: none;
+    transition: 0.5s ease;
+  }
+  .hidden{
+    display: inline-block!important;
+    transition: 0.5s ease;
   }
 }
 
@@ -218,6 +331,7 @@ body {
   width: 100%;
   height: 100%;
   background-image: url('../img/overlay-begin.png');
+  background-size: cover;
   opacity: 0;
   z-index: 1;
   transition: opacity 2s linear;
@@ -267,31 +381,47 @@ body {
       }
     }
     .box {
+      z-index: 2;
       margin-left: 40px;
       padding-right: 40px;
       color: $roche-yellow;
+      @include media('<=mobile') {
+        margin-left: 10px;
+      }
+      .button {
+        margin-left: 26px;
+        padding-left: 14px;
+        padding-top: 0px;
+      }
       @include media('>=large') {
         em,
-        strong,
-        .button {
-          margin-left: 80px;
+        strong {
+          margin-left: 26px;
+          padding-left: 14px;
+          padding-top: 2px;
         }
       }
       @media screen and (max-width: 500px) {
-        padding-top: 20%;
+        //padding-top: 20%;
+        padding-top: 0%;
       }
       br {
         display: none;
       }
       h2 {
         font-size: 31px;
-        font-weight: 100;
+        font-weight: 200;
         text-transform: uppercase;
         margin-bottom: 55px;
         letter-spacing: 1px;
+        line-height: 32px;
+        padding-left: 26px;
+        @include media('<=mobile') {
+          line-height: 25px;
+          margin-bottom: 32px;
+        }
         @include media('<large') {
-          margin-bottom: 20px;
-          font-size: 25px;
+          font-size: 26px;
         }
         small {
           display: block;
@@ -333,8 +463,15 @@ body {
       position: relative;
       width: 25%;
       margin-right: 40px;
+      padding-bottom: 34px;
       overflow: hidden;
       z-index: 2;
+
+      -webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out;
+      -moz-transition:width 300ms ease-in-out, height 300ms ease-in-out;
+      -o-transition:width 300ms ease-in-out, height 300ms ease-in-out;
+      transition:width 300ms ease-in-out, height 300ms ease-in-out;
+
       @include media('<xlarge') {
         width: 35%
       }
@@ -367,15 +504,74 @@ body {
           right: 40px;
           width: 6px;
           height: 11px;
-          background-image: url('../img/button-arrow-right-yellow.png');
           transform: rotate(-90deg);
           z-index: -1;
         }
       }
+
+      > .cnews {
+        display: none;
+        position: relative;
+
+        &.active {
+          display: block;
+        }
+
+        @include media('<large') {
+          display: block;
+        }
+      }
+
+      .news_nav {
+        display: block;
+        position: absolute;
+        bottom: 0;
+
+        @include media('<large') {
+          display: none;
+        }
+
+        .news_nav_next {
+          border-left: none;
+        }
+
+        button {
+          float: left;
+
+          width: 35px;
+          height: 35px;
+
+          text-align: center;
+
+          background: transparent;
+          border: 1px #000 solid;
+
+          &:focus, &:hover {
+            outline: none;
+            border: 1px #fff solid;
+
+            -webkit-transition: 0.5s ease;
+            -o-transition: 0.5s ease;
+            transition: 0.5s ease;
+            background: -webkit-gradient(linear, right top, left top, color-stop(50%, transparent), color-stop(50%, #fff));
+            background: -o-linear-gradient(right, transparent 50%, #fff 50%);
+            background: linear-gradient(to left, transparent 50%, #fff 50%);
+            background-size: 200% 100%;
+            background-position:0 110%;
+
+            cursor: pointer;
+          }
+
+          > img {
+            padding-top: 4px;
+          }
+        }
+      }
+
       h2 {
         margin-bottom: 20px;
         font-size: 20px;
-        font-weight: 100;
+        font-weight: 200;
         color: $roche-yellow;
         text-transform: uppercase;
         letter-spacing: 1.6px;
@@ -399,12 +595,16 @@ body {
       .text {
         position: relative;
         padding: 20px;
-        margin-bottom: -18px;
         font-size: 13px;
         font-style: italic;
         line-height: 16px;
         border: 1px #000000 solid;
-        border-bottom: none;
+
+        &.with-link {
+          margin-bottom: -18px;
+          border-bottom: none;
+        }
+
         @include media('<large') {
           padding: 0;
           margin-bottom: 20px;
@@ -420,7 +620,6 @@ body {
           float: none;
           color: $roche-yellow;
           border-color: $roche-yellow;
-          background-image: url('../img/button-arrow-right-yellow.png');
         }
         &:after,
         &:before {
@@ -441,6 +640,56 @@ body {
         }
       }
     }
+  }
+}
+
+
+.page{
+  background-size:contain;
+  background: linear-gradient(black, black);
+  background-blend-mode: saturation;
+}
+
+.box{
+  p{
+    font-family: 'Playfair Display';
+    font-style: italic;
+    max-width: 340px;
+    font-size: 18px;
+    line-height: 25px;
+    margin-bottom: 55px;
+    position: relative;
+    margin-left: 26px;
+    @include media('<=mobile') {
+      font-size: 16px;
+      line-height: 20px;
+      margin-bottom: 32px;
+    }
+  }
+  p:before{
+    content: '“';
+    position: absolute;
+    left: -28px;
+    top: 2px;
+  }
+  p:after{
+    content: '”';
+    position: absolute;
+    bottom: -25px;
+  }
+  p:before, p:after{
+    font-family: essonnes-display, 'essonnes-display', serif;
+    font-size: 60px;
+    opacity: 0.4;
+  }
+}
+
+.section-2 .box, .section-4 .box, .section-5 .box{
+  p:before{
+    content: '“';
+    position: absolute;
+    left: -28px;
+    -moz-left: -28px;
   }
 }
 

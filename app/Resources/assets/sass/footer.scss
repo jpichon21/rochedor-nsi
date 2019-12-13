@@ -14,6 +14,7 @@
     }
   }
   .hover {
+    background: rgba(0,0,0,.5)!important;
     position: absolute;
     top: 0;
     display: flex;
@@ -68,5 +69,13 @@
   }
   @include media('<large') {
     display: none;
+  }
+}
+
+.Éditions, .editions{
+  .footer{
+    .hover{
+      background: rgba(222, 222, 222, 0.5)!important;
+    }
   }
 }

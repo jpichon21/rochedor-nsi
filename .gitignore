@@ -16,6 +16,7 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+/web/images/
 /node_modules/
 /web/assets/*
 yarn-error.log

@@ -53,6 +53,7 @@ security:
             anonymous: ~
             json_login:
                 check_path: /login
+            entry_point: AppBundle\Security\EntryPoint
             logout:
                 path:   /logout
                 invalidate_session: true
@@ -60,6 +61,8 @@ security:
             access_denied_handler: AppBundle\Security\AccessDeniedHandler
 
     access_control:
+        - { path: ^/admin/, role: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/api/password-request, role: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/api, role: ROLE_ADMIN}
         - { path: ^/crud, role: ROLE_ADMIN}
         - { path: ^/admin/_trans, role: ROLE_ADMIN}
