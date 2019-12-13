@@ -45,7 +45,7 @@
 <img class="background desktop" src="{{ asset('assets/img/descente-new.jpg') }}" />
 <img class="background mobile" src="{{ asset('assets/img/descente-new.jpg') }}" />
 <div class="overlay"></div>
-<div class="sections fade-in">
+<div class="sections">
     <div class="section section-1">
         <div class="box">
             <h2>
@@ -67,9 +67,9 @@
             <div class="nouveautes">
                 <h2>Nouveautés</h2>
                 {% for article in news %}
-                    <div {% if not loop.first %}style="display: none"{% endif %}>
+                    <div data-index="{{ loop.index0 }}" class="cnews {% if loop.first %}active{% endif %}">
                         <i>{{article.intro}}</i>
-                        <div class="text">
+                        <div class="text{% if article.url %} with-link{% endif %}">
                             <p>{{article.description}}</p>
                         </div>
                         {% if article.url %}
@@ -82,8 +82,12 @@
                 {% endfor %}
                 {% if news|length > 1 %}
                     <div class="news_nav">
-                        <button class="news_nav_prev" />
-                        <button class="news_nav_next" />
+                        <button class="news_nav_prev">
+                            <img class="" src="{{ asset('assets/img/button-arrow-left-black.png') }}">
+                        </button>
+                        <button class="news_nav_next">
+                            <img class="" src="{{ asset('assets/img/button-arrow-right-black.png') }}">
+                        </button>
                     </div>
                 {% endif %}
             </div>

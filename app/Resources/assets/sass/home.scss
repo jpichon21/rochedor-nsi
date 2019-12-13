@@ -50,6 +50,7 @@ body {
         padding: 20px 40px 40px;
         max-height: none;
         border-color: transparent;
+
         &:before {
           background-color: rgba(0, 0, 0, 0.4);
           transition: 0.2s;
@@ -462,8 +463,15 @@ body {
       position: relative;
       width: 25%;
       margin-right: 40px;
-      //overflow: hidden;
+      padding-bottom: 34px;
+      overflow: hidden;
       z-index: 2;
+
+      /*-webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out;
+      -moz-transition:width 300ms ease-in-out, height 300ms ease-in-out;
+      -o-transition:width 300ms ease-in-out, height 300ms ease-in-out;
+      transition:width 300ms ease-in-out, height 300ms ease-in-out;*/
+
       @include media('<xlarge') {
         width: 35%
       }
@@ -501,15 +509,61 @@ body {
         }
       }
 
+      > .cnews {
+        display: none;
+
+        &.active {
+          display: block;
+        }
+
+        @include media('<large') {
+          display: block;
+        }
+      }
+
       .news_nav {
+        display: block;
         position: absolute;
-        bottom: -30px;
+        bottom: 0;
+
+        @include media('<large') {
+          display: none;
+        }
+
+        .news_nav_next {
+          border-left: none;
+        }
+
         button {
-          width: 30px;
-          height: 30px;
+          float: left;
+
+          width: 35px;
+          height: 35px;
+
+          text-align: center;
 
           background: transparent;
           border: 1px #000 solid;
+
+          &:focus, &:hover {
+            outline: none;
+            border: 1px #fff solid;
+
+            -webkit-transition: 0.5s ease;
+            -o-transition: 0.5s ease;
+            transition: 0.5s ease;
+            background: -webkit-gradient(linear, right top, left top, color-stop(50%, transparent), color-stop(50%, #fff));
+            background: -o-linear-gradient(right, transparent 50%, #fff 50%);
+            background: linear-gradient(to left, transparent 50%, #fff 50%);
+            background-size: 200% 100%;
+            background-position:0 110%;
+
+            cursor: pointer;
+          }
+
+          > img {
+            padding-top: 4px;
+          }
         }
       }
 
@@ -540,12 +594,16 @@ body {
       .text {
         position: relative;
         padding: 20px;
-        margin-bottom: -18px;
         font-size: 13px;
         font-style: italic;
         line-height: 16px;
         border: 1px #000000 solid;
-        border-bottom: none;
+
+        &.with-link {
+          margin-bottom: -18px;
+          border-bottom: none;
+        }
+
         @include media('<large') {
           padding: 0;
           margin-bottom: 20px;
