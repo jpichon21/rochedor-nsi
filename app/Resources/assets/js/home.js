@@ -82,11 +82,17 @@ const changeNews = (direction = 'next') => {
     next = (current - 1) % $('.nouveautes > div.cnews').length
   }
 
+  $('.nouveautes').css('height', $('.nouveautes').prop('scrollHeight') + 'px')
+  $('.nouveautes > .news_nav').fadeOut(100)
   $('.nouveautes > div[data-index=' + current + ']').fadeOut(300).delay(300).removeClass('active')
   $('.nouveautes > div[data-index=' + next + ']').delay(300).fadeIn(300).addClass('active')
 
   // edge case for nav
-  setTimeout(updateNewsNavPosition, 150)
+  setTimeout(() => {
+    updateNewsNavPosition()
+    $('.nouveautes > .news_nav').fadeIn(300)
+  }, 150)
+  setTimeout(() => $('.nouveautes').css('height', ''), 300)
 }
 
 $('.nouveautes > .news_nav .news_nav_next').on('click', e => {
