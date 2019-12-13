@@ -1,6 +1,7 @@
 {% set bodyClass = "home section-1-active m-scene" %}
 {% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
-{% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
+{% block metadescription %}
+<meta name="description" content="{{ page.description }}">{% endblock %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
@@ -13,19 +14,36 @@
     </div>
 </div>
 <div style="display:none;">
-    <img src="{{ asset('assets/img/communaute.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/communaute-s.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/communaute-new.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/communaute-s-new.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/communaute-xs-new.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/communaute-xxs-new.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/communaute-mobile-new.jpg') }}" width="1" height="1" border="0">
     <img src="{{ asset('assets/img/calendar.jpg') }}" width="1" height="1" border="0">
     <img src="{{ asset('assets/img/calendar-s.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/calendar-xs.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/calendar-xxs.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/calendar-mobile.jpg') }}" width="1" height="1" border="0">
     <img src="{{ asset('assets/img/retraites.jpg') }}" width="1" height="1" border="0">
     <img src="{{ asset('assets/img/retraites-s.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/retraites-xs.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/retraites-xxs.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/retraites-mobile.jpg') }}" width="1" height="1" border="0">
     <img src="{{ asset('assets/img/infocontact.jpg') }}" width="1" height="1" border="0">
     <img src="{{ asset('assets/img/infocontact-s.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/infocontact-xs.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/infocontact-xxs.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/infocontact-mobile.jpg') }}" width="1" height="1" border="0">
     <img src="{{ asset('assets/img/soutenir.jpg') }}" width="1" height="1" border="0">
     <img src="{{ asset('assets/img/soutenir-s.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/soutenir-xs.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/soutenir-xxs.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/soutenir-mobile.jpg') }}" width="1" height="1" border="0">
 </div>
-<img class="background desktop" src="{{ asset('assets/img/background-home-desktop.jpg') }}" />
-<img class="background mobile" src="{{ asset('assets/img/background-home-mobile.jpg') }}" />
+<!--img class="background desktop" src="{{ asset('assets/img/background-home-desktop.jpg') }}" />
+<img class="background mobile" src="{{ asset('assets/img/background-home-mobile.jpg') }}" /-->
+<img class="background desktop" src="{{ asset('assets/img/descente-new.jpg') }}" />
+<img class="background mobile" src="{{ asset('assets/img/descente-new.jpg') }}" />
 <div class="overlay"></div>
 <div class="sections fade-in">
     <div class="section section-1">
@@ -37,21 +55,29 @@
                 {% endif %}
             </h2>
             {% if page.content['sections'][0].body|raw != "<p></p>" %}
-                {{page.content['sections'][0].body|raw}}
+            {{page.content['sections'][0].body|raw}}
             {% endif %}
-            <a class="button yellow" href="{{ localePath('la-communaute', app.request.locale)}}">Découvrir <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+            <a class="button yellow" href="{{ localePath('la-communaute', app.request.locale)}}">Découvrir <img
+                    class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
         </div>
         <div class="scroll-down">
             <img src="{{ asset('assets/img/scroll.png') }}" alt="Déroulez pour voir la suite">
         </div>
-        {% if lastNews %}
+        {% if news|length %}
             <div class="nouveautes">
                 <h2>Nouveautés</h2>
-                <i>{{lastNews.intro}}</i>
-                <div class="text">
-                    <p>{{lastNews.description}}</p>
-                </div>
-                <a class="button black" href="{{lastNews.url}}">Lire la suite <img class="button-arrow visible" src="{{ asset('assets/img/button-arrow-right-black.png') }}"><img class="button-arrow hidden" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+                {% for article in news %}
+                    <i>{{article.intro}}</i>
+                    <div class="text">
+                        <p>{{article.description}}</p>
+                    </div>
+                    {% if article.url %}
+                        <a class="button black" href="{{article.url}}">
+                            Découvrir <img class="button-arrow visible" src="{{ asset('assets/img/button-arrow-right-black.png') }}">
+                            <img class="button-arrow hidden" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}">
+                        </a>
+                    {% endif %}
+                {% endfor %}
             </div>
         {% endif %}
     </div>
@@ -64,7 +90,8 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][1].body|raw}}
-            <a class="button yellow" href="{{ localePath('venir-en-retraite', app.request.locale)}}">Découvrir <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+            <a class="button yellow" href="{{ localePath('venir-en-retraite', app.request.locale)}}">Découvrir <img
+                    class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
         </div>
     </div>
     <div class="section section-3">
@@ -76,7 +103,8 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][2].body|raw}}
-            <a class="button yellow" href="{{ localePath('liste-retraites', app.request.locale)}}">Découvrir <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+            <a class="button yellow" href="{{ localePath('liste-retraites', app.request.locale)}}">Découvrir <img
+                    class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
         </div>
     </div>
     <div class="section section-4">
@@ -88,7 +116,8 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][3].body|raw}}
-            <a class="button yellow" href="{{ localePath('dons', app.request.locale)}}">Découvrir <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+            <a class="button yellow" href="{{ localePath('dons', app.request.locale)}}">Découvrir <img
+                    class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
         </div>
     </div>
     <div class="section section-5">
@@ -100,7 +129,8 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][4].body|raw}}
-            <a class="button yellow" href="{{ localePath('editions', app.request.locale) }}">Découvrir <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+            <a class="button yellow" href="{{ localePath('editions', app.request.locale) }}">Découvrir <img
+                    class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
         </div>
     </div>
     <div class="section section-6">
@@ -112,7 +142,8 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][5].body|raw}}
-            <a class="button yellow" href="{{ localePath('contact-ro', app.request.locale) }}">Découvrir <img class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+            <a class="button yellow" href="{{ localePath('contact-ro', app.request.locale) }}">Découvrir <img
+                    class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
         </div>
     </div>
 </div>

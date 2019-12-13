@@ -6,7 +6,7 @@ import { doLogin, initStatus } from '../../actions'
 import { TextField, Button, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
-import { Redirect } from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 import Alert from '../alert/alert'
 import I18n from '../../../i18n'
 
@@ -28,28 +28,28 @@ export class Login extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully') || nextProps.error) {
-      this.setState({alertOpen: true})
+      this.setState({ alertOpen: true })
     }
   }
 
   handleClose () {
     this.props.dispatch(initStatus())
-    this.setState({alertOpen: false})
-    this.setState({error: ''})
+    this.setState({ alertOpen: false })
+    this.setState({ error: '' })
   }
 
   handleSubmit (event) {
     this.props.dispatch(doLogin(this.state.username, this.state.password)).then((res) => {
       if (res.error) {
-        this.setState({error: this.i18n.trans(res.error)})
-        this.setState({alertOpen: true})
+        this.setState({ error: this.i18n.trans(res.error) })
+        this.setState({ alertOpen: true })
       }
     })
     event.preventDefault()
   }
 
   handleInputChange (event) {
-    this.setState({[event.target.name]: event.target.value})
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   render () {
@@ -88,6 +88,10 @@ export class Login extends React.Component {
                 value={this.state.password}
                 onChange={this.handleInputChange} />
               <Button type={'submit'} color='primary'>Connexion</Button>
+              <NavLink to='/mot-de-passe-oublie' style={{textDecoration: 'none'}}>
+                <Button type={'submit'} color='secondary' style={{float: 'right'}}>Mot de passe oublié ?</Button>
+              </NavLink>
+
             </form>
           </div>
         </div>

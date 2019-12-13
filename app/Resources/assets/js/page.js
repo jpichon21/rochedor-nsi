@@ -1,4 +1,10 @@
 import { changeCarousel } from './carousel.js'
+import $ from 'jquery'
+
+$(document).ready(function () {
+  $('body').fadeIn(300);
+  $('body').removeClass('hidden');
+});
 
 const body = document.querySelector('body')
 const dropdown = document.querySelector('.dropdown')

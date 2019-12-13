@@ -32,7 +32,7 @@ export class PageCreate extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if ((nextProps.status !== 'ok' && nextProps.status !== '') || nextProps.error) {
-      this.setState({alertOpen: true})
+      this.setState({ alertOpen: true })
     }
   }
 
@@ -42,7 +42,7 @@ export class PageCreate extends React.Component {
 
   handleClose () {
     this.props.dispatch(initStatus())
-    this.setState({alertOpen: false})
+    this.setState({ alertOpen: false })
   }
 
   render () {

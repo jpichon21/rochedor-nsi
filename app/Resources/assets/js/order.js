@@ -152,7 +152,7 @@ const updateYouFormRender = () => {
 
 const updateConsentFormRender = () => {
   renderConsentForm.innerHTML = templateConsentForm({
-    client: _you,
+    client: _you
   })
 }
 
@@ -229,7 +229,7 @@ itemResume.onclick = event => {
     event.target.matches('.continue')
   ) {
     event.preventDefault()
-    if(_RegisterFormSubmit === true) {
+    if (_RegisterFormSubmit === true) {
       updateWelcomeRender()
     } else {
       itemConnection.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'))
@@ -244,7 +244,7 @@ itemResume.onclick = event => {
       _total = data
       updateCartRender()
     })
-    if(_RegisterFormSubmit === true) {
+    if (_RegisterFormSubmit === true) {
       updateCartRender()
     }
   }
@@ -291,9 +291,9 @@ itemConnection.onsubmit = event => {
     event.target.matches('.panel.registration form')
   ) {
     validateClient(event, event.target, participant => {
-      if(_you.conData === true){
+      if (_you.conData === true) {
         postRegister({
-        client: {
+          client: {
             ...participant,
             rue: participant.adresse,
             conNews: _you.conNews,
@@ -316,9 +316,9 @@ itemConnection.onsubmit = event => {
         })
       } else {
         checkMail({
-            mail: {
-              email: participant.email
-            }
+          mail: {
+            email: participant.email
+          }
         }).then(() => {
           downLoader()
           afterLogin(participant)
@@ -359,7 +359,7 @@ itemConnection.onclick = event => {
         break
       case 'continue':
         upLoader()
-        if(_you.conData === true || _userConData === 1) {
+        if (_you.conData === true || _userConData === 1) {
           getLogin().then(user => {
             downLoader()
             afterLogin(user)
@@ -520,7 +520,7 @@ itemCard.onsubmit = event => {
   ) {
     upLoader()
     validateClient(event, event.target, user => {
-      if (_you.conData === true){
+      if (_you.conData === true) {
         postEditCli({
           client: {
             ...user,
@@ -715,26 +715,26 @@ const submitFormPayment = () => {
   if (_you.conData === false) {
     postRegister({
       client: {
-          ..._you,
-          rue: _you.adresse,
-          conNews: _you.conNews,
-          conData: _you.conData
-        }
-      }).then(user => {
-          _delivery.email = _you.email
-          _delivery.clientId = user.codcli
-          postOrder(_delivery).then(response => {
-            window.location.href = response
-          }).catch(error => {
-            downLoader()
-            if (error) {
-              upFlashbag(error)
-            }
-          })
+        ..._you,
+        rue: _you.adresse,
+        conNews: _you.conNews,
+        conData: _you.conData
+      }
+    }).then(user => {
+      _delivery.email = _you.email
+      _delivery.clientId = user.codcli
+      postOrder(_delivery).then(response => {
+        window.location.href = response
       }).catch(error => {
         downLoader()
-        upFlashbag(error)
+        if (error) {
+          upFlashbag(error)
+        }
       })
+    }).catch(error => {
+      downLoader()
+      upFlashbag(error)
+    })
   } else {
     _delivery.email = _you.email
     postOrder(_delivery).then(res => {

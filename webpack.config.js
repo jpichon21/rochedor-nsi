@@ -13,6 +13,7 @@ function initEncore () {
     .addEntry('js/main', './app/Resources/assets/js/main.js')
     .addEntry('js/home', './app/Resources/assets/js/home.js')
     .addEntry('js/page', './app/Resources/assets/js/page.js')
+    .addEntry('js/transition', './app/Resources/assets/js/transition.js')
     .addEntry('js/speaker', './app/Resources/assets/js/speaker.js')
     .addEntry('js/calendar', './app/Resources/assets/js/calendar.js')
     .addEntry('js/calendar-api', './app/Resources/assets/js/calendar-api.js')
@@ -50,7 +51,7 @@ function initEncore () {
       from: './app/Resources/assets/img',
       to: 'img'
     }]))
-    .addPlugin(new webpack.EnvironmentPlugin({'NODE_ENV': ((Encore.isProduction) ? 'prod' : 'dev')}))
+    .addPlugin(new webpack.EnvironmentPlugin({ 'NODE_ENV': ((Encore.isProduction) ? 'prod' : 'dev') }))
     .autoProvideVariables({
       $: 'jquery',
       jQuery: 'jquery',
@@ -66,7 +67,7 @@ const alias = {
 }
 
 initEncore()
-Encore.addPlugin(new webpack.EnvironmentPlugin({'PAYMENT_ENV': 'development'}))
+Encore.addPlugin(new webpack.EnvironmentPlugin({ 'PAYMENT_ENV': 'development' }))
 const configDev = Encore.getWebpackConfig()
 configDev.name = 'configDev'
 if (Encore.isProduction()) {
@@ -82,7 +83,7 @@ configDev.resolve.alias = alias
 Encore.reset()
 
 initEncore()
-Encore.addPlugin(new webpack.EnvironmentPlugin({'PAYMENT_ENV': 'production'}))
+Encore.addPlugin(new webpack.EnvironmentPlugin({ 'PAYMENT_ENV': 'production' }))
 const configProd = Encore.getWebpackConfig()
 configProd.name = 'configProd'
 if (Encore.isProduction()) {

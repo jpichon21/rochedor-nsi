@@ -20,7 +20,7 @@ export class SpeakerForm extends React.Component {
     this.state = {
       speaker: {
         name: '',
-        title: {fr: '', en: '', es: '', de: '', it: ''},
+        title: { fr: '', en: '', es: '', de: '', it: '' },
         description: { fr: '', en: '', es: '', de: '', it: '' },
         image: 'http://via.placeholder.com/340x200'
       },
@@ -48,7 +48,7 @@ export class SpeakerForm extends React.Component {
     event.preventDefault()
     this.setState({ versionCount: key, anchorVersion: null })
     this.props.dispatch(getSpeaker(this.state.speaker.id, this.state.versions[key].version)).then((speaker) => {
-      this.setState({ speaker: {...speaker} })
+      this.setState({ speaker: { ...speaker } })
     })
     if (key === null) {
       this.props.versionHandler(null)
@@ -58,11 +58,11 @@ export class SpeakerForm extends React.Component {
   }
 
   handleCloseVersion () {
-    this.setState({anchorVersion: null})
+    this.setState({ anchorVersion: null })
   }
 
   handleVersionOpen (event) {
-    this.setState({anchorVersion: event.currentTarget})
+    this.setState({ anchorVersion: event.currentTarget })
   }
 
   handleInputChange (event) {
@@ -75,7 +75,7 @@ export class SpeakerForm extends React.Component {
     if (this.props.edit) {
       this.props.dispatch(putSpeaker(this.state.speaker)).then((res) => {
         if (res.message === 'Speaker Updated') {
-          this.setState({snackbarContent: 'Intervenant enregistré et publié', snackbarOpen: true})
+          this.setState({ snackbarContent: 'Intervenant enregistré et publié', snackbarOpen: true })
           this.props.dispatch(getSpeakerVersions(this.props.speakerId)).then((versions) => {
             this.setState({ versions: { ...versions } })
           })
@@ -115,11 +115,11 @@ export class SpeakerForm extends React.Component {
   }
 
   handleCloseSnack () {
-    this.setState({snackbarOpen: false, snackbarContent: ''})
+    this.setState({ snackbarOpen: false, snackbarContent: '' })
   }
 
   handleClose () {
-    this.setState({status: '', alertOpen: false})
+    this.setState({ status: '', alertOpen: false })
   }
 
   handleChangeFileUpload (event) {
@@ -155,7 +155,7 @@ export class SpeakerForm extends React.Component {
   componentWillReceiveProps (nextProps) {
     if (nextProps.uploadStatus) {
       if (nextProps.uploadStatus === 'File too big') {
-        this.setState({status: nextProps.uploadStatus, alertOpen: true})
+        this.setState({ status: nextProps.uploadStatus, alertOpen: true })
       }
     }
   }
@@ -250,7 +250,7 @@ export class SpeakerForm extends React.Component {
               </Tooltip>
             </Grid>
             <Grid item xs={6}>
-              <div className={classes.tile} style={{backgroundImage: `url('${this.state.speaker.image}')`}}>
+              <div className={classes.tile} style={{ backgroundImage: `url('${this.state.speaker.image}')` }}>
                 {
                   this.state.fileUploading.isUploading
                     ? <CircularProgress />

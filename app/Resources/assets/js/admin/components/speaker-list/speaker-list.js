@@ -34,24 +34,24 @@ export class SpeakerList extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully') || nextProps.error) {
-      this.setState({alertOpen: true})
+      this.setState({ alertOpen: true })
     }
   }
 
   handleClose () {
     this.props.dispatch(initStatus())
-    this.setState({alertOpen: false})
+    this.setState({ alertOpen: false })
   }
 
-  onSortEnd ({oldIndex, newIndex}) {
+  onSortEnd ({ oldIndex, newIndex }) {
     this.props.dispatch(setSpeakerPosition(this.props.speakers[oldIndex].id, newIndex))
   }
 
   render () {
     Moment.locale(this.props.locale)
     const { classes } = this.props
-    const DragHandle = SortableHandle(() => <Icon style={{'cursor': 'move'}}>sort</Icon>)
-    const SortableItem = SortableElement(({speaker}) =>
+    const DragHandle = SortableHandle(() => <Icon style={{ 'cursor': 'move' }}>sort</Icon>)
+    const SortableItem = SortableElement(({ speaker }) =>
       <TableRow>
         <Tooltip
           enterDelay={300}
@@ -77,7 +77,7 @@ export class SpeakerList extends React.Component {
       </TableRow>
     )
 
-    const SortableList = SortableContainer(({speakers}) => {
+    const SortableList = SortableContainer(({ speakers }) => {
       return (
         <TableBody>
           {speakers.map((speaker, index) => (

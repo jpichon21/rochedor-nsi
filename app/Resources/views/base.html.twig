@@ -12,7 +12,7 @@
         <link rel="canonical" href="{{ app.request.getSchemeAndHttpHost ~ app.request.requestUri }}" />
     {% endif %}
     <link rel="stylesheet" href="https://use.typekit.net/ozm6rkb.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display">
     <link rel="stylesheet" href="https://use.typekit.net/vaw2sbi.css">
     <link rel="stylesheet" href="{{ asset("assets/css/main.css") }}">
     {% block metadescription %}{% endblock %}
@@ -20,9 +20,8 @@
 </head>
 {% if 'home' in bodyClass %}
 <body class="{{ bodyClass }}">
-{% else %}
-<body class="{{ bodyClass|default('') }} {{ page is defined  ? page.title : '' }} m-scene">
 {% endif %}
+<body class="{{ bodyClass|default('') }} {% if page is defined %}{{ page.title }}{% endif %} m-scene hidden-fade">
 {% if app.request.attributes.get('_route_params') and app.request.attributes.get('_route') %}
     {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
 {% else %}
@@ -43,6 +42,7 @@
     var flashbags = {{ flashbags|json_encode()|raw }}
 </script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
+<script src="{{ asset('assets/js/transition.js') }}"></script>
 {% block javascripts %}{% endblock %}
 </body>
 </html>

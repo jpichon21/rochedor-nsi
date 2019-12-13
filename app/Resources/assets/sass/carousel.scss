@@ -21,11 +21,11 @@
   .prev,
   .next {
     position: absolute;
-    top: 50%;
+    //top: 50%;
+    top: 91%;
     margin-top: -34px;
-    width: 68px;
-    height: 68px;
-    background-image: url('../img/arrow-left.png');
+    width: 105px;
+    height: 105px;
     z-index: 1;
     cursor: pointer;
     @include media('<large') {
@@ -35,12 +35,32 @@
       background-size: 100%;
     }
   }
+  .prev:hover, .prev:focus, .prev:active{
+    background: url('../img/icons/arrow-left-gold.svg');
+    transition: 0.5s ease;
+  }
   .prev {
     left: 0;
+    background-size: 120px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background:url('../img/icons/arrow-left-gold.svg');
+    transition: 0.5s ease;
   }
   .next {
     right: 0;
-    background-image: url('../img/arrow-right.png');
+    @include media('<=mobile') {
+      //sright: 18px;
+    }
+    background-size: 120px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background: url('../img/icons/arrow-right-gold.svg');
+    transition: 0.5s ease;
+  }
+  .next:hover, .next:focus, .next:active {
+    background: url('../img/icons/arrow-right-gold.svg');
+    transition: 0.5s ease;
   }
   .slides {
     position: relative;
@@ -89,19 +109,39 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: $roche-yellow;
+            //background-color: $roche-yellow;
+            background-color: #767676;
             opacity: 0;
             transition: 0.5s;
             z-index: 0;
+          }
+          &:hover{
+            &:after{
+              content: '';
+              position: absolute;
+              top: 0;
+              right: 0;
+              //width: 45px;
+              //height: 45px;
+              width: 68px;
+              height: 68px;
+              background: url('../img/icons/plus-gold.svg');
+              background-size: 100%;
+              z-index: 1;
+              transition: 0.5s ease;
+            }
           }
           &:after {
             content: '';
             position: absolute;
             top: 0;
             right: 0;
-            width: 45px;
-            height: 45px;
-            background-image: url('../img/plus.png');
+            //width: 45px;
+            //height: 45px;
+            width: 68px;
+            height: 68px;
+            //background-image: url('../img/plus.png');
+            background: url('../img/icons/plus-gold.svg');
             background-size: 100%;
             z-index: 1;
           }
@@ -122,6 +162,7 @@
           &:after {
             top: auto;
             bottom: 0;
+            display: none;
           }
         }
       }
@@ -139,5 +180,20 @@
     .carousel {
       display: none;
     }
+  }
+}
+
+.editions .carousel{
+  .prev,
+  .next {
+    top: 85.5%;
+  }
+  .prev:hover, .prev:focus, .prev:active{
+    background: url('../img/icons/arrow-left-orange.svg');
+    transition: 0.5s ease;
+  }
+  .next:hover, .next:focus, .next:active {
+    background: url('../img/icons/arrow-right-orange.svg');
+    transition: 0.5s ease;
   }
 }

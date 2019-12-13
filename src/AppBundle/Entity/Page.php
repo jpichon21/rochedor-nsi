@@ -31,6 +31,9 @@ class Page
 
     const TYPE_PAGE = 'page';
     const TYPE_EDITIONS = 'editions';
+    const TYPE_ASSOCIATION = 'association';
+    const TYPE_ADMIN = 'admin';
+
     const TYPE_MINIMAL = 'minimal';
 
     /**
@@ -140,6 +143,12 @@ class Page
      * @ORM\Column(name="Type", type="string", length=20)
      */
     private $type;
+
+    /**
+     * @var string
+     * @ORM\Column(name="Category", type="string", length=255)
+     */
+    private $category;
 
     public function __construct()
     {
@@ -516,5 +525,21 @@ class Page
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param string $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
     }
 }

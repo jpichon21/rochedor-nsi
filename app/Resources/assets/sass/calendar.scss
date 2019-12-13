@@ -166,6 +166,8 @@ h1 {
               overflow: hidden;
               white-space: pre-wrap;
               line-height: 16px;
+              font-size: 13px;
+              letter-spacing: 0px;
             }
           }
         }
@@ -301,6 +303,11 @@ h1 {
         }
         .day-contents {
           width: 15px;
+          transition: 0.5s ease;
+          &:hover, &:active, &:focus{
+            color: #fff;
+            transition: 0.5s ease;
+          }
         }
         .adjacent-month {
           opacity: 0.2;
@@ -314,7 +321,6 @@ h1 {
     }
   }
   .filter-raz,
-  .filter-submit,
   .hide-filters {
     display: block;
     margin-bottom: 10px;
@@ -328,7 +334,7 @@ h1 {
     border: 1px #faf28e solid;
     cursor: pointer;
   }
-  .filter-submit {
+  .filter-raz {
     color: #000000;
     background-color: $roche-yellow;
   }
@@ -386,6 +392,7 @@ h1 {
     line-height: 18px;
     max-height: 45px;
     overflow: hidden;
+    transition: 0.5s ease;
     &:before {
       content: '';
       position: absolute;
@@ -456,9 +463,6 @@ h1 {
     .site,
     .type,
     .translation {
-      &.full {
-        position: static;
-      }
       position: absolute;
       top: 15px;
     }
@@ -512,13 +516,14 @@ h1 {
     font-weight: 500;
     letter-spacing: 1.4px;
     text-transform: uppercase;
+    border-bottom: 1px solid #faf28e21;
     th {
-      position: sticky;
+     // position: sticky;
       top: 0;
       padding: 40px 15px 10px;
       text-align: left;
       z-index: 1;
-      background-image: linear-gradient(black, black), url('../img/calendar.jpg');
+      /*background-image: linear-gradient(black, black), url('../img/calendar.jpg');
       background-blend-mode: saturation;
       background-size: 100% auto;
       background-attachment: fixed;
@@ -526,6 +531,9 @@ h1 {
       @include media('<=laptop') {
         background-image:linear-gradient(black, black),  url('../img/calendar-s.jpg');
       }
+      @include media('<=xxlarge') {
+        background-image:linear-gradient(black, black),  url('../img/calendar-xs.jpg');
+      }*/
       &:after {
         content: '';
         position: absolute;
@@ -650,18 +658,22 @@ h1 {
 }
 
 .CALENDRIER{
-  background-image: linear-gradient(black, black), url('../img/calendar.jpg');
+  background-image: url('../img/black-60.png'), linear-gradient(black, black), url('../img/calendar.jpg');
   background-size: cover;
   background-blend-mode: saturation;
-  -webkit-animation: fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 0.5s; /* Firefox < 16 */
-   -ms-animation: fadein 0.5s; /* Internet Explorer */
-    -o-animation: fadein 0.5s; /* Opera < 12.1 */
-       animation: fadein 0.5s;
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/calendar-s.jpg');
+    background-image: url('../img/black-60.png'), linear-gradient(black, black),  url('../img/calendar-s.jpg');
     background-size: cover;
     background-blend-mode: saturation;
+  }
+  @include media('<=large') {
+    background-image: url('../img/black-60.png'), linear-gradient(black, black),  url('../img/calendar-xs.jpg');
+  }
+  @include media('<=medium') {
+    background-image: url('../img/black-60.png'), linear-gradient(black, black),  url('../img/calendar-xxs.jpg');
+  }
+  @include media('<=mobile') {
+    background-image: linear-gradient(black, black),  url('../img/calendar-mobile.jpg');
   }
 }
 
@@ -693,4 +705,19 @@ h1 {
 @-o-keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+.retreat, .select li, .select{
+  &:hover, &:active, &:focus{
+    background-color: #faf28e33;
+    transition: 0.5s ease;
+  }
+}
+
+.validation{
+  transition: 0.5s ease;
+  &:hover, &:active, &:focus{
+    background-color: $roche-yellow;
+    color: white;
+  }
 }

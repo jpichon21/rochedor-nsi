@@ -11,7 +11,7 @@ import {
   DO_LOGIN_SUCCESS,
   DO_LOGIN_FAILURE,
   DO_LOGOUT,
-  DO_LOGINCHECK_SUCCESS
+  DO_LOGINCHECK_SUCCESS, DO_FORGOTTEN_PASSWORD_SUCCESS
 } from '../actions'
 
 export default function commmonReducer (state, action) {
@@ -85,6 +85,15 @@ export default function commmonReducer (state, action) {
         roles: null,
         username: null,
         fullname: null
+      }
+    case DO_FORGOTTEN_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        roles: action.roles,
+        username: action.username,
+        fullname: action.name,
+        isLogging: false,
+        errorLoginMessage: null
       }
   }
   return state

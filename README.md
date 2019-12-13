@@ -6,12 +6,20 @@ rochedor-nsi
 ## Prérequis
 - php7.x
 - php-json
-- php-openssl
 - php-pcre
 - php-pdo 
 - php-sqlite
 - node-js v8.15.0
 - yarn
+- jpegoptim
+- curl & php-curl
+
+## Setup
+No docker for the app (yet), check `script/bootstrap` for base deps ;
+```
+sudo apt install php73 php-json php-pdo php-mysql jpegoptim
+```
+
 
 ## Lancement
 script/bootstrap` Pour installer les dépendances et mettre à jour la bdd (à lancer après chaque `git pull`)   
@@ -38,3 +46,14 @@ Pour lancer les vérifications à la main:
 Les environnements de dev et de test sont configurés pour envoyer les emails sur le port 2525.    
 Utiliser l'outil [faketools](https://github.com/Bornholm/faketools) pour lancer un serveur smtp local écoutant sur le port 2525     
 `docker run --rm -p 2525:2525 -p 8080:8080 -it bornholm/faketools`
+
+## Users
+- admin::admin
+
+## Deployment
+**WARNING** The deployment needs an extra step! 
+
+The results for `bin/console doctrine:schema:update` is not forced on the database but generated in an sql which must be manually run.
+
+### TODO before prod deployment
+- [ ] list/create all pages in all languages

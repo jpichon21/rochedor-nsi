@@ -34,7 +34,7 @@ export class ContentEdit extends React.Component {
   componentWillReceiveProps (nextProps) {
     this.props.dispatch(setTitle(`Modification d'un contenu`))
     if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully' && nextProps.status !== 'Page updated') || nextProps.error) {
-      this.setState({alertOpen: true})
+      this.setState({ alertOpen: true })
     }
     if (nextProps.page !== null && this.props.page !== null) {
       if (nextProps.page.id !== this.props.page.id) {
@@ -43,7 +43,7 @@ export class ContentEdit extends React.Component {
     }
     if (nextProps.translations) {
       const ts = nextProps.translations
-      let l = {'fr': 'Français'}
+      let l = { 'fr': 'Français' }
       for (let k in ts) {
         l = update(l, {
           [ts[k]['locale']]: {
@@ -51,13 +51,13 @@ export class ContentEdit extends React.Component {
           }
         })
       }
-      this.setState({locales: l})
+      this.setState({ locales: l })
     }
   }
 
   onSubmit (page) {
     this.props.dispatch(putContent(page)).then((res) => {
-      this.setState({snackbarContent: 'Contenu enregistré et publié', snackbarOpen: true})
+      this.setState({ snackbarContent: 'Contenu enregistré et publié', snackbarOpen: true })
       this.props.dispatch(getContent(page.id))
     })
   }
@@ -84,11 +84,11 @@ export class ContentEdit extends React.Component {
 
   handleClose () {
     this.props.dispatch(initStatus())
-    this.setState({alertOpen: false})
+    this.setState({ alertOpen: false })
   }
 
   handleCloseSnack () {
-    this.setState({snackbarOpen: false, snackbarContent: ''})
+    this.setState({ snackbarOpen: false, snackbarContent: '' })
   }
 
   render () {
@@ -110,7 +110,14 @@ export class ContentEdit extends React.Component {
             </Button>
           }
         />
-        <ContentForm page={this.props.page} submitHandler={this.onSubmit} versionHandler={this.onVersionChange} edit translations={this.props.translations} />
+        <ContentForm
+          page={this.props.page}
+          submitHandler={this.onSubmit}
+          versionHandler={this.onVersionChange}
+          edit
+          translations={this.props.translations}
+          parents={this.props.parents}
+        />
       </div>
     )
   }
@@ -122,7 +129,8 @@ const mapStateToProps = state => {
     page: state.page,
     status: state.status,
     error: state.error,
-    translations: state.pageTranslations
+    translations: state.pageTranslations,
+    parents: state.pages
   }
 }
 

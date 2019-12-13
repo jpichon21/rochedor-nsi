@@ -33,6 +33,10 @@ body {
   .dropdown {
     position: relative;
     margin: 0 0 20px -20px;
+    max-width: 490px;
+    @include media('>laptop') {
+      max-width: 680px;
+    }
     &:after {
       content: '';
       width: 7px;
@@ -60,6 +64,9 @@ body {
       position: relative;
       max-height: 30px;
       padding: 0 0 0 40px;
+      @include media('<=large') {
+        padding: 10px 0px 10px 40px
+      }
       color: $roche-yellow;
       overflow: hidden;
       transition: 0.8s;
@@ -96,6 +103,9 @@ body {
       &.active {
         color: #ffffff;
         padding-bottom: 20px;
+        h2{
+          color: #fff!important;
+        }
         &:before {
           background-color: #ffffff;
         }
@@ -127,20 +137,27 @@ body {
         color: $roche-yellow;
       }
       p {
-        font-family: 'Lato', sans-serif;
+        font-family: 'lato', lato, sans-serif;
+        font-weight: 300;
         line-height: 20px;
         font-size: 17px;
         opacity: 0;
         transition: opacity 0.8s;
         transition-delay: 0.2s;
+        @include media('<=mobile') {
+          padding-right: 20px;
+        }
       }
       a {
         color: $roche-yellow;
         text-decoration: none;
         border-bottom: 1px $roche-yellow solid;
+        @include media('<=mobile') {
+          border-bottom: 0px;
+        }
       }
       strong {
-        font-weight: 700;
+        font-weight: 500;
       }
       hr {
         margin: 20px 0;
@@ -153,13 +170,14 @@ body {
         margin: 0 0 20px 36px;
         padding: 20px 0;
         color: $roche-yellow;
+        margin-left: -8px;
         z-index: 1;
         &:before {
           content: '';
           position: absolute;
           top: -50px;
           bottom: -50px;
-          left: -53px;
+          left: -9px;
           width: 1px;
           background: linear-gradient(to bottom, #ffffff 0%, #000000 25%, #000000 75%, $roche-yellow 100%);
           z-index: 0;
@@ -176,16 +194,19 @@ body {
         }
         em {
           margin-bottom: 30px;
-          font-family: 'Playfair Display', serif;
+          font-family: 'Playfair Display Regular', serif;
           font-size: 19px;
           font-style: italic;
           line-height: 24px;
+          display: block;
         }
         strong {
-          font-family: 'Lato', sans-serif;
-          font-size: 14px;
+          font-family: 'lato', lato, sans-serif;
+          font-size: 12px;
           font-style: normal;
           text-transform: uppercase;
+          display: block;
+          margin-top: 32px;
         }
       }
       .input,
@@ -196,7 +217,7 @@ body {
         margin-bottom: 20px;
         padding: 5px 20px;
         color: #ffffff;
-        font-family: 'Lato', sans-serif;
+        font-family: 'lato', lato, sans-serif;
         border: 1px solid $roche-yellow;
         border-radius: 0;
         box-sizing: border-box;
@@ -407,7 +428,7 @@ body {
         left: 20px;
       }
       .item {
-        padding: 0 20px 0 40px;
+        //padding: 0 20px 0 40px;
         &:after {
           left: 23px;
         }
@@ -429,8 +450,170 @@ body {
     }
   }
 }
-  
+
 @keyframes blockquoteEnter {
   from { transform: translateX(40px); }
   to { transform: translateX(0px); }
+}
+
+.content .dropdown .item blockquote em:before, .content .dropdown .item blockquote em:after{
+  font-family: essonnes-display, 'essonnes-display', serif;
+  font-size: 60px;
+  opacity: 0.4;
+}
+.content .dropdown .item blockquote em:before{
+  content: '“';
+  position: absolute;
+  left: -36px;
+}
+.content .dropdown .item blockquote em:after{
+  content: '”';
+  position: absolute;
+  bottom: -25px;
+}
+
+//backgrounds
+.Venir, .Retraites, .Intervenants, .Faire, .Donner, .Contact, .La, .Les, .Infos, .Informations, .Accueil, .Liens, .Nous{
+  background-size: cover;
+  background-blend-mode: saturation;
+  @include media('<=laptop') {
+    background-size: cover;
+    background-blend-mode: saturation;
+  }
+}
+
+.Venir, .Retraites, .Intervenants{
+  background-image: url('../img/black-50.png'), linear-gradient(black, black), url('../img/retraites.jpg');
+  @include media('<=laptop') {
+    background-image: url('../img/black-50.png'), linear-gradient(black, black),  url('../img/retraites-s.jpg');
+  }
+  @include media('<=large') {
+    background-image: url('../img/black-50.png'), linear-gradient(black, black),  url('../img/retraites-xs.jpg');
+  }
+  @include media('<=medium') {
+    background-image: url('../img/black-50.png'), linear-gradient(black, black),  url('../img/retraites-xxs.jpg');
+  }
+  @include media('<=mobile') {
+    background-image: linear-gradient(black, black),  url('../img/retraites-mobile.jpg')!important;
+    background-size:cover;
+  }
+}
+
+.Faire, .Donner, .Nous{
+  background-image:  url('../img/black-70.png'), linear-gradient(black, black), url('../img/soutenir.jpg');
+  @include media('<=laptop') {
+    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-s.jpg');
+  }
+  @include media('<=large') {
+    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-xs.jpg');
+  }
+  @include media('<=medium') {
+    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-xxs.jpg');
+  }
+  @include media('<=mobile') {
+    background-image: linear-gradient(black, black),  url('../img/soutenir-mobile.jpg')!important;
+    background-size:cover;
+  }
+}
+
+.Contact{
+  background-image:  url('../img/black-70.png'), linear-gradient(black, black), url('../img/infocontact.jpg');
+  @include media('<=laptop') {
+    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/infocontact-s.jpg');
+  }
+  @include media('<=large') {
+    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/infocontact-xs.jpg');
+  }
+  @include media('<=medium') {
+    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/infocontact-xxs.jpg');
+  }
+  @include media('<=mobile') {
+    background-image: linear-gradient(black, black),  url('../img/infocontact-mobile.jpg')!important;
+    background-size:cover;
+  }
+}
+
+.La, .Les{
+  background-image: linear-gradient(black, black), url('../img/communaute-new.jpg');
+  @include media('<=laptop') {
+    background-image:linear-gradient(black, black),  url('../img/communaute-s-new.jpg');
+  }
+  @include media('<=large') {
+    background-image: linear-gradient(black, black),  url('../img/communaute-xs-new.jpg');
+  }
+  @include media('<=medium') {
+    background-image: linear-gradient(black, black),  url('../img/communaute-xxs-new.jpg');
+  }
+  @include media('<=mobile') {
+    background-image: linear-gradient(black, black),  url('../img/communaute-mobile-new.jpg')!important;
+    background-size:cover;
+  }
+}
+
+.DEMANDE{
+  background-image:  url('../img/black-60.png'), linear-gradient(black, black), url('../img/calendar.jpg');
+  background-size: cover;
+  background-blend-mode: saturation;
+  @include media('<=laptop') {
+    background-image: url('../img/black-60.png'), linear-gradient(black, black),  url('../img/calendar-s.jpg');
+  }
+  @include media('<=large') {
+    background-image: linear-gradient(black, black),  url('../img/calendar-xs.jpg');
+  }
+  @include media('<=medium') {
+    background-image: linear-gradient(black, black),  url('../img/calendar-xxs.jpg');
+  }
+  @include media('<=mobile') {
+    background-image: linear-gradient(black, black),  url('../img/calendar-mobile.jpg')!important;
+    background-size:cover;
+  }
+}
+
+.Infos, .Informations, .Accueil, .Liens, .default-body{
+  background-image: url('../img/bg-fallback.jpg');
+  background-size: cover;
+}
+
+
+.content{
+  //overflow-y: hidden!important;
+}
+
+//FADE IN
+
+.fade-in{
+  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+     -moz-animation: fadein 2s; /* Firefox < 16 */
+      -ms-animation: fadein 2s; /* Internet Explorer */
+       -o-animation: fadein 2s; /* Opera < 12.1 */
+          animation: fadein 2s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }

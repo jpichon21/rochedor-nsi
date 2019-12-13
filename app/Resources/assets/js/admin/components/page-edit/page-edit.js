@@ -37,7 +37,7 @@ export class PageEdit extends React.Component {
   componentWillReceiveProps (nextProps) {
     this.props.dispatch(setTitle(`Modification d'une page`))
     if ((nextProps.status !== 'ok' && nextProps.status !== '' && nextProps.status !== 'Deleted successfully' && nextProps.status !== 'Page updated') || nextProps.error) {
-      this.setState({alertOpen: true})
+      this.setState({ alertOpen: true })
     }
     if (nextProps.page !== null && this.props.page !== null) {
       if (nextProps.page.id !== this.props.page.id) {
@@ -46,7 +46,7 @@ export class PageEdit extends React.Component {
     }
     if (nextProps.translations) {
       const ts = nextProps.translations
-      let l = {'fr': 'Français'}
+      let l = { 'fr': 'Français' }
       for (let k in ts) {
         l = update(l, {
           [ts[k]['locale']]: {
@@ -54,13 +54,13 @@ export class PageEdit extends React.Component {
           }
         })
       }
-      this.setState({locales: l})
+      this.setState({ locales: l })
     }
   }
 
   onSubmit (page) {
     this.props.dispatch(putPage(page)).then((res) => {
-      this.setState({snackbarContent: 'Page enregistrée et publiée', snackbarOpen: true})
+      this.setState({ snackbarContent: 'Page enregistrée et publiée', snackbarOpen: true })
       this.props.dispatch(getPage(page.id))
     })
   }
@@ -86,7 +86,7 @@ export class PageEdit extends React.Component {
   }
   onDelete (page) {
     this.props.dispatch(deletePage(page)).then((res) => {
-      this.setState({snackbarOpen: true, snackbarContent: 'Page supprimée'})
+      this.setState({ snackbarOpen: true, snackbarContent: 'Page supprimée' })
       setTimeout(() => {
         this.props.history.push(`/page-list`)
       }, 500)
@@ -95,11 +95,11 @@ export class PageEdit extends React.Component {
 
   handleClose () {
     this.props.dispatch(initStatus())
-    this.setState({alertOpen: false})
+    this.setState({ alertOpen: false })
   }
 
   handleCloseSnack () {
-    this.setState({snackbarOpen: false, snackbarContent: ''})
+    this.setState({ snackbarOpen: false, snackbarContent: '' })
   }
 
   render () {

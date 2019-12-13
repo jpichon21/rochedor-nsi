@@ -14,7 +14,6 @@ import {
   getRegistered,
   postRegistered,
   postRegister } from './calendar-api.js'
-import {limitMenuReduced} from './variables'
 
 /* Infos */
 
@@ -45,7 +44,6 @@ let _registrationBegan = false
 const itemConnection = $('.item.connection')
 const itemParticipants = $('.item.participants')
 const itemValidation = $('.item.validation')
-const content = $('.content')
 
 window.addEventListener('beforeunload', (event) => {
   if (_registrationBegan) {
@@ -76,7 +74,12 @@ function scrollTop () {
 
 function scrollToElement ($element) {
   setTimeout(() => {
-    document.querySelector('.content').scroll({ top: $element.offset().top, left: 0, behavior: 'smooth' })
+    // a bit bruteforced, but it works ...
+    // for mobile
+    window.scrollTo({ top: $element.offset().top, left: 0, behavior: 'smooth' })
+    // for screen
+    // watch out for the forced offset of -120 if you reuse this method
+    document.querySelector('.content').scroll({ top: ($element.offset().top - 120), left: 0, behavior: 'smooth' })
   }, 200)
 }
 
@@ -371,7 +374,7 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
   if (error) {
     errors['tel'] = error
   }
-  
+
   updateYouFormRender(errors, {...participant}, true)
   if (Object.keys(errors).length === 0) {
     validateChild(participant, true).then(participant => {
@@ -591,7 +594,7 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
             downLoader()
             upFlashbag(i18n.trans(`${error}`))
           }
-        })  
+        })
       }).catch(error => {
         downLoader()
         upFlashbag(i18n.trans('session_expired'))

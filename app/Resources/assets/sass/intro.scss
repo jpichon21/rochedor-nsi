@@ -1,12 +1,12 @@
 .intro {
-  display: block;
+  display: none!important;
   position: fixed;
   width: 100vw;
   height: 100vh;
   animation-name: intro-hidden;
-  animation-delay: 20s;
+  animation-delay: 13s;
   animation-fill-mode: forwards;
-  z-index: 4;
+  z-index: 3;
   &:before {
     content: '';
     position: absolute;
@@ -14,8 +14,8 @@
     height: 100%;
     background: #000000;
     animation-name: intro-opacity-reverse;
-    animation-duration: 5s;
-    animation-delay: 10s;
+    animation-duration: 10s;
+    animation-delay: 5s;
     animation-fill-mode: forwards;
     z-index: 0;
   }
@@ -25,19 +25,22 @@
     left: 50%;
     margin-left: -91px;
     animation-name: intro-mount;
-    animation-duration: 5s;
-    animation-delay: 10s;
+    animation-duration: 2s;
+    animation-delay: 4s;
     animation-fill-mode: forwards;
     z-index: 1;
     .logo {
       width: 160px;
-      height: 122px;
+      height: 132px;
       background: url('../img/logo-icon.png') no-repeat;
       animation-name: intro-opacity;
-      animation-duration: 4s;
+      animation-duration: 2s;
       animation-delay: 1s;
       animation-fill-mode: forwards;
       opacity: 0;
+      margin-left: 12px;
+      background-size: 152px;
+      margin-top: 2px;
       &:before,
       &:after {
         content: '';
@@ -51,7 +54,7 @@
         background-image: url('../img/logo-overlay.png');
         transform-origin: 70px 41px;
         animation-name: intro-scale;
-        animation-duration: 10s;
+        animation-duration: 5s;
         animation-delay: 1s;
         animation-fill-mode: forwards;
         z-index: 1;
@@ -59,23 +62,25 @@
       &:after {
         background-image: url('../img/logo-text.png');
         animation-name: intro-opacity-text;
-        animation-duration: 8s;
-        animation-delay: 6s;
+        animation-duration: 4s;
+        animation-delay: 3s;
         opacity: 0;
         z-index: 2;
+        margin-left: -8px;
       }
     }
   }
 }
 
 body {
-  &.intro {
+
     .intro {
       display: block;
     }
     .header,
     .footer,
     .scroll-down,
+    .logo,
     .section {
       opacity: 0;
       animation-name: intro-opacity;
@@ -84,7 +89,10 @@ body {
     }
     .header,
     .footer {
-      animation-delay: 15s;
+      animation-delay: 5s;
+    }
+    .logo {
+      animation-delay: 10s;
     }
     .section {
       animation-delay: 17s;
@@ -95,7 +103,7 @@ body {
     .scroll-down {
       animation-delay: 19s;
     }
-  }
+
   
 }
 

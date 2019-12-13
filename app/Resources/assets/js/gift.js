@@ -13,7 +13,7 @@ import {
   postLogin,
   resetLogin,
   postGift } from './gift-api.js'
-import {limitMenuReduced} from './variables'
+import { limitMenuReduced } from './variables'
 
 /* Translations */
 
@@ -34,12 +34,14 @@ let _amount = 0
 let _allocation = {}
 let _modpaie = ''
 let _note = ''
+let _dateDebVir = ''
+let _virPeriod = ''
 
 const itemConnection = $('.item.connection')
-const itemCard = $('.item.card')
 const itemAmount = $('.item.amount')
 const itemAllocation = $('.item.allocation')
 const itemPayment = $('.item.payment')
+const itemPrelevement = $('.item.prelevement')
 const content = $('.content')
 
 /* Dropdowns */
@@ -50,20 +52,40 @@ function backToTop () {
     window.scroll({ top: 0, behavior: 'smooth' })
   }
 }
+
+function scrollToElement ($element) {
+  setTimeout(() => {
+    // a bit bruteforced, but it works ...
+    // for mobile
+    window.scrollTo({ top: $element.offset().top, left: 0, behavior: 'smooth' })
+    // for screen
+    // watch out for the forced offset of -120 if you reuse this method
+    document.querySelector('.content').scroll({ top: ($element.offset().top - 120), left: 0, behavior: 'smooth' })
+  }, 200)
+}
+
 function changeItem (elmt) {
   $('.dropdown .item').each(function () {
     this.style.maxHeight = null
     this.classList.remove('active')
   })
-  elmt[0].classList.add('active')
-  elmt[0].style.maxHeight = elmt[0].scrollHeight + 'px'
-  backToTop()
+  elmt.forEach(function (item) {
+    item.addClass('active')
+    resizeItem(item)
+  })
+}
+
+function resizeItem ($item) {
+  $item.css('maxHeight', $item.prop('scrollHeight') + 'px')
 }
 
 $(document).ready(function () {
-  setTimeout(function () {
-    changeItem(itemConnection)
-  }, 500)
+  $('.dropdown .item').each(function () {
+    if (this.classList.contains('amount') || this.classList.contains('allocation') || this.classList.contains('payment')) {
+      resizeItem($(this))
+      this.classList.add('active')
+    }
+  })
 })
 
 /* Renders */
@@ -76,9 +98,10 @@ function updateYouRender () {
   $('.you-render').html(youTemplate({ you: _you }))
 }
 
-function updateYouFormRender () {
+function updateYouFormRender (errors = [], contact = {}) {
   $('.you-form-render').html(youFormTemplate({
-    you: _you,
+    you: contact,
+    errors: errors,
     countries: _countries,
     civilites: [
       i18n.trans('form.civilite.mr'),
@@ -92,25 +115,180 @@ function updateYouFormRender () {
   Inputmask().mask(document.querySelectorAll('.datnaiss'))
 }
 
+const REQUIRED_FIELDS_COMMON = ['civil', 'prenom', 'nom']
+const REQUIRED_FIELDS_YOU = ['adresse', 'cp', 'ville', 'pays', 'email']
+
+function validateYou (data) {
+  return validateRequired(data, [...REQUIRED_FIELDS_COMMON, ...REQUIRED_FIELDS_YOU])
+}
+
+function validateRequired (data, requiredFields) {
+  var errors = []
+  data.forEach(function (item) {
+    if (requiredFields.includes(item.name) && item.value === '') {
+      errors[item.name] = i18n.trans('form.message.required')
+    }
+  })
+  requiredFields.forEach(function (item) {
+    if (!data.find(el => el.name === item)) {
+      errors[item] = i18n.trans('form.message.required')
+    }
+  })
+  return errors
+}
+
 function updateAmountRender () {
-  $('.amount-render').html(amountTemplate({
-    amount: _amount,
-    allocation: _allocation,
-    reduction: i18n.trans('gift.summary.reduction').replace('%reduction%', parseFloat(_amount * 0.66).toFixed(2))
-  }))
+  if (!_amount) {
+    $('.amount-render').html('')
+  } else {
+    $('.amount-render').html(amountTemplate({
+      reduction: i18n.trans('gift.summary.reduction').replace('%reduction%', parseFloat(_amount * 0.33).toFixed(2))
+    }))
+  }
+
+  resizeItem($('.item.amount.active'))
 }
 
 /* Actions */
+
+/* CHOIX DU MONTANT */
+
+itemAmount.on('click', '.button.radio', function (event) {
+  event.preventDefault()
+  $('.panel.amount .button.radio').removeClass('checked')
+  const amount = $(this).val()
+
+  let $amountTextAmount = $('.panel.amount .input.amount')
+  if ($(this).hasClass('other')) {
+    $amountTextAmount.parent().removeClass('hidden')
+    $amountTextAmount.val('').focus()
+    _amount = ''
+  } else {
+    $amountTextAmount.parent().addClass('hidden')
+    $amountTextAmount.val(amount)
+    _amount = $amountTextAmount.val()
+  }
+  $(this).addClass('checked')
+  updateAmountRender()
+})
+
+itemAmount.on('keyup', '.input.amount', function () {
+  _amount = $(this).val()
+  updateAmountRender()
+  // resizeItem($(this).parents('.item.amount.active'))
+})
+
+/* CHOIX DE L'ALLOCATION */
+
+itemAllocation.on('change', '.select-allocation', function (event) {
+  event.preventDefault()
+  _allocation = {
+    name: $(this).find('option:selected').text(),
+    value: $(this).val()
+  }
+})
+
+itemAllocation.on('change', '.gift-note', function (event) {
+  event.preventDefault()
+  _note = $(this).val()
+})
+
+/* CHOIX DU MOYEN DE PAIEMENT */
+
+itemPayment.on('click', '.button.radio', function (event) {
+  event.preventDefault()
+  itemPayment.find('.button.radio').removeClass('checked')
+  itemPayment.find('input[name="payment_method"]').val($(this).addClass('checked').attr('href').substring(1))
+  _modpaie = itemPayment.find('input[name="payment_method"]').val()
+
+  if (_modpaie === 'VIR' || _modpaie === 'VIRREG') {
+    itemPrelevement.removeClass('hidden')
+  }
+  else {
+    itemPrelevement.addClass('hidden')
+  }
+})
+
+itemPayment.on('change', '.select-modpaie', function (event) {
+  event.preventDefault()
+  _modpaie = $(this).val()
+})
+
+itemPayment.on('submit', '.panel.payment form', function (event) {
+  event.preventDefault()
+  let toValidate = $('input[name="amount"], select.select-allocation, input[name="payment_method"]')
+  let valid = true
+  toValidate.each(function () {
+    if ($(this).val() === '' || $(this).val() === null) {
+      valid = false
+    }
+  })
+
+  if (valid === false) {
+    upFlashbag(i18n.trans('gift.invalid_form.amount'))
+  } else {
+    // init hidden
+    itemPrelevement.find('.virement').addClass('hidden')
+    itemPrelevement.find('.virement-reg').addClass('hidden')
+    if (_modpaie === 'VIR' || _modpaie === 'VIRREG') {
+      Inputmask().mask(document.querySelectorAll('.date_virement'))
+      if (_modpaie === 'VIRREG') {
+        itemPrelevement.find('.virement-reg').removeClass('hidden')
+      }
+      else {
+        itemPrelevement.find('.virement').removeClass('hidden')
+      }
+      changeItem([itemPrelevement])
+      return
+    }
+    changeItem([itemConnection])
+  }
+})
+
+/* PRELEVEMENT */
+
+itemPrelevement.on('submit', 'form', function (event) {
+  event.preventDefault()
+  _dateDebVir = moment(itemPrelevement.find('.date_virement').val(), 'DD/MM/YYYY').format()
+  _virPeriod = itemPrelevement.find('.select-period').val()
+
+  let toValidate = $('input[name="date_virement"]')
+  let valid = true
+  if (_modpaie === 'VIRREG') {
+    toValidate = $('input[name="date_virement"], select.select-period')
+  }
+  toValidate.each(function () {
+    if ($(this).val() === '' || $(this).val() === null) {
+      valid = false
+    }
+  })
+
+  if (valid === false) {
+    upFlashbag(i18n.trans('gift.invalid_form.virement'))
+  } else {
+    changeItem([itemConnection])
+  }
+})
+
+itemPrelevement.on('click', '.back', function (event) {
+  event.preventDefault()
+  changeItem([itemAmount, itemAllocation, itemPayment])
+})
+
+/* CONNEXION / INSCRIPTION */
 
 function afterLogin (user, bypass) {
   const contact = getContact()
   _you = { ...contact, ...user }
   updateYouRender()
-  if (bypass) {
-    changeItem(itemAmount)
-  } else {
-    changeItem(itemCard)
-  }
+  upLoader()
+  postGift(_amount, _allocation.value, _modpaie, _note, _dateDebVir, _virPeriod).then(data => {
+    window.location.href = data
+  }).catch(err => {
+    downLoader()
+    upFlashbag(err)
+    console.error(err)
+  })
 }
 
 function formatContact (data) {
@@ -123,11 +301,17 @@ function formatContact (data) {
   return contact
 }
 
-function validatePassword (password) {
+function validatePassword (password, notEmpty = false) {
+  if (!password && !notEmpty) {
+    return null
+  }
   if (password.length < 8 && password.length !== 0) {
     return i18n.trans('security.password_too_small')
   }
-  return true
+  if (password === '' || (password === null && notEmpty)) {
+    return i18n.trans('form.message.required')
+  }
+  return null
 }
 
 itemConnection.on('submit', '.panel.connection form', function (event) {
@@ -169,49 +353,65 @@ itemConnection.on('click', '.cancel', function (event) {
   })
 })
 
+itemConnection.on('click', '.back', function (event) {
+  event.preventDefault()
+  changeItem([itemAmount, itemAllocation, itemPayment])
+})
+
 itemConnection.on('submit', '.panel.registration form', function (event) {
   event.preventDefault()
+  upLoader()
   const data = $(this).serializeArray()
   const contact = formatContact(data)
-  upLoader()
-  const validatedPassword = validatePassword(contact.password)
-  if (validatedPassword !== true) {
-    downLoader()
-    upFlashbag(validatedPassword)
-    return
+  var errors = []
+  errors = validateYou(data)
+  var error = null
+  error = validatePassword(contact.password)
+  if (error) {
+    errors['password'] = error
+    error = null
   }
-  if (validateDate(contact.datnaiss)) {
-    if (validatePhone(contact.tel, contact.mobil)) {
-      postRegister({
-        contact: contact
+  error = validateDate(contact.datnaiss)
+  if (error) {
+    errors['datnaiss'] = error
+    error = null
+  }
+  error = validatePhone(contact.tel, contact.mobil)
+  if (error) {
+    errors['tel'] = error
+  }
+  updateYouFormRender(errors, contact)
+  if (Object.keys(errors).length === 0) {
+    postRegister({
+      contact: contact
+    }).then(user => {
+      postLogin({
+        username: contact.username,
+        password: contact.password
       }).then(user => {
-        postLogin({
-          username: contact.username,
-          password: contact.password
-        }).then(user => {
-          downLoader()
-          afterLogin(user, true)
-        }).catch((error) => {
-          downLoader()
-          upFlashbag(i18n.trans(error))
-        })
+        downLoader()
+        afterLogin(user, true)
       }).catch((error) => {
         downLoader()
         upFlashbag(i18n.trans(error))
       })
-    } else {
+    }).catch((error) => {
       downLoader()
-      upFlashbag(i18n.trans('form.message.phone_invalid'))
-    }
-  } else {
+      upFlashbag(i18n.trans(error))
+    })
+  }
+  else {
     downLoader()
-    upFlashbag(i18n.trans('form.message.date_invalid'))
   }
 })
 
 itemConnection.on('click', 'a', function (event) {
   event.preventDefault()
-  const which = $(this).attr('href').substring(1)
+  if ($(this).hasClass('back')) {
+    return
+  }
+
+  const which = $(this).attr('href') ? $(this).attr('href').substring(1) : ''
   switch (which) {
     case 'connection':
     case 'registration':
@@ -219,6 +419,9 @@ itemConnection.on('click', 'a', function (event) {
       $(`.panel.${which}`, itemConnection).show()
       _you = getContact()
       updateYouFormRender()
+      setTimeout(() => {
+        scrollToElement($(`.panel.${which}`))
+      }, 200)
       break
     case 'reset':
       $('.panel.reset', itemConnection).show()
@@ -230,134 +433,28 @@ itemConnection.on('click', 'a', function (event) {
       getLogout(_locale)
       break
   }
-  changeItem(itemConnection)
+  changeItem([itemConnection])
 })
 
 function validateDate (date) {
-  return moment(date).isValid()
+  if (moment(date).isValid() && moment(date).isBefore(new Date())) {
+    return null
+  }
+  return i18n.trans('form.message.date_invalid')
 }
 
 function validatePhone (phone, mobile) {
-  return !(phone === '' && mobile === '')
+  if (phone === '' && mobile === '') {
+    return i18n.trans('form.message.phone_invalid')
+  }
+  return null
 }
-
-itemCard.on('click', '.continue', function (event) {
-  event.preventDefault()
-  changeItem(itemAmount)
-})
-
-itemCard.on('click', '.modify-you', function (event) {
-  event.preventDefault()
-  $('.panel', itemCard).hide()
-  $('.panel.modify', itemCard).show()
-  updateYouFormRender()
-  changeItem(itemCard)
-})
-
-itemCard.on('click', '.cancel', function (event) {
-  event.preventDefault()
-  $('.panel.modify', itemCard).slideUp(800, function () {
-    $('.panel', itemCard).hide()
-  })
-})
-
-itemCard.on('submit', '.panel.modify form', function (event) {
-  event.preventDefault()
-  const data = $(this).serializeArray()
-  const contact = formatContact(data)
-  upLoader()
-  const validatedPassword = validatePassword(contact.password)
-  if (validatedPassword !== true) {
-    downLoader()
-    upFlashbag(validatedPassword)
-    return
-  }
-  if (validateDate(contact.datnaiss)) {
-    if (validatePhone(contact.tel, contact.mobil)) {
-      postModify({
-        contact: contact
-      }).then(user => {
-        downLoader()
-        afterLogin({ ...user, password: contact.password }, false)
-        $('.panel.modify').slideUp(800, function () {
-          backToTop()
-          $(this).hide()
-        })
-      }).catch(error => {
-        downLoader()
-        upFlashbag(error)
-      })
-    } else {
-      downLoader()
-      upFlashbag(i18n.trans('form.message.phone_invalid'))
-    }
-  } else {
-    downLoader()
-    upFlashbag(i18n.trans('form.message.date_invalid'))
-  }
-})
-
-$('.panel.amount').on('click', '.button.radio', function (event) {
-  event.preventDefault()
-  $('.panel.amount .button.radio').removeClass('checked')
-  const amount = $(this).addClass('checked').attr('href').substring(1)
-  $('.panel.amount .input.amount').val(amount)
-})
-
-$('.panel.amount').on('focus', '.input.amount', function (event) {
-  event.preventDefault()
-  $('.panel.amount .button.radio').removeClass('checked')
-  $(this).val('')
-})
-
-itemAmount.on('submit', '.panel.amount form', function (event) {
-  event.preventDefault()
-  _amount = $('.panel.amount .input.amount').val()
-  updateAmountRender()
-  changeItem(itemAllocation)
-})
-
-itemAllocation.on('change', '.select-allocation', function (event) {
-  event.preventDefault()
-  _allocation = {
-    name: $(this).find('option:selected').text(),
-    value: $(this).val()
-  }
-})
-
-itemAllocation.on('change', '.gift-note', function (event) {
-  event.preventDefault()
-  _note = $(this).val()
-})
-
-itemAllocation.on('submit', '.panel.allocation form', function (event) {
-  event.preventDefault()
-  updateAmountRender()
-  changeItem(itemPayment)
-})
-
-itemPayment.on('change', '.select-modpaie', function (event) {
-  event.preventDefault()
-  _modpaie = $(this).val()
-})
-
-itemPayment.on('submit', '.panel.payment form', function (event) {
-  event.preventDefault()
-  upLoader()
-  postGift(_amount, _allocation.value, _modpaie, _note).then(data => {
-    window.location.href = data
-  }).catch(err => {
-    downLoader()
-    upFlashbag(err)
-    console.error(err)
-  })
-})
 
 itemConnection.on('click', '.panel.reset .cancel', function (event) {
   event.preventDefault()
   $('.panel.reset').slideUp(800, function () {
     $(this).hide()
     backToTop()
-    changeItem(itemConnection)
+    changeItem([itemConnection])
   })
 })

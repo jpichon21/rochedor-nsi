@@ -90,3 +90,33 @@
 .italic {
   font-style: italic;
 }
+
+.button {
+  border: 1px transparent solid;
+  background-repeat: no-repeat;
+  background-position: 100% 0%;
+  &.black {
+    color: #000000;
+    border-color: #000000;
+    transition: 0.5s ease;
+  }
+  &.yellow {
+    color: $roche-yellow;
+    border-color: $roche-yellow;
+    transition: 0.5s ease;
+  }
+}
+.button.yellow:hover, .button.yellow:active, .button.yellow:focus{
+  color: #000000;
+  -webkit-transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+  transition: 0.5s ease;
+  background: -webkit-gradient(linear, right top, left top, color-stop(50%, #000000), color-stop(50%, $roche-yellow));
+  background: -o-linear-gradient(right, #000000 50%, $roche-yellow 50%);
+  background: linear-gradient(to left, #000000 50%, $roche-yellow 50%);
+  background-size: 200% 100%;
+  background-position:0 110%;
+  .button-arrow{
+    filter: brightness(0);
+  }
+}

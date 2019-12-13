@@ -1,0 +1,16 @@
+{% set bodyClass = "page gift" %}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/gift.css") }}">
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="left">
+        <div class="intro">
+            <p>{{ 'gift.payment.return.cheque'|trans({'%civility%': civility, '%name%': name, '%amount%': amount, '%affectation%': affectation})|raw }}</p>
+        </div>
+    </div>
+    <div class="right">
+    </div>
+</div>
+{% endblock %}
