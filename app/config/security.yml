@@ -53,6 +53,7 @@ security:
             anonymous: ~
             json_login:
                 check_path: /login
+            entry_point: AppBundle\Security\EntryPoint
             logout:
                 path:   /logout
                 invalidate_session: true

@@ -62,11 +62,18 @@ export const postParticipant = (data) => {
   })
     .then(res => res.json())
     .then(res => {
+      if (res.error !== undefined) {
+        throw res.error
+      }
       if (res.status !== 'ok') { throw res.message }
       return res.data
     })
     .catch(res => {
-      throw (new Error(i18n.trans('Error: unknown_error')))
+      if (res.code === 403) {
+        throw (new Error(i18n.trans('forbidden')))
+      } else {
+        throw (new Error(i18n.trans('Error: unknown_error')))
+      }
     })
 }
 
@@ -107,11 +114,18 @@ export const getRegistered = (activityId) => {
   })
     .then(res => res.json())
     .then(res => {
+      if (res.error !== undefined) {
+        throw res.error
+      }
       if (res.status !== 'ok') { throw res.message }
       return res.data
     })
     .catch(res => {
-      throw (new Error(i18n.trans('Error: unknown_error')))
+      if (res.code === 403) {
+        throw (new Error(i18n.trans('forbidden')))
+      } else {
+        throw (new Error(i18n.trans('Error: unknown_error')))
+      }
     })
 }
 
@@ -129,7 +143,6 @@ export const postRegistered = (data, id, existingRef) => {
     .then(res => res.json())
     .then(res => {
       if (res.error !== undefined) {
-        console.log(res.error)
         throw res.error
       }
       if (res.status !== 'ok') { throw res.message }

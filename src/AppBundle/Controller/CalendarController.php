@@ -136,11 +136,17 @@ class CalendarController extends Controller
 
         $countriesJSON = array();
         $countries = $this->tpaysRepository->findAllCountry();
+        $preferredCountries = ['FR', 'GP', 'MQ', 'GF', 'RE', 'YT', 'PM', 'WF', 'PF', 'NC', 'TF'];
+        $preferredChoices = [];
         foreach ($countries as $country) {
-            $countriesJSON[] = array(
-                'codpays' => $country->getCodpays(),
-                'nompays' => $country->getNompays()
-            );
+            if (in_array($country->getCodpays(), $preferredCountries)) {
+                $preferredChoices[] = ['codpays' => $country->getCodpays(), 'nompays' => $country->getNompays()];
+            } else {
+                $countriesJSON[] = array(
+                    'codpays' => $country->getCodpays(),
+                    'nompays' => $country->getNompays()
+                );
+            }
         }
 
         if ($id) {
@@ -154,6 +160,7 @@ class CalendarController extends Controller
                         'page' => $page,
                         'activity' => $activity,
                         'countries' => $countriesJSON,
+                        'preferredCountries' => $preferredChoices,
                         'availableLocales' => $availableLocales
                     ]);
                 }
