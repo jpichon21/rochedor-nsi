@@ -972,5 +972,11 @@
         <target>logout.disconnect.title</target>
       </segment>
     </unit>
+    <unit id="sdhufn9B9TMG9" name="registration.not_finished">
+      <segment>
+        <source>registration.not_finished</source>
+        <target>La tua richiesta di registrazione non è stata finalizzata, sei sicuro di voler lasciare la pagina?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

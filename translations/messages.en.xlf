@@ -994,5 +994,11 @@
         <target>No retreats matches your search</target>
       </segment>
     </unit>
+    <unit id="sdhufn9B9TMG9" name="registration.not_finished">
+      <segment>
+        <source>registration.not_finished</source>
+        <target>Your registration request has not been finalized, are you sure you want to leave the page?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
