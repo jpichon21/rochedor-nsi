@@ -467,10 +467,10 @@ body {
       overflow: hidden;
       z-index: 2;
 
-      /*-webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out;
+      -webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out;
       -moz-transition:width 300ms ease-in-out, height 300ms ease-in-out;
       -o-transition:width 300ms ease-in-out, height 300ms ease-in-out;
-      transition:width 300ms ease-in-out, height 300ms ease-in-out;*/
+      transition:width 300ms ease-in-out, height 300ms ease-in-out;
 
       @include media('<xlarge') {
         width: 35%
@@ -511,6 +511,7 @@ body {
 
       > .cnews {
         display: none;
+        position: relative;
 
         &.active {
           display: block;
