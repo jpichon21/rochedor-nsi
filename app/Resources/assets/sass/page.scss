@@ -18,7 +18,7 @@ body {
   .intro {
     font-style: italic;
     color: $roche-yellow;
-    line-height: 22px;
+    line-height: 25px;
     font-size: 18px;
     margin-bottom: 40px;
     b {
@@ -33,7 +33,7 @@ body {
   .dropdown {
     position: relative;
     margin: 0 0 20px -20px;
-    max-width: 490px;
+    max-width: 480px;
     @include media('>laptop') {
       max-width: 680px;
     }
@@ -139,13 +139,13 @@ body {
       p {
         font-family: 'lato', lato, sans-serif;
         font-weight: 300;
-        line-height: 20px;
+        line-height: 23px;
         font-size: 17px;
         opacity: 0;
         transition: opacity 0.8s;
         transition-delay: 0.2s;
         @include media('<=mobile') {
-          padding-right: 20px;
+          padding-right: 10px;
         }
       }
       a {
@@ -170,14 +170,13 @@ body {
         margin: 0 0 20px 36px;
         padding: 20px 0;
         color: $roche-yellow;
-        margin-left: -8px;
         z-index: 1;
         &:before {
           content: '';
           position: absolute;
           top: -50px;
           bottom: -50px;
-          left: -9px;
+          left: -53px;
           width: 1px;
           background: linear-gradient(to bottom, #ffffff 0%, #000000 25%, #000000 75%, $roche-yellow 100%);
           z-index: 0;
@@ -247,14 +246,14 @@ body {
           }
         }
       }
-      
+
       .password-container {
         display: flex;
         height: 36px;
         .password {
           flex:1;
           width: calc(100% - 30px);
-        }  
+        }
         .toggle-password {
           padding: 0;
           margin: 0;
@@ -495,7 +494,6 @@ body {
   }
   @include media('<=mobile') {
     background-image: linear-gradient(black, black),  url('../img/retraites-mobile.jpg')!important;
-    background-size:cover;
   }
 }
 
@@ -512,7 +510,6 @@ body {
   }
   @include media('<=mobile') {
     background-image: linear-gradient(black, black),  url('../img/soutenir-mobile.jpg')!important;
-    background-size:cover;
   }
 }
 
@@ -529,24 +526,22 @@ body {
   }
   @include media('<=mobile') {
     background-image: linear-gradient(black, black),  url('../img/infocontact-mobile.jpg')!important;
-    background-size:cover;
   }
 }
 
 .La, .Les{
-  background-image: linear-gradient(black, black), url('../img/communaute-new.jpg');
+  background-image: linear-gradient(black, black), url('../img/communaute.jpg');
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/communaute-s-new.jpg');
+    background-image:linear-gradient(black, black),  url('../img/communaute-s.jpg');
   }
   @include media('<=large') {
-    background-image: linear-gradient(black, black),  url('../img/communaute-xs-new.jpg');
+    background-image: linear-gradient(black, black),  url('../img/communaute-xs.jpg');
   }
   @include media('<=medium') {
-    background-image: linear-gradient(black, black),  url('../img/communaute-xxs-new.jpg');
+    background-image: linear-gradient(black, black),  url('../img/communaute-xxs.jpg');
   }
   @include media('<=mobile') {
-    background-image: linear-gradient(black, black),  url('../img/communaute-mobile-new.jpg')!important;
-    background-size:cover;
+    background-image: linear-gradient(black, black),  url('../img/communaute-mobile.jpg')!important;
   }
 }
 
@@ -565,7 +560,6 @@ body {
   }
   @include media('<=mobile') {
     background-image: linear-gradient(black, black),  url('../img/calendar-mobile.jpg')!important;
-    background-size:cover;
   }
 }
 
@@ -574,10 +568,6 @@ body {
   background-size: cover;
 }
 
-
-.content{
-  //overflow-y: hidden!important;
-}
 
 //FADE IN
 
