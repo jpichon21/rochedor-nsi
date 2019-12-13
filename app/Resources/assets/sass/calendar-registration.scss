@@ -1,6 +1,14 @@
 @import './variables';
 @import './page';
 
+.content .dropdown {
+  max-width: 625px;
+}
+
+.validation:hover, .validation:active, .validation:focus {
+  background-color: transparent;
+}
+
 .dropdown {
   .item {
     h2 {
