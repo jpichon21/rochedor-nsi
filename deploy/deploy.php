@@ -35,7 +35,7 @@
     ->user('root')
     ->hostname('rochedor.fr')
     ->set('account_dir', 'rochedor')
-    ->set('branch', 'demo_front')
+    ->set('branch', 'demo_front2')
     ->set('encore_config_name', 'configDev')
     ->set('deploy_path', '/home/{{account_dir}}/nsi_demo_front');
 
