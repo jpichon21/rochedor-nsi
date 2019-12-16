@@ -14,8 +14,8 @@ import TocIcon from '@material-ui/icons/Toc'
 import EditIcon from '@material-ui/icons/Edit'
 import AnnouncementIcon from '@material-ui/icons/Announcement'
 import LaunchIcon from '@material-ui/icons/Launch'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-import DashboardIcon from '@material-ui/icons/Dashboard'
+import ExitToAppIcon from '@material-ui/icons/PowerSettingsNew'
+import DashboardIcon from '@material-ui/icons/Home'
 
 class AppMenu extends React.Component {
   constructor (props) {
@@ -154,8 +154,8 @@ class AppMenu extends React.Component {
 
             <NavLink to='/' className={classes.link}>
               <MenuItem onClick={this.handleCloseMenu}>
-                <DashboardIcon />{' '}
-                Tableau de bord
+                <DashboardIcon style={{marginRight: '5px'}} />{' '}
+                Accueil du CMS
               </MenuItem>
             </NavLink>
 
@@ -163,7 +163,7 @@ class AppMenu extends React.Component {
               <Divider className={'divider'} />
               <NavLink to='/news-list' className={classes.link}>
                 <MenuItem onClick={this.handleCloseMenu}>
-                  <AnnouncementIcon />{' '}
+                  <AnnouncementIcon style={{marginRight: '5px'}} />{' '}
                   Nouveautés
                 </MenuItem>
               </NavLink>
@@ -174,8 +174,8 @@ class AppMenu extends React.Component {
             <IsAuthorized action={[ACTION_CONTENT_ASSOCIATION_VIEW, ACTION_CONTENT_EDITION_VIEW]} alternative={null}>
               <NavLink to='/content-list' className={classes.link}>
                 <MenuItem onClick={this.handleCloseMenu}>
-                  <TocIcon />{' '}
-                  Contenus
+                  <TocIcon style={{marginRight: '5px'}} />{' '}
+                  Page de contenus
                 </MenuItem>
               </NavLink>
             </IsAuthorized>
@@ -183,8 +183,8 @@ class AppMenu extends React.Component {
             <IsAuthorized action={ACTION_HOME_VIEW} alternative={null}>
               <NavLink to='/home-edit' className={classes.link}>
                 <MenuItem onClick={this.handleCloseMenu}>
-                  <EditIcon />{' '}
-                  Page d'accueil
+                  <EditIcon style={{marginRight: '5px'}} />{' '}
+                  Page d'accueil du site
                 </MenuItem>
               </NavLink>
             </IsAuthorized>
@@ -194,8 +194,8 @@ class AppMenu extends React.Component {
             <IsAuthorized action={ACTION_USER_VIEW} alternative={null}>
               <NavLink to='/user-list' className={classes.link}>
                 <MenuItem onClick={this.handleCloseMenu}>
-                  <PeopleIcon />{' '}
-                  Utilisateurs
+                  <PeopleIcon style={{marginRight: '5px'}} />{' '}
+                  Liste des utilisateurs
                 </MenuItem>
               </NavLink>
             </IsAuthorized>
@@ -203,8 +203,8 @@ class AppMenu extends React.Component {
             <IsAuthorized action={ACTION_SPEAKER_VIEW}>
               <NavLink to='/speaker-list' className={classes.link}>
                 <MenuItem onClick={this.handleCloseMenu}>
-                  <RecentActorsIcon />{' '}
-                  Intervenants
+                  <RecentActorsIcon style={{marginRight: '5px'}} />{' '}
+                  Liste des intervenants
                 </MenuItem>
               </NavLink>
             </IsAuthorized>
@@ -213,7 +213,7 @@ class AppMenu extends React.Component {
 
             <a href='/' target='_blank' className={classes.link}>
               <MenuItem className={classes.visit} onClick={this.handleCloseMenu}>
-                <LaunchIcon />{' '}
+                <LaunchIcon style={{marginRight: '5px'}} />{' '}
                 Voir le site
               </MenuItem>
             </a>
@@ -223,8 +223,8 @@ class AppMenu extends React.Component {
                 ? (
                   <NavLink to='/logout' className={classes.link}>
                     <MenuItem className={classes.logout} onClick={this.handleCloseMenu}>
-                      <ExitToAppIcon />{' '}
-                      Déconnexion
+                      <ExitToAppIcon style={{marginRight: '5px'}} />{' '}
+                      Se déconnecter
                     </MenuItem>
                   </NavLink>
                 )

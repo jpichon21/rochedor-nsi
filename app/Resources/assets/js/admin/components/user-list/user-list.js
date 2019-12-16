@@ -133,7 +133,7 @@ const getRoles = ({roles}) => {
     mainRoles.push('Contenu Association')
   }
   if (roles.includes(ROLE_ADMIN_EDITION)) {
-    mainRoles.push('Contenu Édition')
+    mainRoles.push('Contenu Éditions')
   }
 
   return mainRoles
