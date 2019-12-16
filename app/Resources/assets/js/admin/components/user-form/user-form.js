@@ -65,7 +65,8 @@ export class UserForm extends React.Component {
       alertOpen: false,
       status: '',
       showDeleteAlert: false,
-      currentTab: 0
+      currentTab: 0,
+      inputPasswordVisible: false,
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -76,6 +77,7 @@ export class UserForm extends React.Component {
     this.handleClose = this.handleClose.bind(this)
     this.handleChangeRole = this.handleChangeRole.bind(this)
     this.hasPasswordFieldError = this.hasPasswordFieldError.bind(this)
+    this.togglePasswordVisibility = this.togglePasswordVisibility.bind(this)
 
     this.i18n = new I18n('fr')
   }
@@ -183,6 +185,11 @@ export class UserForm extends React.Component {
     }, 800)
   }
 
+  togglePasswordVisibility (event) {
+    event.preventDefault()
+    this.setState(({inputPasswordVisible}) => ({ inputPasswordVisible: !inputPasswordVisible }))
+  }
+
   render () {
     const { classes } = this.props
     return (
@@ -265,32 +272,38 @@ export class UserForm extends React.Component {
             <TooltipWrapper
               title={`Renseigner le mot de passe (8 caratères minimum)`}
             >
-              <TextField
-                error={this.hasPasswordFieldError()}
-                autoComplete='off'
-                InputLabelProps={{ shrink: true }}
-                className={`${classes.textfield} disable_password_autofill`}
-                fullWidth
-                type='password'
-                name='password'
-                label='Mot de passe'
-                value={this.state.password}
-                onChange={this.handleInputChange} />
+              <div style={{position: 'relative'}}>
+                <TextField
+                  error={this.hasPasswordFieldError()}
+                  autoComplete='off'
+                  InputLabelProps={{ shrink: true }}
+                  className={`${classes.textfield} disable_password_autofill`}
+                  fullWidth
+                  type={this.state.inputPasswordVisible ? 'text' : 'password'}
+                  name='password'
+                  label='Mot de passe'
+                  value={this.state.password}
+                  onChange={this.handleInputChange} />
+                <a className='toggle-password' style={togglePwdStyle} onClick={this.togglePasswordVisibility} />
+              </div>
             </TooltipWrapper>
             <TooltipWrapper
               title={`Répéter le mot de passe`}
             >
-              <TextField
-                error={this.hasPasswordFieldError()}
-                autoComplete='off'
-                InputLabelProps={{ shrink: true }}
-                className={classes.textfield}
-                fullWidth
-                type='password'
-                name='repeat'
-                label='Confirmation'
-                value={this.state.repeat}
-                onChange={this.handleInputChange} />
+              <div style={{position: 'relative'}}>
+                <TextField
+                  error={this.hasPasswordFieldError()}
+                  autoComplete='off'
+                  InputLabelProps={{ shrink: true }}
+                  className={classes.textfield}
+                  fullWidth
+                  type={this.state.inputPasswordVisible ? 'text' : 'password'}
+                  name='repeat'
+                  label='Confirmation'
+                  value={this.state.repeat}
+                  onChange={this.handleInputChange} />
+                <a className='toggle-password' style={togglePwdStyle} onClick={this.togglePasswordVisibility} />
+              </div>
             </TooltipWrapper>
 
             <TooltipWrapper
@@ -398,6 +411,25 @@ const getMainRole = (roles) => {
     return ROLE_ADMIN_EDITION
   }
   return ''
+}
+
+const togglePwdStyle = {
+  position: 'absolute',
+  top: '15px',
+  right: 0,
+
+  padding: 0,
+  margin: 0,
+  backgroundColor: 'lightgrey',
+  backgroundImage: "url('/assets/img/eye-regular.svg')",
+  // backgroundSize: 'cover',
+  backgroundSize: '18px',
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: '50%',
+  height: '31px',
+  border: 'none',
+  width: '30px',
+  cursor: 'pointer'
 }
 
 const styles = theme => ({

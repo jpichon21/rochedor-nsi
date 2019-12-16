@@ -17,12 +17,15 @@ export class Login extends React.Component {
       username: '',
       password: '',
       error: '',
-      alertOpen: false
+      alertOpen: false,
+      inputPasswordVisible: false,
     }
 
     this.handleClose = this.handleClose.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.togglePasswordVisibility = this.togglePasswordVisibility.bind(this)
+
     this.i18n = new I18n('fr')
   }
 
@@ -52,6 +55,11 @@ export class Login extends React.Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
+  togglePasswordVisibility (event) {
+    event.preventDefault()
+    this.setState(({inputPasswordVisible}) => ({ inputPasswordVisible: !inputPasswordVisible }))
+  }
+
   render () {
     Moment.locale(this.props.locale)
     const { classes } = this.props
@@ -76,17 +84,20 @@ export class Login extends React.Component {
                 placeholder='Identifiant'
                 value={this.state.username}
                 onChange={this.handleInputChange} />
-              <TextField
-                type={'password'}
-                autoComplete='off'
-                InputLabelProps={{ shrink: true }}
-                className={classes.textfield}
-                fullWidth
-                name='password'
-                label='Entrer votre mot de passe'
-                placeholder='Mot de passe'
-                value={this.state.password}
-                onChange={this.handleInputChange} />
+              <div style={{position: 'relative'}}>
+                <TextField
+                  type={this.state.inputPasswordVisible ? 'text' : 'password'}
+                  autoComplete='off'
+                  InputLabelProps={{ shrink: true }}
+                  className={classes.textfield}
+                  fullWidth
+                  name='password'
+                  label='Entrer votre mot de passe'
+                  placeholder='Mot de passe'
+                  value={this.state.password}
+                  onChange={this.handleInputChange} />
+                <a className='toggle-password' style={togglePwdStyle} onClick={this.togglePasswordVisibility} />
+              </div>
               <Button type={'submit'} color='primary'>Connexion</Button>
               <NavLink to='/mot-de-passe-oublie' style={{textDecoration: 'none'}}>
                 <Button type={'submit'} color='secondary' style={{float: 'right'}}>Mot de passe oublié ?</Button>
@@ -98,6 +109,25 @@ export class Login extends React.Component {
       </div>
     )
   }
+}
+
+const togglePwdStyle = {
+  position: 'absolute',
+  top: '15px',
+  right: 0,
+
+  padding: 0,
+  margin: 0,
+  backgroundColor: 'lightgrey',
+  backgroundImage: "url('/assets/img/eye-regular.svg')",
+  // backgroundSize: 'cover',
+  backgroundSize: '18px',
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: '50%',
+  height: '31px',
+  border: 'none',
+  width: '30px',
+  cursor: 'pointer'
 }
 
 const styles = theme => ({
