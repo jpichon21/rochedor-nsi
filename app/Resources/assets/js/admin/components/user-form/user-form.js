@@ -68,7 +68,6 @@ export class UserForm extends React.Component {
       currentTab: 0
     }
     this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleAdminChange = this.handleAdminChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleDeleteClose = this.handleDeleteClose.bind(this)
@@ -89,21 +88,6 @@ export class UserForm extends React.Component {
       value = event.target.value
     }
     const state = immutable.set(this.state, event.target.name, value)
-    this.setState(state)
-  }
-
-  handleAdminChange (event) {
-    let roles = this.state.user.roles
-    if (event.target.checked) {
-      if (!roles.includes(ROLE_SUPER_ADMIN)) {
-        roles.push(ROLE_SUPER_ADMIN)
-      }
-    } else {
-      if (roles.includes(ROLE_SUPER_ADMIN)) {
-        roles = roles.filter(e => e !== ROLE_SUPER_ADMIN)
-      }
-    }
-    const state = immutable.set(this.state, 'user.roles', roles)
     this.setState(state)
   }
 
@@ -318,7 +302,7 @@ export class UserForm extends React.Component {
                   id={'type'}
                   fullWidth
                   className={classes.select}
-                  value={this.state.user.roles[0] || ''}
+                  value={getMainRole(this.state.user.roles)}
                   onChange={e => this.handleChangeRole(e.target.value)}
                 >
                   {[
@@ -401,6 +385,19 @@ export class UserForm extends React.Component {
       </div>
     )
   }
+}
+
+const getMainRole = (roles) => {
+  if (roles.includes(ROLE_SUPER_ADMIN)) {
+    return ROLE_SUPER_ADMIN
+  }
+  if (roles.includes(ROLE_ADMIN_ASSOCIATION)) {
+    return ROLE_ADMIN_ASSOCIATION
+  }
+  if (roles.includes(ROLE_ADMIN_EDITION)) {
+    return ROLE_ADMIN_EDITION
+  }
+  return ''
 }
 
 const styles = theme => ({
