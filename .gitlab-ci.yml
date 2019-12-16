@@ -15,7 +15,7 @@ deploy_dev:
   environment:
     name: dev
     url: https://nsi.cartron.fr
-  only: 
+  only:
     - dev
   script:
         - curl -L https://deployer.org/releases/v6.4.3/deployer.phar > /usr/local/bin/deployer && chmod +x /usr/local/bin/deployer
@@ -32,11 +32,11 @@ deploy_staging:
   environment:
     name: staging
     url: https://staging.cartron.fr
-  only: 
+  only:
     - staging
   script:
-        - curl -L https://deployer.org/releases/v6.4.3/deployer.phar > /usr/local/bin/deployer && chmod +x /usr/local/bin/deployer
-        - deployer -f=deploy/deploy.php deploy staging
+    - curl -L https://deployer.org/releases/v6.4.3/deployer.phar > /usr/local/bin/deployer && chmod +x /usr/local/bin/deployer
+    - deployer -f=deploy/deploy.php deploy staging
 
 deploy_demo:
   stage: deploy
@@ -49,8 +49,8 @@ deploy_demo:
   environment:
     name: demo_front2
     url: https://demo_front.cartron.fr
-    only:
-      - demo_front2
-    script:
-      - curl -L https://deployer.org/releases/v6.4.3/deployer.phar > /usr/local/bin/deployer && chmod +x /usr/local/bin/deployer
-      - deployer -f=deploy/deploy.php deploy demo_front2
+  only:
+    - demo_front2
+  script:
+    - curl -L https://deployer.org/releases/v6.4.3/deployer.phar > /usr/local/bin/deployer && chmod +x /usr/local/bin/deployer
+    - deployer -f=deploy/deploy.php deploy demo_front2
