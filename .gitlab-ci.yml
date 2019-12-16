@@ -47,7 +47,7 @@ deploy_demo:
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | ssh-add -
   environment:
-    name: demo_front2
+    name: demo_front
     url: https://demo_front.cartron.fr
   only:
     - demo_front2
