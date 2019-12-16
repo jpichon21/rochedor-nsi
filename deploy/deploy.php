@@ -31,7 +31,7 @@
     ->set('deploy_path', '/home/{{account_dir}}/nsi_dev');
     
     host('demo-front.rochedor.fr')
-    ->stage('demo_front')
+    ->stage('demo_front2')
     ->user('root')
     ->hostname('rochedor.fr')
     ->set('account_dir', 'rochedor')
