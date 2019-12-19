@@ -40,6 +40,7 @@
       @include media('<=mobile') {
         width: 152px;
         height: 124px;
+        transform: scale(0.9);
       }
       background: url('../img/logo-icon.png') no-repeat;
       animation-name: intro-opacity;
@@ -151,7 +152,7 @@ body {
 
 @keyframes intro-mount-mobile {
   from { top: 45%; }
-  to { top: 26px; }
+  to { top: 22px; }
 }
 
 
