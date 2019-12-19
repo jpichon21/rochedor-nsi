@@ -77,6 +77,9 @@
         opacity: 0;
         z-index: 2;
         margin-left: -8px;
+        @include media('<=mobile') {
+          margin-left: 0px;
+        }
       }
     }
   }
