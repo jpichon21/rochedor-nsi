@@ -29,6 +29,9 @@
     animation-delay: 4s;
     animation-fill-mode: forwards;
     z-index: 1;
+    @include media('<=mobile') {
+      top: 40%;
+    }
     .logo {
       width: 160px;
       height: 132px;
