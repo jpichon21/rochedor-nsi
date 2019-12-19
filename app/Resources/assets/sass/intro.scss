@@ -37,6 +37,10 @@
     .logo {
       width: 160px;
       height: 132px;
+      @include media('<=mobile') {
+        width: 152px;
+        height: 124px;
+      }
       background: url('../img/logo-icon.png') no-repeat;
       animation-name: intro-opacity;
       animation-duration: 2s;
