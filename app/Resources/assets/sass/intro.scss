@@ -27,9 +27,6 @@
     left: 50%;
     margin-left: -91px;
     animation-name: intro-mount;
-    @include media('<=mobile') {
-      animation-name: intro-mount-mobile;
-    }
     animation-duration: 2s;
     animation-delay: 4s;
     animation-fill-mode: forwards;
@@ -144,10 +141,3 @@ body {
   from { top: 45%; }
   to { top: 58px; }
 }
-
-@keyframes intro-mount-mobile {
-  from { top: 45%; }
-  to { top: 48px; }
-}
-
-
