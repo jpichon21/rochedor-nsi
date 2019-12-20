@@ -779,6 +779,18 @@ export class PageForm extends React.Component {
       }
     })
   }
+  handleChangeCategory (value) {
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        page: {
+          ...prevState.page,
+          category: value
+        },
+        forceRefresh: Math.random()
+      }
+    })
+  }
 
   render () {
     document.addEventListener('click', event => {
@@ -806,6 +818,7 @@ export class PageForm extends React.Component {
         )
       })
       : null
+
     return (
       <div className={classes.container}>
         <Dialog open={this.state.fileUploading.isUploading &&
@@ -952,32 +965,37 @@ export class PageForm extends React.Component {
                   title='Détermine qui a les droits de voir/modifier ce contenu'
                 >
                   <FormControl style={{ width: '100%', marginBottom: '25px' }}>
-                    <InputLabel htmlFor={'type'} shrink>Type de page</InputLabel>
+                    <InputLabel htmlFor={'type'} shrink>Affectation</InputLabel>
                     <Select
                       id={'type'}
                       className={classes.select}
                       value={this.state.page.type || ''}
                       onChange={e => this.handleChangeType(e.target.value)}
                     >
-                      <MenuItem value={''}></MenuItem>
+                      <MenuItem value={''} />
                       <MenuItem value={'admin'}>Admin</MenuItem>
                       <MenuItem value={'association'}>Association</MenuItem>
                       <MenuItem value={'editions'}>Édition</MenuItem>
                     </Select>
                   </FormControl>
                 </TooltipWrapper>
+
                 <TooltipWrapper
-                  title={`La catégorie dans laquelle est rangée la page dans l'admin`}
+                  title="La catégorie dans laquelle est rangée la page dans l'admin"
                 >
-                  <TextField
-                    autoComplete='off'
-                    InputLabelProps={{ shrink: true }}
-                    className={classes.textfield}
-                    fullWidth
-                    name='page.category'
-                    label='Catégorie'
-                    value={this.state.page.category || ''}
-                    onChange={this.handleInputChange} />
+                  <FormControl style={{ width: '100%', marginBottom: '25px' }}>
+                    <InputLabel htmlFor={'category'} shrink>Catégorie</InputLabel>
+                    <Select
+                      id={'category'}
+                      className={classes.select}
+                      value={this.state.page.category || ''}
+                      onChange={e => this.handleChangeCategory(e.target.value)}
+                    >
+                      {['COMMUNAUTÉ ET LES MAISONS', 'RETRAITES', 'CALENDRIER', 'NOUS SOUTENIR', 'ÉDITIONS ROCHE D\'OR', 'INFORMATIONS PRATIQUES'].map(
+                        label => <MenuItem value={label}>{label}</MenuItem>
+                      )}
+                    </Select>
+                  </FormControl>
                 </TooltipWrapper>
               </div>
             )}

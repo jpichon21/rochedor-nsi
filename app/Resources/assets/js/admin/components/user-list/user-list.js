@@ -31,7 +31,7 @@ export class UserList extends React.Component {
 
   componentWillMount () {
     this.props.dispatch(getUsers()).then(res => {
-      this.setState({ users: res })
+      this.setState({ users: res || [] })
     })
   }
 
@@ -49,30 +49,6 @@ export class UserList extends React.Component {
   render () {
     Moment.locale(this.props.locale)
     const { classes } = this.props
-    const users = this.state.users.map(user => {
-      return (
-        <TableRow key={user.id}>
-          <TableCell>
-            <IsAuthorized action={ACTION_USER_EDIT} alternative={user.name}>
-              <NavLink className={classes.link} to={`/user-edit/${user.id}`}>{user.name}</NavLink>
-            </IsAuthorized>
-          </TableCell>
-          <TableCell>
-            <IsAuthorized action={ACTION_USER_EDIT} alternative={user.username}>
-              <NavLink className={classes.link} to={`/user-edit/${user.id}`}>{user.username}</NavLink>
-            </IsAuthorized>
-          </TableCell>
-
-          <TableCell>
-            {getRoles(user).join(', ')}
-            {/* (user.roles.includes('ROLE_SUPER_ADMIN')) ? <Icon>check</Icon> : '' */}
-          </TableCell>
-          <TableCell>
-            {(user.active) ? <Icon>check</Icon> : ''}
-          </TableCell>
-        </TableRow>
-      )
-    })
 
     return (
       <div>
@@ -95,7 +71,30 @@ export class UserList extends React.Component {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {users}
+                        {this.state.users && this.state.users.map(user => {
+                          return (
+                            <TableRow key={user.id}>
+                              <TableCell>
+                                <IsAuthorized action={ACTION_USER_EDIT} alternative={user.name}>
+                                  <NavLink className={classes.link} to={`/user-edit/${user.id}`}>{user.name}</NavLink>
+                                </IsAuthorized>
+                              </TableCell>
+                              <TableCell>
+                                <IsAuthorized action={ACTION_USER_EDIT} alternative={user.username}>
+                                  <NavLink className={classes.link} to={`/user-edit/${user.id}`}>{user.username}</NavLink>
+                                </IsAuthorized>
+                              </TableCell>
+
+                              <TableCell>
+                                {getRoles(user).join(', ')}
+                                {/* (user.roles.includes('ROLE_SUPER_ADMIN')) ? <Icon>check</Icon> : '' */}
+                              </TableCell>
+                              <TableCell>
+                                {(user.active) ? <Icon>check</Icon> : ''}
+                              </TableCell>
+                            </TableRow>
+                          )
+                        })}
                       </TableBody>
                     </Table>
                   )
@@ -134,7 +133,7 @@ const getRoles = ({roles}) => {
     mainRoles.push('Contenu Association')
   }
   if (roles.includes(ROLE_ADMIN_EDITION)) {
-    mainRoles.push('Contenu Édition')
+    mainRoles.push('Contenu Éditions')
   }
 
   return mainRoles
