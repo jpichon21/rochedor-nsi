@@ -4,16 +4,18 @@
 
 body {
   &.gift {
-    .content > .right {
+    .content>.right {
       display: block;
     }
   }
 }
+
 .error-message {
   color: $roche-error-red;
   font-style: italic;
   font-size: 0.8em;
 }
+
 .content {
   .intro {
     font-style: italic;
@@ -21,22 +23,27 @@ body {
     line-height: 25px;
     font-size: 18px;
     margin-bottom: 40px;
+
     b {
       color: #ffffff;
     }
+
     a {
       color: #ffffff;
       text-decoration: none;
       border-bottom: 1px #fff solid;
     }
   }
+
   .dropdown {
     position: relative;
     margin: 0 0 20px -20px;
     max-width: 480px;
+
     @include media('>laptop') {
       max-width: 680px;
     }
+
     &:after {
       content: '';
       width: 7px;
@@ -47,29 +54,36 @@ body {
       border-radius: 7px;
       background: $roche-yellow;
     }
+
     &.single {
       h2 {
         cursor: pointer;
       }
+
       .item {
         overflow: inherit;
         max-height: none;
         padding-bottom: 20px;
+
         p {
           opacity: 1;
         }
       }
     }
+
     .item {
       position: relative;
       max-height: 30px;
       padding: 0 0 0 40px;
+
       @include media('<=large') {
         padding: 10px 0px 10px 40px
       }
+
       color: $roche-yellow;
       overflow: hidden;
       transition: 0.8s;
+
       &:after,
       &:before {
         content: '';
@@ -77,6 +91,7 @@ body {
         background-color: $roche-yellow;
         z-index: 0;
       }
+
       &:before {
         top: 5px;
         left: 20px;
@@ -84,38 +99,47 @@ body {
         height: 7px;
         border-radius: 7px;
       }
+
       &:after {
         top: 0;
         bottom: 0;
         left: 23px;
         width: 1px;
       }
+
       &:first-child {
         &:after {
           top: 8px;
         }
       }
+
       &:last-child {
         &:after {
           bottom: 22px;
-        }            
+        }
       }
+
       &.active {
         color: #ffffff;
         padding-bottom: 20px;
-        h2{
-          color: #fff!important;
+
+        h2 {
+          color: #fff !important;
         }
+
         &:before {
           background-color: #ffffff;
         }
+
         &:after {
           background: linear-gradient(to bottom, #ffffff 0%, $roche-yellow 75%);
         }
+
         p {
           opacity: 1;
         }
       }
+
       h2 {
         margin-bottom: 20px;
         font-size: 15px;
@@ -125,9 +149,11 @@ body {
         text-transform: uppercase;
         cursor: pointer;
       }
+
       @at-root .content .dropdown.without-link .item h2 {
-          cursor: default;
+        cursor: default;
       }
+
       h3 {
         font-size: 12px;
         font-weight: 700;
@@ -136,6 +162,7 @@ body {
         text-transform: uppercase;
         color: $roche-yellow;
       }
+
       p {
         font-family: 'lato', lato, sans-serif;
         font-weight: 300;
@@ -144,43 +171,55 @@ body {
         opacity: 0;
         transition: opacity 0.8s;
         transition-delay: 0.2s;
+
         @include media('<=mobile') {
           padding-right: 10px;
         }
       }
+
       a {
         color: $roche-yellow;
         text-decoration: none;
         border-bottom: 1px $roche-yellow solid;
+
         @include media('<=mobile') {
           border-bottom: 0px;
         }
       }
+
       strong {
         font-weight: 500;
       }
+
       hr {
         margin: 20px 0;
         border: none;
         border-bottom: 1px $roche-yellow solid;
         opacity: 0.2;
       }
+
       blockquote {
         position: relative;
         margin: 0 0 20px 36px;
         padding: 20px 0;
         color: $roche-yellow;
         z-index: 1;
+        margin-left: -8px;
+        -webkit-box-shadow: -20px 0px 55px -5px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: -20px 0px 55px -5px rgba(0, 0, 0, 0.75);
+        box-shadow: -20px 0px 55px -5px rgba(0, 0, 0, 0.75);
+
         &:before {
           content: '';
           position: absolute;
           top: -50px;
           bottom: -50px;
-          left: -53px;
+          left: -9px;
           width: 1px;
           background: linear-gradient(to bottom, #ffffff 0%, #000000 25%, #000000 75%, $roche-yellow 100%);
           z-index: 0;
         }
+
         em,
         strong {
           position: relative;
@@ -191,6 +230,7 @@ body {
           transform: translateX(40px);
           z-index: 1;
         }
+
         em {
           margin-bottom: 30px;
           font-family: 'Playfair Display Regular', serif;
@@ -199,6 +239,7 @@ body {
           line-height: 24px;
           display: block;
         }
+
         strong {
           font-family: 'lato', lato, sans-serif;
           font-size: 12px;
@@ -208,10 +249,11 @@ body {
           margin-top: 32px;
         }
       }
+
       .input,
       .select,
       .textarea {
-        height:31px;
+        height: 31px;
         width: 100%;
         margin-bottom: 20px;
         padding: 5px 20px;
@@ -223,24 +265,30 @@ body {
         background-color: transparent;
         outline: none;
         resize: none;
+
         @include media('<medium') {
           margin-bottom: 25px;
         }
+
         &::placeholder {
           color: $roche-yellow;
           opacity: 1;
         }
-        &.submit, &.button {
+
+        &.submit,
+        &.button {
           margin-top: 10px;
         }
+
         &:disabled {
           border: 1px solid #ffffff;
           color: #ffffff;
           opacity: 0.5;
           cursor: not-allowed;
         }
+
         &.error {
-          & + .error-message {
+          &+.error-message {
             margin-top: -15px;
             margin-bottom: 15px;
           }
@@ -250,10 +298,12 @@ body {
       .password-container {
         display: flex;
         height: 36px;
+
         .password {
-          flex:1;
+          flex: 1;
           width: calc(100% - 30px);
         }
+
         .toggle-password {
           padding: 0;
           margin: 0;
@@ -269,14 +319,17 @@ body {
           border: none;
           width: 30px;
           cursor: pointer;
+
           &:focus {
             outline: none;
           }
         }
+
         .password[type="text"]+.toggle-password {
           background-image: url('../img/eye-slash-solid.svg');
         }
       }
+
       .select {
         color: $roche-yellow;
         padding: 5px 40px 5px 20px;
@@ -285,18 +338,22 @@ body {
         background-repeat: no-repeat;
         -webkit-appearance: none;
         -moz-appearance: none;
+
         &:disabled {
           background-image: url('../img/arrow-select-white.png');
         }
+
         &.white {
           color: #ffffff;
           background-image: url('../img/arrow-select-white.png');
         }
       }
+
       option {
         color: #ffffff;
         background: #0f0f0f;
       }
+
       .textarea {
         padding: 10px 20px;
         line-height: 20px;
@@ -305,6 +362,7 @@ body {
         min-height: 110px;
         max-height: 110px;
       }
+
       .button {
         margin-bottom: 20px;
         padding: 10px 20px;
@@ -319,26 +377,32 @@ body {
         box-sizing: border-box;
         outline: none;
         cursor: pointer;
+
         @include media('<large') {
           margin-bottom: 10px;
         }
+
         &.disabled {
           border: 1px solid #ffffff;
           color: #ffffff;
           opacity: 0.5;
           cursor: not-allowed;
         }
+
         &.black {
           color: #000000;
           border-color: #000000;
         }
+
         &.submit {
           color: #ffffff;
           border-color: #ffffff;
         }
+
         &.radio {
           position: relative;
           padding-right: 40px;
+
           &:after {
             content: '\2610';
             position: absolute;
@@ -347,23 +411,28 @@ body {
             top: 15px;
             line-height: 0;
           }
+
           &.checked {
             color: #ffffff;
             border-color: #ffffff;
+
             &:after {
               content: '\2611';
             }
           }
         }
       }
+
       .panel {
         display: none;
         position: relative;
         margin: 20px 0;
         padding: 30px 30px 0px 10px;
+
         @include media('<large') {
           padding: 30px 10px 0px 10px;
         }
+
         &:before {
           content: '';
           position: absolute;
@@ -375,43 +444,53 @@ body {
           opacity: 0.5;
           z-index: -99999;
         }
+
         &.active {
           display: block;
+
           &:after {
             content: '';
             display: block;
             height: 1px;
           }
         }
+
         hr {
           margin: 10px 0 30px;
         }
+
         .option {
           display: inline-block;
           margin: 0 20px 30px 0;
         }
       }
+
       .g-recaptcha {
         margin-bottom: 20px;
       }
+
       [class*=pure-g] {
         padding: 10px 0;
         margin: 0 -10px;
+
         [class*=pure-u] {
           padding: 0 10px;
           box-sizing: border-box;
         }
+
         a {
           display: block;
           width: 100%;
         }
       }
     }
-  }  
+  }
+
   @include media('<large') {
     .right {
       display: none;
     }
+
     .left {
       .carousel {
         position: relative;
@@ -421,24 +500,32 @@ body {
         z-index: 1;
       }
     }
+
     .dropdown {
       margin: 0 -20px;
+
       &:after {
         left: 20px;
       }
+
       .item {
+
         //padding: 0 20px 0 40px;
         &:after {
           left: 23px;
         }
+
         &:before {
           left: 20px;
         }
+
         blockquote {
           margin: 0 20px 20px 0;
+
           &:before {
             left: -17px;
           }
+
           em,
           strong {
             animation: none;
@@ -451,119 +538,169 @@ body {
 }
 
 @keyframes blockquoteEnter {
-  from { transform: translateX(40px); }
-  to { transform: translateX(0px); }
+  from {
+    transform: translateX(40px);
+  }
+
+  to {
+    transform: translateX(0px);
+  }
 }
 
-.content .dropdown .item blockquote em:before, .content .dropdown .item blockquote em:after{
+.content .dropdown .item blockquote em:before,
+.content .dropdown .item blockquote em:after {
   font-family: essonnes-display, 'essonnes-display', serif;
   font-size: 60px;
   opacity: 0.4;
 }
-.content .dropdown .item blockquote em:before{
+
+.content .dropdown .item blockquote em:before {
   content: '“';
   position: absolute;
   left: -36px;
 }
-.content .dropdown .item blockquote em:after{
+
+.content .dropdown .item blockquote em:after {
   content: '”';
   position: absolute;
   bottom: -25px;
 }
 
 //backgrounds
-.Venir, .Retraites, .Intervenants, .Faire, .Donner, .Contact, .La, .Les, .Infos, .Informations, .Accueil, .Liens, .Nous{
+.Venir,
+.Retraites,
+.Intervenants,
+.Faire,
+.Donner,
+.Contact,
+.La,
+.Les,
+.Infos,
+.Informations,
+.Accueil,
+.Liens,
+.Nous {
   background-size: cover;
   background-blend-mode: saturation;
+
   @include media('<=laptop') {
     background-size: cover;
     background-blend-mode: saturation;
   }
 }
 
-.Venir, .Retraites, .Intervenants{
+.Venir,
+.Retraites,
+.Intervenants {
   background-image: url('../img/black-50.png'), linear-gradient(black, black), url('../img/retraites.jpg');
+
   @include media('<=laptop') {
-    background-image: url('../img/black-50.png'), linear-gradient(black, black),  url('../img/retraites-s.jpg');
+    background-image: url('../img/black-50.png'), linear-gradient(black, black), url('../img/retraites-s.jpg');
   }
+
   @include media('<=large') {
-    background-image: url('../img/black-50.png'), linear-gradient(black, black),  url('../img/retraites-xs.jpg');
+    background-image: url('../img/black-50.png'), linear-gradient(black, black), url('../img/retraites-xs.jpg');
   }
+
   @include media('<=medium') {
-    background-image: url('../img/black-50.png'), linear-gradient(black, black),  url('../img/retraites-xxs.jpg');
+    background-image: url('../img/black-50.png'), linear-gradient(black, black), url('../img/retraites-xxs.jpg');
   }
+
   @include media('<=mobile') {
-    background-image: linear-gradient(black, black),  url('../img/retraites-mobile.jpg')!important;
+    background-image: linear-gradient(black, black), url('../img/retraites-mobile.jpg') !important;
   }
 }
 
-.Faire, .Donner, .Nous{
-  background-image:  url('../img/black-70.png'), linear-gradient(black, black), url('../img/soutenir.jpg');
+.Faire,
+.Donner,
+.Nous {
+  background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/soutenir.jpg');
+
   @include media('<=laptop') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-s.jpg');
+    background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/soutenir-s.jpg');
   }
+
   @include media('<=large') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-xs.jpg');
+    background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/soutenir-xs.jpg');
   }
+
   @include media('<=medium') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/soutenir-xxs.jpg');
+    background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/soutenir-xxs.jpg');
   }
+
   @include media('<=mobile') {
-    background-image: linear-gradient(black, black),  url('../img/soutenir-mobile.jpg')!important;
+    background-image: linear-gradient(black, black), url('../img/soutenir-mobile.jpg') !important;
   }
 }
 
-.Contact{
-  background-image:  url('../img/black-70.png'), linear-gradient(black, black), url('../img/infocontact.jpg');
+.Contact {
+  background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/infocontact.jpg');
+
   @include media('<=laptop') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/infocontact-s.jpg');
+    background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/infocontact-s.jpg');
   }
+
   @include media('<=large') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/infocontact-xs.jpg');
+    background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/infocontact-xs.jpg');
   }
+
   @include media('<=medium') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black),  url('../img/infocontact-xxs.jpg');
+    background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/infocontact-xxs.jpg');
   }
+
   @include media('<=mobile') {
-    background-image: linear-gradient(black, black),  url('../img/infocontact-mobile.jpg')!important;
+    background-image: linear-gradient(black, black), url('../img/infocontact-mobile.jpg') !important;
   }
 }
 
-.La, .Les{
+.La,
+.Les {
   background-image: linear-gradient(black, black), url('../img/communaute.jpg');
+
   @include media('<=laptop') {
-    background-image:linear-gradient(black, black),  url('../img/communaute-s.jpg');
+    background-image: linear-gradient(black, black), url('../img/communaute-s.jpg');
   }
+
   @include media('<=large') {
-    background-image: linear-gradient(black, black),  url('../img/communaute-xs.jpg');
+    background-image: linear-gradient(black, black), url('../img/communaute-xs.jpg');
   }
+
   @include media('<=medium') {
-    background-image: linear-gradient(black, black),  url('../img/communaute-xxs.jpg');
+    background-image: linear-gradient(black, black), url('../img/communaute-xxs.jpg');
   }
+
   @include media('<=mobile') {
-    background-image: linear-gradient(black, black),  url('../img/communaute-mobile.jpg')!important;
+    background-image: linear-gradient(black, black), url('../img/communaute-mobile.jpg') !important;
   }
 }
 
-.DEMANDE{
-  background-image:  url('../img/black-60.png'), linear-gradient(black, black), url('../img/calendar.jpg');
+.DEMANDE {
+  background-image: url('../img/black-60.png'), linear-gradient(black, black), url('../img/calendar.jpg');
   background-size: cover;
   background-blend-mode: saturation;
+
   @include media('<=laptop') {
-    background-image: url('../img/black-60.png'), linear-gradient(black, black),  url('../img/calendar-s.jpg');
+    background-image: url('../img/black-60.png'), linear-gradient(black, black), url('../img/calendar-s.jpg');
   }
+
   @include media('<=large') {
-    background-image: linear-gradient(black, black),  url('../img/calendar-xs.jpg');
+    background-image: linear-gradient(black, black), url('../img/calendar-xs.jpg');
   }
+
   @include media('<=medium') {
-    background-image: linear-gradient(black, black),  url('../img/calendar-xxs.jpg');
+    background-image: linear-gradient(black, black), url('../img/calendar-xxs.jpg');
   }
+
   @include media('<=mobile') {
-    background-image: linear-gradient(black, black),  url('../img/calendar-mobile.jpg')!important;
+    background-image: linear-gradient(black, black), url('../img/calendar-mobile.jpg') !important;
   }
 }
 
-.Infos, .Informations, .Accueil, .Liens, .default-body{
+.Infos,
+.Informations,
+.Accueil,
+.Liens,
+.default-body {
   background-image: url('../img/bg-fallback.jpg');
   background-size: cover;
 }
@@ -571,39 +708,68 @@ body {
 
 //FADE IN
 
-.fade-in{
-  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-     -moz-animation: fadein 2s; /* Firefox < 16 */
-      -ms-animation: fadein 2s; /* Internet Explorer */
-       -o-animation: fadein 2s; /* Opera < 12.1 */
-          animation: fadein 2s;
+.fade-in {
+  -webkit-animation: fadein 2s;
+  /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 2s;
+  /* Firefox < 16 */
+  -ms-animation: fadein 2s;
+  /* Internet Explorer */
+  -o-animation: fadein 2s;
+  /* Opera < 12.1 */
+  animation: fadein 2s;
 }
 
 @keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* Firefox < 16 */
 @-moz-keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* Safari, Chrome and Opera > 12.1 */
 @-webkit-keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* Internet Explorer */
 @-ms-keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* Opera < 12.1 */
 @-o-keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
