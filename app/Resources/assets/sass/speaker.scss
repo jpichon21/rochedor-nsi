@@ -79,9 +79,11 @@
     }
     
     &:hover, &:focus, &:active {
+      outline: none!important;
       &:before{
         background-image: url('../img/plus-white-speaker.png');
         transition: 0.5s ease;
+        outline: none!important;
       }
      /*. &:before {
         opacity: 0;
