@@ -1047,3 +1047,23 @@ h2 {
   color: $roche-orange;
   background: transparent;
 }
+
+.Editions, .editions{
+  background-image: url('../img/editions-new-s.jpg');
+
+  @include media('<=laptop') {
+    background-image: url('../img/editions-new-s.jpg');
+  }
+
+  @include media('<=large') {
+    background-image:  url('../img/editions-new-s.jpg');
+  }
+
+  @include media('<=medium') {
+    background-image:  url('../img/editions-new-xs.jpg');
+  }
+
+  @include media('<=mobile') {
+    background-image:  url('../img/editions-new-xxs.jpg');
+  }
+}
