@@ -8,6 +8,19 @@
   .zone {
     flex: none;
   }
+  .zone{
+    @include media('<xxlarge') {
+      padding: 20px 80px 0px!important;
+    }
+    @include media('<large') {
+      padding: 20px 0px!important;
+    }
+    @include media('>medium','<=laptop') {
+      padding: 40px 80px 0px!important;
+    }
+    @include media('<=medium') {
+      padding: 20px 0px!important;
+    }
 }
 .prev,
 .next {
