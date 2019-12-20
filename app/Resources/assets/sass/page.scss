@@ -205,10 +205,7 @@ body {
         color: $roche-yellow;
         z-index: 1;
         margin-left: -8px;
-        -webkit-box-shadow: -20px 0px 55px -5px rgba(0, 0, 0, 0.75);
-        -moz-box-shadow: -20px 0px 55px -5px rgba(0, 0, 0, 0.75);
         box-shadow: -20px 0px 55px -5px rgba(0, 0, 0, 0.75);
-
         &:before {
           content: '';
           position: absolute;
