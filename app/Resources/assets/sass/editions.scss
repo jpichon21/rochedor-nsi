@@ -928,7 +928,7 @@ h2 {
           background: linear-gradient(to bottom, $roche-orange 0%, $roche-orange 25%,#000000 100%);
         }
         h2 {
-          color: $roche-orange;
+          color: $roche-orange!important;
         }
       }
       h3 {
