@@ -308,7 +308,7 @@
     </div>
     
     <div class="pure-u-1 pure-u-md-1-2 lieu-wrapper <% if (participant.transport !== 'train') { %> hidden <% } %>">
-        <select class="select lieu <%= (_.escape(participant.lieu) != '') ? 'white' : '' %>" name="lieu">
+        <select class="select lieu <%= (_.escape(participant.lieu.toLowerCase()) != '') ? 'white' : '' %>" name="lieu">
             <option <%= (_.escape(participant.lieu.toLowerCase()) == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == 'viotte') ? 'selected' : '' %> value="viotte">{{ 'form.lieu.viotte' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == 'besancon-tgv') ? 'selected' : '' %> value="besancon-tgv">{{ 'form.lieu.besancon-tgv' | trans | raw }}</option>
@@ -430,7 +430,7 @@
         <div class="error-message"><%= errors.transport %></div>
     </div>
     <div class="pure-u-1 pure-u-md-1-2 lieu-wrapper <% if (participant.transport !== 'train') { %> hidden <% } %>">
-        <select class="select lieu <%= (_.escape(participant.lieu) != '') ? 'white' : '' %>" name="lieu">
+        <select class="select lieu <%= (_.escape(participant.lieu.toLowerCase()) != '') ? 'white' : '' %>" name="lieu">
             <option <%= (_.escape(participant.lieu.toLowerCase()) == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == 'viotte') ? 'selected' : '' %> value="viotte">{{ 'form.lieu.viotte' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == 'besancon-tgv') ? 'selected' : '' %> value="besancon-tgv">{{ 'form.lieu.besancon-tgv' | trans | raw }}</option>
@@ -458,7 +458,7 @@
             <tr>
                 <td><%= _.escape(him.civil) %> <%= _.escape(him.prenom) %> <%= _.escape(him.nom) %></td>
                 <td><%= transports[_.escape(him.transport)]  %></td>
-                <td><%= lieux[_.escape(him.lieu)] %></td>
+                <td><%= lieux[_.escape(him.lieu.toLowerCase())] %></td>
                 <td><%= _.escape(him.arriv) %></td>
             </tr>
         <% } %>
