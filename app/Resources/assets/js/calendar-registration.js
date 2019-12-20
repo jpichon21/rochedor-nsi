@@ -205,7 +205,10 @@ function afterLogin (user) {
       let transport = JSON.parse(element.jsco)
       participant.transport = transport.Arriv.Transport
       participant.lieu = transport.Arriv.Lieu
-      participant.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      participant.arriv = ''
+      if (transport.Arriv.Heure !== '' || transport.Arriv.Mn !== '') {
+        participant.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      }
       participant.memo = transport.Arriv.Memo
       participant[element.name] = element.value
       participant.codco = parseInt(participant.codco)
@@ -232,7 +235,10 @@ function afterLogin (user) {
       let transport = JSON.parse(alreadyRegisteredYou.jsco)
       _you.transport = transport.Arriv.Transport
       _you.lieu = transport.Arriv.Lieu
-      _you.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      _you.arriv = ''
+      if (transport.Arriv.Heure !== '' || transport.Arriv.Mn !== '') {
+        _you.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      }
       _you.memo = transport.Arriv.Memo
     }
 
