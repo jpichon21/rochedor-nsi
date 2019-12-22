@@ -473,8 +473,24 @@ h1 {
     .site {
       right: 50px;
     }
+    .site .full{
+      @include media('<=mobile') {
+        display: inline-block!important;
+        position: relative;
+        right: 0px;
+        top: 0px;
+      }
+    }
     .type {
       right: 100px;
+    }
+    .type .full{
+      @include media('<=mobile') {
+        display: inline-block!important;
+        position: relative;
+        right: 0px;
+        top: 0px;
+      }
     }
     .translation {
       right: 150px;
