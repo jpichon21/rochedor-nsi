@@ -469,12 +469,20 @@ h1 {
         display: none;
       }
     }
+    }
     .site {
       right: 50px;
     }
     .type {
       right: 100px;
     }
+    .site .full, .type .full{
+      @include media('<=mobile') {
+        display: inline-block!important;
+        position: relative;
+        right: 0px;
+        top: 0px;
+      }
     .translation {
       right: 150px;
     }
