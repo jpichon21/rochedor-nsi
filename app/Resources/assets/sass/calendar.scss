@@ -476,14 +476,6 @@ h1 {
     .type {
       right: 100px;
     }
-    .site .full, .type .full{
-      @include media('<=mobile') {
-        display: inline-block!important;
-        position: relative;
-        right: 0px;
-        top: 0px;
-      }
-    }
     .translation {
       right: 150px;
     }
@@ -511,6 +503,14 @@ h1 {
       box-sizing: border-box;
       outline: none;
     }
+}
+
+.site .full, .type .full{
+  @include media('<=mobile') {
+    display: inline-block!important;
+    position: relative;
+    right: 0px;
+    top: 0px;
   }
 }
 
