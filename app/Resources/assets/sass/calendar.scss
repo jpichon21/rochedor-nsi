@@ -465,6 +465,9 @@ h1 {
     .translation {
       position: absolute;
       top: 15px;
+      @include media('<=mobile') {
+        display: none;
+      }
     }
     .site {
       right: 50px;
