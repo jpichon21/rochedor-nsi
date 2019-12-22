@@ -505,7 +505,7 @@ h1 {
     }
 }
 
-.site .full, .type .full{
+.retreats-list .retreat .site .full, .retreats-list .retreat .type .full{
   @include media('<=mobile') {
     display: inline-block!important;
     position: relative;
