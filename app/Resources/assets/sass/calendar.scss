@@ -466,7 +466,10 @@ h1 {
       position: absolute;
       top: 15px;
       @include media('<=mobile') {
-        display: none;
+        display: inline-block;
+        position: relative;
+        top: 0px;
+        right: 0px;
       }
     }
     }
