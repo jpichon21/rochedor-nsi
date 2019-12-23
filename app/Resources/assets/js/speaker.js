@@ -29,3 +29,8 @@ $(document).on('click touch', '.slide', function() {
   target.toggleClass('clicked');
 })
 
+$(document).on('click touch', function() {
+  var target = $(this).find('.description');
+  target.removeClass('clicked');
+})
+
