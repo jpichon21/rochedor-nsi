@@ -23,14 +23,19 @@ $('.carousel .prev').on('click', () => {
   slickIntervenants.slick('prev')
 })
 
+var is_clicked = false;
+
 $(document).on('click touch', '.slide', function() {
   $(this).toggleClass('targeted');
   var target = $(this).find('.description');
   target.toggleClass('clicked');
+  is_clicked = true;
 })
 
 $(document).mouseout('.slide', function() {
-  var target = $(this).find('.description');
-  target.removeClass('clicked');
+  if(!is_clicked) {
+    var target = $(this).find('.description');
+    target.removeClass('clicked');
+  }
 })
 
