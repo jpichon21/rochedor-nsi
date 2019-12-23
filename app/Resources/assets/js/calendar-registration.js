@@ -190,6 +190,7 @@ function afterLogin (user) {
   _you = { ...participant, ...user }
   _participants = [_you]
   updateYouRender()
+  $('.you-render').hide()
   getRegistered(_infos.idact).then(data => {
     _registrationBegan = true
     let attendees = data.attendees
@@ -232,6 +233,7 @@ function afterLogin (user) {
 
     // Formattage de l'utilisateur courant (modif inscription)
     if (alreadyRegisteredYou) {
+      $('.you-render').show()
       let transport = JSON.parse(alreadyRegisteredYou.jsco)
       _you.transport = transport.Arriv.Transport
       _you.lieu = transport.Arriv.Lieu
@@ -624,6 +626,7 @@ panelYouForm.on('submit', function (event) {
   callbackSubmit(event, $(this), 'you', true, function (res) {
     _you = res
   })
+  $('.you-render').show()
 })
 
 panelHimForm.on('submit', function (event) {
@@ -655,7 +658,10 @@ function closePanel (event, panel) {
   })
 }
 
-panelYouForm.on('click', '.cancel', function (event) { closePanel(event, 'you') })
+panelYouForm.on('click', '.cancel', function (event) {
+  closePanel(event, 'you')
+  $('.you-render').show()
+})
 panelHimForm.on('click', '.cancel', function (event) { closePanel(event, 'him') })
 panelAddForm.on('click', '.cancel', function (event) { closePanel(event, 'add') })
 
