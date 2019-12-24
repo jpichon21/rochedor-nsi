@@ -32,7 +32,7 @@ $(document).on('click touch', '.slide', function() {
   is_clicked = true;
 })
 
-$(document).mouseout('.description', function() {
+$(document).mouseout('.slide', function() {
     var target = $(this).find('.description');
     var slide = $(this).find('.slide');
     slide.removeClass('targeted');
