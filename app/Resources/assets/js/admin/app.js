@@ -13,7 +13,9 @@ import SpeakerList from './components/speaker-list/speaker-list'
 import SpeakerEdit from './components/speaker-edit/speaker-edit'
 import SpeakerCreate from './components/speaker-create/speaker-create'
 import ContentList from './components/content-list/content-list'
+import ContentListAlpha from './components/content-list/content-list-alpha'
 import ContentEdit from './components/content-edit/content-edit'
+import ContentEditAlpha from './components/content-edit/content-edit-alpha'
 import UserList from './components/user-list/user-list'
 import UserEdit from './components/user-edit/user-edit'
 import UserCreate from './components/user-create/user-create'
@@ -55,7 +57,9 @@ export class App extends React.Component {
               <PrivateRoute path='/speaker-create/' exact component={SpeakerCreate} />
 
               <PrivateRoute path='/content-list/' exact component={ContentList} />
+              <PrivateRoute path='/content-list/alpha' exact component={ContentListAlpha} />
               <PrivateRoute path='/content-edit/:pageId' exact component={ContentEdit} />
+              <PrivateRoute path='/content-edit/alpha/:pageId' exact component={ContentEditAlpha} />
 
               <PrivateRoute path='/home-edit/' exact component={HomeEdit} />
 

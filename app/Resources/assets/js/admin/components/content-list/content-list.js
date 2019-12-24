@@ -25,7 +25,7 @@ export class ContentList extends React.Component {
     super(props)
     this.state = {
       alertOpen: false,
-      currentTabValue: 'category',
+      currentTabValue: props.currentTabValue || 'category',
     }
     this.onLocaleChange = this.onLocaleChange.bind(this)
     this.handleClose = this.handleClose.bind(this)
@@ -57,6 +57,8 @@ export class ContentList extends React.Component {
   }
 
   render () {
+    const routePrefix = this.props.routePrefix || '/content-edit/';
+    console.log(routePrefix);
     Moment.locale(this.props.locale)
     const { classes } = this.props
     const categories = this.props.pages.map(page => page.category).filter((value, index, self) => value && self.indexOf(value) === index).concat([''])
@@ -70,7 +72,7 @@ export class ContentList extends React.Component {
             <TableCell>
               {`${page.title} ${page.sub_title}`}
               <IsAuthorized action={page.type === 'editions' ? ACTION_CONTENT_EDITION_EDIT : ACTION_CONTENT_ASSOCIATION_EDIT}>
-                <NavLink className={classes.link} to={`/content-edit/${page.id}`}>
+                <NavLink className={classes.link} to={routePrefix + page.id}>
                   Modifier
                 </NavLink>
               </IsAuthorized>
@@ -108,8 +110,8 @@ export class ContentList extends React.Component {
               value={currentTabValue}
               onChange={this.handleTabChange}
             >
-              <Tab label='Par catégorie' value='category' />
-              <Tab label='Par ordre alphabétique' value='alpha' />
+              <Tab component={NavLink} label='Par catégorie' value='category' to='/content-list' />
+              <Tab component={NavLink} label='Par ordre alphabétique' value='alpha' to='/content-list/alpha' />
             </Tabs>
             {currentTabValue === 'category'
               ? displayByCategory(categories, renderRow, this.props.loading, classes, this.props.pages)
