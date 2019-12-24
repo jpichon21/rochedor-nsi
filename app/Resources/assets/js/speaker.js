@@ -25,7 +25,7 @@ $('.carousel .prev').on('click', () => {
 
 var is_clicked = false;
 
-$(document).on('click touch', '.slide', function() {
+$(document).on('click touch', '.description', function() {
   $(this).toggleClass('targeted');
   var target = $(this).find('.description');
   target.toggleClass('clicked');
