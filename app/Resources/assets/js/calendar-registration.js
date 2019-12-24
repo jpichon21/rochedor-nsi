@@ -222,7 +222,7 @@ function afterLogin (user) {
 
     // Formattage des membres de la famille
     attendees.forEach(function(element) {
-      if (element.coltyp === 'conjo' || element.codtyp === 'enfan' || element.codtyp === 'paren') {
+      if (element.coltyp === 'conjo' || element.coltyp === 'enfan' || element.coltyp === 'paren') {
         // Si l'utilisateur est déjà présent dans la liste des inscrits,
         if (alreadyRegisteredIds.includes(element.codco)) {
           element.added = true

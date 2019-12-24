@@ -2790,5 +2790,17 @@ Kommentar erstellt</target>
         <target>Ihre Registrierungsanfrage wurde nicht abgeschlossen. Möchten Sie die Seite wirklich verlassen?</target>
       </segment>
     </unit>
+    <unit id="aHsOKTn" name="registration.validation.address_rochedor">
+      <segment>
+        <source>registration.validation.address_rochedor</source>
+        <target>A La Roche d'Or, chemin du Muenot 25000 Besançon</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTn" name="registration.validation.address_fontanilles">
+      <segment>
+        <source>registration.validation.address_fontanilles</source>
+        <target>Aux Fontanilles, route de Riunoguès 66480 Maureillas Las Illas</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -1,7 +1,7 @@
 <p>Nous vous remercions de l'attention que vous portez à la Roche d'Or.<br>Votre demande d'inscription est prise en compte sous le numéro :</p>
 <br>
 <p style="text-align: center;"><b>{{ ref }}</b></p>
-<p style="text-align: center;">&laquo;&nbsp;<b>{{ calendar.libact }}</b>&nbsp;&raquo;<br>du <b>{{ calendar.datdeb|date('d/m/Y') }}</b> au <b>{{ calendar.datfin|date('d/m/Y') }}</b> ({{ calendar.sitact == 'Font' ? "Les Fontanilles" : "La Roche d'Or" }})</p>
+<p style="text-align: center;">&laquo;&nbsp;<b>{{ calendar.libact }}</b>&nbsp;&raquo;<br>du <b>{{ calendar.datdeb|date('d/m/Y') }}</b> au <b>{{ calendar.datfin|date('d/m/Y') }}</b><br>{{ calendar.sitact == 'Font' ? 'registration.validation.address_fontanilles'|trans : 'registration.validation.address_rochedor'|trans }}</p>
 <br>
 <p>Liste des participants :</p>
 <table width="100%"> 
