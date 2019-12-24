@@ -75,7 +75,7 @@ export class NewsForm extends React.Component {
       return {
         news: {
           ...prevState.news,
-          start: date
+          start: moment(date).format()
         }
       }
     })
@@ -85,7 +85,7 @@ export class NewsForm extends React.Component {
       return {
         news: {
           ...prevState.news,
-          stop: date
+          stop: moment(date).format()
         }
       }
     })
@@ -174,10 +174,13 @@ export class NewsForm extends React.Component {
             title='Renseigner la description de la nouveauté'
           >
             <TextField
+              required
               autoComplete='off'
               InputLabelProps={{ shrink: true }}
               className={classes.textfield}
               fullWidth
+              multiline
+              rows='4'
               name='description'
               label='Description'
               value={this.state.news.description}

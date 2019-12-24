@@ -65,7 +65,7 @@
                     <div data-index="{{ loop.index0 }}" class="cnews {% if loop.first %}active{% endif %}">
                         <i>{{article.intro}}</i>
                         <div class="text{% if article.url %} with-link{% endif %}">
-                            <p>{{article.description}}</p>
+                            <p>{{article.description|nl2br}}</p>
                         </div>
                         {% if article.url %}
                             <a class="button black" href="{{article.url}}">
