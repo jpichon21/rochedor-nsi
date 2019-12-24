@@ -34,6 +34,7 @@ $(document).on('click touch', '.slide', function() {
 
 $(document).mouseout('.slide', function() {
   if(is_clicked == true) {
+    $(this).removeClass('targeted');
     var target = $(this).find('.description');
     target.removeClass('clicked');
   }
