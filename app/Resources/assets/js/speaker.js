@@ -33,10 +33,8 @@ $(document).on('click touch', '.slide', function() {
 })
 
 $(document).mouseout('.slide', function() {
-  if(is_clicked == true) {
     var target = $(this).find('.description');
     target.removeClass('targeted');
     target.removeClass('clicked');
-  }
 })
 
