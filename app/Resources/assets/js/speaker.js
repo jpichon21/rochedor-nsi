@@ -34,7 +34,8 @@ $(document).on('click touch', '.slide', function() {
 
 $(document).mouseout('.slide', function() {
     var target = $(this).find('.description');
-    target.removeClass('targeted');
+    var slide = $(this).find('.slide');
+    slide.removeClass('targeted');
     target.removeClass('clicked');
 })
 
