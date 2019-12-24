@@ -25,14 +25,14 @@ $('.carousel .prev').on('click', () => {
 
 var is_clicked = false;
 
-$(document).on('click touch', '.description', function() {
+$(document).on('click touch', '.slide', function() {
   $(this).toggleClass('targeted');
   var target = $(this).find('.description');
   target.toggleClass('clicked');
   is_clicked = true;
 })
 
-$(document).mouseout('.slide', function() {
+$(document).mouseout('.description', function() {
     var target = $(this).find('.description');
     var slide = $(this).find('.slide');
     slide.removeClass('targeted');
