@@ -260,10 +260,10 @@ class CalendarController extends Controller
         $contact = $this->getUser();
         $attendees = $this->getParents($contact);
         $activityId = $request->query->get('activityId');
-        list($contacts, $user, $refLcal) = $this->getAlreadyRegisteredContacts($activityId);
+        list($alreadyRegistered, $user, $refLcal) = $this->getAlreadyRegisteredContacts($activityId);
         return ['status' => 'ok', 'data' => [
             'attendees' => $attendees,
-            'alreadyRegistered' => $contacts,
+            'alreadyRegistered' => $alreadyRegistered,
             'alreadyRegisteredYou' => $user,
             'alreadyRegisteredRef' => $refLcal
         ]];
@@ -287,9 +287,11 @@ class CalendarController extends Controller
         if (!empty($registeredContact)) {
             $refLCal = $registeredContact->getRefLCal();
             $addedContacts = $calendarLRepository->findBy(['reflcal' => $refLCal]);
+            dump($addedContacts);
             /** @var CalL $addedContact */
             foreach ($addedContacts as $addedContact) {
                 $contact = $this->contactRepository->findContact($addedContact->getLcal());
+                dump($contact);
                 if ($currentUser === $contact) {
                     $contact->setJsco($addedContact->getJslcal());
                     $user = $contact;

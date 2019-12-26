@@ -737,6 +737,7 @@ itemParticipants.on('click', '.add-participant', function (event) {
   modifyClick(event, 'add', updateHimFormRender, () => {
     _participant = getContact()
   })
+  scrollToElement($('.him-form-render'))
 })
 
 itemParticipants.on('click', '.validate-participants', function (event) {
