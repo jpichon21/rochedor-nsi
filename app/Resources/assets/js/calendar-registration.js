@@ -121,8 +121,7 @@ function updateParticipantsRender () {
     transports: {
       'perso': i18n.trans('form.transport.perso'),
       'train': i18n.trans('form.transport.train'),
-      'avion': i18n.trans('form.transport.avion'),
-      'bus': i18n.trans('form.transport.bus')
+      'avion': i18n.trans('form.transport.avion')
     }
   }))
 }
@@ -138,8 +137,7 @@ function updateEndMessageRender () {
     transports: {
       'perso': i18n.trans('form.transport.perso'),
       'train': i18n.trans('form.transport.train'),
-      'avion': i18n.trans('form.transport.avion'),
-      'bus': i18n.trans('form.transport.bus')
+      'avion': i18n.trans('form.transport.avion')
     }
   }))
 }

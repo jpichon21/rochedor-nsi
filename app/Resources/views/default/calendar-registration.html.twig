@@ -302,7 +302,6 @@
             <option <%= (_.escape(participant.transport) == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
             <option <%= (_.escape(participant.transport) == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
             <option <%= (_.escape(participant.transport) == 'avion') ? 'selected' : '' %> value="avion">{{ 'form.transport.avion' | trans | raw }}</option>
-            <option <%= (_.escape(participant.transport) == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
         </select>
         <div class="error-message"><%= errors.transport %></div>
     </div>
@@ -425,7 +424,6 @@
             <option <%= (_.escape(participant.transport) == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
             <option <%= (_.escape(participant.transport) == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
             <option <%= (_.escape(participant.transport) == 'avion') ? 'selected' : '' %> value="avion">{{ 'form.transport.avion' | trans | raw }}</option>
-            <option <%= (_.escape(participant.transport) == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
         </select>
         <div class="error-message"><%= errors.transport %></div>
     </div>

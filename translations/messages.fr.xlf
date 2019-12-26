@@ -1128,7 +1128,7 @@
     <unit id="kswmam." name="form.transport">
       <segment>
         <source>form.transport</source>
-        <target>Vous viendrez</target>
+        <target>Votre mode de transport</target>
       </segment>
     </unit>
     <unit id="g8r0.vw" name="form.memo">
@@ -1140,25 +1140,19 @@
     <unit id="qZI9mI2" name="form.transport.perso">
       <segment>
         <source>form.transport.perso</source>
-        <target>Viendra par ses propres moyens</target>
+        <target>Personnel</target>
       </segment>
     </unit>
     <unit id="qeUDh4t" name="form.transport.train">
       <segment>
         <source>form.transport.train</source>
-        <target>Viendra en train</target>
+        <target>Train</target>
       </segment>
     </unit>
     <unit id="tjBn22A" name="form.transport.avion">
       <segment>
         <source>form.transport.avion</source>
-        <target>Viendra en avion</target>
-      </segment>
-    </unit>
-    <unit id="l5g0cdb" name="form.transport.bus">
-      <segment>
-        <source>form.transport.bus</source>
-        <target>Viendra en bus</target>
+        <target>Avion</target>
       </segment>
     </unit>
     <unit id="lTZDt9R" name="form.label.submit">
