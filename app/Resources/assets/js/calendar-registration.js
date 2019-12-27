@@ -121,8 +121,7 @@ function updateParticipantsRender () {
     transports: {
       'perso': i18n.trans('form.transport.perso'),
       'train': i18n.trans('form.transport.train'),
-      'avion': i18n.trans('form.transport.avion'),
-      'bus': i18n.trans('form.transport.bus')
+      'avion': i18n.trans('form.transport.avion')
     }
   }))
 }
@@ -138,8 +137,7 @@ function updateEndMessageRender () {
     transports: {
       'perso': i18n.trans('form.transport.perso'),
       'train': i18n.trans('form.transport.train'),
-      'avion': i18n.trans('form.transport.avion'),
-      'bus': i18n.trans('form.transport.bus')
+      'avion': i18n.trans('form.transport.avion')
     }
   }))
 }
@@ -190,6 +188,7 @@ function afterLogin (user) {
   _you = { ...participant, ...user }
   _participants = [_you]
   updateYouRender()
+  $('.you-render').hide()
   getRegistered(_infos.idact).then(data => {
     _registrationBegan = true
     let attendees = data.attendees
@@ -205,7 +204,10 @@ function afterLogin (user) {
       let transport = JSON.parse(element.jsco)
       participant.transport = transport.Arriv.Transport
       participant.lieu = transport.Arriv.Lieu
-      participant.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      participant.arriv = ''
+      if (transport.Arriv.Heure !== '' || transport.Arriv.Mn !== '') {
+        participant.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      }
       participant.memo = transport.Arriv.Memo
       participant[element.name] = element.value
       participant.codco = parseInt(participant.codco)
@@ -218,7 +220,7 @@ function afterLogin (user) {
 
     // Formattage des membres de la famille
     attendees.forEach(function(element) {
-      if (element.coltyp === 'conjo' || element.codtyp === 'enfan' || element.codtyp === 'paren') {
+      if (element.coltyp === 'conjo' || element.coltyp === 'enfan' || element.coltyp === 'paren') {
         // Si l'utilisateur est déjà présent dans la liste des inscrits,
         if (alreadyRegisteredIds.includes(element.codco)) {
           element.added = true
@@ -229,10 +231,14 @@ function afterLogin (user) {
 
     // Formattage de l'utilisateur courant (modif inscription)
     if (alreadyRegisteredYou) {
+      $('.you-render').show()
       let transport = JSON.parse(alreadyRegisteredYou.jsco)
       _you.transport = transport.Arriv.Transport
       _you.lieu = transport.Arriv.Lieu
-      _you.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      _you.arriv = ''
+      if (transport.Arriv.Heure !== '' || transport.Arriv.Mn !== '') {
+        _you.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      }
       _you.memo = transport.Arriv.Memo
     }
 
@@ -618,6 +624,7 @@ panelYouForm.on('submit', function (event) {
   callbackSubmit(event, $(this), 'you', true, function (res) {
     _you = res
   })
+  $('.you-render').show()
 })
 
 panelHimForm.on('submit', function (event) {
@@ -649,7 +656,10 @@ function closePanel (event, panel) {
   })
 }
 
-panelYouForm.on('click', '.cancel', function (event) { closePanel(event, 'you') })
+panelYouForm.on('click', '.cancel', function (event) {
+  closePanel(event, 'you')
+  $('.you-render').show()
+})
 panelHimForm.on('click', '.cancel', function (event) { closePanel(event, 'him') })
 panelAddForm.on('click', '.cancel', function (event) { closePanel(event, 'add') })
 
@@ -727,6 +737,7 @@ itemParticipants.on('click', '.add-participant', function (event) {
   modifyClick(event, 'add', updateHimFormRender, () => {
     _participant = getContact()
   })
+  scrollToElement($('.him-form-render'))
 })
 
 itemParticipants.on('click', '.validate-participants', function (event) {

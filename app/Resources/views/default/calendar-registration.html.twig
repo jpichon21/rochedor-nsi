@@ -100,7 +100,7 @@
                     <div class="went-render"></div>
                     <a href="#" class="add-participant" rel="nofollow">{{ 'calendar.registration.two.add_participant' | trans | raw }}</a>
                     <a href="#" class="validate-participants button" rel="nofollow">{{ 'calendar.registration.two.validate_participants' | trans | raw }}</a>
-                    <a href="{{ path('calendar-' ~ currentLocale) }}" class="cancel-registration button" rel="nofollow">{{ 'form.cancel' | trans | raw }}</a>
+                    <a href="{{ path('cancel_registration') }}" class="cancel-registration button" rel="nofollow">{{ 'form.cancel' | trans | raw }}</a>
                 </div>
             </div>
             <div class="item validation">
@@ -302,13 +302,12 @@
             <option <%= (_.escape(participant.transport) == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
             <option <%= (_.escape(participant.transport) == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
             <option <%= (_.escape(participant.transport) == 'avion') ? 'selected' : '' %> value="avion">{{ 'form.transport.avion' | trans | raw }}</option>
-            <option <%= (_.escape(participant.transport) == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
         </select>
         <div class="error-message"><%= errors.transport %></div>
     </div>
     
     <div class="pure-u-1 pure-u-md-1-2 lieu-wrapper <% if (participant.transport !== 'train') { %> hidden <% } %>">
-        <select class="select lieu <%= (_.escape(participant.lieu) != '') ? 'white' : '' %>" name="lieu">
+        <select class="select lieu <%= (_.escape(participant.lieu.toLowerCase()) != '') ? 'white' : '' %>" name="lieu">
             <option <%= (_.escape(participant.lieu.toLowerCase()) == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == 'viotte') ? 'selected' : '' %> value="viotte">{{ 'form.lieu.viotte' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == 'besancon-tgv') ? 'selected' : '' %> value="besancon-tgv">{{ 'form.lieu.besancon-tgv' | trans | raw }}</option>
@@ -401,10 +400,10 @@
         </select>
     </div>
     <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
-        <input autocomplete="off" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.mobil) %>" name="mobil" placeholder="* {{ 'form.mobile' | trans | raw }}">
+        <input autocomplete="off" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.mobil) %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
     </div>
     <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
-        <input autocomplete="off" class="input tel" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.tel) %>" name="tel" placeholder="* {{ 'form.phone' | trans | raw }}">
+        <input autocomplete="off" class="input tel" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(participant.tel) %>" name="tel" placeholder="{{ 'form.phone' | trans | raw }}">
     </div>
     <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
         <input autocomplete="off" class="input email" type="email" value="<%= _.escape(participant.email) %>" name="email" placeholder="{{ 'form.email' | trans | raw }}" maxlength="40">
@@ -425,12 +424,11 @@
             <option <%= (_.escape(participant.transport) == 'perso') ? 'selected' : '' %> value="perso">{{ 'form.transport.perso' | trans | raw }}</option>
             <option <%= (_.escape(participant.transport) == 'train') ? 'selected' : '' %> value="train">{{ 'form.transport.train' | trans | raw }}</option>
             <option <%= (_.escape(participant.transport) == 'avion') ? 'selected' : '' %> value="avion">{{ 'form.transport.avion' | trans | raw }}</option>
-            <option <%= (_.escape(participant.transport) == 'bus') ? 'selected' : '' %> value="bus">{{ 'form.transport.bus' | trans | raw }}</option>
         </select>
         <div class="error-message"><%= errors.transport %></div>
     </div>
     <div class="pure-u-1 pure-u-md-1-2 lieu-wrapper <% if (participant.transport !== 'train') { %> hidden <% } %>">
-        <select class="select lieu <%= (_.escape(participant.lieu) != '') ? 'white' : '' %>" name="lieu">
+        <select class="select lieu <%= (_.escape(participant.lieu.toLowerCase()) != '') ? 'white' : '' %>" name="lieu">
             <option <%= (_.escape(participant.lieu.toLowerCase()) == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == 'viotte') ? 'selected' : '' %> value="viotte">{{ 'form.lieu.viotte' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == 'besancon-tgv') ? 'selected' : '' %> value="besancon-tgv">{{ 'form.lieu.besancon-tgv' | trans | raw }}</option>
@@ -458,7 +456,7 @@
             <tr>
                 <td><%= _.escape(him.civil) %> <%= _.escape(him.prenom) %> <%= _.escape(him.nom) %></td>
                 <td><%= transports[_.escape(him.transport)]  %></td>
-                <td><%= lieux[_.escape(him.lieu)] %></td>
+                <td><%= lieux[_.escape(him.lieu.toLowerCase())] %></td>
                 <td><%= _.escape(him.arriv) %></td>
             </tr>
         <% } %>
