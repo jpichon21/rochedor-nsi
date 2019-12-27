@@ -10,7 +10,7 @@ import SaveIcon from '@material-ui/icons/Save'
 import DeleteIcon from '@material-ui/icons/Delete'
 import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual'
 import { withStyles } from '@material-ui/core/styles'
-import { getSpeaker, getSpeakerVersions, deleteSpeaker, putSpeaker, postSpeaker, uploadFile } from '../../actions'
+import { getSpeaker, getSpeakerVersions, deleteSpeaker, putSpeaker, postSpeaker, uploadFile, resetUploadState } from '../../actions'
 import Alert from '../alert/alert'
 import IsAuthorized, { ACTION_SPEAKER_EDIT, ACTION_SPEAKER_CREATE, ACTION_SPEAKER_DELETE } from '../../isauthorized/isauthorized'
 
@@ -120,6 +120,7 @@ export class SpeakerForm extends React.Component {
 
   handleClose () {
     this.setState({ status: '', alertOpen: false })
+    this.props.dispatch(resetUploadState())
   }
 
   handleChangeFileUpload (event) {
