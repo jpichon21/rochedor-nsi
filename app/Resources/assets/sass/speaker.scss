@@ -9,6 +9,9 @@
     flex: none;
   }
   .zone{
+    @include media('>laptop') {
+      padding: 40px 80px 0px!important;
+    }
     @include media('<xxlarge') {
       padding: 20px 80px 0px!important;
     }
@@ -34,6 +37,9 @@
   background: url('../img/arrow-left.png'), url('../img/arrow-left-white.png');
   transition: 0.5s ease;
   z-index: 1;
+  @include media('>laptop') {
+     top: 50%;
+  }
   cursor: pointer;
   &:hover,&:focus, &:active{
     background: url('../img/arrow-left-white.png'), url('../img/arrow-left.png');
@@ -73,16 +79,19 @@
     min-height: 450px;
     box-sizing: border-box;
     outline: none;
-    overflow: hidden;
+    overflow: hidden;  @include media('>laptop') {
+      width: 104%!important;
+      min-height: 520px;
+    }
     padding: 0 20px;
     width: 106%!important;
     @include media('>laptop') {
-      min-height: 720px;
+      width: 104%!important;
+      min-height: 520px;
     }
     @include media('<medium') {
       padding: 0;
     }
-    
     &:hover, &:focus, &:active {
       outline: none!important;
       &:before{
