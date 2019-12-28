@@ -9,9 +9,6 @@
     flex: none;
   }
   .zone{
-    @include media('>laptop') {
-      padding: 40px 80px 0px!important;
-    }
     @include media('<xxlarge') {
       padding: 20px 80px 0px!important;
     }
@@ -70,6 +67,9 @@
   min-height: 450px;
   padding: 20px 88px 50px;
   flex: 1;
+  @include media('>laptop') {
+    padding: 40px 88px 50px!important;
+  }
   @include media('<medium') {
     padding: 0;
   }
