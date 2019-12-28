@@ -26,11 +26,12 @@
 .prev,
 .next {
   position: absolute;
-  top: 50%;
+  //top: 50%;
+  top: 42%;
   margin-top: -34px;
   width: 68px;
   height: 68px;
-  background-image: url('../img/arrow-left.png');
+  background: url('../img/arrow-left.png'), url('../img/arrow-left-white.png');
   transition: 0.5s ease;
   z-index: 1;
   cursor: pointer;
@@ -75,6 +76,9 @@
     overflow: hidden;
     padding: 0 20px;
     width: 106%!important;
+    @include media('>laptop') {
+      min-height: 720px;
+    }
     @include media('<medium') {
       padding: 0;
     }
