@@ -18,6 +18,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CalL
 {
+
+    public const TYP_LCAL_PARTICIPANT = 'coIns';
+    public const TYP_LCAL_INTERVENANT = 'coAct';
+
     /**
      * @var int
      *
