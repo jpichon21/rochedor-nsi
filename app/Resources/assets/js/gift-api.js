@@ -88,7 +88,7 @@ export const getCountryCode = (country, method) => {
     .then(res => res.json())
     .then(res => {
       if (res.status !== 'ok') { throw res.error }
-      return (method === 'PBX') ? res.data['codpayspbx'] : res.data['codpayspaypal']
+      return (method === 'CB') ? res.data['codpayspbx'] : res.data['codpayspaypal']
     })
 }
 

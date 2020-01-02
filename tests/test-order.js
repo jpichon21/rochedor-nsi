@@ -39,7 +39,7 @@ describe('Load Page', function () {
         .select('.panel.countryliv .select.country', 'FR')
         .click('a.button.payment')
         .wait('.item.payment.active')
-        .select('.item.payment .select.modpaie', 'PBX')
+        .select('.item.payment .select.modpaie', 'CB')
         .click('.button.submit.process-order')
         .wait(5000000)
         .end()

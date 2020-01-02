@@ -35,7 +35,12 @@ class DonRepository
         ORDER BY d.refdon DESC');
         $query->setParameter('year', $year.'-%')
         ->setMaxResults(1);
-        return $query->getOneOrNullResult()['refdon'];
+        $lastRef = $query->getOneOrNullResult();
+        if (is_array($lastRef) && array_key_exists('refdon', $lastRef)) {
+            return $lastRef['refdon'];
+        }
+
+        return null;
     }
 
     /**

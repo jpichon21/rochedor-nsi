@@ -2361,7 +2361,7 @@
     <unit id="I8rtEKM" name="gift.title">
       <segment>
         <source>gift.title</source>
-        <target><![CDATA[Don ponctuel <small>en ligne</small>]]></target>
+        <target>Don ponctuel en ligne</target>
       </segment>
     </unit>
     <unit id="GQMkF8_" name="gift.intro">

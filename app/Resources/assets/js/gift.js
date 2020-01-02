@@ -182,6 +182,13 @@ itemAmount.on('keyup', '.input.amount', function () {
 
 /* CHOIX DE L'ALLOCATION */
 
+$(window).bind('pageshow', function() {
+  _allocation = {
+    name: $('.select-allocation').find('option:selected').text(),
+    value: $('.select-allocation').val()
+  }
+})
+
 itemAllocation.on('change', '.select-allocation', function (event) {
   event.preventDefault()
   _allocation = {
@@ -203,7 +210,7 @@ itemPayment.on('click', '.button.radio', function (event) {
   itemPayment.find('input[name="payment_method"]').val($(this).addClass('checked').attr('href').substring(1))
   _modpaie = itemPayment.find('input[name="payment_method"]').val()
 
-  if (_modpaie === 'VIR' || _modpaie === 'VIRREG') {
+  if (_modpaie === 'VIR' || _modpaie === 'VPER') {
     itemPrelevement.removeClass('hidden')
   }
   else {
@@ -232,9 +239,9 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
     // init hidden
     itemPrelevement.find('.virement').addClass('hidden')
     itemPrelevement.find('.virement-reg').addClass('hidden')
-    if (_modpaie === 'VIR' || _modpaie === 'VIRREG') {
+    if (_modpaie === 'VIR' || _modpaie === 'VPER') {
       Inputmask().mask(document.querySelectorAll('.date_virement'))
-      if (_modpaie === 'VIRREG') {
+      if (_modpaie === 'VPER') {
         itemPrelevement.find('.virement-reg').removeClass('hidden')
       }
       else {
@@ -256,7 +263,7 @@ itemPrelevement.on('submit', 'form', function (event) {
 
   let toValidate = $('input[name="date_virement"]')
   let valid = true
-  if (_modpaie === 'VIRREG') {
+  if (_modpaie === 'VPER') {
     toValidate = $('input[name="date_virement"], select.select-period')
   }
   toValidate.each(function () {
