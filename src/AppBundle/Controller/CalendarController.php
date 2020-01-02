@@ -382,7 +382,7 @@ class CalendarController extends Controller
                 $calL = new CalL();
                 $calL->setCodcal($activityId)
                 ->setLcal($contact->getCodco())
-                ->setTyplcal($attendee['coltyp'])
+                ->setTyplcal(CalL::TYP_LCAL_PARTICIPANT)
                 ->setReflcal($refLcal)
                 ->setJslcal(json_encode(
                     [
