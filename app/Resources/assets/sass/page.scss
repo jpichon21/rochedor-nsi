@@ -34,7 +34,7 @@ body {
     position: relative;
     margin: 0 0 20px -20px;
     max-width: 480px;
-    @include media('>laptop') {
+    @include media('>xxlarge') {
       max-width: 680px;
     }
     &:after {

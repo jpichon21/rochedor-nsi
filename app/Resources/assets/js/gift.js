@@ -26,6 +26,7 @@ moment.locale(_locale)
 /* Countries */
 
 const _countries = JSON.parse($('.countries-json').html())
+const _preferredCountries = JSON.parse($('.preferred-countries-json').html())
 
 /* Variables */
 
@@ -105,6 +106,7 @@ function updateYouFormRender (errors = [], contact = {}) {
     you: contact,
     errors: errors,
     countries: _countries,
+    preferredCountries: _preferredCountries,
     civilites: [
       i18n.trans('form.civilite.mr'),
       i18n.trans('form.civilite.mme'),
@@ -210,11 +212,18 @@ itemPayment.on('click', '.button.radio', function (event) {
   itemPayment.find('input[name="payment_method"]').val($(this).addClass('checked').attr('href').substring(1))
   _modpaie = itemPayment.find('input[name="payment_method"]').val()
 
+  // Affiche la zone de saisie de la date du virement en cas de mode de paiement par virement
   if (_modpaie === 'VIR' || _modpaie === 'VPER') {
     itemPrelevement.removeClass('hidden')
-  }
-  else {
+  } else {
     itemPrelevement.addClass('hidden')
+  }
+
+  // Affiche le lien "Sécurité des dons en ligne" pour les paiements via PayPal/Paybox
+  if (_modpaie === 'PAYPAL' || _modpaie === 'CB') {
+    $('#secureDatasLink').removeClass('hidden')
+  } else {
+    $('#secureDatasLink').addClass('hidden')
   }
 })
 
@@ -239,13 +248,15 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
     // init hidden
     itemPrelevement.find('.virement').addClass('hidden')
     itemPrelevement.find('.virement-reg').addClass('hidden')
+    itemPrelevement.find('.virement-reg-fin').addClass('hidden')
     if (_modpaie === 'VIR' || _modpaie === 'VPER') {
       Inputmask().mask(document.querySelectorAll('.date_virement'))
       if (_modpaie === 'VPER') {
         itemPrelevement.find('.virement-reg').removeClass('hidden')
-      }
-      else {
+        itemPrelevement.find('.virement-reg-fin').removeClass('hidden')
+      } else {
         itemPrelevement.find('.virement').removeClass('hidden')
+        itemPrelevement.find('.virement-reg-fin').addClass('hidden')
       }
       changeItem([itemPrelevement])
       return

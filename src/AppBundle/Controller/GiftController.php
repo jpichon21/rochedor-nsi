@@ -8,7 +8,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Contact;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Service\CountryService;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,6 +23,7 @@ use AppBundle\Repository\DonRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Psr\Log\LoggerInterface;
 use AppBundle\Service\PaymentService;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use SensioLabs\Security\Exception\HttpException;
 
@@ -96,26 +98,21 @@ class GiftController extends Controller
      * @Route("/{_locale}/donazione-una-tantum", name="gift-it")
      * @Route("/{_locale}/donación-de-una-sola-vez", name="gift-es")
      */
-    public function calendarAction(Request $request)
+    public function giftAction(Request $request, CountryService $countryService)
     {
-        $countriesJSON = array();
         $countries = $this->tpaysRepository->findAllCountry();
-        foreach ($countries as $country) {
-            $countriesJSON[] = array(
-                'codpays' => $country->getCodpays(),
-                'nompays' => $country->getNompays()
-            );
-        }
+        list($countriesJSON, $preferredChoices) = $countryService->orderCountryListByPreference($countries);
 
         $page = $this->pageService->getContentFromRequest($request);
         if (!$page) {
             throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
         }
-        $availableLocales = $this->pageService->getAvailableLocales($page);
+
         return $this->render('default/gift.html.twig', [
             'page' => $page,
             'availableLocales' => array(),
-            'countries' => $countriesJSON
+            'countries' => $countriesJSON,
+            'preferredCountries' => $preferredChoices
         ]);
     }
 
@@ -297,6 +294,28 @@ class GiftController extends Controller
         $this->em->persist($don);
         $this->em->flush();
         return new Response('ok');
+    }
+
+    /**
+     * Permet de déconnecter l'utilisateur avant de le rediriger sur la liste des dons possible
+     *
+     * @Route("/cancel-gift", name="cancel_gift")
+     */
+    public function cancelGiftAction(Request $request)
+    {
+        $session = new Session();
+        $session->invalidate();
+
+        $route = $this->get('cmf_routing.route_provider')->getRouteByName('dons');
+        if (is_null($route)) {
+            return $this->redirectToRoute('logout-message', [
+                'from' => 'don-ponctuel'
+            ]);
+        }
+
+        return $this->redirectToRoute($route, [
+            $request
+        ]);
     }
 
     private function getNewRef()

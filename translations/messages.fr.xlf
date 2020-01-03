@@ -2361,13 +2361,13 @@
     <unit id="I8rtEKM" name="gift.title">
       <segment>
         <source>gift.title</source>
-        <target>Don ponctuel en ligne</target>
+        <target>Dons ponctuels ou réguliers</target>
       </segment>
     </unit>
     <unit id="GQMkF8_" name="gift.intro">
       <segment>
         <source>gift.intro</source>
-        <target><![CDATA[Pour vous joindre au mouvement de solidrarité des Amis de la Roche d'Or et soutenir notre action évangélique, merci de nous indiquer votre choix.]]></target>
+        <target><![CDATA[Pour vous joindre au mouvement de solidarité des Amis de la Roche d'Or et soutenir notre action évangélique, merci de nous indiquer votre choix.]]></target>
       </segment>
     </unit>
     <unit id="0scb9.5" name="gift.one.title">
@@ -2398,6 +2398,12 @@
       <segment>
         <source>gift.virementreg.date</source>
         <target>Date de début de votre virement</target>
+      </segment>
+    </unit>
+    <unit id="VBdu1Uy" name="gift.virementreg.datefin">
+      <segment>
+        <source>gift.virementreg.datefin</source>
+        <target>Date de fin de votre virement</target>
       </segment>
     </unit>
     <unit id="VBdu2Ue" name="gift.virement.date">
@@ -2454,7 +2460,7 @@
     <unit id="7rO5qFQ" name="select.allocation.libre">
       <segment>
         <source>select.allocation.libre</source>
-        <target>En libre affectation</target>
+        <target>Libre affectation</target>
       </segment>
     </unit>
     <unit id="otNY7_F" name="select.allocation.viecom">
@@ -2569,21 +2575,25 @@
       <segment>
         <source>gift-return.success</source>
         <target><![CDATA[
-            Bonjour %name%,<br><br>
-            Laissez-nous vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, devient aussi la vôtre.<br>
-            Par votre don de %amount% euros, vous vous joignez au mouvement de solidarité des Amis de la Roche d’Or pour soutenir notre action évangélique.<br>
-            Soyez-en encore remercié(e).<br><br>
-            Un message vous est immédiatement adressé par courriel/email. Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou dans les courriers indésirables.<br>
-            Unis par la grâce de Celui qui tisse entre nous des liens de fraternité, nous vous redisons toute notre amitié.<br><br>
-            La Communauté<br><br>
-            Un reçu fiscal vous sera adressé en début d’année prochaine par courriel à l’adresse suivante : %email%<br>
-            Sinon, par courrier à :<br>
-            %name%<br>
-            %address% (3 lignes possibles)<br>
-            %zipcode% %city%<br>
-             %country%<br><br>
+            <div style="color: #ffffff;">
+                Bonjour %civility% %name%,<br><br>
+                Laissez-nous vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, devient aussi la vôtre.<br><br>
+                Par votre don de %amount% euros, vous vous joignez au mouvement de solidarité des Amis de la Roche d’Or pour soutenir notre action évangélique.<br><br>
+                Soyez-en encore remercié(e).<br><br>
+                Un message vous est immédiatement adressé par courriel/email. Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.<br><br>
+                Unis par la grâce de Celui qui tisse entre nous des liens de fraternité, nous vous redisons toute notre amitié.<br><br>
+                La Communauté<br><br>
+            </div>
+            Un reçu fiscal vous sera adressé en début d’année prochaine par courriel à l’adresse suivante : %email%<br><br>
+            Sinon, par courrier à :<br><br>
+            <div style="margin-left: 50px;">
+                %name%<br>
+                %address% (3 lignes possibles)<br>
+                %zipcode% %city%<br>
+                 %country%<br><br>
+            </div>
             Contact secrétariat : 03 81 41 47 47 ou secretariat@rochedor.org<br>
-            Notre site : www.rochedor.fr<br>
+            Notre site : www.rochedor.fr<br><br>
             Pour toute information et correspondance, rappelez-nous le numéro de référence de votre don : 19-00531
         ]]></target>
       </segment>
@@ -2592,7 +2602,7 @@
       <segment>
         <source>gift-return.success.mail</source>
         <target><![CDATA[
-            Bonjour %name%,<br><br>
+            Bonjour %civility% %name%,<br><br>
             Laissez-nous vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, devient aussi la vôtre.<br>
             Par votre don de %amount% euros, vous vous joignez au mouvement de solidarité des Amis de la Roche d’Or pour soutenir notre action évangélique.<br>
             Soyez-en encore remercié(e).<br><br>
@@ -2649,12 +2659,15 @@
     <unit id="mccDfN1" name="gift.payment.return.cheque">
       <segment>
         <source>gift.payment.return.cheque</source>
-        <target><![CDATA[Bonjour %civility% %name%,<br><br>
+        <target><![CDATA[Bonjour %civility% %name%,<br>
                 L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
-                Par votre participation de %amount% euros en %affectation%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
-                Merci d'adresser votre chèque à :<br><br>
-                Communauté de La Roche d'Or<br>
-                25042 BESANÇON CEDEX<br><br>
+                Par votre participation de %amount% euros en %affectation%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br>
+                Merci d'adresser votre chèque à :<br>
+                <div style="margin-left: 50px;">
+                    Communauté de La Roche d'Or<br>
+                    25042 BESANÇON CEDEX<br><br>
+                </div>
+                Un message vous est immédiatement adressé par courriel/email. Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.<br><br>
                 Laissez-moi encore une fois vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br><br>
                 Danièle VALÈS]]></target>
       </segment>
@@ -2662,13 +2675,15 @@
     <unit id="mccDfN8" name="gift.payment.mail.cheque">
       <segment>
         <source>gift.payment.mail.cheque</source>
-        <target><![CDATA[Bonjour %civility% %name%,<br><br>
+        <target><![CDATA[Bonjour %civility% %name%,<br>
                  L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
                  Par votre participation de %amount% euros en %affectation%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
                  Merci d’adresser votre chèque à :<br>
-                 Communauté de La Roche d’Or <br>
-                 25042 BESANÇON CEDEX<br><br>
-                 Laissez-moi encore une fois vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br>
+                 <div style="margin-left: 50px;">
+                     Communauté de La Roche d’Or <br>
+                     25042 BESANÇON CEDEX<br><br>
+                 </div>
+                 Laissez-moi encore une fois vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br><br>
                  Danièle VALÈS<br><br>
                  Contact secrétariat : 03 81 41 47 47 ou secretariat@rochedor.org<br>
                  Notre site : www.rochedor.fr]]></target>
@@ -2678,10 +2693,10 @@
       <segment>
         <source>gift.payment.return.virement</source>
         <target><![CDATA[Bonjour %civility% %name%,<br><br>
-                L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
-                Par votre participation de %amount% euros, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br>
+                L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br><br>
+                Par votre participation de %amount% euros, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
                 Un courriel (e-mail) vient de vous être envoyé. Il vous indique le compte bancaire sur lequel effectuer votre virement.<br><br>
-                Un reçu fiscal vous sera adressé en début d’année prochaine. Il fera apparaître l’ensemble de vos dons à la Roche d’Or.<br>
+                Un reçu fiscal vous sera adressé en début d’année prochaine. Il fera apparaître l’ensemble de vos dons à la Roche d’Or. Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.<br><br>
                 Laissez-moi vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br><br>
                 Danièle VALÈS]]></target>
       </segment>
@@ -2690,14 +2705,16 @@
       <segment>
         <source>gift.payment.mail.virement</source>
         <target><![CDATA[Bonjour %civility% %name%,<br><br>
-                 L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
+                 L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br><br>
                  Par votre participation de %amount% euros en %affectation%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
                  Nous vous remercions de faire votre virement sur le compte :<br>
-                 Banque : %bank_name%<br>
-                 Numéro de compte : %bank_account%<br>
-                 IBAN : %bank_iban%<br>
-                 SWIFT/BIC : %bank_bic%<br><br>
-                 Laissez-moi encore une fois vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br>
+                 <div style="margin-left: 50px;">
+                     Banque : %bank_name%<br>
+                     Numéro de compte : %bank_account%<br>
+                     IBAN : %bank_iban%<br>
+                     SWIFT/BIC : %bank_bic%<br><br>
+                 </div>
+                 Laissez-moi encore une fois vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br><br>
                  Danièle VALÈS<br><br>
                  Contact secrétariat : 03 81 41 47 47 ou secretariat@rochedor.org<br>
                  Notre site : www.rochedor.fr]]></target>
@@ -2707,10 +2724,10 @@
       <segment>
         <source>gift.payment.return.virement_regular</source>
         <target><![CDATA[Bonjour %civility% %name%,<br><br>
-                L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
-                Par votre participation de %amount% euros tous les %period%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br>
-                Un courriel (e-mail) vient de vous être envoyé. Il vous indique le compte bancaire sur lequel effectuer votre virement. Vous pourrez à tout moment interompre ce virement ou en changer le montant.<br><br>
-                Un reçu fiscal vous sera adressé en début d’année de chaque année. Il fera apparaître l’ensemble de vos dons à la Roche d’Or.<br>
+                L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br><br>
+                Par votre participation de %amount% euros tous les %period%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
+                Un courriel (e-mail) vient de vous être envoyé. Il vous indique le compte bancaire sur lequel effectuer votre virement. Vous pourrez à tout moment interompre ce virement ou en changer le montant. Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.<br><br>
+                Un reçu fiscal vous sera adressé en début d’année de chaque année. Il fera apparaître l’ensemble de vos dons à la Roche d’Or.<br><br>
                 Laissez-moi vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br><br>
                 Danièle VALÈS]]></target>
       </segment>
@@ -2719,14 +2736,16 @@
       <segment>
         <source>gift.payment.mail.virement_regular</source>
         <target><![CDATA[Bonjour %civility% %name%,<br><br>
-                 L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
+                 L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br><br>
                  Par votre participation de %amount% euros par %period% en %affectation%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
                  Nous vous remercions de faire votre virement sur le compte :<br>
-                 Banque : %bank_name%<br>
-                 Numéro de compte : %bank_account%<br>
-                 IBAN : %bank_iban%<br>
-                 SWIFT/BIC : %bank_bic%<br><br>
-                 Laissez-moi encore une fois vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br>
+                 <div style="margin-left: 50px;">
+                     Banque : %bank_name%<br>
+                     Numéro de compte : %bank_account%<br>
+                     IBAN : %bank_iban%<br>
+                     SWIFT/BIC : %bank_bic%<br><br>
+                 </div>
+                 Laissez-moi encore une fois vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br><br>
                  Danièle VALÈS<br><br>
                  Contact secrétariat : 03 81 41 47 47 ou secretariat@rochedor.org<br>
                  Notre site : www.rochedor.fr]]></target>
@@ -3540,6 +3559,18 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
       <segment>
         <source>registration.validation.address_fontanilles</source>
         <target>Aux Fontanilles, route de Riunoguès 66480 Maureillas Las Illas</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTi" name="other.gift-mode">
+      <segment>
+        <source>other.gift-mode</source>
+        <target>Autres formes de dons</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTb" name="form.gift.validate">
+      <segment>
+        <source>form.gift.validate</source>
+        <target>Je valide et indique mes coordonnées</target>
       </segment>
     </unit>
   </file>
