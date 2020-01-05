@@ -53,8 +53,8 @@
       background-size: 152px;
       margin-top: 2px;
       @include media('>mobile', "<=large") {
-        background-position-x: 4px;
-        margin-top: -14px;
+        background-position-x: 0px;
+        margin-top: -16px;
       }
       &:before,
       &:after {
