@@ -103,7 +103,8 @@ body {
       transition: 2s ease;
       z-index: 2;
       @include media('<=mobile') {
-        width: 82px
+        width: 82px;
+        margin-left: 12px;
       }
     }
     .editions {
