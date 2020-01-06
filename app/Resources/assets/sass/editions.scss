@@ -994,6 +994,11 @@ h2 {
           float: left;
           min-height: 60px;
           margin:0px;
+          font-family: lato, 'lato', sans-serif;
+          letter-spacing: 0px;
+          line-height: 17px;
+          font-size: 12px;
+          text-transform: none;
           &.checked {
             color: $roche-orange;
             border-color: $roche-orange;
