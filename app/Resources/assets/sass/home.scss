@@ -642,11 +642,10 @@ body {
           background: transparent;
           border: 1px #000 solid;
           transition: 0.5s ease;
-
           &:focus,
           &:hover {
             outline: none;
-            border: 1px #fff solid;
+            border-color: #fff;
             -webkit-transition: 0.5s ease;
             -o-transition: 0.5s ease;
             transition: 0.5s ease;
