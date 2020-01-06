@@ -2692,13 +2692,17 @@
     <unit id="mccDfN2" name="gift.payment.return.virement">
       <segment>
         <source>gift.payment.return.virement</source>
-        <target><![CDATA[Bonjour %civility% %name%,<br><br>
-                L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br><br>
-                Par votre participation de %amount% euros, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
-                Un courriel (e-mail) vient de vous être envoyé. Il vous indique le compte bancaire sur lequel effectuer votre virement.<br><br>
-                Un reçu fiscal vous sera adressé en début d’année prochaine. Il fera apparaître l’ensemble de vos dons à la Roche d’Or. Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.<br><br>
-                Laissez-moi vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br><br>
-                Danièle VALÈS]]></target>
+        <target><![CDATA[
+                <div style="color: #ffffff;">
+                    Bonjour %civility% %name%,<br><br>
+                    L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br><br>
+                    Par votre participation de %amount% euros, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
+                    Un courriel (e-mail) vient de vous être envoyé. Il vous indique le compte bancaire sur lequel effectuer votre virement.<br><br>
+                    Un reçu fiscal vous sera adressé en début d’année prochaine. Il fera apparaître l’ensemble de vos dons à la Roche d’Or. Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.<br><br>
+                    Laissez-moi vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br><br>
+                    Danièle VALÈS
+                </div>]]>
+        </target>
       </segment>
     </unit>
     <unit id="mccIfN2" name="gift.payment.mail.virement">
