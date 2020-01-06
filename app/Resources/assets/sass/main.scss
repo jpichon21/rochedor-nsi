@@ -178,6 +178,11 @@ i {
         padding: 20px;
       }
     }
+    .left{
+      @include media('>large','<=limitMenuReduced') {
+        padding: 40px 20px 0px 60px
+      }
+    }
     .right {
       //position: sticky;
       top: 0;
