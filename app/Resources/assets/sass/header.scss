@@ -600,8 +600,13 @@ body {
 
 .editions{
   #mainLogo{
-        margin-left: -40px;
+      @include media('>limitMenuReduced') {
+          margin-left: -40px;
       }
+      @include media('<=limitMenuReduced') {
+        margin-left: 8px!important;
+    }
+    }
   .cartSpan, .current, .available, .minus, .plus {
     &:hover, &:active, &:focus{
       background: $roche-orange;
