@@ -49,11 +49,11 @@
       animation-fill-mode: forwards;
       opacity: 0;
       margin-left: 12px;
-      background-position-x: 8px;
+      background-position-x: 5px;
       background-size: 152px;
       margin-top: 2px;
       @include media('>mobile', "<=large") {
-        background-position-x: 0px;
+        background-position-x: -3px;
         margin-top: -16px;
       }
       &:before,
