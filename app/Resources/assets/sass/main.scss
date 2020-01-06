@@ -119,6 +119,15 @@ i {
     }
   }
 }
+.order{
+  .content{
+    .left{
+      @include media('<=mobile') {
+        padding: 20px 40px 0px 20px;
+      }
+    }
+  }
+}
 .content {
   position: relative;
   width: 100%;
