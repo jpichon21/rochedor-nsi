@@ -1000,6 +1000,9 @@ h2 {
           line-height: 17px;
           font-size: 12px;
           text-transform: none;
+          @include media('<=mobile') {
+            min-height: 96px;
+          }
           &.checked {
             color: $roche-orange;
             border-color: $roche-orange;
