@@ -1,6 +1,7 @@
 import createFocusTrap from 'focus-trap'
 import {
-  limitMenuReduced
+  limitMenuReduced,
+  mobile
 } from './variables'
 
 // Zoom
@@ -118,7 +119,10 @@ const handleHeaderHover = event => {
 
 const handleWindowResize = () => {
   if (window.innerWidth < limitMenuReduced) {
-    body.classList.add('menuReduced')
+    // Sur mobile, cette classe empêche l'image de fond de recouvrir tout l'écran
+    if (window.innerWidth > mobile) {
+      body.classList.add('menuReduced')
+    }
     if (content !== null) {
       content.style.overflowY = 'auto'
       content.style.width = '100%'
@@ -224,5 +228,21 @@ if (showFilters != null) {
 if (hideFilters != null) {
   hideFilters.onclick = function () {
     filters.classList.remove('active')
+  }
+}
+
+// Toggle password
+content.onclick = event => {
+  if (event.target.classList.contains('toggle-password')) {
+    event.preventDefault()
+    togglePasswordVisibility(event.target.previousElementSibling)
+  }
+}
+
+function togglePasswordVisibility (el) {
+  if (el.getAttribute('type') === 'password') {
+    el.setAttribute('type', 'text')
+  } else {
+    el.setAttribute('type', 'password')
   }
 }

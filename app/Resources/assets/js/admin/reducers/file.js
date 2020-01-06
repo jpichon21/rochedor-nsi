@@ -2,6 +2,7 @@ import {
   UPLOAD_FILE,
   UPLOAD_FILE_SUCCESS,
   UPLOAD_FILE_FAILURE,
+  UPLOAD_RESET_STATE,
   GET_FILE,
   GET_FILE_SUCCESS,
   GET_FILE_FAILURE,
@@ -21,6 +22,14 @@ export default function fileReducer (state, action) {
       return {
         ...state,
         uploadStatus: action.data,
+        loading: false
+      }
+    case UPLOAD_RESET_STATE:
+      return {
+        ...state,
+        uploadStatus: '',
+        status: 'ok',
+        error: '',
         loading: false
       }
     case UPLOAD_FILE_FAILURE:

@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Repository\CalendarRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\ContactL;
@@ -136,11 +137,17 @@ class CalendarController extends Controller
 
         $countriesJSON = array();
         $countries = $this->tpaysRepository->findAllCountry();
+        $preferredCountries = ['FR', 'GP', 'MQ', 'GF', 'RE', 'YT', 'PM', 'WF', 'PF', 'NC', 'TF'];
+        $preferredChoices = [];
         foreach ($countries as $country) {
-            $countriesJSON[] = array(
-                'codpays' => $country->getCodpays(),
-                'nompays' => $country->getNompays()
-            );
+            if (in_array($country->getCodpays(), $preferredCountries)) {
+                $preferredChoices[] = ['codpays' => $country->getCodpays(), 'nompays' => $country->getNompays()];
+            } else {
+                $countriesJSON[] = array(
+                    'codpays' => $country->getCodpays(),
+                    'nompays' => $country->getNompays()
+                );
+            }
         }
 
         if ($id) {
@@ -154,6 +161,7 @@ class CalendarController extends Controller
                         'page' => $page,
                         'activity' => $activity,
                         'countries' => $countriesJSON,
+                        'preferredCountries' => $preferredChoices,
                         'availableLocales' => $availableLocales
                     ]);
                 }
@@ -252,10 +260,10 @@ class CalendarController extends Controller
         $contact = $this->getUser();
         $attendees = $this->getParents($contact);
         $activityId = $request->query->get('activityId');
-        list($contacts, $user, $refLcal) = $this->getAlreadyRegisteredContacts($activityId);
+        list($alreadyRegistered, $user, $refLcal) = $this->getAlreadyRegisteredContacts($activityId);
         return ['status' => 'ok', 'data' => [
             'attendees' => $attendees,
-            'alreadyRegistered' => $contacts,
+            'alreadyRegistered' => $alreadyRegistered,
             'alreadyRegisteredYou' => $user,
             'alreadyRegisteredRef' => $refLcal
         ]];
@@ -374,7 +382,7 @@ class CalendarController extends Controller
                 $calL = new CalL();
                 $calL->setCodcal($activityId)
                 ->setLcal($contact->getCodco())
-                ->setTyplcal($attendee['coltyp'])
+                ->setTyplcal(CalL::TYP_LCAL_PARTICIPANT)
                 ->setReflcal($refLcal)
                 ->setJslcal(json_encode(
                     [
@@ -673,5 +681,21 @@ class CalendarController extends Controller
                 'availableLocales' => $availableLocales,
                 'noRetreatsMessage' => $this->translator->trans('calendar.no_retreat')
             ]);
+    }
+
+    /**
+     * Permet de déconnecter l'utilisateur avant de le rediriger sur la liste des retraites
+     *
+     * @Route("/cancel-registration", name="cancel_registration")
+     */
+    public function cancelRegistrationAction(CalendarRepository $calendarRepo, Request $request)
+    {
+        $session = new Session();
+        $session->invalidate();
+
+        return $this->redirectToRoute('calendar-' . $request->getLocale(), [
+            $calendarRepo,
+            $request
+        ]);
     }
 }

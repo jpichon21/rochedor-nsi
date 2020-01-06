@@ -972,5 +972,23 @@
         <target>logout.disconnect.title</target>
       </segment>
     </unit>
+    <unit id="sdhufn9B9TMG9" name="registration.not_finished">
+      <segment>
+        <source>registration.not_finished</source>
+        <target>La tua richiesta di registrazione non è stata finalizzata, sei sicuro di voler lasciare la pagina?</target>
+      </segment>
+    </unit>
+    <unit id="aHsOKTn" name="registration.validation.address_rochedor">
+      <segment>
+        <source>registration.validation.address_rochedor</source>
+        <target>A La Roche d'Or, chemin du Muenot 25000 Besançon</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTn" name="registration.validation.address_fontanilles">
+      <segment>
+        <source>registration.validation.address_fontanilles</source>
+        <target>Aux Fontanilles, route de Riunoguès 66480 Maureillas Las Illas</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -40,7 +40,6 @@ class DefaultController extends Controller
         $locale = $this->get('translator')->getLocale();
         $contentDocument = $this->pageService->getContent($locale);
         $news = $this->getDoctrine()->getRepository('AppBundle:News')->findForHomepage($contentDocument->getLocale());
-        $lastNews = array_shift($news);
         return $this->render('default/index.html.twig', array(
             'page' => $contentDocument,
             'availableLocales' => $this->pageService->getAvailableLocales($contentDocument),

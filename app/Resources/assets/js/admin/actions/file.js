@@ -1,6 +1,7 @@
 export const UPLOAD_FILE = 'UPLOAD_FILE'
 export const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS'
 export const UPLOAD_FILE_FAILURE = 'UPLOAD_FILE_FAILURE'
+export const UPLOAD_RESET_STATE = 'UPLOAD_RESET_STATE'
 export const GET_FILE = 'GET_FILE'
 export const GET_FILE_SUCCESS = 'GET_FILE_SUCCESS'
 export const GET_FILE_FAILURE = 'GET_FILE_FAILURE'
@@ -66,6 +67,10 @@ export function getFile (fileId) {
       })
       .catch(error => dispatch({ type: GET_FILE_FAILURE, error }))
   }
+}
+
+export function resetUploadState () {
+  return dispatch => dispatch({ type: UPLOAD_RESET_STATE })
 }
 
 export function uploadFile (file) {
