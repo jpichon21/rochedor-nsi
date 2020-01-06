@@ -423,9 +423,15 @@ body {
         @include media('<large') {
           font-size: 26px;
         }
+        @include media('<=mobile') {
+          font-size: 28px;
+        }
         small {
           display: block;
           font-size: 16px;
+          @include media('<=mobile') {
+            font-size: 18px;
+          }
         }
       }
       em {

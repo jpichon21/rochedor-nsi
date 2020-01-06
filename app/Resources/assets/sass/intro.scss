@@ -1,3 +1,5 @@
+@import './variables';
+
 .intro {
   display: block;
   position: fixed;
@@ -25,6 +27,9 @@
     left: 50%;
     margin-left: -91px;
     animation-name: intro-mount;
+    @include media('<=mobile') {
+      animation-name: intro-mount-mobile;
+    }
     animation-duration: 2s;
     animation-delay: 4s;
     animation-fill-mode: forwards;
@@ -35,6 +40,11 @@
     .logo {
       width: 160px;
       height: 132px;
+      @include media('<=mobile') {
+        width: 152px;
+        height: 124px;
+        transform: scale(0.9);
+      }
       background: url('../img/logo-icon.png') no-repeat;
       animation-name: intro-opacity;
       animation-duration: 2s;
@@ -42,8 +52,13 @@
       animation-fill-mode: forwards;
       opacity: 0;
       margin-left: 12px;
+      background-position-x: 5px;
       background-size: 152px;
-      margin-top: 2px;
+      margin-top: 8px;
+      @include media('>mobile', "<=large") {
+        background-position-x: -3px;
+        margin-top: -16px;
+      }
       &:before,
       &:after {
         content: '';
@@ -69,7 +84,13 @@
         animation-delay: 3s;
         opacity: 0;
         z-index: 2;
-        margin-left: -8px;
+        //margin-left: -8px;
+        margin-left: 0px;
+        @include media('<=mobile') {
+         // margin-left: -4px;
+         margin-left: 2px;
+         margin-top: 4px;
+        }
       }
     }
   }
@@ -142,3 +163,10 @@ body {
   from { top: 45%; }
   to { top: 58px; }
 }
+
+@keyframes intro-mount-mobile {
+  from { top: 45%; }
+  to { top: 17px; }
+}
+
+
