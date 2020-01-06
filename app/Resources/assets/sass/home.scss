@@ -561,6 +561,9 @@ body {
       padding-bottom: 34px;
       overflow: hidden;
       z-index: 2;
+      opacity: 1;
+      transition: 2s ease-in-out;
+
 
       /*-webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out;
       -moz-transition:width 300ms ease-in-out, height 300ms ease-in-out;

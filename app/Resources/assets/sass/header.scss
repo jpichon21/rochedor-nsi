@@ -299,7 +299,7 @@ body {
         left: 50%;
         bottom: -20px;
         //margin-left: -45px;
-        margin-left: -40px;
+        margin-left: -36px;
       }
     }
     .cart-container {
@@ -658,7 +658,7 @@ body {
   #mainLogo{
     transform: scale(0.85);
     transition: 2s ease;
-    @include media('<=medium', '>mobile') {
+    @include media('<=large', '>mobile') {
       margin-left: 21px;
     }
   }
