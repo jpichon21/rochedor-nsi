@@ -67,6 +67,7 @@ body {
   }
   .logo {
     position: relative;
+    top: 2px;
     @include media('<=mobile') {
       padding: 15px 0px!important;
     }
