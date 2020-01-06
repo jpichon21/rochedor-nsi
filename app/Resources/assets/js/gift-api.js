@@ -92,7 +92,7 @@ export const getCountryCode = (country, method) => {
     })
 }
 
-export const postGift = (amount, allocation, method, memo, dateDebVir, virPeriod) => {
+export const postGift = (amount, allocation, method, memo, dateDebVir, dateFinVir, virPeriod) => {
   return window.fetch(`/xhr/gift/create`, {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
@@ -105,6 +105,7 @@ export const postGift = (amount, allocation, method, memo, dateDebVir, virPeriod
           'moddon': method,
           'memodon': memo,
           'dateDebVir': dateDebVir,
+          'dateFinVir': dateFinVir,
           'virPeriod': virPeriod
         }
       }

@@ -36,6 +36,7 @@ let _allocation = {}
 let _modpaie = ''
 let _note = ''
 let _dateDebVir = ''
+let _dateFinVir = ''
 let _virPeriod = ''
 
 const itemConnection = $('.item.connection')
@@ -250,7 +251,7 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
     itemPrelevement.find('.virement-reg').addClass('hidden')
     itemPrelevement.find('.virement-reg-fin').addClass('hidden')
     if (_modpaie === 'VIR' || _modpaie === 'VPER') {
-      Inputmask().mask(document.querySelectorAll('.date_virement'))
+      Inputmask().mask(document.querySelectorAll('.date_virement, .virement-reg-fin'))
       if (_modpaie === 'VPER') {
         itemPrelevement.find('.virement-reg').removeClass('hidden')
         itemPrelevement.find('.virement-reg-fin').removeClass('hidden')
@@ -270,7 +271,12 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
 itemPrelevement.on('submit', 'form', function (event) {
   event.preventDefault()
   _dateDebVir = moment(itemPrelevement.find('.date_virement').val(), 'DD/MM/YYYY').format()
-  _virPeriod = itemPrelevement.find('.select-period').val()
+  if (itemPrelevement.find('input.virement-reg-fin').val() !== '') {
+    _dateFinVir = moment(itemPrelevement.find('input.virement-reg-fin').val(), 'DD/MM/YYYY').format()
+  }
+  if (itemPrelevement.find('.select-period').val() !== null) {
+    _virPeriod = itemPrelevement.find('.select-period').val()
+  }
 
   let toValidate = $('input[name="date_virement"]')
   let valid = true
@@ -302,7 +308,7 @@ function afterLogin (user, bypass) {
   _you = { ...contact, ...user }
   updateYouRender()
   upLoader()
-  postGift(_amount, _allocation.value, _modpaie, _note, _dateDebVir, _virPeriod).then(data => {
+  postGift(_amount, _allocation.value, _modpaie, _note, _dateDebVir, _dateFinVir, _virPeriod).then(data => {
     window.location.href = data
   }).catch(err => {
     downLoader()

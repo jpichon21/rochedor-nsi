@@ -8,6 +8,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Contact;
+use AppBundle\Entity\DonR;
+use AppBundle\Repository\DonRRepository;
 use AppBundle\Service\CountryService;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -59,6 +61,11 @@ class GiftController extends Controller
     private $donRepository;
 
     /**
+     * @var DonRRepository
+     */
+    private $donRRepository;
+
+    /**
      * @var Logger
      */
     private $logger;
@@ -78,6 +85,7 @@ class GiftController extends Controller
         PageService $pageService,
         EntityManagerInterface $em,
         DonRepository $donRepository,
+        DonRRepository $donRRepository,
         LoggerInterface $logger,
         PaymentService $paymentService,
         Translator $translator
@@ -86,6 +94,7 @@ class GiftController extends Controller
         $this->pageService = $pageService;
         $this->em = $em;
         $this->donRepository = $donRepository;
+        $this->donRRepository = $donRRepository;
         $this->logger = $logger;
         $this->paymentService = $paymentService;
         $this->translator = $translator;
@@ -127,23 +136,48 @@ class GiftController extends Controller
         if (!$gift) {
             return ['status' => 'ko', 'message' => 'You must provide a gift object'];
         }
-        $ref = $this->getNewRef();
-        $don = new Don();
-        $don->setMntdon($gift['mntdon'])
-        ->setContact($user)
-        ->setDestdon($gift['destdon'])
-        ->setModdon($gift['moddon'])
-        ->setMemodon($gift['memodon'])
-        ->setRefdon($ref)
-        ->setEnregdon(new \DateTime())
-        ->setDatdon(new \DateTime())
-        ->setValidDon(0)
-        ->setBanqdon(9)
-        ->setMondon('€');
+        switch ($gift['moddon']) {
+            // Si on paye par cheque ou virement, c'est une intention de don -> donR
+            case PaymentService::METHOD_CHEQUE:
+            case PaymentService::METHOD_VIREMENT:
+            case PaymentService::METHOD_VIREMENT_REGULIER:
+                $ref = $this->getNewRef(true);
+                $dateVir = !empty($gift['dateDebVir']) ? new \DateTime($gift['dateDebVir']) : new \DateTime('0000-00-00');
+                $dateVirFin = !empty($gift['dateFinVir']) ? new \DateTime($gift['dateFinVir']) : new \DateTime('0000-00-00');
+                $don = new DonR();
+                $don->setMntdon($gift['mntdon'])
+                    ->setContact($user)
+                    ->setDestdon($gift['destdon'])
+                    ->setModdon($gift['moddon'])
+                    ->setRefdon($ref)
+                    ->setMondonR('€')
+                    ->setEnregdonR(new \DateTime())
+                    ->setBanqdon(9)
+                    ->setDatVir($dateVir)
+                    ->setVirFin($dateVirFin)
+                    ->setVirFreq($gift['virPeriod'])
+                    ;
+                break;
+            // Sinon, c'est un vrai don -> don
+            default:
+                $ref = $this->getNewRef();
+                $don = new Don();
+                $don->setMntdon($gift['mntdon'])
+                    ->setContact($user)
+                    ->setDestdon($gift['destdon'])
+                    ->setModdon($gift['moddon'])
+                    ->setMemodon($gift['memodon'])
+                    ->setRefdon($ref)
+                    ->setEnregdon(new \DateTime())
+                    ->setDatdon(new \DateTime())
+                    ->setValidDon(0)
+                    ->setBanqdon(9)
+                    ->setMondon('€');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($don);
         $em->flush();
-
         $paymentUrl = $this->paymentService->getUrl(
             $gift['moddon'],
             $don->getMntdon(),
@@ -318,10 +352,14 @@ class GiftController extends Controller
         ]);
     }
 
-    private function getNewRef()
+    private function getNewRef($isGiftPromise = false)
     {
         $year = date('y');
-        $lastRef = $this->donRepository->findLastRef($year);
+        if ($isGiftPromise) {
+            $lastRef = $this->donRRepository->findLastRef($year);
+        } else {
+            $lastRef = $this->donRepository->findLastRef($year);
+        }
         if ($lastRef === null) {
             return $year . '-0000';
         }
