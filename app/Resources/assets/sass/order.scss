@@ -13,6 +13,7 @@
     }
   }
   .dropdown {
+    max-width: 580px!important;
     .item {
       &.active {
         h2 {
@@ -22,6 +23,7 @@
         }
       }
       &.canOpen {
+        font-family: lato, 'lato', sans-serif;
         h2 {
           cursor: pointer;
         }
@@ -202,7 +204,7 @@
       text-align: right;
       border-top: 1px #000000 solid;
       font-family: lato, 'lato', 'sans-serif';
-      font-size: 15px;
+      font-size: 14px;
       span {
         margin-right: 10px;
       }
