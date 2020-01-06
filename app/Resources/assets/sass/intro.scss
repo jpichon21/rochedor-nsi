@@ -23,8 +23,7 @@
   }
   .element {
     position: absolute;
-    //top: 45%;
-    top: 40%;
+    top: 45%;
     left: 50%;
     margin-left: -91px;
     animation-name: intro-mount;
@@ -52,7 +51,7 @@
       margin-left: 12px;
       background-position-x: 5px;
       background-size: 152px;
-      margin-top: 6px;
+      margin-top: 8px;
       @include media('>mobile', "<=large") {
         background-position-x: -3px;
         margin-top: -16px;
