@@ -980,6 +980,7 @@ h2 {
       .button {
         color: $roche-orange;
         border: 1px $roche-orange solid;
+        font-family: lato, 'lato', 'sans-serif';
         &.disabled {
           border: 1px solid #cccccc;
           color: #cccccc;
