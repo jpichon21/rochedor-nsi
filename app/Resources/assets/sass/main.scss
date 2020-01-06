@@ -180,7 +180,10 @@ i {
     }
     .left{
       @include media('>large','<=limitMenuReduced') {
-        padding: 40px 20px 0px 60px
+        padding: 40px 20px 0px 60px;
+        .item{
+          padding-bottom: 8px;
+        }
       }
     }
     .right {
