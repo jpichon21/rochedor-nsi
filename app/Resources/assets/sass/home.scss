@@ -611,6 +611,8 @@ body {
         position: relative;
         opacity: 0;
         transition: 2s ease-in-out;
+        padding-bottom: 19px;
+        z-index: 2;
         &.active {
           display: block;
           opacity: 0;
@@ -623,9 +625,9 @@ body {
 
       .news_nav {
         display: block;
-        position: absolute;
+        position: relative;
         bottom: 0;
-
+        z-index: 1;
         @include media('<large') {
           display: none;
         }

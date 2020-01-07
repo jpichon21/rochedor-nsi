@@ -88,7 +88,6 @@ const changeNews = (direction = 'next') => {
   $('.nouveautes > div[data-index=' + next + ']').delay(300).fadeIn(300).addClass('active')*/
 
   $('.nouveautes').css('height', $('.nouveautes').prop('scrollHeight') + 'px')
-  $('.nouveautes > .news_nav').fadeOut(100)
   $('.nouveautes > div[data-index=' + current + ']').removeClass('active')
   $('.nouveautes > div[data-index=' + next + ']').addClass('active')
   $('.nouveautes > .active ').css({'opacity':'1','transition':'1s ease'})
