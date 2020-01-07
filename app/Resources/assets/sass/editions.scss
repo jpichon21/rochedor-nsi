@@ -440,6 +440,10 @@ h2 {
       transition: 0.5s;
       box-sizing: border-box;
       z-index: 1;
+      @include media('<=limitMenuReduced', '>large') {
+        overflow: auto;
+        width: 106%;
+      }
       &:after {
         content: '';
         position: absolute;
@@ -449,6 +453,9 @@ h2 {
         border-bottom: 1px #cccccc solid;
         opacity: 0;
         transition: 0.5s;
+        @include media('<=limitMenuReduced', '>large') {
+          display: none;
+        }
       }
       .title {
         display: block;
@@ -472,7 +479,7 @@ h2 {
       .price {
         position: absolute;
         //bottom: 80px;
-        top: 20px;
+        top: 11px;
         right: 20px;
         line-height: 100%;
         font-size: 23px;
