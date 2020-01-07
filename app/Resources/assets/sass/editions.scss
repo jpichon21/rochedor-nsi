@@ -1014,8 +1014,11 @@ h2 {
           text-transform: none;
           &.conData{
             min-height: 60px;
-            @include media('<bigmobile') {
+            @include media('<=bigmobile') {
               min-height: 80px;
+            }
+            @include media('<=xsmall') {
+              min-height: 102px;
             }
           }
           &.checked {
