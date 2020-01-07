@@ -476,8 +476,9 @@ h2 {
         right: 20px;
         transition: 0.5s;
         @include media('<=limitMenuReduced', '>large') {
-          float: right;
-          margin-top: 6px;
+          margin-top: 24px;
+          position: relative;
+          right: 0px!important;
         }
       }
       .price {
