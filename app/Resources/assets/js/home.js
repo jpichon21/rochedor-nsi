@@ -91,7 +91,7 @@ const changeNews = (direction = 'next') => {
   $('.nouveautes > .news_nav').fadeOut(100)
   $('.nouveautes > div[data-index=' + current + ']').removeClass('active')
   $('.nouveautes > div[data-index=' + next + ']').addClass('active')
-  $('.nouveautes > .active ').css('opacity','1')
+  $('.nouveautes > .active ').css({'opacity':'1','transition':'1s ease'})
 
   // edge case for nav
   setTimeout(() => {
