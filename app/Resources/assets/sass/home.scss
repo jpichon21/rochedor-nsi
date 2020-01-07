@@ -643,8 +643,9 @@ body {
           height: 35px;
           text-align: center;
           background: transparent;
-          border: 1px #000 transparent;
+          border: 1px solid #000;
           transition: 0.5s ease;
+          border-top: 1px solid transparent;
           &:focus,
           &:hover,
           &:active {
