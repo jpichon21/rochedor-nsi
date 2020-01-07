@@ -3542,5 +3542,11 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
         <target>Aux Fontanilles, route de Riunoguès 66480 Maureillas Las Illas</target>
       </segment>
     </unit>
+    <unit id="bHsOKTs" name="calendar.registration.logout-tooltip">
+      <segment>
+        <source>calendar.registration.logout-tooltip</source>
+        <target>Pour quitter la page. Aucune demande d'inscription ne sera prise en compte.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
