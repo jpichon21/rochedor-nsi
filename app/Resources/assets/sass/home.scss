@@ -618,6 +618,12 @@ body {
           display: block;
           opacity: 1;
           transition: 2s ease-in-out;
+          .text{
+            p{
+              opacity: 1;
+              transition: 1s ease;
+            }
+          }
         }
         @include media('<large') {
           display: block;
@@ -710,7 +716,10 @@ body {
           margin-bottom: -18px;
           border-bottom: none;
         }
-
+        p{
+          opacity: 0;
+          transition: 1s ease;
+        }
         @include media('<large') {
           padding: 0;
           margin-bottom: 20px;
