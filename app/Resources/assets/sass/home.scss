@@ -616,7 +616,7 @@ body {
         z-index: 2;
         &.active {
           display: block;
-          opacity: 0;
+          opacity: 1;
           transition: 2s ease-in-out;
         }
         @include media('<large') {
@@ -627,7 +627,7 @@ body {
       .news_nav {
         display: block;
         position: relative;
-        bottom: 0;
+        bottom: 0px!important;
         z-index: 1;
         @include media('<large') {
           display: none;
@@ -643,7 +643,7 @@ body {
           height: 35px;
           text-align: center;
           background: transparent;
-          border: 1px #000 solid;
+          border: 1px #000 transparent;
           transition: 0.5s ease;
           &:focus,
           &:hover,
@@ -660,7 +660,7 @@ body {
             background-position:0 110%;*/
             background-color: #fff;
             cursor: pointer;
-            border-top: 1px solid #000;
+            border-top: 1px solid transparent;
           }
 
           >img {
