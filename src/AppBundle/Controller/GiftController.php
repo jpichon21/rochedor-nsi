@@ -11,6 +11,7 @@ use AppBundle\Entity\Contact;
 use AppBundle\Entity\DonR;
 use AppBundle\Repository\DonRRepository;
 use AppBundle\Service\CountryService;
+use AppBundle\Service\GiftService;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -128,8 +129,10 @@ class GiftController extends Controller
     /**
      * @Rest\Post("/xhr/gift/create", name="post_gift_create")
      * @Rest\View()
+     *
+     * @throws \Exception
      */
-    public function xhrPostGiftCreateAction(Request $request)
+    public function xhrPostGiftCreateAction(Request $request, GiftService $giftService)
     {
         $user = $this->getUser();
         $gift = $request->get('gift');
@@ -137,42 +140,15 @@ class GiftController extends Controller
             return ['status' => 'ko', 'message' => 'You must provide a gift object'];
         }
         switch ($gift['moddon']) {
-            // Si on paye par cheque ou virement, c'est une intention de don -> donR
+            // Si on paye par cheque ou virement, c'est une promesse de don -> donR
             case PaymentService::METHOD_CHEQUE:
             case PaymentService::METHOD_VIREMENT:
             case PaymentService::METHOD_VIREMENT_REGULIER:
-                $ref = $this->getNewRef(true);
-                $dateVir = !empty($gift['dateDebVir']) ? new \DateTime($gift['dateDebVir']) : new \DateTime('0000-00-00');
-                $dateVirFin = !empty($gift['dateFinVir']) ? new \DateTime($gift['dateFinVir']) : new \DateTime('0000-00-00');
-                $don = new DonR();
-                $don->setMntdon($gift['mntdon'])
-                    ->setContact($user)
-                    ->setDestdon($gift['destdon'])
-                    ->setModdon($gift['moddon'])
-                    ->setRefdon($ref)
-                    ->setMondonR('€')
-                    ->setEnregdonR(new \DateTime())
-                    ->setBanqdon(9)
-                    ->setDatVir($dateVir)
-                    ->setVirFin($dateVirFin)
-                    ->setVirFreq($gift['virPeriod'])
-                    ;
+                $don = $giftService->createDonR($gift, $user);
                 break;
             // Sinon, c'est un vrai don -> don
             default:
-                $ref = $this->getNewRef();
-                $don = new Don();
-                $don->setMntdon($gift['mntdon'])
-                    ->setContact($user)
-                    ->setDestdon($gift['destdon'])
-                    ->setModdon($gift['moddon'])
-                    ->setMemodon($gift['memodon'])
-                    ->setRefdon($ref)
-                    ->setEnregdon(new \DateTime())
-                    ->setDatdon(new \DateTime())
-                    ->setValidDon(0)
-                    ->setBanqdon(9)
-                    ->setMondon('€');
+                $don = $giftService->createDon($gift, $user);
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -350,19 +326,5 @@ class GiftController extends Controller
         return $this->redirectToRoute($route, [
             $request
         ]);
-    }
-
-    private function getNewRef($isGiftPromise = false)
-    {
-        $year = date('y');
-        if ($isGiftPromise) {
-            $lastRef = $this->donRRepository->findLastRef($year);
-        } else {
-            $lastRef = $this->donRepository->findLastRef($year);
-        }
-        if ($lastRef === null) {
-            return $year . '-0000';
-        }
-        return $year . '-' . str_pad(intval(str_replace($year . '-', '', $lastRef)) + 1, 5, '0', STR_PAD_LEFT);
     }
 }

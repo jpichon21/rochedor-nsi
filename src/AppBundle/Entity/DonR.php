@@ -84,41 +84,6 @@ class DonR
     private $moddon;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="CpteBanq", type="string", length=40, nullable=false)
-     */
-    private $cpteBanq;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="AdBanq", type="text", nullable=false)
-     */
-    private $adBanq;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="CpBanq", type="string", length=5, nullable=false)
-     */
-    private $cpBanq;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="VilBanq", type="string", length=30, nullable=false)
-     */
-    private $vilBanq;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="PaysBanq", type="string", length=20, nullable=false)
-     */
-    private $paysBanq;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="DatVir", type="datetime", nullable=false)
@@ -179,11 +144,6 @@ class DonR
         $this->creatdonR = '';
         $this->status = '';
         $this->banque = '';
-        $this->cpteBanq = '';
-        $this->adBanq = '';
-        $this->cpBanq = '';
-        $this->vilBanq = '';
-        $this->paysBanq = '';
         $this->datVir = new \DateTime();
         $this->virFin = new \DateTime();
         $this->virFreq = '';
@@ -468,96 +428,6 @@ class DonR
     public function setBanque($banque)
     {
         $this->banque = $banque;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCpteBanq()
-    {
-        return $this->cpteBanq;
-    }
-
-    /**
-     * @param string $cpteBanq
-     */
-    public function setCpteBanq($cpteBanq)
-    {
-        $this->cpteBanq = $cpteBanq;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAdBanq()
-    {
-        return $this->adBanq;
-    }
-
-    /**
-     * @param string $adBanq
-     */
-    public function setAdBanq($adBanq)
-    {
-        $this->adBanq = $adBanq;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCpBanq()
-    {
-        return $this->cpBanq;
-    }
-
-    /**
-     * @param string $cpBanq
-     */
-    public function setCpBanq($cpBanq)
-    {
-        $this->cpBanq = $cpBanq;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getVilBanq()
-    {
-        return $this->vilBanq;
-    }
-
-    /**
-     * @param string $vilBanq
-     */
-    public function setVilBanq($vilBanq)
-    {
-        $this->vilBanq = $vilBanq;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPaysBanq()
-    {
-        return $this->paysBanq;
-    }
-
-    /**
-     * @param string $paysBanq
-     */
-    public function setPaysBanq($paysBanq)
-    {
-        $this->paysBanq = $paysBanq;
 
         return $this;
     }
