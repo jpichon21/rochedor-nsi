@@ -88,9 +88,10 @@ const changeNews = (direction = 'next') => {
   $('.nouveautes > div[data-index=' + next + ']').delay(300).fadeIn(300).addClass('active')*/
 
 
-  $('.nouveautes > div[data-index=' + current + ']').removeClass('active').fadeOut(300)
-  $('.nouveautes > div[data-index=' + next + ']').addClass('active').fadeIn(300)
-  //$('.nouveautes > .active ').css('opacity','1')
+  $('.nouveautes > div[data-index=' + current + ']').removeClass('active')
+  $('.nouveautes > div[data-index=' + next + ']').addClass('active')
+  $('.active > .text p').delay(300).css('opacity', '1')
+
 
   // edge case for nav
 
