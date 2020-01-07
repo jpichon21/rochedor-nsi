@@ -90,7 +90,7 @@ const changeNews = (direction = 'next') => {
 
   $('.nouveautes > div[data-index=' + current + ']').removeClass('active')
   $('.nouveautes > div[data-index=' + next + ']').addClass('active')
-  $('.active > .text p').delay(300).css({'opacity': '1','transition': '1s ease'})
+  $('.active > .text p').delay(1000).css({'opacity': '1','transition': '1s ease'})
 
 
   // edge case for nav
