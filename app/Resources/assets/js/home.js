@@ -111,4 +111,5 @@ $('.nouveautes > .news_nav .news_nav_prev').on('click', e => {
   changeNews('prev')
 })
 
-updateNewsNavPosition()
+//updateNewsNavPosition()
+}
