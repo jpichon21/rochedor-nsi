@@ -94,13 +94,13 @@ const changeNews = (direction = 'next') => {
 
   // edge case for nav
 
-  /*
+  
   setTimeout(() => {
     updateNewsNavPosition()
     $('.nouveautes > .news_nav').fadeIn(300)
   }, 150)
   setTimeout(() => $('.nouveautes').css('height', ''), 300)
-}*/
+}
 
 $('.nouveautes > .news_nav .news_nav_next').on('click', e => {
   e.preventDefault()
@@ -111,5 +111,5 @@ $('.nouveautes > .news_nav .news_nav_prev').on('click', e => {
   changeNews('prev')
 })
 
-//updateNewsNavPosition()
-}
+updateNewsNavPosition()
+
