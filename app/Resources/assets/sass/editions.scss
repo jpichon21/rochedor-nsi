@@ -1015,7 +1015,7 @@ h2 {
           &.conData{
             min-height: 60px;
             @include media('<=bigmobile') {
-              min-height: 80px;
+              min-height: 86px;
             }
             @include media('<=xsmall') {
               min-height: 102px;
