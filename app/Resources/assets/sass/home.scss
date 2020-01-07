@@ -721,6 +721,9 @@ body {
         &.with-link {
           margin-bottom: -18px;
           border-bottom: none;
+          @include media('<=medium') {
+            margin-bottom: 20px;
+          }
         }
         p{
           opacity: 0;
