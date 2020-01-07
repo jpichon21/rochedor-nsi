@@ -781,12 +781,14 @@ body {
     position: absolute;
     left: -28px;
     top: 2px;
+    width: 0.5em;
   }
 
   p:after {
     content: '”';
     position: absolute;
     bottom: -25px;
+    width: 0.5em;
   }
 
   p:before,
