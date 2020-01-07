@@ -87,18 +87,20 @@ const changeNews = (direction = 'next') => {
   $('.nouveautes > div[data-index=' + current + ']').fadeOut(300).delay(300).removeClass('active')
   $('.nouveautes > div[data-index=' + next + ']').delay(300).fadeIn(300).addClass('active')*/
 
-  $('.nouveautes').css('height', $('.nouveautes').prop('scrollHeight') + 'px')
+)
   $('.nouveautes > div[data-index=' + current + ']').removeClass('active')
   $('.nouveautes > div[data-index=' + next + ']').addClass('active')
   $('.nouveautes > .active ').css({'opacity':'1','transition':'1s ease'})
 
   // edge case for nav
+
+  /*
   setTimeout(() => {
     updateNewsNavPosition()
     $('.nouveautes > .news_nav').fadeIn(300)
   }, 150)
   setTimeout(() => $('.nouveautes').css('height', ''), 300)
-}
+}*/
 
 $('.nouveautes > .news_nav .news_nav_next').on('click', e => {
   e.preventDefault()
