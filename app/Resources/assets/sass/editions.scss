@@ -989,6 +989,9 @@ h2 {
         color: $roche-orange;
         background: #ffffff;
       }
+      .adresse::placeholder, .memocli::placeholder {
+        font-size: 16px!important;
+      }
       .button {
         color: $roche-orange;
         border: 1px $roche-orange solid;
