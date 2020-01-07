@@ -87,7 +87,7 @@ const changeNews = (direction = 'next') => {
   $('.nouveautes > div[data-index=' + current + ']').fadeOut(300).delay(300).removeClass('active')
   $('.nouveautes > div[data-index=' + next + ']').delay(300).fadeIn(300).addClass('active')*/
 
-)
+
   $('.nouveautes > div[data-index=' + current + ']').removeClass('active')
   $('.nouveautes > div[data-index=' + next + ']').addClass('active')
   $('.nouveautes > .active ').css({'opacity':'1','transition':'1s ease'})
