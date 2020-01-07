@@ -1012,11 +1012,11 @@ h2 {
           line-height: 17px;
           font-size: 12px;
           text-transform: none;
-          @include media('<=mobile') {
-            min-height: 96px;
-          }
           &.conData{
             min-height: 60px;
+            @include media('<bigmobile') {
+              min-height: 80px;
+            }
           }
           &.checked {
             color: $roche-orange;
