@@ -63,12 +63,12 @@ if (title !== null) {
 }
 
 const updateNewsNavPosition = () => {
-  if($('.nouveautes > div.cnews.active > .text.with-link').length) {
+ /* if($('.nouveautes > div.cnews.active > .text.with-link').length) {
     $('.nouveautes div.news_nav').css('bottom', '16px')
   }
   else {
     $('.nouveautes div.news_nav').css('bottom', '0')
-  }
+  }*/
 }
 const changeNews = (direction = 'next') => {
   const current = $('.nouveautes > div.cnews.active').data('index')
