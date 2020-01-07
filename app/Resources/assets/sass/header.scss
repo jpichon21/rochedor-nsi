@@ -601,7 +601,7 @@ body {
 .editions{
   #mainLogo{
       @include media('>limitMenuReduced') {
-          margin-left: -44px;
+          margin-left: -42px;
       }
       @include media('<=limitMenuReduced') {
         margin-left: 8px!important;
