@@ -614,11 +614,17 @@ body {
         transition: 2s ease-in-out;
         padding-bottom: 19px;
         z-index: 2;
+        @include media('<=medium') {
+          opacity: 1;
+        }
         &.active {
           display: block;
           opacity: 1;
           transition: 2s ease-in-out;
           .text{
+            @include media('<=medium') {
+              margin-bottom: 22px;
+            }
             p{
               opacity: 1;
               transition: 1s ease;
