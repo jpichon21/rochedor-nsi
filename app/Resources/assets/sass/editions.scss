@@ -475,6 +475,10 @@ h2 {
         bottom: 20px;
         right: 20px;
         transition: 0.5s;
+        @include media('<=limitMenuReduced', '>large') {
+          float: right;
+          margin-top: 6px;
+        }
       }
       .price {
         position: absolute;
