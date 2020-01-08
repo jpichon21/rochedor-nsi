@@ -3,7 +3,7 @@ body {
     display: block;
     //height: auto;
     //height: 100%;
-    min-height: 100vh;
+    min-height: 1000px;
     overflow-y: auto;
     background-attachment: fixed!important;
     .footer {
@@ -67,6 +67,7 @@ body {
   }
   .logo {
     position: relative;
+    top: 7px;
     @include media('<=mobile') {
       padding: 15px 0px!important;
     }
@@ -76,7 +77,8 @@ body {
       left: 50%;
       bottom: -20px;
       width: 180px;
-      margin-left: -90px;
+      //margin-left: -90px;
+      margin-left: -86px;
       font-size: 14px;
       line-height: 18px;
       letter-spacing: 2px;
@@ -103,7 +105,8 @@ body {
       transition: 2s ease;
       z-index: 2;
       @include media('<=mobile') {
-        width: 82px
+        width: 82px;
+        margin-left: 12px;
       }
     }
     .editions {
@@ -130,6 +133,7 @@ body {
         padding: 9px 20px;
         border: 1px #000000 solid;
         transition: 0.5s ease;
+        font-family: azo-sans-web,sans-serif;
         @include media('<large') {
           display: none;
         }
@@ -294,7 +298,8 @@ body {
         position: absolute;
         left: 50%;
         bottom: -20px;
-        margin-left: -45px;
+        //margin-left: -45px;
+        margin-left: -40px;
       }
     }
     .cart-container {
@@ -619,7 +624,7 @@ body {
   transition: 1s ease;
   #logoTagline{
     width: 132px!important;
-    left: 60px;
+    left: 63px;
     z-index: 2;
   }
 }
@@ -632,7 +637,10 @@ body {
   }
 }
 
-.Éditions{
+.Éditions, .editions{
+  #logoTagline{
+    display: none!important;
+  }
   #logoTaglineContainer{
     display: none!important;
   }
