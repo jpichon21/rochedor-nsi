@@ -28,7 +28,6 @@
     margin-left: -91px;
     animation-name: intro-mount;
     height: 200px;
-    width: 300px;
     @include media('<=mobile') {
       animation-name: intro-mount-mobile;
     }
@@ -100,7 +99,7 @@
          margin-top: 4px;
         }
         @include media('>mobile', "<=medium") {
-          background-position-x: -14px;
+          margin-left: -12px;
         }
       }
     }
