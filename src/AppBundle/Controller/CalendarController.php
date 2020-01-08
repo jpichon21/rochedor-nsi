@@ -7,6 +7,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Service\CountryService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -124,7 +125,7 @@ class CalendarController extends Controller
      * @Route("/iscrizione-ritiro", name="register_calendar-it")
      * @Route("/registro-jubilado", name="register_calendar-es")
      */
-    public function calendarRegistrationAction(Request $request)
+    public function calendarRegistrationAction(Request $request, CountryService $countryService)
     {
         $id = $request->query->get('id');
         $calendarURL = $this->generateUrl('calendar-'.$request->getLocale());
@@ -135,20 +136,8 @@ class CalendarController extends Controller
         }
         $availableLocales = $this->pageService->getAvailableLocales($page);
 
-        $countriesJSON = array();
         $countries = $this->tpaysRepository->findAllCountry();
-        $preferredCountries = ['FR', 'GP', 'MQ', 'GF', 'RE', 'YT', 'PM', 'WF', 'PF', 'NC', 'TF'];
-        $preferredChoices = [];
-        foreach ($countries as $country) {
-            if (in_array($country->getCodpays(), $preferredCountries)) {
-                $preferredChoices[] = ['codpays' => $country->getCodpays(), 'nompays' => $country->getNompays()];
-            } else {
-                $countriesJSON[] = array(
-                    'codpays' => $country->getCodpays(),
-                    'nompays' => $country->getNompays()
-                );
-            }
-        }
+        list($countriesJSON, $preferredChoices) = $countryService->orderCountryListByPreference($countries);
 
         if ($id) {
             $activity = $this->getCalendarAction($id);
