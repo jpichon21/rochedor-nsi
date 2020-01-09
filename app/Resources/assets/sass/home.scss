@@ -53,9 +53,11 @@ body {
     }
 
     .button .black{
+      @include media('<=large') {
       position: relative;
       top: 0;
       right: 0px;
+      }
     }
 
     .footer,
@@ -633,9 +635,11 @@ body {
           opacity: 1;
           transition: 2s ease-in-out;
           .button .black{
-            position: absolute;
-            top: -75px;
-            right: 0px;
+            @include media('<large') {           
+              position: absolute;
+              top: -75px;
+              right: 0px;
+            }
           }
           @include media('<large') {
             transition: none;
