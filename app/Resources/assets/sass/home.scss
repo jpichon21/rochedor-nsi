@@ -588,7 +588,7 @@ body {
         margin-right: 0;
         border-top: 1px $roche-yellow solid;
         box-sizing: border-box;
-        overflow: visible;
+        //overflow: visible;
         &:after,
         &:before {
           content: '';
