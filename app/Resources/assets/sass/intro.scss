@@ -64,7 +64,7 @@
       }
       @include media('>medium', "<=large") {
         background-position-x: -3px;
-        margin-top: -16px;
+        margin-top: -11px;
       }
       @include media('>mobile', "<=medium") {
         background-position-x: -3px;
