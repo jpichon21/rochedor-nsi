@@ -52,6 +52,12 @@ body {
       display: block!important;
     }
 
+    .button .black{
+      position: relative;
+      top: 0;
+      right: 0px;
+    }
+
     .footer,
     .header {
       display: none;
@@ -571,11 +577,7 @@ body {
       overflow: hidden;
       z-index: 2;
       height: auto;
-      /*-webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out;
-      -moz-transition:width 300ms ease-in-out, height 300ms ease-in-out;
-      -o-transition:width 300ms ease-in-out, height 300ms ease-in-out;
-      transition:width 300ms ease-in-out, height 300ms ease-in-out;*/
-
+      overflow: visible;
       @include media('<xlarge') {
         width: 35%
       }
@@ -630,6 +632,11 @@ body {
           display: block;
           opacity: 1;
           transition: 2s ease-in-out;
+          .button .black{
+            position: absolute;
+            top: -75px;
+            right: 0px;
+          }
           @include media('<large') {
             transition: none;
           }
