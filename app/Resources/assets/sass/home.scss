@@ -43,6 +43,13 @@ body {
     position: fixed;
     width: 100%;
 
+    i{
+      display: block;
+    }
+    .cnews{
+      width: 100%;
+    }
+
     .footer,
     .header {
       display: none;
@@ -633,6 +640,8 @@ body {
         }
         @include media('<large') {
           display: block;
+          width: 87%;
+          margin: 0 auto; 
         }
       }
 
@@ -707,6 +716,7 @@ body {
 
         @include media('<large') {
           color: $roche-yellow;
+          display: none;
         }
       }
 
