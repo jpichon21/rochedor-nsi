@@ -644,7 +644,9 @@ body {
               }
             }
             &:after{
+              @include media('<large') {
               content: '...';
+              }
             }
           }
         }
