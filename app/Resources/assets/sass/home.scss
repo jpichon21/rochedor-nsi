@@ -46,7 +46,7 @@ body {
     i{
       display: block!important;
     }
-    
+
     .sections .section .nouveautes > .cnews{
       width: 100%;
       display: block!important;
@@ -637,6 +637,9 @@ body {
             p{
               opacity: 1;
               transition: 1s ease;
+              @include media('<large') {
+                transition: none;
+              }
             }
           }
         }
