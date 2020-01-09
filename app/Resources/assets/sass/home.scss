@@ -639,7 +639,12 @@ body {
               transition: 1s ease;
               @include media('<large') {
                 transition: none;
+                max-height: 62px;
+                overflow: hidden;
               }
+            }
+            &:after{
+              content: '...';
             }
           }
         }
