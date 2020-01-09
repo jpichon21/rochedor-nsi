@@ -36,7 +36,7 @@
     animation-fill-mode: forwards;
     z-index: 1;
     @include media('<=mobile') {
-      top: 40%;
+      //top: 40%;
     }
     .logo {
       width: 160px;
