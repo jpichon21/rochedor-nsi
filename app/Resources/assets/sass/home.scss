@@ -704,10 +704,14 @@ body {
         letter-spacing: 1.6px;
 
         @include media('<large') {
-          padding: 20px 40px;
+          padding: 20px 0px;
           font-size: 15px;
           cursor: pointer;
+          width: 87%;
+          display: block;
+          margin: 0 auto;
         }
+       }
       }
 
       i {
