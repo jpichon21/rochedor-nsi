@@ -910,6 +910,18 @@ body {
   }
 }
 
+.sections{
+  .section{
+    .nouveautes{
+      .hidden{
+        @include media('<=medium') {
+          display: block!important
+          }
+      }
+    }
+  }
+}
+
 .nouveautesOpened{
   .sections{
     .section{
