@@ -945,6 +945,12 @@ body {
         overflow: auto;
         }
       }
+      p{
+        @include media('<=medium') {
+          max-height: none!important;
+          height:auto;
+        }
+      }
       .button{
         &::before,
         &::after{
