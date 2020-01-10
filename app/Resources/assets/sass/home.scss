@@ -643,11 +643,11 @@ body {
                 overflow: hidden;
               }
             }
-            &:after{
+            /*&:after{
               @include media('<large') {
               content: '...';
               }
-            }
+            }*/
           }
         }
         @include media('<large') {
@@ -879,7 +879,7 @@ body {
 .sections{
   .section{
     .nouveautes{
-      .cnews .active{
+     .active{
       .button{
         @include media('<=medium') {
           position: absolute;
@@ -895,7 +895,7 @@ body {
 .sections{
   .section{
   .nouveautesOpened{
-      .cnews .active{
+      .active{
       .button{
         @include media('<=medium') {
           position: relative;
