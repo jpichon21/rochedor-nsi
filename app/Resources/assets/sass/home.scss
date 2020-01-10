@@ -785,9 +785,6 @@ body {
           border-top: 1px solid $roche-yellow;
           display: inline-block;
           right: calc(100% - 161px);
-          @include media('>medium') {
-            content: none;
-          }
         }
 
         &:before {
@@ -936,6 +933,12 @@ body {
         overflow: auto;
         }
       }
+      .button{
+        &::before,
+        &::after{
+            display: none!important;
+          }
+      }
         .active{
         .button{
           @include media('<=medium') {
@@ -946,7 +949,7 @@ body {
           }
           &::before,
           &::after{
-            display: none;
+            display: none!important;
           }
         }
       }
