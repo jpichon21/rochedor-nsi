@@ -892,15 +892,17 @@ body {
   }
 }
 
-.sections{
-  .section{
-  .nouveautesOpened{
-      .active{
-      .button{
-        @include media('<=medium') {
-          position: relative;
-          float: right;
-          top: 0px;
+.nouveautesOpened{
+  .sections{
+    .section{
+    .nouveautes{
+        .active{
+        .button{
+          @include media('<=medium') {
+            position: relative;
+            float: right;
+            top: 0px;
+            }
           }
         }
       }
