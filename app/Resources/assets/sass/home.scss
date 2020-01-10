@@ -587,9 +587,7 @@ body {
         left: 0;
         right: 0;
         margin-right: 0;
-        //border-top: 1px $roche-yellow solid;
         box-sizing: border-box;
-        //overflow: visible;
         &:after,
         &:before {
           content: '';
@@ -785,6 +783,10 @@ body {
           border-top: 1px solid $roche-yellow;
           display: inline-block;
           right: calc(100% - 161px);
+          @include media('>medium') {
+            width: 500px;
+            border-top: 1px solid #000;
+          }
         }
 
         &:before {
@@ -907,6 +909,8 @@ body {
     }
   }
 }
+
+
 
 .sections{
   .section{
