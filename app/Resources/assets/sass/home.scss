@@ -875,25 +875,34 @@ body {
 
 //Test bouton news//
 
-.nouveautes{
-  .cnews .active{
-  .button{
-    @include media('<=mobile') {
-      position: absolute;
-      top: -55px;
-      right: 0;
+
+.sections{
+  .section{
+    .nouveautes{
+      .cnews .active{
+      .button{
+        @include media('<=medium') {
+          position: absolute;
+          top: -55px;
+          right: 0;
+          }
+        }
       }
     }
   }
 }
 
-.nouveautesOpened{
-  .cnews .active{
-  .button{
-    @include media('<=mobile') {
-      position: relative;
-      float: right;
-      top: 0px;
+.sections{
+  .section{
+  .nouveautesOpened{
+      .cnews .active{
+      .button{
+        @include media('<=medium') {
+          position: relative;
+          float: right;
+          top: 0px;
+          }
+        }
       }
     }
   }
