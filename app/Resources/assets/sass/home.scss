@@ -778,13 +778,13 @@ body {
         &:before {
           content: "";
           position: absolute;
-          width: 350px;
+          width: 600px;
           top: 15px;
           border-top: 1px solid $roche-yellow;
           display: inline-block;
           right: calc(100% - 161px);
           @include media('>medium') {
-            width: 500px;
+            top: 17px;
             border-top: 1px solid #000;
           }
         }
