@@ -887,6 +887,24 @@ body {
           right: 0;
           }
         }
+        &:before{
+          @include media('<=medium') {
+          content: "";
+          position: absolute;
+          width: 9999px;
+          bottom: 15px;
+          border-top: 1px solid #000;
+         }
+        }
+        &:after{
+          @include media('<=medium') {
+          content: "";
+          position: absolute;
+          width: 9999px;
+          bottom: 15px;
+          border-top: 1px solid #000;
+          }
+        }
       }
     }
   }
@@ -903,6 +921,10 @@ body {
             float: none;
             top: 0px;
             }
+          }
+          &::before,
+          &::after{
+            display: none;
           }
         }
       }
