@@ -573,6 +573,7 @@ body {
       height: auto;
       @include media('<=medium') {
         overflow: visible;
+        cursor: pointer;
       }
       @include media('<xlarge') {
         width: 35%
