@@ -900,7 +900,7 @@ body {
         .button{
           @include media('<=medium') {
             position: relative;
-            float: right;
+            float: none;
             top: 0px;
             }
           }
