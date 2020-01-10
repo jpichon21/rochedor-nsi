@@ -222,3 +222,11 @@
     border-bottom: 1px solid #faf28e;
   }
 }
+
+.allocation textarea::placeholder, .registration textarea::placeholder{
+  font-size: 13,33px;
+}
+
+.registration select option, .payment span{
+  font-family: lato, 'lato', sans-serif;
+}
