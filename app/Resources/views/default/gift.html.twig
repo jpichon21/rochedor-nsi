@@ -47,12 +47,12 @@
                             <div class="pure-g">
                                 <div class="pure-u-1 pure-u-md-1-2">
                                     <select class="select select-allocation" required>
-                                        <option selected disabled value="">* {{ 'form.choose.allocation' | trans }}</option>
-                                        <option value="Libre">{{ 'select.allocation.libre' | trans }}</option>
-                                        <option value="VieCom">{{ 'select.allocation.viecom' | trans }}</option>
-                                        <option value="Itin">{{ 'select.allocation.itin' | trans }}</option>
-                                        <option value="RochTx">{{ 'select.allocation.rochtx' | trans }}</option>
-                                        <option value="FontTx">{{ 'select.allocation.fonttx' | trans }}</option>
+                                        <option style="font-family:lato" selected disabled value="">* {{ 'form.choose.allocation' | trans }}</option>
+                                        <option style="font-family:lato" value="Libre">{{ 'select.allocation.libre' | trans }}</option>
+                                        <option style="font-family:lato" value="VieCom">{{ 'select.allocation.viecom' | trans }}</option>
+                                        <option style="font-family:lato" value="Itin">{{ 'select.allocation.itin' | trans }}</option>
+                                        <option style="font-family:lato" value="RochTx">{{ 'select.allocation.rochtx' | trans }}</option>
+                                        <option style="font-family:lato" value="FontTx">{{ 'select.allocation.fonttx' | trans }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -142,10 +142,10 @@
                                     <label class="hidden virement" for="date_virement">{{ 'gift.virement.date' | trans | raw }} :</label>
                                     <input autocomplete="off" data-inputmask="'mask': '99/99/9999'" class="input date_virement virement virement-reg" required type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" name="date_virement" />
                                     <select class="select select-period virement-reg hidden">
-                                        <option selected disabled value="">{{ 'form.choose.period' | trans }}</option>
-                                        <option value="select.period.monthly">{{ 'select.period.monthly' | trans }}</option>
-                                        <option value="select.period.trimestre">{{ 'select.period.trimestre' | trans }}</option>
-                                        <option value="select.period.semestre">{{ 'select.period.semestre' | trans }}</option>
+                                        <option style="font-family:lato" selected disabled value="">{{ 'form.choose.period' | trans }}</option>
+                                        <option style="font-family:lato" value="select.period.monthly">{{ 'select.period.monthly' | trans }}</option>
+                                        <option style="font-family:lato" value="select.period.trimestre">{{ 'select.period.trimestre' | trans }}</option>
+                                        <option style="font-family:lato" value="select.period.semestre">{{ 'select.period.semestre' | trans }}</option>
                                     </select>
                                     <div class="pure-g">
                                         <div class="pure-u-1 pure-u-md-1-3">
@@ -255,9 +255,9 @@
     <input autocomplete="nope" type="hidden" value=<%= you.check %> name="check">
     <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
         <select class="select civil <%= (you.civil != '') ? 'white' : '' %><%= errors.civil && ' error' %>" required name="civil">
-            <option <%= (you.civil == '') ? 'selected' : '' %> disabled value="">* {{ 'form.civil' | trans | raw }}</option>
+            <option style="font-family:lato" <%= (you.civil == '') ? 'selected' : '' %> disabled value="">* {{ 'form.civil' | trans | raw }}</option>
             <% for (var i = 0; i < civilites.length; i++) { %>
-            <option <%= (you.civil == civilites[i]) ? 'selected' : '' %> value="<%= civilites[i] %>"><%= civilites[i] %></option>
+            <option style="font-family:lato" <%= (you.civil == civilites[i]) ? 'selected' : '' %> value="<%= civilites[i] %>"><%= civilites[i] %></option>
             <% } %>
         </select>
         <div class="error-message"><%= errors.civil %></div>
@@ -284,10 +284,10 @@
     </div>
     <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
         <select class="select pays <%= (you.pays != '') ? 'white' : '' %><%= errors.pays && ' error' %>" required name="pays">
-            <option <%= (you.pays == '') ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
+            <option style="font-family:lato" <%= (you.pays == '') ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
             <% for (var i = 0; i < countries.length; i++) { %>
             <% var country = countries[i] %>
-            <option <%= (you.pays == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
+            <option style="font-family:lato" <%= (you.pays == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
             <% } %>
         </select>
         <div class="error-message"><%= errors.pays %></div>
