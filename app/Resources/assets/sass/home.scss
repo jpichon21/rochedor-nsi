@@ -711,7 +711,7 @@ body {
         letter-spacing: 1.6px;
 
         @include media('<large') {
-          padding: 20px 0px;
+          padding: 20px 0px 10px 0px;
           font-size: 15px;
           cursor: pointer;
           width: 87%;
@@ -883,7 +883,7 @@ body {
       .button{
         @include media('<=medium') {
           position: absolute;
-          top: -55px;
+          top: -45px;
           right: 0;
           }
         }
