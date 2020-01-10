@@ -872,3 +872,29 @@ body {
     opacity: 1;
   }
 }
+
+//Test bouton news//
+
+.nouveautes{
+  .cnews .active{
+  .button{
+    @include media('<=mobile') {
+      position: absolute;
+      top: -55px;
+      right: 0;
+      }
+    }
+  }
+}
+
+.nouveautesOpened{
+  .cnews .active{
+  .button{
+    @include media('<=mobile') {
+      position: relative;
+      float: right;
+      top: 0px;
+      }
+    }
+  }
+}
