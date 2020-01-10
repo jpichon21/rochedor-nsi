@@ -795,6 +795,9 @@ body {
 
         &:after {
           left: 101%;
+          @include media('<=medium') {
+           left: 100%;
+          }
         }
       }
     }
