@@ -918,6 +918,11 @@ body {
           display: inline-block!important
           }
       }
+      .visible{
+        @include media('<=medium') {
+          display: none!important
+          }
+      }
     }
   }
 }
