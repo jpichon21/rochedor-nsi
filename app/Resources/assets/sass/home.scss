@@ -778,13 +778,14 @@ body {
 
         &:after,
         &:before {
-          content: '';
+          content: "";
           position: absolute;
-          width: 9999px;
-          bottom: 15px;
-          border-top: 1px #000000 solid;
-
-          @include media('<large') {
+          width: 350px;
+          top: -46px;
+          border-top: 1px solid #fff;
+          display: inline-block;
+          right: calc(100% - 161px);
+          @include media('>medium') {
             content: none;
           }
         }
