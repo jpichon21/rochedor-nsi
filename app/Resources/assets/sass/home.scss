@@ -918,6 +918,11 @@ body {
 .sections{
   .section{
     .nouveautes{
+      .button.black{
+        @include media('<=medium') {
+          transition: none;
+          }
+      }
       .hidden{
         @include media('<=medium') {
           display: inline-block!important
