@@ -926,6 +926,10 @@ body {
   .sections{
     .section{
     .nouveautes{
+      @include media('<=medium') {
+        overflow: auto;
+        }
+      }
         .active{
         .button{
           @include media('<=medium') {
