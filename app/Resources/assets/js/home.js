@@ -70,7 +70,6 @@ window.addEventListener('resize', function() {
 
   if (window.innerWidth > large) {
     for (var i = 0; i < buttons.length; ++i ) {
-      console.log('test');
       buttons[i].classList.remove('yellow');
       buttons[i].classList.add('black');
     }
