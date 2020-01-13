@@ -745,14 +745,14 @@ body {
         &.with-link {
           margin-bottom: -18px;
           border-bottom: none;
-          @include media('<=medium') {
+          @include media('<=large') {
             margin-bottom: 20px;
           }
         }
         p{
           opacity: 0;
           transition: 1s ease;
-          @include media('<=medium') {
+          @include media('<=large') {
             opacity: 1;
           }
         }
@@ -779,7 +779,7 @@ body {
         &:before {
           content: "";
           position: absolute;
-          width: 600px;
+          width: 800px;
           top: 15px;
           border-top: 1px solid $roche-yellow;
           display: inline-block;
