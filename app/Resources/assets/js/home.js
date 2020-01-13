@@ -64,6 +64,12 @@ if (window.innerWidth <= large) {
     button.classList.remove('black')
 }
 
+if (window.innerWidth > large) {
+  button.classList.add('black')
+  button.classList.remove('yellow')
+}
+
+
 
 if (title !== null) {
   title.onclick = () => {
