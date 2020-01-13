@@ -59,9 +59,8 @@ const header = document.querySelector('.header')
 const logo = document.querySelector('.logo')
 var buttons = document.querySelectorAll('.cnews .button')
 
-window.onresize = switchButtonClass();
 
-function switchButtonClass(){
+window.addEventListener('resize', function() {
   if (window.innerWidth <= large) {
     for (var i = 0; i < buttons.length; ++i ) {
       buttons[i].classList.add('yellow');
