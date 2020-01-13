@@ -57,7 +57,7 @@ const title = document.querySelector('.nouveautes h2')
 const content = document.querySelector('.nouveautes .cnews .text p')
 const header = document.querySelector('.header')
 const logo = document.querySelector('.logo')
-const button = document.querySelector('.text .button')
+const button = document.querySelector('.cnews .button')
 
 if (window.innerWidth <= large) {
     button.classList.add('yellow')
