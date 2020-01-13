@@ -75,7 +75,7 @@ window.addEventListener('resize', function() {
       buttons[i].classList.add('black');
     }
   }
-}
+});
 
 
 if (title !== null) {
