@@ -1,4 +1,5 @@
 import { limitMenuReduced } from './variables'
+import { large } from './variables'
 
 const body = document.querySelector('body')
 
@@ -58,14 +59,18 @@ const header = document.querySelector('.header')
 const logo = document.querySelector('.logo')
 const button = document.querySelector('.text .button')
 
+if (window.innerWidth <= large) {
+    button.classList.add('yellow')
+    button.classList.remove('black')
+}
+
+
 if (title !== null) {
   title.onclick = () => {
     if (window.innerWidth < limitMenuReduced) {
       body.classList.toggle('nouveautesOpened')
       header.classList.add('headerVisible')
       logo.classList.add('logoVisible')
-      button.classList.add('yellow')
-      button.classList.remove('black')
     }
   }
 }
@@ -76,8 +81,6 @@ if (content !== null) {
       body.classList.toggle('nouveautesOpened')
       header.classList.add('headerVisible')
       logo.classList.add('logoVisible')
-      button.classList.add('yellow')
-      button.classList.remove('black')
     }
   }
 }
