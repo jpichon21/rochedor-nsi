@@ -54,11 +54,13 @@ window.ontouchend = event => {
 
 const title = document.querySelector('.nouveautes h2')
 const content = document.querySelector('.nouveautes .cnews .text p')
+const header = document.querySelecter('header')
 
 if (title !== null) {
   title.onclick = () => {
     if (window.innerWidth < limitMenuReduced) {
       body.classList.toggle('nouveautesOpened')
+      header.classList.add('headerVisible')
     }
   }
 }
@@ -67,6 +69,7 @@ if (content !== null) {
   content.onclick = () => {
     if (window.innerWidth < limitMenuReduced) {
       body.classList.toggle('nouveautesOpened')
+      header.classList.add('headerVisible')
     }
   }
 }
