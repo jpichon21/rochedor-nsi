@@ -54,7 +54,7 @@ window.ontouchend = event => {
 
 const title = document.querySelector('.nouveautes h2')
 const content = document.querySelector('.nouveautes .cnews .text p')
-const header = document.querySelecter('header')
+const header = document.querySelector('header')
 
 if (title !== null) {
   title.onclick = () => {
