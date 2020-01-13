@@ -535,6 +535,16 @@ body {
   }
 }
 
+.left{
+  .dropdown{
+    .item{
+      p > em{
+        font-style: italic;
+      }
+    }
+  }
+}
+
 @keyframes blockquoteEnter {
   from {
     transform: translateX(40px);
