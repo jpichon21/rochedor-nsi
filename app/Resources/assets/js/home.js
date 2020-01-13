@@ -57,7 +57,7 @@ const title = document.querySelector('.nouveautes h2')
 const content = document.querySelector('.nouveautes .cnews .text p')
 const header = document.querySelector('.header')
 const logo = document.querySelector('.logo')
-var buttons = document.querySelector('.cnews .button')
+var buttons = document.querySelectorAll('.cnews .button')
 
 if (window.innerWidth <= large) {
   for (var i = 0; i < buttons.length; ++i ) {
