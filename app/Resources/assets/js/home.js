@@ -59,8 +59,8 @@ const header = document.querySelector('.header')
 const logo = document.querySelector('.logo')
 var buttons = document.querySelectorAll('.cnews .button')
 
-window.onload = switchBtnClass();
-window.addEventListener('resize', switchBtnClass());
+window.onload = switchBtnClass()
+window.onresize = switchBtnClass()
 
 function switchBtnClass(){
   if (window.innerWidth <= large) {
