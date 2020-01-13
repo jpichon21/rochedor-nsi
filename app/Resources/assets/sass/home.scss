@@ -620,7 +620,7 @@ body {
         transition: 2s ease-in-out;
         padding-bottom: 19px;
         z-index: 2;
-        @include media('<=medium') {
+        @include media('<=large') {
           opacity: 1;
         }
         &.active {
@@ -631,7 +631,7 @@ body {
             transition: none;
           }
           .text{
-            @include media('<=medium') {
+            @include media('<=large') {
               margin-bottom: 22px;
             }
             p{
@@ -949,12 +949,12 @@ body {
   .sections{
     .section{
     .nouveautes{
-      @include media('<=medium') {
+      @include media('<=large') {
         overflow: auto;
         }
       }
       p{
-        @include media('<=medium') {
+        @include media('<=large') {
           max-height: none!important;
           height:auto;
         }
@@ -967,7 +967,7 @@ body {
       }
         .active{
         .button{
-          @include media('<=medium') {
+          @include media('<=large') {
             position: relative;
             float: none;
             top: 0px;
