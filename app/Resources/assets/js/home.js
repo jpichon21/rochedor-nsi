@@ -60,7 +60,10 @@ const logo = document.querySelector('.logo')
 var buttons = document.querySelectorAll('.cnews .button')
 
 window.onload = switchBtnClass()
-window.onresize = switchBtnClass()
+window.addEventListener('resize', function(){
+  switchBtnClass()
+});
+
 
 function switchBtnClass(){
   if (window.innerWidth <= large) {
