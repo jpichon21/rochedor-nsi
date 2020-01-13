@@ -55,12 +55,14 @@ window.ontouchend = event => {
 const title = document.querySelector('.nouveautes h2')
 const content = document.querySelector('.nouveautes .cnews .text p')
 const header = document.querySelector('.header')
+const logo = document.querySelector('.logo')
 
 if (title !== null) {
   title.onclick = () => {
     if (window.innerWidth < limitMenuReduced) {
       body.classList.toggle('nouveautesOpened')
       header.classList.add('headerVisible')
+      logo.classList.add('logoVisible')
     }
   }
 }
@@ -70,6 +72,7 @@ if (content !== null) {
     if (window.innerWidth < limitMenuReduced) {
       body.classList.toggle('nouveautesOpened')
       header.classList.add('headerVisible')
+      logo.classList.add('logoVisible')
     }
   }
 }
