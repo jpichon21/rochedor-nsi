@@ -571,7 +571,7 @@ body {
       overflow: hidden;
       z-index: 2;
       height: auto;
-      @include media('<=medium') {
+      @include media('<=large') {
         overflow: visible;
         cursor: pointer;
       }
@@ -784,7 +784,7 @@ body {
           border-top: 1px solid $roche-yellow;
           display: inline-block;
           right: calc(100% - 161px);
-          @include media('>medium') {
+          @include media('>large') {
             top: 17px;
             border-top: 1px solid #000;
           }
@@ -796,7 +796,7 @@ body {
 
         &:after {
           left: 101%;
-          @include media('<=medium') {
+          @include media('<=large') {
            left: 100%;
           }
         }
