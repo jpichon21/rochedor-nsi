@@ -884,7 +884,7 @@ body {
     .nouveautes{
      .active{
       .button{
-        @include media('<=medium') {
+        @include media('<=large') {
           position: absolute;
           //top: -46px;
           top: -62px;
@@ -892,7 +892,7 @@ body {
           }
         }
         &:before{
-          @include media('<=medium') {
+          @include media('<=large') {
           content: "";
           position: absolute;
           width: 9999px;
@@ -901,7 +901,7 @@ body {
          }
         }
         &:after{
-          @include media('<=medium') {
+          @include media('<=large') {
           content: "";
           position: absolute;
           width: 9999px;
@@ -920,17 +920,17 @@ body {
   .section{
     .nouveautes{
       .button.black{
-        @include media('<=medium') {
+        @include media('<=large') {
           transition: none;
           }
       }
       .hidden{
-        @include media('<=medium') {
+        @include media('<=large') {
           display: inline-block!important
           }
       }
       .visible{
-        @include media('<=medium') {
+        @include media('<=large') {
           display: none!important
           }
       }
