@@ -56,6 +56,7 @@ const title = document.querySelector('.nouveautes h2')
 const content = document.querySelector('.nouveautes .cnews .text p')
 const header = document.querySelector('.header')
 const logo = document.querySelector('.logo')
+const button = document.querySelector('.text .button')
 
 if (title !== null) {
   title.onclick = () => {
@@ -63,6 +64,8 @@ if (title !== null) {
       body.classList.toggle('nouveautesOpened')
       header.classList.add('headerVisible')
       logo.classList.add('logoVisible')
+      button.classList.add('yellow')
+      button.classList.remove('black')
     }
   }
 }
@@ -73,6 +76,8 @@ if (content !== null) {
       body.classList.toggle('nouveautesOpened')
       header.classList.add('headerVisible')
       logo.classList.add('logoVisible')
+      button.classList.add('yellow')
+      button.classList.remove('black')
     }
   }
 }

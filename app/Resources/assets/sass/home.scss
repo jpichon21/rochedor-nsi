@@ -771,8 +771,8 @@ body {
 
         @include media('<large') {
           float: none;
-          color: $roche-yellow;
-          border-color: $roche-yellow;
+          /*color: $roche-yellow;
+          border-color: $roche-yellow;*/
         }
 
         &:after,
@@ -833,7 +833,7 @@ body {
   p:before {
     content: '“';
     position: absolute;
-    left: -38px;
+    left: -27px;
     top: 2px;
     width: 0.5em;
   }
