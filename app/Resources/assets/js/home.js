@@ -61,15 +61,15 @@ var buttons = document.querySelector('.cnews .button')
 
 if (window.innerWidth <= large) {
   for (var i = 0; i < buttons.length; ++i ) {
-    button.classList.add('yellow');
-    button.classList.remove('black');
+    buttons[i].classList.add('yellow');
+    buttons[i].classList.remove('black');
   }
 }
 
 if (window.innerWidth > large) {
   for (var i = 0; i < buttons.length; ++i ) {
-    button.classList.add('black');
-    button.classList.remove('yellow');
+    buttons[i].classList.add('black');
+    buttons[i].classList.remove('yellow');
   }
 }
 
