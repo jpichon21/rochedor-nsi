@@ -53,9 +53,18 @@ window.ontouchend = event => {
 // Nouveautés
 
 const title = document.querySelector('.nouveautes h2')
+const content = document.querySelector('.nouveautes .cnews .text p')
 
 if (title !== null) {
   title.onclick = () => {
+    if (window.innerWidth < limitMenuReduced) {
+      body.classList.toggle('nouveautesOpened')
+    }
+  }
+}
+
+if (content !== null) {
+  content.onclick = () => {
     if (window.innerWidth < limitMenuReduced) {
       body.classList.toggle('nouveautesOpened')
     }
@@ -87,14 +96,12 @@ const changeNews = (direction = 'next') => {
   $('.nouveautes > div[data-index=' + current + ']').fadeOut(300).delay(300).removeClass('active')
   $('.nouveautes > div[data-index=' + next + ']').delay(300).fadeIn(300).addClass('active')*/
 
-
   $('.nouveautes > div[data-index=' + current + ']').removeClass('active')
   $('.nouveautes > div[data-index=' + next + ']').addClass('active')
   $('.active > .text p').delay(1000).css({'opacity': '1','transition': '1s ease'})
 
 
   // edge case for nav
-
   
   setTimeout(() => {
     updateNewsNavPosition()
