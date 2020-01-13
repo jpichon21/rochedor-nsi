@@ -59,8 +59,10 @@ const header = document.querySelector('.header')
 const logo = document.querySelector('.logo')
 var buttons = document.querySelectorAll('.cnews .button')
 
+window.onload = switchBtnClass();
+window.addEventListener('resize', switchBtnClass());
 
-window.addEventListener('resize', function() {
+function switchBtnClass(){
   if (window.innerWidth <= large) {
     for (var i = 0; i < buttons.length; ++i ) {
       buttons[i].classList.add('yellow');
@@ -74,7 +76,7 @@ window.addEventListener('resize', function() {
       buttons[i].classList.add('black');
     }
   }
-});
+}
 
 
 if (title !== null) {
