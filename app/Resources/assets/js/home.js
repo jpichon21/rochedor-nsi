@@ -69,8 +69,6 @@ if (window.innerWidth > large) {
   button.classList.remove('yellow')
 }
 
-
-
 if (title !== null) {
   title.onclick = () => {
     if (window.innerWidth < limitMenuReduced) {
