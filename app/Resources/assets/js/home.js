@@ -59,18 +59,22 @@ const header = document.querySelector('.header')
 const logo = document.querySelector('.logo')
 var buttons = document.querySelectorAll('.cnews .button')
 
-if (window.innerWidth <= large) {
-  for (var i = 0; i < buttons.length; ++i ) {
-    buttons[i].classList.add('yellow');
-    buttons[i].classList.remove('black');
-  }
-}
+window.onresize = switchButtonClass();
 
-if (window.innerWidth > large) {
-  for (var i = 0; i < buttons.length; ++i ) {
-    console.log('test');
-    buttons[i].classList.remove('yellow');
-    buttons[i].classList.add('black');
+function switchButtonClass(){
+  if (window.innerWidth <= large) {
+    for (var i = 0; i < buttons.length; ++i ) {
+      buttons[i].classList.add('yellow');
+      buttons[i].classList.remove('black');
+    }
+  }
+
+  if (window.innerWidth > large) {
+    for (var i = 0; i < buttons.length; ++i ) {
+      console.log('test');
+      buttons[i].classList.remove('yellow');
+      buttons[i].classList.add('black');
+    }
   }
 }
 
