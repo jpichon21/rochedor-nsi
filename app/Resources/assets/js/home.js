@@ -68,8 +68,9 @@ if (window.innerWidth <= large) {
 
 if (window.innerWidth > large) {
   for (var i = 0; i < buttons.length; ++i ) {
-    buttons[i].classList.add('black');
+    console.log('test');
     buttons[i].classList.remove('yellow');
+    buttons[i].classList.add('black');
   }
 }
 
