@@ -741,7 +741,8 @@ body {
         font-style: italic;
         line-height: 16px;
         border: 1px #000000 solid;
-
+        max-height: 116px;
+        overflow: hidden;
         &.with-link {
           margin-bottom: -18px;
           border-bottom: none;
@@ -752,6 +753,9 @@ body {
         p{
           opacity: 0;
           transition: 1s ease;
+          max-height: 96px;
+          display: block;
+          overflow: hidden;
           @include media('<=large') {
             opacity: 1;
           }
@@ -761,6 +765,9 @@ body {
           margin-bottom: 20px;
           color: $roche-yellow;
           border: none;
+        }
+        &:after{
+          content: '...';
         }
       }
 
