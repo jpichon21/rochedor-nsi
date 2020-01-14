@@ -571,7 +571,7 @@ body {
       overflow: hidden;
       z-index: 2;
       height: auto;
-      @include media('<=large') {
+      @include media('<large') {
         overflow: visible;
         cursor: pointer;
       }
@@ -620,7 +620,7 @@ body {
         transition: 2s ease-in-out;
         padding-bottom: 19px;
         z-index: 2;
-        @include media('<=large') {
+        @include media('<large') {
           opacity: 1;
         }
         &.active {
@@ -631,7 +631,7 @@ body {
             transition: none;
           }
           .text{
-            @include media('<=large') {
+            @include media('<large') {
               margin-bottom: 22px;
             }
             p{
@@ -748,7 +748,7 @@ body {
         &.with-link {
           margin-bottom: -18px;
           border-bottom: none;
-          @include media('<=large') {
+          @include media('<large') {
             margin-bottom: 20px;
           }
         }
@@ -761,7 +761,7 @@ body {
             overflow: hidden;
             margin-bottom: 0px;
           }
-          @include media('<=large') {
+          @include media('<large') {
             opacity: 1;
           }
         }
@@ -807,7 +807,7 @@ body {
 
         &:after {
           left: 101%;
-          @include media('<=large') {
+          @include media('<large') {
            left: 100%;
           }
         }
@@ -895,7 +895,7 @@ body {
     .nouveautes{
      .active{
       .button{
-        @include media('<=large') {
+        @include media('<large') {
           position: absolute;
           //top: -46px;
           top: -62px;
@@ -903,7 +903,7 @@ body {
           }
         }
         &:before{
-          @include media('<=large') {
+          @include media('<large') {
           content: "";
           position: absolute;
           width: 9999px;
@@ -912,7 +912,7 @@ body {
          }
         }
         &:after{
-          @include media('<=large') {
+          @include media('<large') {
           content: "";
           position: absolute;
           width: 9999px;
@@ -931,17 +931,17 @@ body {
   .section{
     .nouveautes{
       .button.black{
-        @include media('<=large') {
+        @include media('<large') {
           transition: none;
           }
       }
       .hidden{
-        @include media('<=large') {
+        @include media('<large') {
           display: inline-block!important
           }
       }
       .visible{
-        @include media('<=large') {
+        @include media('<large') {
           display: none!important
           }
       }
@@ -960,12 +960,12 @@ body {
   .sections{
     .section{
     .nouveautes{
-      @include media('<=large') {
+      @include media('<large') {
         overflow: auto;
         }
       }
       p{
-        @include media('<=large') {
+        @include media('<large') {
           max-height: none!important;
           height:auto;
         }
@@ -978,7 +978,7 @@ body {
       }
         .active{
         .button{
-          @include media('<=large') {
+          @include media('<large') {
             position: relative;
             float: none;
             top: 0px;
