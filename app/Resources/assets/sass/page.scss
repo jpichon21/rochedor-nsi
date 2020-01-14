@@ -45,7 +45,7 @@ body {
       max-width: 680px;
     }
 
-    &:after {
+    /*&:after {
       content: '';
       width: 7px;
       height: 7px;
@@ -54,7 +54,7 @@ body {
       left: 20px;
       border-radius: 7px;
       background: $roche-yellow;
-    }
+    }*/
 
     &.single {
       h2 {
