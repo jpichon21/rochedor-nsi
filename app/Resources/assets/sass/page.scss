@@ -211,6 +211,9 @@ body {
         z-index: 1;
         margin-left: -8px;
         box-shadow: -20px 0px 55px -5px rgba(0, 0, 0, 0.75);
+        @include media('<=mobile') {
+          box-shadow: -20px 0 80px -61px rgba(0,0,0,.75);
+        }
         &:before {
           content: '';
           position: absolute;
