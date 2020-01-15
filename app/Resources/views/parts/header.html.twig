@@ -120,7 +120,7 @@
                         and page.type == 'editions'
                     )
                 %}
-                    <a href={{ localePath('cgv', app.request.locale) }} rel="nofollow">{{ 'footer.terms'|trans }}</a>
+                    <li><a href={{ localePath('cgv', app.request.locale) }} rel="nofollow">{{ 'footer.terms'|trans }}</a></li>
                     {% endif %}
                     {% if
                     product is defined
@@ -129,11 +129,11 @@
                         and page.type == 'editions'
                     )
                 %}
-                    <a href={{ localePath('cgv-pro', app.request.locale) }}
-                        rel="nofollow">{{ 'footer.termsPro'|trans }}</a>
+                    <li><a href={{ localePath('cgv-pro', app.request.locale) }}
+                        rel="nofollow">{{ 'footer.termsPro'|trans }}</a></li>
                     {% endif %}
-                    <a href={{ localePath('data-privacy', app.request.locale) }}
-                        rel="nofollow">{{ 'footer.privacy'|trans }}</a>
+                    <li><a href={{ localePath('data-privacy', app.request.locale) }}
+                        rel="nofollow">{{ 'footer.privacy'|trans }}</a></li>
                 </ul>
             </li>
         </ul>
