@@ -992,3 +992,9 @@ body {
       }
     }
   }
+
+  .mobileOnly{
+    @include media('>mobile') {
+      display: none;
+     }
+  }
