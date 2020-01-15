@@ -227,6 +227,20 @@
   font-size: 13.33px;
 }
 
-.registration select option, .payment span{
+.registration select option, .payment span, .virement-reg{
   font-family: lato, 'lato', sans-serif;
+}
+
+.virement-reg{
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.prelevement{
+  div{
+    font-family: lato, 'lato', sans-serif;
+    font-weight: 300;
+    line-height: 23px;
+    font-size: 17px;
+  }
 }
