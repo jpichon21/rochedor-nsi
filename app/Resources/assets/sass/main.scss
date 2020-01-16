@@ -40,6 +40,10 @@ body {
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @include media('<=mobile') {
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+   }
   &:before {
     content: '';
     position: fixed;
