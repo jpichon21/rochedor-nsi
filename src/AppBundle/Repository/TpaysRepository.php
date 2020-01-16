@@ -32,7 +32,7 @@ class TpaysRepository
     /**
     * Find Tpays
     *
-    * @return Tpays
+    * @return array
     */
     public function findAllCountry()
     {

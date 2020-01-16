@@ -14,11 +14,11 @@ use Twig\Error\Error;
 
 class PaymentService
 {
-    const METHOD_CB = 'PBX';
+    const METHOD_CB = 'CB';
     const METHOD_PAYPAL = 'PAYPAL';
     const METHOD_CHEQUE = 'CH';
     const METHOD_VIREMENT = 'VIR';
-    const METHOD_VIREMENT_REGULIER = 'VIRREG';
+    const METHOD_VIREMENT_REGULIER = 'VPER';
 
     private $container;
     private $tPaysRepository;
@@ -188,12 +188,12 @@ class PaymentService
             'rm' => 0,
             'return' => $this->router->generate(
                 $baseRoute . '_payment_return',
-                ['_locale' => $locale, 'method' => 'paybox', 'status' => 'success', 'Ref' => $objectId],
+                ['_locale' => $locale, 'method' => 'paypal', 'status' => 'success', 'Ref' => $objectId],
                 RouterInterface::ABSOLUTE_URL
             ),
             'cancel_return' => $this->router->generate(
                 $baseRoute . '_payment_return',
-                ['_locale' => $locale, 'method' => 'paybox', 'status' => 'cancel', 'Ref' => $objectId],
+                ['_locale' => $locale, 'method' => 'paypal', 'status' => 'cancel', 'Ref' => $objectId],
                 RouterInterface::ABSOLUTE_URL
             ),
             'business' => $this->container->getParameter('paypal_email'),

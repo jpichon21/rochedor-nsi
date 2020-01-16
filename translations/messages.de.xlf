@@ -2397,7 +2397,7 @@ Kommentar erstellt</target>
     <unit id="7rO5qFQ" name="select.allocation.libre">
       <segment>
         <source>select.allocation.libre</source>
-        <target>Zur freien Verwendung</target>
+        <target>Freie Zuordnung</target>
       </segment>
     </unit>
     <unit id="otNY7_F" name="select.allocation.viecom">

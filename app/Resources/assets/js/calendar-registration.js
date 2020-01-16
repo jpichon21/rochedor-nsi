@@ -657,6 +657,11 @@ function closePanel (event, panel) {
 }
 
 panelYouForm.on('click', '.cancel', function (event) {
+  // Si l'utilisateur est le seul inscrit, on redirige sur la liste des retraites
+  if (_participants.length === 1 && _you.codco === _participants[0].codco) {
+    window.location.replace($(this).data('redirect-url'))
+  }
+
   closePanel(event, 'you')
   $('.you-render').show()
 })
