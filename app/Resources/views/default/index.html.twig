@@ -68,9 +68,9 @@
             <div class="nouveautes">
                 <h2>Nouveautés</h2>
                 {% for article in news %}
-                    <div data-index="{{ loop.index0 }}" class="cnews {% if loop.first %}active{% endif %}">
+                    <div data-index="{{ loop.index0 }}" class="cnews{% if loop.first %} active{% endif %}{% if article.url %} with-link{% endif %}">
                         <i>{{article.intro}}</i>
-                        <div class="text{% if article.url %} with-link{% endif %}">
+                        <div class="text">
                             <p>{{article.description|nl2br}}</p>
                         </div>
                         {% if article.url %}
