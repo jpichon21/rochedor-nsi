@@ -618,8 +618,21 @@ body {
         position: relative;
         opacity: 0;
         transition: 2s ease-in-out;
-        padding-bottom: 19px;
         z-index: 2;
+
+        padding-bottom: 0;
+        &.with-link {
+          padding-bottom: 19px;
+
+          .text {
+            margin-bottom: -18px;
+            border-bottom: none;
+            @include media('<large') {
+              margin-bottom: 20px;
+            }
+          }
+        }
+
         @include media('<large') {
           opacity: 1;
         }
@@ -744,13 +757,6 @@ body {
         @include media('>large') {
           max-height: 116px;
           overflow: hidden;
-        }
-        &.with-link {
-          margin-bottom: -18px;
-          border-bottom: none;
-          @include media('<large') {
-            margin-bottom: 20px;
-          }
         }
         p{
           opacity: 0;
