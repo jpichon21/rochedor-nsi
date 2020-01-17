@@ -788,3 +788,9 @@ body {
     opacity: 1;
   }
 }
+
+.mobileOnly{
+  @include media('>mobile') {
+    display: none;
+  }
+}

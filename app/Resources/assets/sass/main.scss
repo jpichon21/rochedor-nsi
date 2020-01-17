@@ -267,3 +267,9 @@ i {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+
+.mobileOnly{
+  @include media('>mobile') {
+    display: none;
+  }
+}
