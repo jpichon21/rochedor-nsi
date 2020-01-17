@@ -106,10 +106,6 @@ class UserController extends Controller
             return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);
         }
 
-        if (!$this->userRepository->isEmailUnique($user->getEmail())) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'security.email_exists']);
-        }
-
         $user->__construct();
         $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
         

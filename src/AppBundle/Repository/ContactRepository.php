@@ -134,28 +134,6 @@ class ContactRepository
     }
 
     /**
-     * Check if email is unique
-     *
-     * @param string $email
-     * @param int $codco
-     * @return boolean
-     */
-    public function isEmailUnique($email, $codco = null)
-    {
-        $c = $this->findContactByEmail($email);
-        if ($c === null) {
-            return true;
-        }
-        if ($codco === null) {
-            return false;
-        }
-        if ($c->getCodco() !== $codco) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
     * Find Contact by reset_token
     *
     * @param string $token

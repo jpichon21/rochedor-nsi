@@ -11,7 +11,7 @@ body:before {
 
 body {
   background-color: #ffffff!important;
-  background-image: none!important;
+  //background-image: none!important;
   &.scrollTop {
     .logo {
       &:after {
@@ -440,6 +440,10 @@ h2 {
       transition: 0.5s;
       box-sizing: border-box;
       z-index: 1;
+      @include media('<=limitMenuReduced', '>large') {
+        overflow: auto;
+        width: 106%;
+      }
       &:after {
         content: '';
         position: absolute;
@@ -449,6 +453,9 @@ h2 {
         border-bottom: 1px #cccccc solid;
         opacity: 0;
         transition: 0.5s;
+        @include media('<=limitMenuReduced', '>hybrid') {
+          display: none;
+        }
       }
       .title {
         display: block;
@@ -468,11 +475,16 @@ h2 {
         bottom: 20px;
         right: 20px;
         transition: 0.5s;
+        @include media('<=limitMenuReduced', '>hybrid') {
+          margin-top: 24px;
+          position: relative;
+          right: 0px!important;
+        }
       }
       .price {
         position: absolute;
         //bottom: 80px;
-        top: 20px;
+        top: 11px;
         right: 20px;
         line-height: 100%;
         font-size: 23px;
@@ -928,7 +940,7 @@ h2 {
           background: linear-gradient(to bottom, $roche-orange 0%, $roche-orange 25%,#000000 100%);
         }
         h2 {
-          color: $roche-orange;
+          color: $roche-orange!important;
         }
       }
       h3 {
@@ -980,6 +992,7 @@ h2 {
       .button {
         color: $roche-orange;
         border: 1px $roche-orange solid;
+        font-family: lato, 'lato', 'sans-serif';
         &.disabled {
           border: 1px solid #cccccc;
           color: #cccccc;
@@ -992,6 +1005,22 @@ h2 {
           color: #000000;
           border-color: #000000;
           float: left;
+          min-height: 41px;
+          margin:0px;
+          font-family: lato, 'lato', sans-serif;
+          letter-spacing: 0px;
+          line-height: 17px;
+          font-size: 12px;
+          text-transform: none;
+          &.conData{
+            min-height: 60px;
+            @include media('<=bigmobile') {
+              min-height: 86px;
+            }
+            @include media('<=xsmall') {
+              min-height: 102px;
+            }
+          }
           &.checked {
             color: $roche-orange;
             border-color: $roche-orange;
@@ -1046,4 +1075,28 @@ h2 {
 .continueCart:hover, .cart:hover{
   color: $roche-orange;
   background: transparent;
+}
+
+.Éditions, .Editions, .editions{
+  background-image: url('../img/editions-new-s.jpg');
+
+  @include media('<=laptop') {
+    background-image: url('../img/editions-new-s.jpg');
+  }
+
+  @include media('<=large') {
+    background-image:  url('../img/editions-new-s.jpg');
+  }
+
+  @include media('<=medium') {
+    background-image:  url('../img/editions-new-xs.jpg');
+  }
+
+  @include media('<=mobile') {
+    background-image:  url('../img/editions-new-xxs.jpg');
+  }
+}
+
+.adresse::placeholder, .memocli::placeholder {
+  font-size: 13.33px!important;
 }

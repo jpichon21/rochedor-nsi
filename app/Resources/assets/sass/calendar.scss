@@ -465,12 +465,35 @@ h1 {
     .translation {
       position: absolute;
       top: 15px;
+      @include media('<=mobile') {
+        display: inline-block;
+        position: relative;
+        top: 0px;
+        right: 0px;
+      }
+    }
     }
     .site {
       right: 50px;
     }
+    .site .full{
+      @include media('<=mobile') {
+        display: inline-block!important;
+        position: relative;
+        right: 0px;
+        top: 0px;
+      }
+    }
     .type {
       right: 100px;
+    }
+    .type .full{
+      @include media('<=mobile') {
+        display: inline-block!important;
+        position: relative;
+        right: 0px;
+        top: 0px;
+      }
     }
     .translation {
       right: 150px;
@@ -499,6 +522,14 @@ h1 {
       box-sizing: border-box;
       outline: none;
     }
+}
+
+.retreats-list .retreat .site .full, .retreats-list .retreat .type .full{
+  @include media('<=mobile') {
+    display: inline-block!important;
+    position: relative;
+    right: 0px;
+    top: 0px;
   }
 }
 

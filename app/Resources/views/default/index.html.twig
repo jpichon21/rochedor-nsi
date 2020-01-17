@@ -8,12 +8,20 @@
 {% endblock %}
 {% block content %}
 <h1>Communauté de la Roche d'Or</h1>
+<div class="intro">
+    <div class="element">
+        <div class="logo"></div>
+    </div>
+</div>
 <div style="display:none;">
-    <img src="{{ asset('assets/img/communaute-new.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/communaute-s-new.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/communaute-xs-new.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/communaute-xxs-new.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/communaute-mobile-new.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/editions-new-s.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/editions-new-xs.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/editions-new-xxs.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/communaute.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/communaute-s.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/communaute-xs.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/communaute-xxs.jpg') }}" width="1" height="1" border="0">
+    <img src="{{ asset('assets/img/communaute-mobile.jpg') }}" width="1" height="1" border="0">
     <img src="{{ asset('assets/img/calendar.jpg') }}" width="1" height="1" border="0">
     <img src="{{ asset('assets/img/calendar-s.jpg') }}" width="1" height="1" border="0">
     <img src="{{ asset('assets/img/calendar-xs.jpg') }}" width="1" height="1" border="0">
@@ -35,10 +43,8 @@
     <img src="{{ asset('assets/img/soutenir-xxs.jpg') }}" width="1" height="1" border="0">
     <img src="{{ asset('assets/img/soutenir-mobile.jpg') }}" width="1" height="1" border="0">
 </div>
-<!--img class="background desktop" src="{{ asset('assets/img/background-home-desktop.jpg') }}" />
-<img class="background mobile" src="{{ asset('assets/img/background-home-mobile.jpg') }}" /-->
-<img class="background desktop" src="{{ asset('assets/img/descente-new.jpg') }}" />
-<img class="background mobile" src="{{ asset('assets/img/descente-new.jpg') }}" />
+<img class="background desktop" src="{{ asset('assets/img/background-home-desktop.jpg') }}" />
+<img class="background mobile" src="{{ asset('assets/img/background-home-mobile.jpg') }}" />
 <div class="overlay"></div>
 <div class="sections">
     <div class="section section-1">
@@ -62,14 +68,14 @@
             <div class="nouveautes">
                 <h2>Nouveautés</h2>
                 {% for article in news %}
-                    <div data-index="{{ loop.index0 }}" class="cnews {% if loop.first %}active{% endif %}">
+                    <div data-index="{{ loop.index0 }}" class="cnews{% if loop.first %} active{% endif %}{% if article.url %} with-link{% endif %}">
                         <i>{{article.intro}}</i>
-                        <div class="text{% if article.url %} with-link{% endif %}">
+                        <div class="text">
                             <p>{{article.description|nl2br}}</p>
                         </div>
                         {% if article.url %}
                             <a class="button black" href="{{article.url}}">
-                                Découvrir <img class="button-arrow visible" src="{{ asset('assets/img/button-arrow-right-black.png') }}">
+                                Lire la suite <img class="button-arrow visible" src="{{ asset('assets/img/button-arrow-right-black.png') }}">
                                 <img class="button-arrow hidden" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}">
                             </a>
                         {% endif %}

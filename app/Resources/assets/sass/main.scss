@@ -19,12 +19,6 @@
   font-style: normal;
 }*/
 
-
-
-.intro{
-
-}
-
 html {
   background-color: #000000;
   // Fix for Magnific Popup
@@ -46,6 +40,10 @@ body {
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @include media('<=mobile') {
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+   }
   &:before {
     content: '';
     position: fixed;
@@ -125,6 +123,15 @@ i {
     }
   }
 }
+.order{
+  .content{
+    .left{
+      @include media('<=mobile') {
+        padding: 20px 40px 0px 10px;
+      }
+    }
+  }
+}
 .content {
   position: relative;
   width: 100%;
@@ -176,6 +183,14 @@ i {
       }
       @include media('<=medium') {
         padding: 20px;
+      }
+    }
+    .left{
+      @include media('>large','<=limitMenuReduced') {
+        padding: 40px 20px 0px 60px;
+        .item{
+          padding-bottom: 8px!important;
+        }
       }
     }
     .right {
@@ -251,4 +266,10 @@ i {
 @-o-keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+.mobileOnly{
+  @include media('>mobile') {
+    display: none;
+  }
 }

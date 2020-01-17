@@ -88,11 +88,11 @@ export const getCountryCode = (country, method) => {
     .then(res => res.json())
     .then(res => {
       if (res.status !== 'ok') { throw res.error }
-      return (method === 'PBX') ? res.data['codpayspbx'] : res.data['codpayspaypal']
+      return (method === 'CB') ? res.data['codpayspbx'] : res.data['codpayspaypal']
     })
 }
 
-export const postGift = (amount, allocation, method, memo, dateDebVir, virPeriod) => {
+export const postGift = (amount, allocation, method, memo, dateDebVir, dateFinVir, virPeriod) => {
   return window.fetch(`/xhr/gift/create`, {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
@@ -105,6 +105,7 @@ export const postGift = (amount, allocation, method, memo, dateDebVir, virPeriod
           'moddon': method,
           'memodon': memo,
           'dateDebVir': dateDebVir,
+          'dateFinVir': dateFinVir,
           'virPeriod': virPeriod
         }
       }
