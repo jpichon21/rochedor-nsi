@@ -160,12 +160,6 @@ class SecurityController extends Controller
             return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);
         }
 
-        if ($contactReq['email'] !== '') {
-            if (!$repository->isEmailUnique($contactReq['email'])) {
-                return new JsonResponse(['status' => 'ko', 'message' => 'security.email_exists']);
-            }
-        }
-
         $contact = new Contact();
         $password = $encoder->encodePassword($contact, $contactReq['password']);
 
