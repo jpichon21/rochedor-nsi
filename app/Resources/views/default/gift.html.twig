@@ -124,8 +124,9 @@
                         {% endif %}
                         <a id="secureDatasLink" class="hidden" href="{{ localePath('securite-donnees', app.request.locale) }}" target="_blank" rel="nofollow">{{ 'global.secure-datas'|trans }}</a>
                         <form class="pure-g">
-                            <div class="pure-u-1 pure-u-md-1-2">
-                                <input id="submitAmount" class="input button submit" type="submit" value="{{ 'form.gift.validate' | trans | raw }}">
+                            <div class="pure-u-1">
+                                <input style="width: auto"
+                                       id="submitAmount" class="input button submit" type="submit" value="{{ 'form.gift.validate' | trans | raw }}">
                             </div>
                         </form>
                     </div>
@@ -230,7 +231,7 @@
                 </div>
             </div>
         </div>
-        <div class="right">
+        <div class="right" style="z-index: -1">
         </div>
     </div>
 {% endblock %}

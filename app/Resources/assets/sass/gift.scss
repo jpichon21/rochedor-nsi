@@ -257,11 +257,13 @@
   }
 }
 
-.allocation textarea::placeholder, .registration textarea::placeholder{
+.allocation textarea::placeholder, .registration textarea::placeholder,
+.allocation textarea, .registration textarea {
   font-size: 13.33px;
+  font-family: lato, 'lato', sans-serif;
 }
 
-.registration select option, .payment span, .virement-reg{
+.registration select option, .payment span, .form.prelevement label {
   font-family: lato, 'lato', sans-serif;
 }
 
