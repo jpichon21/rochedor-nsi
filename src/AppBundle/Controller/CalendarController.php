@@ -263,8 +263,9 @@ class CalendarController extends Controller
         /** @var CalL $registeredContact */
         $currentUser = $this->getUser();
         $calendarLRepository = $this->getDoctrine()->getManager()->getRepository(CalL::class);
+        $currentUserId = $currentUser->getCodco();
         $registeredContact = $calendarLRepository->findOneBy([
-            'lcal' => $currentUser->getCodco(),
+            'lcal' => $currentUserId,
             'codcal' => $activityId,
             'etaplcal' => 'attent'
         ]);
@@ -283,9 +284,16 @@ class CalendarController extends Controller
                     $contact->setJsco($addedContact->getJslcal());
                     $user = $contact;
                 } else {
+                    $contactL = $this->contactRepository->findContactL($addedContact->getLcal(), $currentUserId);
+                    $colTyp = $addedContact->getTyplcal();
+                    $colP = $currentUser->getCodCo();
+                    if ($contactL) {
+                        $colTyp = $contactL->getColTyp();
+                        $colP = $contactL->getColP();
+                    }
                     $contact->setJsco($addedContact->getJslcal());
-                    $contact->coltyp = $addedContact->getTyplcal();
-                    $contact->colp = $currentUser->getCodCo();
+                    $contact->coltyp = $colTyp;
+                    $contact->colp = $colP;
                     $contacts[] = $contact;
                 }
             }
