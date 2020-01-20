@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\ContactL;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Contact;
