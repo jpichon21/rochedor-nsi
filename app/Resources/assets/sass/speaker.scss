@@ -57,6 +57,7 @@
   right: 0;
   background: url('../img/arrow-right-alt.png'), url('../img/arrow-right-white-alt.png');
   transition: 0.5s ease;
+  background-size:cover;
   &:hover,&:focus, &:active{
     background: url('../img/arrow-right-white-alt.png'),  url('../img/arrow-right-alt.png');
     transition: 0.5s ease;
