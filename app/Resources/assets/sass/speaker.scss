@@ -23,8 +23,9 @@
     }
   }
 }
-.prev,
-.next {
+
+
+.prev {
   position: absolute;
   //top: 50%;
   top: 42%;
@@ -50,31 +51,48 @@
     background-size: 100%;
   }
 }
-.prev {
-  left: 0;
-}
+
 .next {
-  right: 0;
-  background: url('../img/arrow-right.png'), url('../img/arrow-right-white.png');
-  transition: 0.5s ease;
   position: absolute;
   //top: 50%;
   top: 42%;
   margin-top: -34px;
   width: 68px;
   height: 68px;
+  background: url('../img/arrow-right.png'), url('../img/arrow-left-right.png');
+  transition: 0.5s ease;
+  z-index: 1;
+  @include media('>laptop') {
+     top: 50%;
+  }
+  cursor: pointer;
+  &:hover,&:focus, &:active{
+    background: url('../img/arrow-left-right.png'), url('../img/arrow-right.png');
+    transition: 0.5s ease;
+  }
+  @include media('<medium') {
+    top: 180px;
+    width: 45px;
+    height: 45px;
+    margin-top: -22px;
+    background-size: 100%;
+  }
+}
+.prev {
+  left: 0;
+}
+
+/*
+.next {
+  right: 0;
+  background: url('../img/arrow-right.png'), url('../img/arrow-right-white.png');
+  transition: 0.5s ease;
   &:hover,&:focus, &:active{
     background: url('../img/arrow-right-white.png'),  url('../img/arrow-right.png');
     transition: 0.5s ease;
-    @include media('<medium') {
-      top: 180px;
-      width: 45px;
-      height: 45px;
-      margin-top: -22px;
-      background-size: 100%;
-    }
   }
-}
+}*/
+
 .carousel {
   position: relative;
   min-height: 450px;
