@@ -29,8 +29,8 @@
     z-index: 1;
     cursor: pointer;
     @include media('<large') {
-      width: 45px;
-      height: 45px;
+      width: 90px;
+      height: 90px;
       margin-top: -22px;
       background-size: 100%;
     }
