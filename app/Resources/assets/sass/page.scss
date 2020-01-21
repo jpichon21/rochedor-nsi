@@ -80,9 +80,9 @@ body {
       @include media('<=large') {
         padding: 10px 0px 10px 40px
       }
-
       @include media('<=mobile') {
-        padding-right: 20px;
+        padding: 0px 0px 10px 20px
+        //padding-right: 20px;
       }
 
       color: $roche-yellow;
