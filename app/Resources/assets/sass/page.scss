@@ -111,7 +111,11 @@ body {
         left: 23px;
         width: 1px;
       }
-
+      &:last-of-type{
+        &:before{
+          max-height: 24px;
+        }
+      }
       &:first-child {
         &:after {
           top: 8px;
