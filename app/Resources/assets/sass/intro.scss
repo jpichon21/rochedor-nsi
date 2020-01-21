@@ -31,6 +31,10 @@
     @include media('<=mobile') {
       animation-name: intro-mount-mobile;
     }
+    @include media('>xlarge','<=xlarge-hybrid') {
+      animation-name: intro-mount-xlarge-hybrid;
+      margin-left: -100px;
+    }
     animation-duration: 2s;
     animation-delay: 4s;
     animation-fill-mode: forwards;
@@ -185,5 +189,11 @@ body {
   from { top: 45%; }
   to { top: 17px; }
 }
+
+@keyframes intro-mount-xlargehybrid {
+  from { top: 45%; }
+  to { top: 32px; }
+}
+
 
 
