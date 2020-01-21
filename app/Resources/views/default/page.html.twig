@@ -20,7 +20,7 @@
         <div class="dropdown {% if page.content.sections|length == 1 %}single{% endif %}">
             {% for section in page.content.sections %}
             <div
-                class="item" {% if section.title|length > 5 %}item-long{% endif %}
+                class="item" {% if section.title|length > 24 %}item-long{% endif %}
                 data-slug-id="#{{ section.title|slugify }}"
                 data-carousel-id="{{ section.title|md5 }}">
                 <a class="slug" href="{{ currentPath ~ '#' ~ section.title|slugify }}">
