@@ -151,7 +151,7 @@ i {
     }
     .hole {
       width: 170px;
-      @include media('>large','<=xxlarge') {
+      @include media('>xxlarge','<=laptop') {
         width: 35px;
       }
       @include media('<xxlarge') {
