@@ -55,10 +55,10 @@
 }
 .next {
   right: 0;
-  background: url('../img/arrow-right.png'), url('../img/arrow-right-white.png');
+  background: url('../img/arrow-right-alt.png'), url('../img/arrow-right-white-alt.png');
   transition: 0.5s ease;
   &:hover,&:focus, &:active{
-    background: url('../img/arrow-right-white.png'),  url('../img/arrow-right.png');
+    background: url('../img/arrow-right-white-alt.png'),  url('../img/arrow-right-alt.png');
     transition: 0.5s ease;
   }
 }
