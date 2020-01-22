@@ -438,7 +438,13 @@ body {
     &.section-6 {
       margin-left: 50%;
     }
-
+    .section-2,
+    .section-4{
+      strong {
+        right: -40px;
+        top: 18px;
+      }
+    }
     @include media('<medium') {
       &.section-4 {
         margin-left: 50%;
@@ -459,13 +465,6 @@ body {
           padding-left: 40px;
           text-align: right;
         }
-      }
-    }
-    .section-2,
-    .section-4{
-      strong {
-        right: -40px;
-        top: 18px;
       }
     }
     .box {
