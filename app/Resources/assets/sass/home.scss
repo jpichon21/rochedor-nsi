@@ -879,8 +879,10 @@ body {
   p:before {
     content: '“';
     position: absolute;
-    left: -28px;
-    -moz-left: -28px;
+    //left: -28px;
+    //-moz-left: -28px;
+    left: -12px;
+    -moz-left: -12px;
   }
 }
 
