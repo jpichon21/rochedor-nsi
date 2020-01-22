@@ -77,7 +77,11 @@ class PageController extends Controller
     *              @SWG\Property(
     *                  property="url",
     *                  type="string"
-    *              )
+    *              ),
+     *              @SWG\Property(
+     *                  property="category",
+     *                  type="string"
+     *              )
     *          )
     *     ),
     *   @SWG\Response(
