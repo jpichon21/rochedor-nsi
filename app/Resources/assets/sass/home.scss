@@ -440,9 +440,11 @@ body {
     }
     .section-2,
     .section-4{
+      .box{
       strong {
         right: -40px;
-        top: 18px;
+        margin-top: 12px;
+      }
       }
     }
     @include media('<medium') {
@@ -553,7 +555,7 @@ body {
         letter-spacing: 1.4px;
         position: absolute;
         right: 0px;
-        top: 18px;
+        margin-top: 12px;
       }
     }
 
