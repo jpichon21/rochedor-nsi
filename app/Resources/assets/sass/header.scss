@@ -91,6 +91,7 @@ body {
       @include media('<=mobile') {
         bottom: -36px;
         line-height: 22px;
+        display: none;
       }
       @include media('>=limitMenuReduced') {
         content: none;

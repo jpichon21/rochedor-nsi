@@ -438,7 +438,6 @@ body {
     &.section-6 {
       margin-left: 50%;
     }
-
     @include media('<medium') {
       &.section-4 {
         margin-left: 50%;
@@ -547,10 +546,19 @@ body {
         letter-spacing: 1.4px;
         position: absolute;
         right: 0px;
-        top: 12px;
+        margin-top: 12px;
       }
     }
 
+    &.section-2,
+    &.section-4{
+      .box{
+        strong {
+          right: -40px;
+          margin-top: 12px;
+        }
+      }
+    }
     .scroll-down {
       position: absolute;
       bottom: 80px;
@@ -879,10 +887,8 @@ body {
   p:before {
     content: '“';
     position: absolute;
-    //left: -28px;
-    //-moz-left: -28px;
-    left: -12px;
-    -moz-left: -12px;
+    left: -28px;
+    -moz-left: -28px;
   }
 }
 
