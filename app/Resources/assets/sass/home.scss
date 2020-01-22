@@ -547,7 +547,13 @@ body {
         letter-spacing: 1.4px;
         position: absolute;
         right: 0px;
-        top: 12px;
+        top: 18px;
+      }
+      .section-2{
+        strong {
+          right: -40px;
+          top: 18px;
+        }
       }
     }
 
