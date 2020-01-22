@@ -223,7 +223,8 @@ body {
           bottom: -50px;
           left: -9px;
           width: 1px;
-          background: linear-gradient(to bottom, #ffffff 0%, #000000 25%, #000000 75%, $roche-yellow 100%);
+          //background: linear-gradient(to bottom, #ffffff 0%, #000000 25%, #000000 75%, $roche-yellow 100%);
+          background: linear-gradient(180deg,#fff 0,#070707 25%,#070707 75%,#FAF28E);
           z-index: 0;
         }
 
