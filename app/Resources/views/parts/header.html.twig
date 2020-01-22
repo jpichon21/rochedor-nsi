@@ -111,9 +111,8 @@
             <li data-menu="dlede" class="mobileOnly">
                 <span>{{ 'legal.information' | trans | raw | striptags }}</span>
                 <ul class="sub-menu" data-menu="dlede">
-                    <li><a href="#" rel="nofollow">{{ 'terms.of.use' | trans | raw | striptags }}</a>
-                    <li><a href="#" rel="nofollow">{{ 'legal.mention' | trans | raw | striptags }}</a></li>
-                    <li><a href="#" rel="nofollow">{{ 'privacy.policy' | trans | raw | striptags }}</a></li>
+                    <li><a href="{{ localePath('conditions-utilisation', app.request.locale) }}" rel="nofollow">{{ 'terms.of.use' | trans | raw | striptags }}</a>
+                    <li><a href="{{ localePath('mentions-legales', app.request.locale) }}" rel="nofollow">{{ 'legal.mention' | trans | raw | striptags }}</a></li>
                     {% if
                     product is defined
                     or (
@@ -133,7 +132,7 @@
                     <li><a href={{ localePath('cgv-pro', app.request.locale) }}
                         rel="nofollow">{{ 'footer.termsPro'|trans }}</a></li>
                     {% endif %}
-                    <li><a href={{ localePath('data-privacy', app.request.locale) }}
+                    <li><a href={{ localePath('confidentialite-des-donnees', app.request.locale) }}
                         rel="nofollow">{{ 'footer.privacy'|trans }}</a></li>
                 </ul>
             </li>
