@@ -491,9 +491,9 @@ body {
         padding-top: 0%;
       }
 
-      br {
+     /* br {
         display: none;
-      }
+      }*/
 
       h2 {
         font-size: 31px;
@@ -917,7 +917,7 @@ body {
           position: absolute;
           width: 9999px;
           bottom: 15px;
-          border-top: 1px solid #000;
+          border-top: 1px solid transparent;
          }
         }
         &:after{
