@@ -461,6 +461,13 @@ body {
         }
       }
     }
+    .section-2,
+    .section-4{
+      strong {
+        right: -40px;
+        top: 18px;
+      }
+    }
     .box {
       z-index: 2;
       margin-left: 40px;
@@ -548,13 +555,6 @@ body {
         position: absolute;
         right: 0px;
         top: 18px;
-      }
-      .section-2,
-      .section-4{
-        strong {
-          right: -40px;
-          top: 18px;
-        }
       }
     }
 
