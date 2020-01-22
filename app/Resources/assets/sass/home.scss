@@ -438,7 +438,6 @@ body {
     &.section-6 {
       margin-left: 50%;
     }
-
     @include media('<medium') {
       &.section-4 {
         margin-left: 50%;
@@ -491,7 +490,7 @@ body {
         padding-top: 0%;
       }
 
-      br {
+     br {
         display: none;
       }
 
@@ -545,9 +544,21 @@ body {
         text-transform: uppercase;
         text-align: right;
         letter-spacing: 1.4px;
+        position: absolute;
+        right: 0px;
+        margin-top: 12px;
       }
     }
 
+    &.section-2,
+    &.section-4{
+      .box{
+        strong {
+          right: -40px;
+          margin-top: 12px;
+        }
+      }
+    }
     .scroll-down {
       position: absolute;
       bottom: 80px;
@@ -916,6 +927,9 @@ body {
           bottom: 15px;
           border-top: 1px solid #000;
          }
+         @include media('<=medium') {
+          border-top: 0px solid transparent;
+          }
         }
         &:after{
           @include media('<large') {
@@ -925,6 +939,9 @@ body {
           bottom: 15px;
           border-top: 1px solid #000;
           }
+          @include media('<=medium') {
+            border-top: 0px solid transparent;
+            }
         }
       }
     }
