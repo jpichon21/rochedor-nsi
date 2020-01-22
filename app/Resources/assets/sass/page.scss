@@ -24,7 +24,7 @@ body {
     font-size: 18px;
     margin-bottom: 40px;
     @include media('<=laptop', '>limitMenuReduced') {
-      width: 744px
+      max-width: 744px
     }
     b {
       color: #ffffff;
@@ -40,7 +40,7 @@ body {
   .dropdown {
     position: relative;
     margin: 0 0 20px -20px;
-    max-width: 490px;
+    max-width: 500px;
     @include media('>laptop') {
       max-width: 680px;
     }
@@ -76,13 +76,13 @@ body {
       position: relative;
       max-height: 34px;
       padding: 0 0 0 40px;
-
+      padding-bottom: 12px;
       @include media('<=large') {
-        padding: 10px 0px 10px 40px
+        padding: 0px 0px 10px 40px
       }
-
       @include media('<=mobile') {
-        padding-right: 20px;
+        padding: 0px 0px 10px 40px
+        //padding-right: 20px;
       }
 
       color: $roche-yellow;
@@ -111,7 +111,9 @@ body {
         left: 23px;
         width: 1px;
       }
-
+      &:last-of-type{
+          max-height: 22px;
+      }
       &:first-child {
         &:after {
           top: 8px;
@@ -210,9 +212,9 @@ body {
         color: $roche-yellow;
         z-index: 1;
         margin-left: -8px;
-        box-shadow: -20px 0px 55px -5px rgba(0, 0, 0, 0.75);
+        //box-shadow: -20px 0px 55px -5px rgba(0, 0, 0, 0.75);
         @include media('<=mobile') {
-          box-shadow: -20px 0 80px -61px rgba(0,0,0,.75);
+          //box-shadow: -20px 0 80px -61px rgba(0,0,0,.75);
         }
         &:before {
           content: '';
@@ -221,7 +223,8 @@ body {
           bottom: -50px;
           left: -9px;
           width: 1px;
-          background: linear-gradient(to bottom, #ffffff 0%, #000000 25%, #000000 75%, $roche-yellow 100%);
+          //background: linear-gradient(to bottom, #ffffff 0%, #000000 25%, #000000 75%, $roche-yellow 100%);
+          background: linear-gradient(180deg,#fff 0,#070707 25%,#070707 75%,#FAF28E);
           z-index: 0;
         }
 

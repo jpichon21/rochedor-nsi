@@ -130,3 +130,8 @@
     filter: brightness(0);
   }
 }
+
+.registration textarea::placeholder, .registration textarea {
+  font-size: 13.33px;
+  font-family: lato, 'lato', sans-serif;
+}

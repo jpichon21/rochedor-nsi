@@ -491,7 +491,7 @@ body {
         padding-top: 0%;
       }
 
-      br {
+     br {
         display: none;
       }
 
@@ -545,6 +545,9 @@ body {
         text-transform: uppercase;
         text-align: right;
         letter-spacing: 1.4px;
+        position: absolute;
+        right: 0px;
+        top: 12px;
       }
     }
 
@@ -876,8 +879,10 @@ body {
   p:before {
     content: '“';
     position: absolute;
-    left: -28px;
-    -moz-left: -28px;
+    //left: -28px;
+    //-moz-left: -28px;
+    left: -12px;
+    -moz-left: -12px;
   }
 }
 
@@ -916,6 +921,9 @@ body {
           bottom: 15px;
           border-top: 1px solid #000;
          }
+         @include media('<=medium') {
+          border-top: 0px solid transparent;
+          }
         }
         &:after{
           @include media('<large') {
@@ -925,6 +933,9 @@ body {
           bottom: 15px;
           border-top: 1px solid #000;
           }
+          @include media('<=medium') {
+            border-top: 0px solid transparent;
+            }
         }
       }
     }
