@@ -4,9 +4,9 @@
             <div class="column">
                 <span>{{ 'menu.one.one' | trans | raw | striptags }}</span>
                 <a href={{ localePath('la-communaute', app.request.locale)}} rel="nofollow">{{ 'menu.one.one' | trans | raw | striptags }}</a>
-                <a href="#" rel="nofollow">{{ 'menu.one.two' | trans | raw | striptags }}</a>
-                <a href="#" rel="nofollow">{{ 'menu.one.three' | trans | raw | striptags }}</a>
-                <a href="#" rel="nofollow">{{ 'menu.one.four' | trans | raw | striptags }}</a>
+                <a href="{{ localePath('les-fondateurs', app.request.locale) }}" rel="nofollow">{{ 'menu.one.two' | trans | raw | striptags }}</a>
+                <a href="{{ localePath('la-rochedor', app.request.locale) }}" rel="nofollow">{{ 'menu.one.three' | trans | raw | striptags }}</a>
+                <a href="{{ localePath('les-fontanilles', app.request.locale) }}" rel="nofollow">{{ 'menu.one.four' | trans | raw | striptags }}</a>
             </div>
             <div class="column">
                 <span>{{ 'menu.two' | trans | raw | striptags }}</span>
@@ -29,7 +29,6 @@
             <div class="column">
                 <span>{{ 'legal.information' | trans | raw | striptags }}</span>
                 <a href="{{ localePath('mentions-legales', app.request.locale) }}" rel="nofollow">{{ 'legal.mention' | trans | raw | striptags }}</a>
-                <a href="{{ localePath('confidentialite-des-donnees', app.request.locale) }}" rel="nofollow">{{ 'privacy.policy' | trans | raw | striptags }}</a>
                 {% if
                     product is defined
                     or (
