@@ -438,15 +438,6 @@ body {
     &.section-6 {
       margin-left: 50%;
     }
-    .section-2,
-    .section-4{
-      .box{
-      strong {
-        right: -40px;
-        margin-top: 12px;
-      }
-      }
-    }
     @include media('<medium') {
       &.section-4 {
         margin-left: 50%;
@@ -559,6 +550,15 @@ body {
       }
     }
 
+    &.section-2,
+    &.section-4{
+      .box{
+        strong {
+          right: -40px;
+          margin-top: 12px;
+        }
+      }
+    }
     .scroll-down {
       position: absolute;
       bottom: 80px;
