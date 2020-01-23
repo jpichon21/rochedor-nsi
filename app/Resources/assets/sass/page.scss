@@ -115,7 +115,7 @@ body {
           max-height: 22px;
       }
       &:first-of-type{
-        max-height: none;
+        max-height: unset;
       }
       &:first-child {
         &:after {
