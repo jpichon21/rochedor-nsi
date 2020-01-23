@@ -257,7 +257,7 @@ class ContentController extends Controller
 
             $oldUrl = null;
             if ($page->getRoutes()) {
-                $oldUrl = $page->getRoutes()[0]->getName();
+                $oldUrl = isset($page->getRoutes()[0]) ? $page->getRoutes()[0]->getName() : null;
             }
 
             if ($oldUrl !== $url) {
