@@ -114,6 +114,9 @@ body {
       &:last-of-type{
           max-height: 22px;
       }
+      &:first-of-type{
+        max-height: none;
+      }
       &:first-child {
         &:after {
           top: 8px;
