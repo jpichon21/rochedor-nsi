@@ -150,9 +150,9 @@ i {
       position: relative;
     }
     .hole {
-      width: 35px;
+      width: 170px;
       @include media('>xxlarge','<=laptop') {
-        width: 35px;
+        width: 170px;
       }
       @include media('<xxlarge') {
         width: 0;
