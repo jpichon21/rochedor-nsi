@@ -28,7 +28,7 @@ class ProductRepository
     * Find Produit by its Id
     *
     * @param int productId
-    * @return Produit
+    * @return array
     */
     public function findProduct($productId)
     {

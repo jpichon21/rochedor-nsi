@@ -82,7 +82,10 @@ class ProductController extends Controller
     public function showProductAction($id, Request $request)
     {
         $product = $this->productRepository->findProduct($id);
-        $tax = $this->taxRepository->findTax($id, "FR");
+        $tax = null;
+        if (array_key_exists(0, $product) && array_key_exists('typprd', $product[0])) {
+            $tax = $this->taxRepository->findTax($product[0]['typprd'], 'FR');
+        }
 
         // force Tax::rate to be a float, in order to correctly handle the display for 1.2 (instead of 1.20) or 1.23
         if ($tax instanceof Tax) {
