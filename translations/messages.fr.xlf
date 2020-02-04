@@ -2950,7 +2950,7 @@ Si vous relevez de la fiscalité française, la réduction est équivalente à 6
     <unit id="1xgOZ62" name="form.submitParticipant">
       <segment>
         <source>form.submitParticipant</source>
-        <target>Valider le participant</target>
+        <target>Valider</target>
       </segment>
     </unit>
     <unit id="6F6bhIE" name="calendar.registration.table.header.participant">
