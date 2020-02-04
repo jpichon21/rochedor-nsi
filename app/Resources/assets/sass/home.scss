@@ -315,6 +315,10 @@ body {
   }
 }
 
+@media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0) {
+  .button {letter-spacing: 0px;}
+}
+
 .button.yellow:hover,
 .button.yellow:active,
 .button.yellow:focus {
