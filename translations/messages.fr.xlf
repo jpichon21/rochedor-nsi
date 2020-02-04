@@ -359,7 +359,7 @@
       </notes>
       <segment>
         <source>retreats.table.head.event</source>
-        <target>Évènement</target>
+        <target>Titre de la retraite</target>
       </segment>
     </unit>
     <unit id="z44_LRk" name="retreats.table.head.speakers">
@@ -3577,7 +3577,7 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
     <unit id="bHsOKTb" name="form.gift.validate">
       <segment>
         <source>form.gift.validate</source>
-        <target>Je valide et indique mes coordonnées</target>
+        <target>Je valide et j'indique mes coordonnées</target>
       </segment>
     </unit>
     <unit id="bHsOKTs" name="calendar.registration.logout-tooltip">
