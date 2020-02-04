@@ -332,7 +332,7 @@
       </notes>
       <segment>
         <source>filter.inner.keyword</source>
-        <target>Mot clé</target>
+        <target>Thème recherché</target>
       </segment>
     </unit>
     <unit id="Q6jhgTg" name="retreats.table.head.dates">
