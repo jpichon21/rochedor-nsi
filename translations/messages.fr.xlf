@@ -2623,7 +2623,7 @@
     <unit id="Xx1TBfK" name="gift-return.cancel">
       <segment>
         <source>gift-return.cancel</source>
-        <target><![CDATA[Le paiement a été annulé et votre n'a pas été enregistré.<br>Retour à la page des <a href="%link%">dons</a>.]]></target>
+        <target><![CDATA[Le paiement a été annulé et votre don n'a pas été enregistré.<br>Retour à la page des <a href="%link%">dons</a>.]]></target>
       </segment>
     </unit>
     <unit id="rkAB_hq" name="form.gift.note">
