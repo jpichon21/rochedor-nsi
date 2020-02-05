@@ -14,7 +14,7 @@ import {
   resetLogin,
   postGift } from './gift-api.js'
 import { limitMenuReduced } from './variables'
-console.log('test!')
+
 
 /* Translations */
 
@@ -87,6 +87,7 @@ function resizeItem ($item) {
 
 $(document).ready(function () {
   $('.dropdown .item').each(function () {
+    console.log('test!')
     if (this.classList.contains('amount') || this.classList.contains('allocation') || this.classList.contains('payment')) {
       resizeItem($(this))
       this.classList.add('active')
