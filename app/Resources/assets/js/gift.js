@@ -488,6 +488,7 @@ itemConnection.on('click', '.panel.reset .cancel', function (event) {
 
 pwdToggle.on('click', function () {
   passwordPopup();
+  console.log('test!');
 })
 
 function passwordPopup(){
