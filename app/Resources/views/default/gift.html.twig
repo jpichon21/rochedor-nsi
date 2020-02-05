@@ -331,15 +331,7 @@
         <div class="error-message"><%= errors.password %></div>
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
-             <a class="tooltip-password" onclick="alert( 
-                "« Un mot de passe est un moyen de prouver votre identité, de vous authentifier. Il est constitué d’une suite de caractères de votre choix et doit pouvoir être mémorisé afin de le donner. 
-
-                Si vous le perdez, votre mot de passe ne vous est pas restituable. En cas de perte il vous sera proposé d’en recréer un autre car les mots de passe sont cryptés dans notre base de données des contacts, de manière non réversible. Il ne vous est pas restituable. En cas de perte il vous sera proposé d’en recréer un autre.
-
-                Des conseils pour constituer un mot de passe sont par exemple donnés aux adresses suivantes :
-                https://www.astuces-aide-informatique.info/87/mot-de-passe-securise
-                https://www.service-public.fr/particuliers/actualites/A13202 »" 
-                ");">Qu'est ce qu'un mot de passe ?</a>
+             <a class="tooltip-password" onclick="alert('test');">Qu'est ce qu'un mot de passe ?</a>
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" data-inputmask="'mask': '99/99/9999'" class="input datnaiss" required type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value="<%= (you.datnaiss !== '') ? moment(you.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="* {{ 'form.birthday' | trans | raw }}">
