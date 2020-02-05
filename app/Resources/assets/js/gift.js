@@ -14,6 +14,7 @@ import {
   resetLogin,
   postGift } from './gift-api.js'
 import { limitMenuReduced } from './variables'
+console.log('test!')
 
 /* Translations */
 
