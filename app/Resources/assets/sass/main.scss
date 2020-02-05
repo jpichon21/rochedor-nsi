@@ -277,4 +277,9 @@ i {
 .tooltip-password {
   text-align:center;
   cursor: pointer;
+  border-bottom: none!important;
+}
+
+.popup-password{
+  display: none;
 }
