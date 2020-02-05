@@ -262,6 +262,17 @@
 <script type="text/template" class="amount-template">
     <p><%= reduction %></p>
 </script>
+<script>
+    function notifyPassword() {
+    alert( "« Un mot de passe est un moyen de prouver votre identité, de vous authentifier. Il est constitué d’une suite de caractères de votre choix et doit pouvoir être mémorisé afin de le donner. 
+
+Si vous le perdez, votre mot de passe ne vous est pas restituable. En cas de perte il vous sera proposé d’en recréer un autre car les mots de passe sont cryptés dans notre base de données des contacts, de manière non réversible. Il ne vous est pas restituable. En cas de perte il vous sera proposé d’en recréer un autre.
+
+Des conseils pour constituer un mot de passe sont par exemple donnés aux adresses suivantes :
+https://www.astuces-aide-informatique.info/87/mot-de-passe-securise
+https://www.service-public.fr/particuliers/actualites/A13202 »" );
+    }
+</script>
 <script type="text/template" class="you-form-template">
     <input autocomplete="nope" type="hidden" value="<%= you.codco %>" name="codco">
     <input autocomplete="nope" type="hidden" value=<%= you.check %> name="check">
@@ -330,14 +341,9 @@
         <div class="error-message"><%= errors.password %></div>
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
-             <div class="tooltip-password">
+             <div class="tooltip-password" onClick="notifyPassword()">
                     <div class="">
-                                <h3>Qu'est ce qu'un mot de passe ?</h3>
-                                <ul>
-                                        <li>Test</li>
-                                        <li>Cras porttitor orci ac porta gravida</li>
-                                </ul>
-                            <i></i>
+                                <span>Qu'est ce qu'un mot de passe ?</span>
                     </div>
             </div>
     </div>
