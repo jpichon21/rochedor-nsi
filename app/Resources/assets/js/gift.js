@@ -86,8 +86,9 @@ function resizeItem ($item) {
 }
 
 $(document).ready(function () {
+  console.log('test!')
   $('.dropdown .item').each(function () {
-    console.log('test!')
+
     if (this.classList.contains('amount') || this.classList.contains('allocation') || this.classList.contains('payment')) {
       resizeItem($(this))
       this.classList.add('active')
