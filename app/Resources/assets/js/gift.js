@@ -497,6 +497,6 @@ pwdToggle.on('click', function (event) {
 })
 
 function passwordPopup(){
-  target = document.getElementById(pwdToggle);
+  target = document.getElementById(passwordPopup);
   target.addClass('popup-visible');
 }
