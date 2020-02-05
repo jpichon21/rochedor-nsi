@@ -46,7 +46,7 @@ const itemAllocation = $('.item.allocation')
 const itemPayment = $('.item.payment')
 const itemPrelevement = $('.item.prelevement')
 const content = $('.content')
-const pwdToggle = $('#passwordPopupToggle')
+const pwdToggle = $("#passwordPopupToggle")
 
 /* Dropdowns */
 function backToTop () {
@@ -87,6 +87,7 @@ function resizeItem ($item) {
 
 $(document).ready(function () {
   console.log('test!')
+  console.log(pwdToggle)
   $('.dropdown .item').each(function () {
 
     if (this.classList.contains('amount') || this.classList.contains('allocation') || this.classList.contains('payment')) {
