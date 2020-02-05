@@ -13,18 +13,19 @@
             {% if status == 'success' %}
             {{ 'gift-return.success' | trans({'%link%': path('gift-' ~ app.request.locale), '%name%': name, '%amount%': amount, '%email%': email, '%address%': address, '%zipcode%': zipcode, '%city%': city, '%country%': country }) | raw }}
             {% elseif status == 'cancel' %}
-            {{ 'gift-return.cancel' | trans({'%link%': path('gift-' ~ app.request.locale)}) | raw }}
+            {{ 'gift-return.cancel' | trans | raw }}
             {% endif %}
             <div class="pure-g" style="margin-top: 15px">
 
                 <div class="pure-u-1 pure-u-md-1-1 pure-u-lg-1 pure-u-xl-1-4">
                     <a class="button" href="{{ path('logout-message', {'from': 'don-ponctuel'}) }}">{{ 'logout.disconnect.title' | trans }}</a>
                 </div>
-
-                 <div class="pure-u-1 pure-u-md-1-1 pure-u-lg-1 pure-u-xl-1-4">
-                    <a class="button" href="{{ path('logout-message', {'from': 'don-ponctuel'}) }}">{{ 'logout.disconnect.title' | trans }}</a>
-                </div>
                 
+                 <div class="pure-u-1 pure-u-md-1-1 pure-u-lg-1 pure-u-xl-1-4">
+                    <a class="button" href="{{  path('gift-' ~ app.request.locale)}}">{{ 'gift.return.title' | trans }}</a>
+                </div>
+ 
+
                 <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-2">
                     <a class="button" href="{{ path('cancel_gift') }}">{{ 'other.gift-mode' | trans }}</a>
                 </div>

@@ -3586,5 +3586,11 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
         <target>Pour quitter la page. Aucune demande d'inscription ne sera prise en compte.</target>
       </segment>
     </unit>
+    <unit id="bHsOKTz" name="gift.return.title">
+      <segment>
+        <source>gift.return.title</source>
+        <target>Se déconnecter des dons</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
