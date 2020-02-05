@@ -490,9 +490,10 @@ itemConnection.on('click', '.panel.reset .cancel', function (event) {
   })
 })
 
-pwdToggle.on('click', function () {
+pwdToggle.on('click', function (event) {
+  event.preventDefault()
+  console.log('click!');
   passwordPopup();
-  console.log('test!');
 })
 
 function passwordPopup(){
