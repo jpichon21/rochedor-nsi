@@ -3589,7 +3589,7 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
     <unit id="bHsOKTz" name="gift.return.title">
       <segment>
         <source>gift.return.title</source>
-        <target>Retour</target>
+        <target>Retour à la page des dons</target>
       </segment>
     </unit>
   </file>
