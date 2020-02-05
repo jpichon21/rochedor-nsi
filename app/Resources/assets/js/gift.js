@@ -45,6 +45,7 @@ const itemAllocation = $('.item.allocation')
 const itemPayment = $('.item.payment')
 const itemPrelevement = $('.item.prelevement')
 const content = $('.content')
+const pwdToggle = $('#passwordPopupToggle')
 
 /* Dropdowns */
 function backToTop () {
@@ -484,3 +485,12 @@ itemConnection.on('click', '.panel.reset .cancel', function (event) {
     changeItem([itemConnection])
   })
 })
+
+pwdToggle.on('click', function () {
+  passwordPopup();
+})
+
+function passwordPopup(){
+  target = document.getElementById(pwdToggle);
+  target.addClass('popup-visible');
+}
