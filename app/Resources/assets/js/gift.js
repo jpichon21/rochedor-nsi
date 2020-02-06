@@ -46,7 +46,7 @@ const itemAllocation = $('.item.allocation')
 const itemPayment = $('.item.payment')
 const itemPrelevement = $('.item.prelevement')
 const content = $('.content')
-const passwordPopupToggle = $("#passwordPopupToggle")
+
 
 /* Dropdowns */
 function backToTop () {
@@ -490,6 +490,9 @@ itemConnection.on('click', '.panel.reset .cancel', function (event) {
   })
 })
 
+
+const passwordPopupToggle = $("#passwordPopupToggle")
+
 passwordPopupToggle.on('click', function (event) {
   event.preventDefault()
   console.log('click!');
@@ -500,3 +503,5 @@ function passwordPopup(){
   target = document.getElementById(passwordPopup);
   target.addClass('popup-visible');
 }
+
+console.log('file loaded!');
