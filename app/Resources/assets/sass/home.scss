@@ -735,11 +735,12 @@ body {
 
       h2 {
         font-size: 20px;
-        font-weight: 200;
-        color: $roche-yellow;
+        font-weight: 300;
+        color: #000;
         text-transform: uppercase;
-        letter-spacing: 1.6px;
-
+        letter-spacing: 2.6px;
+        margin-bottom: 8px;
+  
         @include media('<large') {
           padding: 20px 0px 10px 0px;
           font-size: 15px;
