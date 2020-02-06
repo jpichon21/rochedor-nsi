@@ -2576,7 +2576,7 @@
         <source>gift-return.success</source>
         <target><![CDATA[
             <div style="color: #ffffff;">
-                Bonjour %civility% %name%,<br><br>
+                Bonjour %name%,<br><br>
                 Laissez-nous vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, devient aussi la vôtre.<br><br>
                 Par votre don de %amount% euros, vous vous joignez au mouvement de solidarité des Amis de la Roche d’Or pour soutenir notre action évangélique.<br><br>
                 Soyez-en encore remercié(e).<br><br>
@@ -2602,7 +2602,7 @@
       <segment>
         <source>gift-return.success.mail</source>
         <target><![CDATA[
-            Bonjour %civility% %name%,<br><br>
+            Bonjour %name%,<br><br>
             Laissez-nous vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, devient aussi la vôtre.<br>
             Par votre don de %amount% euros, vous vous joignez au mouvement de solidarité des Amis de la Roche d’Or pour soutenir notre action évangélique.<br>
             Soyez-en encore remercié(e).<br><br>
@@ -3349,7 +3349,7 @@ Si vous relevez de la fiscalité française, la réduction est équivalente à 6
     <unit id="m6d6qSk" name="footer.privacy">
       <segment>
         <source>footer.privacy</source>
-        <target>Confidentialité des données</target>
+        <target>Politique de confidentialité et de protection des données</target>
       </segment>
     </unit>
     <unit id="JHdw1ZQ" name="order.summary.title">

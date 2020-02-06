@@ -4,9 +4,9 @@
             <div class="column">
                 <span>{{ 'menu.one.one' | trans | raw | striptags }}</span>
                 <a href={{ localePath('la-communaute', app.request.locale)}} rel="nofollow">{{ 'menu.one.one' | trans | raw | striptags }}</a>
-                <a href="#" rel="nofollow">{{ 'menu.one.two' | trans | raw | striptags }}</a>
-                <a href="#" rel="nofollow">{{ 'menu.one.three' | trans | raw | striptags }}</a>
-                <a href="#" rel="nofollow">{{ 'menu.one.four' | trans | raw | striptags }}</a>
+                <a href="{{ localePath('les-fondateurs', app.request.locale) }}" rel="nofollow">{{ 'menu.one.two' | trans | raw | striptags }}</a>
+                <a href="{{ localePath('la-rochedor', app.request.locale) }}" rel="nofollow">{{ 'menu.one.three' | trans | raw | striptags }}</a>
+                <a href="{{ localePath('les-fontanilles', app.request.locale) }}" rel="nofollow">{{ 'menu.one.four' | trans | raw | striptags }}</a>
             </div>
             <div class="column">
                 <span>{{ 'menu.two' | trans | raw | striptags }}</span>
@@ -23,13 +23,12 @@
                 <span>{{ 'menu.four' | trans | raw | striptags }}</span>
                 <a href="{{ url('contact', {'site': 'ro'}) }}" rel="nofollow">{{ 'contact.ro' | trans | raw | striptags }}</a>
                 <a href="{{ url('contact', {'site': 'ft'}) }}" rel="nofollow">{{ 'contact.ft' | trans | raw | striptags }}</a>
-                <a href="#" rel="nofollow">{{ 'friends.links' | trans | raw | striptags }}</a>
-                <a href="#" rel="nofollow">{{ 'terms.of.use' | trans | raw | striptags }}</a>
+                <a href="{{ localePath('liens-amis', app.request.locale) }}" rel="nofollow">{{ 'friends.links' | trans | raw | striptags }}</a>
+                <a href="{{ localePath('conditions-utilisation', app.request.locale) }}" rel="nofollow">{{ 'terms.of.use' | trans | raw | striptags }}</a>
             </div>
             <div class="column">
                 <span>{{ 'legal.information' | trans | raw | striptags }}</span>
-                <a href="#" rel="nofollow">{{ 'legal.mention' | trans | raw | striptags }}</a>
-                <a href="#" rel="nofollow">{{ 'privacy.policy' | trans | raw | striptags }}</a>
+                <a href="{{ localePath('mentions-legales', app.request.locale) }}" rel="nofollow">{{ 'legal.mention' | trans | raw | striptags }}</a>
                 {% if
                     product is defined
                     or (
@@ -48,7 +47,7 @@
                 %}
                 <a href={{ localePath('cgv-pro', app.request.locale) }} rel="nofollow">{{ 'footer.termsPro'|trans }}</a>
                 {% endif %}
-                <a href={{ localePath('data-privacy', app.request.locale) }} rel="nofollow">{{ 'footer.privacy'|trans }}</a>
+                <a href="{{ localePath('confidentialite-des-donnees', app.request.locale) }}" rel="nofollow">{{ 'footer.privacy'|trans }}</a>
             </div>
         </div>
     </div>

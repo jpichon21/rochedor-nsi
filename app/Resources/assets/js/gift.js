@@ -183,9 +183,10 @@ itemAmount.on('click', '.button.radio', function (event) {
 })
 
 itemAmount.on('keyup', '.input.amount', function () {
-  _amount = $(this).val()
-  updateAmountRender()
-  // resizeItem($(this).parents('.item.amount.active'))
+  if (!isNaN($(this).val())) {
+    _amount = $(this).val()
+    updateAmountRender()
+  }
 })
 
 /* CHOIX DE L'ALLOCATION */
@@ -247,6 +248,10 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
       valid = false
     }
   })
+
+  if (isNaN($('input[name="amount"]').val())) {
+    valid = false
+  }
 
   if (valid === false) {
     upFlashbag(i18n.trans('gift.invalid_form.amount'))
