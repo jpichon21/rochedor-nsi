@@ -318,6 +318,10 @@
         <input autocomplete="nope" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= you.mobil %>" name="mobil" placeholder="* {{ 'form.mobile' | trans | raw }}">
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
+        <input autocomplete="nope" data-inputmask="'mask': '99/99/9999'" class="input datnaiss" required type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value="<%= (you.datnaiss !== '') ? moment(you.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="* {{ 'form.birthday' | trans | raw }}">
+        <div class="error-message"><%= errors.datnaiss %></div>
+    </div>
+    <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" class="input email<%= errors.email && ' error' %>" required type="email" value="<%= you.email %>" name="email" placeholder="* {{ 'form.email' | trans | raw }}">
         <div class="error-message"><%= errors.email %></div>
     </div>
@@ -336,10 +340,7 @@
     <div class="pure-u-1 pure-u-md-1-2">
              <a href="" class="tooltip-password">Qu'est ce qu'un mot de passe ?</a>
     </div>
-    <div class="pure-u-1 pure-u-md-1-2">
-        <input autocomplete="nope" data-inputmask="'mask': '99/99/9999'" class="input datnaiss" required type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value="<%= (you.datnaiss !== '') ? moment(you.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="* {{ 'form.birthday' | trans | raw }}">
-        <div class="error-message"><%= errors.datnaiss %></div>
-    </div>
+
     <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" class="input profession<%= errors.datnaiss && ' error' %>" type="text" value="<%= you.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
     </div>
