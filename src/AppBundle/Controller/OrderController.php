@@ -49,7 +49,7 @@ class OrderController extends Controller
         '127.0.0.1'
     ];
     const TVASHIPMENT = 20;
-    
+
     const FREE_SHIPPING_EXCEPTION = [
         'Roche',
         'Font',
@@ -171,16 +171,21 @@ class OrderController extends Controller
     */
     public function xhrTestVAT(Request $request, $vat)
     {
-        $vat = str_replace(' ', '', $vat);
-        $client = new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl");
-        $result = $client->checkVat(array(
-            'countryCode' => substr($vat, 0, 2),
-            'vatNumber' => substr($vat, 2, 11)
-        ));
-        if ($result->valid) {
-            return ['status' => 'ok'];
+        try {
+            $vat = str_replace(' ', '', $vat);
+            $client = new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl");
+            $result = $client->checkVat(array(
+                'countryCode' => substr($vat, 0, 2),
+                'vatNumber' => substr($vat, 2, 11)
+            ));
+            if ($result->valid) {
+                return ['status' => 'ok'];
+            }
+        } catch (\Exception $exception) {
+            // If VAT Service is broken, considering everything is OK (bullshit but whatever)
+            ['status' => 'ok'];
         }
-        
+
         return ['status' => 'ko','error' => 'your tvaIntra didnt exist'];
     }
 
@@ -210,7 +215,7 @@ class OrderController extends Controller
             return ['status' => 'ko','error' => 'you must delive a good form'];
         }
     }
-    
+
 
     /**
      * @Rest\Post("xhr/order/client", name="post_client")
@@ -257,10 +262,10 @@ class OrderController extends Controller
                 $product = $cartline->getProduct();
 
                 $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;
-                
+
                 if ($product->getTypprd() === Produit::TYP_BOOK) {
                     $priceIncludeTaxes = $product->getPrix();
-                    
+
                     $data['product'][$k]['price'] = round(
                         $product->getPrix() / (1 + ($data['product'][$k]['productTaxRate']/100)),
                         2
@@ -271,7 +276,7 @@ class OrderController extends Controller
                     } else {
                         $priceIncludeTaxes = $this->getProductPrice($product, $tax->getRate());
                     }
-                    
+
                     $data['product'][$k]['price'] = floatval($product->getPrixht());
                 }
 
@@ -282,10 +287,10 @@ class OrderController extends Controller
                 $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
                 $data['product'][$k]['vatProduct'] = round($data['product'][$k]['priceIT']
                                                         - $data['product'][$k]['price'], 2);
-                
+
                 $data['totalPriceIT'] = round($data['totalPriceIT'] + $priceIncludeTaxes, 2);
                 $totalWeight = $totalWeight + $product->getPoids();
-                
+
                 $i++;
             }
         }
@@ -313,7 +318,7 @@ class OrderController extends Controller
         $price = $this->shippingRepository->findShipping($weight, $country);
         return ['supplementWeight' => $supplementWeight, 'price' => $price['price']];
     }
-    
+
     private function getProductPrice($product, $taxrate)
     {
         return round($product->getPrixht() * (1+($taxrate/100)), 2);
@@ -328,7 +333,7 @@ class OrderController extends Controller
         $cookies = $request->cookies;
         $cartId = $cookies->get('cart');
         $locale = $request->getLocale();
-         
+
         $delivery = $request->get('delivery');
         if ($this->getUser() === null) {
             $user = $this->clientRepository->findClient($delivery['clientId']);
@@ -397,7 +402,7 @@ class OrderController extends Controller
         $cookies = $request->cookies;
         $cartId = $cookies->get('cart');
         $cart = $this->cartRepository->find($cartId);
-    
+
         if ($cart) {
             $this->em->remove($cart);
             $this->em->flush();
@@ -469,7 +474,7 @@ class OrderController extends Controller
                     'withDelay' => $withDelay
                     ])
             );
-    
+
             $this->mailer->send(
                 $this->getParameter('email_from_address'),
                 $this->translator->trans('order.notify.client.subject'),
@@ -506,7 +511,7 @@ class OrderController extends Controller
         $cookies = $request->cookies;
         $cartId = $cookies->get('cart');
         $cart = $this->cartRepository->find($cartId);
-    
+
         if ($status === 'cancel' || $status === 'error') {
             return $this->redirectToRoute('order-'.$request->getLocale(), ['orderId' => $request->query->get('Ref')]);
         }
@@ -520,13 +525,12 @@ class OrderController extends Controller
                 $response->send();
             }
         }
-        
+
         if (null !== $request->query->get('Ref')) {
+            /** @var Commande $commande */
             $commande = $this
                         ->commandeRepository
                         ->findByRef($request->query->get('Ref'));
-
-         
 
             if ($commande->getDestLiv() === "Roche") {
                 $addCom = $this->translator->trans('order.notify.client.roche.adliv');
@@ -536,12 +540,11 @@ class OrderController extends Controller
                 $withDelay = false;
             } else {
                 $addCom = $commande->getAdLiv();
-                $addCom = join(' ', [
-                    $addCom['Prenom'],
-                    $addCom['Nom'],
+                $addCom = join(', ', [
+                    $addCom['Prenom'] . ' ' . $addCom['Nom'],
                     $addCom['Adresse'],
-                    $addCom['Zipcode'],
-                    $addCom['City']
+                    $addCom['CP'] . ' ' . $addCom['Ville'],
+                    $addCom['Pays'],
                 ]);
                 $withDelay = true;
             }
@@ -565,7 +568,7 @@ class OrderController extends Controller
             return $this->render('order/payment-return.html.twig', [
                 'status' => $status,
                 'method' => $method,
-                'withDelay' => $withDelay
+                'withDelay' => false
             ]);
         }
     }
@@ -575,7 +578,7 @@ class OrderController extends Controller
      */
     public function paymentNotifyAction($method, Request $request, PaypalService $paypalService)
     {
-        
+
         $this->logger->info($request);
         if ($method === 'paybox') {
             if (!in_array($request->getClientIp(), $this::AUTHORIZED_PAYMENT_IP_ADRESSES)) {
@@ -601,7 +604,7 @@ class OrderController extends Controller
                 throw new HttpException('Paypal IPN verification failed');
             }
         }
-        
+
         $order = $this->commandeRepository->findByRef($ref);
         if ($status && $order->getTtc() == $amount) {
             $user = $this->clientRepository->findClient($order->getCodcli());
@@ -684,7 +687,7 @@ class OrderController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $order = new Commande;
-        
+
         $order->setRefcom($this->commandeRepository->generateRefCom());
         $order->setCodcli($codcli);
         $order->setDatcom($datCom);
@@ -704,12 +707,12 @@ class OrderController extends Controller
         $order->setPaysip($paysip);
         $order->setDatenreg(new \Datetime());
         $order->setMemocmd($memoCmd);
-    
+
         $em->persist($order);
 
         $em->flush();
 
-        
+
         foreach ($cart->getCartlines() as $cartline) {
             $comprd = new Comprd;
 
@@ -777,7 +780,7 @@ class OrderController extends Controller
                 ])
         );
     }
-     
+
     /**
      * @Route("/{_locale}/commande", name="order-fr")
      * @Route("/{_locale}/order", name="order-en")
@@ -798,7 +801,7 @@ class OrderController extends Controller
         }
 
         $cookies = $request->cookies;
-        
+
         $countriesJSON = array();
         $countries = $this->tpaysRepository->findAllCountry();
         foreach ($countries as $country) {
@@ -813,7 +816,7 @@ class OrderController extends Controller
 
         $cartId = $cookies->get('cart');
         $cart = $this->cartRepository->find($cartId);
-        
+
         if ($cartId === null) {
             return $this->render('order/order-error.html.twig');
         }
@@ -821,7 +824,7 @@ class OrderController extends Controller
         if (empty($cart->getCartlines()->getValues())) {
             return $this->render('order/order-error.html.twig');
         }
-        
+
         $page = $this->pageService->getContentFromRequest($request);
         if (!$page) {
             throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));

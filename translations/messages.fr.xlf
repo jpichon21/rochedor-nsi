@@ -3250,7 +3250,7 @@ Si vous relevez de la fiscalité française, la réduction est équivalente à 6
     <unit id="MaFi16D" name="order.delay.message">
       <segment>
         <source>order.delay.message</source>
-        <target>Les livraisons sont effectuées dans un délais de %minliv% à %maxliv% jours ouvrés à compter de l'envoi du mail de confirmation de commande du client.</target>
+        <target>Les livraisons sont effectuées dans un délais de %minliv% à %maxliv% jours ouvrés à compter de l'envoi du mail de confirmation de commande du client. La TVA et les frais de transports ont été ajustés à votre adresse de livraison.</target>
       </segment>
     </unit>
     <unit id="CRyl1aI" name="select.bank-cheque">

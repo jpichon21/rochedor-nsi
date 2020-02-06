@@ -29,12 +29,12 @@ monolog:
         doctrine:
             type: stream
             path: '%kernel.logs_dir%/%kernel.environment%_doctrine.log'
-            level: debug
+            level: warning
             channels: ['doctrine']
         main:
             type: stream
             path: '%kernel.logs_dir%/%kernel.environment%.log'
-            level: debug
+            level: warning
             channels: ['!event', '!doctrine']
         console:
             type: console
