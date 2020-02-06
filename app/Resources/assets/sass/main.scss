@@ -281,6 +281,11 @@ i {
   cursor: pointer;
   border-bottom: none!important;
   padding: 10px;
+  @include media('<=mobile') {
+    text-align: center;
+    margin-bottom: 3px;
+  }
+
 }
 
 .popup-password{
