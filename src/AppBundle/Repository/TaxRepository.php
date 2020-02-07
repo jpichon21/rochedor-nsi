@@ -22,14 +22,7 @@ class TaxRepository extends \Doctrine\ORM\EntityRepository
     {
         $this->entityManager = $entityManager;
     }
-    
-    /**
-    * Find Produit by its Id
-    *
-    * @param string productType
-    * @param string country
-    * @return Produit
-    */
+
     public function findTax($productType, $country)
     {
         $query = $this->entityManager

@@ -195,7 +195,7 @@ class Client implements UserInterface, \Serializable
         $this->tvaintra = '';
         $this->username = '';
         $this->resetToken = '';
-        $this->resetTokenExpiresAt = new \DateTime('0000-00-00');
+        $this->resetTokenExpiresAt = new \DateTime();
     }
     public function getRoles()
     {

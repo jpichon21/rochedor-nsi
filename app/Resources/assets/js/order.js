@@ -419,13 +419,7 @@ const validatePhone = (phone, mobile) => {
 }
 
 const validateTvaintra = tvaintra => {
-  return new Promise((resolve, reject) => {
-    checkVat(tvaintra).then(() => {
-      resolve()
-    }).catch(() => {
-      reject(i18n.trans('form.message.zipcode_invalid'))
-    })
-  })
+  return checkVat(tvaintra)
 }
 
 const validatePassword = password => {
@@ -492,10 +486,18 @@ const validateClient = (event, form, callback) => {
   if (validatedPhone) {
     if (participant.tvaintra !== '') {
       validateTvaintra(participant.tvaintra).then(() => {
+        return checkZipcode(participant.pays, participant.cp, 'myAd')
+      }).then(() => {
         callback(participant)
-      }).catch(() => {
+      }).catch((error) => {
         downLoader()
-        upFlashbag(i18n.trans('form.message.tvaintra_invalid'))
+        if (error === 'your tvaIntra didnt exist') {
+          upFlashbag(i18n.trans('form.message.tvaintra_invalid'))
+        } else if (error === 'your zipcode doesn\'t exist') {
+          upFlashbag(i18n.trans('form.message.zipcode_invalid'))
+        } else {
+          upFlashbag(error)
+        }
       })
     } else {
       return new Promise((resolve, reject) => {
