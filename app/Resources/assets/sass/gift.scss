@@ -17,6 +17,12 @@
 
       .button {
         font-size: 12px;
+
+        @include media('<=mobile') {
+          font-size: 10px
+        }
+    
+
       }
 
       // overrides radio button display
