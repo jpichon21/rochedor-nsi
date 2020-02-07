@@ -288,9 +288,16 @@
   }
 }
 
-
 .left{
     @include media('<=mobile') {
       padding-right: 40px!important;
+    }
+  }
+
+  .header{
+    .left{
+      @include media('<=mobile') {
+        padding-right: 0px!important;
+      }
     }
   }
