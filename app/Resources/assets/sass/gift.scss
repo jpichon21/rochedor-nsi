@@ -288,3 +288,10 @@
   }
 }
 
+.content{
+  &.left{
+    @include media('<=mobile') {
+      padding-right: 40px!important;
+    }
+  }
+}
