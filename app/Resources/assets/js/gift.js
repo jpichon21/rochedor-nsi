@@ -15,6 +15,7 @@ import {
   postGift } from './gift-api.js'
 import { limitMenuReduced } from './variables'
 
+
 /* Translations */
 
 let i18n = new I18n()
@@ -45,6 +46,7 @@ const itemAllocation = $('.item.allocation')
 const itemPayment = $('.item.payment')
 const itemPrelevement = $('.item.prelevement')
 const content = $('.content')
+
 
 /* Dropdowns */
 function backToTop () {
@@ -84,7 +86,10 @@ function resizeItem ($item) {
 }
 
 $(document).ready(function () {
+  console.log('test!')
+  console.log(passwordPopupToggle)
   $('.dropdown .item').each(function () {
+
     if (this.classList.contains('amount') || this.classList.contains('allocation') || this.classList.contains('payment')) {
       resizeItem($(this))
       this.classList.add('active')
@@ -489,3 +494,19 @@ itemConnection.on('click', '.panel.reset .cancel', function (event) {
     changeItem([itemConnection])
   })
 })
+
+
+const passwordPopupToggle = $("#passwordPopupToggle")
+
+passwordPopupToggle.on('click', function (event) {
+  event.preventDefault()
+  console.log('click!');
+  passwordPopup();
+})
+
+function passwordPopup(){
+  target = document.getElementById(passwordPopup);
+  target.addClass('popup-visible');
+}
+
+console.log('file loaded!');

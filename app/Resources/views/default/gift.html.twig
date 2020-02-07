@@ -208,7 +208,13 @@
                         </div>
                         <div class="panel registration">
                             <h3>{{ 'gift.one.title.registration' | trans | raw }}</h3>
-                            <form class="pure-g you-form-render"></form>
+                            
+                            <form class="pure-g you-form-render">
+                          
+                            
+                            </form>
+
+                             
                         </div>
                         <div class="panel reset">
                             <h3>{{ 'form.password.reset'|trans|raw }}</h3>
@@ -238,6 +244,7 @@
 {% block javascripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+
 <script type="text/json" class="countries-json">
     {{ countries | json_encode() | raw }}
 </script>
@@ -311,6 +318,10 @@
         <input autocomplete="nope" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= you.mobil %>" name="mobil" placeholder="* {{ 'form.mobile' | trans | raw }}">
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
+        <input autocomplete="nope" data-inputmask="'mask': '99/99/9999'" class="input datnaiss" required type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value="<%= (you.datnaiss !== '') ? moment(you.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="* {{ 'form.birthday' | trans | raw }}">
+        <div class="error-message"><%= errors.datnaiss %></div>
+    </div>
+    <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" class="input email<%= errors.email && ' error' %>" required type="email" value="<%= you.email %>" name="email" placeholder="* {{ 'form.email' | trans | raw }}">
         <div class="error-message"><%= errors.email %></div>
     </div>
@@ -318,16 +329,19 @@
         <input autocomplete="nope" class="input username<%= errors.username && ' error' %>" required type="text" value="<%= _.escape(you.username) %>" name="username" placeholder="* {{ 'form.username' | trans | raw }}">
         <div class="error-message"><%= errors.username %></div>
     </div>
+       <div class="pure-u-1 pure-u-md-1-2">
+             <a href="" class="tooltip-password">Qu'est ce qu'un identifiant ?</a>
+    </div>
     <div class="pure-u-1 pure-u-md-1-2 password-container">
         <input autocomplete="nope" class="input password<%= errors.password && ' error' %>" type="password" name="password" placeholder="* {{ 'form.password' | trans | raw }}">
         <a class="toggle-password"></a>
         <div class="error-message"><%= errors.password %></div>
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
-        <input autocomplete="nope" data-inputmask="'mask': '99/99/9999'" class="input datnaiss" required type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value="<%= (you.datnaiss !== '') ? moment(you.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="* {{ 'form.birthday' | trans | raw }}">
-        <div class="error-message"><%= errors.datnaiss %></div>
+             <a href="" class="tooltip-password">Qu'est ce qu'un mot de passe ?</a>
     </div>
-    <div class="pure-u-1 pure-u-md-1-2">
+
+    <div class="pure-u-1 pure-u-md-1-2" style="margin-top:10px;">
         <input autocomplete="nope" class="input profession<%= errors.datnaiss && ' error' %>" type="text" value="<%= you.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
     </div>
     <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-2">
@@ -340,5 +354,8 @@
         <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
     </div>
 </script>
+
 <script src="{{ asset("assets/js/gift.js") }}"></script>
+
+
 {% endblock %}

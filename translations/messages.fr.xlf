@@ -332,7 +332,7 @@
       </notes>
       <segment>
         <source>filter.inner.keyword</source>
-        <target>Mot clé</target>
+        <target>Thème recherché</target>
       </segment>
     </unit>
     <unit id="Q6jhgTg" name="retreats.table.head.dates">
@@ -359,7 +359,7 @@
       </notes>
       <segment>
         <source>retreats.table.head.event</source>
-        <target>Évènement</target>
+        <target>Titre de la retraite</target>
       </segment>
     </unit>
     <unit id="z44_LRk" name="retreats.table.head.speakers">
@@ -2623,7 +2623,7 @@
     <unit id="Xx1TBfK" name="gift-return.cancel">
       <segment>
         <source>gift-return.cancel</source>
-        <target><![CDATA[Le paiement a été annulé et votre n'a pas été enregistré.<br>Retour à la page des <a href="%link%">dons</a>.]]></target>
+        <target><![CDATA[Le paiement a été annulé et votre don n'a pas été enregistré.<br>Retour à la page des <a href="%link%">dons</a>.]]></target>
       </segment>
     </unit>
     <unit id="rkAB_hq" name="form.gift.note">
@@ -2950,7 +2950,7 @@ Si vous relevez de la fiscalité française, la réduction est équivalente à 6
     <unit id="1xgOZ62" name="form.submitParticipant">
       <segment>
         <source>form.submitParticipant</source>
-        <target>Valider le participant</target>
+        <target>Valider</target>
       </segment>
     </unit>
     <unit id="6F6bhIE" name="calendar.registration.table.header.participant">
@@ -3577,13 +3577,25 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
     <unit id="bHsOKTb" name="form.gift.validate">
       <segment>
         <source>form.gift.validate</source>
-        <target>Je valide et indique mes coordonnées</target>
+        <target>Je valide et j'indique mes coordonnées</target>
       </segment>
     </unit>
     <unit id="bHsOKTs" name="calendar.registration.logout-tooltip">
       <segment>
         <source>calendar.registration.logout-tooltip</source>
         <target>Pour quitter la page. Aucune demande d'inscription ne sera prise en compte.</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTz" name="gift.return.title">
+      <segment>
+        <source>gift.return.title</source>
+        <target>Retour</target>
+      </segment>
+    </unit>
+     <unit id="bHsOKTa" name="gift.return.title">
+      <segment>
+        <source>gift.disconnect.title</source>
+        <target>Se déconnecter des dons</target>
       </segment>
     </unit>
   </file>

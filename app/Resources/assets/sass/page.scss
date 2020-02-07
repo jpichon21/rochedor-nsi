@@ -111,8 +111,7 @@ body {
         left: 23px;
         width: 1px;
       }
-      &:last-of-type,
-      &:not(:first-of-type){
+      &:last-of-type:not(:only-of-type){
           max-height: 22px;
       }
       &:first-child {

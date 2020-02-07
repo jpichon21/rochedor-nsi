@@ -276,3 +276,24 @@ i {
     display: none;
   }
 }
+
+.tooltip-password {
+  cursor: pointer;
+  border-bottom: none!important;
+  padding: 10px;
+  @include media('<=mobile') {
+    text-align: center;
+    margin-bottom: 3px;
+  }
+
+}
+
+.popup-password{
+  display: none;
+}
+
+.popup-visible{
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+}
