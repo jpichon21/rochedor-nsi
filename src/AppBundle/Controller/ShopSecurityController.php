@@ -141,7 +141,7 @@ class ShopSecurityController extends Controller
             ->setPassword($password)
             ->setUsername($username)
             ->setDatConDonnees(null)
-            ->setEmail(null);
+            ->setEmail(isset($clientReq['email']) ? $clientReq['email'] : '');
         } else {
             if (!$this->clientRepository->isUsernameUnique($clientReq['username'])) {
                 return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);

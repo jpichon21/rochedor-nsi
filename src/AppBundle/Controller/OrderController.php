@@ -7,6 +7,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Tpays;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -341,7 +342,11 @@ class OrderController extends Controller
         } else {
             $user = $this->getUser();
             $email = $user->getEmail();
+            $delivery['email'] = $email;
         }
+        $delivery['nom'] = $user->getNom();
+        $delivery['prenom'] = $user->getPrenom();
+        $delivery['civil'] = $user->getCivil();
         if (!$delivery) {
             return ['status' => 'ko', 'message' => 'You must provide delivery object'];
         }
@@ -386,7 +391,11 @@ class OrderController extends Controller
                 $this->translator->trans('order.payment.title'),
                 $email,
                 $locale,
-                'order'
+                'order',
+                '',
+                '',
+                $delivery,
+                $order
             );
             return ['status' => 'ok', 'data' => $paymentUrl];
         }
@@ -736,6 +745,7 @@ class OrderController extends Controller
 
     private function notifyClient($order, $locale, $user, $withDelay)
     {
+        /** @var Tpays $paysliv */
         $paysliv = $this->tpaysRepository->findCountryByCode($order->getAdFact()['Pays']);
         $minliv = $paysliv->getMinliv();
         $maxliv = $paysliv->getMaxliv();
@@ -744,8 +754,8 @@ class OrderController extends Controller
             $adliv['Prenom'],
             $adliv['Nom'],
             $adliv['Adresse'],
-            $adliv['Zipcode'],
-            $adliv['City']
+            $adliv['CP'],
+            $adliv['Ville']
         ]);
 
         if ($user->getEmail() === null) {
