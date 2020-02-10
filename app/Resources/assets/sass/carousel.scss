@@ -34,6 +34,12 @@
       margin-top: -22px;
       background-size: 100%;
     }
+    @include media('<=mobile') {
+      width: 90px;
+      height: 90px;
+      margin-top: -42px;
+      background-size: 100%;
+    }
   }
   .prev:hover, .prev:focus, .prev:active{
     background: url('../img/icons/arrow-left-gold.svg');
