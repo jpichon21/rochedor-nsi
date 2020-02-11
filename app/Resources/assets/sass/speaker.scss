@@ -22,6 +22,9 @@
       padding: 20px 0px!important;
     }
   }
+  &.mobilePadding{
+          padding: 20px!important;
+  }
 }
 .prev,
 .next {
@@ -239,8 +242,4 @@
     }
 
 
-.mobilePadding{
-  @include media('<=mobile') {
-      padding: 20px!important;
-  }
-}
+
