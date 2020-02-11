@@ -21,9 +21,10 @@
     @include media('<=medium') {
       padding: 20px 0px!important;
     }
-  }
-  &.mobilePadding{
-          padding: 20px!important;
+    @include media('<=mobile'){
+      &.mobilePadding{
+        padding: 20px!important;
+    }
   }
 }
 .prev,
