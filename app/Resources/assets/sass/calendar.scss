@@ -521,6 +521,9 @@ h1 {
       border: 1px $roche-yellow solid;
       box-sizing: border-box;
       outline: none;
+      @include media('<=mobile') {
+        display: table;
+      }
     }
 }
 
