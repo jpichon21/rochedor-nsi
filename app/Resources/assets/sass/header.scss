@@ -29,6 +29,7 @@ body {
       .header {
         height: 100vh;
         overflow-y: auto;
+        max-height: none;
       }
       .footer,
       .content,
@@ -55,9 +56,6 @@ body {
   z-index: 2;
   @include media('<=mobile') {
     max-height: 100px;
-  }
-  &.menuOpened {
-      max-height: auto;
   }
   .burger {
     position: absolute;
