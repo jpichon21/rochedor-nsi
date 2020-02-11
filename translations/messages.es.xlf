@@ -984,5 +984,38 @@
         <target>Aux Fontanilles, route de Riunoguès 66480 Maureillas Las Illas</target>
       </segment>
     </unit>
+    <unit id="bHsOKTi" name="other.gift-mode">
+      <segment>
+        <source>other.gift-mode</source>
+        <target>
+          Otras donaciones</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTb" name="form.gift.validate">
+      <segment>
+        <source>form.gift.validate</source>
+        <target>
+          Valido e indico mis datos de contacto</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTs" name="calendar.registration.logout-tooltip">
+      <segment>
+        <source>calendar.registration.logout-tooltip</source>
+        <target>
+          Sal de la página. No se tendrá en cuenta ninguna solicitud de registro</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTz" name="gift.return.title">
+      <segment>
+        <source>gift.return.title</source>
+        <target>Regreso</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTa" name="gift.return.title">
+      <segment>
+        <source>gift.disconnect.title</source>
+        <target>Terminado</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

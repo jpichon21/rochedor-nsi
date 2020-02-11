@@ -3595,7 +3595,7 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
      <unit id="bHsOKTa" name="gift.return.title">
       <segment>
         <source>gift.disconnect.title</source>
-        <target>Se déconnecter des dons</target>
+        <target>Terminé</target>
       </segment>
     </unit>
   </file>

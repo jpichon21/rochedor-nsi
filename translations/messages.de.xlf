@@ -2796,5 +2796,36 @@ Kommentar erstellt</target>
         <target>Aux Fontanilles, route de Riunoguès 66480 Maureillas Las Illas</target>
       </segment>
     </unit>
-  </file>
-</xliff>
+    <unit id="bHsOKTi" name="other.gift-mode">
+          <segment>
+            <source>other.gift-mode</source>
+            <target>Andere Spenden</target>
+          </segment>
+        </unit>
+        <unit id="bHsOKTb" name="form.gift.validate">
+          <segment>
+            <source>form.gift.validate</source>
+            <target>Validate</target>
+          </segment>
+        </unit>
+        <unit id="bHsOKTs" name="calendar.registration.logout-tooltip">
+          <segment>
+            <source>calendar.registration.logout-tooltip</source>
+            <target>Verlasse die Seite. Registrierungsanfragen werden nicht berücksichtigt</target>
+          </segment>
+        </unit>
+        <unit id="bHsOKTz" name="gift.return.title">
+          <segment>
+            <source>gift.return.title</source>
+            <target>Rückkehr</target>
+          </segment>
+        </unit>
+        <unit id="bHsOKTa" name="gift.return.title">
+          <segment>
+            <source>gift.disconnect.title</source>
+            <target>Fertig</target>
+          </segment>
+        </unit>
+      </file>
+    </xliff>
+

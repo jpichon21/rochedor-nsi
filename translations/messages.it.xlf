@@ -975,7 +975,8 @@
     <unit id="sdhufn9B9TMG9" name="registration.not_finished">
       <segment>
         <source>registration.not_finished</source>
-        <target>La tua richiesta di registrazione non è stata finalizzata, sei sicuro di voler lasciare la pagina?</target>
+        <target>La tua richiesta di registrazione non è stata finalizzata, sei sicuro di voler lasciare la pagina?
+        </target>
       </segment>
     </unit>
     <unit id="aHsOKTn" name="registration.validation.address_rochedor">
@@ -988,6 +989,39 @@
       <segment>
         <source>registration.validation.address_fontanilles</source>
         <target>Aux Fontanilles, route de Riunoguès 66480 Maureillas Las Illas</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTi" name="other.gift-mode">
+      <segment>
+        <source>other.gift-mode</source>
+        <target>
+          Altre donazioni</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTb" name="form.gift.validate">
+      <segment>
+        <source>form.gift.validate</source>
+        <target>
+          Convalido e indico le mie coordinate</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTs" name="calendar.registration.logout-tooltip">
+      <segment>
+        <source>calendar.registration.logout-tooltip</source>
+        <target>
+          Esci dalla pagina. Nessuna richiesta di registrazione verrà presa in considerazione</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTz" name="gift.return.title">
+      <segment>
+        <source>gift.return.title</source>
+        <target>Ritorno</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTa" name="gift.return.title">
+      <segment>
+        <source>gift.disconnect.title</source>
+        <target>Terminé</target>
       </segment>
     </unit>
   </file>
