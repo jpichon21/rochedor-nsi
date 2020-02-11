@@ -32,7 +32,7 @@ $(document).on('click touch', '.slide', function() {
   is_clicked = true;
 })
 
-$(document).mouseleave('.slide', function() {
+$(document).mouseleave('.slick-slide', function() {
     var target = $('.description');
     var slide = $('.slide');
     slide.removeClass('targeted');
