@@ -104,6 +104,12 @@ body {
       .section-1 {
         opacity: 1;
         transition: opacity 2s cubic-bezier(0.755, 0.050, 0.855, 0.060);
+
+        .box{
+          @include media('<=mobile') {
+            margin-top: -42px;
+          }
+        }
       }
     }
   }
