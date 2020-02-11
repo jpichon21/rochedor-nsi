@@ -239,8 +239,8 @@
     }
 
 
-    .mobilePadding{
-      @include media('<=mobile') {
-        padding: 20px!important;
-      }
-    }
+.mobilePadding{
+  @include media('<=mobile') {
+      padding: 20px!important;
+  }
+}
