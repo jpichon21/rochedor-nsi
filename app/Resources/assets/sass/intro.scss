@@ -92,7 +92,7 @@
         animation-fill-mode: forwards;
         z-index: 1;
         @include media('<=mobile') {
-          transform-origin: 53px 41px;
+          transform-origin: 68px 41px;
         }
       }
       &:after {
