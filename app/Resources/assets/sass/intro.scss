@@ -91,6 +91,9 @@
         animation-delay: 1s;
         animation-fill-mode: forwards;
         z-index: 1;
+        @include media('<=mobile') {
+          transform-origin: 53px 41px;
+        }
       }
       &:after {
         background-image: url('../img/logo-text.png');
