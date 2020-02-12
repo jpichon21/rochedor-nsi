@@ -92,7 +92,7 @@
         animation-fill-mode: forwards;
         z-index: 1;
         @include media('<=mobile') {
-          background-image: url('../img/logo-overlay.png');
+          background-image: url('../img/logo-overlay-new.png');
           transform-origin: 66px 41px;
         }
       }
