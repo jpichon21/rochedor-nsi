@@ -26,8 +26,8 @@
             <div class="slides">
                 {% for slide in section.slides %}
                 <div class="slide {% if loop.first %}active{% endif %}">
-                    {% include 'parts/carousel/layout-2' ~ slide.layout ~ '.html.twig'
-                    with { 'images': slide.images } %}
+                           {% include 'parts/carousel/layout-2.html.twig'
+                                with { 'images': [image] } %}
                 </div>
                 {% endfor %}
             </div>
