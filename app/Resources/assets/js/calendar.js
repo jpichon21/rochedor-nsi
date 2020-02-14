@@ -134,7 +134,7 @@ function applyFilters (filters) {
     return speakers.length > 0
   }).filter((retreat) => {
     if (filters['translation'].length === 0) { return true }
-    return filters['translation'].indexOf(retreat.translation) >= 0
+    return retreat.translation.includes(filters['translation'])
   }).filter((retreat) => {
     if (filters['dateIn'].length === 0) { return true }
     return moment(retreat.dateIn).isSameOrAfter(filters['dateIn'])
