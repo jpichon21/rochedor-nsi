@@ -29,7 +29,7 @@
       </segment>
     </unit>
     <unit id="QokeGaI" name="menu.one.one">
-      <notes>
+      <notes>²
         <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:25</note>
       </notes>
       <segment>
@@ -222,6 +222,16 @@
       <segment>
         <source>menu.six.two</source>
         <target>Spenden</target>
+      </segment>
+    </unit>
+      <unit id="nrz9.KlX" name="menu.six.three">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:66</note>
+      </notes>
+      <segment>
+        <source>menu.six.three</source>
+              <target><![CDATA[Zeit <br> geben
+				]]></target>
       </segment>
     </unit>
     <unit id="_xIh0pv" name="filter.title.site">

@@ -210,7 +210,7 @@
       </notes>
       <segment>
         <source>menu.six.one</source>
-        <target><![CDATA[Donate<br> time
+        <target><![CDATA[Donate<br>
 				]]></target>
       </segment>
     </unit>
@@ -220,7 +220,17 @@
       </notes>
       <segment>
         <source>menu.six.two</source>
-        <target><![CDATA[<br>Donate
+        <target><![CDATA[<br>Other Donations
+				]]></target>
+      </segment>
+    </unit>
+     <unit id="nrz9.KlX" name="menu.six.three">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:66</note>
+      </notes>
+      <segment>
+        <source>menu.six.three</source>
+              <target><![CDATA[Donate<br> time
 				]]></target>
       </segment>
     </unit>
