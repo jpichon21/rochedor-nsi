@@ -99,6 +99,8 @@ body {
       }
       @include media('>=limitMenuReduced') {
         content: none;
+      }
+      @include media('<=limitMenuReduced') {
         display: none;
       }
       @media screen and (max-height: 500px) {
