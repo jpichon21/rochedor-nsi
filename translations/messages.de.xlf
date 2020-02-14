@@ -29,7 +29,7 @@
       </segment>
     </unit>
     <unit id="QokeGaI" name="menu.one.one">
-      <notes>²
+      <notes>
         <note category="file-source" priority="1">app/Resources/views/parts/header.html.twig:25</note>
       </notes>
       <segment>
