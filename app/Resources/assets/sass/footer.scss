@@ -3,7 +3,7 @@
   height: 35px;
   &:hover {
     .hover {
-      top: -138px;
+      top: -145px;
       .bottom {
         padding-top: 15px;
         .column {
@@ -58,7 +58,7 @@
         }
         span {
           text-transform: uppercase;
-          margin-bottom: 13px;
+          margin-bottom: 15px;
           margin-top: 5px;
         }
         a {
@@ -72,10 +72,16 @@
   }
 }
 
-.Éditions, .editions{
-  .footer{
-    .hover{
+.Éditions, .editions {
+  .footer {
+    .hover {
       background: rgba(222, 222, 222, 0.5)!important;
+    }
+
+    &:hover {
+      .hover {
+        top: -190px;
+      }
     }
   }
 }

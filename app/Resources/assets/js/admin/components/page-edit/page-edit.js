@@ -150,7 +150,9 @@ PageEdit.defaultProps = {
     description: '',
     parent_id: null,
     content: {
-      intro: '',
+      intro_line1: '',
+      intro_line2: '',
+      intro_line3: '',
       sections: [
         {
           title: '',

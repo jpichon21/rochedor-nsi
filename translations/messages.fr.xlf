@@ -7,7 +7,7 @@
       </notes>
       <segment>
         <source>menu.one</source>
-        <target>Communauté et les maisons</target>
+        <target>Communauté et maisons</target>
       </segment>
     </unit>
     <unit id="td1g_X_" name="menu.two">
@@ -34,8 +34,7 @@
       </notes>
       <segment>
         <source>menu.one.one</source>
-        <target><![CDATA[La <br>communauté
-				]]></target>
+        <target><![CDATA[La communauté]]></target>
       </segment>
     </unit>
     <unit id="DY.PFaX" name="menu.one.two">
@@ -106,6 +105,12 @@
         <source>menu.two.four</source>
         <target><![CDATA[Les <br>intervenants
 				]]></target>
+      </segment>
+    </unit>
+    <unit id="NEzhIK_" name="menu.two.five">
+      <segment>
+        <source>menu.two.five</source>
+        <target><![CDATA[Calendrier et inscription]]></target>
       </segment>
     </unit>
     <unit id="d2ahr5A" name="menu.four">
@@ -181,7 +186,7 @@
       </notes>
       <segment>
         <source>menu.five.one</source>
-        <target><![CDATA[Les Editions<br> Roche d'Or
+        <target><![CDATA[Les Éditions<br> Roche d'Or
 				]]></target>
       </segment>
     </unit>
@@ -191,7 +196,7 @@
       </notes>
       <segment>
         <source>menu.five.two</source>
-        <target><![CDATA[Les<br> Nouveautés
+        <target><![CDATA[Les<br> nouveautés
 				]]></target>
       </segment>
     </unit>
@@ -201,7 +206,7 @@
       </notes>
       <segment>
         <source>menu.five.three</source>
-        <target><![CDATA[Les<br> Collections
+        <target><![CDATA[Les<br> collections
 				]]></target>
       </segment>
     </unit>
@@ -1053,8 +1058,7 @@
     <unit id="N_ACgte" name="calendar.registration.intro">
       <segment>
         <source>calendar.registration.intro</source>
-        <target><![CDATA[					Vous êtes sur le point de vous inscrire à une retraite %location%.<br> Complétez les informations suivantes si vous souhaitez continuer, sinon pour retourner au calendrier cliquer <a href="%link%">ici</a>.
-				]]></target>
+        <target><![CDATA[Vous souhaitez faire une retraite %location%.<br> Si ce n'est pas votre intention vous pouvez <a href="%link%">revenir au calendrier</a>.]]></target>
       </segment>
     </unit>
     <unit id="EHnUJsc" name="calendar.registration.two.title.modify">
@@ -3596,6 +3600,70 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
       <segment>
         <source>gift.disconnect.title</source>
         <target>Terminé</target>
+      </segment>
+    </unit>
+    <unit id="d2ahr5A" name="footer.four">
+      <segment>
+        <source>footer.four</source>
+        <target>Informations pratiques et légales</target>
+      </segment>
+    </unit>
+    <unit id="d2ahr5A" name="footer.four.three">
+      <segment>
+        <source>footer.four.three</source>
+        <target>Accueil des enfants et des jeunes</target>
+      </segment>
+    </unit>
+    <unit id="d2ahr5A" name="footer.five">
+      <segment>
+        <source>footer.five</source>
+        <target>Nous soutenir et nous contacter</target>
+      </segment>
+    </unit>
+    <unit id="d2ahr5A" name="register_roche">
+      <segment>
+        <source>register_roche</source>
+        <target>Inscription Roche d'Or</target>
+      </segment>
+    </unit>
+    <unit id="d2ahr5A" name="register_fontanilles">
+      <segment>
+        <source>register_fontanilles</source>
+        <target>Inscription Fontanilles</target>
+      </segment>
+    </unit>
+    <unit id="d2ahr5A" name="choice_site.intro">
+      <segment>
+        <source>choice_site.intro</source>
+        <target><![CDATA[<small>Bienvenue sur le Calendrier </small> et la Demande d'inscription]]></target>
+      </segment>
+    </unit>
+    <unit id="d2ahr5A" name="choice_site.text">
+      <segment>
+        <source>choice_site.text</source>
+        <target><![CDATA[La Roche d’Or s'engage à être le seul destinataire des informations que vous lui communiquez.<br><br>
+            Si vous avez déjà participé à une retraite à la Roche d’Or ou aux Fontanilles, les informations que vous nous avez communiquées s’afficheront. Vous avez la possibilité de les mettre à jour.<br><br>
+            L’âge d’admission aux retraites est 18 ans.<br><br>
+            Pour les mineurs désireux de suivre une retraite, il est possible d’en faire la demande en ligne. Vous pouvez également contacter le secrétariat de la Roche d’Or ou celui des Fontanilles, selon le lieu de la retraite qui vous intéresse.<br><br>
+            En cas d’empêchement et de désistement, merci d’avertir rapidement par courriel ou par téléphone. La place disponible pourra ainsi être proposée à une autre personne en liste d’attente.]]></target>
+      </segment>
+    </unit>
+    <unit id="d2ahr5A" name="calendar.translation.title">
+      <segment>
+        <source>calendar.translation.title</source>
+        <target><![CDATA[Traduit en %translation%]]></target>
+      </segment>
+    </unit>
+    <unit id="d2ahr5A" name="calendar.registration.tooltip-username">
+      <segment>
+        <source>calendar.registration.tooltip-username</source>
+        <target>Qu'est ce qu'un identifiant ?</target>
+      </segment>
+    </unit>
+    <unit id="d2ahr5A" name="calendar.registration.tooltip-pass">
+      <segment>
+        <source>calendar.registration.tooltip-pass</source>
+        <target>Qu'est ce qu'un mot de passe ?</target>
       </segment>
     </unit>
   </file>

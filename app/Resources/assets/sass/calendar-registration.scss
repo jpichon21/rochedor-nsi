@@ -135,3 +135,26 @@
   font-size: 13.33px;
   font-family: lato, 'lato', sans-serif;
 }
+
+.calendar-choice {
+  .button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    line-height: 100%;
+    color: $roche-yellow;
+    border: 1px $roche-yellow solid;
+    background: none;
+    box-sizing: border-box;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+
+    @include media('<large') {
+      margin-bottom: 10px;
+    }
+  }
+}

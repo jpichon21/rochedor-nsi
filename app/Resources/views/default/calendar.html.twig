@@ -178,7 +178,12 @@
             <%= retreats[i].type.abbr %>
         </td>
         <td class="duration center"><%= retreats[i].duration %> {{ 'calendar.days' | trans }}</td>
-        <td class="translation center"><%= retreats[i].translation %></td>
+        <td class="translation center">
+            <% var translations = retreats[i].translation.split(',') %>
+            <% for (var item = 0; item < translations.length; ++item) { %>
+                <span title="<%= translationsTitle[translations[item]] %>"><%= translations[item] %></span>
+            <% } %>
+        </td>
     </tr>
 <% } %>
 <% if (retreats.length < 1) { %>
@@ -189,6 +194,7 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
 <script type="text/json" class="retreats-data">{{ retreatsData | raw }}</script>
+<script type="text/json" class="translations-title">{{ translationsTitle | raw }}</script>
 <script src="{{ asset("assets/js/calendar.js") }}"></script>
 <script src="{{ asset('assets/js/page.js') }}"></script>
 {% endblock %}

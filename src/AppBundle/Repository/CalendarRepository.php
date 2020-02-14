@@ -103,7 +103,7 @@ class CalendarRepository
     public function findSpeakers()
     {
         $query = $this->entityManager->createQuery(
-            'SELECT DISTINCT CONCAT(co.nom, \' \', co.prenom) AS name , co.codco AS value 
+            'SELECT DISTINCT CONCAT(co.prenom, \' \', UPPER(co.nom)) AS name , co.codco AS value, co.civil
             FROM AppBundle\Entity\Contact co
             INNER JOIN AppBundle\Entity\CalL cal WITH co.codco=cal.lcal AND cal.typlcal=:typlcal 
             INNER JOIN AppBundle\Entity\Calendrier ca WITH ca.codcal=cal.codcal 
@@ -117,18 +117,49 @@ class CalendarRepository
     
     public function findTranslations()
     {
+        // Récupération de toutes les traductions existantes
         $query = $this->entityManager->createQuery(
             'SELECT t.tref AS value, t.tlib AS name
-            FROM AppBundle\Entity\Tables t
-            INNER JOIN AppBundle\Entity\Calendrier ca WITH ca.langue=t.tref 
+                FROM AppBundle\Entity\Tables t
+                WHERE t.tlien=34
+                GROUP BY t.tref, t.tlib'
+        );
+        $existingTranslations = $query->getResult();
+
+        // Récupération de toutes les traductions liées au calendrier des retraites
+        $query = $this->entityManager->createQuery(
+            'SELECT ca.langue
+            FROM AppBundle\Entity\Calendrier ca
             INNER JOIN AppBundle\Entity\Activite a WITH a.codact=ca.codb 
-            WHERE ca.datdeb>=:start AND a.divact=:divact AND t.tlien=34
-            GROUP BY t.tref, t.tlib'
+            WHERE ca.datdeb>=:start AND a.divact=:divact
+            AND ca.langue != \'\''
         );
         $query->setParameters(['start' => new \DateTime(), 'divact' => 'RET']);
-        return $query->getResult();
+        $translationsFromCalendar = array_column($query->getResult(), 'langue');
+
+        // Truc chelou pour récupérer les bonnes traductions à afficher
+        $translationsForFilter = [];
+        foreach ($translationsFromCalendar as $translation) {
+            $translationsFromCalendar = explode(',', $translation);
+            foreach ($translationsFromCalendar as $translationFromCalendar) {
+                if (!in_array($translationFromCalendar, $translationsForFilter)) {
+                    foreach ($existingTranslations as $existingTranslation) {
+                        if ($existingTranslation['value'] === $translationFromCalendar) {
+                            $translationsForFilter[$existingTranslation['value']] = $existingTranslation['name'];
+                        }
+                    }
+                }
+            }
+        }
+
+        $return = [];
+        foreach ($translationsForFilter as $value => $availableTranslation) {
+            $return[] = ['value' => $value, 'name' => $availableTranslation];
+        }
+
+        return $return;
     }
-    
+
     public function findEventTypes()
     {
         $query = $this->repositoryTable->createQueryBuilder('t')
