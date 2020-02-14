@@ -17,28 +17,7 @@
             {{ page.content.intro | raw }}
         </div>
         {% endif %}
-
-
-        <!--Carousel Mobile -->
-        {% for section in page.content['sections'] %}
-        <div class="carousel {% if loop.first %}active{% endif %}"
-            data-carousel-element="{{ section.title|md5 }}">
-            <div class="slides">
-                {% for slide in section.slides %}
-                <div class="slide {% if loop.first %}active{% endif %}">
-                           {% include 'parts/carousel/layout-2.html.twig'
-                                with { 'images': [image] } %}
-                </div>
-                {% endfor %}
-            </div>
-            {% if section.slides|length > 1 %}
-            <div class="prev"></div>
-            <div class="next"></div>
-            {% endif %}
-        </div>
-        {% endfor %}
-
-        <!--div class="dropdown {% if page.content.sections|length == 1 %}single{% endif %}">
+        <div class="dropdown {% if page.content.sections|length == 1 %}single{% endif %}">
             {% for section in page.content.sections %}
             <div
                 class="item" {% if section.title|length > 24 %}item-long{% endif %}
@@ -73,7 +52,7 @@
                 </div>
             </div>
             {% endfor %}
-        </div-->
+        </div>
     </div>
     <div class="hole">
     </div>
