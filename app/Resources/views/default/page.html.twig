@@ -19,7 +19,7 @@
         </div>
         {% endif %}
         <div class="dropdown {% if page.content.sections|length == 1 %}single{% endif %}">
-            <!--{% for section in page.content.sections %}
+            {% for section in page.content.sections %}
             <div
                 class="item" {% if section.title|length > 24 %}item-long{% endif %}
                 data-slug-id="#{{ section.title|slugify }}"
@@ -36,7 +36,7 @@
                         {% endif %}
                     {% endfor %}
                 {% endfor %}
-                <div class="carousel {% if loop.first %}active{% endif %}"
+                <!--<div class="carousel {% if loop.first %}active{% endif %}"
                     data-carousel-element="{{ section.title|md5 }}">
                     <div class="slides">
                         {% for image in images %}
