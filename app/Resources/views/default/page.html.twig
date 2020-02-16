@@ -36,20 +36,6 @@
                         {% endif %}
                     {% endfor %}
                 {% endfor %}
-                <!--<div class="carousel {% if loop.first %}active{% endif %}"
-                    data-carousel-element="{{ section.title|md5 }}">
-                    <div class="slides">
-                        {% for image in images %}
-                            <div class="slide {% if loop.first %}active{% endif %}">
-                                {% include 'parts/carousel/layout-2.html.twig'
-                                with { 'images': [image] } %}
-                            </div>
-                        {% endfor %}
-                    </div>
-                    {% if images|length > 1 %}
-                    <div class="prev"></div>
-                    <div class="next"></div>
-                    {% endif %}-->
             {% for section in page.content['sections'] %}
             <div class="carousel {% if loop.first %}active{% endif %}" data-carousel-element="{{ section.title|md5 }}">
                 <div class="slides">
