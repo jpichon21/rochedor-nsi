@@ -1,12 +1,11 @@
 {% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
-{% block metadescription %}
-<meta name="description" content="{{ page.description }}">{% endblock %}
+{% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
 {% set bodyClass = 'page' %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('assets/css/page.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/page.css') }}">
 {% if page.type and page.type != 'page' %}
-<link rel="stylesheet" href="{{ asset('assets/css/' ~ page.type ~ '.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/' ~ page.type ~ '.css') }}">
 {% endif %}
 {% endblock %}
 {% block content %}
@@ -36,15 +35,20 @@
                         {% endif %}
                     {% endfor %}
                 {% endfor %}
-            {% for section in page.content['sections'] %}
-            <div class="carousel {% if loop.first %}active{% endif %}" data-carousel-element="{{ section.title|md5 }}">
-                <div class="slides">
-                    {% for slide in section.slides %}
-                    <div class="slide {% if loop.first %}active{% endif %}">
-                        {% include 'parts/carousel/layout-' ~ slide.layout ~ '.html.twig'
-                    with { 'images': slide.images } %}
+                <div class="carousel {% if loop.first %}active{% endif %}"
+                    data-carousel-element="{{ section.title|md5 }}">
+                    <div class="slides">
+                        {% for image in images %}
+                            <div class="slide {% if loop.first %}active{% endif %}">
+                                {% include 'parts/carousel/layout-2.html.twig'
+                                with { 'images': [image] } %}
+                            </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
+                    {% if images|length > 1 %}
+                    <div class="prev"></div>
+                    <div class="next"></div>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}
@@ -54,7 +58,8 @@
     </div>
     <div class="right">
         {% for section in page.content['sections'] %}
-        <div class="carousel {% if loop.first %}active{% endif %}" data-carousel-element="{{ section.title|md5 }}">
+        <div class="carousel {% if loop.first %}active{% endif %}"
+            data-carousel-element="{{ section.title|md5 }}">
             <div class="slides">
                 {% for slide in section.slides %}
                 <div class="slide {% if loop.first %}active{% endif %}">
