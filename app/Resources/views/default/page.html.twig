@@ -12,9 +12,11 @@
 <div class="content fade-in">
     <div class="left">
         <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
-        {% if page.content.intro %}
+        {% if page.content.intro_line1 is defined or page.content.intro_line2 is defined or page.content.intro_line3 is defined %}
         <div class="intro">
-            {{ page.content.intro | raw }}
+            {{ page.content.intro_line1 | raw }}<br>
+            {{ page.content.intro_line2 | raw }}<br>
+            {{ page.content.intro_line3 | raw }}
         </div>
         {% endif %}
         <div class="dropdown {% if page.content.sections|length == 1 %}single{% endif %}">

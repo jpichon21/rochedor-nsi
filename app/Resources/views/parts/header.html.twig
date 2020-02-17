@@ -8,7 +8,7 @@
                             href="{{ localePath('la-communaute', app.request.locale) }}">{{ 'menu.one.one' | trans | raw }}</a>
                     </li>
                     <li><a
-                            href="{{ localePath('les-fondateurs', app.request.locale) }}">{{ 'menu.one.two' | trans | raw }}</a>
+                            href="{{ localePath('aux-sources', app.request.locale) }}">{{ 'menu.one.two' | trans | raw }}</a>
                     </li>
                     <li><a
                             href="{{ localePath('la-rochedor', app.request.locale) }}">{{ 'menu.one.three' | trans | raw }}</a>
@@ -36,7 +36,7 @@
                 </ul>
             </li>
             <li>
-                <a href="{{ localePath('liste-retraites', app.request.locale) }}">{{ 'menu.three' | trans | raw }}</a>
+                <a href="{{ path('calendar-choice-site-' ~ app.request.locale) }}">{{ 'menu.three' | trans | raw }}</a>
             </li>
         </ul>
     </div>

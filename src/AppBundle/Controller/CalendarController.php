@@ -546,11 +546,11 @@ class CalendarController extends Controller
     public function getDataCalendarAction(CalendarRepository $calendarRepo)
     {
         $data = array();
-        
+
         $eventTypes = $calendarRepo->findEventTypes();
         $speakers = $calendarRepo->findSpeakers();
         $translations = $calendarRepo->findTranslations();
-        
+
         foreach ($eventTypes as $eventType) {
             if ($eventType['color'] === "") {
                 $key = $eventType['abbr'];
@@ -567,6 +567,13 @@ class CalendarController extends Controller
         $eventTypes = array_filter($eventTypes, function ($k) {
             return strlen($k['color']) == 7 ;
         }, ARRAY_FILTER_USE_BOTH);
+
+        // Ajout de la mention 'Père'
+        foreach ($speakers as &$speaker) {
+            if ($speaker['civil'] === 'Père') {
+                $speaker['name'] .= ' (' . $speaker['civil'] . ')';
+            }
+        }
 
         $data['sites'] = $this::SITES;
         $data['types'] = $eventTypes;
@@ -652,6 +659,18 @@ class CalendarController extends Controller
     }
 
     /**
+     * @Route("/choix-site", name="calendar-choice-site-fr")
+     * @Route("/choice-place", name="calendar-choice-site-en")
+     * @Route("/wahl-platz", name="calendar-choice-site-de")
+     * @Route("/scelta-luogo", name="calendar-choice-site-it")
+     * @Route("/opcion-lugar", name="calendar-choice-site-es")
+     */
+    public function calendarChoiceSiteAction()
+    {
+        return $this->render('default/calendar-choice-site.html.twig');
+    }
+
+    /**
      * @Route("/liste-retraites", name="calendar-fr")
      * @Route("/list-retreats", name="calendar-en")
      * @Route("/liste-ruckzuge", name="calendar-de")
@@ -667,6 +686,23 @@ class CalendarController extends Controller
         if (!$page) {
             throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
         }
+
+        // Sélection par défaut d'un site (lrdo ou font)
+        $choicedSite = $request->query->get('site');
+        if ($choicedSite) {
+            foreach ($filters['sites'] as &$site) {
+                if ($choicedSite === $site['value']) {
+                    $site['selected'] = true;
+                }
+            }
+        }
+
+        $translationsTitle = [];
+        foreach ($filters['translations'] as $translation) {
+            $translationsTitle[$translation['value']] = $this->get('translator')
+                ->trans('calendar.translation.title', ['%translation%' => strtolower($translation['name'])]);
+        }
+
         $availableLocales = $this->pageService->getAvailableLocales($page);
         return $this->render('default/calendar.html.twig', [
                 'page' => $page,
@@ -674,6 +710,7 @@ class CalendarController extends Controller
                 'types' => $filters['types'],
                 'speakers' => $filters['speakers'],
                 'translations' => $filters['translations'],
+                'translationsTitle' => json_encode($translationsTitle),
                 'retreatsData' => json_encode($retreatsData),
                 'availableLocales' => $availableLocales,
                 'noRetreatsMessage' => $this->translator->trans('calendar.no_retreat')
