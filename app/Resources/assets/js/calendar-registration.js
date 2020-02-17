@@ -40,6 +40,7 @@ let _participant = {}
 let _participants = []
 let _existingRef = ''
 let _registrationBegan = false
+let _hasOneParticipant = false
 
 const itemConnection = $('.item.connection')
 const itemParticipants = $('.item.participants')
@@ -592,11 +593,14 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
           updateYouRender()
           updateRegisteredRender()
           updateParticipants()
+          $('.you-render').show()
+          _hasOneParticipant = true
           $(`.panel.${action}`).slideUp(800, function () {
             $(this).hide()
             changeItem(itemParticipants)
             scrollTop()
           })
+          addParticipant(event)
         }).catch(error => {
           if (error) {
             downLoader()
@@ -739,14 +743,35 @@ itemParticipants.on('click', '.modify-him', function (event) {
 })
 
 itemParticipants.on('click', '.add-participant', function (event) {
+  if (panelYouForm.is(':visible')) {
+    panelYouForm.trigger('submit')
+  } else if (panelHimForm.is(':visible')) {
+    panelHimForm.trigger('submit')
+  } else if (panelAddForm.is(':visible')) {
+    panelAddForm.trigger('submit')
+  } else {
+    addParticipant(event)
+  }
+})
+
+function addParticipant (event) {
   modifyClick(event, 'add', updateHimFormRender, () => {
     _participant = getContact()
   })
   scrollToElement($('.him-form-render'))
-})
 
+  // Une fois un participant ajouté, on peut valider la demande
+  if (itemParticipants.find('.validate-participants').hasClass('disabled') && _hasOneParticipant === true) {
+    itemParticipants.find('.validate-participants').removeClass('disabled')
+  }
+}
 itemParticipants.on('click', '.validate-participants', function (event) {
   event.preventDefault()
+  if ($(this).hasClass('disabled')) {
+    upFlashbag(i18n.trans('calendar.registration.validation-tooltip'))
+    return
+  }
+
   const validate = validateParticipants()
   if (validate === true) {
     upLoader()

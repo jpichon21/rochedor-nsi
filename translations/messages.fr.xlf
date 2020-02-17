@@ -43,8 +43,7 @@
       </notes>
       <segment>
         <source>menu.one.two</source>
-        <target><![CDATA[Les <br>fondateurs
-				]]></target>
+        <target><![CDATA[Aux <br>sources]]></target>
       </segment>
     </unit>
     <unit id="ABGsIRc" name="menu.one.three">
@@ -764,7 +763,7 @@
       </notes>
       <segment>
         <source>calendar.registration.two.add_participant</source>
-        <target>+ Ajouter un participant</target>
+        <target>Ajouter un participant</target>
       </segment>
     </unit>
     <unit id="mV4kdh." name="calendar.registration.two.validate_participants">
@@ -3664,6 +3663,12 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
       <segment>
         <source>calendar.registration.tooltip-pass</source>
         <target>Qu'est ce qu'un mot de passe ?</target>
+      </segment>
+    </unit>
+    <unit id="0">
+      <segment>
+        <source>calendar.registration.validation-tooltip</source>
+        <target>Vous devez ajouter au moins un participant pour valider votre demande d'inscription.</target>
       </segment>
     </unit>
   </file>
