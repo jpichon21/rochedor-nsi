@@ -797,3 +797,9 @@ body {
     display: none;
   }
 }
+
+.mobileHide{
+  @include media('<=mobile') {
+    display: none;
+  }
+}
