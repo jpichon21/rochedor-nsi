@@ -4,7 +4,10 @@
 <meta name="description" content="{{ page.description }}">{% endblock %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
+    {% if showIntro %}
+    <link rel="stylesheet" href="{{ asset('assets/css/intro.css') }}">
+    {% endif %}
 {% endblock %}
 {% block content %}
 <h1>Communauté de la Roche d'Or</h1>
