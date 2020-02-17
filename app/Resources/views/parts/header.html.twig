@@ -33,15 +33,9 @@
                     <li><a
                             href="{{ localePath('intervenants', app.request.locale) }}">{{ 'menu.two.four' | trans | raw }}</a>
                     </li>
-                    <li class="mobileOnly">
-                        <a 
-                                href={{ localePath('calendar-' ~ app.request.locale) }} rel="nofollow">{{ 'menu.two.five' | trans | raw | striptags }}
-                        </a>
-                    </li>
-                    
                 </ul>
             </li>
-            <li class="mobileHide">
+            <li>
                 <a href="{{ path('calendar-choice-site-' ~ app.request.locale) }}">{{ 'menu.three' | trans | raw }}</a>
             </li>
         </ul>
@@ -78,22 +72,11 @@
                     <li><a
                                 href="{{ localePath('accueil-des-enfants', app.request.locale) }}">{{ 'menu.four.three' | trans | raw }}</a>
                     </li>
-                    <li class="mobileHide"><a
+                    <li><a
                                 href="{{ localePath('liens-amis', app.request.locale) }}">{{ 'menu.four.four' | trans | raw }}</a>
                     </li>
                         <li class="mobileOnly"><a href="{{ url('contact', {'site': 'ro'}) }}" rel="nofollow">{{ 'contact.ro' | trans | raw | striptags }}</a></li>
                         <li class="mobileOnly"><a href="{{ url('contact', {'site': 'ft'}) }}" rel="nofollow">{{ 'contact.ft' | trans | raw | striptags }}</a></li>
-                                      
-                <li class="mobileOnly">
-                    <a href="{{ localePath('conditions-utilisation', app.request.locale) }}" rel="nofollow">{{ 'terms.of.use' | trans | raw | striptags }}</a>
-                </li>
-
-                <li class="mobileOnly">
-                    <a href="{{ localePath('mentions-legales', app.request.locale) }}" rel="nofollow">{{ 'legal.mention' | trans | raw | striptags }}</a>
-                </li>
-                <li class="mobileOnly">
-                    <a href="{{ localePath('confidentialite-des-donnees', app.request.locale) }}" rel="nofollow">{{ 'footer.privacy'|trans }}</a>
-                </li>
                 </ul>
             </li>
             <li data-menu="qzsedr">
