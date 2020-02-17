@@ -40,10 +40,19 @@ class DefaultController extends Controller
         $locale = $this->get('translator')->getLocale();
         $contentDocument = $this->pageService->getContent($locale);
         $news = $this->getDoctrine()->getRepository('AppBundle:News')->findForHomepage($contentDocument->getLocale());
+
+        // Masque l'animation d'intro si elle a déjà été affichée
+        $showIntro = false;
+        if (is_null($this->get('session')->get('showIntro'))) {
+            $showIntro = true;
+            $this->get('session')->set('showIntro', true);
+        }
+
         return $this->render('default/index.html.twig', array(
             'page' => $contentDocument,
             'availableLocales' => $this->pageService->getAvailableLocales($contentDocument),
-            'news' => $news
+            'news' => $news,
+            'showIntro' => $showIntro
         ));
     }
 

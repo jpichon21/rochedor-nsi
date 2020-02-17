@@ -1,3 +1,4 @@
+@import '~include-media/dist/_include-media.scss';
 @import './variables';
 
 .intro {
@@ -153,7 +154,7 @@ body {
       animation-delay: 8.5s;
     }
 
-  
+
 }
 
 @keyframes intro-hidden {
