@@ -34,7 +34,8 @@
                             href="{{ localePath('intervenants', app.request.locale) }}">{{ 'menu.two.four' | trans | raw }}</a>
                     </li>
                     <li class="mobileOnly">
-                        <a href="{{ path('calendar-choice-site-' ~ app.request.locale) }}">{{ 'menu.three' | trans | raw }}</a>
+                        <a
+                            href="{{ path('calendar-choice-site-' ~ app.request.locale) }}">{{ 'menu.three' | trans | raw }}</a>
                     </li>
                 </ul>
             </li>
@@ -63,26 +64,47 @@
 
     <div class="right">
         <ul class="menu">
+            <li data-menu="qzsewX" class="mobileOnly">
+                <span>{{ 'menu.five' | trans | raw }}</span>
+                <ul class="sub-menu" data-menu="qzsedr">
+                    <li class="blank"></li>
+                    <li class="blank"></li>
+                    <li><a
+                            href="{{ localePath('editions', app.request.locale) }}">{{ 'menu.five.one' | trans | raw }}</a>
+                    </li>
+                    <li><a
+                            href="{{ localePath('editions-nouveautes', app.request.locale) }}">{{ 'menu.five.two' | trans | raw }}</a>
+                    </li>
+                    <li><a
+                            href="{{ localePath('editions-collections', app.request.locale) }}">{{ 'menu.five.three' | trans | raw }}</a>
+                    </li>
+                </ul>
+            </li>
             <li data-menu="hbgvfc">
                 <span>{{ 'menu.four' | trans | raw }}</span>
                 <ul class="sub-menu" data-menu="hbgvfc">
                     <li><a
-                                href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">{{ 'menu.four.one' | trans | raw }}</a>
+                            href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">{{ 'menu.four.one' | trans | raw }}</a>
                     </li>
                     <li><a
-                                href="{{ localePath('infos-pratiques-des-fontanilles', app.request.locale) }}">{{ 'menu.four.two' | trans | raw }}</a>
+                            href="{{ localePath('infos-pratiques-des-fontanilles', app.request.locale) }}">{{ 'menu.four.two' | trans | raw }}</a>
                     </li>
                     <li><a
-                                href="{{ localePath('accueil-des-enfants', app.request.locale) }}">{{ 'menu.four.three' | trans | raw }}</a>
+                            href="{{ localePath('accueil-des-enfants', app.request.locale) }}">{{ 'menu.four.three' | trans | raw }}</a>
                     </li>
-                    <li><a
-                                href="{{ localePath('liens-amis', app.request.locale) }}">{{ 'menu.four.four' | trans | raw }}</a>
+                    <li class="mobileHide"><a
+                            href="{{ localePath('liens-amis', app.request.locale) }}">{{ 'menu.four.four' | trans | raw }}</a>
                     </li>
-                        <li class="mobileOnly"><a href="{{ url('contact', {'site': 'ro'}) }}" rel="nofollow">{{ 'contact.ro' | trans | raw | striptags }}</a></li>
-                        <li class="mobileOnly"><a href="{{ url('contact', {'site': 'ft'}) }}" rel="nofollow">{{ 'contact.ft' | trans | raw | striptags }}</a></li>
+                    <li><a class="mobileOnly" href="{{ localePath('conditions-utilisation', app.request.locale) }}"
+                            rel="nofollow">{{ 'terms.of.use' | trans | raw | striptags }}</a></li>
+                    <li><a class="mobileOnly" class="mobileOnly"
+                            href="{{ localePath('mentions-legales', app.request.locale) }}"
+                            rel="nofollow">{{ 'legal.mention' | trans | raw | striptags }}</a></li>
+                    <li><a class="mobileOnly" href="{{ localePath('confidentialite-des-donnees', app.request.locale) }}"
+                            rel="nofollow">{{ 'footer.privacy'|trans }}</a></li>
                 </ul>
             </li>
-            <li data-menu="qzsedr">
+            <li data-menu="qzsedr" class="mobileHide">
                 <span>{{ 'menu.five' | trans | raw }}</span>
                 <ul class="sub-menu" data-menu="qzsedr">
                     <li class="blank"></li>
@@ -106,16 +128,29 @@
                     <li class="blank"></li>
                     <li class="blank"></li>
                     <li class="blank"></li>
-                    <li><a href="{{ localePath('donner-du-temps', app.request.locale) }}">{{ 'menu.six.three' | trans | raw }}</a></li>
-                    <li><a href="{{ localePath('don-ponctuel', app.request.locale) }}">{{ 'menu.six.one' | trans | raw }}</a></li>
-                    <li><a href="{{ localePath('dons', app.request.locale) }}">{{ 'menu.six.two' | trans | raw }}</a></li>
+
+                    <li class="mobileHide"><a
+                            href="{{ localePath('donner-du-temps', app.request.locale) }}">{{ 'menu.six.three' | trans | raw }}</a>
+                    </li>
+                    <li class="mobileHide"><a
+                            href="{{ localePath('don-ponctuel', app.request.locale) }}">{{ 'menu.six.one' | trans | raw }}</a>
+                    </li>
+                    <li class="mobileHide"><a href="{{ localePath('dons', app.request.locale) }}">{{ 'menu.six.two' | trans | raw }}</a>
+                    </li>
+                    <li class="mobileOnly"><a href="{{ localePath('don-ponctuel', app.request.locale) }}" rel="nofollow">{{ 'menu.six.one' | trans | raw | striptags }}</a></li>
+                    <li class="mobileOnly"><a href="{{ localePath('dons', app.request.locale) }}" rel="nofollow">{{ 'menu.six.two' | trans | raw | striptags }}</a></li>
+                    <li class="mobileOnly"><a href="{{ url('contact', {'site': 'ro'}) }}" rel="nofollow">{{ 'contact.ro' | trans | raw | striptags }}</a></li>
+                    <li class="mobileOnly"><a href="{{ url('contact', {'site': 'ft'}) }}" rel="nofollow">{{ 'contact.ft' | trans | raw | striptags }}</a></li>
+                    <li class="mobileOnly"><a href="{{ localePath('liens-amis', app.request.locale) }}" rel="nofollow">{{ 'friends.links' | trans | raw | striptags }}</a></li>
                 </ul>
             </li>
-            <li data-menu="dlede" class="mobileOnly">
+            <!--li data-menu="dlede" class="mobileOnly">
                 <span>{{ 'legal.information' | trans | raw | striptags }}</span>
                 <ul class="sub-menu" data-menu="dlede">
-                    <li><a href="{{ localePath('conditions-utilisation', app.request.locale) }}" rel="nofollow">{{ 'terms.of.use' | trans | raw | striptags }}</a>
-                    <li><a href="{{ localePath('mentions-legales', app.request.locale) }}" rel="nofollow">{{ 'legal.mention' | trans | raw | striptags }}</a></li>
+                    <li><a href="{{ localePath('conditions-utilisation', app.request.locale) }}"
+                            rel="nofollow">{{ 'terms.of.use' | trans | raw | striptags }}</a>
+                    <li><a href="{{ localePath('mentions-legales', app.request.locale) }}"
+                            rel="nofollow">{{ 'legal.mention' | trans | raw | striptags }}</a></li>
                     {% if
                     product is defined
                     or (
@@ -123,7 +158,8 @@
                         and page.type == 'editions'
                     )
                 %}
-                    <li><a href={{ localePath('cgv', app.request.locale) }} rel="nofollow">{{ 'footer.terms'|trans }}</a></li>
+                    <li><a href={{ localePath('cgv', app.request.locale) }}
+                            rel="nofollow">{{ 'footer.terms'|trans }}</a></li>
                     {% endif %}
                     {% if
                     product is defined
@@ -133,12 +169,12 @@
                     )
                 %}
                     <li><a href={{ localePath('cgv-pro', app.request.locale) }}
-                        rel="nofollow">{{ 'footer.termsPro'|trans }}</a></li>
+                            rel="nofollow">{{ 'footer.termsPro'|trans }}</a></li>
                     {% endif %}
                     <li><a href={{ localePath('confidentialite-des-donnees', app.request.locale) }}
-                        rel="nofollow">{{ 'footer.privacy'|trans }}</a></li>
+                            rel="nofollow">{{ 'footer.privacy'|trans }}</a></li>
                 </ul>
-            </li>
+            </li-->
         </ul>
     </div>
     <div class="options">
