@@ -277,6 +277,12 @@ i {
   }
 }
 
+.mobileHide{
+  @include media('<=mobile') {
+    display: none;
+  }
+}
+
 .tooltip-password {
   cursor: pointer;
   border-bottom: none!important;

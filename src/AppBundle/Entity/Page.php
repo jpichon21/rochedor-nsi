@@ -542,4 +542,44 @@ class Page
     {
         $this->category = $category;
     }
+
+    /**
+     * Return the right images for the mobile carousel
+     *
+     * @param int $sectionIndex
+     * @return array
+     */
+    public function extractImagesForSection(int $sectionIndex): array
+    {
+        if (!isset($this->getContent()['sections']) ||
+            !isset($this->getContent()['sections'][$sectionIndex]['slides'])) {
+            return [];
+        }
+
+        return array_reduce(
+            array_map(function (array $slide) {
+                switch ($slide['layout']) {
+                    case '2':
+                        return array_slice($slide['images'], 0, 1);
+                        break;
+                    case '1-1':
+                    case '2-2':
+                        return array_slice($slide['images'], 0, 2);
+                        break;
+                    case '2-1-1':
+                    case '1-1-2':
+                        return array_slice($slide['images'], 0, 3);
+                        break;
+                    case '1-1-1-1':
+                    default:
+                        return array_slice($slide['images'], 0, 4);
+                        break;
+                }
+            }, $this->getContent()['sections'][$sectionIndex]['slides']),
+            function ($results, array $slide) {
+                return array_merge($results, $slide);
+            },
+            []
+        );
+    }
 }

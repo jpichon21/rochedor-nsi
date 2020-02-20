@@ -792,8 +792,14 @@ body {
   }
 }
 
-.mobileOnly{
+  .mobileOnly{
   @include media('>mobile') {
+    display: none;
+  }
+}
+
+.mobileHide{
+  @include media('<=mobile') {
     display: none;
   }
 }
