@@ -99,6 +99,14 @@ $(document).ready(function () {
       this.classList.add('active')
     }
   })
+
+  // Si on a une valeur par défaut (suite à une annulation de paiement)
+  if (itemAmount.find('.button.radio.checked').length > 0) {
+    itemAmount.find('.button.radio.checked').first().trigger('click')
+  }
+  if (itemPayment.find('.button.radio.checked').length > 0) {
+    itemPayment.find('.button.radio.checked').first().trigger('click')
+  }
 })
 
 /* Renders */
@@ -175,13 +183,19 @@ itemAmount.on('click', '.button.radio', function (event) {
   let $amountTextAmount = $('.panel.amount .input.amount')
   if ($(this).hasClass('other')) {
     $amountTextAmount.parent().removeClass('hidden')
-    $amountTextAmount.val('').focus()
-    _amount = ''
+    if ($amountTextAmount.hasClass('no-reinit-value')) {
+      $amountTextAmount.focus()
+      _amount = $amountTextAmount.val()
+    } else {
+      $amountTextAmount.val('').focus()
+      _amount = ''
+    }
   } else {
     $amountTextAmount.parent().addClass('hidden')
     $amountTextAmount.val(amount)
     _amount = $amountTextAmount.val()
   }
+  $amountTextAmount.removeClass('no-reinit-value')
   $(this).addClass('checked')
   updateAmountRender()
 })

@@ -80,11 +80,21 @@ class PaymentService
         $periodVir = null,
         $destDon = null,
         $delivery = [],
-        Commande $order = null
+        Commande $order = null,
+        $memoDon = null
     ) {
         switch ($method) {
             case self::METHOD_PAYPAL:
-                return $this->getPaypalUrl($amount, $objectId, $itemName, $email, $locale, $baseRoute);
+                return $this->getPaypalUrl(
+                    $amount,
+                    $objectId,
+                    $itemName,
+                    $email,
+                    $locale,
+                    $baseRoute,
+                    $destDon,
+                    $memoDon
+                );
             case self::METHOD_CHEQUE:
                 if ($baseRoute === 'gift' && empty($delivery)) {
                     $contact = $this->getContact();
@@ -124,7 +134,7 @@ class PaymentService
 
                 return $this->getVirementRegulierUrl($objectId, $locale, $amount, $periodVir, $contact);
             default:
-                return $this->getPayboxUrl($amount, $objectId, $email, $locale, $baseRoute);
+                return $this->getPayboxUrl($amount, $objectId, $email, $locale, $baseRoute, $destDon, $memoDon);
         }
     }
 
@@ -133,7 +143,9 @@ class PaymentService
         $objectId,
         $email,
         $locale,
-        $baseRoute
+        $baseRoute,
+        $destDon,
+        $memoDon
     ) {
         $params = [
             'PBX_SITE' => $this->container->getParameter('paybox_site'),
@@ -159,8 +171,8 @@ class PaymentService
                 RouterInterface::ABSOLUTE_URL
             ),
             'PBX_ANNULE' => $this->router->generate(
-                $baseRoute . '_payment_return',
-                ['_locale' => $locale, 'method' => 'paybox', 'status' => 'cancel'],
+                'gift-' . $locale,
+                ['giftData' => ['amount' => $amount, 'destDon' => $destDon, 'giftNote' => $memoDon, 'modDon' => 'CB']],
                 RouterInterface::ABSOLUTE_URL
             ),
             'PBX_ATTENTE' => $this->router->generate(
@@ -187,7 +199,9 @@ class PaymentService
         $itemName,
         $email,
         $locale,
-        $baseRoute
+        $baseRoute,
+        $destDon,
+        $memoDon
     ) {
         $params = [
             'amount' => $amount,
@@ -202,8 +216,14 @@ class PaymentService
                 RouterInterface::ABSOLUTE_URL
             ),
             'cancel_return' => $this->router->generate(
-                $baseRoute . '_payment_return',
-                ['_locale' => $locale, 'method' => 'paypal', 'status' => 'cancel', 'Ref' => $objectId],
+                'gift-' . $locale,
+                ['giftData' => [
+                    'amount' => $amount,
+                    'destDon' => $destDon,
+                    'giftNote' => $memoDon,
+                    'modDon' => 'PAYPAL',
+                    ],
+                ],
                 RouterInterface::ABSOLUTE_URL
             ),
             'business' => $this->container->getParameter('paypal_email'),
