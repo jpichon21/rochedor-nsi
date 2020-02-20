@@ -43,7 +43,7 @@
       </notes>
       <segment>
         <source>menu.one.two</source>
-        <target><![CDATA[Aux <br>sources]]></target>
+        <target><![CDATA[Aux <br>origines]]></target>
       </segment>
     </unit>
     <unit id="ABGsIRc" name="menu.one.three">
