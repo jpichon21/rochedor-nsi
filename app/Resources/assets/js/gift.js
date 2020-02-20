@@ -70,6 +70,12 @@ function scrollToElement ($element) {
   }, 200)
 }
 
+function scrollTop () {
+  setTimeout(() => {
+    document.querySelector('.content').scroll({ top: 0, left: 0, behavior: 'smooth' })
+  }, 200)
+}
+
 function changeItem (elmt) {
   $('.dropdown .item').each(function () {
     this.style.maxHeight = null
@@ -86,8 +92,6 @@ function resizeItem ($item) {
 }
 
 $(document).ready(function () {
-  console.log('test!')
-  console.log(passwordPopupToggle)
   $('.dropdown .item').each(function () {
 
     if (this.classList.contains('amount') || this.classList.contains('allocation') || this.classList.contains('payment')) {
@@ -95,6 +99,14 @@ $(document).ready(function () {
       this.classList.add('active')
     }
   })
+
+  // Si on a une valeur par défaut (suite à une annulation de paiement)
+  if (itemAmount.find('.button.radio.checked').length > 0) {
+    itemAmount.find('.button.radio.checked').first().trigger('click')
+  }
+  if (itemPayment.find('.button.radio.checked').length > 0) {
+    itemPayment.find('.button.radio.checked').first().trigger('click')
+  }
 })
 
 /* Renders */
@@ -171,18 +183,25 @@ itemAmount.on('click', '.button.radio', function (event) {
   let $amountTextAmount = $('.panel.amount .input.amount')
   if ($(this).hasClass('other')) {
     $amountTextAmount.parent().removeClass('hidden')
-    $amountTextAmount.val('').focus()
-    _amount = ''
+    if ($amountTextAmount.hasClass('no-reinit-value')) {
+      $amountTextAmount.focus()
+      _amount = $amountTextAmount.val()
+    } else {
+      $amountTextAmount.val('').focus()
+      _amount = ''
+    }
   } else {
     $amountTextAmount.parent().addClass('hidden')
     $amountTextAmount.val(amount)
     _amount = $amountTextAmount.val()
   }
+  $amountTextAmount.removeClass('no-reinit-value')
   $(this).addClass('checked')
   updateAmountRender()
 })
 
 itemAmount.on('keyup', '.input.amount', function () {
+  $(this).val($(this).val().replace(',', '.'))
   if (!isNaN($(this).val())) {
     _amount = $(this).val()
     updateAmountRender()
@@ -269,9 +288,11 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
         itemPrelevement.find('.virement').removeClass('hidden')
         itemPrelevement.find('.virement-reg-fin').addClass('hidden')
       }
+      scrollTop()
       changeItem([itemPrelevement])
       return
     }
+    scrollTop()
     changeItem([itemConnection])
   }
 })
@@ -500,7 +521,6 @@ const passwordPopupToggle = $("#passwordPopupToggle")
 
 passwordPopupToggle.on('click', function (event) {
   event.preventDefault()
-  console.log('click!');
   passwordPopup();
 })
 
@@ -508,5 +528,3 @@ function passwordPopup(){
   target = document.getElementById(passwordPopup);
   target.addClass('popup-visible');
 }
-
-console.log('file loaded!');

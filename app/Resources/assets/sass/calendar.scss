@@ -755,3 +755,10 @@ h1 {
     color: white;
   }
 }
+
+.header {
+  @include media('<xxlarge') {
+    height: 0;
+    margin-bottom: 100px;
+  }
+}

@@ -2601,7 +2601,7 @@
             Sinon, par courrier à :<br><br>
             <div style="margin-left: 50px;">
                 %name%<br>
-                %address% (3 lignes possibles)<br>
+                %address%<br>
                 %zipcode% %city%<br>
                  %country%<br><br>
             </div>
@@ -2624,7 +2624,7 @@
             Un reçu fiscal vous sera adressé en début d’année prochaine par courriel à l’adresse suivante : %email%<br>
             Sinon, par courrier à :<br>
             %name%<br>
-            %address% (3 lignes possibles)<br>
+            %address%<br>
             %zipcode% %city%<br>
              %country%<br><br>
             Contact secrétariat : 03 81 41 47 47 ou secretariat@rochedor.org<br>

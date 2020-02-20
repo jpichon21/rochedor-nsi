@@ -110,6 +110,15 @@ class GiftController extends Controller
      */
     public function giftAction(Request $request, CountryService $countryService)
     {
+        $giftData = [
+            'amount' => null,
+            'destDon' => null,
+            'giftNote' => null,
+            'modDon' => null,
+        ];
+        if (!is_null($request->query->get('giftData'))) {
+            $giftData = $request->query->get('giftData');
+        }
         $countries = $this->tpaysRepository->findAllCountry();
         list($countriesJSON, $preferredChoices) = $countryService->orderCountryListByPreference($countries);
 
@@ -122,7 +131,8 @@ class GiftController extends Controller
             'page' => $page,
             'availableLocales' => array(),
             'countries' => $countriesJSON,
-            'preferredCountries' => $preferredChoices
+            'preferredCountries' => $preferredChoices,
+            'giftData' => $giftData
         ]);
     }
 
@@ -163,7 +173,10 @@ class GiftController extends Controller
             $request->getLocale(),
             'gift',
             !empty($gift['virPeriod']) ? $gift['virPeriod'] : null,
-            $don->getDestdon()
+            $don->getDestdon(),
+            [],
+            null,
+            $don->getMemodon()
         );
         if (!$paymentUrl) {
             return ['status' => 'ko', 'message' => 'an error as occured'];

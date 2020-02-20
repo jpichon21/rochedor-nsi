@@ -596,10 +596,10 @@ class CalendarController extends Controller
             
             $dateOut = $event['dateOut'];
             $dateOutParse = $event['dateOut']->format('Ymd');
-            
+
             $duration = date_diff($dateIn, $dateOut);
             $duration = substr($duration->format('%R%d'), 1);
-            
+            $duration == 0 ? $duration = 1 : $duration;
             $nameEvent = $event['event'];
             
             $speakers = array();

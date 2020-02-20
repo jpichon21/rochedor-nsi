@@ -319,6 +319,7 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
     password: $('.password', this).val()
   }).then(user => {
     afterLogin(user)
+    $('.intro').hide()
   }).catch(() => {
     downLoader()
     upFlashbag(i18n.trans('security.bad_credentials'))
@@ -401,6 +402,8 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
             arriv: participant.arriv,
             lieu: participant.lieu
           })
+          $('.you-render').show()
+          $('.intro').hide()
         }).catch(err => {
           downLoader()
           upFlashbag(i18n.trans(`${err}`))
@@ -437,6 +440,7 @@ itemConnection.on('click', 'a:not(.tooltip-password)', function (event) {
       break
     case 'continue':
       getLogin().then(user => afterLogin(user))
+      $('.intro').hide()
       break
     case 'disconnect':
       getLogout(_locale)
