@@ -29,14 +29,9 @@
                     <h2>{{ section.title }}</h2>
                 </a>
                 {{ section.body | raw }}
-                {% set images = [] %}
-                {% for slide in section.slides %}
-                    {% for image in slide.images %}
-                        {% if image.url %}
-                            {% set images = images|merge([image]) %}
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
+
+                {% set images = page.extractImagesForSection(loop.index0) %}
+                {# carousel mobile #}
                 <div class="carousel {% if loop.first %}active{% endif %}"
                     data-carousel-element="{{ section.title|md5 }}">
                     <div class="slides">
@@ -59,6 +54,7 @@
     <div class="hole">
     </div>
     <div class="right">
+        {# carousel desktop #}
         {% for section in page.content['sections'] %}
         <div class="carousel {% if loop.first %}active{% endif %}"
             data-carousel-element="{{ section.title|md5 }}">
