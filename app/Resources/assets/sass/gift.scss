@@ -131,6 +131,18 @@
         background: url('lock.png') no-repeat 15px 5px;
         background-size: 20px;
       }
+
+      .input-box {
+        position: relative;
+
+        .unit {
+          position: absolute;
+          display: block;
+          top: 8px;
+          z-index: 9;
+          right: 20px;
+        }
+      }
     }
   }
 }
