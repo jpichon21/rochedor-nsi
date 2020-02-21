@@ -6,7 +6,9 @@ export default class I18n {
     this.load()
   }
   load () {
-    this.messages = JSON.parse(document.getElementById('#translationsData').getAttribute('data-translations'))
+    if (document.getElementById('#translationsData')) {
+      this.messages = JSON.parse(document.getElementById('#translationsData').getAttribute('data-translations'))
+    }
   }
 
   trans (key) {
