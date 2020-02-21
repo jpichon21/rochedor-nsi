@@ -1095,9 +1095,9 @@ export class PageForm extends React.Component {
               className={classes.textfield}
               fullWidth
               multiline={false}
-              name='page.content.intro_line1'
+              name='page.content.intro'
               label='Introduction ligne 1'
-              value={this.state.page.content.intro_line1}
+              value={this.state.page.content.intro}
               onChange={this.handleInputChange} />
           </TooltipWrapper>
           <TooltipWrapper title="Renseigner l'introduction de votre page">
