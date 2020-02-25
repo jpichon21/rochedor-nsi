@@ -119,7 +119,7 @@ function updateYouRender () {
   $('.you-render').html(youTemplate({ you: _you }))
 }
 
-function updateYouFormRender (errors = [], contact = {}) {
+function updateYouFormRender (errors = [], contact = {}, isUpdate = false) {
   $('.you-form-render').html(youFormTemplate({
     you: contact,
     errors: errors,
@@ -132,7 +132,8 @@ function updateYouFormRender (errors = [], contact = {}) {
       i18n.trans('form.civilite.frere'),
       i18n.trans('form.civilite.pere'),
       i18n.trans('form.civilite.soeur')
-    ]
+    ],
+    isUpdate: isUpdate
   }))
   Inputmask().mask(document.querySelectorAll('.datnaiss'))
 }
@@ -378,8 +379,13 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
     username: $('.username', this).val(),
     password: $('.password', this).val()
   }).then(user => {
-    downLoader()
-    afterLogin(user, false)
+    _you = {...getContact(), ...user}
+    updateYouFormRender([], _you)
+    setTimeout(() => {
+      scrollToElement($('.panel.registration'))
+      $('.panel.registration').addClass('update-user')
+    }, 200)
+    changeItem([itemConnection])
   }).catch(() => {
     downLoader()
     upFlashbag(i18n.trans('security.bad_credentials'))
@@ -439,12 +445,10 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
   }
   updateYouFormRender(errors, contact)
   if (Object.keys(errors).length === 0) {
-    postRegister({
-      contact: contact
-    }).then(user => {
-      postLogin({
-        username: contact.username,
-        password: contact.password
+    let registrationPanel = $(this).parents('.panel.registration')
+    if (registrationPanel.hasClass('update-user')) {
+      postModify({
+        contact: contact
       }).then(user => {
         downLoader()
         afterLogin(user, true)
@@ -452,10 +456,25 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
         downLoader()
         upFlashbag(i18n.trans(error))
       })
-    }).catch((error) => {
-      downLoader()
-      upFlashbag(i18n.trans(error))
-    })
+    } else {
+      postRegister({
+        contact: contact
+      }).then(user => {
+        postLogin({
+          username: contact.username,
+          password: contact.password
+        }).then(user => {
+          downLoader()
+          afterLogin(user, true)
+        }).catch((error) => {
+          downLoader()
+          upFlashbag(i18n.trans(error))
+        })
+      }).catch((error) => {
+        downLoader()
+        upFlashbag(i18n.trans(error))
+      })
+    }
   }
   else {
     downLoader()
@@ -469,6 +488,7 @@ itemConnection.on('click', 'a', function (event) {
   }
 
   const which = $(this).attr('href') ? $(this).attr('href').substring(1) : ''
+  let needChangeItem = true
   switch (which) {
     case 'connection':
     case 'registration':
@@ -484,13 +504,26 @@ itemConnection.on('click', 'a', function (event) {
       $('.panel.reset', itemConnection).show()
       break
     case 'continue':
-      getLogin().then(user => afterLogin(user, false))
+      $('.panel', itemConnection).hide()
+      $('.panel.registration').show()
+      needChangeItem = false
+      getLogin().then(user => {
+        _you = {...getContact(), ...user}
+        updateYouFormRender([], _you)
+        setTimeout(() => {
+          scrollToElement($('.panel.registration'))
+          $('.panel.registration').addClass('update-user')
+        }, 200)
+        changeItem([itemConnection])
+      })
       break
     case 'disconnect':
       getLogout(_locale)
       break
   }
-  changeItem([itemConnection])
+  if (needChangeItem === true) {
+    changeItem([itemConnection])
+  }
 })
 
 function validateDate (date) {
