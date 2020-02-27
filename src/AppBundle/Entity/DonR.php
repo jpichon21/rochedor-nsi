@@ -121,9 +121,9 @@ class DonR
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="EnregDonR", type="datetime", nullable=false)
+     * @ORM\Column(name="EnregDonR", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $enregdonR;
+    private $enregdonR = 'CURRENT_TIMESTAMP';
 
     /**
      * @var string
