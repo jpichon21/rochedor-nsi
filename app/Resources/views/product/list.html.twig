@@ -35,21 +35,50 @@
             </select>
           </form>
         </div>
-        <div class="filter themes {% if filters_collection != null %}disabled{% endif %}">
-          <span class="label">{{ 'editions.filter.themes.title' | trans }}</span>
-          <form>
-            {% for theme in themes %}
-            <input id="{{ theme.theme }}" type="checkbox" value="{{ theme.theme }}"
-              {% if theme.theme in filters_themes_array %}checked="checked"{% endif %}
-              {% if filters_collection != null %}disabled{% endif %} />
-            <label for="{{ theme.theme }}">
-              {{ theme.theme }}
-            </label>
-            {% endfor %}
-            <input class="value" type="hidden" name="themes" value="{{ filters_themes }}" />
-          </form>
+      </div>
+      <div class="box no-border-top">
+        <form class="filter-form-themes" method="POST" action="{{ path('collections-' ~ app.request.locale) }}">
+          <div class="filter themes {% if filters_collection != null %} disabled{% endif %}">
+            <span class="label">{{ 'editions.filter.themes.title' | trans }}</span>
+              <select class="select" required name="support">
+                <option value="">{{ 'editions.filter.support.choose' | trans }}</option>
+                {% for support in supports %}
+                  <option value="{{ support.value }}" {% if support.selected %}selected="selected"{% endif %}>
+                    {{ support.name }}
+                  </option>
+                {% endfor %}
+              </select>
+              <select class="select" required name="author">
+                <option value="">{{ 'editions.filter.author.choose' | trans }}</option>
+                {% for author in authors %}
+                  <option value="{{ author.value }}" {% if author.selected %}selected="selected"{% endif %}>
+                    {{ author.name }}
+                  </option>
+                {% endfor %}
+              </select>
+              <select class="select" required name="gender">
+                <option value="">{{ 'editions.filter.gender.choose' | trans }}</option>
+                {% for gender in genders %}
+                  <option value="{{ gender.value }}" {% if gender.selected %}selected="selected"{% endif %}>
+                    {{ gender.name }}
+                  </option>
+                {% endfor %}
+              </select>
+              <select class="select" required name="theme">
+                <option value="">{{ 'editions.filter.theme.choose' | trans }}</option>
+                {% for theme in themes %}
+                  <option value="{{ theme.value }}" {% if theme.selected %}selected="selected"{% endif %}>
+                    {{ theme.name }}
+                  </option>
+                {% endfor %}
+              </select>
+              <input class="value" type="hidden" name="themes" value="{{ filters_themes }}" />
+          </div>
+        </form>
+        <div class="buttons-filter">
+          <a class="raz button" href="{{ currentPath }}">{{ 'filter.raz.button' | trans }}</a>
+          <a class="search button" href="{{ currentPath }}">{{ 'filter.research' | trans }}</a>
         </div>
-        <a class="raz button" href="{{ currentPath }}">{{ 'filter.raz.button' | trans }}</a>
       </div>
     </div>
     {% if productsCategorized %}

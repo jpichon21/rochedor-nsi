@@ -556,8 +556,10 @@ h2 {
     @include media('<xxlarge') {
       flex-direction: column;
     }
+    &.no-border-top {
+      border-top: none;
+    }
     .filter {
-      margin-right: 50px;
       @include media('>=xxlarge') {
         &.collections {
           max-width: 250px;
@@ -574,6 +576,9 @@ h2 {
         opacity: 0.2;
       }
       &.themes {
+        select {
+          width: 20%;
+        }
         &.disabled {
           label {
             cursor: default;
@@ -662,6 +667,20 @@ h2 {
       }
       @include media('>=xxlarge'){
         margin-top: 22px;
+      }
+    }
+    .buttons-filter {
+      margin-left: -60px;
+      .search {
+        white-space: nowrap;
+        margin-right: 3px;
+        @include media('<=mobile'){
+          width: 100%;
+          text-align: center;
+        }
+        @include media('>=xxlarge'){
+          margin-top: 22px;
+        }
       }
     }
   }
@@ -859,6 +878,15 @@ h2 {
           text-transform: uppercase;
           @include media('<large') {
             display: none;
+          }
+        }
+        .addToCart {
+          color: $roche-orange;
+          border: 1px $roche-orange solid;
+          font-family: lato, 'lato', 'sans-serif';
+
+          &:hover, &:active, &:focus{
+            color: #ffffff;
           }
         }
       }

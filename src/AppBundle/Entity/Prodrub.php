@@ -65,4 +65,9 @@ class Prodrub
     {
         return $this->rubrique;
     }
+
+    public function getTyprub()
+    {
+        return $this->typrub;
+    }
 }
