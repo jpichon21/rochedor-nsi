@@ -510,11 +510,11 @@ h2 {
         }
         .long {
           opacity: 0;
+        }
       }
     }
   }
 }
-
 .show-filters {
   display: block;
   float: none;
@@ -1053,6 +1053,20 @@ h2 {
       }
       p {
         color: #000000;
+      }
+    }
+  }
+}
+
+.text{
+  .long{
+    p{
+      @include media("<=laptop", ">limitMenuReduced") {
+        margin-bottom: 20px;
+        white-space: break-spaces;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 215px;
       }
     }
   }
