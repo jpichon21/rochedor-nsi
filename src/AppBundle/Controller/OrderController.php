@@ -7,6 +7,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Cartline;
 use AppBundle\Entity\Tpays;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -255,6 +256,7 @@ class OrderController extends Controller
         $data['totalPriceIT'] = 0;
         $data['totalPrice'] = 0;
         $totalWeight = 0;
+        /** @var Cartline $cartline */
         foreach ($cart->getCartlines() as $k => $cartline) {
             $i = 1;
             while ($i <= $cartline->getQuantity()) {
@@ -264,7 +266,7 @@ class OrderController extends Controller
 
                 $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;
 
-                if ($product->getTypprd() === Produit::TYP_BOOK) {
+                if ($product->getTypprd() === Produit::TYP_PRD['livre']) {
                     $priceIncludeTaxes = $product->getPrix();
 
                     $data['product'][$k]['price'] = round(

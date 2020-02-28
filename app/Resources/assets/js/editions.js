@@ -18,20 +18,14 @@ let i18n = new I18n()
 
 JsBarcode('.barcode').init()
 
-const themesForm = document.querySelector('.filter.themes form')
+const themesForm = document.querySelector('form.filter-form-themes')
 const filtersForm = document.querySelector('.filters form')
 
 if (themesForm != null) {
-  themesForm.onchange = event => {
-    const themes = document.querySelectorAll('.filter.themes input:checked')
-    const input = document.querySelector('.filter.themes input.value')
-    let values = []
-    themes.forEach(function (element) {
-      values.push(element.value)
-    })
-    input.value = values.join('|')
-    event.currentTarget.submit()
-  }
+  $('.buttons-filter .button.search').on('click', function (event) {
+    event.preventDefault()
+    $('form.filter-form-themes').submit()
+  })
 }
 
 if (filtersForm != null) {

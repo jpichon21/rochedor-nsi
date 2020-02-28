@@ -3681,5 +3681,53 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
         <target>Vous devez ajouter au moins un participant pour valider votre demande d'inscription.</target>
       </segment>
     </unit>
+    <unit id="YxhvXIc" name="editions.calameo">
+      <segment>
+        <source>editions.calameo</source>
+        <target>Feuilleter un extrait</target>
+      </segment>
+    </unit>
+    <unit id="YxhvXId" name="editions.bayard.chant">
+      <segment>
+        <source>editions.bayard.chant</source>
+        <target>Achat de chant à l'unité</target>
+      </segment>
+    </unit>
+    <unit id="YxhvXIe" name="editions.bayard.partition">
+      <segment>
+        <source>editions.bayard.partition</source>
+        <target>Achat de partition à l'unité</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTb" name="editions.filter.support.choose">
+      <segment>
+        <source>editions.filter.support.choose</source>
+        <target>Support</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTc" name="editions.filter.author.choose">
+      <segment>
+        <source>editions.filter.author.choose</source>
+        <target>Auteur</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTd" name="editions.filter.gender.choose">
+      <segment>
+        <source>editions.filter.gender.choose</source>
+        <target>Genre</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTe" name="editions.filter.theme.choose">
+      <segment>
+        <source>editions.filter.theme.choose</source>
+        <target>Thème</target>
+      </segment>
+    </unit>
+      <unit id="0">
+          <segment>
+              <source>filter.research</source>
+              <target>Rechercher</target>
+          </segment>
+      </unit>
   </file>
 </xliff>

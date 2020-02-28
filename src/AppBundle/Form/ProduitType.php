@@ -32,12 +32,7 @@ class ProduitType extends AbstractType
         ->add(
             'typprd',
             ChoiceType::class,
-            [
-                'choices' => [
-                    'livre' => Produit::TYP_BOOK,
-                    'autre' => Produit::TYP_OTHER
-                ]
-            ]
+            ['choices' => Produit::TYP_PRD]
         )
         ->add('dateparution')
         ->add('prix')
