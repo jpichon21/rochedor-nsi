@@ -510,15 +510,6 @@ h2 {
         }
         .long {
           opacity: 0;
-          p{
-            @include media("<=laptop", ">limitMenuReduced") {
-            margin-bottom: 20px;
-            white-space: break-spaces;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-height: 215px;
-            }
-          }
         }
     }
   }
@@ -1083,6 +1074,20 @@ h2 {
 .continueCart:hover, .cart:hover{
   color: $roche-orange;
   background: transparent;
+}
+
+.text{
+  .long{
+    p{
+      @include media('<=laptop', '>limitMenuReduced') {
+      margin-bottom: 20px;
+      white-space: break-spaces;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-height: 215px;
+      }
+    }
+  }
 }
 
 .Éditions, .Editions, .editions{
