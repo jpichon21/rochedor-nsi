@@ -510,6 +510,14 @@ h2 {
         }
         .long {
           opacity: 0;
+          .p{
+            @include media("<=laptop", ">limitMenuReduced") {
+            margin-bottom: 20px;
+            white-space: break-spaces;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-height: 215px;
+          }
         }
       }
     }
