@@ -74,13 +74,13 @@
     <div class="actions">
       <a class="button addToCart" data-id="{{ product.codprd }}" href="#">{{ 'editions.addtocart' | trans }}</a>
       {% if product.urlPartenaire != '' %}
-        {% if product.typrub == 'livre' %}
+        {% if product.typprd == 'livre' %}
           <div class="choice">{{ 'editions.or' | trans }}</div>
           <a class="button" target="_blank" href="{{ product.urlPartenaire }}">{{ 'editions.calameo' | trans }}</a>
-        {% elseif product.typrub == 'cd' %}
+        {% elseif product.typprd == 'cd' %}
           <div class="choice">{{ 'editions.or' | trans }}</div>
           <a class="button" target="_blank" href="{{ product.urlPartenaire }}">{{ 'editions.bayard.chant' | trans }}</a>
-        {% elseif product.typrub == 'livrepar' %}
+        {% elseif product.typprd == 'livrepar' %}
           <div class="choice">{{ 'editions.or' | trans }}</div>
           <a class="button" target="_blank" href="{{ product.urlPartenaire }}">{{ 'editions.bayard.partition' | trans }}</a>
         {% endif %}
