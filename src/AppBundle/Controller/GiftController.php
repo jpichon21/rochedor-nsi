@@ -196,7 +196,7 @@ class GiftController extends Controller
                         ->findByRef($request->query->get('Ref'));
             /** @var Contact $contact */
             $contact = $gift->getContact();
-            $parsedContact = $contact->getCivil().' '.$contact->getNom().' '.$contact->getPrenom();
+            $parsedContact = $contact->getCivil().' '.$contact->getPrenom().' '.$contact->getNom();
 
             return $this->render('gift/payment-return.html.twig', [
                 'name' => $parsedContact,
@@ -302,7 +302,7 @@ class GiftController extends Controller
                 [$contact->getEmail() => $contact->getPrenom().' '.$contact->getNom()],
                 $this->get('translator')->trans('gift.title'),
                 $this->container->get('templating')->render('emails/gift/gift-notify-online.html.twig', [
-                    'name' => $contact->getCivil().' '.$contact->getNom().' '.$contact->getPrenom(),
+                    'name' => $contact->getCivil().' '.$contact->getPrenom().' '.$contact->getNom(),
                     'amount' => $don->getMntdon(),
                     'status' => $status,
                     'method' => $method,

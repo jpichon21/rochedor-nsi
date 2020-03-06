@@ -14,9 +14,17 @@
         <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
         {% if page.content.intro is defined or page.content.intro_line2 is defined or page.content.intro_line3 is defined %}
         <div class="intro">
-            {{ page.content.intro | raw }}<br>
-            {{ page.content.intro_line2 | raw }}<br>
+            {% if page.content.intro is defined %}
+            {{ page.content.intro | raw }}
+            {% endif %}
+            <br>
+            {% if page.content.intro_line2 is defined %}
+            {{ page.content.intro_line2 | raw }}
+            {% endif %}
+            <br>
+            {% if page.content.intro_line3 is defined %}
             {{ page.content.intro_line3 | raw }}
+            {% endif %}
         </div>
         {% endif %}
         <div class="dropdown {% if page.content.sections|length == 1 %}single{% endif %}">
