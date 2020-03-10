@@ -25,8 +25,16 @@ body {
     }
   }
 }
-.header .logo .editions{
-  background-image: none!important;
+
+.header .logo {
+  @include media('<xxlarge') {
+    margin: initial;
+    padding: initial;
+  }
+
+  .editions {
+    background-image: none!important;
+  }
 }
 
 .editions{
@@ -418,7 +426,7 @@ h2 {
       //height: 250px;
       height: 295px;
       @include media('>=laptop') {
-        height: 450px; 
+        height: 450px;
       }
       background-size: cover;
       background-position:  center;
@@ -428,9 +436,9 @@ h2 {
       position: absolute;
       width: 100%;
       //top: 190px;
-      top: 295px; 
+      top: 295px;
       @include media('>=laptop') {
-        top: 450px; 
+        top: 450px;
       }
       bottom: 0;
       padding: 20px;
@@ -755,7 +763,7 @@ h2 {
       flex: 1;
       margin-right: 10px;
       height: 100px;
- 
+
       &:last-child {
         margin-right: 0;
       }
