@@ -20,7 +20,7 @@
         {% for slide in slides %}
         {% if slide != '' %}
         {% set slidesCount = slidesCount + 1 %}
-        <div class="slide {% if loop.first %}active{% endif %}">
+        <div class="slide {% if loop.first %} active{% endif %}" data-slide="{{ slide }}">
           <div class="top">
             <a class="full image" title="{{ product.produitcourt }}" href="{{ slide }}"
               style="{{ asset(slide) | background }}">
@@ -39,7 +39,7 @@
     <div class="thumbnails">
       {% for slide in slides %}
       {% if slide != '' %}
-      <div class="thumb {% if loop.first %}active{% endif %}" style="{{ asset(slide) | background }}"></div>
+      <div class="thumb {% if loop.first %} active{% endif %}" style="{{ asset(slide) | background }}" data-slide="{{ slide }}"></div>
       {% else %}
       <div class="empty"></div>
       {% endif %}

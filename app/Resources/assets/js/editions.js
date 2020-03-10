@@ -66,6 +66,30 @@ $('.carousel .prev, .carousel .next').on('click', function () {
   changeThumb(direction)
 })
 
+// Au clic sur une miniature, affiche une image dans le carousel
+$('.thumbnails .thumb').on('click', function () {
+  if ($(this).hasClass('active')) {
+    return
+  }
+
+  $('.thumbnails .thumb').removeClass('active')
+  $(this).addClass('active')
+
+  let prev = $('.carousel .slide.active')
+  let next = $('.carousel .slide[data-slide="' + $(this).data('slide') + '"]')
+
+  upElement(prev, next)
+})
+
+// Affiche une image dans le carousel
+function upElement (prev, next) {
+  next.addClass('active fade')
+  setTimeout(function () {
+    prev.removeClass('active')
+    next.removeClass('fade')
+  }, 800)
+}
+
 $('.product').on('click', '.description .cart', function (event) {
   addProduct(event, $(this).attr('data-id'))
 })
