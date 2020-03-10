@@ -1282,7 +1282,7 @@
     <unit id="bYGmESp" name="editions.filter.collections.title">
       <segment>
         <source>editions.filter.collections.title</source>
-        <target>Par collections</target>
+        <target>Par collection</target>
       </segment>
     </unit>
     <unit id="JDutJpY" name="editions.filter.collections.choose">
@@ -1294,7 +1294,7 @@
     <unit id="aoxcH.V" name="editions.filter.themes.title">
       <segment>
         <source>editions.filter.themes.title</source>
-        <target>Par thèmes</target>
+        <target>Par thème</target>
       </segment>
     </unit>
     <unit id="yskUgvU" name="cart.remove">

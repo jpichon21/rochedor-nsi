@@ -670,7 +670,9 @@ h2 {
       }
     }
     .buttons-filter {
-      margin-left: -60px;
+      @include media('>xxlarge') {
+        margin-left: -60px;
+      }
       .search {
         white-space: nowrap;
         margin-right: 3px;
