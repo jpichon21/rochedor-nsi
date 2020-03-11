@@ -588,7 +588,7 @@ h2 {
       }
       &.themes {
         select {
-          width: 20%;
+          width: 23%;
         }
         &.disabled {
           label {
@@ -681,9 +681,6 @@ h2 {
       }
     }
     .buttons-filter {
-      @include media('>xxlarge') {
-        margin-left: -60px;
-      }
       .search {
         white-space: nowrap;
         margin-right: 3px;
