@@ -69,7 +69,7 @@
         </div>
         {% if news|length %}
             <div class="nouveautes">
-                <h2>Nouveauté</h2>
+                <h2>Nouveautés</h2>
                 {% for article in news %}
                     <div data-index="{{ loop.index0 }}" class="cnews{% if loop.first %} active{% endif %}{% if article.url %} with-link{% endif %}">
                         <i>{{article.intro}}</i>
@@ -158,7 +158,7 @@
                 {% endif %}
             </h2>
             {{page.content['sections'][5].body|raw}}
-            <a class="button yellow" href="{{ localePath('contact-ro', app.request.locale) }}">Découvrir <img
+            <a class="button yellow" href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">Découvrir <img
                     class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
         </div>
     </div>

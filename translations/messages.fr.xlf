@@ -821,7 +821,7 @@
     <unit id="jbjkLYq" name="news.title">
       <segment>
         <source>news.title</source>
-        <target>Nouveauté</target>
+        <target>Nouveautés</target>
       </segment>
     </unit>
     <unit id="Qx5vJC1" name="news.button.discover">

@@ -481,7 +481,7 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
   }
 })
 
-itemConnection.on('click', 'a', function (event) {
+itemConnection.on('click', 'a:not(.tooltip-password)', function (event) {
   event.preventDefault()
   if ($(this).hasClass('back')) {
     return
