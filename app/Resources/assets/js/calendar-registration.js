@@ -255,6 +255,8 @@ function afterLogin (user) {
     if (_you.transport === '') {
       upFlashbag(i18n.trans('form.message.update_you'))
       $('.modify-you', itemParticipants).click()
+    } else {
+      itemParticipants.find('.validate-participants').removeClass('disabled')
     }
   })
 }

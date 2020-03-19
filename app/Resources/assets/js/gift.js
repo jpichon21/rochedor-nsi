@@ -382,10 +382,13 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
     _you = {...getContact(), ...user}
     updateYouFormRender([], _you)
     setTimeout(() => {
+      $('.panel', itemConnection).hide()
+      $('.panel.registration').show()
       scrollToElement($('.panel.registration'))
       $('.panel.registration').addClass('update-user')
+      downLoader()
+      changeItem([itemConnection])
     }, 200)
-    changeItem([itemConnection])
   }).catch(() => {
     downLoader()
     upFlashbag(i18n.trans('security.bad_credentials'))
