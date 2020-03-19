@@ -176,7 +176,7 @@ class GiftController extends Controller
             $don->getDestdon(),
             [],
             null,
-            $don->getMemodon()
+            $don instanceof Don ? $don->getMemodon() : null
         );
         if (!$paymentUrl) {
             return ['status' => 'ko', 'message' => 'an error as occured'];
