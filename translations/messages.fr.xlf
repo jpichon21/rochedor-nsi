@@ -3729,5 +3729,11 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
               <target>Rechercher</target>
           </segment>
       </unit>
+      <unit id="1">
+          <segment>
+              <source>edition.comingSoon</source>
+              <target>Bientôt disponible</target>
+          </segment>
+      </unit>
   </file>
 </xliff>

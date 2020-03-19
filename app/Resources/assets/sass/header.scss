@@ -253,6 +253,11 @@ body {
           display: none;
         }
       }
+
+      span.disabled {
+        opacity: 0.3;
+        cursor: default;
+      }
     }
   }
   .sub-menu {
@@ -271,6 +276,11 @@ body {
       opacity: 1;
       max-height: 286px;;
       transition: opacity 0.2s linear;
+    }
+
+    li a.disabled {
+      opacity: 0.3;
+      cursor: default;
     }
   }
   .logo {
