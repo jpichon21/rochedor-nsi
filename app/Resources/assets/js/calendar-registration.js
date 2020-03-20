@@ -790,7 +790,10 @@ itemParticipants.on('click', '.validate-participants', function (event) {
         $('.result', itemValidation).html(result)
         downLoader()
         updateEndMessageRender()
-        changeItem(itemValidation)
+        setTimeout(function() {
+          changeItem(itemValidation)
+          scrollToElement(itemValidation)
+        }, 300)
         _existingRef = ''
       }).catch(error => {
         downLoader()
