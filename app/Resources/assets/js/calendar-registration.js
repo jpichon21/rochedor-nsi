@@ -601,11 +601,6 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
           updateParticipants()
           $('.you-render').show()
           _hasOneParticipant = true
-          $(`.panel.${action}`).slideUp(800, function () {
-            $(this).hide()
-            changeItem(itemParticipants)
-            scrollTop()
-          })
           addParticipant(event)
         }).catch(error => {
           if (error) {
