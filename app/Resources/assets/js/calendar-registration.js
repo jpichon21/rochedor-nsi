@@ -743,6 +743,11 @@ itemParticipants.on('click', '.modify-him', function (event) {
   })
 })
 
+$(document).on('click', '.validateFormParticipant', function(event) {
+  event.preventDefault()
+  itemParticipants.find('.add-participant').trigger('click')
+})
+
 itemParticipants.on('click', '.add-participant', function (event) {
   if (panelYouForm.is(':visible')) {
     panelYouForm.trigger('submit')

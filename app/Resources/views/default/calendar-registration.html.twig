@@ -345,9 +345,6 @@
         <a href="#" class="button cancel input" data-redirect-url="{{ path('calendar-' ~ currentLocale) }}">{{ 'form.cancel' | trans | raw }}</a>
     </div>
     <% } else { %>
-    <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4">
-        <!-- Offset -->
-    </div>
     <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-2">
         <!-- Offset -->
     </div>
@@ -358,6 +355,10 @@
     <% if (register) { %>
     <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1-3 pure-u-xl-1-4">
         <input autocomplete="off" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
+    </div>
+    <% } else { %>
+    <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1-3 pure-u-xl-1-4">
+        <input autocomplete="off" class="input button validateFormParticipant" type="submit" value="{{ 'form.submit' | trans | raw }}">
     </div>
     <% } %>
 </script>
@@ -474,14 +475,14 @@
     <div class="pure-u-1 pure-u-md-1">
         <textarea class="textarea memo" name="memo" placeholder="{{ 'form.memo' | trans | raw }}"><%= _.escape(participant.memo) %></textarea>
     </div>
-    <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4">
-        <!-- Offset -->
-    </div>
     <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-2">
         <!-- Offset -->
     </div>
-    <div class="pure-u-1 pure-u-md-5-24">
-        <a href="#" class="button cancel input">{{ 'form.cancel' | trans | raw }}</a>
+    <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1-3 pure-u-xl-1-5">
+        <a href="#" class="button cancel input" data-redirect-url="{{ path('calendar-choice-site-' ~ currentLocale) }}">{{ 'form.cancel' | trans | raw }}</a>
+    </div>
+    <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1-3 pure-u-xl-1-4">
+        <input autocomplete="off" class="input button validateFormParticipant" type="submit" value="{{ 'form.submit' | trans | raw }}">
     </div>
 </script>
 <script type="text/template" class="end-message-template">
