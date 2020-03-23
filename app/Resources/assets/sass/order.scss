@@ -1,6 +1,10 @@
 @import './variables';
 @import './page';
 
+.pure-u-md-1-2{
+  margin-top: 25px;
+}
+
 .content {
   > .right {
     display: block;
@@ -9,6 +13,7 @@
     }
   }
   .dropdown {
+    max-width: 580px!important;
     .item {
       &.active {
         h2 {
@@ -18,6 +23,7 @@
         }
       }
       &.canOpen {
+        font-family: lato, 'lato', sans-serif;
         h2 {
           cursor: pointer;
         }
@@ -104,7 +110,7 @@
     text-transform: uppercase;
     th {
       padding: 10px 0;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 400;
       text-align: center;
       text-transform: none;
@@ -126,6 +132,7 @@
   }
   tbody {
     tr {
+      font-family: 'lato', lato, sans-serif;
       &:first-child {
         td {
           padding-top: 15px;
@@ -155,7 +162,8 @@
           border-bottom: none!important;
         }
         &.action {
-          font-size: 12px;
+          font-size: 14px;
+          font-family: lato, 'lato', sans-serif;
         }
         &.quantity {
           .minus {
@@ -165,7 +173,7 @@
             margin-left: 10px;
           }
           i {
-            color: #000000;
+            color: $roche-orange;
           }
         }
         &.first {
@@ -195,6 +203,8 @@
       padding: 15px 0;
       text-align: right;
       border-top: 1px #000000 solid;
+      font-family: lato, 'lato', 'sans-serif';
+      font-size: 14px;
       span {
         margin-right: 10px;
       }

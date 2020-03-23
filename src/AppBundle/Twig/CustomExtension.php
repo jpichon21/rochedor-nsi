@@ -3,22 +3,29 @@ namespace AppBundle\Twig;
  
 use \Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider;
 use \AppBundle\Service\PageService;
- 
+use Symfony\Component\Translation\TranslatorInterface;
+
 class CustomExtension extends \Twig_Extension
 {
     /**
      * @var RouteProvider
      */
     private $routeProvider;
-   
+
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
     /**
      * @var PageService
      */
     private $pageService;
-    public function __construct(RouteProvider $routeProvider, PageService $pageService)
+    public function __construct(RouteProvider $routeProvider, PageService $pageService, TranslatorInterface $translator)
     {
         $this->routeProvider = $routeProvider;
         $this->pageService = $pageService;
+        $this->translator = $translator;
     }
  
     public function getFilters()
@@ -37,6 +44,7 @@ class CustomExtension extends \Twig_Extension
         return array(
             new \Twig_Function('routeExists', array($this, 'routeExists')),
             new \Twig_Function('localePath', array($this, 'localePath')),
+            new \Twig_Function('loadTranslations', array($this, 'loadTranslations')),
         );
     }
  
@@ -98,6 +106,18 @@ class CustomExtension extends \Twig_Extension
             }
         }
         return '#';
+    }
+
+    public function loadTranslations($locale)
+    {
+        $domains = $this->translator->getCatalogue($locale);
+        $messages = [];
+        foreach ($domains->getDomains() as $domain) {
+            foreach ($domains->all($domain) as $key => $message) {
+                $messages[$key] = $message;
+            }
+        }
+        return json_encode($messages);
     }
 
     public function getName()

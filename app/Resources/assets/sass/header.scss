@@ -3,7 +3,7 @@ body {
     display: block;
     //height: auto;
     //height: 100%;
-    min-height: 100vh;
+    min-height: 1000px;
     overflow-y: auto;
     background-attachment: fixed!important;
     .footer {
@@ -29,6 +29,7 @@ body {
       .header {
         height: 100vh;
         overflow-y: auto;
+        max-height: none;
       }
       .footer,
       .content,
@@ -53,6 +54,9 @@ body {
   flex-direction: column;
   align-items: center;
   z-index: 2;
+  @include media('<limitMenuReduced') {
+    max-height: 100px;
+  }
   .burger {
     position: absolute;
     top: 30px;
@@ -67,6 +71,7 @@ body {
   }
   .logo {
     position: relative;
+    top: 7px;
     @include media('<=mobile') {
       padding: 15px 0px!important;
     }
@@ -76,7 +81,8 @@ body {
       left: 50%;
       bottom: -20px;
       width: 180px;
-      margin-left: -90px;
+      //margin-left: -90px;
+      margin-left: -86px;
       font-size: 14px;
       line-height: 18px;
       letter-spacing: 2px;
@@ -89,9 +95,13 @@ body {
       @include media('<=mobile') {
         bottom: -36px;
         line-height: 22px;
+        display: none;
       }
       @include media('>=limitMenuReduced') {
         content: none;
+      }
+      @include media('<=limitMenuReduced') {
+        display: none;
       }
       @media screen and (max-height: 500px) {
         content: none;
@@ -103,7 +113,8 @@ body {
       transition: 2s ease;
       z-index: 2;
       @include media('<=mobile') {
-        width: 82px
+        width: 82px;
+        margin-left: 12px;
       }
     }
     .editions {
@@ -130,6 +141,7 @@ body {
         padding: 9px 20px;
         border: 1px #000000 solid;
         transition: 0.5s ease;
+        font-family: azo-sans-web,sans-serif;
         @include media('<large') {
           display: none;
         }
@@ -241,6 +253,11 @@ body {
           display: none;
         }
       }
+
+      span.disabled {
+        opacity: 0.3;
+        cursor: default;
+      }
     }
   }
   .sub-menu {
@@ -257,8 +274,13 @@ body {
     &.active {
       visibility: visible;
       opacity: 1;
-      max-height: 150px;
+      max-height: 286px;;
       transition: opacity 0.2s linear;
+    }
+
+    li a.disabled {
+      opacity: 0.3;
+      cursor: default;
     }
   }
   .logo {
@@ -294,7 +316,8 @@ body {
         position: absolute;
         left: 50%;
         bottom: -20px;
-        margin-left: -45px;
+        //margin-left: -45px;
+        margin-left: -36px;
       }
     }
     .cart-container {
@@ -521,6 +544,7 @@ body {
       display: none;
       width: 100%;
       padding: 20px 0 40px;
+      margin-top: 58px;
       .cart {
         width: 100px;
         margin: 0 auto 40px;
@@ -594,6 +618,14 @@ body {
 }
 
 .editions{
+  #mainLogo{
+      @include media('>limitMenuReduced') {
+          margin-left: -42px;
+      }
+      @include media('<=limitMenuReduced') {
+        margin-left: 8px!important;
+    }
+    }
   .cartSpan, .current, .available, .minus, .plus {
     &:hover, &:active, &:focus{
       background: $roche-orange;
@@ -619,7 +651,7 @@ body {
   transition: 1s ease;
   #logoTagline{
     width: 132px!important;
-    left: 60px;
+    left: 63px;
     z-index: 2;
   }
 }
@@ -632,7 +664,10 @@ body {
   }
 }
 
-.Éditions{
+.Éditions, .editions{
+  #logoTagline{
+    display: none!important;
+  }
   #logoTaglineContainer{
     display: none!important;
   }
@@ -650,5 +685,8 @@ body {
   #mainLogo{
     transform: scale(0.85);
     transition: 2s ease;
+    @include media('<=large', '>mobile') {
+      margin-left: 21px;
+    }
   }
 }

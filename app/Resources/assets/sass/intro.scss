@@ -1,3 +1,6 @@
+@import '~include-media/dist/_include-media.scss';
+@import './variables';
+
 .intro {
   display: block;
   position: fixed;
@@ -25,22 +28,53 @@
     left: 50%;
     margin-left: -91px;
     animation-name: intro-mount;
+    height: 200px;
+    @include media('<=mobile') {
+      animation-name: intro-mount-mobile;
+    }
+    @include media('>xlarge','<=xlarge-hybrid') {
+      animation-name: intro-mount-xlarge-hybrid;
+      margin-left: -100px;
+    }
     animation-duration: 2s;
     animation-delay: 4s;
     animation-fill-mode: forwards;
     z-index: 1;
+    @include media('<=mobile') {
+      //top: 40%;
+    }
     .logo {
       width: 160px;
       height: 132px;
+      @include media('<=mobile') {
+        width: 152px;
+        height: 124px;
+        transform: scale(0.9);
+        background-position-x: 3px;
+        margin-top: 10px;
+      }
       background: url('../img/logo-icon.png') no-repeat;
       animation-name: intro-opacity;
       animation-duration: 2s;
-      animation-delay: 1s;
+      animation-delay: 0s;
       animation-fill-mode: forwards;
       opacity: 0;
-      margin-left: 12px;
+      margin-left: 16px;
+      background-position-x: 5px;
       background-size: 152px;
-      margin-top: 2px;
+      margin-top: 9.5px;
+      @include media('>mobile', "<=large") {
+        background-position-x: -3px;
+        margin-top: -16px;
+      }
+      @include media('>medium', "<=large") {
+        background-position-x: -3px;
+        margin-top: -11px;
+      }
+      @include media('>mobile', "<=medium") {
+        background-position-x: -3px;
+        margin-top: -12px;
+      }
       &:before,
       &:after {
         content: '';
@@ -51,13 +85,17 @@
         background-size: 100%;
       }
       &:before {
-        background-image: url('../img/logo-overlay.png');
-        transform-origin: 70px 41px;
+        background-image: url('../img/logo-overlay5.png');
+        transform-origin: 73px 45px;
         animation-name: intro-scale;
         animation-duration: 5s;
         animation-delay: 1s;
         animation-fill-mode: forwards;
         z-index: 1;
+        @include media('<=mobile') {
+          background-image: url('../img/logo-overlay-new.png');
+          transform-origin: 66px 41px;
+        }
       }
       &:after {
         background-image: url('../img/logo-text.png');
@@ -66,7 +104,19 @@
         animation-delay: 3s;
         opacity: 0;
         z-index: 2;
-        margin-left: -8px;
+        //margin-left: -8px;
+        margin-left: 0px;
+        @include media('<=mobile') {
+         // margin-left: -4px;
+         margin-left: 2px;
+         margin-top: 4px;
+        }
+        @include media('>medium', "<=large") {
+          margin-left: -16px;
+        }
+        @include media('>mobile', "<=medium") {
+          margin-left: -12px;
+        }
       }
     }
   }
@@ -101,10 +151,10 @@ body {
       //animation-delay: 17s;
     }
     .scroll-down {
-      animation-delay: 19s;
+      animation-delay: 8.5s;
     }
 
-  
+
 }
 
 @keyframes intro-hidden {
@@ -139,3 +189,16 @@ body {
   from { top: 45%; }
   to { top: 58px; }
 }
+
+@keyframes intro-mount-mobile {
+  from { top: 45%; }
+  to { top: 17px; }
+}
+
+@keyframes intro-mount-xlarge-hybrid {
+  from { top: 45%; }
+  to { top: 38px; }
+}
+
+
+

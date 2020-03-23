@@ -8,17 +8,44 @@
   .zone {
     flex: none;
   }
+  .zone{
+    @include media('<xxlarge') {
+      padding: 20px 80px 0px!important;
+    }
+    @include media('<large') {
+      padding: 20px 0px!important;
+    }
+    @include media('>medium','<=laptop') {
+      padding: 40px 80px 0px!important;
+    }
+    @include media('<=medium') {
+      padding: 20px 0px!important;
+    }
+    @include media('<=mobile'){
+      &.mobilePadding{
+        padding: 20px!important;
+    }
+  }
 }
 .prev,
 .next {
   position: absolute;
-  top: 50%;
+  //top: 50%;
+  top: 42%;
   margin-top: -34px;
   width: 68px;
   height: 68px;
-  background-image: url('../img/arrow-left.png');
+  background: url('../img/arrow-left.png'), url('../img/arrow-left-white.png');
+  transition: 0.5s ease;
   z-index: 1;
+  @include media('>laptop') {
+     top: 50%;
+  }
   cursor: pointer;
+  &:hover,&:focus, &:active{
+    background: url('../img/arrow-left-white.png'), url('../img/arrow-left.png');
+    transition: 0.5s ease;
+  }
   @include media('<medium') {
     top: 180px;
     width: 45px;
@@ -32,13 +59,23 @@
 }
 .next {
   right: 0;
-  background-image: url('../img/arrow-right.png');
+  background: url('../img/arrow-right-alt.png'), url('../img/arrow-right-white-alt.png');
+  transition: 0.5s ease;
+  background-size:cover;
+  &:hover,&:focus, &:active{
+    background: url('../img/arrow-right-white-alt.png'),  url('../img/arrow-right-alt.png');
+    transition: 0.5s ease;
+    background-size:cover;
+  }
 }
 .carousel {
   position: relative;
   min-height: 450px;
   padding: 20px 88px 50px;
   flex: 1;
+  @include media('>laptop') {
+    padding: 40px 88px 50px!important;
+  }
   @include media('<medium') {
     padding: 0;
   }
@@ -48,13 +85,26 @@
     min-height: 450px;
     box-sizing: border-box;
     outline: none;
-    overflow: hidden;
+    overflow: hidden;  @include media('>laptop') {
+      width: 104%!important;
+      min-height: 520px;
+    }
     padding: 0 20px;
+    width: 106%!important;
+    @include media('>laptop') {
+      width: 104%!important;
+      min-height: 520px;
+    }
     @include media('<medium') {
       padding: 0;
     }
-    
-    &:hover {
+    &:hover, &:focus, &:active {
+      outline: none!important;
+      &:before{
+        background-image: url('../img/plus-white-speaker.png');
+        transition: 0.5s ease;
+        outline: none!important;
+      }
      /*. &:before {
         opacity: 0;
       }
@@ -191,3 +241,5 @@
         }
       }
     }
+
+  }

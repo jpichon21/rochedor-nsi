@@ -15,8 +15,22 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Produit
 {
-    const TYP_BOOK = 'livre';
-    const TYP_OTHER = 'autre';
+    const GENDER = [
+        'autbio' => 'Autobiographie',
+        'carnot' => 'Carnet de notes',
+        'chant' => 'Chants',
+        'cmtbib' => 'Commentaire biblique',
+        'floril' => 'Florilège',
+        'lectxt' => 'Lecture de textes',
+        'priere' => 'Prière',
+        'temoin' => 'Témoignage',
+    ];
+    const TYP_PRD = [
+        'livre' => 'Livre',
+        'livreaud' => 'Livre audio',
+        'livrepar' => 'Livret de partitions',
+        'cd' => 'CD'
+    ];
 
     /**
      * @var int
@@ -265,6 +279,20 @@ class Produit
      */
     private $themes;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="UrlPartenaire", type="text", nullable=false)
+     */
+    private $urlPartenaire;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Genre", type="string", length=6, nullable=false, options={"fixed" = true})
+     */
+    private $genre;
+
     public function __construct()
     {
         $this->refprd = 0;
@@ -301,6 +329,8 @@ class Produit
         $this->rang = 0;
         $this->nouveaute = false;
         $this->themes = '';
+        $this->urlPartenaire = '';
+        $this->genre = '';
     }
 
     /**
@@ -1145,6 +1175,46 @@ class Produit
     public function setThemes($themes)
     {
         $this->themes = $themes;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlPartenaire()
+    {
+        return $this->urlPartenaire;
+    }
+
+    /**
+     * @param string $urlPartenaire
+     *
+     * @return Produit
+     */
+    public function setUrlPartenaire($urlPartenaire)
+    {
+        $this->urlPartenaire = $urlPartenaire;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGenre()
+    {
+        return $this->genre;
+    }
+
+    /**
+     * @param string $genre
+     *
+     * @return Produit
+     */
+    public function setGenre($genre)
+    {
+        $this->genre = $genre;
 
         return $this;
     }

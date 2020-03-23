@@ -224,6 +224,16 @@
         <target>Spenden</target>
       </segment>
     </unit>
+     <unit id="nrz9.KlX" name="menu.six.three">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:66</note>
+      </notes>
+      <segment>
+        <source>menu.six.three</source>
+        <target><![CDATA[Donner de<br> son temps
+				]]></target>
+      </segment>
+    </unit>
     <unit id="_xIh0pv" name="filter.title.site">
       <notes>
         <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:16</note>
@@ -1151,7 +1161,7 @@
     <unit id="kswmam." name="form.transport">
       <segment>
         <source>form.transport</source>
-        <target>Sie kommen</target>
+        <target>Ihr Transportmittel</target>
       </segment>
     </unit>
     <unit id="g8r0.vw" name="form.memo">
@@ -1163,25 +1173,19 @@
     <unit id="qZI9mI2" name="form.transport.perso">
       <segment>
         <source>form.transport.perso</source>
-        <target>Kommt mit eigenen Mitteln</target>
+        <target>Personal</target>
       </segment>
     </unit>
     <unit id="qeUDh4t" name="form.transport.train">
       <segment>
         <source>form.transport.train</source>
-        <target>Kommt mit dem Zug</target>
+        <target>Zug</target>
       </segment>
     </unit>
     <unit id="tjBn22A" name="form.transport.avion">
       <segment>
         <source>form.transport.avion</source>
-        <target>Kommt mit dem Flugzeug</target>
-      </segment>
-    </unit>
-    <unit id="l5g0cdb" name="form.transport.bus">
-      <segment>
-        <source>form.transport.bus</source>
-        <target>Kommt mit dem Bus</target>
+        <target>Flugzeug</target>
       </segment>
     </unit>
     <unit id="lTZDt9R" name="form.label.submit">
@@ -1921,7 +1925,7 @@ Kommentar erstellt</target>
     <unit id="dJfmInP" name="form.lieu.viotte">
       <segment>
         <source>form.lieu.viotte</source>
-        <target>Viotte</target>
+        <target>Besançon Viotte</target>
       </segment>
     </unit>
     <unit id="qm_COTU" name="form.cancel">
@@ -2403,7 +2407,7 @@ Kommentar erstellt</target>
     <unit id="7rO5qFQ" name="select.allocation.libre">
       <segment>
         <source>select.allocation.libre</source>
-        <target>Zur freien Verwendung</target>
+        <target>Freie Zuordnung</target>
       </segment>
     </unit>
     <unit id="otNY7_F" name="select.allocation.viecom">
@@ -2790,5 +2794,48 @@ Kommentar erstellt</target>
         <target>Ihre Registrierungsanfrage wurde nicht abgeschlossen. Möchten Sie die Seite wirklich verlassen?</target>
       </segment>
     </unit>
-  </file>
-</xliff>
+    <unit id="aHsOKTn" name="registration.validation.address_rochedor">
+      <segment>
+        <source>registration.validation.address_rochedor</source>
+        <target>A La Roche d'Or, chemin du Muenot 25000 Besançon</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTn" name="registration.validation.address_fontanilles">
+      <segment>
+        <source>registration.validation.address_fontanilles</source>
+        <target>Aux Fontanilles, route de Riunoguès 66480 Maureillas Las Illas</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTi" name="other.gift-mode">
+          <segment>
+            <source>other.gift-mode</source>
+            <target>Andere Spenden</target>
+          </segment>
+        </unit>
+        <unit id="bHsOKTb" name="form.gift.validate">
+          <segment>
+            <source>form.gift.validate</source>
+            <target>Validate</target>
+          </segment>
+        </unit>
+        <unit id="bHsOKTs" name="calendar.registration.logout-tooltip">
+          <segment>
+            <source>calendar.registration.logout-tooltip</source>
+            <target>Verlasse die Seite. Registrierungsanfragen werden nicht berücksichtigt</target>
+          </segment>
+        </unit>
+        <unit id="bHsOKTz" name="gift.return.title">
+          <segment>
+            <source>gift.return.title</source>
+            <target>Rückkehr</target>
+          </segment>
+        </unit>
+        <unit id="bHsOKTa" name="gift.return.title">
+          <segment>
+            <source>gift.disconnect.title</source>
+            <target>Fertig</target>
+          </segment>
+        </unit>
+      </file>
+    </xliff>
+

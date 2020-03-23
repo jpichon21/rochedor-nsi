@@ -2,7 +2,9 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Commande;
 use AppBundle\Entity\Contact;
+use AppBundle\Entity\Tpays;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -14,11 +16,11 @@ use Twig\Error\Error;
 
 class PaymentService
 {
-    const METHOD_CB = 'PBX';
+    const METHOD_CB = 'CB';
     const METHOD_PAYPAL = 'PAYPAL';
     const METHOD_CHEQUE = 'CH';
     const METHOD_VIREMENT = 'VIR';
-    const METHOD_VIREMENT_REGULIER = 'VIRREG';
+    const METHOD_VIREMENT_REGULIER = 'VPER';
 
     private $container;
     private $tPaysRepository;
@@ -60,6 +62,8 @@ class PaymentService
      * @param string $baseRoute
      * @param string|null $periodVir
      * @param string|null $destDon
+     * @param array $delivery
+     * @param Commande|null $order
      *
      * @throws Error
      *
@@ -74,25 +78,41 @@ class PaymentService
         $locale,
         $baseRoute,
         $periodVir = null,
-        $destDon = null
+        $destDon = null,
+        $delivery = [],
+        Commande $order = null,
+        $memoDon = null
     ) {
         switch ($method) {
             case self::METHOD_PAYPAL:
-                return $this->getPaypalUrl($amount, $objectId, $itemName, $email, $locale, $baseRoute);
-            case self::METHOD_CHEQUE:
-                $contact = $this->getContact();
-                $this->sendValidationMail(
-                    $contact,
-                    $destDon,
+                return $this->getPaypalUrl(
                     $amount,
-                    'emails/gift/gift-notify-cheque.html.twig',
-                    $this->translator->trans('payment.cheque')
+                    $objectId,
+                    $itemName,
+                    $email,
+                    $locale,
+                    $baseRoute,
+                    $destDon,
+                    $memoDon
                 );
+            case self::METHOD_CHEQUE:
+                if ($baseRoute === 'gift' && empty($delivery)) {
+                    $contact = $this->getContact();
 
-                return $this->getChequeUrl($objectId, $locale, $baseRoute, $amount, $contact, $destDon);
+                    $this->sendValidationMailGift(
+                        $contact,
+                        $destDon,
+                        $amount,
+                        'emails/gift/gift-notify-cheque.html.twig',
+                        $this->translator->trans('payment.cheque')
+                    );
+                    return $this->getChequeUrlGift($objectId, $locale, $baseRoute, $amount, $contact, $destDon);
+                } else {
+                    return $this->getChequeUrlOrder($objectId, $locale, $baseRoute, $amount, $delivery, $destDon);
+                }
             case self::METHOD_VIREMENT:
                 $contact = $this->getContact();
-                $this->sendValidationMail(
+                $this->sendValidationMailGift(
                     $contact,
                     $destDon,
                     $amount,
@@ -103,7 +123,7 @@ class PaymentService
                 return $this->getVirementUrl($objectId, $locale, $amount, $contact);
             case self::METHOD_VIREMENT_REGULIER:
                 $contact = $this->getContact();
-                $this->sendValidationMail(
+                $this->sendValidationMailGift(
                     $contact,
                     $destDon,
                     $amount,
@@ -114,7 +134,7 @@ class PaymentService
 
                 return $this->getVirementRegulierUrl($objectId, $locale, $amount, $periodVir, $contact);
             default:
-                return $this->getPayboxUrl($amount, $objectId, $email, $locale, $baseRoute);
+                return $this->getPayboxUrl($amount, $objectId, $email, $locale, $baseRoute, $destDon, $memoDon);
         }
     }
 
@@ -123,7 +143,9 @@ class PaymentService
         $objectId,
         $email,
         $locale,
-        $baseRoute
+        $baseRoute,
+        $destDon,
+        $memoDon
     ) {
         $params = [
             'PBX_SITE' => $this->container->getParameter('paybox_site'),
@@ -149,8 +171,8 @@ class PaymentService
                 RouterInterface::ABSOLUTE_URL
             ),
             'PBX_ANNULE' => $this->router->generate(
-                $baseRoute . '_payment_return',
-                ['_locale' => $locale, 'method' => 'paybox', 'status' => 'cancel'],
+                'gift-' . $locale,
+                ['giftData' => ['amount' => $amount, 'destDon' => $destDon, 'giftNote' => $memoDon, 'modDon' => 'CB']],
                 RouterInterface::ABSOLUTE_URL
             ),
             'PBX_ATTENTE' => $this->router->generate(
@@ -177,7 +199,9 @@ class PaymentService
         $itemName,
         $email,
         $locale,
-        $baseRoute
+        $baseRoute,
+        $destDon,
+        $memoDon
     ) {
         $params = [
             'amount' => $amount,
@@ -188,12 +212,18 @@ class PaymentService
             'rm' => 0,
             'return' => $this->router->generate(
                 $baseRoute . '_payment_return',
-                ['_locale' => $locale, 'method' => 'paybox', 'status' => 'success', 'Ref' => $objectId],
+                ['_locale' => $locale, 'method' => 'paypal', 'status' => 'success', 'Ref' => $objectId],
                 RouterInterface::ABSOLUTE_URL
             ),
             'cancel_return' => $this->router->generate(
-                $baseRoute . '_payment_return',
-                ['_locale' => $locale, 'method' => 'paybox', 'status' => 'cancel', 'Ref' => $objectId],
+                'gift-' . $locale,
+                ['giftData' => [
+                    'amount' => $amount,
+                    'destDon' => $destDon,
+                    'giftNote' => $memoDon,
+                    'modDon' => 'PAYPAL',
+                    ],
+                ],
                 RouterInterface::ABSOLUTE_URL
             ),
             'business' => $this->container->getParameter('paypal_email'),
@@ -210,7 +240,7 @@ class PaymentService
         return $url;
     }
 
-    private function getChequeUrl($objectId, $locale, $baseRoute, $amount, Contact $contact, $destDon)
+    private function getChequeUrlGift($objectId, $locale, $baseRoute, $amount, Contact $contact, $destDon)
     {
         $url = $this->router->generate(
             $baseRoute . '_paymentcheque_return',
@@ -220,6 +250,23 @@ class PaymentService
                 'amount' => $amount,
                 'civility' => $contact->getCivil(),
                 'name' => $contact->getNom(),
+                'affectation' => $this->translator->trans('select.allocation.'.strtolower($destDon)),
+            ],
+            RouterInterface::ABSOLUTE_URL
+        );
+        return $url;
+    }
+
+    private function getChequeUrlOrder($objectId, $locale, $baseRoute, $amount, $delivery, $destDon)
+    {
+        $url = $this->router->generate(
+            $baseRoute . '_paymentcheque_return',
+            [
+                '_locale' => $locale,
+                'ref' => $objectId,
+                'amount' => $amount,
+                'civility' => $delivery['civil'],
+                'name' => $delivery['nom'],
                 'affectation' => $this->translator->trans('select.allocation.'.strtolower($destDon)),
             ],
             RouterInterface::ABSOLUTE_URL
@@ -307,7 +354,7 @@ class PaymentService
      *
      * @throws Error
      */
-    private function sendValidationMail(Contact $contact, $destDon, $amount, $template, $subject, $periodVir = null)
+    private function sendValidationMailGift(Contact $contact, $destDon, $amount, $template, $subject, $periodVir = null)
     {
         $bankName = $this->container->getParameter('bank_name.'.$destDon);
         $bankAccount = $this->container->getParameter('bank_account.'.$destDon);

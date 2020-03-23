@@ -28,6 +28,7 @@ function initEncore () {
     .addEntry('js/password', './app/Resources/assets/js/password.js')
     .addStyleEntry('css/main', './app/Resources/assets/sass/main.scss')
     .addStyleEntry('css/home', './app/Resources/assets/sass/home.scss')
+    .addStyleEntry('css/intro', './app/Resources/assets/sass/intro.scss')
     .addStyleEntry('css/page', './app/Resources/assets/sass/page.scss')
     .addStyleEntry('css/speaker', './app/Resources/assets/sass/speaker.scss')
     .addStyleEntry('css/calendar', './app/Resources/assets/sass/calendar.scss')

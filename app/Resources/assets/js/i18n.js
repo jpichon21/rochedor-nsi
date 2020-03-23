@@ -3,14 +3,12 @@ export default class I18n {
     if (locale === null) {
       locale = this.guessLocale()
     }
-    this.load(locale)
+    this.load()
   }
-  load (locale) {
-    window.fetch(`/xhr/translations/${locale}`).then(res => {
-      res.json().then(res => {
-        this.messages = res
-      })
-    })
+  load () {
+    if (document.getElementById('#translationsData')) {
+      this.messages = JSON.parse(document.getElementById('#translationsData').getAttribute('data-translations'))
+    }
   }
 
   trans (key) {

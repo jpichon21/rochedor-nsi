@@ -12,29 +12,34 @@
 <div class="content fade-in">
     <div class="left">
         <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
-        {% if page.content.intro %}
+        {% if page.content.intro is defined or page.content.intro_line2 is defined or page.content.intro_line3 is defined %}
         <div class="intro">
+            {% if page.content.intro is defined %}
             {{ page.content.intro | raw }}
+            {% endif %}
+            <br>
+            {% if page.content.intro_line2 is defined %}
+            {{ page.content.intro_line2 | raw }}
+            {% endif %}
+            <br>
+            {% if page.content.intro_line3 is defined %}
+            {{ page.content.intro_line3 | raw }}
+            {% endif %}
         </div>
         {% endif %}
         <div class="dropdown {% if page.content.sections|length == 1 %}single{% endif %}">
             {% for section in page.content.sections %}
             <div
-                class="item"
+                class="item" {% if section.title|length > 24 %}item-long{% endif %}
                 data-slug-id="#{{ section.title|slugify }}"
                 data-carousel-id="{{ section.title|md5 }}">
                 <a class="slug" href="{{ currentPath ~ '#' ~ section.title|slugify }}">
                     <h2>{{ section.title }}</h2>
                 </a>
                 {{ section.body | raw }}
-                {% set images = [] %}
-                {% for slide in section.slides %}
-                    {% for image in slide.images %}
-                        {% if image.url %}
-                            {% set images = images|merge([image]) %}
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
+
+                {% set images = page.extractImagesForSection(loop.index0) %}
+                {# carousel mobile #}
                 <div class="carousel {% if loop.first %}active{% endif %}"
                     data-carousel-element="{{ section.title|md5 }}">
                     <div class="slides">
@@ -57,6 +62,7 @@
     <div class="hole">
     </div>
     <div class="right">
+        {# carousel desktop #}
         {% for section in page.content['sections'] %}
         <div class="carousel {% if loop.first %}active{% endif %}"
             data-carousel-element="{{ section.title|md5 }}">

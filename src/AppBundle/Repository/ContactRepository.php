@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\ContactL;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Contact;
@@ -121,28 +122,6 @@ class ContactRepository
     public function isUsernameUnique($username, $codco = null)
     {
         $c = $this->findContactByUsername($username);
-        if ($c === null) {
-            return true;
-        }
-        if ($codco === null) {
-            return false;
-        }
-        if ($c->getCodco() !== $codco) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Check if email is unique
-     *
-     * @param string $email
-     * @param int $codco
-     * @return boolean
-     */
-    public function isEmailUnique($email, $codco = null)
-    {
-        $c = $this->findContactByEmail($email);
         if ($c === null) {
             return true;
         }

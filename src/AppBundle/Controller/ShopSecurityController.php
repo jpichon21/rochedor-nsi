@@ -131,10 +131,6 @@ class ShopSecurityController extends Controller
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide client object']);
         }
         
-        if (!$this->clientRepository->isEmailUnique($clientReq['email'])) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'security.email_exists']);
-        }
-
         $client = new Client();
         
         if ($clientReq['conData'] === false) {
@@ -145,7 +141,7 @@ class ShopSecurityController extends Controller
             ->setPassword($password)
             ->setUsername($username)
             ->setDatConDonnees(null)
-            ->setEmail(null);
+            ->setEmail(isset($clientReq['email']) ? $clientReq['email'] : '');
         } else {
             if (!$this->clientRepository->isUsernameUnique($clientReq['username'])) {
                 return new JsonResponse(['status' => 'ko', 'message' => 'security.username_exists']);
@@ -225,10 +221,6 @@ class ShopSecurityController extends Controller
             return new JsonResponse(['status' => 'ko', 'message' => 'You must provide mail object']);
         }
         
-        if (!$this->clientRepository->isEmailUnique($mail['email'])) {
-            return new JsonResponse(['status' => 'ko', 'message' => 'security.email_exists']);
-        }
-
         return new JsonResponse(['ok' => 'Mail Valide']);
     }
 

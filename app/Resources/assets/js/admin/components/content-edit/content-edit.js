@@ -95,7 +95,7 @@ export class ContentEdit extends React.Component {
     return (
       <div>
         <Alert open={this.state.alertOpen} content={this.props.status} onClose={this.handleClose} />
-        <AppMenu goBack='/content-list' title={`Modification d'un contenu`} localeHandler={this.onLocaleChange} locales={this.state.locales} locale={this.props.page.locale} />
+        <AppMenu goBack={this.props.goBack || '/content-list'} title={`Modification d'un contenu`} localeHandler={this.onLocaleChange} locales={this.state.locales} locale={this.props.page.locale} />
         <Snackbar
           open={this.state.snackbarOpen}
           autoHideDuration={4000}

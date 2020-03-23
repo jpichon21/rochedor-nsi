@@ -224,6 +224,16 @@
 				]]></target>
       </segment>
     </unit>
+     <unit id="nrz9.KlX" name="menu.six.three">
+      <notes>
+        <note priority="1">app/Resources/views/parts/header.html.twig:66</note>
+      </notes>
+      <segment>
+        <source>menu.six.three</source>
+        <target><![CDATA[Donner de<br> son temps
+				]]></target>
+      </segment>
+    </unit>
     <unit id="_xIh0pv" name="filter.title.site">
       <notes>
         <note category="file-source" priority="1">app/Resources/views/default/calendar.html.twig:16</note>
@@ -1000,5 +1010,48 @@
         <target>Your registration request has not been finalized, are you sure you want to leave the page?</target>
       </segment>
     </unit>
+    <unit id="aHsOKTn" name="registration.validation.address_rochedor">
+      <segment>
+        <source>registration.validation.address_rochedor</source>
+        <target>A La Roche d'Or, chemin du Muenot 25000 Besançon</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTn" name="registration.validation.address_fontanilles">
+      <segment>
+        <source>registration.validation.address_fontanilles</source>
+        <target>Aux Fontanilles, route de Riunoguès 66480 Maureillas Las Illas</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTi" name="other.gift-mode">
+      <segment>
+        <source>other.gift-mode</source>
+        <target>Other donations</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTb" name="form.gift.validate">
+      <segment>
+        <source>form.gift.validate</source>
+        <target>I validate and indicate my contact details</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTs" name="calendar.registration.logout-tooltip">
+      <segment>
+        <source>calendar.registration.logout-tooltip</source>
+        <target>Exit the page. No registration request will be taken into account</target>
+      </segment>
+    </unit>
+    <unit id="bHsOKTz" name="gift.return.title">
+      <segment>
+        <source>gift.return.title</source>
+        <target>Return</target>
+      </segment>
+    </unit>
+     <unit id="bHsOKTa" name="gift.return.title">
+      <segment>
+        <source>gift.disconnect.title</source>
+        <target>Finish</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
+

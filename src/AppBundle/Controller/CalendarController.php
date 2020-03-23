@@ -7,12 +7,14 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Service\CountryService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Repository\CalendarRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\ContactL;
@@ -123,7 +125,7 @@ class CalendarController extends Controller
      * @Route("/iscrizione-ritiro", name="register_calendar-it")
      * @Route("/registro-jubilado", name="register_calendar-es")
      */
-    public function calendarRegistrationAction(Request $request)
+    public function calendarRegistrationAction(Request $request, CountryService $countryService)
     {
         $id = $request->query->get('id');
         $calendarURL = $this->generateUrl('calendar-'.$request->getLocale());
@@ -134,20 +136,8 @@ class CalendarController extends Controller
         }
         $availableLocales = $this->pageService->getAvailableLocales($page);
 
-        $countriesJSON = array();
         $countries = $this->tpaysRepository->findAllCountry();
-        $preferredCountries = ['FR', 'GP', 'MQ', 'GF', 'RE', 'YT', 'PM', 'WF', 'PF', 'NC', 'TF'];
-        $preferredChoices = [];
-        foreach ($countries as $country) {
-            if (in_array($country->getCodpays(), $preferredCountries)) {
-                $preferredChoices[] = ['codpays' => $country->getCodpays(), 'nompays' => $country->getNompays()];
-            } else {
-                $countriesJSON[] = array(
-                    'codpays' => $country->getCodpays(),
-                    'nompays' => $country->getNompays()
-                );
-            }
-        }
+        list($countriesJSON, $preferredChoices) = $countryService->orderCountryListByPreference($countries);
 
         if ($id) {
             $activity = $this->getCalendarAction($id);
@@ -259,10 +249,10 @@ class CalendarController extends Controller
         $contact = $this->getUser();
         $attendees = $this->getParents($contact);
         $activityId = $request->query->get('activityId');
-        list($contacts, $user, $refLcal) = $this->getAlreadyRegisteredContacts($activityId);
+        list($alreadyRegistered, $user, $refLcal) = $this->getAlreadyRegisteredContacts($activityId);
         return ['status' => 'ok', 'data' => [
             'attendees' => $attendees,
-            'alreadyRegistered' => $contacts,
+            'alreadyRegistered' => $alreadyRegistered,
             'alreadyRegisteredYou' => $user,
             'alreadyRegisteredRef' => $refLcal
         ]];
@@ -273,8 +263,9 @@ class CalendarController extends Controller
         /** @var CalL $registeredContact */
         $currentUser = $this->getUser();
         $calendarLRepository = $this->getDoctrine()->getManager()->getRepository(CalL::class);
+        $currentUserId = $currentUser->getCodco();
         $registeredContact = $calendarLRepository->findOneBy([
-            'lcal' => $currentUser->getCodco(),
+            'lcal' => $currentUserId,
             'codcal' => $activityId,
             'etaplcal' => 'attent'
         ]);
@@ -293,9 +284,16 @@ class CalendarController extends Controller
                     $contact->setJsco($addedContact->getJslcal());
                     $user = $contact;
                 } else {
+                    $contactL = $this->contactRepository->findContactL($addedContact->getLcal(), $currentUserId);
+                    $colTyp = $addedContact->getTyplcal();
+                    $colP = $currentUser->getCodCo();
+                    if ($contactL) {
+                        $colTyp = $contactL->getColTyp();
+                        $colP = $contactL->getColP();
+                    }
                     $contact->setJsco($addedContact->getJslcal());
-                    $contact->coltyp = $addedContact->getTyplcal();
-                    $contact->colp = $currentUser->getCodCo();
+                    $contact->coltyp = $colTyp;
+                    $contact->colp = $colP;
                     $contacts[] = $contact;
                 }
             }
@@ -381,7 +379,7 @@ class CalendarController extends Controller
                 $calL = new CalL();
                 $calL->setCodcal($activityId)
                 ->setLcal($contact->getCodco())
-                ->setTyplcal($attendee['coltyp'])
+                ->setTyplcal(CalL::TYP_LCAL_PARTICIPANT)
                 ->setReflcal($refLcal)
                 ->setJslcal(json_encode(
                     [
@@ -548,11 +546,11 @@ class CalendarController extends Controller
     public function getDataCalendarAction(CalendarRepository $calendarRepo)
     {
         $data = array();
-        
+
         $eventTypes = $calendarRepo->findEventTypes();
         $speakers = $calendarRepo->findSpeakers();
         $translations = $calendarRepo->findTranslations();
-        
+
         foreach ($eventTypes as $eventType) {
             if ($eventType['color'] === "") {
                 $key = $eventType['abbr'];
@@ -569,6 +567,13 @@ class CalendarController extends Controller
         $eventTypes = array_filter($eventTypes, function ($k) {
             return strlen($k['color']) == 7 ;
         }, ARRAY_FILTER_USE_BOTH);
+
+        // Ajout de la mention 'Père'
+        foreach ($speakers as &$speaker) {
+            if ($speaker['civil'] === 'Père') {
+                $speaker['name'] .= ' (' . $speaker['civil'] . ')';
+            }
+        }
 
         $data['sites'] = $this::SITES;
         $data['types'] = $eventTypes;
@@ -591,10 +596,10 @@ class CalendarController extends Controller
             
             $dateOut = $event['dateOut'];
             $dateOutParse = $event['dateOut']->format('Ymd');
-            
+
             $duration = date_diff($dateIn, $dateOut);
             $duration = substr($duration->format('%R%d'), 1);
-            
+            $duration == 0 ? $duration = 1 : $duration;
             $nameEvent = $event['event'];
             
             $speakers = array();
@@ -654,6 +659,18 @@ class CalendarController extends Controller
     }
 
     /**
+     * @Route("/choix-site", name="calendar-choice-site-fr")
+     * @Route("/choice-place", name="calendar-choice-site-en")
+     * @Route("/wahl-platz", name="calendar-choice-site-de")
+     * @Route("/scelta-luogo", name="calendar-choice-site-it")
+     * @Route("/opcion-lugar", name="calendar-choice-site-es")
+     */
+    public function calendarChoiceSiteAction()
+    {
+        return $this->render('default/calendar-choice-site.html.twig');
+    }
+
+    /**
      * @Route("/liste-retraites", name="calendar-fr")
      * @Route("/list-retreats", name="calendar-en")
      * @Route("/liste-ruckzuge", name="calendar-de")
@@ -669,6 +686,23 @@ class CalendarController extends Controller
         if (!$page) {
             throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
         }
+
+        // Sélection par défaut d'un site (lrdo ou font)
+        $choicedSite = $request->query->get('site');
+        if ($choicedSite) {
+            foreach ($filters['sites'] as &$site) {
+                if ($choicedSite === $site['value']) {
+                    $site['selected'] = true;
+                }
+            }
+        }
+
+        $translationsTitle = [];
+        foreach ($filters['translations'] as $translation) {
+            $translationsTitle[$translation['value']] = $this->get('translator')
+                ->trans('calendar.translation.title', ['%translation%' => strtolower($translation['name'])]);
+        }
+
         $availableLocales = $this->pageService->getAvailableLocales($page);
         return $this->render('default/calendar.html.twig', [
                 'page' => $page,
@@ -676,9 +710,26 @@ class CalendarController extends Controller
                 'types' => $filters['types'],
                 'speakers' => $filters['speakers'],
                 'translations' => $filters['translations'],
+                'translationsTitle' => json_encode($translationsTitle),
                 'retreatsData' => json_encode($retreatsData),
                 'availableLocales' => $availableLocales,
                 'noRetreatsMessage' => $this->translator->trans('calendar.no_retreat')
             ]);
+    }
+
+    /**
+     * Permet de déconnecter l'utilisateur avant de le rediriger sur la liste des retraites
+     *
+     * @Route("/cancel-registration", name="cancel_registration")
+     */
+    public function cancelRegistrationAction(CalendarRepository $calendarRepo, Request $request)
+    {
+        $session = new Session();
+        $session->invalidate();
+
+        return $this->redirectToRoute('calendar-' . $request->getLocale(), [
+            $calendarRepo,
+            $request
+        ]);
     }
 }

@@ -1,6 +1,8 @@
 <?php
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Prodrub;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Produit;
@@ -28,7 +30,7 @@ class ProductRepository
     * Find Produit by its Id
     *
     * @param int productId
-    * @return Produit
+    * @return array
     */
     public function findProduct($productId)
     {
@@ -58,23 +60,40 @@ class ProductRepository
     }
 
     /**
-    * Find Collection of Produit by theme
+    * Find Collection of Produit by theme filters
     *
-    * @param array $themes
-    * @return Array
+    * @param string $support
+    * @param string $author
+    * @param string $gender
+    * @param string $theme
+     *
+    * @return array
     */
-    public function findByThemes($themes)
+    public function findByThemesFilter($support, $author, $gender, $theme)
     {
-        $query = $this->entityManager
-        ->createQuery("SELECT p FROM AppBundle\Entity\Produit p WHERE REGEXP(p.themes, :themes) = 1");
-        $query->setParameter('themes', $themes);
-        return $query->getResult();
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select('p')
+            ->from('AppBundle:Produit', 'p');
+        if (!empty($support)) {
+            $qb->andWhere('p.typprd = :support')->setParameter('support', $support);
+        }
+        if (!empty($author)) {
+            $qb->andWhere('p.auteur = :author')->setParameter('author', $author);
+        }
+        if (!empty($gender)) {
+            $qb->andWhere('p.genre = :gender')->setParameter('gender', $gender);
+        }
+        if (!empty($theme)) {
+            $qb->andWhere('REGEXP(p.themes, :theme) = 1')->setParameter('theme', $theme);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
     /**
     * Find new products
     *
-    * @return Array
+    * @return array
     */
     public function findNewProducts()
     {
@@ -87,7 +106,7 @@ class ProductRepository
     /**
     * Find collections
     *
-    * @return Array
+    * @return array
     */
     public function findCollections($locale)
     {
@@ -99,10 +118,56 @@ class ProductRepository
     }
 
     /**
-    * Find themes
-    *
-    * @return Array
-    */
+     * @return array
+     */
+    public function findSupports()
+    {
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select('p.typprd')
+            ->from('AppBundle:Produit', 'p')
+            ->leftJoin('AppBundle:ProdRub', 'prub', 'WITH', 'prub.codrub = p.codrub')
+            ->orderBy('p.typprd')
+            ->distinct()
+        ;
+
+        return array_filter(array_column($qb->getQuery()->getScalarResult(), 'typprd'));
+    }
+
+    /**
+     * @return array
+     */
+    public function findAuthors()
+    {
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select('p.auteur')
+            ->from('AppBundle:Produit', 'p')
+            ->orderBy('p.auteur')
+            ->distinct()
+        ;
+
+        return array_filter(array_column($qb->getQuery()->getScalarResult(), 'auteur'));
+    }
+
+    /**
+     * @return array
+     */
+    public function findGenders()
+    {
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select('p.genre')
+            ->from('AppBundle:Produit', 'p')
+            ->orderBy('p.genre')
+            ->distinct()
+        ;
+
+        return array_filter(array_column($qb->getQuery()->getScalarResult(), 'genre'));
+    }
+
+    /**
+     * @throws \Exception
+     *
+     * @return array
+     */
     public function findThemes()
     {
         $query = $this->entityManager->getConnection()->prepare("SELECT DISTINCT      
@@ -115,7 +180,13 @@ class ProductRepository
         ORDER BY
         theme");
         $query->execute();
-        return $query->fetchAll();
+        $themes = $query->fetchAll();
+
+        $themes = array_filter($themes, function ($theme) {
+            return $theme['theme'] != '';
+        });
+
+        return array_column($themes, 'theme');
     }
 
     /**

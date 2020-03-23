@@ -18,23 +18,27 @@
                     <h2>{{ 'gift.amount' | trans | raw }}</h2>
                     <div class="panel amount active">
                         <form class="pure-g">
+                            {% if giftData.amount not in [null, 50, 100, 150, 300] %}
+                                {% set amountOther = true %}
+                            {% endif %}
                             <div class="pure-u-1 pure-u-md-1-5">
-                                <button value="50" class="input button radio">50 €</button>
+                                <button value="50" class="input button radio{% if giftData.amount == 50 %} checked{% endif %}">50 €</button>
                             </div>
                             <div class="pure-u-1 pure-u-md-1-5">
-                                <button value="100" class="input button radio">100 €</button>
+                                <button value="100" class="input button radio{% if giftData.amount == 100 %} checked{% endif %}">100 €</button>
                             </div>
                             <div class="pure-u-1 pure-u-md-1-5">
-                                <button value="150" class="input button radio">150 €</button>
+                                <button value="150" class="input button radio{% if giftData.amount == 150 %} checked{% endif %}">150 €</button>
                             </div>
                             <div class="pure-u-1 pure-u-md-1-5">
-                                <button value="300" class="input button radio">300 €</button>
+                                <button value="300" class="input button radio{% if giftData.amount == 300 %} checked{% endif %}">300 €</button>
                             </div>
                             <div class="pure-u-1 pure-u-md-1-5">
-                                <button class="input button radio other">{{ 'form.other' | trans | raw }} ?</button>
+                                <button class="input button radio other{% if amountOther is defined %} checked{% endif %}">{{ 'form.other' | trans | raw }} ?</button>
                             </div>
-                            <div class="pure-u-1 pure-u-md-1-1 hidden">
-                                <input class="input amount" required type="text" pattern="([0-9])+" name="amount" placeholder="* {{ 'form.other' | trans | raw }}">
+                            <div class="pure-u-1 pure-u-md-1-1 hidden input-box">
+                                <input class="input amount{% if giftData.amount is not null %} no-reinit-value{% endif %}" required type="text" {% if giftData.amount is not null %}value="{{ giftData.amount }}"{% endif %} pattern="([0-9])+" name="amount" placeholder="* {{ 'form.other' | trans | raw }}">
+                                <span class="unit">€</span>
                             </div>
                             <div class="pure-u-1 amount-render"></div>
                         </form>
@@ -47,18 +51,18 @@
                             <div class="pure-g">
                                 <div class="pure-u-1 pure-u-md-1-2">
                                     <select class="select select-allocation" required>
-                                        <option selected disabled value="">* {{ 'form.choose.allocation' | trans }}</option>
-                                        <option value="Libre">{{ 'select.allocation.libre' | trans }}</option>
-                                        <option value="VieCom">{{ 'select.allocation.viecom' | trans }}</option>
-                                        <option value="Itin">{{ 'select.allocation.itin' | trans }}</option>
-                                        <option value="RochTx">{{ 'select.allocation.rochtx' | trans }}</option>
-                                        <option value="FontTx">{{ 'select.allocation.fonttx' | trans }}</option>
+                                        <option style="font-family:lato" {% if giftData.destDon is null %} selected{% endif %} disabled value="">* {{ 'form.choose.allocation' | trans }}</option>
+                                        <option style="font-family:lato" value="Libre" {% if giftData.destDon == 'Libre' %} selected{% endif %}>{{ 'select.allocation.libre' | trans }}</option>
+                                        <option style="font-family:lato" value="VieCom" {% if giftData.destDon == 'VieCom' %} selected{% endif %}>{{ 'select.allocation.viecom' | trans }}</option>
+                                        <option style="font-family:lato" value="Itin" {% if giftData.destDon == 'Itin' %} selected{% endif %}>{{ 'select.allocation.itin' | trans }}</option>
+                                        <option style="font-family:lato" value="RochTx" {% if giftData.destDon == 'RochTx' %} selected{% endif %}>{{ 'select.allocation.rochtx' | trans }}</option>
+                                        <option style="font-family:lato" value="FontTx" {% if giftData.destDon == 'FontTx' %} selected{% endif %}>{{ 'select.allocation.fonttx' | trans }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="pure-g">
                                 <div class="pure-u-1 pure-u-md-1-1">
-                                    <textarea class="textarea gift-note" placeholder="{{ 'form.gift.note' | trans }}"></textarea>
+                                    <textarea class="textarea gift-note" placeholder="{{ 'form.gift.note' | trans }}">{% if giftData.giftNote is not null %} {{ giftData.giftNote }} {% endif %}</textarea>
                                 </div>
                             </div>
                         </form>
@@ -73,38 +77,38 @@
                                     <label>
                                         <span>{{ 'payment.cb'|trans }}</span>
                                         <br/>
-                                        <button id="input_payment_cb" href="#PBX" class="input button radio" rel="nofollow" title="{{ 'payment.cb'|trans }}" />
+                                        <button id="input_payment_cb" href="#CB" class="input button radio{% if giftData.modDon == 'CB' %} checked{% endif %}" rel="nofollow" title="{{ 'payment.cb'|trans }}" />
                                     </label>
                                 </div>
                                 <div class="pure-u-1 pure-u-md-1-5">
                                     <label>
                                         <span>{{ 'payment.paypal'|trans }}</span>
                                         <br/>
-                                        <button id="input_payment_paypal" href="#PAYPAL" class="input button radio" rel="nofollow" title="{{ 'payment.paypal'|trans }}"/>
-                                    </label>
-                                </div>
-                                <div class="pure-u-1 pure-u-md-1-5">
-                                    <label>
-                                        <span>{{ 'payment.virement'|trans }}</span>
-                                        <br/>
-                                        <button id="input_payment_virement" href="#VIR" class="input button radio" rel="nofollow" title="{{ 'payment.virement'|trans }}"/>
+                                        <button id="input_payment_paypal" href="#PAYPAL" class="input button radio{% if giftData.modDon == 'PAYPAL' %} checked{% endif %}" rel="nofollow" title="{{ 'payment.paypal'|trans }}"/>
                                     </label>
                                 </div>
                                 <div class="pure-u-1 pure-u-md-1-5">
                                     <label>
                                         <span>{{ 'payment.cheque'|trans }}</span>
                                         <br/>
-                                        <button id="input_payment_cheque" href="#CH" class="input button radio" rel="nofollow" title="{{ 'payment.cheque'|trans }}"/>
+                                        <button id="input_payment_cheque" href="#CH" class="input button radio{% if giftData.modDon == 'CH' %} checked{% endif %}" rel="nofollow" title="{{ 'payment.cheque'|trans }}"/>
+                                    </label>
+                                </div>
+                                <div class="pure-u-1 pure-u-md-1-5">
+                                    <label>
+                                        <span>{{ 'payment.virement'|trans }}</span>
+                                        <br/>
+                                        <button id="input_payment_virement" href="#VIR" class="input button radio{% if giftData.modDon == 'VIR' %} checked{% endif %}" rel="nofollow" title="{{ 'payment.virement'|trans }}"/>
                                     </label>
                                 </div>
                                 <div class="pure-u-1 pure-u-md-1-5">
                                     <label>
                                         <span>{{ 'payment.virement_reg'|trans }}</span>
                                         <br/>
-                                        <button id="input_payment_virement_reg" href="#VIRREG" class="input button radio" rel="nofollow" title="{{ 'payment.virement_reg'|trans }}"/>
+                                        <button id="input_payment_virement_reg" href="#VPER" class="input button radio{% if giftData.modDon == 'VPER' %} checked{% endif %}" rel="nofollow" title="{{ 'payment.virement_reg'|trans }}"/>
                                     </label>
                                 </div>
-                                <input required type="hidden" name="payment_method">
+                                <input required type="hidden" name="payment_method" {% if giftData.modDon is not null %} value="{{ giftData.modDon }}"{% endif %}>
                             </div>
                         </form>
                         <div class="pure-g">
@@ -122,10 +126,11 @@
                         {% else %}
                             {% set secure_link = '#' %}
                         {% endif %}
-                        <a href="{{ localePath('securite-donnees', app.request.locale) }}" target="_blank" rel="nofollow">{{ 'global.secure-datas'|trans }}</a>
+                        <a id="secureDatasLink" class="hidden" href="{{ localePath('securite-donnees', app.request.locale) }}" target="_blank" rel="nofollow">{{ 'global.secure-datas'|trans }}</a>
                         <form class="pure-g">
-                            <div class="pure-u-1 pure-u-md-1-3">
-                                <input id="submitAmount" class="input button submit" type="submit" value="{{ 'form.validate' | trans | raw }}">
+                            <div class="pure-u-1">
+                                <input style="width: auto"
+                                       id="submitAmount" class="input button submit" type="submit" value="{{ 'form.gift.validate' | trans | raw }}">
                             </div>
                         </form>
                     </div>
@@ -133,20 +138,22 @@
                 <div class="item prelevement hidden">
                     <h2>{{ 'gift.two.title' | trans | raw }}</h2>
                     <div>
-                        <div>{{ 'gift.virement.descr' | trans | raw }}</div>
-                        <br>
                         <form class="form prelevement">
                             <div class="pure-g">
                                 <div class="pure-u-1 pure-u-md-1-1">
                                     <label class="hidden virement-reg" for="date_virement">{{ 'gift.virementreg.date' | trans | raw }} :</label>
                                     <label class="hidden virement" for="date_virement">{{ 'gift.virement.date' | trans | raw }} :</label>
                                     <input autocomplete="off" data-inputmask="'mask': '99/99/9999'" class="input date_virement virement virement-reg" required type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" name="date_virement" />
+                                    <label class="hidden virement-reg-fin" for="date_virement_fin">{{ 'gift.virementreg.datefin' | trans | raw }} :</label>
+                                    <input autocomplete="off" data-inputmask="'mask': '99/99/9999'" class="input virement virement-reg-fin hidden" type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" name="date_virement_fin" />
                                     <select class="select select-period virement-reg hidden">
-                                        <option selected disabled value="">{{ 'form.choose.period' | trans }}</option>
-                                        <option value="select.period.monthly">{{ 'select.period.monthly' | trans }}</option>
-                                        <option value="select.period.trimestre">{{ 'select.period.trimestre' | trans }}</option>
-                                        <option value="select.period.semestre">{{ 'select.period.semestre' | trans }}</option>
+                                        <option style="font-family:lato" selected disabled value="">{{ 'form.choose.period' | trans }}</option>
+                                        <option style="font-family:lato" value="select.period.monthly">{{ 'select.period.monthly' | trans }}</option>
+                                        <option style="font-family:lato" value="select.period.trimestre">{{ 'select.period.trimestre' | trans }}</option>
+                                        <option style="font-family:lato" value="select.period.semestre">{{ 'select.period.semestre' | trans }}</option>
                                     </select>
+                                    <br>
+                                    <div>{{ 'gift.virement.descr' | trans | raw }}</div>
                                     <div class="pure-g">
                                         <div class="pure-u-1 pure-u-md-1-3">
                                             <input id="submitPrelevement" class="input button submit" type="submit" value="{{ 'form.validate' | trans | raw }}">
@@ -168,7 +175,7 @@
                             <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1 pure-u-xl-1-4">
                                 <a href="#continue" class="button continue" rel="nofollow">{{ 'form.continue' | trans | raw }}</a>
                             </div>
-                            <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1 pure-u-xl-1-4">
+                            <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1 pure-u-xl-1-2" >
                                 <a href="#disconnect" class="button disconnect" rel="nofollow">{{ 'form.disconnect' | trans | raw }}</a>
                             </div>
                             <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1 pure-u-xl-1-4">
@@ -188,14 +195,16 @@
                                 <a class="button back">{{ 'form.back' | trans | raw }}</a>
                             </div>
                         </div>
+                    {% endif %}
                         <div class="panel connection">
                             <h3>{{ 'gift.one.title.connection' | trans | raw }}</h3>
                             <form class="pure-g connection">
                                 <div class="pure-u-1 pure-u-md-1-2">
                                     <input autocomplete="nope" class="input username" required type="text" name="username" placeholder="* {{ 'form.username' | trans | raw }}">
                                 </div>
-                                <div class="pure-u-1 pure-u-md-1-2">
+                                <div class="pure-u-1 pure-u-md-1-2 password-container">
                                     <input autocomplete="nope" class="input password" required type="password" name="password" placeholder="* {{ 'form.password-login' | trans | raw }}">
+                                    <a class="toggle-password"></a>
                                 </div>
                                 <div class="pure-u-1 pure-u-md-1-4">
                                     <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
@@ -205,7 +214,13 @@
                         </div>
                         <div class="panel registration">
                             <h3>{{ 'gift.one.title.registration' | trans | raw }}</h3>
-                            <form class="pure-g you-form-render"></form>
+                            
+                            <form class="pure-g you-form-render">
+                          
+                            
+                            </form>
+
+                             
                         </div>
                         <div class="panel reset">
                             <h3>{{ 'form.password.reset'|trans|raw }}</h3>
@@ -224,19 +239,22 @@
                                 </div>
                             </form>
                         </div>
-                    {% endif %}
                 </div>
             </div>
         </div>
-        <div class="right">
+        <div class="right" style="z-index: -1">
         </div>
     </div>
 {% endblock %}
 {% block javascripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+
 <script type="text/json" class="countries-json">
     {{ countries | json_encode() | raw }}
+</script>
+    <script type="text/json" class="preferred-countries-json">
+    {{ preferredCountries | json_encode() | raw }}
 </script>
 <script type="text/json" class="locale-json">
     {{ currentLocale }}
@@ -284,10 +302,15 @@
     </div>
     <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
         <select class="select pays <%= (you.pays != '') ? 'white' : '' %><%= errors.pays && ' error' %>" required name="pays">
-            <option <%= (you.pays == '') ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
+            <option style="font-family:lato" <%= (you.pays == '') ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
+            <% for (var i = 0; i < preferredCountries.length; i++) { %>
+                <% var country = preferredCountries[i] %>
+                <option style="font-family:lato" <%= (you.pays == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
+            <% } %>
+            <option style="font-family:lato" disabled>----------</option>
             <% for (var i = 0; i < countries.length; i++) { %>
-            <% var country = countries[i] %>
-            <option <%= (you.pays == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
+                <% var country = countries[i] %>
+                <option style="font-family:lato" <%= (you.pays == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
             <% } %>
         </select>
         <div class="error-message"><%= errors.pays %></div>
@@ -297,15 +320,22 @@
         <div class="error-message"><%= errors.tel %></div>
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
-        <input autocomplete="nope" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= you.mobil %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
+        <input autocomplete="nope" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= you.mobil %>" name="mobil" placeholder="* {{ 'form.mobile' | trans | raw }}">
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
-        <input autocomplete="nope" class="input email<%= errors.email && ' error' %>" required type="email" value="<%= you.email %>" name="email" placeholder="{{ 'form.email' | trans | raw }}">
+        <input autocomplete="nope" data-inputmask="'mask': '99/99/9999'" class="input datnaiss" required type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value="<%= (you.datnaiss !== '' && you.datnaiss !== undefined) ? moment(you.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="* {{ 'form.birthday' | trans | raw }}">
+        <div class="error-message"><%= errors.datnaiss %></div>
+    </div>
+    <div class="pure-u-1 pure-u-md-1-2">
+        <input autocomplete="nope" class="input email<%= errors.email && ' error' %>" required type="email" value="<%= you.email %>" name="email" placeholder="* {{ 'form.email' | trans | raw }}">
         <div class="error-message"><%= errors.email %></div>
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
-        <input autocomplete="nope" class="input username<%= errors.username && ' error' %>" required type="text" value="<%= _.escape(you.username) %>" name="username" placeholder="{{ 'form.username' | trans | raw }}">
+        <input autocomplete="nope" class="input username<%= errors.username && ' error' %>" required type="text" value="<%= _.escape(you.username) %>" name="username" placeholder="* {{ 'form.username' | trans | raw }}">
         <div class="error-message"><%= errors.username %></div>
+    </div>
+       <div class="pure-u-1 pure-u-md-1-2">
+             <a href="{{ localePath('aide-saisie', app.request.locale) }}" class="tooltip-password" target="_blank">{{ 'calendar.registration.tooltip-username' | trans }}</a>
     </div>
     <div class="pure-u-1 pure-u-md-1-2 password-container">
         <input autocomplete="nope" class="input password<%= errors.password && ' error' %>" type="password" name="password" placeholder="* {{ 'form.password' | trans | raw }}">
@@ -313,10 +343,10 @@
         <div class="error-message"><%= errors.password %></div>
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
-        <input autocomplete="nope" data-inputmask="'mask': '99/99/9999'" class="input datnaiss" required type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value="<%= (you.datnaiss !== '') ? moment(you.datnaiss).format('DD/MM/YYYY') : '' %>" name="datnaiss" placeholder="* {{ 'form.birthday' | trans | raw }}">
-        <div class="error-message"><%= errors.datnaiss %></div>
+             <a href="{{ localePath('aide-saisie', app.request.locale) }}" class="tooltip-password" target="_blank">{{ 'calendar.registration.tooltip-pass' | trans }}</a>
     </div>
-    <div class="pure-u-1 pure-u-md-1-2">
+
+    <div class="pure-u-1 pure-u-md-1-2" style="margin-top:10px;">
         <input autocomplete="nope" class="input profession<%= errors.datnaiss && ' error' %>" type="text" value="<%= you.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
     </div>
     <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-2">
@@ -329,5 +359,8 @@
         <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.submit' | trans | raw }}">
     </div>
 </script>
+
 <script src="{{ asset("assets/js/gift.js") }}"></script>
+
+
 {% endblock %}

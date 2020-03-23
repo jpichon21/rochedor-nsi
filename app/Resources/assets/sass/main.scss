@@ -19,12 +19,6 @@
   font-style: normal;
 }*/
 
-
-
-.intro{
-
-}
-
 html {
   background-color: #000000;
   // Fix for Magnific Popup
@@ -46,6 +40,10 @@ body {
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @include media('<=mobile') {
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+   }
   &:before {
     content: '';
     position: fixed;
@@ -125,6 +123,15 @@ i {
     }
   }
 }
+.order{
+  .content{
+    .left{
+      @include media('<=mobile') {
+        padding: 20px 40px 0px 10px;
+      }
+    }
+  }
+}
 .content {
   position: relative;
   width: 100%;
@@ -144,6 +151,9 @@ i {
     }
     .hole {
       width: 170px;
+      @include media('>xxlarge','<=laptop') {
+        width: 170px;
+      }
       @include media('<xxlarge') {
         width: 0;
       }
@@ -178,8 +188,16 @@ i {
         padding: 20px;
       }
     }
+    .left{
+      @include media('>large','<=limitMenuReduced') {
+        padding: 40px 20px 0px 60px;
+        .item{
+          padding-bottom: 8px!important;
+        }
+      }
+    }
     .right {
-      //position: sticky;
+      position: sticky;
       top: 0;
       h2, h3 {
         color: $roche-yellow; 
@@ -251,4 +269,37 @@ i {
 @-o-keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+.mobileOnly{
+  @include media('>mobile') {
+    display: none;
+  }
+}
+
+.mobileHide{
+  @include media('<=mobile') {
+    display: none;
+  }
+}
+
+.tooltip-password {
+  cursor: pointer;
+  border-bottom: none!important;
+  padding: 10px;
+  @include media('<=mobile') {
+    text-align: center;
+    margin-bottom: 3px;
+  }
+
+}
+
+.popup-password{
+  display: none;
+}
+
+.popup-visible{
+  display: flex;
+  opacity: 1;
+  visibility: visible;
 }

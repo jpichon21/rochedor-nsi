@@ -68,28 +68,6 @@ class ClientRepository
     }
 
     /**
-     * Check if email is unique
-     *
-     * @param string $email
-     * @param int $codco
-     * @return boolean
-     */
-    public function isEmailUnique($email, $codco = null)
-    {
-        $c = $this->findClientByEmail($email);
-        if ($c === null) {
-            return true;
-        }
-        if ($codco === null) {
-            return false;
-        }
-        if ($c->getCodco() !== $codco) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
     * Find Client by its personnal infos
     *
     * @param string $email

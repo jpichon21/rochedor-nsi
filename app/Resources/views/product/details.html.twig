@@ -20,7 +20,7 @@
         {% for slide in slides %}
         {% if slide != '' %}
         {% set slidesCount = slidesCount + 1 %}
-        <div class="slide {% if loop.first %}active{% endif %}">
+        <div class="slide {% if loop.first %} active{% endif %}" data-slide="{{ slide }}">
           <div class="top">
             <a class="full image" title="{{ product.produitcourt }}" href="{{ slide }}"
               style="{{ asset(slide) | background }}">
@@ -39,7 +39,7 @@
     <div class="thumbnails">
       {% for slide in slides %}
       {% if slide != '' %}
-      <div class="thumb {% if loop.first %}active{% endif %}" style="{{ asset(slide) | background }}"></div>
+      <div class="thumb {% if loop.first %} active{% endif %}" style="{{ asset(slide) | background }}" data-slide="{{ slide }}"></div>
       {% else %}
       <div class="empty"></div>
       {% endif %}
@@ -73,6 +73,18 @@
     </div>
     <div class="actions">
       <a class="button addToCart" data-id="{{ product.codprd }}" href="#">{{ 'editions.addtocart' | trans }}</a>
+      {% if product.urlPartenaire != '' %}
+        {% if product.typprd == 'livre' %}
+          <div class="choice">{{ 'editions.or' | trans }}</div>
+          <a class="button" target="_blank" href="{{ product.urlPartenaire }}">{{ 'editions.calameo' | trans }}</a>
+        {% elseif product.typprd == 'cd' %}
+          <div class="choice">{{ 'editions.or' | trans }}</div>
+          <a class="button" target="_blank" href="{{ product.urlPartenaire }}">{{ 'editions.bayard.chant' | trans }}</a>
+        {% elseif product.typprd == 'livrepar' %}
+          <div class="choice">{{ 'editions.or' | trans }}</div>
+          <a class="button" target="_blank" href="{{ product.urlPartenaire }}">{{ 'editions.bayard.partition' | trans }}</a>
+        {% endif %}
+      {% endif %}
       {% if product.urlbook != '' %}
       <div class="choice">{{ 'editions.or' | trans }}</div>
       <a class="button" target="_blank" href="{{ product.urlbook }}">{{ 'editions.ebookversion' | trans }}</a>

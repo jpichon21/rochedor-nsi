@@ -19,7 +19,7 @@
         <ul>
             {% for item in items %}
             <li>
-                <input id="{{ name ~ '_' ~ item.value }}" name="{{ name }}" value="{{ item.value }}" type="checkbox">
+                <input id="{{ name ~ '_' ~ item.value }}" name="{{ name }}" value="{{ item.value }}" type="checkbox" {% if item.selected is defined and item.selected == true %}checked="checked"{% endif %}>
                 <label for="{{ name ~ '_' ~ item.value }}">
                     {% if abbreviation %}
                     <span class="abbr" style="color: {{ item.color }}">{{ item.abbr }}</span>

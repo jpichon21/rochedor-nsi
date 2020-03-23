@@ -18,20 +18,14 @@ let i18n = new I18n()
 
 JsBarcode('.barcode').init()
 
-const themesForm = document.querySelector('.filter.themes form')
+const themesForm = document.querySelector('form.filter-form-themes')
 const filtersForm = document.querySelector('.filters form')
 
 if (themesForm != null) {
-  themesForm.onchange = event => {
-    const themes = document.querySelectorAll('.filter.themes input:checked')
-    const input = document.querySelector('.filter.themes input.value')
-    let values = []
-    themes.forEach(function (element) {
-      values.push(element.value)
-    })
-    input.value = values.join('|')
-    event.currentTarget.submit()
-  }
+  $('.buttons-filter .button.search').on('click', function (event) {
+    event.preventDefault()
+    $('form.filter-form-themes').submit()
+  })
 }
 
 if (filtersForm != null) {
@@ -71,6 +65,30 @@ $('.carousel .prev, .carousel .next').on('click', function () {
   let direction = $(this).hasClass('prev') ? 'prev' : 'next'
   changeThumb(direction)
 })
+
+// Au clic sur une miniature, affiche une image dans le carousel
+$('.thumbnails .thumb').on('click', function () {
+  if ($(this).hasClass('active')) {
+    return
+  }
+
+  $('.thumbnails .thumb').removeClass('active')
+  $(this).addClass('active')
+
+  let prev = $('.carousel .slide.active')
+  let next = $('.carousel .slide[data-slide="' + $(this).data('slide') + '"]')
+
+  upElement(prev, next)
+})
+
+// Affiche une image dans le carousel
+function upElement (prev, next) {
+  next.addClass('active fade')
+  setTimeout(function () {
+    prev.removeClass('active')
+    next.removeClass('fade')
+  }, 800)
+}
 
 $('.product').on('click', '.description .cart', function (event) {
   addProduct(event, $(this).attr('data-id'))

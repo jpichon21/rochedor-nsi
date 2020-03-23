@@ -40,6 +40,7 @@ let _participant = {}
 let _participants = []
 let _existingRef = ''
 let _registrationBegan = false
+let _hasOneParticipant = false
 
 const itemConnection = $('.item.connection')
 const itemParticipants = $('.item.participants')
@@ -121,8 +122,7 @@ function updateParticipantsRender () {
     transports: {
       'perso': i18n.trans('form.transport.perso'),
       'train': i18n.trans('form.transport.train'),
-      'avion': i18n.trans('form.transport.avion'),
-      'bus': i18n.trans('form.transport.bus')
+      'avion': i18n.trans('form.transport.avion')
     }
   }))
 }
@@ -138,8 +138,7 @@ function updateEndMessageRender () {
     transports: {
       'perso': i18n.trans('form.transport.perso'),
       'train': i18n.trans('form.transport.train'),
-      'avion': i18n.trans('form.transport.avion'),
-      'bus': i18n.trans('form.transport.bus')
+      'avion': i18n.trans('form.transport.avion')
     }
   }))
 }
@@ -190,6 +189,7 @@ function afterLogin (user) {
   _you = { ...participant, ...user }
   _participants = [_you]
   updateYouRender()
+  $('.you-render').hide()
   getRegistered(_infos.idact).then(data => {
     _registrationBegan = true
     let attendees = data.attendees
@@ -205,7 +205,10 @@ function afterLogin (user) {
       let transport = JSON.parse(element.jsco)
       participant.transport = transport.Arriv.Transport
       participant.lieu = transport.Arriv.Lieu
-      participant.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      participant.arriv = ''
+      if (transport.Arriv.Heure !== '' || transport.Arriv.Mn !== '') {
+        participant.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      }
       participant.memo = transport.Arriv.Memo
       participant[element.name] = element.value
       participant.codco = parseInt(participant.codco)
@@ -218,7 +221,7 @@ function afterLogin (user) {
 
     // Formattage des membres de la famille
     attendees.forEach(function(element) {
-      if (element.coltyp === 'conjo' || element.codtyp === 'enfan' || element.codtyp === 'paren') {
+      if (element.coltyp === 'conjo' || element.coltyp === 'enfan' || element.coltyp === 'paren') {
         // Si l'utilisateur est déjà présent dans la liste des inscrits,
         if (alreadyRegisteredIds.includes(element.codco)) {
           element.added = true
@@ -229,10 +232,14 @@ function afterLogin (user) {
 
     // Formattage de l'utilisateur courant (modif inscription)
     if (alreadyRegisteredYou) {
+      $('.you-render').show()
       let transport = JSON.parse(alreadyRegisteredYou.jsco)
       _you.transport = transport.Arriv.Transport
       _you.lieu = transport.Arriv.Lieu
-      _you.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      _you.arriv = ''
+      if (transport.Arriv.Heure !== '' || transport.Arriv.Mn !== '') {
+        _you.arriv = transport.Arriv.Heure + ':' + transport.Arriv.Mn
+      }
       _you.memo = transport.Arriv.Memo
     }
 
@@ -248,6 +255,8 @@ function afterLogin (user) {
     if (_you.transport === '') {
       upFlashbag(i18n.trans('form.message.update_you'))
       $('.modify-you', itemParticipants).click()
+    } else {
+      itemParticipants.find('.validate-participants').removeClass('disabled')
     }
   })
 }
@@ -312,6 +321,7 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
     password: $('.password', this).val()
   }).then(user => {
     afterLogin(user)
+    $('.intro').hide()
   }).catch(() => {
     downLoader()
     upFlashbag(i18n.trans('security.bad_credentials'))
@@ -394,6 +404,8 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
             arriv: participant.arriv,
             lieu: participant.lieu
           })
+          $('.you-render').show()
+          $('.intro').hide()
         }).catch(err => {
           downLoader()
           upFlashbag(i18n.trans(`${err}`))
@@ -411,7 +423,7 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
   }
 })
 
-itemConnection.on('click', 'a', function (event) {
+itemConnection.on('click', 'a:not(.tooltip-password)', function (event) {
   event.preventDefault()
   const which = $(this).attr('href').substring(1)
   switch (which) {
@@ -430,6 +442,7 @@ itemConnection.on('click', 'a', function (event) {
       break
     case 'continue':
       getLogin().then(user => afterLogin(user))
+      $('.intro').hide()
       break
     case 'disconnect':
       getLogout(_locale)
@@ -586,11 +599,9 @@ function callbackSubmit (event, context, action, phoneControl, callback) {
           updateYouRender()
           updateRegisteredRender()
           updateParticipants()
-          $(`.panel.${action}`).slideUp(800, function () {
-            $(this).hide()
-            changeItem(itemParticipants)
-            scrollTop()
-          })
+          $('.you-render').show()
+          _hasOneParticipant = true
+          addParticipant(event)
         }).catch(error => {
           if (error) {
             downLoader()
@@ -618,6 +629,7 @@ panelYouForm.on('submit', function (event) {
   callbackSubmit(event, $(this), 'you', true, function (res) {
     _you = res
   })
+  $('.you-render').show()
 })
 
 panelHimForm.on('submit', function (event) {
@@ -649,7 +661,15 @@ function closePanel (event, panel) {
   })
 }
 
-panelYouForm.on('click', '.cancel', function (event) { closePanel(event, 'you') })
+panelYouForm.on('click', '.cancel', function (event) {
+  // Si l'utilisateur est le seul inscrit, on redirige sur la liste des retraites
+  if (_participants.length === 1 && _you.codco === _participants[0].codco) {
+    window.location.replace($(this).data('redirect-url'))
+  }
+
+  closePanel(event, 'you')
+  $('.you-render').show()
+})
 panelHimForm.on('click', '.cancel', function (event) { closePanel(event, 'him') })
 panelAddForm.on('click', '.cancel', function (event) { closePanel(event, 'add') })
 
@@ -723,14 +743,41 @@ itemParticipants.on('click', '.modify-him', function (event) {
   })
 })
 
+$(document).on('click', '.validateFormParticipant', function(event) {
+  event.preventDefault()
+  itemParticipants.find('.add-participant').trigger('click')
+})
+
 itemParticipants.on('click', '.add-participant', function (event) {
+  if (panelYouForm.is(':visible')) {
+    panelYouForm.trigger('submit')
+  } else if (panelHimForm.is(':visible')) {
+    panelHimForm.trigger('submit')
+  } else if (panelAddForm.is(':visible')) {
+    panelAddForm.trigger('submit')
+  } else {
+    addParticipant(event)
+  }
+})
+
+function addParticipant (event) {
   modifyClick(event, 'add', updateHimFormRender, () => {
     _participant = getContact()
   })
-})
+  scrollToElement($('.him-form-render'))
 
+  // Une fois un participant ajouté, on peut valider la demande
+  if (itemParticipants.find('.validate-participants').hasClass('disabled') && _hasOneParticipant === true) {
+    itemParticipants.find('.validate-participants').removeClass('disabled')
+  }
+}
 itemParticipants.on('click', '.validate-participants', function (event) {
   event.preventDefault()
+  if ($(this).hasClass('disabled')) {
+    upFlashbag(i18n.trans('calendar.registration.validation-tooltip'))
+    return
+  }
+
   const validate = validateParticipants()
   if (validate === true) {
     upLoader()
@@ -743,7 +790,10 @@ itemParticipants.on('click', '.validate-participants', function (event) {
         $('.result', itemValidation).html(result)
         downLoader()
         updateEndMessageRender()
-        changeItem(itemValidation)
+        setTimeout(function() {
+          changeItem(itemValidation)
+          scrollToElement(itemValidation)
+        }, 300)
         _existingRef = ''
       }).catch(error => {
         downLoader()

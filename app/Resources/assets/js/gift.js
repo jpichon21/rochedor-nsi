@@ -15,6 +15,7 @@ import {
   postGift } from './gift-api.js'
 import { limitMenuReduced } from './variables'
 
+
 /* Translations */
 
 let i18n = new I18n()
@@ -26,6 +27,7 @@ moment.locale(_locale)
 /* Countries */
 
 const _countries = JSON.parse($('.countries-json').html())
+const _preferredCountries = JSON.parse($('.preferred-countries-json').html())
 
 /* Variables */
 
@@ -35,6 +37,7 @@ let _allocation = {}
 let _modpaie = ''
 let _note = ''
 let _dateDebVir = ''
+let _dateFinVir = ''
 let _virPeriod = ''
 
 const itemConnection = $('.item.connection')
@@ -43,6 +46,7 @@ const itemAllocation = $('.item.allocation')
 const itemPayment = $('.item.payment')
 const itemPrelevement = $('.item.prelevement')
 const content = $('.content')
+
 
 /* Dropdowns */
 function backToTop () {
@@ -66,6 +70,12 @@ function scrollToElement ($element) {
   }, 200)
 }
 
+function scrollTop () {
+  setTimeout(() => {
+    document.querySelector('.content').scroll({ top: 0, left: 0, behavior: 'smooth' })
+  }, 200)
+}
+
 function changeItem (elmt) {
   $('.dropdown .item').each(function () {
     this.style.maxHeight = null
@@ -83,11 +93,20 @@ function resizeItem ($item) {
 
 $(document).ready(function () {
   $('.dropdown .item').each(function () {
+
     if (this.classList.contains('amount') || this.classList.contains('allocation') || this.classList.contains('payment')) {
       resizeItem($(this))
       this.classList.add('active')
     }
   })
+
+  // Si on a une valeur par défaut (suite à une annulation de paiement)
+  if (itemAmount.find('.button.radio.checked').length > 0) {
+    itemAmount.find('.button.radio.checked').first().trigger('click')
+  }
+  if (itemPayment.find('.button.radio.checked').length > 0) {
+    itemPayment.find('.button.radio.checked').first().trigger('click')
+  }
 })
 
 /* Renders */
@@ -100,11 +119,12 @@ function updateYouRender () {
   $('.you-render').html(youTemplate({ you: _you }))
 }
 
-function updateYouFormRender (errors = [], contact = {}) {
+function updateYouFormRender (errors = [], contact = {}, isUpdate = false) {
   $('.you-form-render').html(youFormTemplate({
     you: contact,
     errors: errors,
     countries: _countries,
+    preferredCountries: _preferredCountries,
     civilites: [
       i18n.trans('form.civilite.mr'),
       i18n.trans('form.civilite.mme'),
@@ -112,7 +132,8 @@ function updateYouFormRender (errors = [], contact = {}) {
       i18n.trans('form.civilite.frere'),
       i18n.trans('form.civilite.pere'),
       i18n.trans('form.civilite.soeur')
-    ]
+    ],
+    isUpdate: isUpdate
   }))
   Inputmask().mask(document.querySelectorAll('.datnaiss'))
 }
@@ -163,24 +184,39 @@ itemAmount.on('click', '.button.radio', function (event) {
   let $amountTextAmount = $('.panel.amount .input.amount')
   if ($(this).hasClass('other')) {
     $amountTextAmount.parent().removeClass('hidden')
-    $amountTextAmount.val('').focus()
-    _amount = ''
+    if ($amountTextAmount.hasClass('no-reinit-value')) {
+      $amountTextAmount.focus()
+      _amount = $amountTextAmount.val()
+    } else {
+      $amountTextAmount.val('').focus()
+      _amount = ''
+    }
   } else {
     $amountTextAmount.parent().addClass('hidden')
     $amountTextAmount.val(amount)
     _amount = $amountTextAmount.val()
   }
+  $amountTextAmount.removeClass('no-reinit-value')
   $(this).addClass('checked')
   updateAmountRender()
 })
 
 itemAmount.on('keyup', '.input.amount', function () {
-  _amount = $(this).val()
-  updateAmountRender()
-  // resizeItem($(this).parents('.item.amount.active'))
+  $(this).val($(this).val().replace(',', '.'))
+  if (!isNaN($(this).val())) {
+    _amount = $(this).val()
+    updateAmountRender()
+  }
 })
 
 /* CHOIX DE L'ALLOCATION */
+
+$(window).bind('pageshow', function() {
+  _allocation = {
+    name: $('.select-allocation').find('option:selected').text(),
+    value: $('.select-allocation').val()
+  }
+})
 
 itemAllocation.on('change', '.select-allocation', function (event) {
   event.preventDefault()
@@ -203,11 +239,18 @@ itemPayment.on('click', '.button.radio', function (event) {
   itemPayment.find('input[name="payment_method"]').val($(this).addClass('checked').attr('href').substring(1))
   _modpaie = itemPayment.find('input[name="payment_method"]').val()
 
-  if (_modpaie === 'VIR' || _modpaie === 'VIRREG') {
+  // Affiche la zone de saisie de la date du virement en cas de mode de paiement par virement
+  if (_modpaie === 'VIR' || _modpaie === 'VPER') {
     itemPrelevement.removeClass('hidden')
-  }
-  else {
+  } else {
     itemPrelevement.addClass('hidden')
+  }
+
+  // Affiche le lien "Sécurité des dons en ligne" pour les paiements via PayPal/Paybox
+  if (_modpaie === 'PAYPAL' || _modpaie === 'CB') {
+    $('#secureDatasLink').removeClass('hidden')
+  } else {
+    $('#secureDatasLink').addClass('hidden')
   }
 })
 
@@ -226,23 +269,31 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
     }
   })
 
+  if (isNaN($('input[name="amount"]').val())) {
+    valid = false
+  }
+
   if (valid === false) {
     upFlashbag(i18n.trans('gift.invalid_form.amount'))
   } else {
     // init hidden
     itemPrelevement.find('.virement').addClass('hidden')
     itemPrelevement.find('.virement-reg').addClass('hidden')
-    if (_modpaie === 'VIR' || _modpaie === 'VIRREG') {
-      Inputmask().mask(document.querySelectorAll('.date_virement'))
-      if (_modpaie === 'VIRREG') {
+    itemPrelevement.find('.virement-reg-fin').addClass('hidden')
+    if (_modpaie === 'VIR' || _modpaie === 'VPER') {
+      Inputmask().mask(document.querySelectorAll('.date_virement, .virement-reg-fin'))
+      if (_modpaie === 'VPER') {
         itemPrelevement.find('.virement-reg').removeClass('hidden')
-      }
-      else {
+        itemPrelevement.find('.virement-reg-fin').removeClass('hidden')
+      } else {
         itemPrelevement.find('.virement').removeClass('hidden')
+        itemPrelevement.find('.virement-reg-fin').addClass('hidden')
       }
+      scrollTop()
       changeItem([itemPrelevement])
       return
     }
+    scrollTop()
     changeItem([itemConnection])
   }
 })
@@ -252,11 +303,16 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
 itemPrelevement.on('submit', 'form', function (event) {
   event.preventDefault()
   _dateDebVir = moment(itemPrelevement.find('.date_virement').val(), 'DD/MM/YYYY').format()
-  _virPeriod = itemPrelevement.find('.select-period').val()
+  if (itemPrelevement.find('input.virement-reg-fin').val() !== '') {
+    _dateFinVir = moment(itemPrelevement.find('input.virement-reg-fin').val(), 'DD/MM/YYYY').format()
+  }
+  if (itemPrelevement.find('.select-period').val() !== null) {
+    _virPeriod = itemPrelevement.find('.select-period').val()
+  }
 
   let toValidate = $('input[name="date_virement"]')
   let valid = true
-  if (_modpaie === 'VIRREG') {
+  if (_modpaie === 'VPER') {
     toValidate = $('input[name="date_virement"], select.select-period')
   }
   toValidate.each(function () {
@@ -284,7 +340,7 @@ function afterLogin (user, bypass) {
   _you = { ...contact, ...user }
   updateYouRender()
   upLoader()
-  postGift(_amount, _allocation.value, _modpaie, _note, _dateDebVir, _virPeriod).then(data => {
+  postGift(_amount, _allocation.value, _modpaie, _note, _dateDebVir, _dateFinVir, _virPeriod).then(data => {
     window.location.href = data
   }).catch(err => {
     downLoader()
@@ -323,8 +379,16 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
     username: $('.username', this).val(),
     password: $('.password', this).val()
   }).then(user => {
-    downLoader()
-    afterLogin(user, false)
+    _you = {...getContact(), ...user}
+    updateYouFormRender([], _you)
+    setTimeout(() => {
+      $('.panel', itemConnection).hide()
+      $('.panel.registration').show()
+      scrollToElement($('.panel.registration'))
+      $('.panel.registration').addClass('update-user')
+      downLoader()
+      changeItem([itemConnection])
+    }, 200)
   }).catch(() => {
     downLoader()
     upFlashbag(i18n.trans('security.bad_credentials'))
@@ -384,12 +448,10 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
   }
   updateYouFormRender(errors, contact)
   if (Object.keys(errors).length === 0) {
-    postRegister({
-      contact: contact
-    }).then(user => {
-      postLogin({
-        username: contact.username,
-        password: contact.password
+    let registrationPanel = $(this).parents('.panel.registration')
+    if (registrationPanel.hasClass('update-user')) {
+      postModify({
+        contact: contact
       }).then(user => {
         downLoader()
         afterLogin(user, true)
@@ -397,23 +459,39 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
         downLoader()
         upFlashbag(i18n.trans(error))
       })
-    }).catch((error) => {
-      downLoader()
-      upFlashbag(i18n.trans(error))
-    })
+    } else {
+      postRegister({
+        contact: contact
+      }).then(user => {
+        postLogin({
+          username: contact.username,
+          password: contact.password
+        }).then(user => {
+          downLoader()
+          afterLogin(user, true)
+        }).catch((error) => {
+          downLoader()
+          upFlashbag(i18n.trans(error))
+        })
+      }).catch((error) => {
+        downLoader()
+        upFlashbag(i18n.trans(error))
+      })
+    }
   }
   else {
     downLoader()
   }
 })
 
-itemConnection.on('click', 'a', function (event) {
+itemConnection.on('click', 'a:not(.tooltip-password)', function (event) {
   event.preventDefault()
   if ($(this).hasClass('back')) {
     return
   }
 
   const which = $(this).attr('href') ? $(this).attr('href').substring(1) : ''
+  let needChangeItem = true
   switch (which) {
     case 'connection':
     case 'registration':
@@ -429,14 +507,68 @@ itemConnection.on('click', 'a', function (event) {
       $('.panel.reset', itemConnection).show()
       break
     case 'continue':
-      getLogin().then(user => afterLogin(user, false))
+      $('.panel', itemConnection).hide()
+      $('.panel.registration').show()
+      needChangeItem = false
+      getLogin().then(user => {
+        _you = {...getContact(), ...user}
+        updateYouFormRender([], _you)
+        setTimeout(() => {
+          scrollToElement($('.panel.registration'))
+          $('.panel.registration').addClass('update-user')
+        }, 200)
+        changeItem([itemConnection])
+      })
       break
     case 'disconnect':
       getLogout(_locale)
       break
   }
-  changeItem([itemConnection])
+  if (needChangeItem === true) {
+    changeItem([itemConnection])
+  }
 })
+
+$(document).on('change', '.input.prenom, .input.nom, .input.ville', function() {
+  $(this).val(NomPropre($(this).val()))
+})
+
+// Fonction fournie par Hubert de LRDO pour formattage des noms/prénom
+function NomPropre(SMot, Opt) {
+  var Lig, C, C1, C2, C3, C4, C5, Mot, Mx, M1, M2
+  if (!SMot) return ""
+  Mx = SMot.length
+
+  Mot = SMot.toLowerCase()
+  Lig = Mot.substr(0,1).toUpperCase()
+  for (C=1; C<Mx; C++) {
+    C1 = Mot.substr(C-1,1)
+    C2 = Mot.substr(C,1)
+    if (C+1<Mx)  C3 = Mot.substr(C+1,1);  else  C3=" "
+    if (C+2<Mx)  C4 = Mot.substr(C+2,1);  else  C4=" "
+    if (C+3<Mx)  C5 = Mot.substr(C+3,1);  else  C5=" "
+    M1 = C2 + C3 + C4;  M2 = M1 + C5
+    if ("de du d' le la l' et ".indexOf(M1)>=0 || "rue des les ".indexOf(M2)>=0) {
+      Lig=Lig + C2
+    }else{
+      if (" ,;./-'#".indexOf(C1)>=0)  Lig += C2.toUpperCase();  else  Lig += C2
+    }
+  }
+
+  return Lig
+}
+
+// Fonction fournie par Hubert de LRDO pour formattage des noms/prénom
+function CasseUniq(Mot) {
+  var C, C1, nbMin=0, nbMaj=0
+  var Mx = Mot.length
+  for (C=0; C<Mx; C++) {
+    C1 = Mot.substr(C,1)
+    if (C1>="A" && C1<="Z")  nbMaj++
+    if (C1>="a" && C1<="z")  nbMin++
+  }
+  return !(nbMin>0 && nbMaj>0)
+}
 
 function validateDate (date) {
   if (moment(date).isValid() && moment(date).isBefore(new Date())) {
@@ -460,3 +592,16 @@ itemConnection.on('click', '.panel.reset .cancel', function (event) {
     changeItem([itemConnection])
   })
 })
+
+
+const passwordPopupToggle = $("#passwordPopupToggle")
+
+passwordPopupToggle.on('click', function (event) {
+  event.preventDefault()
+  passwordPopup();
+})
+
+function passwordPopup(){
+  target = document.getElementById(passwordPopup);
+  target.addClass('popup-visible');
+}

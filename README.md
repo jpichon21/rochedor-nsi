@@ -47,6 +47,7 @@ Les environnements de dev et de test sont configurés pour envoyer les emails su
 Utiliser l'outil [faketools](https://github.com/Bornholm/faketools) pour lancer un serveur smtp local écoutant sur le port 2525     
 `docker run --rm -p 2525:2525 -p 8080:8080 -it bornholm/faketools`
 
+<<<<<<< HEAD
 ## Users
 - admin::admin
 
@@ -55,5 +56,88 @@ Utiliser l'outil [faketools](https://github.com/Bornholm/faketools) pour lancer 
 
 The results for `bin/console doctrine:schema:update` is not forced on the database but generated in an sql which must be manually run.
 
+## Create a new page
+
+To create a page, we have a beautiful API. Here is the process :
+
+>Login to the API with you admin credentials
+```json
+URL [POST] : /api/login 
+
+{
+    "username": "XXX",
+    "password": "XXX"
+}
+```
+
+>Create the page
+```json
+URL [POST] : /api/pages
+
+{
+    "title": "XXX",
+    "sub_title": "X",
+    "description": "XXX",
+    "content": {
+        "intro": "",
+        "sections": [
+            {
+                "title": "",
+                "body": "<p></p>\n",
+                "slides": [
+                    {
+                        "layout": "1-1-2",
+                        "images": [
+                            {
+                                "type": "",
+                                "url": "",
+                                "alt": "",
+                                "video": ""
+                            },
+                            {
+                                "type": "",
+                                "url": "",
+                                "alt": "",
+                                "video": ""
+                            },
+                            {
+                                "type": "",
+                                "url": "",
+                                "alt": "",
+                                "video": ""
+                            },
+                            {
+                                "type": "",
+                                "url": "",
+                                "alt": "",
+                                "video": ""
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "locale": "fr",
+    "url": "XXX",
+    "category": ""
+}
+```
+
+3. Go to the admin interface to customize the content and everything you want
+
 ### TODO before prod deployment
 - [ ] list/create all pages in all languages
+=======
+
+# Production
+
+
+## Serveur
+Les environnements staging, dev sont hébergés sur https://ns3058686.ip-193-70-12.eu:2087 et sont accessibles respectivement sur https://staging.rochedor.fr https://nsi.rochedor.fr 
+
+## Déploiement
+Le déploiement des branches dev et staging est automatique
+
+Le script fait un dump du schema update à la racine de l'espace de déploiement
+>>>>>>> master

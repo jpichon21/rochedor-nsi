@@ -387,7 +387,7 @@ h1 {
   }
   .retreat {
     position: relative;
-    padding: 15px 45px 15px 25px;
+    padding: 15px 45px 25px 25px;
     font-size: 14px;
     line-height: 18px;
     max-height: 45px;
@@ -465,12 +465,35 @@ h1 {
     .translation {
       position: absolute;
       top: 15px;
+      @include media('<=mobile') {
+        display: inline-block;
+        position: relative;
+        top: 0px;
+        right: 0px;
+      }
+    }
     }
     .site {
       right: 50px;
     }
+    .site .full{
+      @include media('<=mobile') {
+        display: inline-block!important;
+        position: relative;
+        right: 0px;
+        top: 0px;
+      }
+    }
     .type {
       right: 100px;
+    }
+    .type .full{
+      @include media('<=mobile') {
+        display: inline-block!important;
+        position: relative;
+        right: 0px;
+        top: 0px;
+      }
     }
     .translation {
       right: 150px;
@@ -498,7 +521,18 @@ h1 {
       border: 1px $roche-yellow solid;
       box-sizing: border-box;
       outline: none;
+      @include media('<=mobile') {
+        display: table;
+      }
     }
+}
+
+.retreats-list .retreat .site .full, .retreats-list .retreat .type .full{
+  @include media('<=mobile') {
+    display: inline-block!important;
+    position: relative;
+    right: 0px;
+    top: 0px;
   }
 }
 
@@ -719,5 +753,12 @@ h1 {
   &:hover, &:active, &:focus{
     background-color: $roche-yellow;
     color: white;
+  }
+}
+
+.header {
+  @include media('<xxlarge') {
+    height: 0;
+    margin-bottom: 100px;
   }
 }

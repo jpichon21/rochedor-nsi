@@ -26,8 +26,9 @@ class HomeAdmin extends React.Component {
             Bienvenue.
             </Typography>
             <Typography component='p'>
-            Bienvenue dans le panneau d'administration de la Roche d'Or {this.props.fullname}.<br />
-            Que souhaitez vous faire?
+              {this.props.fullname}, bienvenue dans le panneau d'administration du site web de la Roche d'Or.
+              <br/>Rappel : les Produits des Editions Roche d'Or et les Activités (retraites) se gèrent dans Kiwi.
+              <br/>Que souhaitez vous faire?
             </Typography>
           </CardContent>
           <CardActions>

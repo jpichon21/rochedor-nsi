@@ -991,7 +991,7 @@ export class PageForm extends React.Component {
                       value={this.state.page.category || ''}
                       onChange={e => this.handleChangeCategory(e.target.value)}
                     >
-                      {['COMMUNAUTÉ ET LES MAISONS', 'RETRAITES', 'CALENDRIER', 'NOUS SOUTENIR', 'ÉDITIONS ROCHE D\'OR', 'INFORMATIONS PRATIQUES'].map(
+                      {['COMMUNAUTÉ ET MAISONS', 'RETRAITES', 'CALENDRIER', 'NOUS SOUTENIR', 'ÉDITIONS ROCHE D\'OR', 'INFORMATIONS PRATIQUES'].map(
                         label => <MenuItem value={label}>{label}</MenuItem>
                       )}
                     </Select>
@@ -1088,18 +1088,40 @@ export class PageForm extends React.Component {
           Contenu
         </Typography>
         <form className={classes.form} onSubmit={this.handleSubmit} style={{ marginBottom: '30px' }}>
-          <TooltipWrapper
-            title="Renseigner l'introduction de votre page"
-          >
+          <TooltipWrapper title="Renseigner l'introduction de votre page">
             <TextField
               autoComplete='off'
-              InputLabelProps={{shrink: true}}
+              InputLabelProps={{ shrink: true }}
               className={classes.textfield}
               fullWidth
-              multiline
+              multiline={false}
               name='page.content.intro'
-              label='Introduction'
+              label='Introduction ligne 1'
               value={this.state.page.content.intro}
+              onChange={this.handleInputChange} />
+          </TooltipWrapper>
+          <TooltipWrapper title="Renseigner l'introduction de votre page">
+            <TextField
+              autoComplete='off'
+              InputLabelProps={{ shrink: true }}
+              className={classes.textfield}
+              fullWidth
+              multiline={false}
+              name='page.content.intro_line2'
+              label='Introduction ligne 2'
+              value={this.state.page.content.intro_line2}
+              onChange={this.handleInputChange} />
+          </TooltipWrapper>
+          <TooltipWrapper title="Renseigner l'introduction de votre page">
+            <TextField
+              autoComplete='off'
+              InputLabelProps={{ shrink: true }}
+              className={classes.textfield}
+              fullWidth
+              multiline={false}
+              name='page.content.intro_line3'
+              label='Introduction ligne 3'
+              value={this.state.page.content.intro_line3}
               onChange={this.handleInputChange} />
           </TooltipWrapper>
           <SortableList distance={50} items={this.state.page.content.sections} onSortEnd={this.handleSortSections} context={this} classes={classes} state={this.state} useDragHandle />

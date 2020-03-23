@@ -5,7 +5,7 @@
                 <span>{{ 'menu.one' | trans | raw }}</span>
                 <ul class="sub-menu" data-menu="vgbhnj">
                     <li><a href="{{ localePath('la-communaute', app.request.locale) }}">{{ 'menu.one.one' | trans | raw }}</a></li>
-                    <li><a href="{{ localePath('les-fondateurs', app.request.locale) }}">{{ 'menu.one.two' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('aux-origines', app.request.locale) }}">{{ 'menu.one.two' | trans | raw }}</a></li>
                     <li><a href="{{ localePath('la-rochedor', app.request.locale) }}">{{ 'menu.one.three' | trans | raw }}</a></li>
                     <li><a href="{{ localePath('les-fontanilles', app.request.locale) }}">{{ 'menu.one.four' | trans | raw }}</a></li>
                 </ul>
@@ -17,11 +17,10 @@
                     <li><a href="{{ localePath('retraites-a-la-roche-dor', app.request.locale) }}">{{ 'menu.two.two' | trans | raw }}</a></li>
                     <li><a href="{{ localePath('retraites-aux-fontanilles', app.request.locale) }}">{{ 'menu.two.three' | trans | raw }}</a></li>
                     <li><a href="{{ localePath('intervenants', app.request.locale) }}">{{ 'menu.two.four' | trans | raw }}</a></li>
+                    <li class="mobileOnly"><a href="{{ path('calendar-choice-site-' ~ app.request.locale) }}">{{ 'menu.three' | trans | raw }}</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="{{ localePath('liste-retraites', app.request.locale) }}">{{ 'menu.three' | trans | raw }}</a>
-            </li>
+            <li class="mobileHide"><a href="{{ path('calendar-choice-site-' ~ app.request.locale) }}">{{ 'menu.three' | trans | raw }}</a></li>
         </ul>
     </div>
     <div class="logo">
@@ -38,32 +37,19 @@
             <img id="mainLogo" src="{{ asset('assets/img/logo-editions.svg') }}" alt="Les Editions Roche d'Or">
         </a>
         <div id="logoTaglineContainer">
-          <img id="logoTagline" src="{{ asset('assets/img/logo-text.png') }}" width="170"  border="0">
+            <img id="logoTagline" src="{{ asset('assets/img/logo-text.png') }}" width="170" border="0">
         </div>
     </div>
-  
     <div class="right">
         <ul class="menu">
-            <li data-menu="defrgt">
-                <span>{{ 'menu.six' | trans | raw }}</span>
-                <ul class="sub-menu" data-menu="defrgt">
-                    <li class="blank"></li>
-                    <li class="blank"></li>
-                    <li class="blank"></li>
-                    <li class="blank"></li>
-                    <li class="blank"></li>
-                    <li><a href="{{ localePath('don-ponctuel', app.request.locale) }}">{{ 'menu.six.one' | trans | raw }}</a></li>
-                    <li><a href="{{ localePath('dons', app.request.locale) }}">{{ 'menu.six.two' | trans | raw }}</a></li>
-                </ul>
-            </li>
-            <li data-menu="qzsedr">
-                <span>{{ 'menu.five' | trans | raw }}</span>
+            <li data-menu="qzsedr" class="mobileOnly">
+                <span class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five' | trans | raw }}</span>
                 <ul class="sub-menu" data-menu="qzsedr">
                     <li class="blank"></li>
                     <li class="blank"></li>
-                    <li><a href="{{ localePath('editions', app.request.locale) }}">{{ 'menu.five.one' | trans | raw }}</a></li>
-                    <li><a href="{{ localePath('editions-nouveautes', app.request.locale) }}">{{ 'menu.five.two' | trans | raw }}</a></li>
-                    <li><a href="{{ localePath('editions-collections', app.request.locale) }}">{{ 'menu.five.three' | trans | raw }}</a></li>
+                    <li><a href="" class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five.one' | trans | raw }}</a></li>
+                    <li><a href="" class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five.two' | trans | raw }}</a></li>
+                    <li><a href="" class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five.three' | trans | raw }}</a></li>
                 </ul>
             </li>
             <li data-menu="hbgvfc">
@@ -72,20 +58,44 @@
                     <li><a href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">{{ 'menu.four.one' | trans | raw }}</a></li>
                     <li><a href="{{ localePath('infos-pratiques-des-fontanilles', app.request.locale) }}">{{ 'menu.four.two' | trans | raw }}</a></li>
                     <li><a href="{{ localePath('accueil-des-enfants', app.request.locale) }}">{{ 'menu.four.three' | trans | raw }}</a></li>
-                    <li><a href="{{ localePath('liens-amis', app.request.locale) }}">{{ 'menu.four.four' | trans | raw }}</a></li>
+                    <li class="mobileHide"><a href="{{ localePath('liens-amis', app.request.locale) }}">{{ 'menu.four.four' | trans | raw }}</a></li>
+                    <li class="mobileOnly"><a href="{{ localePath('conditions-utilisation', app.request.locale) }}" rel="nofollow">{{ 'terms.of.use' | trans | raw | striptags }}</a></li>
+                    <li class="mobileOnly"><a href="{{ localePath('mentions-legales', app.request.locale) }}" rel="nofollow">{{ 'legal.mention' | trans | raw | striptags }}</a></li>
+                    <li class="mobileOnly"><a href="{{ localePath('confidentialite-des-donnees', app.request.locale) }}" rel="nofollow">{{ 'footer.privacy'|trans }}</a></li>
                 </ul>
             </li>
-        </ul>
+            <li data-menu="qzsedr" class="mobileHide">
+                <span class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five' | trans | raw }}</span>
+                <ul class="sub-menu" data-menu="qzsedr">
+                    <li class="blank"></li>
+                    <li class="blank"></li>
+                    <li><a href="" class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five.one' | trans | raw }}</a></li>
+                    <li><a href="" class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five.two' | trans | raw }}</a></li>
+                    <li><a href="" class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five.three' | trans | raw }}</a></li>
+                </ul>
+            </li>
+            <li data-menu="defrgt">
+                <span>{{ 'menu.six' | trans | raw }}</span>
+                <ul class="sub-menu" data-menu="defrgt">
+                    <li class="blank"></li>
+                    <li class="blank"></li>
+                    <li class="blank"></li>
+                    <li class="blank"></li>
+                    <li class="blank"></li>
+                    <li class="mobileHide"><a href="{{ localePath('donner-du-temps', app.request.locale) }}">{{ 'menu.six.three' | trans | raw }}</a></li>
+                    <li class="mobileHide"><a href="{{ localePath('don-ponctuel', app.request.locale) }}">{{ 'menu.six.one' | trans | raw }}</a></li>
+                    <li class="mobileHide"><a href="{{ localePath('dons', app.request.locale) }}">{{ 'menu.six.two' | trans | raw }}</a></li>
+                    <li class="mobileOnly"><a href="{{ localePath('don-ponctuel', app.request.locale) }}" rel="nofollow">{{ 'menu.six.one' | trans | raw | striptags }}</a></li>
+                    <li class="mobileOnly"><a href="{{ localePath('dons', app.request.locale) }}" rel="nofollow">{{ 'menu.six.two' | trans | raw | striptags }}</a></li>
+                    <li class="mobileOnly"><a href="{{ url('contact', {'site': 'ro'}) }}" rel="nofollow">{{ 'contact.ro' | trans | raw | striptags }}</a></li>
+                    <li class="mobileOnly"><a href="{{ url('contact', {'site': 'ft'}) }}" rel="nofollow">{{ 'contact.ft' | trans | raw | striptags }}</a></li>
+                    <li class="mobileOnly"><a href="{{ localePath('liens-amis', app.request.locale) }}" rel="nofollow">{{ 'friends.links' | trans | raw | striptags }}</a></li>
+                </ul>
+            </li>
     </div>
     <div class="options">
         <span class="cart-container full-screen">
-            {% if
-                product is defined
-                or (
-                    page is defined
-                    and page.type == 'editions'
-                )
-            %}
+            {% if product is defined or (page is defined and page.type == 'editions') %}
             <a href="{{ path('order-' ~ app.request.locale) }}" class="cart">
                 <span class="cartSpan">{{ 'menu.cart' | trans }}</span>
                 <img src="/assets/img/cart.svg" alt="Panier" width="30px">
@@ -96,22 +106,22 @@
         <div class="languages">
             <ul class="available">
                 {% if availableLocales is defined %}
-                {% for locale, url in availableLocales %}
-                {% if locale != app.request.locale %}
-                <li><a href={{ url }}>{{ locale }}</a></li>
-                {% endif %}
-                {% endfor %}
+                    {% for locale, url in availableLocales %}
+                        {% if locale != app.request.locale %}
+                            <li><a href={{ url }}>{{ locale }}</a></li>
+                        {% endif %}
+                    {% endfor %}
                 {% else %}
-                {% set route = app.request.attributes.get('_route') %}
-                {% if route %}
-                {% set route_params = app.request.attributes.get('_route_params') %}
-                {% set params = route_params|merge(app.request.query.all) %}
-                {% for locale in locales %}
-                {% if locale != app.request.locale %}
-                <li><a href="{{ path(route, params|merge({ _locale: locale })) }}">{{ locale }}</a></li>
-                {% endif %}
-                {% endfor %}
-                {% endif %}
+                    {% set route = app.request.attributes.get('_route') %}
+                    {% if route %}
+                        {% set route_params = app.request.attributes.get('_route_params') %}
+                        {% set params = route_params|merge(app.request.query.all) %}
+                        {% for locale in locales %}
+                            {% if locale != app.request.locale %}
+                                <li><a href="{{ path(route, params|merge({ _locale: locale })) }}">{{ locale }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 {% endif %}
             </ul>
             <ul class="current">
@@ -123,18 +133,12 @@
             <li class="plus">A +</li>
         </ul>
     </div>
-    <div class="burger hamburger hamburger--minus">  
+    <div class="burger hamburger hamburger--minus">
         <div class="hamburger-box">
             <div class="hamnburger-inner"></div>
-        </div>  
+        </div>
         <span class="cart-container menu-reduced">
-            {% if
-                product is defined
-                or (
-                    page is defined
-                    and page.type == 'editions'
-                )
-            %}
+            {% if product is defined or (page is defined and page.type == 'editions') %}
             <a href="{{ path('order-' ~ app.request.locale) }}" class="cart">
                 <span class="cartSpan">{{ 'menu.cart' | trans }}</span>
                 <img src="/assets/img/cart.svg" width="30px" alt="Panier">

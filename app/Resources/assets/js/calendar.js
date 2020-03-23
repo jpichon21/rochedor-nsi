@@ -3,8 +3,13 @@ import moment from 'moment'
 import 'clndr'
 
 const retreatsData = JSON.parse($('.retreats-data').html())
+const translationsTitle = JSON.parse($('.translations-title').html())
 
 /* Filters */
+
+$(document).ready(function() {
+  $('.filter').trigger('change')
+})
 
 $('.filter')
 
@@ -105,7 +110,7 @@ const retreatsListTemplate = _.template($('.retreats-list-template').html())
 
 function updateRetreats (data) {
   $('.content').stop().animate({ scrollTop: 0 }, 500, 'swing')
-  $('.retreats-table tbody').html(retreatsTableTemplate({ retreats: data }))
+  $('.retreats-table tbody').html(retreatsTableTemplate({ retreats: data, translationsTitle: translationsTitle }))
   $('.retreats-list ul').html(retreatsListTemplate({ retreats: data }))
 }
 
@@ -129,7 +134,7 @@ function applyFilters (filters) {
     return speakers.length > 0
   }).filter((retreat) => {
     if (filters['translation'].length === 0) { return true }
-    return filters['translation'].indexOf(retreat.translation) >= 0
+    return retreat.translation.includes(filters['translation'])
   }).filter((retreat) => {
     if (filters['dateIn'].length === 0) { return true }
     return moment(retreat.dateIn).isSameOrAfter(filters['dateIn'])

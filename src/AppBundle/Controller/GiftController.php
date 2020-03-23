@@ -8,7 +8,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Contact;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Entity\DonR;
+use AppBundle\Repository\DonRRepository;
+use AppBundle\Service\CountryService;
+use AppBundle\Service\GiftService;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,6 +26,7 @@ use AppBundle\Repository\DonRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Psr\Log\LoggerInterface;
 use AppBundle\Service\PaymentService;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use SensioLabs\Security\Exception\HttpException;
 
@@ -57,6 +62,11 @@ class GiftController extends Controller
     private $donRepository;
 
     /**
+     * @var DonRRepository
+     */
+    private $donRRepository;
+
+    /**
      * @var Logger
      */
     private $logger;
@@ -76,6 +86,7 @@ class GiftController extends Controller
         PageService $pageService,
         EntityManagerInterface $em,
         DonRepository $donRepository,
+        DonRRepository $donRRepository,
         LoggerInterface $logger,
         PaymentService $paymentService,
         Translator $translator
@@ -84,6 +95,7 @@ class GiftController extends Controller
         $this->pageService = $pageService;
         $this->em = $em;
         $this->donRepository = $donRepository;
+        $this->donRRepository = $donRRepository;
         $this->logger = $logger;
         $this->paymentService = $paymentService;
         $this->translator = $translator;
@@ -96,57 +108,62 @@ class GiftController extends Controller
      * @Route("/{_locale}/donazione-una-tantum", name="gift-it")
      * @Route("/{_locale}/donación-de-una-sola-vez", name="gift-es")
      */
-    public function calendarAction(Request $request)
+    public function giftAction(Request $request, CountryService $countryService)
     {
-        $countriesJSON = array();
-        $countries = $this->tpaysRepository->findAllCountry();
-        foreach ($countries as $country) {
-            $countriesJSON[] = array(
-                'codpays' => $country->getCodpays(),
-                'nompays' => $country->getNompays()
-            );
+        $giftData = [
+            'amount' => null,
+            'destDon' => null,
+            'giftNote' => null,
+            'modDon' => null,
+        ];
+        if (!is_null($request->query->get('giftData'))) {
+            $giftData = $request->query->get('giftData');
         }
+        $countries = $this->tpaysRepository->findAllCountry();
+        list($countriesJSON, $preferredChoices) = $countryService->orderCountryListByPreference($countries);
 
         $page = $this->pageService->getContentFromRequest($request);
         if (!$page) {
             throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
         }
-        $availableLocales = $this->pageService->getAvailableLocales($page);
+
         return $this->render('default/gift.html.twig', [
             'page' => $page,
             'availableLocales' => array(),
-            'countries' => $countriesJSON
+            'countries' => $countriesJSON,
+            'preferredCountries' => $preferredChoices,
+            'giftData' => $giftData
         ]);
     }
 
     /**
      * @Rest\Post("/xhr/gift/create", name="post_gift_create")
      * @Rest\View()
+     *
+     * @throws \Exception
      */
-    public function xhrPostGiftCreateAction(Request $request)
+    public function xhrPostGiftCreateAction(Request $request, GiftService $giftService)
     {
         $user = $this->getUser();
         $gift = $request->get('gift');
         if (!$gift) {
             return ['status' => 'ko', 'message' => 'You must provide a gift object'];
         }
-        $ref = $this->getNewRef();
-        $don = new Don();
-        $don->setMntdon($gift['mntdon'])
-        ->setContact($user)
-        ->setDestdon($gift['destdon'])
-        ->setModdon($gift['moddon'])
-        ->setMemodon($gift['memodon'])
-        ->setRefdon($ref)
-        ->setEnregdon(new \DateTime())
-        ->setDatdon(new \DateTime())
-        ->setValidDon(0)
-        ->setBanqdon(9)
-        ->setMondon('€');
+        switch ($gift['moddon']) {
+            // Si on paye par cheque ou virement, c'est une promesse de don -> donR
+            case PaymentService::METHOD_CHEQUE:
+            case PaymentService::METHOD_VIREMENT:
+            case PaymentService::METHOD_VIREMENT_REGULIER:
+                $don = $giftService->createDonR($gift, $user);
+                break;
+            // Sinon, c'est un vrai don -> don
+            default:
+                $don = $giftService->createDon($gift, $user);
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($don);
         $em->flush();
-
         $paymentUrl = $this->paymentService->getUrl(
             $gift['moddon'],
             $don->getMntdon(),
@@ -156,7 +173,10 @@ class GiftController extends Controller
             $request->getLocale(),
             'gift',
             !empty($gift['virPeriod']) ? $gift['virPeriod'] : null,
-            $don->getDestdon()
+            $don->getDestdon(),
+            [],
+            null,
+            $don instanceof Don ? $don->getMemodon() : null
         );
         if (!$paymentUrl) {
             return ['status' => 'ko', 'message' => 'an error as occured'];
@@ -176,7 +196,7 @@ class GiftController extends Controller
                         ->findByRef($request->query->get('Ref'));
             /** @var Contact $contact */
             $contact = $gift->getContact();
-            $parsedContact = $contact->getCivil().' '.$contact->getNom().' '.$contact->getPrenom();
+            $parsedContact = $contact->getCivil().' '.$contact->getPrenom().' '.$contact->getNom();
 
             return $this->render('gift/payment-return.html.twig', [
                 'name' => $parsedContact,
@@ -282,7 +302,7 @@ class GiftController extends Controller
                 [$contact->getEmail() => $contact->getPrenom().' '.$contact->getNom()],
                 $this->get('translator')->trans('gift.title'),
                 $this->container->get('templating')->render('emails/gift/gift-notify-online.html.twig', [
-                    'name' => $contact->getCivil().' '.$contact->getNom().' '.$contact->getPrenom(),
+                    'name' => $contact->getCivil().' '.$contact->getPrenom().' '.$contact->getNom(),
                     'amount' => $don->getMntdon(),
                     'status' => $status,
                     'method' => $method,
@@ -299,13 +319,25 @@ class GiftController extends Controller
         return new Response('ok');
     }
 
-    private function getNewRef()
+    /**
+     * Permet de déconnecter l'utilisateur avant de le rediriger sur la liste des dons possible
+     *
+     * @Route("/cancel-gift", name="cancel_gift")
+     */
+    public function cancelGiftAction(Request $request)
     {
-        $year = date('y');
-        $lastRef = $this->donRepository->findLastRef($year);
-        if ($lastRef === null) {
-            return $year . '-0000';
+        $session = new Session();
+        $session->invalidate();
+
+        $route = $this->get('cmf_routing.route_provider')->getRouteByName('dons');
+        if (is_null($route)) {
+            return $this->redirectToRoute('logout-message', [
+                'from' => 'don-ponctuel'
+            ]);
         }
-        return $year . '-' . str_pad(intval(str_replace($year . '-', '', $lastRef)) + 1, 5, '0', STR_PAD_LEFT);
+
+        return $this->redirectToRoute($route, [
+            $request
+        ]);
     }
 }
