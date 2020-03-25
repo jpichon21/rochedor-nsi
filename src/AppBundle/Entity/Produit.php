@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="produit",
  * indexes={@ORM\Index(name="CodRub", columns={"CodRub"}), @ORM\Index(name="CodB", columns={"CodB"})},
- * options={"engine":"InnoDB"})
+ * options={"engine":"MyISAM"})
  * )
  * @ORM\Entity
  */

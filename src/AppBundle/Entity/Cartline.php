@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Cartline
  *
- * @ORM\Table(name="ligne_panier")
+ * @ORM\Table(name="ligne_panier", options={"engine":"MyISAM"})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CartlineRepository")
  */
 class Cartline
