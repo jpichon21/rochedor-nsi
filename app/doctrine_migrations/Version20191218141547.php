@@ -128,14 +128,3 @@ final class Version20191218141547 extends AbstractMigration
         $this->addSql('ALTER TABLE tpays CHANGE CodPays CodPays VARCHAR(2) CHARACTER SET latin1 NOT NULL COLLATE `latin1_swedish_ci`');
     }
 }
-
-
-/**
- *
-database_driver: pdo_mysql
-database_host: 127.0.0.1
-database_port: null
-database_name: rochedor_nsi_dev
-database_user: rochedor_nsi_dev
-database_password: '&LC%,3V[~E}S'
- */
