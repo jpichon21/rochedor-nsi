@@ -61,6 +61,8 @@ security:
             access_denied_handler: AppBundle\Security\AccessDeniedHandler
 
     access_control:
+        # Pas de sécurité sur les routes de l'ancien site (redirection)
+        - { path: ^/site/, role: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/admin/, role: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/api/password-request, role: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/api, role: ROLE_ADMIN}
