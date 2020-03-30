@@ -33,14 +33,6 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
     $response->send();
     $kernel->terminate($request, $response);
 } else {
-    try {
-        $request = Request::createFromGlobals();
-        $request = $request->duplicate(null, null, null, null, null, array('REQUEST_URI' => '/maintenance'));
-        $response = $kernel->handle($request, \Symfony\Component\HttpKernel\HttpKernelInterface::SUB_REQUEST);
-        $response->send();
-        $kernel->terminate($request, $response);
-    } catch (Exception $e) {
-        header('HTTP/1.0 403 Forbidden');
-        exit('Maintenance en cours, merci de ré-essayer ultérieurement.');
-    }
+    header('HTTP/1.0 403 Forbidden');
+    exit('Maintenance en cours, merci de ré-essayer ultérieurement.');
 }
