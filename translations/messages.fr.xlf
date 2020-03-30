@@ -2380,7 +2380,7 @@
     <unit id="GQMkF8_" name="gift.intro">
       <segment>
         <source>gift.intro</source>
-        <target><![CDATA[Pour vous joindre au mouvement de solidarité des Amis de la Roche d'Or et soutenir notre action évangélique, merci de nous indiquer votre choix.<br><br>Si vous êtes soumis à l'IFI, cliquer <a href="https://soutenir.fondationduclerge.com/b/mon-don" class="yellow" target="_blank">ICI</a>.]]></target>
+        <target><![CDATA[Pour vous joindre au mouvement de solidarité des Amis de la Roche d'Or et soutenir notre action évangélique, merci de nous indiquer votre choix.<br><br>Si vous êtes soumis à l'IFI, cliquer <a href="%link%" target="_blank">ICI</a>.]]></target>
       </segment>
     </unit>
     <unit id="0scb9.5" name="gift.one.title">
