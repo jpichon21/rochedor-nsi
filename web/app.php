@@ -23,15 +23,21 @@ $kernel = new AppCache($kernel);
  */
 if (isset($_SERVER['HTTP_CLIENT_IP'])
     || isset($_SERVER['HTTP_X_FORWARDED_FOR'])
-    || !(in_array(@$_SERVER['REMOTE_ADDR'], ['localhost', '127.0.0.1', '192.168.10.1', '::1', '109.190.146.61', '92.91.97.230', '78.206.160.170', '213.223.118.234', '84.17.52.250', '109.17.154.34', '212.83.177.79', '91.164.251.133', '90.100.153.71', '109.190.146.61'], true) || PHP_SAPI === 'cli-server')
+    || in_array(@$_SERVER['REMOTE_ADDR'], ['localhost', '127.0.0.1', '192.168.10.1', '::1', '109.190.146.61', '92.91.97.230', '78.206.160.170', '213.223.118.234', '84.17.52.250', '109.17.154.34', '212.83.177.79', '91.164.251.133', '90.100.153.71', '109.190.146.61'], true)
 ) {
-    header('HTTP/1.0 403 Forbidden');
-    exit('Maintenance en cours, ré-essayer plus tard. Merci de votre compréhension.');
+    $request = Request::createFromGlobals();
+    $response = $kernel->handle($request);
+    $response->send();
+    $kernel->terminate($request, $response);
+} else {
+    try {
+        $request = Request::createFromGlobals();
+        $request = $request->duplicate(null, null, null, null, null, array('REQUEST_URI' => '/maintenance'));
+        $response = $kernel->handle($request, \Symfony\Component\HttpKernel\HttpKernelInterface::SUB_REQUEST);
+        $response->send();
+        $kernel->terminate($request, $response);
+    } catch (Exception $e) {
+        header('HTTP/1.0 403 Forbidden');
+        exit('Maintenance en cours, merci de ré-essayer ultérieurement.');
+    }
 }
-
-// When using the HttpCache, you need to call the method in your front controller instead of relying on the configuration parameter
-//Request::enableHttpMethodParameterOverride();
-$request = Request::createFromGlobals();
-$response = $kernel->handle($request);
-$response->send();
-$kernel->terminate($request, $response);

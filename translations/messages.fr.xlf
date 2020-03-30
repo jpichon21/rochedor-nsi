@@ -3735,5 +3735,17 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
               <target>Bientôt disponible</target>
           </segment>
       </unit>
+    <unit id="2">
+      <segment>
+        <source>maintenance.title</source>
+        <target>Maintenance en cours</target>
+      </segment>
+    </unit>
+    <unit id="3">
+      <segment>
+        <source>maintenance.intro</source>
+        <target>Maintenance en cours, merci de ré-essayer ultérieurement.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

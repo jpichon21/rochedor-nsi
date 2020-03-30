@@ -112,4 +112,12 @@ class DefaultController extends Controller
         }
         return $this->redirectToRoute('cgv');
     }
+
+    /**
+     * @Route("/maintenance", name="maintenance", defaults={"_locale"="fr"}, requirements={"_locale" = "%locales%"})
+     */
+    public function maintenanceAction(Request $request)
+    {
+        return $this->render('default/maintenance.html.twig');
+    }
 }
