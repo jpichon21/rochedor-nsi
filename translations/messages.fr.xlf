@@ -2607,7 +2607,7 @@
             </div>
             Contact secrétariat : 03 81 41 47 47 ou secretariat@rochedor.org<br>
             Notre site : www.rochedor.fr<br><br>
-            Pour toute information et correspondance, rappelez-nous le numéro de référence de votre don : 19-00531
+            Pour toute information et correspondance, rappelez-nous le numéro de référence de votre don : %ref%
         ]]></target>
       </segment>
     </unit>
@@ -2629,7 +2629,7 @@
              %country%<br><br>
             Contact secrétariat : 03 81 41 47 47 ou secretariat@rochedor.org<br>
             Notre site : www.rochedor.fr<br>
-            Pour toute information et correspondance, rappelez-nous le numéro de référence de votre don : 19-00531
+            Pour toute information et correspondance, rappelez-nous le numéro de référence de votre don : %ref%
         ]]></target>
       </segment>
     </unit>

@@ -191,6 +191,7 @@ class GiftController extends Controller
     public function paymentReturnAction($method, $status, Request $request, PaypalService $paypalService)
     {
         if (null !== $request->query->get('Ref')) {
+            /** @var Don $gift */
             $gift = $this
                         ->donRepository
                         ->findByRef($request->query->get('Ref'));
@@ -208,6 +209,7 @@ class GiftController extends Controller
                 'zipcode' => $contact->getCp(),
                 'city' => $contact->getVille(),
                 'country' => $contact->getPays(),
+                'ref' => $gift->getRefdon()
             ]);
         }
         return $this->render('gift/payment-return.html.twig', [
@@ -311,6 +313,7 @@ class GiftController extends Controller
                     'zipcode' => $contact->getCp(),
                     'city' => $contact->getVille(),
                     'country' => $contact->getPays(),
+                    'ref' => $don->getRefdon()
                 ])
             );
         }
