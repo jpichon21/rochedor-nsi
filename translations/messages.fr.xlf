@@ -3747,5 +3747,11 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
         <target>Maintenance en cours, merci de ré-essayer ultérieurement.</target>
       </segment>
     </unit>
+    <unit id="4">
+      <segment>
+        <source>menu.seven</source>
+        <target>Contacts</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

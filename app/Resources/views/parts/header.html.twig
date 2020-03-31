@@ -17,10 +17,10 @@
                     <li><a href="{{ localePath('retraites-a-la-roche-dor', app.request.locale) }}">{{ 'menu.two.two' | trans | raw }}</a></li>
                     <li><a href="{{ localePath('retraites-aux-fontanilles', app.request.locale) }}">{{ 'menu.two.three' | trans | raw }}</a></li>
                     <li><a href="{{ localePath('intervenants', app.request.locale) }}">{{ 'menu.two.four' | trans | raw }}</a></li>
-                    <li class="mobileOnly"><a href="{{ path('calendar-choice-site-' ~ app.request.locale) }}">{{ 'menu.three' | trans | raw }}</a></li>
+                    <li class="mobileOnly"><a href="{{ path('calendar-choice-site-' ~ app.request.locale) }}">{{ 'menu.two.five' | trans | raw }}</a></li>
                 </ul>
             </li>
-            <li class="mobileHide"><a href="{{ path('calendar-choice-site-' ~ app.request.locale) }}">{{ 'menu.three' | trans | raw }}</a></li>
+            <li class="mobileHide"><a href="{{ path('calendar-choice-site-' ~ app.request.locale) }}">{{ 'menu.two.five' | trans | raw }}</a></li>
         </ul>
     </div>
     <div class="logo">
@@ -86,7 +86,15 @@
                     <li class="mobileHide"><a href="{{ localePath('don-ponctuel', app.request.locale) }}">{{ 'menu.six.one' | trans | raw }}</a></li>
                     <li class="mobileHide"><a href="{{ localePath('dons', app.request.locale) }}">{{ 'menu.six.two' | trans | raw }}</a></li>
                     <li class="mobileOnly"><a href="{{ localePath('don-ponctuel', app.request.locale) }}" rel="nofollow">{{ 'menu.six.one' | trans | raw | striptags }}</a></li>
+                    <li class="mobileOnly"><a href="{{ localePath('donner-du-temps', app.request.locale) }}">{{ 'menu.six.three' | trans | raw }}</a></li>
                     <li class="mobileOnly"><a href="{{ localePath('dons', app.request.locale) }}" rel="nofollow">{{ 'menu.six.two' | trans | raw | striptags }}</a></li>
+                </ul>
+            </li>
+            <li data-menu="defrgt">
+                <span>{{ 'menu.seven' | trans | raw }}</span>
+                <ul class="sub-menu" data-menu="defrgt">
+                    <li class="blank"></li>
+                    <li class="blank"></li>
                     <li class="mobileOnly"><a href="{{ url('contact', {'site': 'ro'}) }}" rel="nofollow">{{ 'contact.ro' | trans | raw | striptags }}</a></li>
                     <li class="mobileOnly"><a href="{{ url('contact', {'site': 'ft'}) }}" rel="nofollow">{{ 'contact.ft' | trans | raw | striptags }}</a></li>
                     <li class="mobileOnly"><a href="{{ localePath('liens-amis', app.request.locale) }}" rel="nofollow">{{ 'friends.links' | trans | raw | striptags }}</a></li>
