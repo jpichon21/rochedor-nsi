@@ -31,11 +31,23 @@ class RedirectOldRoutesController extends Controller
         ];
 
         if (in_array($request->getRequestUri(), $urlsKiwi)) {
-            return new RedirectResponse(
-                'https://kiwi.staging.rochedor.fr/kiwi/',
-                301
-            );
+            if (preg_match('/nsi\.rochedor\.fr/', $request->getUri())) {
+                return new RedirectResponse(
+                    'https://kiwi.nsi.rochedor.fr/kiwi/',
+                    301
+                );
+            }
+            if (preg_match('/rochedor\.fr/', $request->getUri())) {
+                return new RedirectResponse(
+                    'https://kiwi.staging.rochedor.fr/kiwi/',
+                    301
+                );
+            }
         }
+        return new RedirectResponse(
+            $this->generateUrl('home'),
+            301
+        );
     }
 
     /**
