@@ -21,6 +21,28 @@ class RedirectOldRoutesController extends Controller
      *
      * @return RedirectResponse
      *
+     * @Route(path="/kiwi", name="old_kiwi")
+     */
+    public function oldKiwiAction(Request $request)
+    {
+        // Redirections vers la home
+        $urlsKiwi = [
+            '/kiwi',
+        ];
+
+        if (in_array($request->getRequestUri(), $urlsKiwi)) {
+            return new RedirectResponse(
+                'https://kiwi.staging.rochedor.fr/kiwi/',
+                301
+            );
+        }
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return RedirectResponse
+     *
      * @Route(path="/", name="old_home")
      * @Route(path="/site", name="old_site")
      * @Route(path="/site/", name="old_site2")
