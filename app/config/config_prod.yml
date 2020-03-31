@@ -5,7 +5,7 @@ monolog:
         doctrine:
             type: stream
             path: '%kernel.logs_dir%/%kernel.environment%_doctrine.log'
-            level: debug
+            level: error
             channels: ['doctrine']
         main:
             type: fingers_crossed
@@ -14,7 +14,7 @@ monolog:
         nested:
             type: stream
             path: '%kernel.logs_dir%/%kernel.environment%.log'
-            level: debug
+            level: error
             channels: ['!doctrine']
         mail:
             type: fingers_crossed
