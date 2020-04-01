@@ -22,12 +22,14 @@ class RedirectOldRoutesController extends Controller
      * @return RedirectResponse
      *
      * @Route(path="/kiwi", name="old_kiwi")
+     * @Route(path="/kiwi/", name="old_kiwi2")
      */
     public function oldKiwiAction(Request $request)
     {
         // Redirections vers la home
         $urlsKiwi = [
             '/kiwi',
+            '/kiwi/',
         ];
 
         if (in_array($request->getRequestUri(), $urlsKiwi)) {

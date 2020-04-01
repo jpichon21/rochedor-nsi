@@ -11,6 +11,13 @@ monolog:
             type: fingers_crossed
             action_level: error
             handler: nested
+            excluded_404s:
+                - ^/phpmyadmin
+                - \.css$
+                - \.js$
+                - \.jpg$
+                - \.jpeg$
+                - \.png$
         nested:
             type: stream
             path: '%kernel.logs_dir%/%kernel.environment%.log'
