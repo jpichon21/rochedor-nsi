@@ -1,12 +1,8 @@
 <?php
+
 namespace AppBundle\Service;
 
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route as CmfRoute;
-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
-use Symfony\Cmf\Bundle\RoutingBundle\Controller;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider;
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Log\LoggerInterface;
 
 class PaypalService
 {
@@ -14,6 +10,8 @@ class PaypalService
     private $use_sandbox = false;
     /** @var bool Indicates if the local certificates are used. */
     private $use_local_certs = false;
+    /** @var LoggerInterface */
+    private $logger;
     /** Production Postback URL */
     const VERIFY_URI = 'https://ipnpb.paypal.com/cgi-bin/webscr';
     /** Sandbox Postback URL */
@@ -22,6 +20,12 @@ class PaypalService
     const VALID = 'VERIFIED';
     /** Response from PayPal indicating validation failed */
     const INVALID = 'INVALID';
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
     /**
     * Sets the IPN verification to sandbox mode (for use when testing,
     * should not be enabled in production).
@@ -94,6 +98,9 @@ class PaypalService
             }
             $req .= "&$key=$value";
         }
+
+        $this->logger->error('PAYPAL IPN VERIFICATION : ' . $this->getPaypalUri() . ' ' . $req);
+
         // Post the data back to PayPal, using curl. Throw exceptions if errors occur.
         $ch = curl_init($this->getPaypalUri());
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
