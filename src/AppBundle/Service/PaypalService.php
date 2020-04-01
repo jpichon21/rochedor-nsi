@@ -125,15 +125,18 @@ class PaypalService
             $errno = curl_errno($ch);
             $errstr = curl_error($ch);
             curl_close($ch);
+            $this->logger->error("PAYPAL IPN VERIFICATION cURL error: [$errno] $errstr");
             throw new Exception("cURL error: [$errno] $errstr");
         }
         $info = curl_getinfo($ch);
         $http_code = $info['http_code'];
         if ($http_code != 200) {
+            $this->logger->error("PAYPAL IPN VERIFICATION PayPal responded with http code $http_code");
             throw new Exception("PayPal responded with http code $http_code");
         }
         curl_close($ch);
         // Check if PayPal verifies the IPN data, and if so, return true.
+        $this->logger->error("PAYPAL IPN VERIFICATION RES : $res");
         if ($res == self::VALID) {
             return true;
         } else {
