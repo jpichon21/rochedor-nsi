@@ -3753,5 +3753,11 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
         <target>Contacts</target>
       </segment>
     </unit>
+    <unit id="5">
+      <segment>
+        <source>gift.payment.title</source>
+        <target>Don</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

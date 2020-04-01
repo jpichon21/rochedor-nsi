@@ -46,6 +46,7 @@ class RedirectOldRoutesController extends Controller
                 );
             }
         }
+
         return new RedirectResponse(
             $this->generateUrl('home'),
             301
@@ -383,7 +384,10 @@ class RedirectOldRoutesController extends Controller
             );
         }
 
-        return null;
+        return new RedirectResponse(
+            $this->generateUrl('home'),
+            301
+        );
     }
 
     /**
@@ -714,6 +718,9 @@ class RedirectOldRoutesController extends Controller
             );
         }
 
-        return null;
+        return new RedirectResponse(
+            $this->generateUrl('home'),
+            301
+        );
     }
 }
