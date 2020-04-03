@@ -23,6 +23,7 @@ class RedirectOldRoutesController extends Controller
      *
      * @Route(path="/kiwi", name="old_kiwi")
      * @Route(path="/kiwi/", name="old_kiwi2")
+     * @Route(path="/kiwi/?Site=Font", name="old_kiwi3")
      */
     public function oldKiwiAction(Request $request)
     {
@@ -30,9 +31,16 @@ class RedirectOldRoutesController extends Controller
         $urlsKiwi = [
             '/kiwi',
             '/kiwi/',
+            '/kiwi/?Site=Font',
         ];
 
         if (in_array($request->getRequestUri(), $urlsKiwi)) {
+            if ($request->getRequestUri() == '/kiwi/?Site=Font') {
+                return new RedirectResponse(
+                    'https://kiwi.staging.rochedor.fr/kiwi/?Site=Font',
+                    301
+                );
+            }
             if (preg_match('/nsi\.rochedor\.fr/', $request->getUri())) {
                 return new RedirectResponse(
                     'https://kiwi.nsi.rochedor.fr/kiwi/',
