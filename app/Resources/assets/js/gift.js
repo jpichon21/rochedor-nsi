@@ -341,6 +341,7 @@ function afterLogin (user, bypass) {
   updateYouRender()
   upLoader()
   postGift(_amount, _allocation.value, _modpaie, _note, _dateDebVir, _dateFinVir, _virPeriod).then(data => {
+    downLoader()
     window.location.href = data
   }).catch(err => {
     downLoader()
