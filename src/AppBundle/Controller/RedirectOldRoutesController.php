@@ -35,7 +35,7 @@ class RedirectOldRoutesController extends Controller
         ];
 
         if (in_array($request->getRequestUri(), $urlsKiwi)) {
-            if ($request->getRequestUri() == '/kiwi/?Site=Font') {
+            if (preg_match('/fontanilles\.fr/', $request->getUri())) {
                 return new RedirectResponse(
                     'https://kiwi.staging.rochedor.fr/kiwi/?Site=Font',
                     301
