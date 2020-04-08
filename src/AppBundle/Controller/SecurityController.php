@@ -213,6 +213,7 @@ class SecurityController extends Controller
         ContactRepository $repository,
         UserPasswordEncoderInterface $encoder
     ) {
+        /** @var Contact $user */
         $user = $this->getUser();
         $contactReq = $request->get('contact');
         
@@ -233,9 +234,12 @@ class SecurityController extends Controller
         ->setEmail($contactReq['email'])
         ->setDatnaiss(new \DateTime($contactReq['datnaiss']))
         ->setProfession($contactReq['profession']);
-        if ($contactReq['password'] !== '') {
+        if (array_key_exists('password', $contactReq) && $contactReq['password'] !== '') {
             $password = $encoder->encodePassword($user, $contactReq['password']);
             $user->setPassword($password);
+        }
+        if (array_key_exists('username', $contactReq) && $contactReq['username'] !== '') {
+            $user->setUsername($contactReq['username']);
         }
 
         $em = $this->getDoctrine()->getManager();
