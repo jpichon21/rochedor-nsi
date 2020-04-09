@@ -83,7 +83,6 @@ class GiftService
             ->setMemodon($data['memodon'])
             ->setRefdon($ref)
             ->setEnregdon(new \DateTime())
-            ->setDatdon(new \DateTime())
             ->setValidDon(0)
             ->setBanqdon(9)
             ->setMondon('€');

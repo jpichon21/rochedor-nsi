@@ -101,7 +101,7 @@ class Don
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="DatDon", type="datetime", nullable=false)
+     * @ORM\Column(name="DatDon", type="datetime", nullable=true)
      */
     private $datdon;
 
@@ -184,7 +184,6 @@ class Don
         $this->norecu = 0;
         $this->adhesion = 0;
         $this->memodon = '';
-        $this->datdon = new \DateTime();
         $this->datrecu = new \DateTime();
         $this->transdon = '';
         $this->paysdon = '';
@@ -475,7 +474,7 @@ class Don
     /**
      * Get datdon
      *
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getDatdon()
     {
