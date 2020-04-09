@@ -296,8 +296,7 @@ class GiftController extends Controller
             $don->setDatDon(new \DateTime())
             ->setPaysdon($country)
             ->setStatus('success')
-            ->setTransdon($status)
-            ->setValidDon(1);
+            ->setTransdon($status);
 
             /** @var Contact $contact */
             $contact = $don->getContact();
