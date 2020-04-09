@@ -337,6 +337,16 @@
        <div class="pure-u-1 pure-u-md-1-2">
              <a href="{{ localePath('aide-saisie', app.request.locale) }}" class="tooltip-password" target="_blank">{{ 'calendar.registration.tooltip-username' | trans }}</a>
     </div>
+    <% if (!isUpdate) { %>
+    <div class="pure-u-1 pure-u-md-1-2 password-container">
+        <input autocomplete="nope" class="input password<%= errors.password && ' error' %>" type="password" name="password" placeholder="* {{ 'form.password' | trans | raw }}">
+        <a class="toggle-password"></a>
+        <div class="error-message"><%= errors.password %></div>
+    </div>
+    <div class="pure-u-1 pure-u-md-1-2">
+             <a href="{{ localePath('aide-saisie', app.request.locale) }}" class="tooltip-password" target="_blank">{{ 'calendar.registration.tooltip-pass' | trans }}</a>
+    </div>
+    <% } %>
     <div class="pure-u-1 pure-u-md-1-2" style="margin-top:10px;">
         <input autocomplete="nope" class="input profession<%= errors.datnaiss && ' error' %>" type="text" value="<%= you.profession %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
     </div>

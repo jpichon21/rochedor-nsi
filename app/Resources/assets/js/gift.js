@@ -381,7 +381,7 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
     password: $('.password', this).val()
   }).then(user => {
     _you = {...getContact(), ...user}
-    updateYouFormRender([], _you)
+    updateYouFormRender([], _you, true)
     setTimeout(() => {
       $('.panel', itemConnection).hide()
       $('.panel.registration').show()
@@ -513,7 +513,7 @@ itemConnection.on('click', 'a:not(.tooltip-password)', function (event) {
       needChangeItem = false
       getLogin().then(user => {
         _you = {...getContact(), ...user}
-        updateYouFormRender([], _you)
+        updateYouFormRender([], _you, true)
         setTimeout(() => {
           scrollToElement($('.panel.registration'))
           $('.panel.registration').addClass('update-user')
