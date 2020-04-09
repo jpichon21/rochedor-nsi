@@ -172,7 +172,7 @@ class PaymentService
             ),
             'PBX_ANNULE' => $this->router->generate(
                 'gift-' . $locale,
-                ['giftData' => ['amount' => $amount, 'destDon' => $destDon, 'giftNote' => $memoDon, 'modDon' => 'CB']],
+                [],
                 RouterInterface::ABSOLUTE_URL
             ),
             'PBX_ATTENTE' => $this->router->generate(
