@@ -447,9 +447,14 @@ itemConnection.on('submit', '.panel.registration form', function (event) {
   if (error) {
     errors['tel'] = error
   }
-  updateYouFormRender(errors, contact)
+
+  let registrationPanel = $(this).parents('.panel.registration')
+  if (registrationPanel.hasClass('update-user')) {
+    updateYouFormRender(errors, contact, true)
+  } else {
+    updateYouFormRender(errors, contact)
+  }
   if (Object.keys(errors).length === 0) {
-    let registrationPanel = $(this).parents('.panel.registration')
     if (registrationPanel.hasClass('update-user')) {
       postModify({
         contact: contact
