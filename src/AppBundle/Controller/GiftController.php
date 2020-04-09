@@ -290,9 +290,10 @@ class GiftController extends Controller
                 throw new HttpException('Paypal IPN verification failed');
             }
         }
+        /** @var Don $don */
         $don = $this->donRepository->findByRef($ref);
         if ($status && (int) $don->getMntdon() === (int) $amount) {
-            $don->setEnregdon(new \DateTime())
+            $don->setDatDon(new \DateTime())
             ->setPaysdon($country)
             ->setStatus('success')
             ->setTransdon($status)
