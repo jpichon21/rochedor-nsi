@@ -300,6 +300,7 @@ class GiftController extends Controller
 
             /** @var Contact $contact */
             $contact = $don->getContact();
+            $contact->setTypcoDon();
             $this->get('app.mailer')->send(
                 [$contact->getEmail() => $contact->getPrenom().' '.$contact->getNom()],
                 $this->get('translator')->trans('gift.title'),

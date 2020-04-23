@@ -43,7 +43,7 @@ class Contact implements UserInterface, \Serializable
      *
      * @ORM\Column(name="TypCo", type="boolean")
      */
-    private $typco = 1;
+    private $typco = 0;
 
     /**
      * @var string|null
@@ -558,6 +558,30 @@ class Contact implements UserInterface, \Serializable
     public function getTypco()
     {
         return $this->typco;
+    }
+
+    /**
+     * Marque le contact comme retraitant (règle de Hubert, il faut utiliser le bit 1)
+     *
+     * @return $this
+     */
+    public function setTypcoInscription()
+    {
+        $this->typco = $this->typco | 1;
+
+        return $this;
+    }
+
+    /**
+     * Marque le contact comme donateur (règle de Hubert, il faut utiliser le bit 2)
+     *
+     * @return $this
+     */
+    public function setTypcoDon()
+    {
+        $this->typco = $this->typco | 2;
+
+        return $this;
     }
 
     /**
