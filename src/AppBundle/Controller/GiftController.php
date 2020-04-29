@@ -344,4 +344,12 @@ class GiftController extends Controller
             $request
         ]);
     }
+
+    /**
+     * @Route("/test-mail", name="test_mail")
+     */
+    public function testEmailAction()
+    {
+        $this->get('app.mailer')->sendTest();
+    }
 }

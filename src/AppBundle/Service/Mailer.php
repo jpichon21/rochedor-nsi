@@ -59,4 +59,37 @@ class Mailer
             echo $e->getMessage();
         }
     }
+
+    /**
+     * Send an email to test
+     */
+    public function sendTest()
+    {
+        $message = (new Swift_Message('Mail de test'))
+        ->setFrom('secretariat@rochedor.org', 'LRDO')
+        ->setTo('test-kuyyjq092@srv1.mail-tester.com')
+        ->setBody(
+            $this->container->get('templating')->render(
+                'emails/default.html.twig',
+                [
+                    'body' => 'Mail de test'
+                ]
+            ),
+            'text/html'
+        )
+        ->addPart(
+            $this->container->get('templating')->render(
+                'emails/default.txt.twig',
+                [
+                    'body' => 'Mail de test'
+                ]
+            ),
+            'text/plain'
+        );
+        try {
+            return $this->mailer->send($message);
+        } catch (\Swift_SwiftException $e) {
+            echo $e->getMessage();
+        }
+    }
 }
