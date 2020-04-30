@@ -47,9 +47,9 @@
                 <ul class="sub-menu" data-menu="qzsedr">
                     <li class="blank"></li>
                     <li class="blank"></li>
-                    <li><a href="https://editionsrochedor.com" target="_blank" class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five.one' | trans | raw }}</a></li>
-                    <li><a href="https://editionsrochedor.com" target="_blank" class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five.two' | trans | raw }}</a></li>
-                    <li><a href="https://editionsrochedor.com" target="_blank" class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five.three' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('editions', app.request.locale) }}">{{ 'menu.five.one' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('editions-nouveautes', app.request.locale) }}">{{ 'menu.five.two' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('editions-collections', app.request.locale) }}">{{ 'menu.five.three' | trans | raw }}</a></li>
                 </ul>
             </li>
             <li data-menu="hbgvfc">
@@ -65,13 +65,13 @@
                 </ul>
             </li>
             <li data-menu="qzsedr" class="mobileHide">
-                <span class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five' | trans | raw }}</span>
+                <span>{{ 'menu.five' | trans | raw }}</span>
                 <ul class="sub-menu" data-menu="qzsedr">
                     <li class="blank"></li>
                     <li class="blank"></li>
-                    <li><a href="https://editionsrochedor.com" target="_blank" class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five.one' | trans | raw }}</a></li>
-                    <li><a href="https://editionsrochedor.com" target="_blank" class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five.two' | trans | raw }}</a></li>
-                    <li><a href="https://editionsrochedor.com" target="_blank" class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five.three' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('editions', app.request.locale) }}">{{ 'menu.five.one' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('editions-nouveautes', app.request.locale) }}">{{ 'menu.five.two' | trans | raw }}</a></li>
+                    <li><a href="{{ localePath('editions-collections', app.request.locale) }}">{{ 'menu.five.three' | trans | raw }}</a></li>
                 </ul>
             </li>
             <li data-menu="defrgt">
