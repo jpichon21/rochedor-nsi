@@ -3759,5 +3759,11 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
         <target>Don</target>
       </segment>
     </unit>
+    <unit id="6">
+      <segment>
+        <source>reset.password</source>
+        <target><![CDATA[Première visite sur le nouveau site. <a href="#reset" rel="nofollow">Réinitialiser votre mot de passe.</a>]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -439,6 +439,9 @@ itemConnection.on('click', 'a:not(.tooltip-password)', function (event) {
       break
     case 'reset':
       $('.panel.reset', itemConnection).show()
+      setTimeout(() => {
+        scrollToElement($('.panel.reset'))
+      }, 200)
       break
     case 'continue':
       getLogin().then(user => afterLogin(user))
