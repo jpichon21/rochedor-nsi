@@ -17,10 +17,10 @@
                 <a href={{ path('calendar-' ~ app.request.locale) }} rel="nofollow">{{ 'menu.two.five' | trans | raw | striptags }}</a>
             </div>
             <div class="column">
-                <span>{{ 'menu.five' | trans | raw | striptags }}</span>
-                <a href={{ localePath('editions', app.request.locale) }} rel="nofollow">{{ 'menu.five.one' | trans | raw | striptags }}</a>
-                <a href={{ path('collections-news-' ~ currentLocale) }} rel="nofollow">{{ 'menu.five.two' | trans | raw | striptags }}</a>
-                <a href={{ path('collections-' ~ currentLocale) }} rel="nofollow">{{ 'menu.five.three' | trans | raw | striptags }}</a>
+                <span class="disabled" title="{{ 'edition.comingSoon'|trans }}">{{ 'menu.five' | trans | raw | striptags }}</span>
+                <a href="https://editionsrochedor.com" target="_blank" class="disabled" title="{{ 'edition.comingSoon'|trans }}" rel="nofollow">{{ 'menu.five.one' | trans | raw | striptags }}</a>
+                <a href="https://editionsrochedor.com" target="_blank" class="disabled" title="{{ 'edition.comingSoon'|trans }}" rel="nofollow">{{ 'menu.five.two' | trans | raw | striptags }}</a>
+                <a href="https://editionsrochedor.com" target="_blank" class="disabled" title="{{ 'edition.comingSoon'|trans }}" rel="nofollow">{{ 'menu.five.three' | trans | raw | striptags }}</a>
             </div>
             <div class="column">
                 <span>{{ 'footer.four' | trans | raw | striptags }}</span>
