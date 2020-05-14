@@ -53,6 +53,7 @@ security:
             anonymous: ~
             json_login:
                 check_path: /login
+            user_checker: AppBundle\Security\UserChecker
             entry_point: AppBundle\Security\EntryPoint
             logout:
                 path:   /logout

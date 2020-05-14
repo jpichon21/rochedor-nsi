@@ -80,7 +80,7 @@ class SecurityController extends Controller
     public function loginAction(Request $request)
     {
         /**
-         * @var AppBundle\Entity\Contact
+         * @var $user Contact
          */
         $user = $this->getUser();
 
@@ -89,6 +89,16 @@ class SecurityController extends Controller
                 'status' => 'not logged in'
             ], 201);
         }
+
+        if (!empty($user->getCatco2())) {
+            $session = new Session();
+            $session->invalidate();
+
+            return new JsonResponse([
+                'status' => 'not logged in'
+            ], 201);
+        }
+
         return new JsonResponse([
             'username' => $user->getUsername(),
             'roles' => $user->getRoles(),
