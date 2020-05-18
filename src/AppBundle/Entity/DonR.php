@@ -79,9 +79,9 @@ class DonR
     /**
      * @var string
      *
-     * @ORM\Column(name="ModDon", type="string", length=6, nullable=false)
+     * @ORM\Column(name="ModDonR", type="string", length=6, nullable=false)
      */
-    private $moddon;
+    private $moddonr;
 
     /**
      * @var \DateTime
@@ -140,7 +140,7 @@ class DonR
         $this->mondonR = '';
         $this->destdon = '';
         $this->banqdon = 0;
-        $this->moddon = '';
+        $this->moddonr = '';
         $this->creatdonR = '';
         $this->status = '';
         $this->banque = '';
@@ -271,15 +271,15 @@ class DonR
     }
 
     /**
-     * Set moddon
+     * Set moddonr
      *
-     * @param string $moddon
+     * @param string $moddonr
      *
      * @return DonR
      */
-    public function setModdon($moddon)
+    public function setModdonr($moddonr)
     {
-        $this->moddon = $moddon;
+        $this->moddonr = $moddonr;
 
         return $this;
     }
@@ -289,9 +289,9 @@ class DonR
      *
      * @return string
      */
-    public function getModdon()
+    public function getModdonr()
     {
-        return $this->moddon;
+        return $this->moddonr;
     }
 
     /**

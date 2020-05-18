@@ -91,21 +91,21 @@
                                     <label>
                                         <span>{{ 'payment.cheque'|trans }}</span>
                                         <br/>
-                                        <button id="input_payment_cheque" href="#CH" class="input button radio{% if giftData.modDon == 'CH' %} checked{% endif %}" rel="nofollow" title="{{ 'payment.cheque'|trans }}"/>
+                                        <button id="input_payment_cheque" href="#ICH" class="input button radio{% if giftData.modDon == 'ICH' %} checked{% endif %}" rel="nofollow" title="{{ 'payment.cheque'|trans }}"/>
                                     </label>
                                 </div>
                                 <div class="pure-u-1 pure-u-md-1-5">
                                     <label>
                                         <span>{{ 'payment.virement'|trans }}</span>
                                         <br/>
-                                        <button id="input_payment_virement" href="#VIR" class="input button radio{% if giftData.modDon == 'VIR' %} checked{% endif %}" rel="nofollow" title="{{ 'payment.virement'|trans }}"/>
+                                        <button id="input_payment_virement" href="#IVIR" class="input button radio{% if giftData.modDon == 'IVIR' %} checked{% endif %}" rel="nofollow" title="{{ 'payment.virement'|trans }}"/>
                                     </label>
                                 </div>
                                 <div class="pure-u-1 pure-u-md-1-5">
                                     <label>
                                         <span>{{ 'payment.virement_reg'|trans }}</span>
                                         <br/>
-                                        <button id="input_payment_virement_reg" href="#VPER" class="input button radio{% if giftData.modDon == 'VPER' %} checked{% endif %}" rel="nofollow" title="{{ 'payment.virement_reg'|trans }}"/>
+                                        <button id="input_payment_virement_reg" href="#IVIP" class="input button radio{% if giftData.modDon == 'IVIP' %} checked{% endif %}" rel="nofollow" title="{{ 'payment.virement_reg'|trans }}"/>
                                     </label>
                                 </div>
                                 <input required type="hidden" name="payment_method" {% if giftData.modDon is not null %} value="{{ giftData.modDon }}"{% endif %}>
