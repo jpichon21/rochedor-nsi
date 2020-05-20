@@ -2648,7 +2648,7 @@
     <unit id="Y.q4rE8" name="gift.one.body.disconnected">
       <segment>
         <source>gift.one.body.disconnected</source>
-        <target>Avez-vous déjà effectué un don en ligne ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
+        <target>Avez-vous déjà effectué une inscription ou un don en ligne ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
       </segment>
     </unit>
     <unit id="KXMcVvu" name="gift.one.title.connection">

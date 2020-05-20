@@ -19,8 +19,8 @@ class PaymentService
     const METHOD_CB = 'CB';
     const METHOD_PAYPAL = 'PAYPAL';
     const METHOD_CHEQUE = 'ICH';
-    const METHOD_VIREMENT = 'IVIR';
-    const METHOD_VIREMENT_REGULIER = 'IVIP';
+    const METHOD_VIREMENT = 'IVIP';
+    const METHOD_VIREMENT_REGULIER = 'IVIR';
 
     private $container;
     private $tPaysRepository;

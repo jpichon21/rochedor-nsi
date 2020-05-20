@@ -282,7 +282,7 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
     itemPrelevement.find('.virement-reg-fin').addClass('hidden')
     if (_modpaie === 'IVIR' || _modpaie === 'IVIP') {
       Inputmask().mask(document.querySelectorAll('.date_virement, .virement-reg-fin'))
-      if (_modpaie === 'IVIP') {
+      if (_modpaie === 'IVIR') {
         itemPrelevement.find('.virement-reg').removeClass('hidden')
         itemPrelevement.find('.virement-reg-fin').removeClass('hidden')
       } else {
@@ -312,7 +312,7 @@ itemPrelevement.on('submit', 'form', function (event) {
 
   let toValidate = $('input[name="date_virement"]')
   let valid = true
-  if (_modpaie === 'IVIP') {
+  if (_modpaie === 'IVIR') {
     toValidate = $('input[name="date_virement"], select.select-period')
   }
   toValidate.each(function () {
