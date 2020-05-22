@@ -128,6 +128,13 @@ class DonR
     /**
      * @var string
      *
+     * @ORM\Column(name="MemoDonR", type="text", length=65535, nullable=false)
+     */
+    private $memodonR;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="status", type="string", length=10, nullable=false)
      */
     private $status;
@@ -148,6 +155,7 @@ class DonR
         $this->virFin = new \DateTime();
         $this->virFreq = '';
         $this->datTrans = new \DateTime();
+        $this->memodonR = '';
     }
 
     /**
@@ -412,6 +420,30 @@ class DonR
         $this->enregdonR = $enregdonR;
 
         return $this;
+    }
+
+    /**
+     * Set memodonR
+     *
+     * @param string $memodonR
+     *
+     * @return DonR
+     */
+    public function setMemodonR($memodonR)
+    {
+        $this->memodonR = $memodonR;
+
+        return $this;
+    }
+
+    /**
+     * Get memodonR
+     *
+     * @return string
+     */
+    public function getMemodonR()
+    {
+        return $this->memodonR;
     }
 
     /**

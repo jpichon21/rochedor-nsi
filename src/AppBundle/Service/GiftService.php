@@ -51,6 +51,7 @@ class GiftService
             ->setContact($user)
             ->setDestdon($data['destdon'])
             ->setModdonr($data['moddon'])
+            ->setMemodonR($data['memodon'])
             ->setRefdon($ref)
             ->setMondonR('€')
             ->setEnregdonR(new \DateTime())
