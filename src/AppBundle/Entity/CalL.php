@@ -146,7 +146,7 @@ class CalL
     public function __construct()
     {
         $this->setEnreglcal(new \DateTime())
-        ->setEtaplcal('attent')
+        ->setEtaplcal('')
         ->setReplcal(new \DateTime())
         ->setHeblcal(0)
         ->setChlcal('')

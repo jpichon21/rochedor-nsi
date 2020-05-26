@@ -266,8 +266,7 @@ class CalendarController extends Controller
         $currentUserId = $currentUser->getCodco();
         $registeredContact = $calendarLRepository->findOneBy([
             'lcal' => $currentUserId,
-            'codcal' => $activityId,
-            'etaplcal' => 'attent'
+            'codcal' => $activityId
         ]);
 
         // Si on trouve une demande d'inscription déjà existante pour cet utilisateur
