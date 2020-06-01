@@ -181,4 +181,17 @@ class ContactRepository
         ->setMaxResults(100);
         return $query->getResult();
     }
+
+    /**
+     * @param $codCo
+     * @return bool
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function setTypCoDonateur($codCo)
+    {
+        $query = $this->entityManager->getConnection()
+            ->query('UPDATE contact c SET c.TypCo = (c.TypCo | 2) WHERE c.CodCo = ' . $codCo);
+
+        return $query->execute();
+    }
 }
