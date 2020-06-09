@@ -26,6 +26,7 @@ import ForgottenPassword from './components/forgottenPassword/forgottenPassword'
 import Logout from './components/logout/logout'
 import PrivateRoute from './components/private-route/private-route'
 import { doCheckLogin } from './actions'
+import { Help } from './components/help/help'
 
 export class App extends React.Component {
   constructor () {
@@ -70,6 +71,8 @@ export class App extends React.Component {
               <PrivateRoute path='/logout' exact component={Logout} />
               <Route path='/login' exact component={Login} />
               <Route path='/mot-de-passe-oublie' exact component={ForgottenPassword} />
+
+              <PrivateRoute path='/help/' exact component={Help} />
             </Switch>
           </Fragment>
         </HashRouter>
