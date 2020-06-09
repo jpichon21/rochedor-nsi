@@ -6,7 +6,7 @@ import { doForgottenPassword, initStatus } from '../../actions'
 import { TextField, Button, Typography, Snackbar } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import Moment from 'moment'
-import { Redirect } from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 import Alert from '../alert/alert'
 import I18n from '../../../i18n'
 
@@ -75,21 +75,12 @@ export class ForgottenPassword extends React.Component {
             <Typography variant='display1' className={classes.title}>
               Mot de passe oublié
             </Typography>
-            <form onSubmit={this.handleSubmit} className={classes.form}>
-              <TextField
-                required
-                autoComplete='off'
-                InputLabelProps={{ shrink: true }}
-                className={classes.textfield}
-                fullWidth
-                name='email'
-                type='email'
-                label='Entrer votre email'
-                placeholder='Email'
-                value={this.state.email}
-                onChange={this.handleInputChange} />
-              <Button type={'submit'} color='primary'>Envoyer</Button>
-            </form>
+            <Typography component='p' style={{'margin-bottom': '30px'}}>
+              Pour réinitialiser votre mot de passe, contacter l'un ou l'autre des administrateurs suivants : Claire MESLOT, Danièle VALÈS, Hugues CHAPELLE.
+            </Typography>
+            <NavLink to='/login' style={{textDecoration: 'none'}}>
+              <Button type={'submit'} color='secondary' style={{float: 'left'}}>Retour</Button>
+            </NavLink>
           </div>
         </div>
       </div>
