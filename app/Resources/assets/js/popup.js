@@ -3,14 +3,22 @@ const message = popup.querySelector('.message')
 const overlay = popup.querySelector('.overlay')
 const buttonY = popup.querySelector('.button.yes')
 const buttonN = popup.querySelector('.button.no')
+const buttonOk = popup.querySelector('.button.ok')
 const buttonC = popup.querySelector('.button.continue')
 const buttonCC = popup.querySelector('.button.continueCart')
 
 export const upFlashbag = html => {
   message.innerHTML = html
-  popup.classList.remove('yes', 'no', 'cart', 'continueCart')
+  popup.classList.remove('yes', 'no', 'cart', 'continueCart', 'ok')
   popup.classList.add('active', 'continue')
   buttonC.addEventListener('click', () => { downPopup() })
+}
+
+export const upFlashbagOk = html => {
+  message.innerHTML = html
+  popup.classList.remove('yes', 'no', 'cart', 'continueCart', 'continue')
+  popup.classList.add('active', 'ok')
+  buttonOk.addEventListener('click', () => { downPopup() })
 }
 
 export const upCartBox = html => {

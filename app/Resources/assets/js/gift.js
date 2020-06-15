@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import moment from 'moment'
 import { getContact } from './sample'
-import { upFlashbag } from './popup'
+import { upFlashbag, upFlashbagOk } from './popup'
 import { upLoader, downLoader } from './loader'
 import Inputmask from 'inputmask'
 import I18n from './i18n'
@@ -402,10 +402,17 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
   resetLogin({
     email: $('.email', this).val(),
     firstname: $('.firstname', this).val(),
-    lastname: $('.lastname', this).val()
+    lastname: $('.lastname', this).val(),
+    origin: 'don',
+    giftData: {
+      'amount': _amount,
+      'destDon': _allocation.value,
+      'giftNote': _note,
+      'modDon': _modpaie
+    }
   }).then(() => {
     downLoader()
-    upFlashbag(i18n.trans('security.check_inbox'))
+    upFlashbagOk(i18n.trans('security.check_inbox'))
   })
     .catch((err) => {
       downLoader()

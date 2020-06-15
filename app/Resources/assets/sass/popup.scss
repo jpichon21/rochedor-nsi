@@ -23,6 +23,11 @@
       display: block;
     }
   }
+  &.ok {
+    .ok {
+      display: block;
+    }
+  }
   &.no,
   &.yes {
     .no,

@@ -316,6 +316,9 @@ class SecurityController extends Controller
         $email = $request->get('email');
         $lastname = $request->get('lastname');
         $firstname = $request->get('firstname');
+        $this->get('session')->set('origin', $request->get('origin'));
+        $this->get('session')->set('idact', $request->get('idact'));
+        $this->get('session')->set('giftData', $request->get('giftData'));
         if (!$email || !$lastname || !$firstname) {
             return new JsonResponse(['status' => 'ko', 'message' => 'security.password_request.missing_infos']);
         }
@@ -399,8 +402,18 @@ class SecurityController extends Controller
     */
     public function passwordResetSuccessAction(Request $request)
     {
+        $origin = $this->get('session')->get('origin');
+        $idact = $this->get('session')->get('idact');
+        $giftData = $this->get('session')->get('giftData');
+        $this->get('session')->remove('origin');
+        $this->get('session')->remove('idact');
+        $this->get('session')->remove('giftData');
+
         return $this->render('security/password-reset-success.html.twig', array(
-            'contact' => null
+            'contact' => null,
+            'origin' => $origin,
+            'idact' => $idact,
+            'giftData' => $giftData,
         ));
     }
 
