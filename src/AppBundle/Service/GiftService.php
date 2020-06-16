@@ -50,11 +50,12 @@ class GiftService
         $donR->setMntdon($data['mntdon'])
             ->setContact($user)
             ->setDestdon($data['destdon'])
-            ->setModdon($data['moddon'])
+            ->setModdonr($data['moddon'])
+            ->setMemodonR($data['memodon'])
             ->setRefdon($ref)
             ->setMondonR('€')
             ->setEnregdonR(new \DateTime())
-            ->setBanqdon(9)
+            ->setBanqdon($this->getBankFromDestDon($data['destdon']))
             ->setDatVir($dateVir)
             ->setVirFin($dateVirFin)
             ->setVirFreq($virFreq);
@@ -84,10 +85,34 @@ class GiftService
             ->setRefdon($ref)
             ->setEnregdon(new \DateTime())
             ->setValidDon(0)
-            ->setBanqdon(9)
+            ->setBanqdon($this->getBankFromDestDon($data['destdon']))
             ->setMondon('€');
 
         return $don;
+    }
+
+    /**
+     * Retourne l'ID de compte correspondant à l'affectation du don
+     *
+     * @param string $destDon
+     *
+     * @return int
+     */
+    public function getBankFromDestDon($destDon)
+    {
+        switch ($destDon) {
+            case 'Libre':
+            case 'RochTx':
+                return 13;
+            case 'VieCom':
+                return 2;
+            case 'Itin':
+                return 8;
+            case 'FontTx':
+                return 4;
+            default:
+                return 9;
+        }
     }
 
     /**

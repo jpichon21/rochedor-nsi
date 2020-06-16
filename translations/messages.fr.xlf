@@ -560,6 +560,15 @@
         <target>Non</target>
       </segment>
     </unit>
+    <unit id="AzlF7AX" name="main.ok">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>main.ok</source>
+        <target>OK</target>
+      </segment>
+    </unit>
     <unit id="V8UBB12" name="form.id">
       <notes>
         <note priority="1">obsolete</note>
@@ -764,7 +773,7 @@
       </notes>
       <segment>
         <source>calendar.registration.two.title.registered</source>
-        <target>Inscrits avec vous</target>
+        <target>Viendront avec vous</target>
       </segment>
     </unit>
     <unit id="mfItNzY" name="calendar.registration.two.add_participant">
@@ -874,7 +883,28 @@
       </notes>
       <segment>
         <source>security.password_reset_success_message</source>
-        <target>Votre nouveau mot de passe a été enregistré, vous pouvez désormais vous connecter avec votre nouveau mot de passe.</target>
+        <target><![CDATA[
+        <p>Votre nouveau mot de passe a été enregistré.</p>
+        <p>Vous pouvez continuer votre demande d'inscription en utilisant votre nouveau mot de passe</p>
+        <p><strong>ATTENTION :</strong></p>
+        <p><strong>Veiller à utiliser l’identifiant qui vous a été communiqué dans le courriel (email) que vous avez reçu.  Vous pourrez le modifier, si besoin, dans la fiche qui vous sera présentée pour vérifier votre identité.</strong></p>
+        <p>POUR REVENIR à votre inscription en cours, <a href="%link%">cliquer sur ce lien</a>.</p>
+        ]]></target>
+      </segment>
+    </unit>
+    <unit id="cUuO.r5" name="security.password_reset_success_message.don">
+      <notes>
+        <note priority="1">app/Resources/views/security/password-reset-success.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>security.password_reset_success_message.don</source>
+        <target><![CDATA[
+        <p>Votre nouveau mot de passe a été enregistré.</p>
+        <p>Vous pouvez continuer votre don en utilisant votre nouveau mot de passe</p>
+        <p><strong>ATTENTION :</strong></p>
+        <p><strong>Veiller à utiliser l’identifiant qui vous a été communiqué dans le courriel (email) que vous avez reçu.  Vous pourrez le modifier, si besoin, dans la fiche qui vous sera présentée pour vérifier votre identité.</strong></p>
+        <p>POUR REVENIR à votre don en cours, <a href="%link%">cliquer sur ce lien</a>.</p>
+        ]]></target>
       </segment>
     </unit>
     <unit id="OF6XF6p" name="form.label.email">
@@ -1201,7 +1231,7 @@
     <unit id="RJ.6oSN" name="form.no_participants">
       <segment>
         <source>form.no_participants</source>
-        <target>Aucun participant</target>
+        <target>Aucune personne ne vous accompagne</target>
       </segment>
     </unit>
     <unit id="Ux7laCX" name="form.civil">
@@ -1243,7 +1273,7 @@
     <unit id="cvwzHYX" name="form.password.reset">
       <segment>
         <source>form.password.reset</source>
-        <target>Réinitialiser le mot de passe</target>
+        <target>Réinitialiser votre mot de passe</target>
       </segment>
     </unit>
     <unit id="kzkX1MK" name="security.bad_credentials">
@@ -2648,7 +2678,7 @@
     <unit id="Y.q4rE8" name="gift.one.body.disconnected">
       <segment>
         <source>gift.one.body.disconnected</source>
-        <target>Avez-vous déjà effectué un don en ligne ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
+        <target>Avez-vous déjà effectué une inscription ou un don en ligne ? (nous souhaitons savoir si nous possédons déjà vos coordonnées ou non)</target>
       </segment>
     </unit>
     <unit id="KXMcVvu" name="gift.one.title.connection">
@@ -3761,8 +3791,11 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
     </unit>
     <unit id="6">
       <segment>
-        <source>reset.password</source>
-        <target><![CDATA[Première visite sur le nouveau site ? <a href="#reset" rel="nofollow">Réinitialiser votre mot de passe.</a>]]></target>
+        <source>reset.password.info</source>
+        <target><![CDATA[
+        <p><strong>Première inscription ou premier don sur ce nouveau site ?</strong></p>
+        <p>Pour des raisons de sécurité nous avons été conduits à modifier votre identifiant. Celui-ci va vous être communiqué par courriel (email) en cliquant sur “Réinitialiser votre mot de passe”</p>
+        ]]></target>
       </segment>
     </unit>
   </file>

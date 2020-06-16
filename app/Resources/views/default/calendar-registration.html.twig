@@ -37,7 +37,6 @@
                 </div>
                 <div class="panel connection">
                     <h3>{{ 'calendar.registration.one.title.connection' | trans | raw }}</h3>
-                    <p>{{ 'reset.password' | trans | raw}}</p>
                     <form class="pure-g connection">
                         <div class="pure-u-1 pure-u-md-1-2">
                             <input class="input username" type="text" name="username" placeholder="* {{ 'form.username' | trans | raw }}">
@@ -51,6 +50,7 @@
                         </div>
                     </form>
                     <a class="option" href="#reset" rel="nofollow">{{ 'form.password.reset'|trans }}</a>
+                    <p>{{ 'reset.password.info' | trans | raw}}</p>
                 </div>
                 <div class="panel registration">
                     <h3>{{ 'calendar.registration.one.title.registration' | trans | raw }}</h3>
@@ -288,7 +288,6 @@
         <div class="error-message"><%= errors.datnaiss %></div>
     </div>
 
-    <% if(register) { %>
     <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="off" class="input username<%= errors.username && ' error' %>" type="text" value="<%= _.escape(participant.username) %>" name="username" placeholder="* {{ 'form.username' | trans | raw }}">
         <div class="error-message"><%= errors.username %></div>
@@ -296,6 +295,7 @@
     <div class="pure-u-1 pure-u-md-1-2">
         <a href="{{ localePath('aide-saisie', app.request.locale) }}" class="tooltip-password" target="_blank">{{ 'calendar.registration.tooltip-username' | trans }}</a>
     </div>
+    <% if(register) { %>
     <div class="pure-u-1 pure-u-md-1-2">
         <div class="password-container">
             <input autocomplete="new-password" class="input password<%= errors.password && ' error' %>" type="password" name="password" placeholder="* {{ 'form.password' | trans | raw }}">

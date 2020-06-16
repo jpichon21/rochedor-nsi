@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import moment from 'moment'
 import { getContact } from './sample'
-import { upFlashbag } from './popup'
+import { upFlashbag, upFlashbagOk } from './popup'
 import { upLoader, downLoader } from './loader'
 import Inputmask from 'inputmask'
 import I18n from './i18n'
@@ -240,7 +240,7 @@ itemPayment.on('click', '.button.radio', function (event) {
   _modpaie = itemPayment.find('input[name="payment_method"]').val()
 
   // Affiche la zone de saisie de la date du virement en cas de mode de paiement par virement
-  if (_modpaie === 'VIR' || _modpaie === 'VPER') {
+  if (_modpaie === 'IVIR' || _modpaie === 'IVIP') {
     itemPrelevement.removeClass('hidden')
   } else {
     itemPrelevement.addClass('hidden')
@@ -280,9 +280,9 @@ itemPayment.on('submit', '.panel.payment form', function (event) {
     itemPrelevement.find('.virement').addClass('hidden')
     itemPrelevement.find('.virement-reg').addClass('hidden')
     itemPrelevement.find('.virement-reg-fin').addClass('hidden')
-    if (_modpaie === 'VIR' || _modpaie === 'VPER') {
+    if (_modpaie === 'IVIR' || _modpaie === 'IVIP') {
       Inputmask().mask(document.querySelectorAll('.date_virement, .virement-reg-fin'))
-      if (_modpaie === 'VPER') {
+      if (_modpaie === 'IVIR') {
         itemPrelevement.find('.virement-reg').removeClass('hidden')
         itemPrelevement.find('.virement-reg-fin').removeClass('hidden')
       } else {
@@ -312,7 +312,7 @@ itemPrelevement.on('submit', 'form', function (event) {
 
   let toValidate = $('input[name="date_virement"]')
   let valid = true
-  if (_modpaie === 'VPER') {
+  if (_modpaie === 'IVIR') {
     toValidate = $('input[name="date_virement"], select.select-period')
   }
   toValidate.each(function () {
@@ -402,10 +402,17 @@ itemConnection.on('submit', '.panel.reset form', function (event) {
   resetLogin({
     email: $('.email', this).val(),
     firstname: $('.firstname', this).val(),
-    lastname: $('.lastname', this).val()
+    lastname: $('.lastname', this).val(),
+    origin: 'don',
+    giftData: {
+      'amount': _amount,
+      'destDon': _allocation.value,
+      'giftNote': _note,
+      'modDon': _modpaie
+    }
   }).then(() => {
     downLoader()
-    upFlashbag(i18n.trans('security.check_inbox'))
+    upFlashbagOk(i18n.trans('security.check_inbox'))
   })
     .catch((err) => {
       downLoader()

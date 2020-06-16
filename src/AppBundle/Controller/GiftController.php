@@ -9,6 +9,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\DonR;
+use AppBundle\Repository\ContactRepository;
 use AppBundle\Repository\DonRRepository;
 use AppBundle\Service\CountryService;
 use AppBundle\Service\GiftService;
@@ -264,7 +265,7 @@ class GiftController extends Controller
     /**
      * @Route("/{_locale}/gift/payment-notify/{method}", name="gift_payment_notify")
      */
-    public function paymentNotifyAction($method, Request $request, PaypalService $paypalService)
+    public function paymentNotifyAction($method, Request $request, PaypalService $paypalService, ContactRepository $contactRepository)
     {
         $this->logger->info($request);
         if ($method === 'paybox') {
@@ -300,7 +301,7 @@ class GiftController extends Controller
 
             /** @var Contact $contact */
             $contact = $don->getContact();
-            $contact->setTypcoDon();
+            $contactRepository->setTypCoDonateur($contact->getCodco());
             $this->get('app.mailer')->send(
                 [$contact->getEmail() => $contact->getPrenom().' '.$contact->getNom()],
                 $this->get('translator')->trans('gift.title'),

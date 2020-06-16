@@ -69,7 +69,9 @@ export const postParticipant = (data) => {
       return res.data
     })
     .catch(res => {
-      if (res.code === 403) {
+      if (typeof res === 'string') {
+        throw (new Error(i18n.trans(res)))
+      } else if (res.code === 403) {
         throw (new Error(i18n.trans('forbidden')))
       } else {
         throw (new Error(i18n.trans('Error: unknown_error')))

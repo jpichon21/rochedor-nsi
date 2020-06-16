@@ -79,9 +79,9 @@ class DonR
     /**
      * @var string
      *
-     * @ORM\Column(name="ModDon", type="string", length=6, nullable=false)
+     * @ORM\Column(name="ModDonR", type="string", length=6, nullable=false)
      */
-    private $moddon;
+    private $moddonr;
 
     /**
      * @var \DateTime
@@ -128,6 +128,13 @@ class DonR
     /**
      * @var string
      *
+     * @ORM\Column(name="MemoDonR", type="text", length=65535, nullable=false)
+     */
+    private $memodonR;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="status", type="string", length=10, nullable=false)
      */
     private $status;
@@ -140,7 +147,7 @@ class DonR
         $this->mondonR = '';
         $this->destdon = '';
         $this->banqdon = 0;
-        $this->moddon = '';
+        $this->moddonr = '';
         $this->creatdonR = '';
         $this->status = '';
         $this->banque = '';
@@ -148,6 +155,7 @@ class DonR
         $this->virFin = new \DateTime();
         $this->virFreq = '';
         $this->datTrans = new \DateTime();
+        $this->memodonR = '';
     }
 
     /**
@@ -271,15 +279,15 @@ class DonR
     }
 
     /**
-     * Set moddon
+     * Set moddonr
      *
-     * @param string $moddon
+     * @param string $moddonr
      *
      * @return DonR
      */
-    public function setModdon($moddon)
+    public function setModdonr($moddonr)
     {
-        $this->moddon = $moddon;
+        $this->moddonr = $moddonr;
 
         return $this;
     }
@@ -289,9 +297,9 @@ class DonR
      *
      * @return string
      */
-    public function getModdon()
+    public function getModdonr()
     {
-        return $this->moddon;
+        return $this->moddonr;
     }
 
     /**
@@ -412,6 +420,30 @@ class DonR
         $this->enregdonR = $enregdonR;
 
         return $this;
+    }
+
+    /**
+     * Set memodonR
+     *
+     * @param string $memodonR
+     *
+     * @return DonR
+     */
+    public function setMemodonR($memodonR)
+    {
+        $this->memodonR = $memodonR;
+
+        return $this;
+    }
+
+    /**
+     * Get memodonR
+     *
+     * @return string
+     */
+    public function getMemodonR()
+    {
+        return $this->memodonR;
     }
 
     /**

@@ -16,6 +16,7 @@ import AnnouncementIcon from '@material-ui/icons/Announcement'
 import LaunchIcon from '@material-ui/icons/Launch'
 import ExitToAppIcon from '@material-ui/icons/PowerSettingsNew'
 import DashboardIcon from '@material-ui/icons/Home'
+import HelpIcon from '@material-ui/icons/Help'
 
 class AppMenu extends React.Component {
   constructor (props) {
@@ -116,6 +117,11 @@ class AppMenu extends React.Component {
                 </Tooltip>
               )
           }
+          <Typography variant='title' color='inherit' className={classes.flex} style={{position: 'absolute', right: '110px', 'text-decoration': 'none'}}>
+            <NavLink to='/help' style={{'text-decoration': 'none', color: 'white', 'font-size': '14px'}}>
+              AIDE
+            </NavLink>
+          </Typography>
           <Typography variant='title' color='inherit' className={classes.flex}>
             { this.props.title }
           </Typography>
@@ -208,6 +214,15 @@ class AppMenu extends React.Component {
                 </MenuItem>
               </NavLink>
             </IsAuthorized>
+
+            <Divider className={'divider'} />
+
+            <NavLink to='/help' className={classes.link}>
+              <MenuItem onClick={this.handleCloseMenu}>
+                <HelpIcon style={{marginRight: '5px'}} />{' '}
+                Aide
+              </MenuItem>
+            </NavLink>
 
             <Divider className={'divider'} />
 

@@ -86,7 +86,6 @@ class Contact implements UserInterface, \Serializable
      * @var string|null
      *
      * @ORM\Column(name="Nom", type="string", length=30)
-     * @Assert\Length(min=3)
      * @Expose
      */
     private $nom = '';
