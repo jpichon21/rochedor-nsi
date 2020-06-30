@@ -77,6 +77,8 @@ class GiftService
     {
         $ref = $this->getNewRef();
         $don = new Don();
+        $dateTomorrow = new \DateTime();
+        $dateTomorrow->modify('+1 day');
         $don->setMntdon($data['mntdon'])
             ->setContact($user)
             ->setDestdon($data['destdon'])
@@ -84,6 +86,8 @@ class GiftService
             ->setMemodon($data['memodon'])
             ->setRefdon($ref)
             ->setEnregdon(new \DateTime())
+            ->setDatdon(new \DateTime())
+            ->setDatrecu($dateTomorrow)
             ->setValidDon(0)
             ->setBanqdon($this->getBankFromDestDon($data['destdon']))
             ->setMondon('€');
@@ -103,13 +107,13 @@ class GiftService
         switch ($destDon) {
             case 'Libre':
             case 'RochTx':
-                return 13;
+                return 9;
             case 'VieCom':
-                return 2;
+                return 9;
             case 'Itin':
-                return 8;
+                return 9;
             case 'FontTx':
-                return 4;
+                return 9;
             default:
                 return 9;
         }
