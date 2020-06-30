@@ -294,8 +294,7 @@ class GiftController extends Controller
         /** @var Don $don */
         $don = $this->donRepository->findByRef($ref);
         if ($status && (int) $don->getMntdon() === (int) $amount) {
-            $don->setDatDon(new \DateTime())
-            ->setPaysdon($country)
+            $don->setPaysdon($country)
             ->setStatus('success')
             ->setTransdon($status);
 
