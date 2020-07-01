@@ -24,7 +24,7 @@ class Don
 
     /**
      * @ORM\ManyToOne(targetEntity="Contact")
-     * @ORM\JoinColumn(name="DonCo", referencedColumnName="CodCo")
+     * @ORM\JoinColumn(name="DonCo", referencedColumnName="CodCo", nullable=false)
      */
     private $contact;
 
@@ -101,7 +101,7 @@ class Don
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="DatDon", type="datetime", nullable=true)
+     * @ORM\Column(name="DatDon", type="datetime", nullable=false)
      */
     private $datdon;
 
@@ -173,6 +173,7 @@ class Don
     public function __construct()
     {
         $this->enregdon = new \DateTime();
+        $this->datdon = new \DateTime('0000-00-00 00:00:00');
         $this->refdon = '';
         $this->mntdon = 0;
         $this->mondon = '';
@@ -188,7 +189,7 @@ class Don
         $this->transdon = '';
         $this->paysdon = '';
         $this->msgbanq = '';
-        $this->creatdon = '';
+        $this->creatdon = 'site';
         $this->olddon = 0;
         $this->status = '';
     }

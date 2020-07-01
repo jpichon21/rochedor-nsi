@@ -37,7 +37,7 @@ class DonR
 
     /**
      * @ORM\ManyToOne(targetEntity="Contact")
-     * @ORM\JoinColumn(name="DonRCo", referencedColumnName="CodCo")
+     * @ORM\JoinColumn(name="DonRCo", referencedColumnName="CodCo", nullable=false)
      */
     private $contact;
 
@@ -148,7 +148,7 @@ class DonR
         $this->destdon = '';
         $this->banqdon = 0;
         $this->moddonr = '';
-        $this->creatdonR = '';
+        $this->creatdonR = 'site';
         $this->status = '';
         $this->banque = '';
         $this->datVir = new \DateTime();
