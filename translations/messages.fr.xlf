@@ -2024,7 +2024,7 @@
     <unit id="fCR5IGy" name="security.username_exists">
       <segment>
         <source>security.username_exists</source>
-        <target>Ce nom d'utilisateur est déjà utilisé</target>
+        <target>Cet identifiant est déjà utilisé</target>
       </segment>
     </unit>
     <unit id="Bs52W.M" name="security.password_request.not_found">
