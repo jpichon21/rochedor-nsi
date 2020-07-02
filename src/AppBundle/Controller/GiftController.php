@@ -283,7 +283,7 @@ class GiftController extends Controller
             }
             if ($paypalService->verifyIPN()) {
                 $ref = $request->get('item_number');
-                $status = $request->get('ipn_track_id');
+                $status = $request->get('txn_id');
                 $country = $request->get('residence_country');
                 $amount = $request->get('mc_gross');
             } else {
