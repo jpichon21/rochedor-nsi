@@ -77,8 +77,6 @@ class GiftService
     {
         $ref = $this->getNewRef();
         $don = new Don();
-        $dateTomorrow = new \DateTime();
-        $dateTomorrow->modify('+1 day');
         $don->setMntdon($data['mntdon'])
             ->setContact($user)
             ->setDestdon($data['destdon'])
@@ -87,7 +85,7 @@ class GiftService
             ->setRefdon($ref)
             ->setEnregdon(new \DateTime())
             ->setDatdon(new \DateTime())
-            ->setDatrecu($dateTomorrow)
+            ->setDatrecu(new \DateTime())
             ->setValidDon(0)
             ->setBanqdon($this->getBankFromDestDon($data['destdon']))
             ->setMondon('€');
