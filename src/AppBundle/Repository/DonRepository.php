@@ -56,4 +56,36 @@ class DonRepository
         ->setMaxResults(1);
         return $query->getOneOrNullResult();
     }
+
+    public function isFirstGiftOfYear($codCo)
+    {
+        $yearBegin = new \DateTime();
+        $yearBegin->modify('-1 year');
+
+        $year = new \DateTime();
+
+        $dateBegin = new \DateTime();
+        $dateBegin->setDate($yearBegin->format('Y'), 10, 01);
+        $dateBegin->setTime(0, 0, 0);
+
+        $dateEnd = new \DateTime();
+        $dateEnd->setDate($year->format('Y'), 9, 30);
+        $dateEnd->setTime(23, 59, 59);
+
+        $query = $this->entityManager->createQueryBuilder('d');
+        $query->select('d')
+            ->from('AppBundle:Don', 'd')
+            ->andWhere('d.contact = :codCo')
+            ->andWhere('d.enregdon >= :dateBegin')
+            ->andWhere('d.enregdon <= :dateEnd')
+            ->andWhere('d.status = :status');
+        $query->setParameter('codCo', $codCo)
+            ->setParameter('dateBegin', $dateBegin)
+            ->setParameter('dateEnd', $dateEnd)
+            ->setParameter('status', 'success');
+
+        $result = $query->getQuery()->getResult();
+
+        return empty($result);
+    }
 }

@@ -37,7 +37,7 @@ class DonR
 
     /**
      * @ORM\ManyToOne(targetEntity="Contact")
-     * @ORM\JoinColumn(name="DonRCo", referencedColumnName="CodCo")
+     * @ORM\JoinColumn(name="DonRCo", referencedColumnName="CodCo", nullable=false)
      */
     private $contact;
 
@@ -132,13 +132,6 @@ class DonR
      */
     private $memodonR;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="status", type="string", length=10, nullable=false)
-     */
-    private $status;
-
     public function __construct()
     {
         $this->enregdonR = new \DateTime();
@@ -148,8 +141,7 @@ class DonR
         $this->destdon = '';
         $this->banqdon = 0;
         $this->moddonr = '';
-        $this->creatdonR = '';
-        $this->status = '';
+        $this->creatdonR = 'site';
         $this->banque = '';
         $this->datVir = new \DateTime();
         $this->virFin = new \DateTime();
@@ -358,30 +350,6 @@ class DonR
     public function getCodDonR()
     {
         return $this->codDonR;
-    }
-
-    /**
-     * Set status
-     *
-     * @param string $status
-     *
-     * @return DonR
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
     }
 
     /**
