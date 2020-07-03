@@ -719,6 +719,28 @@ body {
   }
 }
 
+.gift {
+  background-image: url(../img/black-60.png), linear-gradient(black, black), url(../img/gift.jpg);
+  background-size: cover;
+  background-blend-mode: saturation;
+
+  @include media('<=laptop') {
+    background-image: url(../img/black-60.png), linear-gradient(black, black), url(../img/gift-s.jpg);
+  }
+
+  @include media('<=large') {
+    background-image: linear-gradient(black, black), url(../img/gift-xs.jpg);
+  }
+
+  @include media('<=medium') {
+    background-image: linear-gradient(black, black), url(../img/gift-xxs.jpg);
+  }
+
+  @include media('<=mobile') {
+    background-image: linear-gradient(black, black), url(../img/gift-mobile.jpg) !important;
+  }
+}
+
 .Infos,
 .Accueil,
 .Liens,
