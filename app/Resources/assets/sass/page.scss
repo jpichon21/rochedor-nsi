@@ -720,24 +720,24 @@ body {
 }
 
 .gift {
-  background-image: url(../img/black-90.png), linear-gradient(black, black), url(../img/gift.jpg);
+  background-image: url(../img/black-60.png), linear-gradient(black, black), url(../img/soutenir.jpg);
   background-size: cover;
   background-blend-mode: saturation;
 
   @include media('<=laptop') {
-    background-image: url(../img/black-90.png), linear-gradient(black, black), url(../img/gift-s.jpg);
+    background-image: url(../img/black-60.png), linear-gradient(black, black), url(../img/soutenir-s.jpg);
   }
 
   @include media('<=large') {
-    background-image: linear-gradient(black, black), url(../img/gift-xs.jpg);
+    background-image: linear-gradient(black, black), url(../img/soutenir-xs.jpg);
   }
 
   @include media('<=medium') {
-    background-image: linear-gradient(black, black), url(../img/gift-xxs.jpg);
+    background-image: linear-gradient(black, black), url(../img/soutenir-xxs.jpg);
   }
 
   @include media('<=mobile') {
-    background-image: linear-gradient(black, black), url(../img/gift-mobile.jpg) !important;
+    background-image: linear-gradient(black, black), url(../img/soutenir-mobile.jpg) !important;
   }
 }
 
