@@ -672,7 +672,8 @@ body {
 }
 
 .La,
-.Les {
+.Les,
+.Communauté {
   background-image: linear-gradient(black, black), url('../img/communaute.jpg');
 
   @include media('<=laptop') {
