@@ -37,7 +37,7 @@
                                 <button class="input button radio other{% if amountOther is defined %} checked{% endif %}">{{ 'form.other' | trans | raw }} ?</button>
                             </div>
                             <div class="pure-u-1 pure-u-md-1-1 hidden input-box">
-                                <input class="input amount{% if giftData.amount is not null %} no-reinit-value{% endif %}" type="text" {% if giftData.amount is not null %}value="{{ giftData.amount }}"{% endif %} pattern="([0-9])+" name="amount" placeholder="* {{ 'form.other' | trans | raw }}" autocomplete="off">
+                                <input class="input amount{% if giftData.amount is not null %} no-reinit-value{% endif %}" type="text" {% if giftData.amount is not null %}value="{{ giftData.amount }}"{% endif %} pattern="\d*(\.\d{0,2})?" name="amount" placeholder="* {{ 'form.other' | trans | raw }}" autocomplete="off">
                                 <span class="unit">€</span>
                             </div>
                             <div class="pure-u-1 amount-render"></div>
