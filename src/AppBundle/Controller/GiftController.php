@@ -283,7 +283,7 @@ class GiftController extends Controller
             }
             if ($paypalService->verifyIPN()) {
                 $ref = $request->get('item_number');
-                $status = $request->get('ipn_track_id');
+                $status = $request->get('txn_id');
                 $country = $request->get('residence_country');
                 $amount = $request->get('mc_gross');
             } else {
@@ -294,12 +294,15 @@ class GiftController extends Controller
         /** @var Don $don */
         $don = $this->donRepository->findByRef($ref);
         if ($status && (int) $don->getMntdon() === (int) $amount) {
-            $don->setPaysdon($country)
-            ->setStatus('success')
-            ->setTransdon($status);
-
             /** @var Contact $contact */
             $contact = $don->getContact();
+            $isFirstGift = $this->donRepository->isFirstGiftOfYear($contact->getCodco());
+
+            $don->setPaysdon($country)
+            ->setStatus('success')
+            ->setTransdon($status)
+            ->setAdhesion($isFirstGift);
+
             $contactRepository->setTypCoDonateur($contact->getCodco());
             $this->get('app.mailer')->send(
                 [$contact->getEmail() => $contact->getPrenom().' '.$contact->getNom()],

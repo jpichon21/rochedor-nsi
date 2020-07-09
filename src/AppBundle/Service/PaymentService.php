@@ -17,7 +17,7 @@ use Twig\Error\Error;
 class PaymentService
 {
     const METHOD_CB = 'CB';
-    const METHOD_PAYPAL = 'PAYPAL';
+    const METHOD_PAYPAL = 'PP';
     const METHOD_CHEQUE = 'ICH';
     const METHOD_VIREMENT = 'IVIP';
     const METHOD_VIREMENT_REGULIER = 'IVIR';
@@ -221,7 +221,7 @@ class PaymentService
                     'amount' => $amount,
                     'destDon' => $destDon,
                     'giftNote' => $memoDon,
-                    'modDon' => 'PAYPAL',
+                    'modDon' => 'PP',
                     ],
                 ],
                 RouterInterface::ABSOLUTE_URL

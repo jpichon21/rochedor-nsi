@@ -108,7 +108,7 @@ class Don
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="DatRecu", type="date", nullable=false)
+     * @ORM\Column(name="DatRecu", type="datetime", nullable=false)
      */
     private $datrecu;
 

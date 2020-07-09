@@ -256,7 +256,7 @@ itemPayment.on('click', '.button.radio', function (event) {
   }
 
   // Affiche le lien "Sécurité des dons en ligne" pour les paiements via PayPal/Paybox
-  if (_modpaie === 'PAYPAL' || _modpaie === 'CB') {
+  if (_modpaie === 'PP' || _modpaie === 'CB') {
     $('#secureDatasLink').removeClass('hidden')
   } else {
     $('#secureDatasLink').addClass('hidden')
