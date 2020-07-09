@@ -4,6 +4,15 @@ import {
   mobile
 } from './variables'
 
+window.onpageshow = event => {
+  if (typeof window.performance != 'undefined') {
+    var perfEntries = window.performance.getEntriesByType('navigation')
+    if (perfEntries[0].type === 'back_forward') {
+      window.location.reload()
+    }
+  }
+}
+
 // Zoom
 
 const bodyClass = document.querySelector('body').classList

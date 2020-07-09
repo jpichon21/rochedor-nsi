@@ -1,6 +1,15 @@
 import { changeCarousel } from './carousel.js'
 import $ from 'jquery'
 
+window.onpageshow = event => {
+  if (typeof window.performance != 'undefined') {
+    var perfEntries = window.performance.getEntriesByType('navigation')
+    if (perfEntries[0].type === 'back_forward') {
+      window.location.reload()
+    }
+  }
+}
+
 $(document).ready(function () {
   $('body').fadeIn(300);
   $('body').removeClass('hidden');

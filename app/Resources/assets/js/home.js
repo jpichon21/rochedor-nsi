@@ -3,6 +3,15 @@ import { large } from './variables'
 
 const body = document.querySelector('body')
 
+window.onpageshow = event => {
+  if (typeof window.performance != 'undefined') {
+    var perfEntries = window.performance.getEntriesByType('navigation')
+    if (perfEntries[0].type === 'back_forward') {
+      window.location.reload()
+    }
+  }
+}
+
 // Home River Animation
 
 const changeSection = movingDown => {
