@@ -1231,7 +1231,7 @@
     <unit id="RJ.6oSN" name="form.no_participants">
       <segment>
         <source>form.no_participants</source>
-        <target>Aucune personne ne vous accompagne</target>
+        <target>Sans objet</target>
       </segment>
     </unit>
     <unit id="Ux7laCX" name="form.civil">
@@ -1886,7 +1886,7 @@
     <unit id="LVTrH3N" name="form.message.does_child_have_autpar">
       <segment>
         <source>form.message.does_child_have_autpar</source>
-        <target><![CDATA[L'enfant que vous inscrivez a moins de 16 ans.<br> Dispose-t'il d'un accord parental ou tutorial pour s'inscrire ? (RGPD)]]></target>
+        <target><![CDATA[L'enfant que vous inscrivez a moins de 16 ans.<br> Dispose-t'il d'un accord parental ou tutorial ? (RGPD)]]></target>
       </segment>
     </unit>
     <unit id="LLzWehQ" name="calendar.registration.error">
@@ -1923,11 +1923,19 @@
         <target>* Email</target>
       </segment>
     </unit>
+    <unit id="NrmWOmi" name="calendar.registration.title">
+      <segment>
+        <source>calendar.registration.title</source>
+        <target><![CDATA[
+            <h2>Votre demande d'inscription est prise en compte</h2>
+        ]]></target>
+      </segment>
+    </unit>
     <unit id="NrmWOmd" name="calendar.registration.three.header">
       <segment>
         <source>calendar.registration.three.header</source>
         <target><![CDATA[
-					<p>Nous vous remercions de l’attention que vous portez à la Roche d’Or.<br>Votre demande d’inscription est prise en compte sous le numéro :</p><p><center><br>%entry_number%</br></center></p>
+					<p>Nous vous remercions de l’attention que vous portez à la Roche d’Or.<br>Votre demande d’inscription est bien prise en compte sous le numéro :</p><p><center><br>%entry_number%</br></center></p>
 				]]></target>
       </segment>
     </unit>
@@ -2702,15 +2710,15 @@
     <unit id="mccDfN1" name="gift.payment.return.cheque">
       <segment>
         <source>gift.payment.return.cheque</source>
-        <target><![CDATA[Bonjour %civility% %name%,<br>
-                L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
-                Par votre participation de %amount% euros en %affectation%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br>
+        <target><![CDATA[Bonjour %civility% %name%,<br><br>
+                L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br><br>
+                Par votre participation de %amount% euros en %affectation%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
                 Merci d'adresser votre chèque à :<br>
                 <div style="margin-left: 50px;">
                     Communauté de La Roche d'Or<br>
                     25042 BESANÇON CEDEX<br><br>
                 </div>
-                Un message vous est immédiatement adressé par courriel/email. Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.<br><br>
+                Un message vous est immédiatement adressé par courriel/email. Si vous ne le recevez pas dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.<br><br>
                 Laissez-moi encore une fois vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br><br>
                 Danièle VALÈS]]></target>
       </segment>
@@ -2718,8 +2726,8 @@
     <unit id="mccDfN8" name="gift.payment.mail.cheque">
       <segment>
         <source>gift.payment.mail.cheque</source>
-        <target><![CDATA[Bonjour %civility% %name%,<br>
-                 L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
+        <target><![CDATA[Bonjour %civility% %name%,<br><br>
+                 L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br><br>
                  Par votre participation de %amount% euros en %affectation%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
                  Merci d’adresser votre chèque à :<br>
                  <div style="margin-left: 50px;">
@@ -3596,6 +3604,22 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
         <source>gift.invalid_form.virement</source>
         <target>
             Merci de remplir tous les champs pour continuer.
+        </target>
+      </segment>
+    </unit>
+    <unit id="aHsOKU6" name="gift.invalid_form.virement_date_deb">
+      <segment>
+        <source>gift.invalid_form.virement_date_deb</source>
+        <target>
+            La date de votre virement ne peut pas être antérieure à la date du jour.
+        </target>
+      </segment>
+    </unit>
+    <unit id="aHsOKU9" name="gift.invalid_form.virement_date_fin">
+      <segment>
+        <source>gift.invalid_form.virement_date_fin</source>
+        <target>
+            La date de fin de votre virement doit être postérieure à sa date de début.
         </target>
       </segment>
     </unit>

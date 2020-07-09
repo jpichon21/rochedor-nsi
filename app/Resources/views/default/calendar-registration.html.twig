@@ -116,6 +116,7 @@
                 <h2>{{ 'calendar.registration.three.title' | trans | raw }}</h2>
                 <div class="item-content">
                     <div class="result">
+                        {{ 'calendar.registration.title' | trans | raw }}
                         {{ 'calendar.registration.three.header' | trans | raw }}
                         <p class="text-center"><strong>"{{ activity.libact }}"</strong><br>{{ 'filter.inner.date.in' | trans | raw }}<strong> {{ activity.datdeb | localizeddate('medium', 'none', app.request.locale ) }}</strong> {{ 'filter.inner.date.out' | trans | lower | raw }} <strong>{{ activity.datfin | localizeddate('medium', 'none', app.request.locale ) }}</strong> ({{ activity.sitact }})</p>
                         <table class="tab-end-message">
