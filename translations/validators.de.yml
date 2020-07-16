@@ -1,0 +1,5 @@
+'Email already taken': ''
+'Username already taken': ''
+validation.password.length: ''
+form.message.passwords_mismatch: ''
+validation.email.already_used: ''
