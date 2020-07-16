@@ -42,13 +42,13 @@ body {
     position: fixed;
     width: 100%;
 
-    i{
-      display: block!important;
+    i {
+      display: block !important;
     }
 
-    .sections .section .nouveautes > .cnews{
+    .sections .section .nouveautes > .cnews {
       width: 100%;
-      display: block!important;
+      display: block !important;
     }
 
     .footer,
@@ -104,7 +104,7 @@ body {
         opacity: 1;
         transition: opacity 2s cubic-bezier(0.755, 0.050, 0.855, 0.060);
 
-        .box{
+        .box {
           @include media('<=mobile') {
             margin-top: -42px;
           }
@@ -320,8 +320,10 @@ body {
   }
 }
 
-@media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0) {
-  .button {letter-spacing: 0px;}
+@media all and (-webkit-min-device-pixel-ratio: 10000), not all and (-webkit-min-device-pixel-ratio: 0) {
+  .button {
+    letter-spacing: 0px;
+  }
 }
 
 .button.yellow:hover,
@@ -447,6 +449,7 @@ body {
     &.section-6 {
       margin-left: 50%;
     }
+
     @include media('<medium') {
       &.section-4 {
         margin-left: 50%;
@@ -469,6 +472,7 @@ body {
         }
       }
     }
+
     .box {
       z-index: 2;
       margin-left: 40px;
@@ -482,7 +486,7 @@ body {
         margin-left: 26px;
         padding-left: 14px;
         padding-top: 0px;
-        @include media('<=mobile'){
+        @include media('<=mobile') {
           margin-top: 32px;
         }
       }
@@ -502,7 +506,7 @@ body {
         padding-top: 0%;
       }
 
-     br {
+      br:last-child {
         display: none;
       }
 
@@ -564,15 +568,16 @@ body {
       }
     }
 
-      &.section-2,
-    &.section-4{
-      .box{
+    &.section-2,
+    &.section-4 {
+      .box {
         strong {
           right: -40px;
           //margin-top: 12px;
         }
       }
     }
+
     .scroll-down {
       position: absolute;
       bottom: 80px;
@@ -638,7 +643,8 @@ body {
           z-index: -1;
         }
       }
-      >.cnews {
+
+      > .cnews {
         display: none;
         position: relative;
         opacity: 0;
@@ -646,6 +652,7 @@ body {
         z-index: 2;
 
         padding-bottom: 0;
+
         &.with-link {
           padding-bottom: 19px;
 
@@ -661,6 +668,7 @@ body {
         @include media('<large') {
           opacity: 1;
         }
+
         &.active {
           display: block;
           opacity: 1;
@@ -668,11 +676,13 @@ body {
           @include media('<large') {
             transition: none;
           }
-          .text{
+
+          .text {
             @include media('<large') {
               margin-bottom: 22px;
             }
-            p{
+
+            p {
               opacity: 1;
               transition: 1s ease;
               @include media('<large') {
@@ -681,6 +691,7 @@ body {
                 overflow: hidden;
               }
             }
+
             /*&:after{
               @include media('<large') {
               content: '...';
@@ -688,6 +699,7 @@ body {
             }*/
           }
         }
+
         @include media('<large') {
           display: none;
           width: 87%;
@@ -698,7 +710,7 @@ body {
       .news_nav {
         display: block;
         position: relative;
-        bottom: 0px!important;
+        bottom: 0px !important;
         z-index: 1;
         @include media('<large') {
           display: none;
@@ -717,6 +729,7 @@ body {
           border: 1px solid #000;
           transition: 0.5s ease;
           border-top: 1px solid transparent;
+
           &:focus,
           &:hover,
           &:active {
@@ -735,7 +748,7 @@ body {
             border-top: 1px solid transparent;
           }
 
-          >img {
+          > img {
             padding-top: 4px;
           }
         }
@@ -788,7 +801,8 @@ body {
           max-height: 116px;
           overflow: hidden;
         }
-        p{
+
+        p {
           opacity: 0;
           transition: 1s ease;
           @include media('>large') {
@@ -801,14 +815,15 @@ body {
             opacity: 1;
           }
         }
+
         @include media('<large') {
           padding: 0;
           color: $roche-yellow;
           border: none;
         }
         //&:after{
-           //content: '...';
-         //}
+        //content: '...';
+        //}
       }
 
       .button {
@@ -844,7 +859,7 @@ body {
         &:after {
           left: 101%;
           @include media('<large') {
-           left: 100%;
+            left: 100%;
           }
         }
       }
@@ -889,6 +904,7 @@ body {
     content: '”';
     position: absolute;
     bottom: -25px;
+    right: 0;
     width: 0.5em;
   }
 
@@ -900,14 +916,19 @@ body {
   }
 }
 
+
 .section-2 .box,
 .section-4 .box,
 .section-5 .box {
   p:before {
     content: '“';
     position: absolute;
-    left: -28px;
-    -moz-left: -28px;
+    left: -32px;
+    -moz-left: -32px;
+  }
+
+  p:after {
+    margin-right: -1rem;
   }
 }
 
@@ -926,41 +947,43 @@ body {
 }
 
 //Test bouton news//
-.sections{
-  .section{
-    .nouveautes{
-     .active{
-      .button{
-        @include media('<large') {
-          position: absolute;
-          //top: -46px;
-          top: -62px;
-          right: 0;
+.sections {
+  .section {
+    .nouveautes {
+      .active {
+        .button {
+          @include media('<large') {
+            position: absolute;
+            //top: -46px;
+            top: -62px;
+            right: 0;
           }
         }
-        &:before{
+
+        &:before {
           @include media('<large') {
-          content: "";
-          position: absolute;
-          width: 9999px;
-          bottom: 15px;
-          border-top: 1px solid #000;
-         }
-         @include media('<=medium') {
-          border-top: 0px solid transparent;
-          }
-        }
-        &:after{
-          @include media('<large') {
-          content: "";
-          position: absolute;
-          width: 9999px;
-          bottom: 15px;
-          border-top: 1px solid #000;
+            content: "";
+            position: absolute;
+            width: 9999px;
+            bottom: 15px;
+            border-top: 1px solid #000;
           }
           @include media('<=medium') {
             border-top: 0px solid transparent;
-            }
+          }
+        }
+
+        &:after {
+          @include media('<large') {
+            content: "";
+            position: absolute;
+            width: 9999px;
+            bottom: 15px;
+            border-top: 1px solid #000;
+          }
+          @include media('<=medium') {
+            border-top: 0px solid transparent;
+          }
         }
       }
     }
@@ -968,86 +991,91 @@ body {
 }
 
 
-
-.sections{
-  .section{
-    .nouveautes{
-      .button.black{
+.sections {
+  .section {
+    .nouveautes {
+      .button.black {
         @include media('<large') {
           transition: none;
-          }
+        }
       }
-      .hidden{
+
+      .hidden {
         @include media('<large') {
-          display: inline-block!important
-          }
+          display: inline-block !important
+        }
       }
-      .visible{
+
+      .visible {
         @include media('<large') {
-          display: none!important
-          }
+          display: none !important
+        }
       }
     }
   }
 }
 
 
-.headerVisible, .logoVisible{
-  opacity: 1!important;
-  animation-delay: 0s!important;
-  animation-duration: 0s!important;
+.headerVisible, .logoVisible {
+  opacity: 1 !important;
+  animation-delay: 0s !important;
+  animation-duration: 0s !important;
 }
 
-.nouveautesOpened{
-  .sections{
-    .section{
-    .nouveautes{
-      @include media('<large') {
-        overflow: auto;
-        }
-      }
-      p{
+.nouveautesOpened {
+  .sections {
+    .section {
+      .nouveautes {
         @include media('<large') {
-          max-height: none!important;
-          height:auto;
+          overflow: auto;
         }
       }
-      .button{
-        &::before,
-        &::after{
-            display: none!important;
-          }
+
+      p {
+        @include media('<large') {
+          max-height: none !important;
+          height: auto;
+        }
       }
-        .active{
-        .button{
+
+      .button {
+        &::before,
+        &::after {
+          display: none !important;
+        }
+      }
+
+      .active {
+        .button {
           @include media('<large') {
             position: relative;
             float: none;
             top: 0px;
-            }
           }
-          &::before,
-          &::after{
-            display: none!important;
-          }
+        }
+
+        &::before,
+        &::after {
+          display: none !important;
         }
       }
     }
   }
+}
 
-  .mobileOnly{
-    @include media('>mobile') {
-      display: none;
-     }
+.mobileOnly {
+  @include media('>mobile') {
+    display: none;
   }
+}
 
 
-  .section:nth-child(odd) {
-    .box {
-      strong {
-        right:initial;
-        left: 0px;
-        padding-left: 0px;
-      }
+.section:nth-child(odd) {
+  .box {
+    strong {
+      right: initial;
+      left: 0px;
+      padding-left: 0px;
     }
   }
+}

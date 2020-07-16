@@ -59,7 +59,9 @@
                     {% endif %}
                 </h2>
                 {% if page.content['sections'][0].body|raw != "<p></p>" %}
-                    {{ page.content['sections'][0].body|raw }}
+                    <p>
+                        {{ page.content['sections'][0].body|replace({"<p>": "<span>"})|replace({"</p>":"</span><br />"})|raw }}
+                    </p>
                 {% endif %}
                 <a class="button yellow" href="{{ localePath('la-communaute', app.request.locale) }}">Découvrir <img
                             class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
@@ -109,7 +111,9 @@
                         {{ page.content['sections'][1].sub_title|raw }}
                     {% endif %}
                 </h2>
-                {{ page.content['sections'][1].body|raw }}
+                <p>
+                    {{ page.content['sections'][1].body|replace({"<p>": "<span>"})|replace({"</p>":"</span><br />"})|raw }}
+                </p>
                 <a class="button yellow" href="{{ localePath('venir-en-retraite', app.request.locale) }}">Découvrir <img
                             class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
             </div>
@@ -125,7 +129,9 @@
                         {{ page.content['sections'][2].sub_title|raw }}
                     {% endif %}
                 </h2>
-                {{ page.content['sections'][2].body|raw }}
+                <p>
+                    {{ page.content['sections'][2].body|replace({"<p>": "<span>"})|replace({"</p>":"</span><br />"})|raw }}
+                </p>
                 <a class="button yellow" href="{{ path('calendar-choice-site-' ~ app.request.locale) }}">Découvrir <img
                             class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
             </div>
@@ -141,7 +147,9 @@
                         {{ page.content['sections'][3].sub_title|raw }}
                     {% endif %}
                 </h2>
-                {{ page.content['sections'][3].body|raw }}
+                <p>
+                    {{ page.content['sections'][3].body|replace({"<p>": "<span>"})|replace({"</p>":"</span><br />"})|raw }}
+                </p>
                 <a class="button yellow" href="{{ localePath('don-ponctuel', app.request.locale) }}">Découvrir <img
                             class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
             </div>
@@ -157,7 +165,9 @@
                         {{ page.content['sections'][4].sub_title|raw }}
                     {% endif %}
                 </h2>
-                {{ page.content['sections'][4].body|raw }}
+                <p>
+                    {{ page.content['sections'][4].body|replace({"<p>": "<span>"})|replace({"</p>":"</span><br />"})|raw }}
+                </p>
                 <a class="button yellow" href="https://editionsrochedor.com" target="_blank">Découvrir <img
                             class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
             </div>
@@ -173,7 +183,9 @@
                         {{ page.content['sections'][5].sub_title|raw }}
                     {% endif %}
                 </h2>
-                {{ page.content['sections'][5].body|raw }}
+                <p>
+                    {{ page.content['sections'][5].body|replace({"<p>": "<span>"})|replace({"</p>":"</span><br />"})|raw }}
+                </p>
                 <a class="button yellow" href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">Découvrir
                     <img
                             class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
