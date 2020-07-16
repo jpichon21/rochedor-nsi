@@ -1070,12 +1070,14 @@ body {
 }
 
 
-.section:nth-child(odd) {
+.section-1,
+.section-3,
+.section-6 {
   .box {
     strong {
-      right: initial;
+      right: initial !important;
       left: 0px;
-      padding-left: 0px;
+      padding-left: 0px !important;
     }
   }
 }
