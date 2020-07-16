@@ -9,14 +9,14 @@
         <div class="intro" style="color: #ffffff;">
             <p>{{ 'gift.payment.return.cheque'|trans({'%civility%': civility, '%name%': name, '%amount%': amount, '%affectation%': affectation})|raw }}</p>
         </div>
-        <div class="pure-g" style="margin-top: 15px">
-            <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1 pure-u-xl-1-4">
+        <div class="pure-g" style="margin-top: 15px; justify-content: space-between">
+            <div>
                 <a class="button" href="{{ path('logout-message', {'from': 'don-ponctuel'}) }}">{{ 'logout.disconnect.title' | trans }}</a>
             </div>
-            <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1 pure-u-xl-1-2">
+            <div>
                 <a class="button" href="{{ path('cancel_gift') }}">{{ 'other.gift-mode' | trans }}</a>
             </div>
-            <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1 pure-u-xl-1-4">
+            <div>
                 <a class="button" href="{{  path('gift-' ~ app.request.locale)}}">{{ 'gift.return.title' | trans }}</a>
             </div>
         </div>

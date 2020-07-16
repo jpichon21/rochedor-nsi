@@ -129,9 +129,10 @@ const handleHeaderHover = event => {
 const handleWindowResize = () => {
   if (window.innerWidth < limitMenuReduced) {
     // Sur mobile, cette classe empêche l'image de fond de recouvrir tout l'écran
-    if (window.innerWidth > mobile) {
-      body.classList.add('menuReduced')
-    }
+    // Anomalie 45 : supprimer le fond noir.
+    // if (window.innerWidth > mobile) {
+    //   body.classList.add('menuReduced')
+    // }
     if (content !== null) {
       content.style.overflowY = 'auto'
       content.style.width = '100%'
