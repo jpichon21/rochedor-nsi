@@ -691,7 +691,7 @@ body {
         @include media('<large') {
           display: none;
           width: 87%;
-          margin: 0 auto; 
+          margin: 0 auto;
         }
       }
 
@@ -749,7 +749,7 @@ body {
         text-transform: uppercase;
         letter-spacing: 2.4px;
         margin-bottom: 8px;
-  
+
         @include media('<large') {
           padding: 20px 0px 10px 0px;
           font-size: 15px;
@@ -1039,4 +1039,15 @@ body {
     @include media('>mobile') {
       display: none;
      }
+  }
+
+
+  .section:nth-child(odd) {
+    .box {
+      strong {
+        right:initial;
+        left: 0px;
+        padding-left: 0px;
+      }
+    }
   }

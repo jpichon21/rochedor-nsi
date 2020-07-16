@@ -1,169 +1,186 @@
 {% set bodyClass = "home section-1-active m-scene" %}
 {% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
 {% block metadescription %}
-<meta name="description" content="{{ page.description }}">{% endblock %}
+    <meta name="description" content="{{ page.description }}">{% endblock %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
     {% if showIntro %}
-    <link rel="stylesheet" href="{{ asset('assets/css/intro.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/intro.css') }}">
     {% endif %}
 {% endblock %}
 {% block content %}
-<h1>Communauté de la Roche d'Or</h1>
-<div class="intro">
-    <div class="element">
-        <div class="logo"></div>
+    <h1>Communauté de la Roche d'Or</h1>
+    <div class="intro">
+        <div class="element">
+            <div class="logo"></div>
+        </div>
     </div>
-</div>
-<div style="display:none;">
-    <img src="{{ asset('assets/img/editions-new-s.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/editions-new-xs.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/editions-new-xxs.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/communaute.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/communaute-s.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/communaute-xs.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/communaute-xxs.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/communaute-mobile.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/calendar.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/calendar-s.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/calendar-xs.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/calendar-xxs.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/calendar-mobile.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/retraites.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/retraites-s.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/retraites-xs.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/retraites-xxs.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/retraites-mobile.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/infocontact.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/infocontact-s.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/infocontact-xs.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/infocontact-xxs.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/infocontact-mobile.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/soutenir.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/soutenir-s.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/soutenir-xs.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/soutenir-xxs.jpg') }}" width="1" height="1" border="0">
-    <img src="{{ asset('assets/img/soutenir-mobile.jpg') }}" width="1" height="1" border="0">
-</div>
-<img class="background desktop" src="{{ asset('assets/img/background-home-desktop.jpg') }}" />
-<img class="background mobile" src="{{ asset('assets/img/background-home-mobile.jpg') }}" />
-<div class="overlay"></div>
-<div class="sections">
-    <div class="section section-1">
-        <div class="box">
-            <h2>
-                <small>{{page.content['sections'][0].title|raw}}</small>
-                {% if 'sub_title' in page.content['sections'][0]|keys %}
-                {{page.content['sections'][0].sub_title|raw}}
+    <div style="display:none;">
+        <img src="{{ asset('assets/img/editions-new-s.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/editions-new-xs.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/editions-new-xxs.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/communaute.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/communaute-s.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/communaute-xs.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/communaute-xxs.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/communaute-mobile.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/calendar.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/calendar-s.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/calendar-xs.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/calendar-xxs.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/calendar-mobile.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/retraites.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/retraites-s.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/retraites-xs.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/retraites-xxs.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/retraites-mobile.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/infocontact.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/infocontact-s.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/infocontact-xs.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/infocontact-xxs.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/infocontact-mobile.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/soutenir.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/soutenir-s.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/soutenir-xs.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/soutenir-xxs.jpg') }}" width="1" height="1" border="0">
+        <img src="{{ asset('assets/img/soutenir-mobile.jpg') }}" width="1" height="1" border="0">
+    </div>
+    <img class="background desktop" src="{{ asset('assets/img/background-home-desktop.jpg') }}"/>
+    <img class="background mobile" src="{{ asset('assets/img/background-home-mobile.jpg') }}"/>
+    <div class="overlay"></div>
+    <div class="sections">
+        <div class="section section-1">
+            <div class="box">
+                <h2>
+                    <small>{{ page.content['sections'][0].title|raw }}</small>
+                    {% if 'sub_title' in page.content['sections'][0]|keys %}
+                        {{ page.content['sections'][0].sub_title|raw }}
+                    {% endif %}
+                </h2>
+                {% if page.content['sections'][0].body|raw != "<p></p>" %}
+                    {{ page.content['sections'][0].body|raw }}
                 {% endif %}
-            </h2>
-            {% if page.content['sections'][0].body|raw != "<p></p>" %}
-            {{page.content['sections'][0].body|raw}}
-            {% endif %}
-            <a class="button yellow" href="{{ localePath('la-communaute', app.request.locale)}}">Découvrir <img
-                    class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
-        </div>
-        <div class="scroll-down">
-            <img src="{{ asset('assets/img/scroll.png') }}" alt="Déroulez pour voir la suite">
-        </div>
-        {% if news|length %}
-            <div class="nouveautes">
-                <h2>Nouveautés</h2>
-                {% for article in news %}
-                    <div data-index="{{ loop.index0 }}" class="cnews{% if loop.first %} active{% endif %}{% if article.url %} with-link{% endif %}">
-                        <i>{{article.intro}}</i>
-                        <div class="text">
-                            <p>{{article.description|nl2br}}</p>
-                        </div>
-                        {% if article.url %}
-                            <a class="button black" href="{{article.url}}"{% if app.request.uri not in article.url %} target="_blank"{% endif %}>
-                                Lire la suite <img class="button-arrow visible" src="{{ asset('assets/img/button-arrow-right-black.png') }}">
-                                <img class="button-arrow hidden" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}">
-                            </a>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-                {% if news|length > 1 %}
-                    <div class="news_nav">
-                        <button class="news_nav_prev">
-                            <img class="" src="{{ asset('assets/img/button-arrow-left-black.png') }}">
-                        </button>
-                        <button class="news_nav_next">
-                            <img class="" src="{{ asset('assets/img/button-arrow-right-black.png') }}">
-                        </button>
-                    </div>
-                {% endif %}
+                <a class="button yellow" href="{{ localePath('la-communaute', app.request.locale) }}">Découvrir <img
+                            class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
             </div>
-        {% endif %}
-    </div>
-    <div class="section section-2">
-        <div class="box">
-            <h2>
-                <small>{{page.content['sections'][1].title|raw}}</small>
-                {% if 'sub_title' in page.content['sections'][1]|keys %}
-                {{page.content['sections'][1].sub_title|raw}}
-                {% endif %}
-            </h2>
-            {{page.content['sections'][1].body|raw}}
-            <a class="button yellow" href="{{ localePath('venir-en-retraite', app.request.locale)}}">Découvrir <img
-                    class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+            <div class="scroll-down">
+                <img src="{{ asset('assets/img/scroll.png') }}" alt="Déroulez pour voir la suite">
+            </div>
+            {% if news|length %}
+                <div class="nouveautes">
+                    <h2>Nouveautés</h2>
+                    {% for article in news %}
+                        <div data-index="{{ loop.index0 }}"
+                             class="cnews{% if loop.first %} active{% endif %}{% if article.url %} with-link{% endif %}">
+                            <i>{{ article.intro }}</i>
+                            <div class="text">
+                                <p>{{ article.description|nl2br }}</p>
+                            </div>
+                            {% if article.url %}
+                                <a class="button black"
+                                   href="{{ article.url }}"{% if app.request.uri not in article.url %} target="_blank"{% endif %}>
+                                    Lire la suite <img class="button-arrow visible"
+                                                       src="{{ asset('assets/img/button-arrow-right-black.png') }}">
+                                    <img class="button-arrow hidden"
+                                         src="{{ asset('assets/img/button-arrow-right-yellow.png') }}">
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    {% if news|length > 1 %}
+                        <div class="news_nav">
+                            <button class="news_nav_prev">
+                                <img class="" src="{{ asset('assets/img/button-arrow-left-black.png') }}">
+                            </button>
+                            <button class="news_nav_next">
+                                <img class="" src="{{ asset('assets/img/button-arrow-right-black.png') }}">
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="section section-2">
+            <div class="box">
+                <h2>
+                    <small>{{ page.content['sections'][1].title|raw }}</small>
+                    {% if 'sub_title' in page.content['sections'][1]|keys %}
+                        {{ page.content['sections'][1].sub_title|raw }}
+                    {% endif %}
+                </h2>
+                {{ page.content['sections'][1].body|raw }}
+                <a class="button yellow" href="{{ localePath('venir-en-retraite', app.request.locale) }}">Découvrir <img
+                            class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+            </div>
+            <div class="scroll-down">
+                <img src="{{ asset('assets/img/scroll.png') }}" alt="Déroulez pour voir la suite">
+            </div>
+        </div>
+        <div class="section section-3">
+            <div class="box">
+                <h2>
+                    <small>{{ page.content['sections'][2].title|raw }}</small>
+                    {% if 'sub_title' in page.content['sections'][2]|keys %}
+                        {{ page.content['sections'][2].sub_title|raw }}
+                    {% endif %}
+                </h2>
+                {{ page.content['sections'][2].body|raw }}
+                <a class="button yellow" href="{{ path('calendar-choice-site-' ~ app.request.locale) }}">Découvrir <img
+                            class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+            </div>
+            <div class="scroll-down">
+                <img src="{{ asset('assets/img/scroll.png') }}" alt="Déroulez pour voir la suite">
+            </div>
+        </div>
+        <div class="section section-4">
+            <div class="box">
+                <h2>
+                    <small>{{ page.content['sections'][3].title|raw }}</small>
+                    {% if 'sub_title' in page.content['sections'][3]|keys %}
+                        {{ page.content['sections'][3].sub_title|raw }}
+                    {% endif %}
+                </h2>
+                {{ page.content['sections'][3].body|raw }}
+                <a class="button yellow" href="{{ localePath('don-ponctuel', app.request.locale) }}">Découvrir <img
+                            class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+            </div>
+            <div class="scroll-down">
+                <img src="{{ asset('assets/img/scroll.png') }}" alt="Déroulez pour voir la suite">
+            </div>
+        </div>
+        <div class="section section-5">
+            <div class="box">
+                <h2>
+                    <small>{{ page.content['sections'][4].title|raw }}</small>
+                    {% if 'sub_title' in page.content['sections'][4]|keys %}
+                        {{ page.content['sections'][4].sub_title|raw }}
+                    {% endif %}
+                </h2>
+                {{ page.content['sections'][4].body|raw }}
+                <a class="button yellow" href="https://editionsrochedor.com" target="_blank">Découvrir <img
+                            class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+            </div>
+            <div class="scroll-down">
+                <img src="{{ asset('assets/img/scroll.png') }}" alt="Déroulez pour voir la suite">
+            </div>
+        </div>
+        <div class="section section-6">
+            <div class="box">
+                <h2>
+                    <small>{{ page.content['sections'][5].title|raw }}</small>
+                    {% if 'sub_title' in page.content['sections'][5]|keys %}
+                        {{ page.content['sections'][5].sub_title|raw }}
+                    {% endif %}
+                </h2>
+                {{ page.content['sections'][5].body|raw }}
+                <a class="button yellow" href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">Découvrir
+                    <img
+                            class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
+            </div>
         </div>
     </div>
-    <div class="section section-3">
-        <div class="box">
-            <h2>
-                <small>{{page.content['sections'][2].title|raw}}</small>
-                {% if 'sub_title' in page.content['sections'][2]|keys %}
-                {{page.content['sections'][2].sub_title|raw}}
-                {% endif %}
-            </h2>
-            {{page.content['sections'][2].body|raw}}
-            <a class="button yellow" href="{{ path('calendar-choice-site-' ~ app.request.locale)}}">Découvrir <img
-                    class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
-        </div>
-    </div>
-    <div class="section section-4">
-        <div class="box">
-            <h2>
-                <small>{{page.content['sections'][3].title|raw}}</small>
-                {% if 'sub_title' in page.content['sections'][3]|keys %}
-                {{page.content['sections'][3].sub_title|raw}}
-                {% endif %}
-            </h2>
-            {{page.content['sections'][3].body|raw}}
-            <a class="button yellow" href="{{ localePath('don-ponctuel', app.request.locale)}}">Découvrir <img
-                    class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
-        </div>
-    </div>
-    <div class="section section-5">
-        <div class="box">
-            <h2>
-                <small>{{page.content['sections'][4].title|raw}}</small>
-                {% if 'sub_title' in page.content['sections'][4]|keys %}
-                {{page.content['sections'][4].sub_title|raw}}
-                {% endif %}
-            </h2>
-            {{page.content['sections'][4].body|raw}}
-            <a class="button yellow" href="https://editionsrochedor.com" target="_blank">Découvrir <img
-                    class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
-        </div>
-    </div>
-    <div class="section section-6">
-        <div class="box">
-            <h2>
-                <small>{{page.content['sections'][5].title|raw}}</small>
-                {% if 'sub_title' in page.content['sections'][5]|keys %}
-                {{page.content['sections'][5].sub_title|raw}}
-                {% endif %}
-            </h2>
-            {{page.content['sections'][5].body|raw}}
-            <a class="button yellow" href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">Découvrir <img
-                    class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
-        </div>
-    </div>
-</div>
 {% endblock %}
 {% block javascripts %}
-<script src="{{ asset("assets/js/home.js") }}"></script>
+    <script src="{{ asset("assets/js/home.js") }}"></script>
 {% endblock %}
