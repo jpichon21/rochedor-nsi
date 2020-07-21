@@ -231,7 +231,6 @@ return.to.calendar: 'Back to calendar'
 calendar: Calendar
 form.reset: form.reset
 form.message.child_must_come_with_adult: 'Children under the age of 16 must be accompanied by an adult'
-form.message.child_must_have_autpar: 'All children must have the consent of a parent or guardian'
 form.message.does_child_have_autpar: 'If you are registering a child under 16 :<br> Do they have the consent of a parent or guardian ?'
 form.civilite.mr: Mr.
 form.civilite.mme: Mrs.
@@ -240,7 +239,6 @@ form.civilite.pere: Father
 form.civilite.frere: Brother
 form.civilite.soeur: Sister
 form.message.phone_invalid: 'Please enter at least one telephone number'
-form.message.does_child_have_autpar: 'Do you have the parent''s or guardian''s consent to register this child?'
 calendar.registration.error: calendar.registration.error
 calendar.registration.error.empty: 'Sorry, this retreat no longer exists. You can go back to the<a href="/en/retreat-list">calendar</a>.'
 calendar.registration.error.date: 'Sorry this retreat is no longer available. You can go back to the <a href="/en/retreat-list">calendar</a>.'
