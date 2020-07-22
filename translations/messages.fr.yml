@@ -371,7 +371,7 @@ order.accept-terms.link: 'Lire les conditions générales de vente.'
 footer.terms: 'Conditions générales de vente'
 global.secure-datas: 'Sécurité des dons en ligne'
 order.accept-terms.disclaimer: "Pour terminer votre commande, vous devez accepter nos conditions générales de vente.<br>\n<a href=\"%link%\" class=\"accept-terms-link\" target=\"_blank\">Voir les conditions générales de vente.</a>"
-global.tax-code: "Si vous êtes imposable en France et dans les pays européens qui le permettent, vous bénéficiez d'une réduction d'impôt.<br><br>\nSi vous relevez de la fiscalité française, la réduction est équivalente à 66 % du montant de votre don, dans la limite de 20 % du revenu imposable. L’excédent peut être reporté sur les 5 années suivantes et ouvre droit à la réduction d’impôt dans les mêmes conditions (Article 200 du CGI)"
+global.tax-code: "Si tributa en Francia y en los países europeos que lo permiten, se beneficia de una reducción de impuestos.<br><br>\nSi está sujeto al sistema tributario francés, la reducción equivale al 66% del importe de su donación, hasta un límite del 20% de su renta imponible. El sobrante puede ser prorrogado durante los próximos 5 años y da derecho a una reducción de impuestos en las mismas condiciones (artículo 200 del CGI)."
 security.email_exists: 'Cette adresse email est déjà utilisée'
 invalid-credentials: 'Conditions générales de vente'
 form.particular: Particulier

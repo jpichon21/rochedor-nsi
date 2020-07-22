@@ -97,10 +97,10 @@ order.error.title:
 order.error.text:
 order-return.title:
 order-return.error:
-order-return.success-p2:
+order-return.success-p2: "<p>Su pedido está registrado correctamente con el número %refCom% y se lo agradecemos. Le aconsejamos que guarde este número que se le pedirá para cualquier cuestión relacionada con su pedido.</p><p>A título indicativo, las entregas se realizan en un plazo de %minliv% a %maxliv% días laborables a partir de la recepción del pago de su pedido.</p><p>  <center>Por favor, haga su cheque a la atención de\_: Ediciones Roche d'Or </center><center>y a nombre de\_:</center><center>Ediciones Roche d’Or</center><center>Chemin du Muenot</center><center>25042 BESANÇON Cedex</center></p>Su pedido será entregado a la siguiente dirección :<br><br><center>%addCom%</center><br><p>Se le enviará un mensaje inmediatamente por correo electrónico/email. Si no recibe un correo electrónico (email) dentro de unos minutos, por favor revise su carpeta SPAM o correo no deseado.</p><p>Quedamos a su entera disposición para cualquier información o solicitud adicional.</p><p>Cordialmente</p><p>El equipo de las Ediciones Roche d'Or</p>"
 order-return.success-p2-withoutDelay:
 order-return.success:
-order-return.success-p1:
+order-return.success-p1: '<p>Su pedido está inscrito con el número %refCom% y se lo agradecemos. Le aconsejamos que guarde este número que se le pedirá para cualquier cuestión relacionada con su pedido.</p><p>A título indicativo, las entregas se realizan en un plazo de %minliv% a %maxliv% días laborables.</p>Su pedido será entregado a la siguiente dirección :<br><br><center>%addCom%</center><br><p>Se le enviará un mensaje inmediatamente por correo electrónico/email. Si no recibe un correo electrónico (email) dentro de unos minutos, por favor revise su carpeta SPAM o correo no deseado.</p><p>Quedamos a su entera disposición para cualquier información o solicitud adicional.</p><p>Cordialmente</p><p>El equipo de las Ediciones Roche d''Or</p> '
 order-return.success-p1-withoutDelay:
 order-return.cancel:
 form.title.registration:
@@ -113,16 +113,13 @@ security.password_reset_success_message:
 security.password_reset_success_message.don:
 form.title.connection:
 security.register:
-calendar.registration.title:
-registration.validation.address_fontanilles:
-registration.validation.address_rochedor:
-gift-return.success.mail:
-payment.virement_reg:
-gift.payment.mail.virement_regular:
-payment.virement:
-gift.payment.mail.virement:
-payment.cheque:
-gift.payment.mail.cheque:
+calendar.registration.title: '<h2>Su solicitud de inscripción se ha realizado correctamente</h2>'
+registration.validation.address_rochedor: 'En La Roche d''Or, chemin du Muenot 25000 Besançon'
+registration.validation.address_fontanilles: 'En Fontanilles, route de Riunoguès 66480 Maureillas Las Illas'
+gift-return.success.mail: "Hola %name%,<br><br>Reiteramos nuestro agradecimiento por su contribución a nuestra misión de evangelización y que, a través de esta donación, se convierte también en la suya.<br>Con su donación de %amount% euros, se une al movimiento de solidaridad de los Amigos de La Roche d'Or para apoyar nuestra acción evangélica.<br>Gracias de nuevo.<br><br>Unidos por la gracia de Aquel que teje lazos de fraternidad entre nosotros, le reiteramos toda nuestra amistad.<br><br>La Comunidad<br><br>A principios del próximo año se le enviará un recibo fiscal por correo electrónico a la siguiente dirección : %email%<br>    O bien por correo a\_:<br>    %name%<br>    %address%<br>    %zipcode% %city%<br>    \L%country%<br><br>    Contactar secretariado: 03 81 41 47 47 o secretariat@rochedor.org<br>Nuestra página web: www.rochedor.fr<br>Para toda información y correspondencia, por favor recuerde el número de referencia de su donación : %ref%"
+gift.payment.mail.virement_regular: "Hola %civility% %name%,<br><br>Junto con toda la Comunidad quiero agradecerle su generosidad.<br><br>Con su contribución de %amount% euros por cada %period% en %affectation%, se une al movimiento de solidaridad de los Amigos de la Roche d'Or.<br><br>Le agradecemos el hecho de hacer su transferencia a la cuenta :<br>         <div style=\"margin-left: 50px;\">             Banco\_: %bank_name%<br>             Número de cuenta\_: %bank_account%<br>             IBAN\_: %bank_iban%<br>             SWIFT/BIC\_: %bank_bic%<br><br>         </div>Permítame una vez más expresar nuestra gratitud por su contribución a nuestra misión de evangelización y que, a través de esta donación, se convertirá también en la suya.<br><br>         Danièle VALÈS<br><br>Contactar con el Secretariado: 03 81 41 47 47 o secretariat@rochedor.org<br>Nuestra página web: www.rochedor.fr"
+gift.payment.mail.virement: "Hola %civility% %name%,<br><br>Junto con toda la Comunidad quiero agradecerle su generosidad.<br><br>Con su contribución de %amount% euros en %affectation%, usted se une al movimiento de solidaridad de los Amigos de La Roche d'Or.<br><br>Le agradecemos el hecho de hacer la transferencia a la cuenta\_:<br>         <div style=\"margin-left: 50px;\">             Banco\_: %bank_name%<br>             Número de cuenta\_: %bank_account%<br>             IBAN\_: %bank_iban%<br>             SWIFT/BIC\_: %bank_bic%<br><br>         </div>Reiteramos una vez más nuestro agradecimiento por su contribución a nuestra misión de evangelización y que, a través de esta donación, se convertirá también en la suya.<br><br>         Danièle VALÈS<br><br>         Contactar con el secretariado: 03 81 41 47 47 o secretariat@rochedor.org<br>Nuestra página web: www.rochedor.fr"
+gift.payment.mail.cheque: "Hola %civility% %name%,<br><br>Junto con toda la Comunidad quiero agradecerle su generosidad.<br><br>Con su contribución de %amount% euros en %affectation%, usted se une al movimiento de solidaridad de los Amigos de La Roche d'Or.<br><br>Por favor, envíe su cheque a\_:<br>         <div style=\"margin-left: 50px;\">             Comunidad de La Roche d’Or\L<br>             25042 BESANÇON CEDEX<br><br>         </div>Permítame una vez más expresar nuestro agradecimiento por su contribución a nuestra misión de evangelización y que, a través de esta donación, se convertirá también en la suya.<br><br>         Danièle VALÈS<br><br>Contactar con el secretariado: 03 81 41 47 47 o secretariat@rochedor.org<br>Nuestra página web: www.rochedor.fr"
 admin.title:
 calendar.registration.intro:
 calendar.registration.one.title:
@@ -147,13 +144,13 @@ calendar.registration.two.add_participant:
 calendar.registration.validation-tooltip:
 calendar.registration.two.validate_participants:
 calendar.registration.three.title:
-calendar.registration.three.header:
-filter.inner.date.in:
-filter.inner.date.out:
-calendar.registration.table.header.transport:
-calendar.registration.table.header.come:
-calendar.registration.table.header.schedule:
-calendar.registration.three.body:
+calendar.registration.three.header: "\t<p>Le agradecemos la atención que le une a la Roche d’Or.<br>Su solicitud de inscripción está confirmada con el número :</p><p><center><br>%entry_number%</br></center></p>"
+filter.inner.date.in: de
+filter.inner.date.out: a
+calendar.registration.table.header.transport: 'Forma de transporte'
+calendar.registration.table.header.come: LLegada
+calendar.registration.table.header.schedule: Horario
+calendar.registration.three.body: "<p><strong>En breve se le enviará una respuesta a su solicitud</strong> por correo electrónico o por correo postal si no dispone de correo electrónico. Esta respuesta depende esencialmente de las plazas aún disponibles y de nuestra capacidad de acogida en las mejores condiciones.</p><p>Si no recibe un correo electrónico dentro de unos minutos, por favor revise su carpeta SPAM o el correo no deseado.</p><p>En caso de <strong>impedimento</strong> y de <strong>cancelación</strong>, por favor, notifíquenoslo rápidamente por correo electrónico o por teléfono. La plaza disponible puede ser ofrecida a otra persona en lista de espera.</p><p><i>Protección de datos personales: La Roche d'Or se compromete a ser el único destinatario de la información que le acaba de comunicar. Para más información, por favor consulte nuestra Política de Privacidad que tiene en cuenta los requisitos del Reglamento Europeo de Protección de Datos (DPR).</i></p>"
 logout.disconnect.title:
 calendar:
 calendar.registration.summary.title:
@@ -217,8 +214,11 @@ select.allocation.rochtx:
 select.allocation.fonttx:
 form.gift.note:
 gift.choose.payment:
-payment.cb:
-payment.paypal:
+payment.cb: 'Don ponctuel en ligne par CB'
+payment.paypal: 'Don ponctuel en ligne par Paypal'
+payment.virement: 'Donación puntual por transferencia bancaria'
+payment.cheque: 'Donación puntual por cheque'
+payment.virement_reg: 'Donación periódica por transferencia bancaria'
 tax.title:
 global.tax-code:
 global.secure-datas:
@@ -240,7 +240,7 @@ gift.one.title.connection:
 gift.one.title.registration:
 logout.disconnect.text:
 form.contact.title:
-contact.submit.success:
+contact.submit.success: "Su mensaje ha sido enviado correctamente. Gracias por tomarse el tiempo de escribirnos. <br> Volver a la <a href=\"/\">página inicial</a>."
 logout.disconnect.text.black:
 maintenance.title:
 maintenance.intro:
@@ -276,19 +276,19 @@ editions.filter.gender.choose:
 editions.filter.theme.choose:
 filter.research:
 collection:
-gift-return.success:
+gift-return.success: "    <div style=\"color: #ffffff;\">Hola %name%,<br><br>Reiteramos nuestro agradecimiento por su contribución a nuestra misión de evangelización y que, a través de esta donación, se convierte también en la suya.<br><br>Con su donación de %amount% euros, se une al movimiento de solidaridad de los Amigos de La Roche d'Or para apoyar nuestra acción evangélica.<br><br>Gracias de nuevo.<br><br>Se le enviará inmediatamente un mensaje por correo electrónico/email. Si no recibe un correo electrónico (email) en pocos minutos, por favor revise su carpeta SPAM o correo no deseado.<br><br>Unidos por la gracia de Aquel que teje lazos de fraternidad entre nosotros, le reiteramos toda nuestra amistad.<br><br>La Comunidad<br><br>    </div>A principios del próximo año se le enviará un recibo fiscal por correo electrónico a la siguiente dirección : %email%<br><br>    O bien por correo a\_:<br><br>    <div style=\"margin-left: 50px;\">        %name%<br>        %address%<br>        %zipcode% %city%<br>        \L%country%<br><br>    </div>Contactar secretariado: 03 81 41 47 47 o secretariat@rochedor.org<br>Nuestra página web: www.rochedor.fr<br><br>Para toda información y correspondencia, por favor recuerde el número de referencia de su donación : %ref%"
 gift-return.cancel:
 other.gift-mode:
 gift.return.title:
-gift.payment.return.virement_regular:
-gift.payment.return.virement:
-gift.payment.return.cheque:
+gift.payment.return.virement_regular: '<div style="color: #ffffff;">Hola %civility% %name%,<br><br>Junto con toda la Comunidad quiero agradecerle su generosidad.<br><br>Con su contribución de %amount% euros cada %period%, se une al movimiento de solidaridad de los Amigos de la Roche d''Or.<br><br>Acaban de enviarle un correo electrónico. Le indica la cuenta bancaria a la que puede efectuar la transferencia. Puede interrumpir, cancelar o cambiar la cantidad en cualquier momento. Si no recibe un correo electrónico en pocos minutos, por favor revisa su carpeta SPAM o correo no deseado.<br><br>Se le enviará un recibo fiscal a principios de cada año. Mostrará todas sus donaciones a La Roche d''Or.<br><br>Permítame reiterar nuestro agradecimiento por su contribución a nuestra misión de evangelización, que, a través de esta donación, también será suya.<br><br>        Danièle VALÈS        </div>'
+gift.payment.return.virement: '<div style="color: #ffffff;">Hola %civility% %name%,<br><br>Junto con toda la Comunidad quiero agradecerle su generosidad.<br><br>Con su contribución de %amount% euros, usted se une al movimiento de solidaridad de los Amigos de La Roche d''Or.<br><br>Acaban de enviarle un correo electrónico. Le indica la cuenta bancaria a la que debe efectuar la transferencia.<br><br>Se le enviará un recibo fiscal a principios del próximo año. Mostrará todas sus donaciones a la Roche d’Or. Si no recibe un correo electrónico (email) dentro de unos minutos, por favor revise su carpeta SPAM o correo no deseado.<br><br>Permítame reiterarle nuestro agradecimiento por su contribución a nuestra misión de evangelización y que, a través de esta donación, se convertirá también en la suya.<br><br>            Danièle VALÈS        </div>'
+gift.payment.return.cheque: 'Hola %civility% %name%,<br><br>Junto con toda la Comunidad quiero agradecerle su generosidad.<br><br>Con su contribución de %amount% euros en %affectation%, usted se une al movimiento de solidaridad de los Amigos de La Roche d''Or.<br><br>        Por favor, envíe su cheque a :<br>        <div style="margin-left: 50px;">            Communidad de La Roche d''Or<br>            25042 BESANÇON CEDEX<br><br>        </div>        Se le enviará inmediatamente un mensaje por correo electrónico/email. Si no recibe un correo electrónico (email) en pocos minutos, por favor revise su carpeta SPAM o correo no deseado.<br><br>        Permítame una vez más expresar nuestro agradecimiento por su contribución a nuestra misión de evangelización y que, a través de esta donación, se convertirá también en la suya.<br><br>        Danièle VALÈS'
 see.cart:
 continue.cart:
 continue:
-main.yes:
-main.no:
-main.ok:
+main.yes: Si
+main.no: No
+main.ok: OK
 menu.one:
 menu.one.one:
 menu.one.two:
@@ -330,3 +330,9 @@ footer.five:
 filter.inner.default:
 filter.inner.selection.singular:
 filter.inner.selection.plural:
+calendar.registration.participants_list: 'Lista de los participantes'
+calendar.registration.participant: Participante
+calendar.registration.email.footer: '<p><b>Une réponse à votre demande vous sera transmise prochainement</b> par e-mail ou par courrier postal si vous ne disposez pas d’une adresse e-mail. Cette réponse dépend essentiellement des places encore disponibles et de notre capacité à vous accueillir dans les meilleures conditions.</p><p>En cas <b>d’empêchement</b> et de <b>désistement</b>, merci d’avertir rapidement par courriel ou par téléphone. La place disponible pourra ainsi être proposée à une autre personne en liste d’attente.</p><p><i>Protection des données personnelles : la Roche d’Or s’engage à être le seul et unique destinataire des informations que vous venez de lui communiquer. Pour plus d’information, merci de vous reporter à notre politique de confidentialité qui prend en compte les exigences de la réglementation européenne sur la protection des données (RGPD).</i></p>'
+editions.filter.no_theme: 'No hay ningún producto que coincida con todos los temas de su búsqueda.'
+form.message.do_you_have_agreement: 'Eres menor de 16 años.<br>¿Tienes una autorización paterna o del tutor para poder inscribirte? (RGPD)'
+form.message.does_child_have_autpar: 'El niño que ha inscrito es menor de 16 años.<br>¿Tiene el consentimiento de los padres o del tutor? (RGPD)'
