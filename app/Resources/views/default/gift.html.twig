@@ -146,7 +146,7 @@
                                     <input autocomplete="off" data-inputmask="'mask': '99/99/9999'" class="input date_virement virement virement-reg" required type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" name="date_virement" />
                                     <label class="hidden virement-reg-fin" for="date_virement_fin">{{ 'gift.virementreg.datefin' | trans | raw }} :</label>
                                     <input autocomplete="off" data-inputmask="'mask': '99/99/9999'" class="input virement virement-reg-fin hidden" type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" name="date_virement_fin" />
-                                    <select class="select select-period virement-reg hidden">
+                                    <select class="select select-period virement-reg hidden" style="font-family: lato">
                                         <option style="font-family:lato" selected disabled value="">{{ 'form.choose.period' | trans }}</option>
                                         <option style="font-family:lato" value="select.period.monthly">{{ 'select.period.monthly' | trans }}</option>
                                         <option style="font-family:lato" value="select.period.trimestre">{{ 'select.period.trimestre' | trans }}</option>
@@ -215,13 +215,13 @@
                         </div>
                         <div class="panel registration">
                             <h3>{{ 'gift.one.title.registration' | trans | raw }}</h3>
-                            
+
                             <form class="pure-g you-form-render">
-                          
-                            
+
+
                             </form>
 
-                             
+
                         </div>
                         <div class="panel reset">
                             <h3>{{ 'form.password.reset'|trans|raw }}</h3>
