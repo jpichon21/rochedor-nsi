@@ -2633,7 +2633,7 @@
                 Soyez-en encore remercié(e).<br><br>
                 Un message vous est immédiatement adressé par courriel/email. Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.<br><br>
                 Unis par la grâce de Celui qui tisse entre nous des liens de fraternité, nous vous redisons toute notre amitié.<br><br>
-                La Communauté<br><br>
+                <span style="display: block; text-align: right;">La Communauté</span><br><br>
             </div>
             Un reçu fiscal vous sera adressé en début d’année prochaine par courriel à l’adresse suivante : %email%<br><br>
             Sinon, par courrier à :<br><br>
@@ -2658,13 +2658,14 @@
             Par votre don de %amount% euros, vous vous joignez au mouvement de solidarité des Amis de la Roche d’Or pour soutenir notre action évangélique.<br>
             Soyez-en encore remercié(e).<br><br>
             Unis par la grâce de Celui qui tisse entre nous des liens de fraternité, nous vous redisons toute notre amitié.<br><br>
-            La Communauté<br><br>
+            <span style="display: block; text-align: right;">La Communauté</span><br><br>
             Un reçu fiscal vous sera adressé en début d’année prochaine par courriel à l’adresse suivante : %email%<br>
-            Sinon, par courrier à :<br>
+            Sinon, par courrier à :<br><div style="margin-left: 50px">
             %name%<br>
             %address%<br>
             %zipcode% %city%<br>
-             %country%<br><br>
+             %country%
+            </div><br><br>
             Contact secrétariat : 03 81 41 47 47 ou secretariat@rochedor.org<br>
             Notre site : www.rochedor.fr<br>
             Pour toute information et correspondance, rappelez-nous le numéro de référence de votre don : %ref%
