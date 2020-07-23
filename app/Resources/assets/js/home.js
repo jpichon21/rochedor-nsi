@@ -4,9 +4,15 @@ import { large } from './variables'
 const body = document.querySelector('body')
 
 window.onpageshow = event => {
-  if (typeof window.performance != 'undefined') {
+  if (typeof window.performance !== 'undefined') {
     var perfEntries = window.performance.getEntriesByType('navigation')
-    if (perfEntries[0].type === 'back_forward') {
+    if (perfEntries.length > 0 && perfEntries[0].type === 'back_forward') {
+      window.location.reload()
+    }
+
+    // Fix pour Safari
+    var navigation = window.performance.navigation
+    if (typeof navigation !== 'undefined' && navigation.type === 2) {
       window.location.reload()
     }
   }
