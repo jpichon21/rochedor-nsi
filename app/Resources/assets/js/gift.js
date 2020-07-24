@@ -415,6 +415,7 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
       $('.panel.registration').show()
       scrollToElement($('.panel.registration'))
       $('.panel.registration').addClass('update-user')
+      $('.panel.registration h3').first().text(i18n.trans('gift.one.title.connection'))
       downLoader()
       changeItem([itemConnection])
     }, 200)
@@ -560,6 +561,7 @@ itemConnection.on('click', 'a:not(.tooltip-password)', function (event) {
         setTimeout(() => {
           scrollToElement($('.panel.registration'))
           $('.panel.registration').addClass('update-user')
+          $('.panel.registration h3').first().text(i18n.trans('gift.one.title.connection'))
         }, 200)
         changeItem([itemConnection])
       })

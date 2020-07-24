@@ -17,13 +17,13 @@
             {% endif %}
             <div class="pure-g" style="margin-top: 15px; justify-content: space-between">
                 <div>
-                    <a class="button" href="{{ path('logout-message', {'from': 'don-ponctuel'}) }}">{{ 'logout.disconnect.title' | trans }}</a>
+                    <a class="button submit" href="{{ path('logout-message', {'from': 'don-ponctuel'}) }}">{{ 'logout.disconnect.title' | trans }}</a>
                 </div>
                 <div>
-                    <a class="button" href="{{ path('cancel_gift') }}">{{ 'other.gift-mode' | trans }}</a>
+                    <a class="button submit" href="{{ path('cancel_gift') }}">{{ 'other.gift-mode' | trans }}</a>
                 </div>
                 <div>
-                    <a class="button" href="{{  path('gift-' ~ app.request.locale)}}">{{ 'gift.return.title' | trans }}</a>
+                    <a class="button submit" href="{{  path('gift-' ~ app.request.locale)}}">{{ 'gift.return.title' | trans }}</a>
                 </div>
             </div>
         </div>
