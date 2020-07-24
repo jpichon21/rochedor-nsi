@@ -7,13 +7,11 @@ import {
 window.onpageshow = event => {
   if (typeof window.performance !== 'undefined') {
     var perfEntries = window.performance.getEntriesByType('navigation')
+    var navigation = window.performance.navigation
     if (perfEntries.length > 0 && perfEntries[0].type === 'back_forward') {
       window.location.reload()
-    }
-
-    // Fix pour Safari
-    var navigation = window.performance.navigation
-    if (typeof navigation !== 'undefined' && navigation.type === 2) {
+    } else if (typeof navigation !== 'undefined' && navigation.type === 2) {
+      // Fix pour Safari
       window.location.reload()
     }
   }
