@@ -301,6 +301,7 @@ class GiftController extends Controller
             $don->setPaysdon($country)
             ->setStatus('success')
             ->setTransdon($status)
+            ->setDatrecu($don->getEnregdon())
             ->setAdhesion($isFirstGift);
 
             $contactRepository->setTypCoDonateur($contact->getCodco());

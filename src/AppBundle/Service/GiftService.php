@@ -85,7 +85,7 @@ class GiftService
             ->setRefdon($ref)
             ->setEnregdon(new \DateTime())
             ->setDatdon(new \DateTime())
-            ->setDatrecu(new \DateTime())
+            ->setDatrecu(new \DateTime('0000-00-00 00:00:00'))
             ->setValidDon(0)
             ->setBanqdon($this->getBankFromDestDon($data['destdon']))
             ->setMondon('€');

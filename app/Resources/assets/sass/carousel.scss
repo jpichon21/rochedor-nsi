@@ -23,9 +23,9 @@
     position: absolute;
     //top: 50%;
     top: 91%;
-    margin-top: -34px;
-    width: 105px;
-    height: 105px;
+    margin-top: -65px;
+    width: 150px;
+    height: 150px;
     z-index: 1;
     cursor: pointer;
     @include media('<large') {
@@ -135,7 +135,7 @@
               background-size: 100%;
               z-index: 1;
               transition: 0.5s ease;
-             
+
             }
           }
           &:after {

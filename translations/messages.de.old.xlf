@@ -2694,7 +2694,7 @@ Kommentar erstellt</target>
           <br>
           <Für weitere Informationen und Auskunftsersuchen stehen wir Ihnen gerne zur Verfügung.
           <p>Mit all unserer Sympathie</p>.
-          <p>Das Team von Roche d'Or Verlag</p> 
+          <p>Das Team von Roche d'Or Verlag</p>
         ]]></target>
       </segment>
     </unit>
@@ -2827,7 +2827,7 @@ Kommentar erstellt</target>
         <unit id="bHsOKTz" name="gift.return.title">
           <segment>
             <source>gift.return.title</source>
-            <target>Rückkehr</target>
+            <target>Neue Spende</target>
           </segment>
         </unit>
         <unit id="bHsOKTa" name="gift.return.title">
