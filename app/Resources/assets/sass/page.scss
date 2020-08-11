@@ -610,60 +610,62 @@ body {
 .Venir,
 .Retraites,
 .Intervenants {
-  background-image: url('../img/black-50.png'), linear-gradient(black, black), url('../img/retraites.jpg');
+  background-image: url(../img/black-50.png), linear-gradient(black, black), url(../img/retraites.jpg);
 
   @include media('<=laptop') {
-    background-image: url('../img/black-50.png'), linear-gradient(black, black), url('../img/retraites-s.jpg');
+    background-image: url(../img/black-50.png), linear-gradient(black, black), url(../img/retraites-s.jpg);
   }
 
   @include media('<=large') {
-    background-image: url('../img/black-50.png'), linear-gradient(black, black), url('../img/retraites-xs.jpg');
+    background-image: url(../img/black-50.png), linear-gradient(black, black), url(../img/retraites-xs.jpg);
   }
 
   @include media('<=medium') {
-    background-image: url('../img/black-50.png'), linear-gradient(black, black), url('../img/retraites-xxs.jpg');
+    background-image: url(../img/black-50.png), linear-gradient(black, black), url(../img/retraites-xxs.jpg);
   }
 
   @include media('<=mobile') {
-    background-image: linear-gradient(black, black), url('../img/retraites-mobile.jpg') !important;
+    background-image: linear-gradient(black, black), url(../img/retraites-mobile.jpg) !important;
   }
 }
 
 .Faire,
 .Donner,
 .Nous {
-  background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/soutenir.jpg');
+  background-image: url(../img/black-70.png), linear-gradient(black, black), url(../img/soutenir.jpg);
 
   @include media('<=laptop') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/soutenir-s.jpg');
+    background-image: url(../img/black-70.png), linear-gradient(black, black), url(../img/soutenir-s.jpg);
   }
 
   @include media('<=large') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/soutenir-xs.jpg');
+    background-image: url(../img/black-70.png), linear-gradient(black, black), url(../img/soutenir-xs.jpg);
   }
 
   @include media('<=medium') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/soutenir-xxs.jpg');
+    background-image: url(../img/black-70.png), linear-gradient(black, black), url(../img/soutenir-xxs.jpg);
   }
 
   @include media('<=mobile') {
-    background-image: linear-gradient(black, black), url('../img/soutenir-mobile.jpg') !important;
+    background-image: linear-gradient(black, black), url(../img/soutenir-mobile.jpg) !important;
   }
 }
 
-.Contact {
-  background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/infocontact.jpg');
+.Informations {
+  background-image: url(../img/black-70.png), linear-gradient(black, black), url(../img/infocontact.jpg);
+  background-size: cover;
+  background-blend-mode: saturation;
 
   @include media('<=laptop') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/infocontact-s.jpg');
+    background-image: url(../img/black-70.png), linear-gradient(black, black), url(../img/infocontact-s.jpg);
   }
 
   @include media('<=large') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/infocontact-xs.jpg');
+    background-image: url(../img/black-70.png), linear-gradient(black, black), url(../img/infocontact-xs.jpg);
   }
 
   @include media('<=medium') {
-    background-image: url('../img/black-70.png'), linear-gradient(black, black), url('../img/infocontact-xxs.jpg');
+    background-image: url(../img/black-70.png), linear-gradient(black, black), url(../img/infocontact-xxs.jpg);
   }
 
   @include media('<=mobile') {
@@ -672,54 +674,78 @@ body {
 }
 
 .La,
-.Les {
-  background-image: linear-gradient(black, black), url('../img/communaute.jpg');
-
-  @include media('<=laptop') {
-    background-image: linear-gradient(black, black), url('../img/communaute-s.jpg');
-  }
-
-  @include media('<=large') {
-    background-image: linear-gradient(black, black), url('../img/communaute-xs.jpg');
-  }
-
-  @include media('<=medium') {
-    background-image: linear-gradient(black, black), url('../img/communaute-xxs.jpg');
-  }
-
-  @include media('<=mobile') {
-    background-image: linear-gradient(black, black), url('../img/communaute-mobile.jpg') !important;
-  }
-}
-
-.DEMANDE {
-  background-image: url('../img/black-60.png'), linear-gradient(black, black), url('../img/calendar.jpg');
+.Les,
+.Communauté {
+  background-image: url(../img/black-60.png), linear-gradient(black, black), url(../img/communaute.jpg);
   background-size: cover;
   background-blend-mode: saturation;
 
   @include media('<=laptop') {
-    background-image: url('../img/black-60.png'), linear-gradient(black, black), url('../img/calendar-s.jpg');
+    background-image: url(../img/black-60.png), linear-gradient(black, black), url(../img/communaute-s.jpg);
   }
 
   @include media('<=large') {
-    background-image: linear-gradient(black, black), url('../img/calendar-xs.jpg');
+    background-image: url(../img/black-60.png), linear-gradient(black, black), url(../img/communaute-xs.jpg);
   }
 
   @include media('<=medium') {
-    background-image: linear-gradient(black, black), url('../img/calendar-xxs.jpg');
+    background-image: url(../img/black-60.png), linear-gradient(black, black), url(../img/communaute-xxs.jpg);
   }
 
   @include media('<=mobile') {
-    background-image: linear-gradient(black, black), url('../img/calendar-mobile.jpg') !important;
+    background-image: url(../img/black-60.png), linear-gradient(black, black), url(../img/communaute-mobile.jpg);
+  }
+}
+
+.calendar {
+  background-image: url(../img/black-60.png), linear-gradient(black, black), url(../img/calendar.jpg);
+  background-size: cover;
+  background-blend-mode: saturation;
+
+  @include media('<=laptop') {
+    background-image: url(../img/black-60.png), linear-gradient(black, black), url(../img/calendar-s.jpg);
+  }
+
+  @include media('<=large') {
+    background-image: linear-gradient(black, black), url(../img/calendar-xs.jpg);
+  }
+
+  @include media('<=medium') {
+    background-image: linear-gradient(black, black), url(../img/calendar-xxs.jpg);
+  }
+
+  @include media('<=mobile') {
+    background-image: linear-gradient(black, black), url(../img/calendar-mobile.jpg) !important;
+  }
+}
+
+.gift {
+  background-image: url(../img/black-60.png), linear-gradient(black, black), url(../img/soutenir.jpg);
+  background-size: cover;
+  background-blend-mode: saturation;
+
+  @include media('<=laptop') {
+    background-image: url(../img/black-60.png), linear-gradient(black, black), url(../img/soutenir-s.jpg);
+  }
+
+  @include media('<=large') {
+    background-image: linear-gradient(black, black), url(../img/soutenir-xs.jpg);
+  }
+
+  @include media('<=medium') {
+    background-image: linear-gradient(black, black), url(../img/soutenir-xxs.jpg);
+  }
+
+  @include media('<=mobile') {
+    background-image: linear-gradient(black, black), url(../img/soutenir-mobile.jpg) !important;
   }
 }
 
 .Infos,
-.Informations,
 .Accueil,
 .Liens,
 .default-body {
-  background-image: url('../img/bg-fallback.jpg');
+  background-image: url(../img/bg-fallback.jpg);
   background-size: cover;
 }
 

@@ -1,3 +1,1 @@
-<h2><center>{{ 'gift.title'|trans|raw }}</center></h2>
-
-<p>{{ 'gift-return.success.mail' | trans({'%link%': path('gift-' ~ app.request.locale), '%name%': name, '%amount%': amount, '%email%': email, '%address%': address, '%zipcode%': zipcode, '%city%': city, '%country%': country, '%ref%': ref }) | raw }}</p>
+<p>{{ 'gift-return.success.mail' | trans({'%link%': path('gift-' ~ app.request.locale), '%name%': name, '%amount%': amount, '%email%': email, '%address%': address|replace({'\r\n': '<br>'}), '%zipcode%': zipcode, '%city%': city, '%country%': country, '%ref%': ref }) | raw }}</p>

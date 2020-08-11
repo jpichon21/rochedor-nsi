@@ -9,14 +9,15 @@
         <h1>{{ 'choice_site.intro' | trans | raw }}</h1>
         <div class="intro">{{ 'choice_site.text' | trans | raw }}</div>
         <div class="pure-g">
-            <div class="pure-u-md-5-24">
+            <div class="pure-u-md-5-2">
                 <a class="button pure-u-1" href="{{ path('calendar-' ~ app.request.locale, {'site': 'lrdo'}) }}">{{ 'register_roche' | trans }}</a>
             </div>
             <div class="pure-u-md-1-24"></div>
-            <div class="pure-u-md-5-24">
+            <div class="pure-u-md-5-2">
                 <a class="button pure-u-1" href="{{ path('calendar-' ~ app.request.locale, {'site': 'font'}) }}">{{ 'register_fontanilles' | trans }}</a>
             </div>
         </div>
     </div>
+    <div class="right"></div>
 </div>
 {% endblock %}

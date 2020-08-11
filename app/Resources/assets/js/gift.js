@@ -209,6 +209,15 @@ itemAmount.on('keyup', '.input.amount', function () {
   }
 })
 
+itemAmount.on('blur', '.input.amount', function () {
+  $(this).val($(this).val().replace(',', '.'))
+  if (!isNaN($(this).val())) {
+    if ($(this).val() % 1 !== 0) {
+      itemAmount.find('.input.amount').val(parseFloat($(this).val()).toFixed(2))
+    }
+  }
+})
+
 /* CHOIX DE L'ALLOCATION */
 
 $(window).bind('pageshow', function() {
@@ -312,17 +321,36 @@ itemPrelevement.on('submit', 'form', function (event) {
 
   let toValidate = $('input[name="date_virement"]')
   let valid = true
+  let message = ''
   if (_modpaie === 'IVIR') {
-    toValidate = $('input[name="date_virement"], select.select-period')
+    toValidate = $('input[name="date_virement"], input[name="date_virement_fin"], select.select-period')
   }
   toValidate.each(function () {
     if ($(this).val() === '' || $(this).val() === null) {
       valid = false
+      message = i18n.trans('gift.invalid_form.virement')
+    }
+
+    // Date de virement doit être supérieur ou égale à date du jour
+    if ($(this).hasClass('virement-reg')) {
+      if (moment(_dateDebVir).isBefore(new Date(), 'day')) {
+        valid = false
+        message = i18n.trans('gift.invalid_form.virement_date_deb')
+      }
+    }
+
+    console.log($(this))
+    // Date de début du virement doit être supérieur à la date de début du virement
+    if ($(this).hasClass('virement-reg-fin')) {
+      if (moment(_dateFinVir).isSameOrBefore(new Date(_dateDebVir), 'day')) {
+        valid = false
+        message = i18n.trans('gift.invalid_form.virement_date_fin')
+      }
     }
   })
 
   if (valid === false) {
-    upFlashbag(i18n.trans('gift.invalid_form.virement'))
+    upFlashbag(message)
   } else {
     changeItem([itemConnection])
   }
@@ -387,6 +415,7 @@ itemConnection.on('submit', '.panel.connection form', function (event) {
       $('.panel.registration').show()
       scrollToElement($('.panel.registration'))
       $('.panel.registration').addClass('update-user')
+      $('.panel.registration h3').first().text(i18n.trans('gift.one.title.connection'))
       downLoader()
       changeItem([itemConnection])
     }, 200)
@@ -532,6 +561,7 @@ itemConnection.on('click', 'a:not(.tooltip-password)', function (event) {
         setTimeout(() => {
           scrollToElement($('.panel.registration'))
           $('.panel.registration').addClass('update-user')
+          $('.panel.registration h3').first().text(i18n.trans('gift.one.title.connection'))
         }, 200)
         changeItem([itemConnection])
       })

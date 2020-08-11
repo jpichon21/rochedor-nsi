@@ -481,9 +481,9 @@
       </notes>
       <segment>
         <source>calendar.registration.three.body</source>
-        <target><![CDATA[					
+        <target><![CDATA[
         <p><strong>Une réponse à votre demande vous sera transmise prochainement</strong> par e-mail ou par courrier postal si vous ne disposez pas d'une adresse e-mail. Cette réponse dépend essentiellement des places encore disponibles et de notre capacité à vous accueillir dans les meilleures conditions.</p><p>Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.</p><p>En cas <strong>d'empêchement</strong> et de <strong>désistement</strong>, merci d’avertir rapidement par courriel ou par téléphone. La place disponible pourra ainsi être proposée à une autre personne en liste d'attente.</p><p><i>Protection des données personnelles : la Roche d’Or s'engage à être le seul et unique destinataire des informations que vous venez de lui communiquer. Pour plus d’information, merci de vous reporter à notre politique de confidentialité qui prend en compte les exigences de la réglementation européenne sur la protection des données (RGPD).</i></p>
-        
+
 				]]></target>
       </segment>
     </unit>
@@ -1231,7 +1231,7 @@
     <unit id="RJ.6oSN" name="form.no_participants">
       <segment>
         <source>form.no_participants</source>
-        <target>Aucune personne ne vous accompagne</target>
+        <target>Sans objet</target>
       </segment>
     </unit>
     <unit id="Ux7laCX" name="form.civil">
@@ -1886,7 +1886,7 @@
     <unit id="LVTrH3N" name="form.message.does_child_have_autpar">
       <segment>
         <source>form.message.does_child_have_autpar</source>
-        <target><![CDATA[L'enfant que vous inscrivez a moins de 16 ans.<br> Dispose-t'il d'un accord parental ou tutorial pour s'inscrire ? (RGPD)]]></target>
+        <target><![CDATA[L'enfant que vous inscrivez a moins de 16 ans.<br> Dispose-t'il d'un accord parental ou tutorial ? (RGPD)]]></target>
       </segment>
     </unit>
     <unit id="LLzWehQ" name="calendar.registration.error">
@@ -1923,11 +1923,19 @@
         <target>* Email</target>
       </segment>
     </unit>
+    <unit id="NrmWOmi" name="calendar.registration.title">
+      <segment>
+        <source>calendar.registration.title</source>
+        <target><![CDATA[
+            <h2>Votre demande d'inscription est prise en compte</h2>
+        ]]></target>
+      </segment>
+    </unit>
     <unit id="NrmWOmd" name="calendar.registration.three.header">
       <segment>
         <source>calendar.registration.three.header</source>
         <target><![CDATA[
-					<p>Nous vous remercions de l’attention que vous portez à la Roche d’Or.<br>Votre demande d’inscription est prise en compte sous le numéro :</p><p><center><br>%entry_number%</br></center></p>
+					<p>Nous vous remercions de l’attention que vous portez à la Roche d’Or.<br>Votre demande d’inscription est bien prise en compte sous le numéro :</p><p><center><br>%entry_number%</br></center></p>
 				]]></target>
       </segment>
     </unit>
@@ -2024,7 +2032,7 @@
     <unit id="fCR5IGy" name="security.username_exists">
       <segment>
         <source>security.username_exists</source>
-        <target>Ce nom d'utilisateur est déjà utilisé</target>
+        <target>Cet identifiant est déjà utilisé</target>
       </segment>
     </unit>
     <unit id="Bs52W.M" name="security.password_request.not_found">
@@ -2625,7 +2633,7 @@
                 Soyez-en encore remercié(e).<br><br>
                 Un message vous est immédiatement adressé par courriel/email. Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.<br><br>
                 Unis par la grâce de Celui qui tisse entre nous des liens de fraternité, nous vous redisons toute notre amitié.<br><br>
-                La Communauté<br><br>
+                <span style="display: block; text-align: right;">La Communauté</span><br><br>
             </div>
             Un reçu fiscal vous sera adressé en début d’année prochaine par courriel à l’adresse suivante : %email%<br><br>
             Sinon, par courrier à :<br><br>
@@ -2650,13 +2658,14 @@
             Par votre don de %amount% euros, vous vous joignez au mouvement de solidarité des Amis de la Roche d’Or pour soutenir notre action évangélique.<br>
             Soyez-en encore remercié(e).<br><br>
             Unis par la grâce de Celui qui tisse entre nous des liens de fraternité, nous vous redisons toute notre amitié.<br><br>
-            La Communauté<br><br>
+            <span style="display: block; text-align: right;">La Communauté</span><br><br>
             Un reçu fiscal vous sera adressé en début d’année prochaine par courriel à l’adresse suivante : %email%<br>
-            Sinon, par courrier à :<br>
+            Sinon, par courrier à :<br><div style="margin-left: 50px">
             %name%<br>
             %address%<br>
             %zipcode% %city%<br>
-             %country%<br><br>
+             %country%
+            </div><br><br>
             Contact secrétariat : 03 81 41 47 47 ou secretariat@rochedor.org<br>
             Notre site : www.rochedor.fr<br>
             Pour toute information et correspondance, rappelez-nous le numéro de référence de votre don : %ref%
@@ -2702,15 +2711,15 @@
     <unit id="mccDfN1" name="gift.payment.return.cheque">
       <segment>
         <source>gift.payment.return.cheque</source>
-        <target><![CDATA[Bonjour %civility% %name%,<br>
-                L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
-                Par votre participation de %amount% euros en %affectation%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br>
+        <target><![CDATA[Bonjour %civility% %name%,<br><br>
+                L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br><br>
+                Par votre participation de %amount% euros en %affectation%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
                 Merci d'adresser votre chèque à :<br>
                 <div style="margin-left: 50px;">
                     Communauté de La Roche d'Or<br>
                     25042 BESANÇON CEDEX<br><br>
                 </div>
-                Un message vous est immédiatement adressé par courriel/email. Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.<br><br>
+                Un message vous est immédiatement adressé par courriel/email. Si vous ne le recevez pas dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.<br><br>
                 Laissez-moi encore une fois vous redire toute notre gratitude pour votre contribution à la mission d’évangélisation qui est la nôtre et qui, par ce don, deviendra aussi la vôtre.<br><br>
                 Danièle VALÈS]]></target>
       </segment>
@@ -2718,8 +2727,8 @@
     <unit id="mccDfN8" name="gift.payment.mail.cheque">
       <segment>
         <source>gift.payment.mail.cheque</source>
-        <target><![CDATA[Bonjour %civility% %name%,<br>
-                 L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br>
+        <target><![CDATA[Bonjour %civility% %name%,<br><br>
+                 L’ensemble de la Communauté se joint à moi pour vous remercier de votre générosité.<br><br>
                  Par votre participation de %amount% euros en %affectation%, vous rejoignez le mouvement de solidarité des Amis de la Roche d’Or.<br><br>
                  Merci d’adresser votre chèque à :<br>
                  <div style="margin-left: 50px;">
@@ -2986,7 +2995,7 @@ Si vous relevez de la fiscalité française, la réduction est équivalente à 6
         <br>
         <p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p>
         <p>Avec toute notre sympathie</p>
-        <p>L'équipe des Éditions Roche d’Or</p> 
+        <p>L'équipe des Éditions Roche d’Or</p>
         ]]></target>
       </segment>
     </unit>
@@ -3322,7 +3331,7 @@ Si vous relevez de la fiscalité française, la réduction est équivalente à 6
         <br>
         <p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p>
         <p>Avec toute notre sympathie</p>
-        <p>L'équipe des Éditions Roche d’Or</p> 
+        <p>L'équipe des Éditions Roche d’Or</p>
         ]]></target>
       </segment>
     </unit>
@@ -3345,7 +3354,7 @@ Si vous relevez de la fiscalité française, la réduction est équivalente à 6
         <br>
         <p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p>
         <p>Avec toute notre sympathie</p>
-        <p>L'équipe des Éditions Roche d’Or</p> 
+        <p>L'équipe des Éditions Roche d’Or</p>
         ]]></target>
       </segment>
     </unit>
@@ -3361,7 +3370,7 @@ Si vous relevez de la fiscalité française, la réduction est équivalente à 6
         <br>
         <p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p>
         <p>Avec toute notre sympathie</p>
-        <p>L'équipe des Éditions Roche d’Or</p> 
+        <p>L'équipe des Éditions Roche d’Or</p>
         ]]></target>
       </segment>
     </unit>
@@ -3599,6 +3608,22 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
         </target>
       </segment>
     </unit>
+    <unit id="aHsOKU6" name="gift.invalid_form.virement_date_deb">
+      <segment>
+        <source>gift.invalid_form.virement_date_deb</source>
+        <target>
+            La date de votre virement ne peut pas être antérieure à la date du jour.
+        </target>
+      </segment>
+    </unit>
+    <unit id="aHsOKU9" name="gift.invalid_form.virement_date_fin">
+      <segment>
+        <source>gift.invalid_form.virement_date_fin</source>
+        <target>
+            La date de fin de votre virement doit être postérieure à sa date de début.
+        </target>
+      </segment>
+    </unit>
     <unit id="aHsOKTn" name="registration.validation.address_rochedor">
       <segment>
         <source>registration.validation.address_rochedor</source>
@@ -3632,7 +3657,7 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
     <unit id="bHsOKTz" name="gift.return.title">
       <segment>
         <source>gift.return.title</source>
-        <target>Retour</target>
+        <target>Nouveau don</target>
       </segment>
     </unit>
      <unit id="bHsOKTa" name="gift.return.title">

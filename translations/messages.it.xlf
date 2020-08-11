@@ -1025,7 +1025,7 @@
     <unit id="bHsOKTz" name="gift.return.title">
       <segment>
         <source>gift.return.title</source>
-        <target>Ritorno</target>
+        <target>Nuova donazione</target>
       </segment>
     </unit>
     <unit id="bHsOKTa" name="gift.return.title">

@@ -116,6 +116,7 @@
                 <h2>{{ 'calendar.registration.three.title' | trans | raw }}</h2>
                 <div class="item-content">
                     <div class="result">
+                        {{ 'calendar.registration.title' | trans | raw }}
                         {{ 'calendar.registration.three.header' | trans | raw }}
                         <p class="text-center"><strong>"{{ activity.libact }}"</strong><br>{{ 'filter.inner.date.in' | trans | raw }}<strong> {{ activity.datdeb | localizeddate('medium', 'none', app.request.locale ) }}</strong> {{ 'filter.inner.date.out' | trans | lower | raw }} <strong>{{ activity.datfin | localizeddate('medium', 'none', app.request.locale ) }}</strong> ({{ activity.sitact }})</p>
                         <table class="tab-end-message">
@@ -349,7 +350,7 @@
     <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-2">
         <!-- Offset -->
     </div>
-    <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1-3 pure-u-xl-1-5">
+    <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1-3 pure-u-xl-1-4">
         <a href="#" class="button cancel input" data-redirect-url="{{ path('calendar-choice-site-' ~ currentLocale) }}">{{ 'form.cancel' | trans | raw }}</a>
     </div>
     <% } %>
@@ -479,7 +480,7 @@
     <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-2">
         <!-- Offset -->
     </div>
-    <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1-3 pure-u-xl-1-5">
+    <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1-3 pure-u-xl-1-4">
         <a href="#" class="button cancel input" data-redirect-url="{{ path('calendar-choice-site-' ~ currentLocale) }}">{{ 'form.cancel' | trans | raw }}</a>
     </div>
     <div class="pure-u-1 pure-u-md-1-4 pure-u-lg-1-3 pure-u-xl-1-4">

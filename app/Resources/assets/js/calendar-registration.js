@@ -483,7 +483,8 @@ function validatePhone (phone, mobile) {
 
 function validateChild (participant, isYou=false) {
   return new Promise((resolve, reject) => {
-    if (moment(_infos.datdeb.date).diff(moment(participant.datnaiss), 'years') >= 16) {
+    // Pas de contrôle d'âge sur les conjoints (!)
+    if (participant.coltyp === 'conjo' || moment(_infos.datdeb.date).diff(moment(participant.datnaiss), 'years') >= 16) {
       resolve(participant)
     } else {
       if (isYou) {
@@ -493,6 +494,8 @@ function validateChild (participant, isYou=false) {
             aut16: 1,
             datAut16: moment().format()
           })
+        }).catch(() => {
+          window.history.back()
         })
       } else {
         if (participant.coltyp === 'enfan' || participant.coltyp === 'accom') {
@@ -841,6 +844,7 @@ function setParent () {
 }
 
 function validateParticipant (participant) {
+  console.log(participant)
   if (participant['colp'] === '' && participant['codco'] !== _you.codco) {
     return i18n.trans('form.message.not_accompanied')
   }

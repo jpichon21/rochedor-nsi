@@ -1,6 +1,19 @@
 import { changeCarousel } from './carousel.js'
 import $ from 'jquery'
 
+window.onpageshow = event => {
+  if (typeof window.performance !== 'undefined') {
+    var perfEntries = window.performance.getEntriesByType('navigation')
+    var navigation = window.performance.navigation
+    if (perfEntries.length > 0 && perfEntries[0].type === 'back_forward') {
+      window.location.reload()
+    } else if (typeof navigation !== 'undefined' && navigation.type === 2) {
+      // Fix pour Safari
+      window.location.reload()
+    }
+  }
+}
+
 $(document).ready(function () {
   $('body').fadeIn(300);
   $('body').removeClass('hidden');
