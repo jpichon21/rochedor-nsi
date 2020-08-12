@@ -764,15 +764,14 @@ itemParticipants.on('click', '.add-participant', function (event) {
   } else if (panelAddForm.is(':visible')) {
     panelAddForm.trigger('submit')
   } else {
-    addParticipant(event)
+    modifyClick(event, 'add', updateHimFormRender, () => {
+      _participant = getContact()
+    })
+    scrollToElement($('.him-form-render'))
   }
 })
 
 function addParticipant (event) {
-  // modifyClick(event, 'add', updateYouRender, () => {
-  //   _participant = getContact()
-  // })
-  // scrollToElement($('.him-form-render'))
   updateParticipantsRender()
   $('.panel', itemParticipants).show()
   $(`.panel.you`, itemParticipants).hide()
@@ -848,7 +847,6 @@ function setParent () {
 }
 
 function validateParticipant (participant) {
-  console.log(participant)
   if (participant['colp'] === '' && participant['codco'] !== _you.codco) {
     return i18n.trans('form.message.not_accompanied')
   }
