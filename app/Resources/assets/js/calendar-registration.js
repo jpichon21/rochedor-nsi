@@ -769,11 +769,15 @@ itemParticipants.on('click', '.add-participant', function (event) {
 })
 
 function addParticipant (event) {
-  modifyClick(event, 'add', updateHimFormRender, () => {
-    _participant = getContact()
-  })
-  scrollToElement($('.him-form-render'))
-
+  // modifyClick(event, 'add', updateYouRender, () => {
+  //   _participant = getContact()
+  // })
+  // scrollToElement($('.him-form-render'))
+  updateParticipantsRender()
+  $('.panel', itemParticipants).show()
+  $(`.panel.you`, itemParticipants).hide()
+  $(`.panel.add`, itemParticipants).hide()
+  $(`.panel.him`, itemParticipants).hide()
   // Une fois un participant ajouté, on peut valider la demande
   if (itemParticipants.find('.validate-participants').hasClass('disabled') && _hasOneParticipant === true) {
     itemParticipants.find('.validate-participants').removeClass('disabled')
