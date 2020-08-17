@@ -48,11 +48,11 @@ class ContactFormController extends Controller
     }
 
     /**
-    * @Route("{_locale}/contact-{site}", name="contact")
-    * @Route("{_locale}/kontakt-{site}", name="kontakt")
-    * @Route("{_locale}/contactar-{site}", name="contactar")
-    * @Route("{_locale}/contact-us-{site}", name="contact-us")
-    * @Route("{_locale}/contactenos-{site}", name="contactenos")
+    * @Route("{_locale}/contact-{site}", name="contact-fr")
+    * @Route("{_locale}/kontakt-{site}", name="contact-de")
+    * @Route("{_locale}/contactar-{site}", name="contact-es")
+    * @Route("{_locale}/contact-us-{site}", name="contact-en")
+    * @Route("{_locale}/contactenos-{site}", name="contact-it")
     */
     public function showContactRo(Request $request, $site)
     {
