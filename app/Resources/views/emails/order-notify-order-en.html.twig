@@ -1,12 +1,12 @@
-<h2><center>Confirmation de commande</center></h2>
+<h2><center>Order confirmed</center></h2>
 
-<p>Votre commande est bien enregistrée sous le numéro <b>{{order.refcom}}</b> et nous vous en remercions. Nous vous invitons à conserver ce numéro qui vous sera demandé pour
-toute question relative à votre commande.</p>
+<p>Your order number is <b>{{order.refcom}}</b> please keep this number safe as you will need it for any queries related to your order.</p>
+<p>Your order:</p>
 {% if withDelay == true %}
-<p>À titre indicatif, les livraisons sont effectuées dans un délai de {{minliv}} à {{maxliv}} jours ouvrés.</p>
+<p>Deliveries are usually made within {{minliv}} and {{maxliv}} working days.</p>
 {% endif %}
-<p> Votre commande sera livrée a l'adresse suivante : </p>
+<p>Your order will be delivered to the following address :</p>
 <p><center><b>{{adliv}}</b></center></p>
-<p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p>
-<p>Avec toute notre sympathie 
-L'équipe des Editions Roche d’Or</p>
+<p>We are available to answer any further questions or provide any information you need.</p>
+<p>Kind Regards</p>
+The Editions Roche d’Or team</p>

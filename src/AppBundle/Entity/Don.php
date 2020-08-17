@@ -136,7 +136,7 @@ class Don
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="EnregDon", type="datetime", nullable=false)
+     * @ORM\Column(name="EnregDon", type="datetime", nullable=false, options={"default" : "CURRENT_TIMESTAMP"})
      */
     private $enregdon;
 

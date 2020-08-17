@@ -55,8 +55,8 @@ class Mailer
         );
         try {
             return $this->mailer->send($message);
-        } catch (\Swift_SwiftException $e) {
-            echo $e->getMessage();
+        } catch (\Exception $e) {
+            $this->container->get('logger')->error($e->getMessage());
         }
     }
 
