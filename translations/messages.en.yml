@@ -14,13 +14,13 @@ menu.five: 'Éditions Roche d''Or'
 menu.six: 'Support us'
 menu.four.one: 'Useful information<br> for la Roche d''Or'
 menu.four.two: 'Useful information<br> for les Fontanilles'
-menu.four.three: 'Visiting with<br>Children'
+menu.four.three: 'Visiting with<br> Children'
 menu.four.four: 'Friends<br> link'
 menu.five.one: 'Editions<br> Roche d''Or'
 menu.five.two: 'New additions'
 menu.five.three: Collections
-menu.six.one: 'Donate<br> time'
-menu.six.two: Donate<br>
+menu.six.one: 'Donate'
+menu.six.two:
 filter.title.site: Websites
 filter.title.type: Types
 filter.title.intervenants: Speakers
@@ -498,7 +498,7 @@ edition.comingSoon:
 terms.of.use:
 legal.mention:
 footer.privacy:
-menu.six.three:
+menu.six.three: Donate time
 menu.seven:
 contact.ro:
 contact.ft:
