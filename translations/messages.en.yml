@@ -238,6 +238,7 @@ form.civilite.mlle: Miss
 form.civilite.pere: Father
 form.civilite.frere: Brother
 form.civilite.soeur: Sister
+form.civilite.abbe: Abbot
 form.message.phone_invalid: 'Please enter at least one telephone number'
 calendar.registration.error: calendar.registration.error
 calendar.registration.error.empty: 'Sorry, this retreat no longer exists. You can go back to the<a href="/en/retreat-list">calendar</a>.'
@@ -511,3 +512,4 @@ calendar.registration.participant: Participant
 calendar.registration.email.footer: '<p><strong>You will receive a reply to your request via email shortly.</strong> If you do not have an email address we will reply by post. Our answer will depend on whether we have spaces remaining and our capacity to welcome you in the best possible conditions.</p><p>If you can <strong>no longer attend</strong>, please let us know as soon as possible via email or telephone, so that we may offer the place to somebody on the waiting list.</p><p><i>Data protection: La Roche d’Or undertakes to be the single unique recipient of the information you have just communicated to us. For further information please see our privacy policy which is in line with the General Data Protection Regulations of the European Union.</i></p>'
 form.message.do_you_have_agreement: 'If you are under 16 :<br>Do you have the consent of a parent or guardian to register? (GDPR)'
 editions.filter.no_theme: 'No product can be found using your search terms.'
+form.message.update_you: 'Please verify your information and enter your mode of transport'
