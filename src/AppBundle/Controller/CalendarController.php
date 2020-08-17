@@ -402,8 +402,9 @@ class CalendarController extends Controller
 
     private function notifyAttendees(Request $request, $attendees, $ref, $calendar)
     {
-        $this->get('logger')->err($request->getLocale());
-        $this->get('logger')->err($request->getDefaultLocale());
+        if ($request->query->get('_locale')) {
+            $this->translator->setLocale($request->query->get('_locale'));
+        }
         $this->mailer->send(
             $this->getUser()->getEmail(),
             $this->translator->trans('calendar.notify.attendee.subject'),
