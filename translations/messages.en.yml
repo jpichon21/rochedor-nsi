@@ -513,3 +513,4 @@ calendar.registration.email.footer: '<p><strong>You will receive a reply to your
 form.message.do_you_have_agreement: 'If you are under 16 :<br>Do you have the consent of a parent or guardian to register? (GDPR)'
 editions.filter.no_theme: 'No product can be found using your search terms.'
 form.message.update_you: 'Please verify your information and enter your mode of transport'
+form.message.required: 'This field is mandatory'

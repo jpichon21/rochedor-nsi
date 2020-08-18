@@ -507,3 +507,4 @@ friends.links:
 footer.four:
 footer.four.three:
 footer.five:
+form.message.required: 'Questo campo è obbligatorio'

@@ -336,3 +336,4 @@ calendar.registration.email.footer: '<p><b>Une réponse à votre demande vous se
 editions.filter.no_theme: 'No hay ningún producto que coincida con todos los temas de su búsqueda.'
 form.message.do_you_have_agreement: 'Eres menor de 16 años.<br>¿Tienes una autorización paterna o del tutor para poder inscribirte? (RGPD)'
 form.message.does_child_have_autpar: 'El niño que ha inscrito es menor de 16 años.<br>¿Tiene el consentimiento de los padres o del tutor? (RGPD)'
+form.message.required: 'Este campo es obligatorio'
