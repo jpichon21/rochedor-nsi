@@ -145,6 +145,12 @@ class GiftController extends Controller
      */
     public function xhrPostGiftCreateAction(Request $request, GiftService $giftService)
     {
+        $locale = $request->getLocale();
+        if ($request->query->get('_locale')) {
+            $locale = $request->query->get('_locale');
+            $this->translator->setLocale($locale);
+        }
+
         $user = $this->getUser();
         $gift = $request->get('gift');
         if (!$gift) {
@@ -171,7 +177,7 @@ class GiftController extends Controller
             $don->getRefdon(),
             $this->translator->trans('gift.payment.title'),
             $this->getUser()->getEmail(),
-            $request->getLocale(),
+            $locale,
             'gift',
             !empty($gift['virPeriod']) ? $gift['virPeriod'] : null,
             $don->getDestdon(),

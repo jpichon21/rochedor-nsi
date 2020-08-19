@@ -97,7 +97,7 @@ export const getCountryCode = (country, method) => {
 }
 
 export const postGift = (amount, allocation, method, memo, dateDebVir, dateFinVir, virPeriod) => {
-  return window.fetch(`/xhr/gift/create?_locale=' + i18n.guessLocale()`, {
+  return window.fetch('/xhr/gift/create?_locale=' + i18n.guessLocale(), {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',
