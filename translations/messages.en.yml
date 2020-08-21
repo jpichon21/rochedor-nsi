@@ -118,7 +118,7 @@ calendar.registration.two.title.registration: 'Add a participant'
 calendar.registration.one.body.connected: 'You are logged in as <i>%name%<i>, would you like to continue?'
 form.yes: 'Yes'
 form.no: 'No'
-calendar.registration.one.body.disconnected: 'Have you already take part in a retreat at la Roche d''Or or les Fontanilles? (we would like to know if we already have your contact details).'
+calendar.registration.one.body.disconnected: 'Have you already take part in a retreat at la Roche d''Or or les Fontanilles? <span class="italic">(we would like to know if we already have your contact details)</span>'
 form.continue: Continue
 form.disconnect: Logout
 calendar.registration.two.title.modify.you: 'Change your registration sheet'
@@ -514,3 +514,7 @@ form.message.do_you_have_agreement: 'If you are under 16 :<br>Do you have the co
 editions.filter.no_theme: 'No product can be found using your search terms.'
 form.message.update_you: 'Please verify your information and enter your mode of transport'
 form.message.required: 'This field is mandatory'
+gift.invalid_form.amount: '    Please select an amount, an allocation and a payment method to continue.'
+gift.invalid_form.virement: '    Please fill all fields to continue.'
+gift.invalid_form.virement_date_deb: '    The bank transfer''s start date can''t be before the current day.'
+gift.invalid_form.virement_date_fin: '    The bank transfer''s end date must be after it start date'
