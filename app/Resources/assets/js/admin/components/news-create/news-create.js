@@ -59,7 +59,6 @@ export class NewsCreate extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state)
   return {
     locale: state.locale,
     status: state.status,

@@ -46,6 +46,8 @@ class AppMenu extends React.Component {
   }
 
   handleLang (event) {
+    console.log('handleLang')
+    console.log(event)
     this.setState({ anchorLang: event.currentTarget })
   }
 
@@ -58,6 +60,8 @@ class AppMenu extends React.Component {
   }
 
   handleChangeLang (event, locale) {
+    console.log('handleChangeLang')
+    console.log(locale)
     this.setState({ anchorLang: null, locale: locale })
     this.props.localeHandler(locale)
   }
