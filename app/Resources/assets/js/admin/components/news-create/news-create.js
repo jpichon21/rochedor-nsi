@@ -21,6 +21,10 @@ export class NewsCreate extends React.Component {
   }
 
   onSubmit (news) {
+    console.log('onSubmit')
+    console.log(this)
+    console.log(news)
+    news.locale = this.props.locale
     this.props.dispatch(postNews(news)).then((res) => {
       this.props.history.push(`/news-edit/${res.id}`)
     })
@@ -55,7 +59,9 @@ export class NewsCreate extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state)
   return {
+    locale: state.locale,
     status: state.status,
     error: state.error
   }
