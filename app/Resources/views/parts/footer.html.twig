@@ -39,8 +39,8 @@
                 <span>{{ 'footer.five' | trans | raw | striptags }}</span>
                 <a href="{{ localePath('don-ponctuel', app.request.locale) }}" rel="nofollow">{{ 'menu.six.one' | trans | raw | striptags }}</a>
                 <a href="{{ localePath('dons', app.request.locale) }}" rel="nofollow">{{ 'menu.six.two' | trans | raw | striptags }}</a>
-                <a href="{{ url('contact', {'site': 'ro'}) }}" rel="nofollow">{{ 'contact.ro' | trans | raw | striptags }}</a>
-                <a href="{{ url('contact', {'site': 'ft'}) }}" rel="nofollow">{{ 'contact.ft' | trans | raw | striptags }}</a>
+                <a href="{{ url('contact-' ~ app.request.locale, {'site': 'ro'}) }}" rel="nofollow">{{ 'contact.ro' | trans | raw | striptags }}</a>
+                <a href="{{ url('contact-' ~ app.request.locale, {'site': 'ft'}) }}" rel="nofollow">{{ 'contact.ft' | trans | raw | striptags }}</a>
                 <a href="{{ localePath('liens-amis', app.request.locale) }}" rel="nofollow">{{ 'friends.links' | trans | raw | striptags }}</a>
             </div>
         </div>

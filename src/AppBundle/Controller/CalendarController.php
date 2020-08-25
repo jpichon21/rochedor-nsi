@@ -191,7 +191,7 @@ class CalendarController extends Controller
             return ['status' => 'ko', 'message' => 'Missing major tutor for a child'];
         }
 
-        if (!$calL = $this->registerAttendees($attendees, $activityId, $existingRef)) {
+        if (!$calL = $this->registerAttendees($request, $attendees, $activityId, $existingRef)) {
             return ['status' => 'ko', 'message' => 'The registration has failed'];
         }
 
@@ -314,7 +314,7 @@ class CalendarController extends Controller
         return $calendar;
     }
     
-    private function registerAttendees($attendees, $activityId, $existingRef = '')
+    private function registerAttendees(Request $request, $attendees, $activityId, $existingRef = '')
     {
         $em = $this->getDoctrine()->getManager();
         $calendar = $this->calendarRepository->findCalendar($activityId);
@@ -396,12 +396,15 @@ class CalendarController extends Controller
         }
         $em->flush();
 
-        $this->notifyAttendees($attendees, $refLcal, $calendar);
+        $this->notifyAttendees($request, $attendees, $refLcal, $calendar);
         return $refLcal;
     }
 
-    private function notifyAttendees($attendees, $ref, $calendar)
+    private function notifyAttendees(Request $request, $attendees, $ref, $calendar)
     {
+        if ($request->query->get('_locale')) {
+            $this->translator->setLocale($request->query->get('_locale'));
+        }
         $this->mailer->send(
             $this->getUser()->getEmail(),
             $this->translator->trans('calendar.notify.attendee.subject'),

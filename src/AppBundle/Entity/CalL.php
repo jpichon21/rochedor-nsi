@@ -147,7 +147,7 @@ class CalL
     {
         $this->setEnreglcal(new \DateTime())
         ->setEtaplcal('')
-        ->setReplcal(new \DateTime('0000-00-00 00:00:00'))
+        ->setReplcal(new \DateTime())
         ->setHeblcal(0)
         ->setChlcal('')
         ->setSaisielcal(1)

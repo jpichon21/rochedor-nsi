@@ -1,0 +1,520 @@
+menu.one: 'The community and our houses'
+menu.two: Retreats
+menu.three: Calendar
+menu.one.one: 'The <br>Community'
+menu.one.two: '<br>Founders'
+menu.one.three: 'La <br>Roche d''Or'
+menu.one.four: 'Les <br>Fontanilles'
+menu.two.one: 'Take part in <br>a retreat'
+menu.two.two: 'Retreats <br>at La Roche d''Or'
+menu.two.three: 'Retreats <br>at Fontanilles'
+menu.two.four: Speakers
+menu.four: 'Useful information'
+menu.five: 'Éditions Roche d''Or'
+menu.six: 'Support us'
+menu.four.one: 'Useful information<br> for la Roche d''Or'
+menu.four.two: 'Useful information<br> for les Fontanilles'
+menu.four.three: 'Visiting with<br> Children'
+menu.four.four: 'Friends<br> link'
+menu.five.one: 'Editions<br> Roche d''Or'
+menu.five.two: 'New additions'
+menu.five.three: Collections
+menu.six.one: 'Donate'
+menu.six.two: 'Other forms<br> of donation'
+filter.title.site: Websites
+filter.title.type: Types
+filter.title.intervenants: Speakers
+filter.title.traductions: Translations
+filter.inner.default: Select
+filter.inner.selection.singular: selection
+filter.inner.selection.plural: selections
+filter.inner.date.in: From
+filter.inner.date.out: To
+filter.inner.submit: Ok
+filter.title.keyword: Retreats
+filter.inner.keyword: 'Key word'
+retreats.table.head.dates: Date
+retreats.table.head.site: Website
+retreats.table.head.event: Event
+retreats.table.head.speakers: Speaker
+retreats.table.head.type: Type
+retreats.table.head.duration: Duration
+retreats.table.head.translations: Trans.
+retreats.table.head.selections: Selections
+filter.title.speakers: Speakers
+filter.title.translations: Translations
+admin.title: Dashboard
+calendar.registration.one.title: Login/Sign-up
+calendar.registration.two.title: Participants
+calendar.registration.three.title: Confirm
+calendar.registration.three.body: '<p><strong>You will receive a reply to your request via email shortly.</strong> If you do not have an email address we will reply by post. Our answer will depend on whether we have spaces remaining and our capacity to welcome you in the best possible conditions.</p><p>If you do not receive an email within a few minutes, please check your SPAM or trash folder.</p><p>If you can <strong>no longer attend</strong>, please let us know as soon as possible via email or telephone, so that we may offer the place to somebody on the waiting list.</p><p><i>Data protection: La Roche d’Or undertakes to be the single unique recipient of the information you have just communicated to us. For further information please see our privacy policy which is in line with the General Data Protection Regulations of the European Union.</i></p>'
+calendar.registration.one.title.connection: Login
+calendar.registration.one.title.registration: Sign-up
+calendar.registration.summary.title: Summary
+calendar.registration.summary.title.retreat: Retreat
+calendar.registration.summary.title.participants: Participants
+calendar.registration.one.body: 'You are logged in as %name%, would you like to continue?'
+main.yes: 'Yes'
+main.no: 'No'
+form.id: User
+form.password: 'Password (minimum 8 characters)'
+form.password-login: Password
+form.ok: Ok
+form.civility.mr: Mr.
+form.civility.mme: Mrs/Miss/Ms.
+form.surname: 'First name'
+form.surname.contact: '* First name'
+form.name: Surname
+form.name.contact: '* Surname'
+form.address: Address
+form.zipcode: Postcode
+form.city: Town
+form.country: Country
+form.phone: 'Telephone no.'
+form.mobile: Mobile
+form.email: Email
+form.birthday: 'Date of Birth (dd/mm/yyyy)'
+form.profession: Profession
+form.submit: Ok
+calendar.registration.two.title.you: You
+calendar.registration.two.title.registered: 'Other participants in your group'
+calendar.registration.two.add_participant: '+ Add a participant'
+calendar.registration.two.validate_participants: 'Confirm sign-up'
+form.username: Username
+form.modify: Change
+form.participate: 'Will take part'
+calendar.notify.attendee.subject: 'Sign-up request'
+news.title: News
+news.button.discover: 'Discover product'
+form.label.password: Password
+security.reset_password_request.subject: 'Reset password'
+form.label.password_repeat: Re-enter
+security.reset.token_not_found: 'This reset link is no longer valid or does not exist'
+security.password_reset_success_message: 'Your new password has been saved, you can now login with your new password.'
+form.label.email: 'Email address'
+form.label.connection: Username
+form.label.lastname: Surname
+form.label.firstname: 'First name'
+form.label.gender: 'Civil status'
+form.label.male: Mr.
+form.label.female: Mrs
+form.label.miss: Miss
+form.label.father: Father
+form.label.sister: Sister
+form.label.brother: Brother
+form.label.address: Address
+form.label.zipcode: Postcode
+form.label.city: Town
+form.label.country: Country
+form.label.phone: 'Telephone no.'
+form.label.mobile: Mobile
+form.label.birthday: 'Date of birth'
+form.label.job: Profession
+password: Password
+security.register: Register
+calendar.registration.intro: 'You are about to register for a retreat. <br>Please fill in the following data if you wish to continue, if not, click <a href="%link%">here</a> to return to the calendar.'
+calendar.registration.two.title.modify: 'Change participant'
+calendar.registration.two.title.registration: 'Add a participant'
+calendar.registration.one.body.connected: 'You are logged in as <i>%name%<i>, would you like to continue?'
+form.yes: 'Yes'
+form.no: 'No'
+calendar.registration.one.body.disconnected: 'Have you already take part in a retreat at la Roche d''Or or les Fontanilles? <span class="italic">(we would like to know if we already have your contact details)</span>'
+form.continue: Continue
+form.disconnect: Logout
+calendar.registration.two.title.modify.you: 'Change your registration sheet'
+calendar.registration.two.title.modify.him: 'Change participant'
+form.transport: 'Travelling by'
+form.memo: Comment
+form.transport.perso: 'Travelling using your own transport'
+form.transport.train: 'Travelling by train'
+form.transport.avion: 'Travelling by plane'
+form.transport.bus: 'Travelling by bus'
+form.label.submit: Ok
+form.message.verify_transport: 'Please indicate mode of transport for the following participants:'
+form.message.parent_must_be_adult: 'Children must be accompanied by an adult over the age of 18'
+form.message.date_invalid: 'The date you have selected is invalid'
+form.no_participants: 'No participants'
+form.civil: 'Civil status'
+form.relation: Relationship
+form.colp: Organiser
+calendar.days: d
+filter.raz.button: 'Remove filters'
+form.password.reset: 'Reset password'
+security.bad_credentials: 'The login details you entered are incorrect'
+security.check_inbox: 'Please click on the email sent to your inbox to finish resetting your password. If you have not received an email please check your spam folder.'
+news.last_posts.title: 'Featured products'
+editions.seeallproducts: 'See the full collection'
+editions.filters.title: 'Refine your search'
+editions.filter.collections.title: 'By collections'
+editions.filter.collections.choose: 'Choose a collection'
+editions.filter.themes.title: 'By subject'
+cart.remove: '_delete basket'
+cart.empty: '_empty basket'
+editions.author: Author
+editions.collection: Collection
+editions.addtocart: 'Add to basket'
+editions.ebookversion: 'Ebook '
+order.registration.cart.title.1: 'Your basket'
+order.registration.one.title: Login/Sign-up
+order.registration.one.body.disconnected: 'Have you ordered from Editions Roche d''Or before? (we would like to know if we already have your contact details)'
+order.registration.two.title: 'Client sheet'
+order.registration.two.title.you: 'Your data'
+order.registration.choose.adliv: 'Delivery address'
+form.choose.adliv: Delivery
+select.ad.myAd: 'My address'
+select.ad.roche: 'Roche d''Or book shop'
+select.ad.font: 'Fontanilles book shop'
+select.ad.other: 'Another address'
+order.choose.adliv: 'Delivery address'
+form.adresse: Address
+order.registration.choose.country: 'Select delivery country'
+form.choose.country: Country
+country.fr: France
+country.en: 'United Kingdom'
+country.de: Germany
+country.it: Italy
+country.es: Spain
+order.registration.choose.gift: Gift
+order.choose.modpaie: 'Select payment method'
+form.choose.modpaie: 'Payment method'
+select.cb: Card
+select.paypal: Paypal
+editions.or: Or
+editions.technicalreview.annee: 'editions.technical review.annee'
+editions.technicalreview.isbn: ISBN
+editions.technicalreview: 'Data sheet'
+editions.technicalreview.dateparution: 'First published'
+editions.technicalreview.dimensions: Dimensions
+editions.technicalreview.editeur: Publisher
+editions.technicalreview.ean: EAN
+editions.technicalreview.nbpage: 'No. of pages'
+editions.technicalreview.rubrique: Collection
+editions.technicalreview.poids: Weight
+cart.emptydelivery: None
+form.message.recap_delivery: Delivery
+form.message.recap_cartInfo: 'Basket summary'
+cart.emptycart: 'Empty basket'
+form.street: Street
+form.societe: Company
+order.summary.title.clients: 'Product summary'
+its.a.gift: Gift
+order.gift.text: 'If this is a gift you can add a message for the person you are sending it to.'
+order.registration.one.body.connected: 'You are logged in as <i>%name%<i>, would you like to continue?'
+form.gift: Message
+form.payment: Payment
+go.to.order: 'Back to delivery'
+form.its.a.gift: Gift
+form.validate.gift: 'Confirm message'
+form.no_clients: form.no_clients
+form.suprmessage.gift: 'Delete message'
+security.user_exist: 'This email address is already registered.'
+user.security_child: 'Only adults aged over 18 can sign-up.'
+form.contact.title: 'Contact form'
+form.body: '* Message'
+form.send: Send
+title.connection: Login
+form.title.connection: 'Login form'
+form.validate: Confirm
+form.title.registration: 'Sign-up form'
+form.password.repeat: 'Re-enter password'
+contact.submit.success: 'Your message has been sent. Thank you for taking the time to write to us. <br> Go back to <a href="/">homepage</a>.'
+contact.ro.foradmin.subject: '[RO] New message from'
+contact.ro.forclient.subject: 'Your message to la Roche d''Or'
+contact.ft.forclient.subject: 'Your message to les Fontanilles'
+contact.ft.foradmin.subject: '[FONTANILLES]  New message from'
+form.please.recaptcha: 'Please tick "I am not a robot" box'
+security.reset.intro: 'Please enter your new password in the form below'
+security.reset.title: '<small>reset </small>Password'
+continue: Next
+homepage: Home
+return.to.calendar: 'Back to calendar'
+calendar: Calendar
+form.reset: form.reset
+form.message.child_must_come_with_adult: 'Children under the age of 16 must be accompanied by an adult'
+form.message.does_child_have_autpar: 'If you are registering a child under 16 :<br> Do they have the consent of a parent or guardian ?'
+form.civilite.mr: Mr.
+form.civilite.mme: Mrs.
+form.civilite.mlle: Miss
+form.civilite.pere: Father
+form.civilite.frere: Brother
+form.civilite.soeur: Sister
+form.civilite.abbe: Abbot
+form.message.phone_invalid: 'Please enter at least one telephone number'
+calendar.registration.error: calendar.registration.error
+calendar.registration.error.empty: 'Sorry, this retreat no longer exists. You can go back to the<a href="/en/retreat-list">calendar</a>.'
+calendar.registration.error.date: 'Sorry this retreat is no longer available. You can go back to the <a href="/en/retreat-list">calendar</a>.'
+form.email.please: 'Enter your email'
+form.email.contact: '* Email'
+calendar.registration.three.header: '<p>We would like to thank you for the interest you have shown in La Roche d’Or. Your registration request reference number is :</p><p><center><br>%entry_number%</br></center></p>'
+email-not-found: 'Email address not found'
+form.reinit: Reset
+form.arriv: 'Arrival (hh:mm)'
+form.navette: 'I will take the community shuttle bus.'
+form.lieu: 'Arrival location'
+form.lieu.viotte: Viotte
+form.cancel: Cancel
+form.message.not_with_an_adult: 'is not accompanied by an adult'
+form.message.not_accompanied: 'is not accompanied'
+form.message.no_transport: 'does not have their own transport'
+participant_not_valid: 'This participant is invalid'
+form.message.participant_not_valid: 'This participant is invalid'
+security.username_exists: 'This username is already in use'
+security.password_request.not_found: 'We have not found your data. <br>Spelling mistake? Double-barrelled surname? Name order?'
+security.password_request.missing_infos: 'Missing information'
+form.lastname.please: 'Enter your surname'
+form.firstname.please: 'Enter your first name'
+security.password_too_small: 'You password must be at least 8 characters'
+order.summary.title.cart: Basket
+form.update: 'Change your details'
+form.tvaintra: 'Intra-community VAT'
+form.memocli: Memo
+order.registration.three.title: Delivery
+order.registration.three.title.you: 'Select delivery address'
+form.message.pro_invalid: 'The VAT no. or company name is incomplete'
+order.registration.four.title: Payment
+order.registration.three.title.modify.you: Payment
+order.registration.two.title.modify.you: Change
+order.registration.five.title: Confirm
+order.registration.five.body: 'Congratulations your order has been placed!'
+order.summary.title.delivery: Delivery
+order.summary.title.total: Total
+order.summary.body.delivery: 'Please confirm your delivery address. <br>The information shown below is for delivery within Mainland France.'
+order.summary.body.total: 'Please confirm your delivery address'
+table.header.product: Product
+table.header.price: Price
+table.header.quantity: Quantity
+table.header.delete: Delete
+table.header.label: Label
+table.header.total: Total
+table.header.weight: Weight
+main.remove: Delete
+order-error.title.small: Editions
+order-error.title.big: 'La Roche d''Or'
+order-error.text: 'You have no items in your basket. Click on this<a href="%link%">link</a>to browse our collections.'
+order-return.title.small: Editions
+order-return.title.big: 'La Roche d''Or'
+success: 'Your order has been successfully placed.'
+error: 'An error has occurred with your order'
+collection: Collection
+menu.cart: Basket
+order.registration.one.title.connection: Login
+order.registration.one.title.registration: Sign-up
+form.message.delivery_invalid: 'All "Delivery address" fields must be filled in'
+order.choose.payment: 'Payment method'
+order.error.title: '<small>Editions </small>Roche d''Or'
+order.error.text: 'Your basket is empty. You can add items from our <a href="%link%">collections</a>'
+table.label.weightOrder: 'Item weight'
+table.label.packagingWeight: 'Packaging weight'
+table.label.totalWeight: 'Total weight'
+table.label.totalPriceIT: 'Cost of purchases inc, VAT'
+table.label.vat: VAT
+table.label.shippingPriceIT: 'Delivery costs'
+table.label.consumerPriceIT: 'Total (inc. VAT)'
+order-return.title: 'Editions <small>de la Roche d''Or'
+order-return.success: '<br>You will receive an email within a few minutes.<br>If you do not receive an email within a few minutes, please check your spam folder.<br>Back to <a href="%link%">collections</a>.'
+order-return.cancel: 'There has been a problem processing your order. <br>Please go back to <a href="%link%">basket</a>.'
+form.firstname: 'First name'
+form.lastname: Surname
+form.message.zipcode_invalid: 'The postcode does not match the country you have selected'
+form.message.tvaintra_invalid: 'The VAT number is invalid'
+order.notify.client.subject: 'New order'
+form.keep-password: 'Keep old password'
+error-unknown-error: 'Unknown error'
+form.newfich: 'First time registering for a retreat'
+gift.title: 'One-off <small>online</small> donation'
+gift.intro: 'You are about to make a one-off donation online. Please complete the following form or go back to the <a href="%link%">donations page</a>.'
+gift.one.title: Login/Sign-up
+gift.one.body.connected: 'You are logged in as %name% would you like to continue?'
+gift.two.title: 'Donor form'
+gift.two.title.modify.you: 'Change your details'
+gift.three.title: Amount
+gift.amount: 'Donation amount'
+form.other: Other
+gift.four.title: Allocation
+gift.choose.allocation: 'Select allocation'
+form.choose.allocation: Allocations
+select.allocation.libre: 'No allocation'
+select.allocation.souttx: 'Wherever it is most needed'
+select.allocation.viecom: 'Community life'
+select.allocation.itin: 'Support for travelling retreats'
+select.allocation.rochtx: 'Works at la Roche d''Or'
+select.allocation.fonttx: 'Works at les Fontanilles'
+gift.five.title: Payment
+gift.choose.payment: 'Select payment method'
+gift.summary.title: Summary
+gift.six.title: Confirm
+gift.summary.title.amount: Amount
+gift.summary.no_amount: 'No amount'
+gift.summary.title.donator: Donor
+gift.summary.no_donator: 'Please sign-up/login'
+gift.summary.title.gift: Donation
+table.header.allocation: Allocation
+table.header.amount: Amount
+gift.summary.no_allocation: 'No allocation'
+gift-return.title: gift-return.title
+gift-return.success: "<div style=\"color: #ffffff;\">Hello %name%,<br><br>First let us thank you once again for your contribution to our mission of evangelisation, which with this donation has also become yours.<br><br>With your donation of %amount% euros, you are joining the solidary movement of Friends of la Roche d’Or and supporting our work.<br><br>Thank you again.<br><br>A message has been sent to you immediately by email. If you do not receive an email within a few minutes please check your SPAM or Junk mail folders.<br><br>United by the grace of He who weaves the links of brotherhood between us, together we extend a hand friendship towards you.<br><br><span style=\"display: block; text-align: right;\">The Community</span><br><br></div>A tax receipt will be sent to you at the beginning of next year to the following email address : %email%<br><br>If we do not have your email it will be sent by post to :<br><br><div style=\"margin-left: 50px;\">%name%<br>%address%<br>%zipcode% %city%<br>\L%country%<br><br>    </div>    Secretary contact details: 0381 4147 47 or secretariat@rochedor.org<br>    Our website: www.rochefor.fr<br><br>    For further information and correspondence please use the reference number allocated to your donation : %ref%"
+gift-return.cancel: 'The transaction has been cancelled and no payment has been taken.<br>Back to the <a href="%link%">donations</a>page.'
+form.gift.note: 'Please leave us a message if you would like to'
+gift.one.body.disconnected: 'Have you made an online donation before? (we would like to know if we already have your contact details)'
+gift.one.title.connection: Login
+gift.one.title.registration: Sign-up
+gift.summary.reduction: 'If I pay taxes in France, this donation will give me € %reduction% back after taxes.'
+global.page-not-found: 'The page you are trying to access no longer exists or has been moved.'
+errors.not-found.title: 'Page not found'
+errors.not-found.intro: 'The page you are trying to access no longer exists or has been moved. <br><a href="%link%">Back to homepage.</a>'
+errors.unknown.title: Error
+errors.unknown.intro: 'An error has occurred.<br><a href="%link%">Back to homepage.</a>'
+cart.product.added: 'The item has been added to your basket'
+order.accept-terms.title: 'Terms & Conditions of sale'
+order.accept-terms.label: 'I accept the T&Cs'
+order.accept-terms.link: 'Read the terms & conditions of sale'
+footer.terms: 'Terms & Conditions'
+global.secure-datas: 'Data security'
+order.accept-terms.disclaimer: 'To complete your order you must accept our terms & conditions. <br> <br><a href="%link%" class="accept-terms-link" target="_blank">See Terms & Conditions.</a>'
+global.tax-code: 'If you pay taxes in France and in European countries where it is allowed, you will benefit from a tax reduction.<br>If you are accountable under the French taxation system, the reduction is equivalent to 66% of the total amount of your donation, with a limit of 20% of your taxable revenue. Any excess can be carried over to the following 5 years giving you the right to a tax reduction under the same conditions (Article 200 of the CGI (French Tax Law)).'
+security.email_exists: 'This email address already exists'
+invalid-credentials: 'Username not valid'
+form.particular: Individual
+form.professional: Professional
+footer.termsPro: 'Terms & Conditions of sale for professionals'
+form.statut: Status
+form.statut.par: Individual
+form.statut.org: Organisation
+form.statut.pro: Professional
+form.pro: 'I am a professional'
+order-return.success-p1: '<p>Your order number is %refCom% please keep this number safe as you will need it for any queries related to your order.</p><p>Deliveries are usually made within %minliv% and %maxliv% working days.</p>Your order will be delivered to the following address :<br><br><center>%addCom%</center><br><p>An email has been sent to you now. If you do not receive an email within a few minutes, please check your Spam or Junk folder.</p><p>We are available to answer any further questions or provide any information you need.</p><p>Kind Regards</p><p>The Editions Roche d’Or team</p> '
+form.submitParticipant: 'Confirm participant'
+calendar.registration.table.header.participant: Participant
+form.mail_spam: 'If you have not received an email please check your SPAM folder'
+calendar.registration.table.header.transport: 'Transport method'
+calendar.registration.table.header.come: 'Arrival at'
+calendar.registration.table.header.schedule: Time
+calendar-registration-two-title-8a42f5e2171c48696bc9bfa1dcbe86d8: Participants
+order.notify.client.roche.adliv: 'Retreat in La Roche d''Or — 1 Chemin du Muenot 25000 Besançon (FR)'
+order.notify.client.font.adliv: 'Retreat in Fontanilles— Route de Riunoguès 66480 Maureillas Las Illas (FR)'
+menu.terms: 'Terms of use'
+menu.legal: 'Legal notices'
+contacts: Contacts
+filter.button.show: 'Show filters'
+editions.filters.show: Filter
+editions.filter.show: Filter
+retreat.speaker.of: by
+filter.close.button: 'Clear filters'
+detail.pricettc: '€ %ttc% inc. VAT'
+detail.priceht: '€ %ht% excluding VAT'
+detail.tva: '(VAT %vat% %)'
+logout.disconnect.title: Logout
+logout.disconnect.text: 'You have been logged out'
+order.registration.intro:
+order.summary.title: 'My basket'
+form.continue.order: 'Place order'
+form.go.buy: 'Continue shopping'
+you.billing: 'This address will be used as your billing address'
+no.shipping: '(no shipping costs)'
+select.bank-cheque: Cheque
+validate.order: 'Confirm order and proceed to payment'
+form.retry: 'Start again'
+con_data_date: 'You have given permission for la Roche d''Or''s team to hold your data as of '
+con_news_date: 'You have signed up to La Roche d''Or''s news via email '
+click.termsPro: 'By clicking on <i>Confirm my order and proceed to payment</i>, <br>you accept the <a href="%link%" target="_blank">Terms and Conditions of sale for professionals</a>.'
+click.terms: 'By clicking on <i>Confirm my order and proceed to payment</i>, <br>you accept the <a href="%link%" target="_blank">Terms and Conditions of Sale</a>.'
+order.summary.title.billing: 'Billing address'
+table.header.price.unit: 'Unit price'
+table.header.price.total: 'Total price'
+table.header.price.ttc: 'Price inc. VAT'
+table.header.price.prix.ht: 'Price before VAT'
+table.header.tax.rate: VAT
+product.detail.price.ttc: '%ttc% € inc. VAT'
+product.detail.price.ht: '%ht% € before VAT'
+order.change.price: 'The prices have been updated in line with the delivery address.'
+order.delay.title: 'Shipping times'
+order.delay.message: 'Items are dispatched in %minliv% to %maxliv% working days from the time you receive a confirmation email. VAT and shipping costs are worked out using your delivery address.'
+consent.data: 'I authorise Éditions Roche d‘Or to store my contact details so that I do not need to enter them next time I order'
+consent.news: 'I authorise Éditions Roche d‘Or to inform me of news via email'
+order-return.error: 'A problem has occurred. <br>Please go back to <a href="%link%">collections</a>.'
+order-return.success-p2: "<p>Your order number is %refCom% please keep this number safe as you will need it for any queries related to your order.</p><p>Deliveries are usually made within %minliv% and %maxliv% working days upon receipt of payment.</p><p>  <center>Please make cheques payable to : Éditions Roche d’Or </center><center>and post to :</center><center>Éditions Roche d’Or</center><center>Chemin du Muenot</center><center>25042 BESANÇON Cedex</center></p>Your order will be delivered to the following address : <br><br><center>%addCom%</center><br><p>An email has been sent to you now. If you do not receive an email within a few minutes, please check your Spam or Junk folder.</p><p>We are available to answer any further questions or provide any information you need.</p><p>Kind Regards</p><p>The Editions Roche d’Or team</p>"
+order-return.success-p2-withoutDelay:
+order-return.success-p1-withoutDelay:
+security.password_reset_success_message.don: '<p>Your new password has been saved.</p><p>You can continue making your donation with your new password</p><p><strong>PLEASE NOTE :</strong></p><p><strong>Enter the username provided in the email you were sent. \LIf you want to change it, you can do so on identity verification document you will receive.</strong></p><p>TO RETURN to your current donation, <a href=\”%link%\”>click on this link</a>.</p>'
+calendar.registration.title: '<h2>Your registration request has been recorded</h2>'
+registration.validation.address_fontanilles: 'At Fontanilles, route de Riunoguès 66480 Maureillas Las Illas'
+registration.validation.address_rochedor: 'At La Roche d''Or, chemin du Muenot, 25000 BESANÇON.'
+gift-return.success.mail: "Hello %name%,<br><br>First let us thank you once again for your contribution to our mission of evangelisation, which with this donation has also become yours.<br>With your donation of %amount% euros, you are joining the solidary movement of Friends of la Roche d’Or and supporting our work.<br>Thank you again.<br><br>United by the grace of He who weaves the links of brotherhood between us, together we extend a hand friendship towards you.<br><br><span style=\"display: block; text-align: right;\">The community</span><br><br>A tax receipt will be sent to you at the beginning of next year to the following email address: : %email%<br>If we do not have your email it will be sent by post to:<br><div style=\"margin-left: 50px;\">    %name%<br>    %address%<br>    %zipcode% %city%<br>    \L%country%<br><br></div>    Secretary contact details: 03 81 41 47 47 or secretariat@rochedor.org<br>    Our website\_: www.rochedor.fr<br>For further information and correspondence please use the reference number allocated to your donation: : %ref%"
+payment.virement_reg: 'Regular donation by bank transfer'
+gift.payment.mail.virement_regular: "Hello %civility% %name%,<br><br>         The whole community is with me in thanking you for your generosity.<br><br>         With your donation of %amount% euros every %period% for %affectation%, you are joining the solidary movement of Friends of la Roche d’Or.<br><br>         Please use the following bank details to make your payment :<br>         <div style=\"margin-left: 50px;\">             Bank\_: %bank_name%<br>             Account number\_: %bank_account%<br>             IBAN\_: %bank_iban%<br>             SWIFT/BIC\_: %bank_bic%<br><br>         </div>         Once again, I would like to express our gratitude for your contribution to our mission of evangelisation, which with your donation is now also yours.<br><br>         Danièle VALÈS<br><br>         Secretary contact details: 0381 4147 47 or secretariat@rochedor.org         Our website: www.rochedor.fr"
+payment.virement: 'One off donation by bank transfer'
+gift.payment.mail.virement: "Hello %civility% %name%,<br><br>         The whole community is with me in thanking you for your generosity.<br><br>         With your donation of %amount% euros for %affectation%, you are joining the solidary movement of Friends of la Roche d’Or and supporting our work.<br><br>         Please make your donation using the following bank details :<br>         <div style=\"margin-left: 50px;\">             Bank\_: %bank_name%<br>             Account number : %bank_account%<br>             IBAN\_: %bank_iban%<br>             SWIFT/BIC\_: %bank_bic%<br><br>         </div>         Once again we would like to thank you for your contribution to our mission of evangelisation which, through your donation has now also become yours.<br><br>         Danièle VALÈS<br><br>         Secretary contact details: 0381 4147 47 or secretariat@rochedor.org<br>         Our website: www.rochedor.fr"
+payment.cheque: 'One-off donation by cheque'
+gift.payment.mail.cheque: "Hello %civility% %name%,<br><br>         The whole community is with me in thanking you for your generosity.<br><br>         With your donation of %amount% euros for %affectation%, you are joining the solidary movement of Friends of la Roche d’Or.<br><br>         Please address your cheque to :<br>         <div style=\"margin-left: 50px;\">             Communauté de La Roche d’Or\L<br>             25042 BESANÇON CEDEX<br><br>         </div>         Once again, I would like to express our gratitude for your contribution to our mission of evangelisation, which with your donation is now also yours.<br><br>         Danièle VALÈS<br><br>         Secretary contact details: 0381 4147 47 or secretariat@rochedor.org<br>         Our website: www.rochedor.fr"
+reset.password.info: '<p><strong>Is this your first registration or donation using the new website? </strong></p><p>For security reasons we have had to change your username. This will be sent to you by email if you click on “Reset your password”</p>'
+calendar.registration.tooltip: 'Only note family members'
+calendar.registration.two.title.went: 'Came previously with you'
+calendar.registration.logout-tooltip: 'To leave the page. No registration request has been registered.'
+calendar.registration.validation-tooltip: 'You need to add at least one participant for your registration request to be made.'
+calendar.registration.tooltip-username: 'What is a username?'
+calendar.registration.tooltip-pass: 'What is a password?'
+form.lieu.besancon-tgv: 'Besançon Franche-Comté TGV (16km from Besançon town centre)'
+form.lieu.ne-sait-pas: 'I don’t know yet'
+logout.disconnect.calendar: 'You have been logged out of the registration module.<br>\nTo register please click on the Calendar.'
+choice_site.intro: '<small>Welcome to the Calendar</small> and registration requests'
+choice_site.text: 'La Roche d’Or will be the sole recipient of the information you have shared.<br><br>    If you have already taken part in a retreat at La Roche d’Or or Fontanilles, the information you have shared with us will be displayed. You can update this information.<br><br> Only 18 year olds and over can join our retreats.<br><br>  If minors would like to come along to a retreat you can make a request online. You can also contact the Secretary of la Roche d’Or or Fontanilles, depending on where you were hoping to take part in a retreat.<br><br> If you can no longer attend for any reason, please let us know by email or phone as quickly as possible. The space will then be offered to somebody on the waiting list.'
+register_roche: 'Registration for La Roche d’Or'
+register_fontanilles: 'Registration for Fontanilles'
+logout.disconnect.dons: 'You have logged out of the donations module.\nTo make a new donation click on Support Us and then one-off or regular donation.'
+payment.cb: 'One-off online donation via debit card'
+payment.paypal: 'One-off online donation via PayPal'
+tax.title: 'If you are a tax payer'
+form.gift.validate: 'Confirm and enter my contact details'
+gift.virementreg.date: 'Transfer start date'
+gift.virement.date: 'Transfer date'
+gift.virementreg.datefin: 'Transfer end date'
+form.choose.period: Frequency
+select.period.monthly: Monthly
+select.period.trimestre: Quarterly
+select.period.semestre: Six-monthly
+gift.virement.descr: 'All the information you need to carry out your bank transfer in line with the destination of your donation will be sent to you via email. If you do not receive an email within a few minutes please check your SPAM or junk folder.'
+form.back: Back
+logout.disconnect.text.black: 'You have been successfully logged out.'
+maintenance.title: 'Under Maintenance'
+maintenance.intro: 'Under Maintenance, please try again later.'
+product.detail.price.tva: '(VAT %tva% %)'
+editions.calameo: 'Browse an extract'
+editions.bayard.chant: 'Buy songs individually'
+editions.bayard.partition: 'Buy scores individually'
+editions.filter.support.choose: Support
+editions.filter.author.choose: Author
+editions.filter.gender.choose: Genre
+editions.filter.theme.choose: Topic
+filter.research: Search
+other.gift-mode: 'Other forms of donation'
+gift.return.title: Back
+gift.payment.return.virement_regular: '<div style="color: #ffffff;">Hello %civility% %name%,<br><br>The whole community is with me in thanking you for your generosity.<br><br>        With your donation of %amount% euros every %period%, you are joining the solidary movement of Friends of la Roche d’Or.<br><br>        An email has just been sent to you. It contains the bank details you need to make your payment. You can cancel this payment or change the amount at any time. If you do not receive an email within a few minutes then please check your SPAM or Junk folder.<br><br>        A tax receipt will be sent to you at the beginning of next year. It will contain all of your donations to la Roche d’Or.<br><br>        Once again, I would like to express our gratitude for your contribution to our mission of evangelisation, which with your donation is now also yours.<br><br>        Danièle VALÈS        </div>'
+gift.payment.return.virement: '<div style="color: #ffffff;">Hello %civility% %name%,<br><br>            The whole community is with me in thanking you for your generosity.<br><br>            With your donation of %amount% euros, you are joining the solidary movement of Friends of la Roche d’Or and supporting our work.<br><br>            An email has just been sent to you. It contains the bank details for you to carry out the transfer.<br><br>A tax receipt will be sent to you at the beginning of next year. It will contain all donations made to la Roche d’Or. If you do not receive an email within a few minutes please check your SPAM or junk folders.<br><br>            Once again we would like to thank you for your contribution to our mission of evangelisation which, through your donation has now also become yours.<br><br>            Danièle VALÈS        </div>'
+gift.payment.return.cheque: 'Hello %civility% %name%,<br><br>        The whole community is with me in thanking you for your generosity.<br><br>        With your donation of %amount% euros for %affectation%, you are joining the solidary movement of Friends of la Roche d’Or.<br><br>        Please address your cheque to :<br>        <div style="margin-left: 50px;">            Communauté de La Roche d''Or<br>            25042 BESANÇON CEDEX<br><br>        </div>        A message has been sent to you immediately by email. If you do not receive an email within a few minutes please check your SPAM or Junk mail folders.<br><br>        Once again, I would like to express our gratitude for your contribution to our mission of evangelisation, which with your donation is now also yours.<br><br>        Danièle VALÈS'
+see.cart: 'See my basket'
+continue.cart: 'Continue shopping'
+main.ok: OK
+menu.two.five: 'Calendar and registration'
+edition.comingSoon: 'Available on www.editionsrochedor.com'
+terms.of.use: 'Terms of use'
+legal.mention: 'Legal notice'
+footer.privacy: 'Privacy and data protection policy'
+menu.six.three: 'Donate<br> your time'
+menu.seven: Contacts
+contact.ro: 'Contact Roche d''Or'
+contact.ft: 'Contact Fontanilles'
+friends.links: 'Friends links'
+footer.four: 'Practical and legal information'
+footer.four.three: 'Home for Children and Young people/welcoming'
+footer.five: 'Support and contact us'
+calendar.registration.participants_list: 'List of participants'
+calendar.registration.participant: Participant
+calendar.registration.email.footer: '<p><strong>You will receive a reply to your request via email shortly.</strong> If you do not have an email address we will reply by post. Our answer will depend on whether we have spaces remaining and our capacity to welcome you in the best possible conditions.</p><p>If you can <strong>no longer attend</strong>, please let us know as soon as possible via email or telephone, so that we may offer the place to somebody on the waiting list.</p><p><i>Data protection: La Roche d’Or undertakes to be the single unique recipient of the information you have just communicated to us. For further information please see our privacy policy which is in line with the General Data Protection Regulations of the European Union.</i></p>'
+form.message.do_you_have_agreement: 'If you are under 16 :<br>Do you have the consent of a parent or guardian to register? (GDPR)'
+editions.filter.no_theme: 'No product can be found using your search terms.'
+form.message.update_you: 'Please verify your information and enter your mode of transport'
+form.message.required: 'This field is mandatory'
+gift.invalid_form.amount: '    Please select an amount, an allocation and a payment method to continue.'
+gift.invalid_form.virement: '    Please fill all fields to continue.'
+gift.invalid_form.virement_date_deb: '    The bank transfer''s start date can''t be before the current day.'
+gift.invalid_form.virement_date_fin: '    The bank transfer''s end date must be after it start date'

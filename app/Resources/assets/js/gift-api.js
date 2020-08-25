@@ -1,5 +1,9 @@
+import I18n from './i18n'
+
+let i18n = new I18n()
+
 export const postLogin = (data) => {
-  return window.fetch('/login', {
+  return window.fetch('/login?_locale=' + i18n.guessLocale(), {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',
@@ -12,7 +16,7 @@ export const postLogin = (data) => {
 }
 
 export const resetLogin = (data) => {
-  return window.fetch('/password-request', {
+  return window.fetch('/password-request?_locale=' + i18n.guessLocale(), {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',
@@ -26,7 +30,7 @@ export const resetLogin = (data) => {
 }
 
 export const postRegister = (data) => {
-  return window.fetch('/register', {
+  return window.fetch('/register?_locale=' + i18n.guessLocale(), {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',
@@ -46,7 +50,7 @@ export const postRegister = (data) => {
 }
 
 export const postModify = (data) => {
-  return window.fetch('/contact-update', {
+  return window.fetch('/contact-update?_locale=' + i18n.guessLocale(), {
     headers: { 'Content-Type': 'application/json' },
     method: 'PUT',
     credentials: 'include',
@@ -59,7 +63,7 @@ export const postModify = (data) => {
 }
 
 export const getLogout = (locale) => {
-  return window.fetch('/logout', {
+  return window.fetch('/logout?_locale=' + i18n.guessLocale(), {
     headers: { 'Content-Type': 'application/json' },
     method: 'GET',
     credentials: 'include'
@@ -70,7 +74,7 @@ export const getLogout = (locale) => {
 }
 
 export const getLogin = () => {
-  return window.fetch('/login', {
+  return window.fetch('/login?_locale=' + i18n.guessLocale(), {
     method: 'GET',
     credentials: 'include'
   })
@@ -93,7 +97,7 @@ export const getCountryCode = (country, method) => {
 }
 
 export const postGift = (amount, allocation, method, memo, dateDebVir, dateFinVir, virPeriod) => {
-  return window.fetch(`/xhr/gift/create`, {
+  return window.fetch('/xhr/gift/create?_locale=' + i18n.guessLocale(), {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',

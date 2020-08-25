@@ -764,16 +764,19 @@ itemParticipants.on('click', '.add-participant', function (event) {
   } else if (panelAddForm.is(':visible')) {
     panelAddForm.trigger('submit')
   } else {
-    addParticipant(event)
+    modifyClick(event, 'add', updateHimFormRender, () => {
+      _participant = getContact()
+    })
+    scrollToElement($('.him-form-render'))
   }
 })
 
 function addParticipant (event) {
-  modifyClick(event, 'add', updateHimFormRender, () => {
-    _participant = getContact()
-  })
-  scrollToElement($('.him-form-render'))
-
+  updateParticipantsRender()
+  $('.panel', itemParticipants).show()
+  $(`.panel.you`, itemParticipants).hide()
+  $(`.panel.add`, itemParticipants).hide()
+  $(`.panel.him`, itemParticipants).hide()
   // Une fois un participant ajouté, on peut valider la demande
   if (itemParticipants.find('.validate-participants').hasClass('disabled') && _hasOneParticipant === true) {
     itemParticipants.find('.validate-participants').removeClass('disabled')
@@ -844,7 +847,6 @@ function setParent () {
 }
 
 function validateParticipant (participant) {
-  console.log(participant)
   if (participant['colp'] === '' && participant['codco'] !== _you.codco) {
     return i18n.trans('form.message.not_accompanied')
   }

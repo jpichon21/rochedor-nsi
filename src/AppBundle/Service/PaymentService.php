@@ -85,6 +85,7 @@ class PaymentService
     ) {
         switch ($method) {
             case self::METHOD_PAYPAL:
+                $contact = $this->getContact();
                 return $this->getPaypalUrl(
                     $amount,
                     $objectId,
@@ -93,7 +94,8 @@ class PaymentService
                     $locale,
                     $baseRoute,
                     $destDon,
-                    $memoDon
+                    $memoDon,
+                    $contact->getPays()
                 );
             case self::METHOD_CHEQUE:
                 if ($baseRoute === 'gift' && empty($delivery)) {
@@ -134,7 +136,8 @@ class PaymentService
 
                 return $this->getVirementRegulierUrl($objectId, $locale, $amount, $periodVir, $contact);
             default:
-                return $this->getPayboxUrl($amount, $objectId, $email, $locale, $baseRoute, $destDon, $memoDon);
+                $contact = $this->getContact();
+                return $this->getPayboxUrl($amount, $objectId, $email, $locale, $baseRoute, $destDon, $memoDon, $contact->getPays());
         }
     }
 
@@ -145,7 +148,8 @@ class PaymentService
         $locale,
         $baseRoute,
         $destDon,
-        $memoDon
+        $memoDon,
+        $country
     ) {
         $params = [
             'PBX_SITE' => $this->container->getParameter('paybox_site'),
@@ -183,7 +187,7 @@ class PaymentService
             'PBX_RETOUR' => 'Amount:M;Ref:R;Auto:A;Erreur:E;Trans:T;Pays:I',
             'PBX_HASH' => 'SHA512',
             'PBX_TIME' => date('c'),
-            'PBX_LANGUE' => $this->countryCode($this::METHOD_CB, $locale)
+            'PBX_LANGUE' => $this->countryCode($this::METHOD_CB, $country)
         ];
         $url = $this->container->getParameter('paybox_url');
         $url .= '?' . http_build_query($params);
@@ -201,7 +205,8 @@ class PaymentService
         $locale,
         $baseRoute,
         $destDon,
-        $memoDon
+        $memoDon,
+        $country
     ) {
         $params = [
             'amount' => $amount,
@@ -233,7 +238,7 @@ class PaymentService
                 RouterInterface::ABSOLUTE_URL
             ),
             'email' => $email,
-            'lc' => $this->countryCode($this::METHOD_PAYPAL, $locale)
+            'lc' => $this->countryCode($this::METHOD_PAYPAL, $country)
         ];
         $url = $this->container->getParameter('paypal_url');
         $url .= '?' . http_build_query($params);
@@ -307,9 +312,9 @@ class PaymentService
         return $url;
     }
 
-    private function countryCode($method, $locale)
+    private function countryCode($method, $country)
     {
-        $code = $this->tPaysRepository->findCode($locale);
+        $code = $this->tPaysRepository->findCode($country);
 
         if (!$code) {
             switch ($method) {

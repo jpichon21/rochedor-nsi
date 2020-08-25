@@ -132,8 +132,8 @@
                 {{ 'retreat.speaker.of' | trans }} <%= speakers %>
             </div>
         <% } %>
-        <div class="type full" style="color: <%= retreats[i].type.color %>"><%= retreats[i].type.name %></div>
-        <div class="site full" style="color: <%= retreats[i].site.color %>"><%= retreats[i].site.name %></div>
+        <div class="type full" style="color: <%= retreats[i].type.color %>"><%= retreats[i].type.abbr %></div>
+        <div class="site full" style="color: <%= retreats[i].site.color %>"><%= retreats[i].site.abbr %></div>
         <div class="translation full"><%= retreats[i].translation %></div>
         <a class="button" href="{{ url('register_calendar' ~ '-' ~ app.request.locale) }}?id=<%= retreats[i].id %>">Choisir</a>
     </li>
@@ -155,7 +155,7 @@
         </td>
     </tr>
     <% } %>
-    <tr 
+    <tr
         class="retreat <%= (!retreats[i + 1] || retreats[i + 1].dateIn.format('M') !== lastMonth) ? 'last' : '' %>"
         onclick="window.location.href = '{{ url('register_calendar' ~ '-' ~ app.request.locale) }}?id=<%= retreats[i].id %>'">
         <td class="dates">

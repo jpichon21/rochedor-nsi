@@ -1,10 +1,12 @@
 rochedor-nsi
 ============
 
+Ce projet est prévu pour fonctionner sous une architecture UNIX (ex: Linux, OSX).
 
 # ROCHEDOR NSI
 ## Prérequis
-- php7.x
+- php7.2
+- composer
 - php-json
 - php-pcre
 - php-pdo 
@@ -13,67 +15,48 @@ rochedor-nsi
 - yarn
 - jpegoptim
 - curl & php-curl
-
-## Setup
-No docker for the app (yet), check `script/bootstrap` for base deps ;
-```
-sudo apt install php73 php-json php-pdo php-mysql jpegoptim
-```
-
+- git
+- deployer
+- gitlab
+- apache
+- mysql 5.6
 
 ## Lancement
-script/bootstrap` Pour installer les dépendances et mettre à jour la bdd (à lancer après chaque `git pull`)   
-script/server [-p 8000]` Pour lancer un serveur et la surveillance des assets avec webpack watch (à relancer après chaque modification du fichier `webpack.config.js`)    
-
+`script/bootstrap` Pour installer les dépendances et mettre à jour la bdd (à lancer après chaque `git pull`)   
+`script/server` Pour lancer un serveur et la surveillance des assets avec webpack watch (à relancer après chaque modification du fichier `webpack.config.js`)    
 
 ## Conventions
 - Suivre les directives [PSR2](http://www.php-fig.org/psr/psr-2/) pour le formatage du code php
 - Utilisation des [annotations](https://symfony.com/doc/current/best_practices/controllers.html#routing-configuration) pour le routing 
 - Les vues dans le répertoire app/Resources/views
-- Les assets dans app/Resources/assets
+- Les assets (images, styles, js) dans app/Resources/assets
 - Les requêtes dans les repositories en [DQL](https://symfony.com/doc/current/doctrine.html#querying-for-objects-with-dql) dans la mesure du possible
-- Code (noms de variables et méthodes), commentaires en anglais
+- Code (noms de variables et méthodes) en anglais
 
-## Génération de la doc swagger
-- `script/doc`
+## Déploiement
+**ATTENTION** 
 
-## GRUMPHP
-L'outil [grumphp](https://github.com/phpro/grumphp) surveille le code, si un commit ne passe pas, c'est que le code ne suit pas les conventions.
-Pour lancer les vérifications à la main:  
-`vendor/bin/grumphp run`
+Le résultat de la commande `php bin/console doctrine:schema:update` (lancé automatiquement à chaque déploiement) ne modifie pas le schéma de la base de données mais écrit dans un fichier update.sql les requêtes à exécuter.
 
-## SMTP
-Les environnements de dev et de test sont configurés pour envoyer les emails sur le port 2525.    
-Utiliser l'outil [faketools](https://github.com/Bornholm/faketools) pour lancer un serveur smtp local écoutant sur le port 2525     
-`docker run --rm -p 2525:2525 -p 8080:8080 -it bornholm/faketools`
+## Créer une page dans le CMS
 
-<<<<<<< HEAD
-## Users
-- admin::admin
 
-## Deployment
-**WARNING** The deployment needs an extra step! 
-
-The results for `bin/console doctrine:schema:update` is not forced on the database but generated in an sql which must be manually run.
-
-## Create a new page
-
-To create a page, we have a beautiful API. Here is the process :
-
->Login to the API with you admin credentials
+>Se connecter à l'API avec ses identifiants administrateurs
 ```json
-URL [POST] : /api/login 
+URL [POST] : https://XXX/api/login 
 
+BODY
 {
     "username": "XXX",
     "password": "XXX"
 }
 ```
 
->Create the page
+>Créer la page
 ```json
-URL [POST] : /api/pages
+URL [POST] : https://XXX/api/pages
 
+BODY
 {
     "title": "XXX",
     "sub_title": "X",
@@ -124,20 +107,16 @@ URL [POST] : /api/pages
 }
 ```
 
-3. Go to the admin interface to customize the content and everything you want
-
-### TODO before prod deployment
-- [ ] list/create all pages in all languages
-=======
+3. Vérifier que la page est bien créée dans l'interface d'administration et la remplir avec les bonnes informations
 
 # Production
 
-
 ## Serveur
-Les environnements staging, dev sont hébergés sur https://ns3058686.ip-193-70-12.eu:2087 et sont accessibles respectivement sur https://staging.rochedor.fr https://nsi.rochedor.fr 
+Les environnements nsi, demo-front et production sont hébergés sur https://ns3058686.ip-193-70-12.eu:2087 et sont accessibles respectivement sur https://nsi.rochedor.fr (branche dev dans git | dossier nsi_dev sur le serveur), https://demo-front.rochedor.fr (branche demo_front dans git | dossier nsi_demo_front sur le serveur) et https://rochedor.fr (branche prod dans git | dossier nsi_staging sur le serveur) 
 
 ## Déploiement
-Le déploiement des branches dev et staging est automatique
+Le déploiement de la branche dev est automatique avec GitlabCI après chaque push.
+Le déploiement de la branche demo_front est automatique avec GitlabCI après chaque push.
+Le déploiement de la branche prod est manuel avec GitlabCI après chaque push.
 
-Le script fait un dump du schema update à la racine de l'espace de déploiement
->>>>>>> master
+Le déploiement peut aussi se faire manuellement depuis un terminal via deployer. 

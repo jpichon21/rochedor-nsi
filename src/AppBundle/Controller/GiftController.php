@@ -104,7 +104,7 @@ class GiftController extends Controller
 
     /**
      * @Route("/{_locale}/don-ponctuel", name="gift-fr")
-     * @Route("/{_locale}/one-tiem-donation", name="gift-en")
+     * @Route("/{_locale}/one-time-donation", name="gift-en")
      * @Route("/{_locale}/einmalige-spende", name="gift-de")
      * @Route("/{_locale}/donazione-una-tantum", name="gift-it")
      * @Route("/{_locale}/donación-de-una-sola-vez", name="gift-es")
@@ -145,6 +145,12 @@ class GiftController extends Controller
      */
     public function xhrPostGiftCreateAction(Request $request, GiftService $giftService)
     {
+        $locale = $request->getLocale();
+        if ($request->query->get('_locale')) {
+            $locale = $request->query->get('_locale');
+            $this->translator->setLocale($locale);
+        }
+
         $user = $this->getUser();
         $gift = $request->get('gift');
         if (!$gift) {
@@ -171,7 +177,7 @@ class GiftController extends Controller
             $don->getRefdon(),
             $this->translator->trans('gift.payment.title'),
             $this->getUser()->getEmail(),
-            $request->getLocale(),
+            $locale,
             'gift',
             !empty($gift['virPeriod']) ? $gift['virPeriod'] : null,
             $don->getDestdon(),
@@ -301,6 +307,7 @@ class GiftController extends Controller
             $don->setPaysdon($country)
             ->setStatus('success')
             ->setTransdon($status)
+            ->setDatrecu($don->getEnregdon())
             ->setAdhesion($isFirstGift);
 
             $contactRepository->setTypCoDonateur($contact->getCodco());

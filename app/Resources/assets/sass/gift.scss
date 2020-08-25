@@ -62,6 +62,13 @@
       @include media('<medium') {
         margin-bottom: 30px;
       }
+
+      @include media('>medium') {
+        span {
+          display: inline-block;
+          height: 37px;
+        }
+      }
     }
   }
   .reduction {

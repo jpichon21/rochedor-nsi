@@ -132,7 +132,7 @@
                 </div>
                 <div class="panel adliv">
                     <form class="form adliv">
-                        <div class="adliv-form-render"></div>  
+                        <div class="adliv-form-render"></div>
                     </form>
                 </div>
                 <div class="panel delay">
@@ -227,7 +227,7 @@
 {% endif %}
 <script type="application/json" class="countries-json">
     {{ countries | json_encode() | raw }}
-</script> 
+</script>
 <script type="application/json" class="order-json">
     {{ order | raw }}
 </script>
@@ -249,7 +249,7 @@
             <a href="#retry" class="button black disconnect">{{ 'form.retry' | trans | raw }}</a>
         </div>
         <% }%>
-    </div>    
+    </div>
 </script>
 <script type="text/template" class="you-template">
     <div class="you">
@@ -372,7 +372,7 @@
         <tbody>
             <% var sum = 0 %>
             <% for (var i = 0; i < product.length; i++) { %>
-            <% 
+            <%
                 var urlProduct = '{{ url('collection-' ~ app.request.locale, { id: 1 }) }}'
                 urlProduct = urlProduct.substring(0,urlProduct.length-1) + product[i].codprd
             %>
@@ -526,7 +526,7 @@
                     <% } %>
                 <% } %>
                 <select class="select country" <%= (delivery.destliv == 'Roche' || delivery.destliv == 'Font' || disableCountry) ? 'disabled' : '' %> required name="paysliv">
-                    <option <%= !disableCountry ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
+                    <option style="font-family: lato" <%= !disableCountry ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
                     <% for (var i = 0; i < countries.length; i++) { %>
                         <% var country = countries[i] %>
                         <% if (country.displiv) { %>
@@ -566,10 +566,10 @@
     </div>
     <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
         <select class="select civil <%= (client.civil != '') ? 'white' : '' %>" required name="civil">
-            <option <%= (client.civil == '') ? 'selected' : '' %> disabled value="">* {{ 'form.civil' | trans | raw }}</option>
-            <% for (var i = 0; i < civilites.length; i++) { %>
-                <option <%= (client.civil == civilites[i]) ? 'selected' : '' %> value="<%= civilites[i] %>"><%= civilites[i] %></option>
-            <% } %>
+                <option style="font-family: lato;" <%= (client.civil == '') ? 'selected' : '' %> disabled value="">* {{ 'form.civil' | trans | raw }}</option>
+                <% for (var i = 0; i < civilites.length; i++) { %>
+                    <option <%= (client.civil == civilites[i]) ? 'selected' : '' %> value="<%= civilites[i] %>"><%= civilites[i] %></option>
+                <% } %>
         </select>
     </div>
     <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
@@ -595,11 +595,11 @@
             <% } %>
         <% } %>
         <select class="select pays <%= (_.escape(client.pays) != '') ? 'white' : '' %>" required name="pays">
-            <option <%= countryNotFound ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
+            <option style="font-family: lato;" <%= countryNotFound ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
             <% for (var i = 0; i < countries.length; i++) { %>
                 <% var country = countries[i] %>
                 <% if (countries[i].displiv) { %>
-                <option <%= (_.escape(client.pays) == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
+                <option style="font-family: lato;" <%= (_.escape(client.pays) == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
                 <% } %>
             <% } %>
         </select>

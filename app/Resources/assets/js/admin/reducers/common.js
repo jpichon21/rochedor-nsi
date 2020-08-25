@@ -39,6 +39,8 @@ export default function commmonReducer (state, action) {
         title: action.title
       }
     case SET_LOCALE:
+      console.log('SET_LOCALE')
+      console.log(action.locale)
       return {
         ...state,
         locale: action.locale
