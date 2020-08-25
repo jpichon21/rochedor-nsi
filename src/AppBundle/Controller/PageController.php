@@ -44,6 +44,7 @@ class PageController extends Controller
     /**
     * @Rest\Post("/pages")
     * @Rest\View()
+    * @Security("has_role('ROLE_ADMIN_PAGE_CREATE')")
     * @ParamConverter("page", converter="fos_rest.request_body")
     * @SWG\Post(
     *   path="/pages",
