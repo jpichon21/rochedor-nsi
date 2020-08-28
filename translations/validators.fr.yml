@@ -1,0 +1,3 @@
+validation.password.length: 'Le mot de passe doit comporter au minimum 8 caractères'
+validation.email.already_used: 'Cette adresse est déjà utilisée'
+form.message.passwords_mismatch: 'Les mots de passe ne correspondent pas'

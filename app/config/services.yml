@@ -69,3 +69,10 @@ services:
             $roleHierarchy: '@security.role_hierarchy'
         public: true
         tags: ['controller.service_arguments']
+
+    AppBundle\EventListener\RequestListener:
+        class: AppBundle\EventListener\RequestListener
+        arguments:
+            - '@doctrine'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, priority: 20 }

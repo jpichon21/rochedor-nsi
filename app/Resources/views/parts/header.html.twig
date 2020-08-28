@@ -95,8 +95,8 @@
                 <ul class="sub-menu" data-menu="defrgt">
                     <li class="blank"></li>
                     <li class="blank"></li>
-                    <li class="mobileOnly"><a href="{{ url('contact', {'site': 'ro'}) }}" rel="nofollow">{{ 'contact.ro' | trans | raw | striptags }}</a></li>
-                    <li class="mobileOnly"><a href="{{ url('contact', {'site': 'ft'}) }}" rel="nofollow">{{ 'contact.ft' | trans | raw | striptags }}</a></li>
+                    <li class="mobileOnly"><a href="{{ url('contact-' ~ app.request.locale, {'site': 'ro'}) }}" rel="nofollow">{{ 'contact.ro' | trans | raw | striptags }}</a></li>
+                    <li class="mobileOnly"><a href="{{ url('contact-' ~ app.request.locale, {'site': 'ft'}) }}" rel="nofollow">{{ 'contact.ft' | trans | raw | striptags }}</a></li>
                     <li class="mobileOnly"><a href="{{ localePath('liens-amis', app.request.locale) }}" rel="nofollow">{{ 'friends.links' | trans | raw | striptags }}</a></li>
                 </ul>
             </li>
@@ -133,7 +133,7 @@
                 {% endif %}
             </ul>
             <ul class="current">
-                <li><a href={{ currentPath }}>{{ currentLocale }}</a></li>
+                <li><a href=#>{{ currentLocale }}</a></li>
             </ul>
         </div>
         <ul class="zoom">

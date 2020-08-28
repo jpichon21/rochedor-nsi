@@ -1,8 +1,24 @@
 <div class="top">
+    {% if (images[0].video == '') and images[0].url == '' %}
+    <a></a>
+    {% else %}
     <a class="left full {% if (images[0].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[0].alt }}" alt="{{ images[0].alt }}" href="{% if (images[0].video != '') %}{{ asset(images[0].video) }}{% else %}{{ asset(images[0].url) }}{% endif %}" style="{{ asset(images[0].url)|background ~ (images[0].crop is defined ? images[0].crop|position : '') }}"></a>
+    {% endif %}
+    {% if (images[1].video == '') and images[1].url == '' %}
+    <a></a>
+    {% else %}
     <a class="right full {% if (images[1].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[1].alt }}" alt="{{ images[1].alt }}" href="{% if (images[1].video != '') %}{{ asset(images[1].video) }}{% else %}{{ asset(images[1].url) }}{% endif %}" style="{{ asset(images[1].url)|background ~ (images[1].crop is defined ? images[1].crop|position : '') }}"></a>
+    {% endif %}
 </div>
 <div class="bottom">
+    {% if (images[2].video == '') and images[2].url == '' %}
+    <a></a>
+    {% else %}
     <a class="left full {% if (images[2].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[2].alt }}" alt="{{ images[2].alt }}" href="{% if (images[2].video != '') %}{{ asset(images[2].video) }}{% else %}{{ asset(images[2].url) }}{% endif %}" style="{{ asset(images[2].url)|background ~ (images[2].crop is defined ? images[2].crop|position : '') }}"></a>
+    {% endif %}
+    {% if (images[3].video == '') and images[3].url == '' %}
+    <a></a>
+    {% else %}
     <a class="right full {% if (images[3].video) != '' %}iframe{% else %}image{% endif %}" title="{{ images[3].alt }}" alt="{{ images[3].alt }}" href="{% if (images[3].video != '') %}{{ asset(images[3].video) }}{% else %}{{ asset(images[3].url) }}{% endif %}" style="{{ asset(images[3].url)|background ~ (images[3].crop is defined ? images[3].crop|position : '') }}"></a>
+    {% endif %}
 </div>

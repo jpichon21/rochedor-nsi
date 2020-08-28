@@ -19,7 +19,7 @@ export const postLogin = (data) => {
 }
 
 export const resetLogin = (data) => {
-  return window.fetch('/password-request', {
+  return window.fetch('/password-request?_locale=' + i18n.guessLocale(), {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',
@@ -33,7 +33,7 @@ export const resetLogin = (data) => {
 }
 
 export const postRegister = (data) => {
-  return window.fetch('/register', {
+  return window.fetch('/register?_locale=' + i18n.guessLocale(), {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',
@@ -52,7 +52,7 @@ export const postRegister = (data) => {
 }
 
 export const postParticipant = (data) => {
-  return window.fetch('/xhr/calendar/attendee', {
+  return window.fetch('/xhr/calendar/attendee?_locale=' + i18n.guessLocale(), {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',
@@ -80,7 +80,7 @@ export const postParticipant = (data) => {
 }
 
 export const getLogout = (locale) => {
-  return window.fetch('/logout', {
+  return window.fetch('/logout?_locale=' + i18n.guessLocale(), {
     headers: { 'Content-Type': 'application/json' },
     method: 'GET',
     credentials: 'include'
@@ -94,7 +94,7 @@ export const getLogout = (locale) => {
 }
 
 export const getLogin = () => {
-  return window.fetch('/login', {
+  return window.fetch('/login?_locale=' + i18n.guessLocale(), {
     method: 'GET',
     credentials: 'include'
   })
@@ -109,7 +109,7 @@ export const getLogin = () => {
 }
 
 export const getRegistered = (activityId) => {
-  return window.fetch('/xhr/calendar/attendees?activityId=' + activityId, {
+  return window.fetch('/xhr/calendar/attendees?_locale=' + i18n.guessLocale() + 'activityId=' + activityId, {
     headers: { 'Content-Type': 'application/json' },
     method: 'GET',
     credentials: 'include'
@@ -132,7 +132,7 @@ export const getRegistered = (activityId) => {
 }
 
 export const postRegistered = (data, id, existingRef) => {
-  return window.fetch('/xhr/calendar/attendees', {
+  return window.fetch('/xhr/calendar/attendees?_locale=' + i18n.guessLocale(), {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     credentials: 'include',

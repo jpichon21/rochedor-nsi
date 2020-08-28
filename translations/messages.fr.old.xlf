@@ -52,8 +52,7 @@
       </notes>
       <segment>
         <source>menu.one.three</source>
-        <target><![CDATA[La <br>Roche d'Or
-				]]></target>
+        <target><![CDATA[La <br>Roche d'Or]]></target>
       </segment>
     </unit>
     <unit id="5vJ0eNt" name="menu.one.four">
@@ -63,7 +62,7 @@
       <segment>
         <source>menu.one.four</source>
         <target><![CDATA[Les <br>Fontanilles
-				]]></target>
+    ]]></target>
       </segment>
     </unit>
     <unit id="TfDK6ic" name="menu.two.one">
@@ -73,7 +72,7 @@
       <segment>
         <source>menu.two.one</source>
         <target><![CDATA[Venir <br>en retraite
-				]]></target>
+    ]]></target>
       </segment>
     </unit>
     <unit id="zFwSu3O" name="menu.two.two">
@@ -83,7 +82,7 @@
       <segment>
         <source>menu.two.two</source>
         <target><![CDATA[Retraites <br>à la Roche d'Or
-				]]></target>
+    ]]></target>
       </segment>
     </unit>
     <unit id="OipSnvA" name="menu.two.three">
@@ -93,7 +92,7 @@
       <segment>
         <source>menu.two.three</source>
         <target><![CDATA[Retraites <br>aux Fontanilles
-				]]></target>
+    ]]></target>
       </segment>
     </unit>
     <unit id="NEzhIK_" name="menu.two.four">
@@ -103,7 +102,7 @@
       <segment>
         <source>menu.two.four</source>
         <target><![CDATA[Les <br>intervenants
-				]]></target>
+    ]]></target>
       </segment>
     </unit>
     <unit id="NEzhIK_" name="menu.two.five">
@@ -146,7 +145,7 @@
       <segment>
         <source>menu.four.one</source>
         <target><![CDATA[Infos pratiques<br> de la Roche d'Or
-				]]></target>
+    ]]></target>
       </segment>
     </unit>
     <unit id="t9xDnqi" name="menu.four.two">
@@ -156,7 +155,7 @@
       <segment>
         <source>menu.four.two</source>
         <target><![CDATA[Infos pratiques<br> des Fontanilles
-				]]></target>
+    ]]></target>
       </segment>
     </unit>
     <unit id="xm3Wl2D" name="menu.four.three">
@@ -166,7 +165,7 @@
       <segment>
         <source>menu.four.three</source>
         <target><![CDATA[Accueil<br> des enfants
-				]]></target>
+    ]]></target>
       </segment>
     </unit>
     <unit id="ADfxTyP" name="menu.four.four">
@@ -176,7 +175,7 @@
       <segment>
         <source>menu.four.four</source>
         <target><![CDATA[Liens<br> amis
-				]]></target>
+    ]]></target>
       </segment>
     </unit>
     <unit id="rehny29" name="menu.five.one">
@@ -186,7 +185,7 @@
       <segment>
         <source>menu.five.one</source>
         <target><![CDATA[Les Éditions<br> Roche d'Or
-				]]></target>
+    ]]></target>
       </segment>
     </unit>
     <unit id="JQrk3we" name="menu.five.two">
@@ -196,7 +195,7 @@
       <segment>
         <source>menu.five.two</source>
         <target><![CDATA[Les<br> nouveautés
-				]]></target>
+    ]]></target>
       </segment>
     </unit>
     <unit id="Vvb_xEv" name="menu.five.three">
@@ -206,7 +205,7 @@
       <segment>
         <source>menu.five.three</source>
         <target><![CDATA[Les<br> collections
-				]]></target>
+    ]]></target>
       </segment>
     </unit>
     <unit id="aY4iGkg" name="menu.six.one">
@@ -216,7 +215,7 @@
       <segment>
         <source>menu.six.one</source>
         <target><![CDATA[Dons ponctuels<br> ou réguliers
-				]]></target>
+    ]]></target>
       </segment>
     </unit>
     <unit id="nrz9.5B" name="menu.six.two">
@@ -226,7 +225,7 @@
       <segment>
         <source>menu.six.two</source>
         <target><![CDATA[Autres formes<br> de dons
-				]]></target>
+    ]]></target>
       </segment>
     </unit>
      <unit id="nrz9.KlX" name="menu.six.three">
@@ -236,7 +235,7 @@
       <segment>
         <source>menu.six.three</source>
         <target><![CDATA[Donner de<br> son temps
-				]]></target>
+    ]]></target>
       </segment>
     </unit>
     <unit id="_xIh0pv" name="filter.title.site">
@@ -481,10 +480,10 @@
       </notes>
       <segment>
         <source>calendar.registration.three.body</source>
-        <target><![CDATA[
+        <target><![CDATA[     
         <p><strong>Une réponse à votre demande vous sera transmise prochainement</strong> par e-mail ou par courrier postal si vous ne disposez pas d'une adresse e-mail. Cette réponse dépend essentiellement des places encore disponibles et de notre capacité à vous accueillir dans les meilleures conditions.</p><p>Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.</p><p>En cas <strong>d'empêchement</strong> et de <strong>désistement</strong>, merci d’avertir rapidement par courriel ou par téléphone. La place disponible pourra ainsi être proposée à une autre personne en liste d'attente.</p><p><i>Protection des données personnelles : la Roche d’Or s'engage à être le seul et unique destinataire des informations que vous venez de lui communiquer. Pour plus d’information, merci de vous reporter à notre politique de confidentialité qui prend en compte les exigences de la réglementation européenne sur la protection des données (RGPD).</i></p>
-
-				]]></target>
+        
+    ]]></target>
       </segment>
     </unit>
     <unit id="wbVpZSG" name="calendar.registration.one.title.connection">
@@ -1116,8 +1115,8 @@
       <segment>
         <source>calendar.registration.one.body.connected</source>
         <target><![CDATA[
-					Vous êtes connecté en tant que <i>%name%</i>, voulez-vous continuer ?
-				]]></target>
+     Vous êtes connecté en tant que <i>%name%</i>, voulez-vous continuer ?
+    ]]></target>
       </segment>
     </unit>
     <unit id="L5.6B.Q" name="form.yes">
@@ -1745,8 +1744,8 @@
       <segment>
         <source>contact.submit.success</source>
         <target><![CDATA[
-					Votre message a bien été pris en compte. Il sera traité dans les plus brefs délais. Vous recevrez une confirmation d'envoi dans les prochaines minutes. Retour à la <a href="/">page d'accueil</a>.
-				]]></target>
+     Votre message a bien été pris en compte. Il sera traité dans les plus brefs délais. Vous recevrez une confirmation d'envoi dans les prochaines minutes. Retour à la <a href="/">page d'accueil</a>.
+    ]]></target>
       </segment>
     </unit>
     <unit id="PnnB3aX" name="contact.ro.foradmin.subject">
@@ -1789,8 +1788,8 @@
       <segment>
         <source>security.reset.title</source>
         <target><![CDATA[
-					<small>Réinitialiser </small>Votre mot de passe
-				]]></target>
+     <small>Réinitialiser </small>Votre mot de passe
+    ]]></target>
       </segment>
     </unit>
     <unit id="4lbujnr" name="continue">
@@ -1899,16 +1898,16 @@
       <segment>
         <source>calendar.registration.error.empty</source>
         <target><![CDATA[
-					Désolé, mais cette retraite n'existe plus. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.
-				]]></target>
+     Désolé, mais cette retraite n'existe plus. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.
+    ]]></target>
       </segment>
     </unit>
     <unit id="n6oIkhX" name="calendar.registration.error.date">
       <segment>
         <source>calendar.registration.error.date</source>
         <target><![CDATA[
-					Désolé, cette retraite n'est plus disponible. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.
-				]]></target>
+     Désolé, cette retraite n'est plus disponible. Vous pouvez retourner au <a href="/fr/liste-retraites">calendrier</a>.
+    ]]></target>
       </segment>
     </unit>
     <unit id="7OkaL_L" name="form.email.please">
@@ -1935,8 +1934,8 @@
       <segment>
         <source>calendar.registration.three.header</source>
         <target><![CDATA[
-					<p>Nous vous remercions de l’attention que vous portez à la Roche d’Or.<br>Votre demande d’inscription est bien prise en compte sous le numéro :</p><p><center><br>%entry_number%</br></center></p>
-				]]></target>
+     <p>Nous vous remercions de l’attention que vous portez à la Roche d’Or.<br>Votre demande d’inscription est bien prise en compte sous le numéro :</p><p><center><br>%entry_number%</br></center></p>
+    ]]></target>
       </segment>
     </unit>
     <unit id="x9GINwp" name="Email not found">
@@ -2039,8 +2038,8 @@
       <segment>
         <source>security.password_request.not_found</source>
         <target><![CDATA[
-						Nous n'avons pas trouvé vos informations.<br>Orthographe ? Deux noms ? Ordre des noms ?
-					]]></target>
+      Nous n'avons pas trouvé vos informations.<br>Orthographe ? Deux noms ? Ordre des noms ?
+     ]]></target>
       </segment>
     </unit>
     <unit id="XB7PsIn" name="security.password_request.missing_infos">
@@ -2633,7 +2632,7 @@
                 Soyez-en encore remercié(e).<br><br>
                 Un message vous est immédiatement adressé par courriel/email. Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.<br><br>
                 Unis par la grâce de Celui qui tisse entre nous des liens de fraternité, nous vous redisons toute notre amitié.<br><br>
-                <span style="display: block; text-align: right;">La Communauté</span><br><br>
+                La Communauté<br><br>
             </div>
             Un reçu fiscal vous sera adressé en début d’année prochaine par courriel à l’adresse suivante : %email%<br><br>
             Sinon, par courrier à :<br><br>
@@ -2658,14 +2657,13 @@
             Par votre don de %amount% euros, vous vous joignez au mouvement de solidarité des Amis de la Roche d’Or pour soutenir notre action évangélique.<br>
             Soyez-en encore remercié(e).<br><br>
             Unis par la grâce de Celui qui tisse entre nous des liens de fraternité, nous vous redisons toute notre amitié.<br><br>
-            <span style="display: block; text-align: right;">La Communauté</span><br><br>
+            La Communauté<br><br>
             Un reçu fiscal vous sera adressé en début d’année prochaine par courriel à l’adresse suivante : %email%<br>
-            Sinon, par courrier à :<br><div style="margin-left: 50px">
+            Sinon, par courrier à :<br>
             %name%<br>
             %address%<br>
             %zipcode% %city%<br>
-             %country%
-            </div><br><br>
+             %country%<br><br>
             Contact secrétariat : 03 81 41 47 47 ou secretariat@rochedor.org<br>
             Notre site : www.rochedor.fr<br>
             Pour toute information et correspondance, rappelez-nous le numéro de référence de votre don : %ref%
@@ -2995,7 +2993,7 @@ Si vous relevez de la fiscalité française, la réduction est équivalente à 6
         <br>
         <p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p>
         <p>Avec toute notre sympathie</p>
-        <p>L'équipe des Éditions Roche d’Or</p>
+        <p>L'équipe des Éditions Roche d’Or</p> 
         ]]></target>
       </segment>
     </unit>
@@ -3331,7 +3329,7 @@ Si vous relevez de la fiscalité française, la réduction est équivalente à 6
         <br>
         <p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p>
         <p>Avec toute notre sympathie</p>
-        <p>L'équipe des Éditions Roche d’Or</p>
+        <p>L'équipe des Éditions Roche d’Or</p> 
         ]]></target>
       </segment>
     </unit>
@@ -3354,7 +3352,7 @@ Si vous relevez de la fiscalité française, la réduction est équivalente à 6
         <br>
         <p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p>
         <p>Avec toute notre sympathie</p>
-        <p>L'équipe des Éditions Roche d’Or</p>
+        <p>L'équipe des Éditions Roche d’Or</p> 
         ]]></target>
       </segment>
     </unit>
@@ -3370,7 +3368,7 @@ Si vous relevez de la fiscalité française, la réduction est équivalente à 6
         <br>
         <p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p>
         <p>Avec toute notre sympathie</p>
-        <p>L'équipe des Éditions Roche d’Or</p>
+        <p>L'équipe des Éditions Roche d’Or</p> 
         ]]></target>
       </segment>
     </unit>
@@ -3657,7 +3655,7 @@ Pour réaliser un nouveau don, cliquer sur Nous soutenir puis Dons ponctuels ou 
     <unit id="bHsOKTz" name="gift.return.title">
       <segment>
         <source>gift.return.title</source>
-        <target>Nouveau don</target>
+        <target>Retour</target>
       </segment>
     </unit>
      <unit id="bHsOKTa" name="gift.return.title">
