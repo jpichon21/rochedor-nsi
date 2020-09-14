@@ -30,7 +30,8 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $locale = $this->get('translator')->getLocale();
+//        $locale = $this->get('translator')->getLocale();
+        $locale = 'fr';
         $contentDocument = $this->pageService->getContent($locale);
         $news = $this->getDoctrine()->getRepository('AppBundle:News')->findForHomepage($contentDocument->getLocale());
 

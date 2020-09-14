@@ -319,7 +319,7 @@ form.message.zipcode_invalid: 'Le code postal ne correspond pas au pays sélecti
 form.message.tvaintra_invalid: 'Le numéro de TVA n''est pas valide'
 order.notify.client.subject: 'Nouvelle commande'
 form.keep-password: 'Garder l''ancien mot de passe'
-error-unknown-error: 'Garder l''ancien mot de passe'
+error-unknown-error: 'Erreur inconnue'
 form.newfich: 'Première inscription à une retraite de la Roche d''Or'
 gift.title: 'Dons ponctuels ou réguliers'
 gift.intro: 'Pour vous joindre au mouvement de solidarité des Amis de la Roche d''Or et soutenir notre action évangélique, merci de nous indiquer votre choix.<br><br>Si vous êtes soumis à l''IFI, cliquer <a href="%link%" target="_blank">ICI</a>.'

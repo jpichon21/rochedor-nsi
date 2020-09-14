@@ -1,510 +1,514 @@
-menu.one:
-menu.two:
-menu.three:
-menu.one.one:
-menu.one.two:
-menu.one.three:
-menu.one.four:
-menu.two.one:
-menu.two.two:
-menu.two.three:
-menu.two.four:
-menu.four:
-menu.five:
-menu.six:
-menu.four.one:
-menu.four.two:
-menu.four.three:
-menu.four.four:
-menu.five.one:
-menu.five.two:
-menu.five.three:
-menu.six.one:
-menu.six.two:
-filter.title.site:
-filter.title.type:
-filter.title.intervenants:
-filter.title.traductions:
-filter.inner.default:
-filter.inner.selection.singular:
-filter.inner.selection.plural:
-filter.inner.date.in:
-filter.inner.date.out:
-filter.inner.submit:
-filter.title.keyword:
-filter.inner.keyword:
-retreats.table.head.dates:
-retreats.table.head.site:
-retreats.table.head.event:
-retreats.table.head.speakers:
-retreats.table.head.type:
-retreats.table.head.duration:
-retreats.table.head.translations:
-retreats.table.head.selections:
-filter.title.speakers:
-filter.title.translations:
-admin.title:
-calendar.registration.one.title:
-calendar.registration.two.title:
-calendar.registration.three.title:
-calendar.registration.three.body:
-calendar.registration.one.title.connection:
-calendar.registration.one.title.registration:
-calendar.registration.summary.title:
-calendar.registration.summary.title.retreat:
-calendar.registration.summary.title.participants:
-calendar.registration.one.body:
-main.yes:
-main.no:
-form.id:
-form.password:
-form.password-login:
-form.ok:
-form.civility.mr:
-form.civility.mme:
-form.surname:
-form.surname.contact:
-form.name:
-form.name.contact:
-form.address:
-form.zipcode:
-form.city:
-form.country:
-form.phone:
-form.mobile:
-form.email:
-form.birthday:
-form.profession:
-form.submit:
-calendar.registration.two.title.you:
-calendar.registration.two.title.registered:
-calendar.registration.two.add_participant:
-calendar.registration.two.validate_participants:
-form.username:
-form.modify:
-form.participate:
-calendar.notify.attendee.subject:
-news.title:
-news.button.discover:
-form.label.password:
-security.reset_password_request.subject:
-form.label.password_repeat:
-security.reset.token_not_found:
-security.password_reset_success_message:
-form.label.email:
-form.label.connection:
-form.label.lastname:
-form.label.firstname:
-form.label.gender:
-form.label.male:
-form.label.female:
-form.label.miss:
-form.label.father:
-form.label.sister:
-form.label.brother:
-form.label.address:
-form.label.zipcode:
-form.label.city:
-form.label.country:
-form.label.phone:
-form.label.mobile:
-form.label.birthday:
-form.label.job:
-password:
-security.register:
-calendar.registration.intro:
-calendar.registration.two.title.modify:
-calendar.registration.two.title.registration:
-calendar.registration.one.body.connected:
-form.yes:
-form.no:
-calendar.registration.one.body.disconnected:
-form.continue:
-form.disconnect:
-calendar.registration.two.title.modify.you:
-calendar.registration.two.title.modify.him:
-form.transport:
-form.memo:
-form.transport.perso:
-form.transport.train:
-form.transport.avion:
-form.transport.bus:
-form.label.submit:
-form.message.verify_transport:
-form.message.parent_must_be_adult:
-form.message.date_invalid:
-form.no_participants:
-form.civil:
-form.relation:
-form.colp:
-calendar.days:
-filter.raz.button:
-form.password.reset:
-security.bad_credentials:
-security.check_inbox:
-news.last_posts.title:
-editions.seeallproducts:
-editions.filters.title:
-editions.filter.collections.title:
-editions.filter.collections.choose:
-editions.filter.themes.title:
-cart.remove:
-cart.empty:
-editions.author:
-editions.collection:
-editions.addtocart:
-editions.ebookversion:
-order.registration.cart.title.1:
-order.registration.one.title:
-order.registration.one.body.disconnected:
-order.registration.two.title:
-order.registration.two.title.you:
-order.registration.choose.adliv:
-form.choose.adliv:
-select.ad.myAd:
-select.ad.roche:
-select.ad.font:
-select.ad.other:
-order.choose.adliv:
-form.adresse:
-order.registration.choose.country:
-form.choose.country:
-country.fr:
-country.en:
-country.de:
-country.it:
-country.es:
-order.registration.choose.gift:
-order.choose.modpaie:
-form.choose.modpaie:
-select.cb:
-select.paypal:
-editions.or:
-editions.technicalreview.annee:
-editions.technicalreview.isbn:
-editions.technicalreview:
-editions.technicalreview.dateparution:
-editions.technicalreview.dimensions:
-editions.technicalreview.editeur:
-editions.technicalreview.ean:
-editions.technicalreview.nbpage:
-editions.technicalreview.rubrique:
-editions.technicalreview.poids:
-cart.emptydelivery:
-form.message.recap_delivery:
-form.message.recap_cartInfo:
-cart.emptycart:
-form.street:
-form.societe:
-order.summary.title.clients:
-its.a.gift:
-order.gift.text:
-order.registration.one.body.connected:
-form.gift:
-form.payment:
-go.to.order:
-form.its.a.gift:
-form.validate.gift:
-form.no_clients:
-form.suprmessage.gift:
-security.user_exist:
-user.security_child:
-form.contact.title:
-form.body:
-form.send:
-title.connection:
-form.title.connection:
-form.validate:
-form.title.registration:
-form.password.repeat:
-contact.submit.success:
-contact.ro.foradmin.subject:
-contact.ro.forclient.subject:
-contact.ft.forclient.subject:
-contact.ft.foradmin.subject:
-form.please.recaptcha:
-security.reset.intro:
-security.reset.title:
-continue:
-homepage:
-return.to.calendar:
-calendar:
-form.reset:
-form.message.child_must_come_with_adult:
-form.message.child_must_have_autpar:
-form.civilite.mr:
-form.civilite.mme:
-form.civilite.mlle:
-form.civilite.pere:
-form.civilite.frere:
-form.civilite.soeur:
-form.message.phone_invalid:
-form.message.does_child_have_autpar:
-calendar.registration.error:
-calendar.registration.error.empty:
-calendar.registration.error.date:
-form.email.please:
-form.email.contact:
-calendar.registration.three.header:
-email-not-found:
-form.reinit:
-form.arriv:
-form.navette:
-form.lieu:
-form.lieu.viotte:
-form.cancel:
-form.message.not_with_an_adult:
-form.message.not_accompanied:
-form.message.no_transport:
-participant_not_valid:
-form.message.participant_not_valid:
-security.username_exists:
-security.password_request.not_found:
-security.password_request.missing_infos:
-form.lastname.please:
-form.firstname.please:
-security.password_too_small:
-order.summary.title.cart:
-form.update:
-form.tvaintra:
-form.memocli:
-order.registration.three.title:
-order.registration.three.title.you:
-form.message.pro_invalid:
-order.registration.four.title:
-order.registration.three.title.modify.you:
-order.registration.two.title.modify.you:
-order.registration.five.title:
-order.registration.five.body:
-order.summary.title.delivery:
-order.summary.title.total:
-order.summary.body.delivery:
-order.summary.body.total:
-table.header.product:
-table.header.price:
-table.header.quantity:
-table.header.delete:
-table.header.label:
-table.header.total:
-table.header.weight:
-main.remove:
-order-error.title.small:
-order-error.title.big:
-order-error.text:
-order-return.title.small:
-order-return.title.big:
-success:
-error:
-collection:
-menu.cart:
-order.registration.one.title.connection:
-order.registration.one.title.registration:
-form.message.delivery_invalid:
-order.choose.payment:
-order.error.title:
-order.error.text:
-table.label.weightOrder:
-table.label.packagingWeight:
-table.label.totalWeight:
-table.label.totalPriceIT:
-table.label.vat:
-table.label.shippingPriceIT:
-table.label.consumerPriceIT:
-order-return.title:
-order-return.success:
-order-return.cancel:
-form.firstname:
-form.lastname:
-form.message.zipcode_invalid:
-form.message.tvaintra_invalid:
-order.notify.client.subject:
-form.keep-password:
-error-unknown-error:
-form.newfich:
-gift.title:
-gift.intro:
-gift.one.title:
-gift.one.body.connected:
-gift.two.title:
-gift.two.title.modify.you:
-gift.three.title:
-gift.amount:
-form.other:
-gift.four.title:
-gift.choose.allocation:
-form.choose.allocation:
-select.allocation.libre:
-select.allocation.souttx:
-select.allocation.viecom:
-select.allocation.itin:
-select.allocation.rochtx:
-select.allocation.fonttx:
-gift.five.title:
-gift.choose.payment:
-gift.summary.title:
-gift.six.title:
-gift.summary.title.amount:
-gift.summary.no_amount:
-gift.summary.title.donator:
-gift.summary.no_donator:
-gift.summary.title.gift:
-table.header.allocation:
-table.header.amount:
-gift.summary.no_allocation:
-gift-return.title:
-gift-return.success:
-gift-return.cancel:
-form.gift.note:
-gift.one.body.disconnected:
-gift.one.title.connection:
-gift.one.title.registration:
-gift.summary.reduction:
-global.page-not-found:
-errors.not-found.title:
-errors.not-found.intro:
-errors.unknown.title:
-errors.unknown.intro:
-cart.product.added:
-order.accept-terms.title:
-order.accept-terms.label:
-order.accept-terms.link:
-footer.terms:
-global.secure-datas:
-order.accept-terms.disclaimer:
-global.tax-code:
-security.email_exists:
-invalid-credentials:
-form.particular:
-form.professional:
-footer.termsPro:
-form.statut:
-form.statut.par:
-form.statut.org:
-form.statut.pro:
-form.pro:
-order-return.success-p1:
-form.submitParticipant:
-calendar.registration.table.header.participant:
-form.mail_spam:
-calendar.registration.table.header.transport:
-calendar.registration.table.header.come:
-calendar.registration.table.header.schedule:
-calendar-registration-two-title-8a42f5e2171c48696bc9bfa1dcbe86d8:
-order.notify.client.roche.adliv:
-order.notify.client.font.adliv:
-menu.terms:
-menu.legal:
-contacts:
-filter.button.show:
-editions.filters.show:
-editions.filter.show:
-retreat.speaker.of:
-filter.close.button:
-detail.pricettc:
-detail.priceht:
-detail.tva:
-logout.disconnect.title:
-logout.disconnect.text:
-order.registration.intro:
-order.summary.title:
-form.continue.order:
-form.go.buy:
-you.billing:
-no.shipping:
-select.bank-cheque:
-validate.order:
-form.retry:
-con_data_date:
-con_news_date:
-click.termsPro:
-click.terms:
-order.summary.title.billing:
-table.header.price.unit:
-table.header.price.total:
-table.header.price.ttc:
-table.header.price.prix.ht:
-table.header.tax.rate:
-product.detail.price.ttc:
-product.detail.price.ht:
-order.change.price:
-order.delay.title:
-order.delay.message:
-consent.data:
-consent.news:
-order-return.error:
-order-return.success-p2:
+menu.one: 'La comunità e le nostre case'
+menu.two: 'I ritiri'
+menu.three: Calendario
+menu.one.one: 'La <br>Comunità'
+menu.one.two: 'I<br>Fondatori'
+menu.one.three: 'La <br>Roche d''Or'
+menu.one.four: 'Le <br>Fontanilles'
+menu.two.one: 'Partecipare <br> ad un ritiro'
+menu.two.two: 'Ritiri <br>alla Roche d''Or'
+menu.two.three: 'Ritiri <br>alle Fontanilles'
+menu.two.four: 'I relatori'
+menu.four: 'Informazioni utili'
+menu.five: 'Edizioni Roche d''Or'
+menu.six: Sostienici
+menu.four.one: 'Informazioni utili<br> per la Roche d''Or'
+menu.four.two: 'Informazioni utili per le Fontanilles'
+menu.four.three: 'L’accoglienza <br>dei bambini'
+menu.four.four: 'Link Amici<br>'
+menu.five.one: 'Edizioni<br> Roche d''Or'
+menu.five.two: 'Le novità'
+menu.five.three: 'Le Collezioni'
+menu.six.one: 'Donare<br>del tempo'
+menu.six.two: 'Fare <br>una donazione'
+filter.title.site: 'Siti web'
+filter.title.type: Tipi
+filter.title.intervenants: Relatori
+filter.title.traductions: Traduzioni
+filter.inner.default: Selezionare
+filter.inner.selection.singular: Selezione
+filter.inner.selection.plural: Selezioni
+filter.inner.date.in: Da
+filter.inner.date.out: A
+filter.inner.submit: Ok
+filter.title.keyword: Ritiri
+filter.inner.keyword: 'Parole chiave'
+retreats.table.head.dates: Data
+retreats.table.head.site: 'Sito web'
+retreats.table.head.event: Evento
+retreats.table.head.speakers: Relatore
+retreats.table.head.type: Tipo
+retreats.table.head.duration: Durata
+retreats.table.head.translations: 'Trad.'
+retreats.table.head.selections: Selezioni
+filter.title.speakers: Relatori
+filter.title.translations: Traduzioni
+admin.title: 'Pannello di controllo'
+calendar.registration.one.title: 'Login/Iscrizione'
+calendar.registration.two.title: Partecipanti
+calendar.registration.three.title: Confermare
+calendar.registration.three.body: "<p><strong>Una risposta alla vostra domanda vi sarà trasmessa a breve</strong> via e-mail o a mezzo posta ordinaria se non disponete di un indirizzo e-mail. Questa risposta dipende essenzialmente dai posti ancora disponibili e dalla nostra possibilità di accogliervi nelle migliori condizioni.</p><p>Se non ricevete una mail nel giro di qualche minuto, vi invitiamo a consultare la vostra cartella SPAM o i messaggi di posta indesiderati.</p><p>In caso di <strong>impedimenti</strong> en di <strong>rinuncia</strong>, vi ringraziamo di avvertirci rapidamente per posta o per telefono. Il posto disponibile potrà, così, essere proposto ad un’altra persona in lista d’attesa.</p><p><i>Protezione dei dati personali: la Roche d’Or s’impegna ad essere il solo ed unico destinatario delle informazioni che comunicherete. Per maggiori informazioni vi preghiamo di consultare la nostra politica di confidenzialità che recepisce le esigenze della regolamentazione europea in tema di protezione dei dati (GDPR).</i></p>"
+calendar.registration.one.title.connection: Login
+calendar.registration.one.title.registration: Iscrizione
+calendar.registration.summary.title: Riepilogo
+calendar.registration.summary.title.retreat: Ritiro
+calendar.registration.summary.title.participants: Partecipanti
+calendar.registration.one.body: 'Ha effettuato l''accesso come %name%, vuole continuare?'
+main.yes: Sì
+main.no: No
+form.id: Utente
+form.password: 'Password (minimo 8 caratteri)'
+form.password-login: Password
+form.ok: Ok
+form.civility.mr: 'Signor.'
+form.civility.mme: 'Sig.ra'
+form.surname: Nome
+form.surname.contact: '* Nome'
+form.name: Cognome
+form.name.contact: '* Cognome'
+form.address: Indirizzo
+form.zipcode: 'Codice postale'
+form.city: Città
+form.country: Paese
+form.phone: Telefono
+form.mobile: Mobile
+form.email: E-mail
+form.birthday: 'Data di nascita (gg/mm/aaaa)'
+form.profession: Professione
+form.submit: Ok
+calendar.registration.two.title.you: Tu
+calendar.registration.two.title.registered: 'Altri partecipanti iscritti con lei'
+calendar.registration.two.add_participant: '+ Aggiungere un partecipante'
+calendar.registration.two.validate_participants: 'Confermare l''iscrizione'
+form.username: 'Nome utente'
+form.modify: Cambiare
+form.participate: Parteciperà
+calendar.notify.attendee.subject: 'Richiesta di iscrizione'
+news.title: Notizie
+news.button.discover: 'Scopri il prodotto'
+form.label.password: Password
+security.reset_password_request.subject: 'Reimposta password'
+form.label.password_repeat: Reinserire
+security.reset.token_not_found: 'Questo collegamento di ripristino non è più valido o non esiste'
+security.password_reset_success_message: 'La nuova password è stata salvata, ora è possibile accedere con la nuova password.'
+form.label.email: 'Indirizzo email'
+form.label.connection: login
+form.label.lastname: Cognome
+form.label.firstname: Nome
+form.label.gender: 'Stato civile'
+form.label.male: 'Signor.'
+form.label.female: Signora
+form.label.miss: Signorina
+form.label.father: Padre
+form.label.sister: Sorella
+form.label.brother: Fratello
+form.label.address: Indirizzo
+form.label.zipcode: 'Codice postale'
+form.label.city: Città
+form.label.country: Paese
+form.label.phone: Telefono
+form.label.mobile: Mobile
+form.label.birthday: 'Data di nascita'
+form.label.job: Professione
+password: Password
+security.register: Iscrizione
+calendar.registration.intro: 'State per iscrivervi ad un ritiro. <br> Compilate i dati seguenti se desiderate continuare, in caso contrario, fare clic su <a href="%link%">qui</a> per tornare al calendario.'
+calendar.registration.two.title.modify: 'Modificare un partecipante'
+calendar.registration.two.title.registration: 'Aggiungere un partecipante'
+calendar.registration.one.body.connected: 'È stato effettuato l''accesso come <i>%name%<i>, si desidera continuare?'
+form.yes: Sì
+form.no: No
+calendar.registration.one.body.disconnected: 'Avete già partecipato ad un ritiro alla La Roche d''Or o alle Fontanilles? (vorremmo sapere se abbiamo già i tuoi dati oppure no.)'
+form.continue: Continuare
+form.disconnect: Logout
+calendar.registration.two.title.modify.you: 'Modificare la scheda di iscrizione'
+calendar.registration.two.title.modify.him: 'Modificare un partecipante'
+form.transport: 'Viaggiate in'
+form.memo: Commento
+form.transport.perso: 'Verrà con il proprio mezzo di trasporto'
+form.transport.train: 'Verrà in treno'
+form.transport.avion: 'Verrà in aereo'
+form.transport.bus: 'Verrà in autobus'
+form.label.submit: Ok
+form.message.verify_transport: 'Indicare la modalità di trasporto per i seguenti partecipanti:'
+form.message.parent_must_be_adult: 'I bambini devono essere accompagnati da un adulto di età superiore ai 18 anni'
+form.message.date_invalid: 'La data selezionata non è valida'
+form.no_participants: 'Nessun partecipante'
+form.civil: 'Stato civile'
+form.relation: Relazione
+form.colp: Organizzatore
+calendar.days: g
+filter.raz.button: 'Rimuovere i filtri'
+form.password.reset: 'Reimposta la password'
+security.bad_credentials: 'I dati di accesso inseriti non sono corretti'
+security.check_inbox: 'Si prega di fare clic sull''e-mail inviata nella sua casella di posta per completare la reimpostazione della password. Se non ha ricevuto un''e-mail, controlli la cartella delle spam.'
+news.last_posts.title: 'Prodotti in primo piano'
+editions.seeallproducts: 'Vedere la collezione completa'
+editions.filters.title: 'Perfezionare la ricerca'
+editions.filter.collections.title: 'Per collezioni'
+editions.filter.collections.choose: 'Scegliere una raccolta'
+editions.filter.themes.title: 'Per tema'
+cart.remove: '_svuota il carrello'
+cart.empty: 'carrello_vuoto'
+editions.author: Autore
+editions.collection: Collezione
+editions.addtocart: 'Aggiungi al carrello'
+editions.ebookversion: 'Versione Ebook'
+order.registration.cart.title.1: 'Il tuo carrello'
+order.registration.one.title: 'Login/Iscrizione'
+order.registration.one.body.disconnected: 'Avete già ordinato da Editions Roche d''Or ? (vorremmo sapere se abbiamo già i tuoi dati di contatto)'
+order.registration.two.title: 'Scheda cliente'
+order.registration.two.title.you: 'I vostri dati'
+order.registration.choose.adliv: 'Indirizzo di consegna'
+form.choose.adliv: Consegna
+select.ad.myAd: 'Il mio indirizzo'
+select.ad.roche: 'Libreria della Roche d''Or'
+select.ad.font: 'Libreria delle Fontanilles'
+select.ad.other: 'Un altro indirizzo'
+order.choose.adliv: 'Indirizzo di consegna'
+form.adresse: Indirizzo
+order.registration.choose.country: 'Seleziona il paese di consegna'
+form.choose.country: Paese
+country.fr: Francia
+country.en: 'Regno Unito'
+country.de: Germania
+country.it: Italia
+country.es: Spagna
+order.registration.choose.gift: Regalo
+order.choose.modpaie: 'Seleziona metodo di pagamento'
+form.choose.modpaie: 'Metodo di pagamento'
+select.cb: 'Carta di credito'
+select.paypal: Paypal
+editions.or: O
+editions.technicalreview.annee: 'edizioni.revisione tecnica.anno'
+editions.technicalreview.isbn: Isbn
+editions.technicalreview: 'Scheda tecnica'
+editions.technicalreview.dateparution: 'Prima pubblicazione'
+editions.technicalreview.dimensions: Dimensioni
+editions.technicalreview.editeur: Editore
+editions.technicalreview.ean: Ean
+editions.technicalreview.nbpage: 'No. di pagine'
+editions.technicalreview.rubrique: Collezione
+editions.technicalreview.poids: Peso
+cart.emptydelivery: Nessuno
+form.message.recap_delivery: Consegna
+form.message.recap_cartInfo: 'Riassunto del carrello'
+cart.emptycart: 'Carrello vuoto'
+form.street: via
+form.societe: Azienda
+order.summary.title.clients: 'Riepilogo del prodotto'
+its.a.gift: Regalo
+order.gift.text: 'Se questo è un regalo, può aggiungere un messaggio per la persona a cui lo sta inviando.'
+order.registration.one.body.connected: 'È stato effettuato l''accesso come <i>%name%<i>, si desidera continuare?'
+form.gift: Messaggio
+form.payment: Pagamento
+go.to.order: 'Torna alla consegna'
+form.its.a.gift: Regalo
+form.validate.gift: 'Conferma messaggio'
+form.no_clients: 'form.no_clients'
+form.suprmessage.gift: 'Elimina messaggio'
+security.user_exist: 'Questo indirizzo e-mail è già registrato.'
+user.security_child: 'Solo gli adulti di età superiore ai 18 anni possono iscriversi.'
+form.contact.title: 'Modulo di contatto'
+form.body: Messaggio
+form.send: Invia
+title.connection: Login
+form.title.connection: 'Modulo di accesso'
+form.validate: Confermare
+form.title.registration: 'Modulo di iscrizione'
+form.password.repeat: 'Reinserire la password'
+contact.submit.success: 'Il suo messaggio è stato inviato. Sarà letto il prima possibile, riceverà la conferma della ricezione in pochi minuti. Tornare a <a href="/">homepage</a>.'
+contact.ro.foradmin.subject: '[Ro] Nuovo messaggio da'
+contact.ro.forclient.subject: 'Il tuo messaggio a La Roche d''Or'
+contact.ft.forclient.subject: 'Il tuo messaggio ai Fontanilles'
+contact.ft.foradmin.subject: '[FONTANILLES]  Nuovo messaggio da'
+form.please.recaptcha: 'Si prega di spuntare "Non sono un robot" nella casella apposita'
+security.reset.intro: 'Inserire la nuova password nel folmulario sottostante'
+security.reset.title: '<small>reimposta </small>Password'
+continue: 'Prossimo'
+homepage: 'Casa'
+return.to.calendar: 'Torna al calendario'
+calendar: 'Calendario'
+form.reset: 'form.reset'
+form.message.child_must_come_with_adult: 'I minori di 16 anni devono essere accompagnati da un adulto'
+form.message.child_must_have_autpar: 'Tutti i bambini devono avere il consenso di un genitore o di un tutore'
+form.civilite.mr: 'Signor.'
+form.civilite.mme: 'Signora.'
+form.civilite.mlle: Signorina
+form.civilite.pere: Padre
+form.civilite.frere: Fratello
+form.civilite.soeur: Sorella
+form.message.phone_invalid: 'Inserire almeno un numero di telefono'
+form.message.does_child_have_autpar: 'Avete il consenso del genitore o del tutore per iscrivere questo bambino?'
+calendar.registration.error: 'calendar.registration.error'
+calendar.registration.error.empty: 'Spiacenti, questo ritiro non esiste più. È possibile tornare alla <a href="/it/lista-ritiri">calendario</a>.'
+calendar.registration.error.date: 'Spiacenti, questo ritiro non è più disponibile. È possibile tornare al <a href="/it/lista-ritiri">calendario</a>.'
+form.email.please: 'Inserire l’indirizzo e-mail'
+form.email.contact: '* E-mail'
+calendar.registration.three.header: "<p>La ringraziamo per l’interesse che manifesta per la Roche d'Or. La sua domanda d’iscrizione è stata trasmessa. Il numero corrispondente alla vostra domanda è il seguente :</p><p><center><br>%entry_number%</br></center></p>"
+email-not-found: 'Indirizzo di posta elettronica non trovato'
+form.reinit: Reimpostare
+form.arriv: 'Arrivo (hh:mm)'
+form.navette: 'Prenderò la navetta della comunità.'
+form.lieu: 'Luogo di arrivo'
+form.lieu.viotte: Viotte
+form.cancel: Annulla
+form.message.not_with_an_adult: 'non è accompagnato da un adulto'
+form.message.not_accompanied: 'non è accompagnato'
+form.message.no_transport: 'non ha il proprio mezzo di trasporto'
+participant_not_valid: 'Questo partecipante non è valido'
+form.message.participant_not_valid: 'Questo partecipante non è valido'
+security.username_exists: 'Questo nome utente è già in uso'
+security.password_request.not_found: 'Non abbiamo trovato i suoi dati. <br>Errore di ortografia? Cognome errato? Ordine errato dei nomi?'
+security.password_request.missing_infos: 'Informazioni mancanti'
+form.lastname.please: 'Inserire cognome'
+form.firstname.please: 'Inserire nome'
+security.password_too_small: 'La password deve essere di almeno 8 caratteri'
+order.summary.title.cart: Carrello
+form.update: 'Modificare i vostri dati'
+form.tvaintra: 'IVA intracomunitaria'
+form.memocli: Memo
+order.registration.three.title: Consegna
+order.registration.three.title.you: 'Selezionare l''indirizzo di consegna'
+form.message.pro_invalid: 'Il numero IVA oppure  il nome dell''azienda è incompleto'
+order.registration.four.title: Pagamento
+order.registration.three.title.modify.you: Pagamento
+order.registration.two.title.modify.you: Cambiare
+order.registration.five.title: Confermare
+order.registration.five.body: 'Congratulazioni il tuo ordine è stato effettuato!'
+order.summary.title.delivery: Consegna
+order.summary.title.total: Totale
+order.summary.body.delivery: 'Si prega di confermare l''indirizzo di consegna. <br>Le informazioni riportate di seguito sono destinate alla consegna all''interno della Francia metropolitana.'
+order.summary.body.total: 'Si prega di confermare l''indirizzo di consegna'
+table.header.product: Prodotto
+table.header.price: Prezzo
+table.header.quantity: Quantità
+table.header.delete: Elimina
+table.header.label: Etichetta
+table.header.total: Totale
+table.header.weight: Peso
+main.remove: Elimina
+order-error.title.small: Edizioni
+order-error.title.big: 'La Roche d’Or'
+order-error.text: 'Non hai articoli nel tuo carrello. Fare clic su questo<a href="%link%">link</a>per scoprire le nostre collezioni.'
+order-return.title.small: Edizioni
+order-return.title.big: 'La Roche d’Or'
+success: 'Il tuo ordine è stato effettuato con successo.'
+error: 'Si è verificato un errore con l''ordine'
+collection: Collezione
+menu.cart: Carrello
+order.registration.one.title.connection: Login
+order.registration.one.title.registration: Iscrizione
+form.message.delivery_invalid: 'Tutti i campi "Indirizzo di consegna" sono obbligatori'
+order.choose.payment: 'Metodo di pagamento'
+order.error.title: '<small>Edizioni </small>Roche d''Or'
+order.error.text: 'Il tuo carrello è vuoto. È possibile aggiungere un articolo dalle <a href="%link%">collezioni</a>'
+table.label.weightOrder: 'Peso dell''articolo'
+table.label.packagingWeight: 'Peso dell''imballaggio'
+table.label.totalWeight: 'Peso totale'
+table.label.totalPriceIT: 'Costo degli acquisti inc, IVA'
+table.label.vat: Iva
+table.label.shippingPriceIT: 'Costi di spedizione'
+table.label.consumerPriceIT: 'Totale (IVA inclusa)'
+order-return.title: 'Edizioni <small>della Roche d''Or'
+order-return.success: '<br>Riceverai un''email entro pochi minuti.<br>Se non ricevi un''email entro pochi minuti, controlla la cartella della posta indesiderata.<br>Torna a <a href="%link%">collezioni</a>.'
+order-return.cancel: 'Si è verificato un problema durante l''elaborazione dell''ordine. <br>Tornare a <a href="%link%">basket</a>.'
+form.firstname: Nome
+form.lastname: Cognome
+form.message.zipcode_invalid: 'Il codice postale non corrisponde al paese selezionato'
+form.message.tvaintra_invalid: 'Il numero di partita IVA non è valido'
+order.notify.client.subject: 'Nuovo ordine'
+form.keep-password: 'Mantenere la vecchia password'
+error-unknown-error: 'Errore sconosciuto'
+form.newfich: 'Prima iscrizione ad un ritiro'
+gift.title: 'Donazione puntuale <small> online</small>'
+gift.intro: 'State per fare una donazione puntuale online. Compilare il modulo seguente o tornare alla pagina <a href="%link%">donazioni</a>.'
+gift.one.title: 'Login/Iscrizione'
+gift.one.body.connected: 'È stato effettuato l''accesso come %name% si desidera continuare?'
+gift.two.title: 'Scheda del donatore'
+gift.two.title.modify.you: 'Modificare le informazioni'
+gift.three.title: Quantità
+gift.amount: 'Importo della donazione'
+form.other: Altro
+gift.four.title: Destinazione
+gift.choose.allocation: 'Selezionare la destinazione'
+form.choose.allocation: Destinazione
+select.allocation.libre: 'Nessuna allocazione'
+select.allocation.souttx: 'Appello urgente'
+select.allocation.viecom: 'Vita comunitaria'
+select.allocation.itin: 'Sostegno per i ritiri itineranti'
+select.allocation.rochtx: 'Lavori presso la Roche d''Or'
+select.allocation.fonttx: 'Lavori presso le Fontanilles'
+gift.five.title: Pagamento
+gift.choose.payment: 'Seleziona metodo di pagamento'
+gift.summary.title: Riepilogo
+gift.six.title: Confermare
+gift.summary.title.amount: Importo
+gift.summary.no_amount: 'Nessun importo'
+gift.summary.title.donator: Donatore
+gift.summary.no_donator: 'Si prega di registrarsi/effettuare il login'
+gift.summary.title.gift: Donazione
+table.header.allocation: Allocazione
+table.header.amount: Importo
+gift.summary.no_allocation: 'Nessuna destinazione'
+gift-return.title: 'regalo-reso.titolo'
+gift-return.success: "    <div style=\"color: #ffffff;\">        Buongiorno %name%,<br><br>        Permetteteci di esprimervi di nuovo tutta la nostra gratitudine per il vostro contributo alla missione di evangelizzazione che è la nostra e che, attraverso questo dono, diventa anche la vostra.<br><br>        Attraverso il vostro dono di %amount% Euro, vi unite al movimento di solidarietà degli Amici delle Roche d’Or per sostenere la nostra azione evangelica.<br><br>        Siatene ancora ringraziato/a.<br><br>        Una e-mail vi viene spedita immediatamente. Se non ricevete la mail nel giro di qualche minuto, vi invitiamo a consultare la vostra cartella SPAM o i messaggi di posta indesiderati.<br><br>        Uniti dalla grazia di Colui che tesse tra di noi dei legami di fraternità, vi ridiciamo di nuovo tutta la nostra amicizia.<br><br><span style=\"display: block; text-align: right;\">La Comunità</span><br><br>    </div>    Una ricevuta fiscale vi sarà inviata all’inizio dell’anno prossimo per e-mail al seguente indirizzo : %email%<br><br>    Altrimenti, per posta ordinaria, al seguente indirizzo :<br><br>    <div style=\"margin-left: 50px;\">        %name%<br>        %address%<br>        %zipcode% %city%<br>        \L%country%<br><br>    </div>    Contatti segreteria: +33 (0)3 81 41 47 47 oppure ou secretariat@rochedor.org<br>    Il nostro sito: www.rochedor.fr<br><br>    Per tutte le informazioni e corrispondenza, ricordateci il numero di riferimento del vostro dono : %ref%"
+gift-return.cancel: 'La transazione è stata annullata e non è stato effettuato alcun pagamento.<br>Torna alla pagina <a href="%link%">donazioni</a>.'
+form.gift.note: 'Potete lasciare un messaggio per noi'
+gift.one.body.disconnected: 'Avete già fatto una donazione online? (vorremmo sapere se abbiamo già i tuoi dati di contatto)'
+gift.one.title.connection: 'Login'
+gift.one.title.registration: 'Iscrizione'
+gift.summary.reduction: 'Se pago le tasse in Francia, questa donazione mi darà diritto ad una riduzione dalle tasse di importo pari a %reduction% euro'
+global.page-not-found: 'La pagina a cui si sta tentando di accedere non esiste più o è stata spostata.'
+errors.not-found.title: 'Pagina non trovata'
+errors.not-found.intro: 'La pagina a cui si sta tentando di accedere non esiste più o è stata spostata. <br><a href="%link%">Torna alla home page.</a>'
+errors.unknown.title: 'Errore'
+errors.unknown.intro: 'Si è verificato un errore.<br><a href="%link%">Torna alla home page.</a>'
+cart.product.added: 'L''articolo è stato aggiunto al carrello'
+order.accept-terms.title: 'Termini e condizioni di vendita'
+order.accept-terms.label: 'Accetto i T&C'
+order.accept-terms.link: 'Leggi i termini e le condizioni di vendita'
+footer.terms: 'Termini e condizioni di vendita'
+global.secure-datas: 'Sicurezza dei dati'
+order.accept-terms.disclaimer: 'Per completare l''ordine è necessario accettare i nostri termini e condizioni di vendita. <br> <br><a href="%link%" class="accept-terms-link" target="_blank">Vedere Termini e condizioni.</a>'
+global.tax-code: 'Se paga le tasse in Francia o all''interno di un paese dell''UE che lo consente, potrà beneficiare di una riduzione fiscale.<br>Se è un contribuente francese, questo sconto equivale al 66% dell''importo totale della sua donazione, con un limite del 20% del suo reddito imponibile. Eventuali eccedenze possono essere riportate nei prossimi 5 anni, dando diritto ad una riduzione fiscale secondo le stesse condizioni (articolo 200 Codice del fisco generale). Per accedere a GTC, seguire questo link <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle, LEGIARTIG0018619914&cidTexttexte"LEGITEXT00006069577" target="_blank">ICI</a>.<br>Dal 2009 la possibilità di emettere una ricevuta fiscale è stata estesa alle donazioni e ai pagamenti statali per le organizzazioni straniere stabilite in uno Stato membro dell''UE o nello Spazio economico europeo se hanno firmato un accordo fiscale con la Francia che include una clausola per l''assistenza amministrativa al fine di combattere la frode e l''evasione fiscale. Ciò vale per il Belgio, ad esempio (citarne altri)'
+security.email_exists: 'Questo indirizzo mail è già utilizzato'
+invalid-credentials: 'Nome utente non valido'
+form.particular: Privato
+form.professional: Professionale
+footer.termsPro: 'Termini e condizioni di vendita per i professionisti'
+form.statut: Stato
+form.statut.par: Privato
+form.statut.org: Organizzazione
+form.statut.pro: Professionale
+form.pro: 'Sono un professionista'
+order-return.success-p1: '<p>Il vostro ordine è stato registrato con il numero %refCom% e ve ne ringraziamo. Vi invitiamo a conservare questo numero che vi sarà richiesto per qualunque domanda relativa al vostro ordine.</p><p>A titolo indicativo, le spedizioni vengono effettuate entro un termine da %minliv% a %maxliv% giorni lavorativi.</p>Il vostro ordine sarà spedito al seguente indirizzo :<br><br><center>%addCom%</center><br><p>Un messaggio vi è immediatamente spedito per e-mail. Se non ricevete la e-mail nel giro di qualche minuto, vi invitiamo a consultare la vostra cartella SPAM o i messaggi di posta indesiderati.</p><p>Noi restiamo a vostra completa disposizione per ogni supplemento e richiesta di informazioni.</p><p>Con tutta la nostra simpatia</p><p>L’équipe della Roche d’Or</p> '
+form.submitParticipant: 'Conferma partecipante'
+calendar.registration.table.header.participant: Partecipante
+form.mail_spam: 'Se non hai ricevuto un''e-mail, controlla la tua cartella SPAM'
+calendar.registration.table.header.transport: 'Mezzo di trasporto'
+calendar.registration.table.header.come: 'Arrivo a'
+calendar.registration.table.header.schedule: Orario
+calendar-registration-two-title-8a42f5e2171c48696bc9bfa1dcbe86d8: Partecipanti
+order.notify.client.roche.adliv: 'Ritiro a La Roche d''Or - 1 chemin du Muenot 25000 Besançon (FR)'
+order.notify.client.font.adliv: 'Ritiro alle Fontanilles – Route de Riunoguès 66480 Maureillas Las Illas (FR)'
+menu.terms: 'Condizioni d''uso'
+menu.legal: 'Note legali'
+contacts: Contatti
+filter.button.show: 'Mostra i filtri'
+editions.filters.show: ﬁltrare
+editions.filter.show: ﬁltrare
+retreat.speaker.of: 'da parte di'
+filter.close.button: 'Cancella i filtri'
+detail.pricettc: '%ttc% IVA'
+detail.priceht: '%ht% IVA esclusa'
+detail.tva: '(IVA %tva% %)'
+logout.disconnect.title: Scollegare
+logout.disconnect.text: 'Sei stato disconnesso'
+order.registration.intro: __order.registration.intro
+order.summary.title: 'Il mio carrello'
+form.continue.order: Ordinare
+form.go.buy: 'Continua a fare acquisti'
+you.billing: 'Questo indirizzo verrà considerato l''indirizzo di fatturazione'
+no.shipping: '(nessuna spesa di spedizione)'
+select.bank-cheque: Assegno
+validate.order: 'Convalidare l''ordine ed effettuare il pagamento'
+form.retry: Iniziare
+con_data_date: 'Avete concesso alla comunità della Roche D''Or il diritto di conservare i tuoi dati il'
+con_news_date: 'Ti sei iscritto all''e-mail delle novità della comunità della Roche D''Or il'
+click.termsPro: 'Cliccando su <i>Convalida l''ordine ed effettua il pagamento</i>, <br>accetti l''obiettivo <a href="%link%" target="_blank"> Termini generali di vendita ai professionisti</a>.'
+click.terms: 'Cliccando su <i>Convalida l''ordine ed effettua il pagamento</i>, <br>accetti il target <a href="%link%" target="_blank"> Termini generali di vendita</a>.'
+order.summary.title.billing: 'Indirizzo di fatturazione'
+table.header.price.unit: 'Prezzo unitario'
+table.header.price.total: 'Prezzo totale'
+table.header.price.ttc: 'Prezzi TTC'
+table.header.price.prix.ht: 'Prezzo HT'
+table.header.tax.rate: 'IVA'
+product.detail.price.ttc: '%ttc% € TTC'
+product.detail.price.ht: '%ht% € HT'
+order.change.price: 'I prezzi sono stati aggiornati in seguito alle informazioni sull''indirizzo di consegna.'
+order.delay.title: 'Ritardi di trasporto'
+order.delay.message: 'Le consegne vengono effettuate entro un lasso di tempo %minliv% a %maxliv% giorni lavorativi dal momento dell’invio della mail di conferma dell''ordine. L''IVA e i costi di trasporto sono stati adeguati al tuo indirizzo di consegna.'
+consent.data: 'Autorizzo Editions Roche d''Or a conservare le mie informazioni di contatto per evitare di doverle reinserire per un ordine futuro'
+consent.news: 'Autorizzo la Roche d''Or ad informarmi via e-mail delle novità.'
+order-return.error: 'È sorto un problema.<br>Tornate a <a href="%link%">collezioni</a>.'
+order-return.success-p2: "<p>Il vostro ordine è stato registrato con il numero %refCom% e ve ne ringraziamo. Vi invitiamo a conservare questo numero che vi sarà richiesto per qualunque domanda relativa al vostro ordine.</p><p>A titolo indicativo, le spedizioni vengono effettuate entro un termine da %minliv% a %maxliv% giorni lavorativi a partire dalla ricezione del pagamento del vostro ordine.</p><p>  <center>Grazie di intestare il vostro assegno a : Éditions Roche d’Or </center><center>e di spedirlo a :</center><center>Éditions Roche d’Or</center><center>Chemin du Muenot</center><center>25042 BESANÇON Cedex</center></p>Il vostro ordine sarà spedito al seguente indirizzo :<br><br><center>%addCom%</center><br><p>Un messaggio vi è immediatamente spedito per e-mail. Se non ricevete la e-mail nel giro di qualche minuto, vi invitiamo a consultare la vostra cartella SPAM o i messaggi di posta indesiderati.</p><p>Noi restiamo a vostra completa disposizione per ogni supplemento e richiesta di informazioni.</p><p>Con tutta la nostra simpatia</p><p>L’équipe della Roche d’Or</p>"
 order-return.success-p2-withoutDelay:
 order-return.success-p1-withoutDelay:
 security.password_reset_success_message.don:
-calendar.registration.title:
-registration.validation.address_fontanilles:
-registration.validation.address_rochedor:
-gift-return.success.mail:
-payment.virement_reg:
-gift.payment.mail.virement_regular:
-payment.virement:
-gift.payment.mail.virement:
-payment.cheque:
-gift.payment.mail.cheque:
-reset.password.info:
-calendar.registration.tooltip:
-calendar.registration.two.title.went:
-calendar.registration.logout-tooltip:
-calendar.registration.validation-tooltip:
-calendar.registration.tooltip-username:
-calendar.registration.tooltip-pass:
-form.lieu.besancon-tgv:
-form.lieu.ne-sait-pas:
-logout.disconnect.calendar:
-choice_site.intro:
-choice_site.text:
-register_roche:
-register_fontanilles:
-logout.disconnect.dons:
-payment.cb:
-payment.paypal:
-tax.title:
-form.gift.validate:
-gift.virementreg.date:
-gift.virement.date:
-gift.virementreg.datefin:
-form.choose.period:
-select.period.monthly:
-select.period.trimestre:
-select.period.semestre:
-gift.virement.descr:
-form.back:
-logout.disconnect.text.black:
-maintenance.title:
-maintenance.intro:
-product.detail.price.tva:
-editions.calameo:
-editions.bayard.chant:
-editions.bayard.partition:
-editions.filter.support.choose:
-editions.filter.author.choose:
-editions.filter.gender.choose:
-editions.filter.theme.choose:
-filter.research:
-other.gift-mode:
-gift.return.title:
-gift.payment.return.virement_regular:
-gift.payment.return.virement:
-gift.payment.return.cheque:
-see.cart:
-continue.cart:
-main.ok:
-menu.two.five:
-edition.comingSoon:
-terms.of.use:
-legal.mention:
-footer.privacy:
-menu.six.three:
-menu.seven:
-contact.ro:
-contact.ft:
-friends.links:
-footer.four:
-footer.four.three:
-footer.five:
+calendar.registration.title: '<h2>La vostra domanda d’iscrizione è stata presa in considerazione.</h2>'
+registration.validation.address_fontanilles: 'Alle  Fontanilles, route de Riunoguès 66480 Maureillas Las Illas'
+registration.validation.address_rochedor: 'Alla Roche d''Or, chemin du Muenot 25000 Besançon'
+gift-return.success.mail: "Buongiorno %name%,<br><br>Permetteteci di esprimervi di nuovo tutta la nostra gratitudine per il vostro contributo alla missione di evangelizzazione che è la nostra e che, attraverso questo dono, diventa anche la vostra.<br>    Attraverso il vostro dono di %amount% Euro, vi unite al movimento di solidarietà degli Amici delle Roche d’Or per sostenere la nostra azione evangelica.<br>    Siatene ancora ringraziato/a.<br><br>    Uniti dalla grazia di Colui che tesse tra di noi dei legami di fraternità, vi ridiciamo di nuovo tutta la nostra amicizia.<br><br><span style=\"display: block; text-align: right;\">La Comunità</span><br><br>    Una ricevuta fiscale vi sarà inviata all’inizio dell’anno prossimo per e-mail al seguente indirizzo : %email%<br>    Altrimenti, per posta ordinaria, al seguente indirizzo :<br><div style=\"margin-left: 50px;\">    %name%<br>    %address%<br>    %zipcode% %city%<br>    \L%country%<br><br></div>    Contatti segreteria: +33 (0)3 81 41 47 47 oppure secretariat@rochedor.org<br>    Il nostro sito : www.rochedor.fr<br>    Per tutte le informazioni e corrispondenza, ricordateci il numero di riferimento del vostro dono : %ref%"
+payment.virement_reg: 'Donazione regolare tramite bonifico'
+gift.payment.mail.virement_regular: "Buongiorno %civility% %name%,<br><br>         L’insieme della Comunità si unisce a me per ringraziarvi della vostra generosità.<br><br>         Con la vostra partecipazione di %amount% Euro ogni %period% vi con causale %affectation%, vi unite al movimento di solidarietà degli Amici delle Roche d’Or.<br><br>         Vi ringraziamo di effettuare il vostro bonifico sul conto :<br>         <div style=\"margin-left: 50px;\">             Banca\_: %bank_name%<br>             Numero di conto\_: %bank_account%<br>             IBAN\_: %bank_iban%<br>             SWIFT/BIC\_: %bank_bic%<br><br>         </div>         Permettetemi di esprimervi di nuovo tutta la nostra gratitudine per il vostro contributo alla missione di evangelizzazione che è la nostra e che, attraverso questo dono, diventerà anche la vostra.<br><br>         Danièle VALÈS<br><br>         Contatti segreteria: +33 (0)3 81 41 47 47 oppure secretariat@rochedor.org<br>         Il nostro sito\_: www.rochedor.fr"
+payment.virement: 'Donazione puntuale tramite bonifico'
+gift.payment.mail.virement: "Buongiorno %civility% %name%,<br><br>         L’insieme della Comunità si unisce a me per ringraziarvi della vostra generosità.<br><br>         Con la vostra partecipazione di %amount% Euro, con la causale %affectation%, vi unite al movimento di solidarietà degli Amici delle Roche d’Or.<br><br>         Vi ringraziamo di effettuare il vostro bonifico sul conto :<br>         <div style=\"margin-left: 50px;\">             Banca\_: %bank_name%<br>             Numero di conto\_: %bank_account%<br>             IBAN\_: %bank_iban%<br>             SWIFT/BIC\_: %bank_bic%<br><br>         </div>         Permettetemi di esprimervi di nuovo tutta la nostra gratitudine per il vostro contributo alla missione di evangelizzazione che è la nostra e che, attraverso questo dono, diventerà anche la vostra.<br><br>         Danièle VALÈS<br><br>         Contatti segreteria: +33 (0)3 81 41 47 47  oppure secretariat@rochedor.org<br>         Il nostro sito : www.rochedor.fr"
+payment.cheque: 'Donazione puntuale con assegno'
+gift.payment.mail.cheque: "Buongiorno %civility% %name%,<br><br>         L’insieme della Comunità si unisce a me per ringraziarvi della vostra generosità.<br><br>         Con la vostra partecipazione di %amount% Euro, con la causale %affectation%, vi unite al movimento di solidarietà degli Amici delle Roche d’Or.<br><br>         Vi ringraziamo di intestare il vostro assegno a:<br>         <div style=\"margin-left: 50px;\">             Comunità de La Roche d’Or\L<br>             25042 BESANÇON CEDEX<br><br>         </div>         Permettetemi di esprimervi di nuovo tutta la nostra gratitudine per il vostro contributo alla missione di evangelizzazione che è la nostra e che, attraverso questo dono, diventerà anche la vostra.<br><br>         Danièle VALÈS<br><br>         Contatti segreteria: +33 (0)3 81 41 47 47  oppure secretariat@rochedor.org<br>         Il nostro sito: www.rochedor.fr"
+reset.password.info: '<p><strong>Prima registrazione o prima donazione su questo nuovo sito ?</strong></p><p>Per delle ragioni si sicurezza abbiamo dovuto cambiare il tuo ID. Il nuovo ti verrà comunicato via email facendo clic su "Reimposta la password"</p>'
+calendar.registration.tooltip: 'Indicare solo i membri della vostra famiglia.'
+calendar.registration.two.title.went: 'Siamo già venuti con voi'
+calendar.registration.logout-tooltip: 'Per uscire dalla pagina. Non verrà presa in considerazione alcuna domanda d’iscrizione.'
+calendar.registration.validation-tooltip: 'È necessario aggiungere almeno un partecipante per convalidare la richiesta d’iscrizione.'
+calendar.registration.tooltip-username: 'Che cos''è un Login?'
+calendar.registration.tooltip-pass: 'Che cos''è una password?'
+form.lieu.besancon-tgv: 'Besançon Franche-Comté TGV (16 km dal centro di Besançon)'
+form.lieu.ne-sait-pas: 'Non lo so ancora'
+logout.disconnect.calendar: 'Sei stato disconnesso dalla pagina d’iscrizione.<br> Per realizzare una nuova iscrizione cliccare su Calendario.'
+choice_site.intro: '<small>Benvenuti nel calendario</small> e nella richiesta d’iscrizione'
+choice_site.text: 'Il Roche d''Or si impegna ad essere l''unico destinatario delle informazioni che fornisci.<br><br> Se avete già partecipato ad un ritiro alla Roche d’Or oppure alle Fontanilles, le informazioni che ci avete già fornito appariranno automaticamente. Avete la possibilità di aggiornarle.<br><br> Potete anche contattare la segreteria della Roche d''Or o la segreteria delle Fontanilles, in base al luogo dove si svolge il ritiro a cui sei interessato.<br><br> La preghiamo di avvertire rapidamente per mail o per telefono in caso di disdetta. In questo modo il posto disponibile potrà essere offerto a un''altra persona in lista d''attesa.'
+register_roche: 'Iscrizione Roche d''Or'
+register_fontanilles: 'Iscrizione Fontanilles'
+logout.disconnect.dons: 'Siete stati disconnessi dalla pagina per le donazioni. Per realizzare un’altra donazione, cliccate su Sostenerci e poi su Doni puntuali oppure regolari.'
+payment.cb: 'Donazione puntuale online da carta bancaria'
+payment.paypal: 'Donazione puntuale online da parte di Paypal'
+tax.title: 'Se sei soggetto a tassazione'
+form.gift.validate: 'Convalido e fornisco le mie informazioni'
+gift.virementreg.date: 'Data di inizio del bonifico'
+gift.virement.date: 'Data del bonifico'
+gift.virementreg.datefin: 'La data di fine del bonifico'
+form.choose.period: Periodicità
+select.period.monthly: Mensile
+select.period.trimestre: Trimestrale
+select.period.semestre: Biennale
+gift.virement.descr: 'Tutte le informazioni per effettuare il bonifico bancario, a seconda dell''assegnazione della tua donazione, ti verranno inviate via e-mail. Se non ricevi un messaggio in pochi minuti, ti invitiamo a controllare la casella SPAM o la posta indesiderata.'
+form.back: Indietro
+logout.disconnect.text.black: 'Sei stato disconnesso.'
+maintenance.title: 'Manutenzione in corso'
+maintenance.intro: 'Manutenzione in corso, riprovare più tardi.'
+product.detail.price.tva: '(IVA %tva% %)'
+editions.calameo: 'Scorrere un estratto'
+editions.bayard.chant: 'Acquistare un brano su base unitaria'
+editions.bayard.partition: 'Acquisto di spartiti su base unitaria'
+editions.filter.support.choose: Supporto
+editions.filter.author.choose: Autore
+editions.filter.gender.choose: Genere
+editions.filter.theme.choose: Tema
+filter.research: Ricerca
+other.gift-mode: 'Altre forme di donazione'
+gift.return.title: Indietro
+gift.payment.return.virement_regular: '<div style="color: #ffffff;">Buongiorno %civility% %name%,<br><br>L’insieme della Comunità si unisce a me per ringraziarvi della vostra generosità.<br><br>        Con la vostra partecipazione di %amount% Euro ogni %period%, vi unite al movimento di solidarietà degli Amici delle Roche d’Or.<br><br>        Una e-mail vi è stata appena inviata. Essa vi indica il conto bancario sul quale effettuare il vostro bonifico. Voi potrete interrompere in ogni momento questo bonifico, o variarne l’ammontare. Se non ricevete la e-mail nel giro di qualche minuto, vi invitiamo a consultare la vostra cartella SPAM o i messaggi di posta indesiderati.<br><br>        Una ricevuta fiscale vi sarà inviata all’inizio di ciascun anno. Essa riporterà l’insieme delle cifre donate alla Roche d’Or.<br><br>        Permettetemi di esprimervi di nuovo tutta la nostra gratitudine per il vostro contributo alla missione di evangelizzazione che è la nostra e che, attraverso questo dono, diventerà anche la vostra.<br><br>        Danièle VALÈS        </div>'
+gift.payment.return.virement: '<div style="color: #ffffff;">Buongiorno %civility% %name%,<br><br>            L’insieme della Comunità si unisce a me per ringraziarvi della vostra generosità.<br><br>            Con la vostra partecipazione di %amount% Euro, vi unite al movimento di solidarietà degli Amici delle Roche d’Or.<br><br>            Vi è stata appena inviata una e-mail. Essa vi indica il conto bancario sul quale effettuare il vostro bonifico.<br><br>            Una ricevuta fiscale vi sarà spedita all’inizio dell’anno prossimo. Essa riporterà l’insieme delle cifre donate alla Roche d’Or. Se non ricevete una mail nel giro di qualche minuto, vi invitiamo a consultare la vostra cartella SPAM o i messaggi di posta indesiderati.<br><br>            Permettetemi di esprimervi di nuovo tutta la nostra gratitudine per il vostro contributo alla missione di evangelizzazione che è la nostra e che, attraverso questo dono, diventerà anche la vostra.<br><br>            Danièle VALÈS        </div>'
+gift.payment.return.cheque: 'Buongiorno %civility% %name%,<br><br>        L’insieme della Comunità si unisce a me per ringraziarvi della vostra generosità.<br><br>        Con la vostra partecipazione di %amount% Euro, con la causale %affectation%, vi unite al movimento di solidarietà degli Amici delle Roche d’Or.<br><br>        Vi ringraziamo di intestare il vostro assegno a :<br>        <div style="margin-left: 50px;">            Comunità de La Roche d''Or<br>            25042 BESANÇON CEDEX<br><br>        </div>        Un messaggio vi è immediatamente spedito per e-mail. Se non ricevete la e-mail nel giro di qualche minuto, vi invitiamo a consultare la vostra cartella SPAM o i messaggi di posta indesiderati.<br><br>        Permettetemi di esprimervi di nuovo tutta la nostra gratitudine per il vostro contributo alla missione di evangelizzazione che è la nostra e che, attraverso questo dono, diventerà anche la vostra.<br><br>        Danièle VALÈS'
+see.cart: 'Vedere il mio carrello'
+continue.cart: 'Continua a fare acquisti'
+main.ok: Ok
+menu.two.five: 'Calendario e iscrizioni'
+edition.comingSoon: 'Disponibile su www.editionsrochedor.com'
+terms.of.use: 'Condizioni d''uso'
+legal.mention: 'Note legali'
+footer.privacy: 'Informativa sulla privacy e sulla protezione dei dati'
+menu.six.three: 'Dare il<br> vostro tempo'
+menu.seven: 'Contatti'
+contact.ro: 'Contatta la Roche d''Or'
+contact.ft: 'Contatta le Fontanilles'
+friends.links: 'Link amici'
+footer.four: 'Informazioni pratiche e giuridiche'
+footer.four.three: 'Accoglienza dei bambini e dei giovani'
+footer.five: 'Sostenerci e contattarci'
 form.message.required: 'Questo campo è obbligatorio'
+calendar.registration.participants_list: 'Elenco dei partecipanti'
+calendar.registration.participant: Partecipante
+form.message.do_you_have_agreement: 'Voi avete meno di 16 anni.<br>Disponete dell’assenso dei genitori o del tutore per iscrivervi? (GDPR)'
+editions.filter.no_theme: 'Nessun prodotto corrisponde all’insieme dei temi della vostra ricerca.'
