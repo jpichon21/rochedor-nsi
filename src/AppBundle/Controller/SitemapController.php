@@ -21,9 +21,12 @@ class SitemapController extends Controller
     {
         $urls = [];
         $pages = $this->getDoctrine()->getRepository('AppBundle:Page')->findAll();
-        
+
         foreach ($pages as $page) {
-            $urls[] = ['loc' => $page->getRoutes()->getValues()[0]->getStaticPrefix()];
+            $values = $page->getRoutes()->getValues();
+            if (is_array($values) && !empty($values)) {
+                $urls[] = ['loc' => $values[0]->getStaticPrefix()];
+            }
         }
 
         $response = new Response();
