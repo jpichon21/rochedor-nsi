@@ -455,7 +455,7 @@
                 <% } %>
                 <%= parseFloat(product[i].quantity) %>
                 <a href="#" data-id="<%= product[i].codprd %>" class="patchproduct plus" data-action="add">&plus;</a></td>
-                <td><%= parseFloat(product[i].price) %></td>
+                <td><%= parseFloat(product[i].price) %> €</td>
                 <td><%= parseFloat(product[i].productTaxRate) %> %</td>
                 <td class="action"><a href="#" data-id="<%= product[i].codprd %>" class="removecartline" data-action="add" >Supprimer</a></td>
                 <td class="last"><%= parseFloat(product[i].priceIT * product[i].quantity).toFixed(2) %> €</td>

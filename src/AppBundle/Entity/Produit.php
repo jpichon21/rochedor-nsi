@@ -25,11 +25,17 @@ class Produit
         'priere' => 'Prière',
         'temoin' => 'Témoignage',
     ];
+
+    const TYPE_LIVRE = 'livre';
+    const TYPE_LIVRE_AUDIO = 'livreaud';
+    const TYPE_LIVRET_PARTITION = 'livrepar';
+    const TYPE_CD = 'cd';
+
     const TYP_PRD = [
-        'livre' => 'Livre',
-        'livreaud' => 'Livre audio',
-        'livrepar' => 'Livret de partitions',
-        'cd' => 'CD'
+        self::TYPE_LIVRE => 'Livre',
+        self::TYPE_LIVRE_AUDIO => 'Livre audio',
+        self::TYPE_LIVRET_PARTITION => 'Livret de partitions',
+        self::TYPE_CD => 'CD'
     ];
 
     /**

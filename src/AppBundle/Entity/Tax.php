@@ -24,7 +24,7 @@ class Tax
     /**
      * @var string
      *
-     * @ORM\Column(name="LibTax", type="string", length=20)
+     * @ORM\Column(name="LibTax", type="string", length=30)
      */
     private $name;
 
@@ -45,7 +45,7 @@ class Tax
     /**
      * @var string
      *
-     * @ORM\Column(name="TypPrd", type="string", length=5)
+     * @ORM\Column(name="TypPrd", type="string", length=8)
      */
     private $typPrd;
 
