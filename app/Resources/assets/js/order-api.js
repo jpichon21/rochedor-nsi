@@ -1,3 +1,5 @@
+import { upFlashbag } from './popup'
+
 export const postLogin = (data) => {
   return window.fetch('/shop/login', {
     headers: { 'Content-Type': 'application/json' },
@@ -125,7 +127,13 @@ export const patchProduct = (data) => {
   })
     .then(res => res.json())
     .then(res => {
-      if (res.status !== 'ok') { throw res.message }
+      if (res.status !== 'ok') {
+        if (res.status === 'konbproduct') {
+          upFlashbag(res.message)
+          return true
+        }
+        throw res.message
+      }
       return true
     })
 }

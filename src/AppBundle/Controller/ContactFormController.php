@@ -67,7 +67,7 @@ class ContactFormController extends Controller
             throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
         }
         $availableLocales = $this->pageService->getAvailableLocales($page);
-        
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $mail = $form->getData();
@@ -80,7 +80,7 @@ class ContactFormController extends Controller
                     'mail' => $mail
                     ])
             );
-                
+
             $this->mailer->send(
                 $mail['email'],
                 $this->translator->trans('contact.'.$site.'.forclient.subject'),

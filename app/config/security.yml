@@ -66,9 +66,7 @@ security:
         - { path: ^/site/, role: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/admin/, role: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/api/password-request, role: IS_AUTHENTICATED_ANONYMOUSLY}
-        - { path: ^/api/pages, role: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/api, role: ROLE_ADMIN}
         - { path: ^/crud, role: ROLE_ADMIN}
         - { path: ^/admin/_trans, role: ROLE_ADMIN}
         - { path: ^/admin#/*, role: ROLE_ADMIN}
-        - { path: edition, role: ROLE_ADMIN}

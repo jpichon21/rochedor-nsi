@@ -7,7 +7,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Cart;
 use AppBundle\Entity\Cartline;
+use AppBundle\Entity\Tax;
 use AppBundle\Entity\Tpays;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -248,48 +250,40 @@ class OrderController extends Controller
         return ['status' => 'ok', 'data' => $customer];
     }
 
-
-    private function getCartPrices($cart_id, $country, $destliv)
+    private function getCartPrices($cartId, $country, $destliv)
     {
-        $cart = $this->cartRepository->find($cart_id);
+        /** @var Cart $cart */
+        $cart = $this->cartRepository->find($cartId);
         $data = [];
-        $data['totalPriceIT'] = 0;
         $data['totalPrice'] = 0;
+        $data['totalPriceIT'] = 0;
         $totalWeight = 0;
+
         /** @var Cartline $cartline */
         foreach ($cart->getCartlines() as $k => $cartline) {
             $i = 1;
             while ($i <= $cartline->getQuantity()) {
                 $product = $cartline->getProduct();
+                /** @var Tax $tax */
                 $tax = $this->taxRepository->findTax($product->getTypprd(), $country);
-                $product = $cartline->getProduct();
+                $productTaxRate = ($tax) ? $tax->getRate() : 0;
+                $priceIncludeTaxes = floatval($product->getPrix());
+                $priceHT = floatval(round($product->getPrix() * (1 - ($productTaxRate / 100)), 2));
 
-                $data['product'][$k]['productTaxRate'] = ($tax) ? $tax->getRate() : 0;
-
-                if ($product->getTypprd() === Produit::TYP_PRD['livre']) {
-                    $priceIncludeTaxes = $product->getPrix();
-
-                    $data['product'][$k]['price'] = round(
-                        $product->getPrix() / (1 + ($data['product'][$k]['productTaxRate']/100)),
-                        2
-                    );
-                } else {
-                    if ($tax === null || $tax->getRate() === 0) {
-                        $priceIncludeTaxes = $product->getPrixht();
-                    } else {
-                        $priceIncludeTaxes = $this->getProductPrice($product, $tax->getRate());
-                    }
-
-                    $data['product'][$k]['price'] = floatval($product->getPrixht());
+                // Règle pour les CD
+                // Si la TVA vaut 0, le prix HT est le prix TTC
+                if ($product->getTypprd() === Produit::TYPE_CD && 0 === $productTaxRate) {
+                    $priceHT = floatval($product->getPrix());
                 }
 
+                $data['product'][$k]['productTaxRate'] = $productTaxRate;
+                $data['product'][$k]['price'] = $priceHT;
                 $data['totalPrice'] = round($data['totalPrice'] + $data['product'][$k]['price'], 2);
                 $data['product'][$k]['codprd'] = $product->getCodprd();
                 $data['product'][$k]['quantity'] = $cartline->getQuantity();
                 $data['product'][$k]['name'] = $product->getProduitcourt();
                 $data['product'][$k]['priceIT'] = $priceIncludeTaxes;
-                $data['product'][$k]['vatProduct'] = round($data['product'][$k]['priceIT']
-                                                        - $data['product'][$k]['price'], 2);
+                $data['product'][$k]['vatProduct'] = round($data['product'][$k]['priceIT'] - $data['product'][$k]['price'], 2);
 
                 $data['totalPriceIT'] = round($data['totalPriceIT'] + $priceIncludeTaxes, 2);
                 $totalWeight = $totalWeight + $product->getPoids();
@@ -320,11 +314,6 @@ class OrderController extends Controller
         $weight += $supplementWeight;
         $price = $this->shippingRepository->findShipping($weight, $country);
         return ['supplementWeight' => $supplementWeight, 'price' => $price['price']];
-    }
-
-    private function getProductPrice($product, $taxrate)
-    {
-        return round($product->getPrixht() * (1+($taxrate/100)), 2);
     }
 
     /**
@@ -565,7 +554,7 @@ class OrderController extends Controller
             ->findCountryByCode($commande->getAdFact()['Pays']);
             $minliv = $paysliv->getMinliv();
             $maxliv = $paysliv->getMaxliv();
-    
+
             return $this->render('order/payment-return.html.twig', [
                 'refCom' => $commande->getRefCom(),
                 'addCom' =>  $addCom,

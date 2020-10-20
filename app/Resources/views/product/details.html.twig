@@ -62,9 +62,9 @@
       <span>{{ 'product.detail.price.ttc'|trans({'%ttc%': product.prix}) | raw }}</span>
       <br>
       <span class="ht">
-        {{ 'product.detail.price.ht'|trans({'%ht%': product.prixht}) | raw }}
-        {% if taxes != null %}
-        <span class="tva">{{ 'product.detail.price.tva'|trans({'%tva%': taxes.rate}) | raw }}</span>
+        {{ 'product.detail.price.ht'|trans({'%ht%': product.prix * (1 - (taxRate / 100))}) | raw }}
+        {% if taxRate != 0 %}
+        <span class="tva">{{ 'product.detail.price.tva'|trans({'%tva%': taxRate}) | raw }}</span>
         {% endif %}
       </span>
     </div>

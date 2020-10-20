@@ -85,8 +85,17 @@ class CartController extends Controller
                 $cart = $this->createCart();
             }
         }
-        
+
         if ($typeAction === "add") {
+            /** @var Cartline $cartline */
+            foreach ($cart->getCartlines()->toArray() as $cartline) {
+                if ($cartline->getProduct() === $product && $cartline->getQuantity() >= 9) {
+                    return new JsonResponse([
+                        'status' => 'konbproduct',
+                        'message' => $this->get('translator')->trans('editions.nb_product_too_many')
+                    ]);
+                }
+            }
             $cartLine = $this->addProduct($cart, $product);
         } else {
             $cartLine = $this->removeProduct($cart, $product);
@@ -167,7 +176,7 @@ class CartController extends Controller
         $this->em->persist($cartLine);
         $this->em->flush();
     }
-    
+
     /**
      * Create a cart object and a cart cookies
      *
