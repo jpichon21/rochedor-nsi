@@ -10,22 +10,22 @@ use Doctrine\ORM\Query\ResultSetMapping;
 
 class ProductRepository
 {
-    
+
     /**
     * @var EntityRepository
     */
     private $repository;
-    
+
     /**
     * @var EntityManagerInterface
     */
     private $entityManager;
-    
+
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
-    
+
     /**
     * Find Produit by its Id
     *
@@ -192,7 +192,7 @@ class ProductRepository
     /**
     * Find themes
     *
-    * @return Product
+    * @return Produit
     */
     public function find($productId)
     {
@@ -200,25 +200,5 @@ class ProductRepository
         ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.codprd=:productId');
         $query->setParameter('productId', $productId);
         return $query->getResult()[0];
-    }
-
-
-    /**
-     * Find applicable tax for a given product and country
-     *
-     * @param integer $productId
-     * @param string $country
-     * @return AppBundle\Entity\Tax|null
-     */
-    public function findTax($productId, $country)
-    {
-        $product = $this->find($productId);
-        $taxes = $product->getTaxes();
-        foreach ($taxes as $tax) {
-            if (in_array($country, $tax->getCountries())) {
-                return $tax;
-            }
-        }
-        return null;
     }
 }

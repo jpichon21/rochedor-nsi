@@ -17,7 +17,7 @@ class TaxRepository extends \Doctrine\ORM\EntityRepository
     * @var EntityManagerInterface
     */
     private $entityManager;
-    
+
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
