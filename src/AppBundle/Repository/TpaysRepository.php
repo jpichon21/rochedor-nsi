@@ -23,7 +23,7 @@ class TpaysRepository
     * @var EntityManagerInterface
     */
     private $entityManager;
-    
+
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -70,7 +70,7 @@ class TpaysRepository
         if (strlen($country) !== 2) {
             return false;
         }
- 
+
         $query = $this->entityManager
         ->createQuery('SELECT tp.nompays 
         FROM AppBundle\Entity\Tpays tp 
@@ -78,7 +78,7 @@ class TpaysRepository
         $query->setParameter('country', $country);
         $result =  $query->getOneOrNullResult();
         $country = $result;
- 
+
         $query = $this->entityManager
         ->createQuery('SELECT tp.codpostaux 
         FROM AppBundle\Entity\Tpays tp 
@@ -90,7 +90,7 @@ class TpaysRepository
             return false;
         }
 
-        if ($results['codpostaux'] === []) {
+        if (empty($results['codpostaux'])) {
             return true;
         }
 
@@ -103,7 +103,7 @@ class TpaysRepository
                 return true;
             }
         }
-        
+
         return false;
     }
 

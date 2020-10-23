@@ -87,7 +87,7 @@ INSERT INTO tpays (CodPays, NomPays, CodPaysPBX, CodPaysPaypal, CodPostaux, MinL
 INSERT INTO tpays (CodPays, NomPays, CodPaysPBX, CodPaysPaypal, CodPostaux, MinLiv, MaxLiv, DispLiv) VALUES ('BL', 'Saint-Barthélemy', 'FRA', 'fr_FR', '', 5, 7, 1);
 
 -- Passage de tous les pays non francophones en anglais
-UPDATE tpays SET DispLiv = 1, CodPaysPBX = 'GBR', CodPaysPaypal = 'en_US' WHERE CodPays IN ('AT','BE','BG','CY','CZ','DE','DK','EE','EL','ES','FI','HR','HU','IE','IT','LT','LU','LV','MT','NL','PL','PT','RO','SE','SI','SK','UK');
+UPDATE tpays SET DispLiv = 1, minLiv = 3, maxLiv = 8, CodPaysPBX = 'GBR', CodPaysPaypal = 'en_US' WHERE CodPays IN ('AT','BE','BG','CY','CZ','DE','DK','EE','EL','ES','FI','HR','HU','IE','IT','LT','LU','LV','MT','NL','PL','PT','RO','SE','SI','SK','UK');
 
 INSERT INTO transport (LibPort, Poids, Prix, Pays) VALUES
 ('Roche', 0, 0.00, ''),
