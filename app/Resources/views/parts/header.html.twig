@@ -145,16 +145,16 @@
         <div class="hamburger-box">
             <div class="hamnburger-inner"></div>
         </div>
-        <span class="cart-container menu-reduced">
-            {% if product is defined or (page is defined and page.type == 'editions') %}
-            <a href="{{ path('order-' ~ app.request.locale) }}" class="cart">
-                <span class="cartSpan">{{ 'menu.cart' | trans }}</span>
-                <img src="/assets/img/cart.svg" width="30px" alt="Panier">
-                <small class="cartCount-render"></small>
-            </a>
-            {% endif %}
-        </span>
     </div>
+    <span class="cart-container menu-reduced">
+        {% if product is defined or (page is defined and page.type == 'editions') %}
+        <a href="{{ path('order-' ~ app.request.locale) }}" class="cart">
+            <span class="cartSpan">{{ 'menu.cart' | trans }}</span>
+            <img src="/assets/img/cart.svg" width="30px" alt="Panier">
+            <small class="cartCount-render"></small>
+        </a>
+        {% endif %}
+    </span>
 </div>
 <script type="text/template" class="cartCount-template">
     <% if (cartCount > 0) { %>
