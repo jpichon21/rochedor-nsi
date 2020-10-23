@@ -85,7 +85,13 @@ class PaymentService
     ) {
         switch ($method) {
             case self::METHOD_PAYPAL:
+                /** @var Contact|bool $contact */
                 $contact = $this->getContact();
+                if ($contact) {
+                    $country = $contact->getCountry();
+                } elseif (array_key_exists('paysliv', $delivery)) {
+                    $country = $delivery['paysliv'];
+                }
                 return $this->getPaypalUrl(
                     $amount,
                     $objectId,
@@ -95,7 +101,7 @@ class PaymentService
                     $baseRoute,
                     $destDon,
                     $memoDon,
-                    $contact->getPays()
+                    $country
                 );
             case self::METHOD_CHEQUE:
                 if ($baseRoute === 'gift' && empty($delivery)) {
@@ -136,8 +142,14 @@ class PaymentService
 
                 return $this->getVirementRegulierUrl($objectId, $locale, $amount, $periodVir, $contact);
             default:
+                /** @var Contact|bool $contact */
                 $contact = $this->getContact();
-                return $this->getPayboxUrl($amount, $objectId, $email, $locale, $baseRoute, $destDon, $memoDon, $contact->getPays());
+                if ($contact) {
+                    $country = $contact->getCountry();
+                } elseif (array_key_exists('paysliv', $delivery)) {
+                    $country = $delivery['paysliv'];
+                }
+                return $this->getPayboxUrl($amount, $objectId, $email, $locale, $baseRoute, $destDon, $memoDon, $country);
         }
     }
 
@@ -336,13 +348,14 @@ class PaymentService
         }
     }
 
-    /**
-     * @return Contact|object|null
-     */
     private function getContact()
     {
         /** @var User $user */
         $user = $this->tokenStorage->getToken()->getUser();
+
+        if (is_string($user)) {
+            return false;
+        }
 
         return $this->entityManager->getRepository(Contact::class)->findOneBy([
             'username' => $user->getUsername()
