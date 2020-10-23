@@ -2,3 +2,119 @@
 UPDATE produit SET TypPrd = 'livre' WHERE TypPrd = 'book';
 UPDATE produit SET TypPrd = '' WHERE TypPrd = 'other';
 UPDATE regles_taxes SET TypPrd = '' WHERE TypPrd = 'autre';
+
+-- 23/10/2020 MaJ des tables liées aux éditions
+-- TVA en France pour les livres, livrets de partitions, livres audio et CD
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE - FRANCE', 5.50, 'FR', 'livre');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - FRANCE', 5.50, 'FR', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - FRANCE', 5.50, 'FR', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('CD - FRANCE', 20.00, 'FR', 'cd');
+
+-- TVA en Corse pour les livres, livrets de partitions, livres audio et CD
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE - CORSE', 2.10, 'CS', 'livre');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - CORSE', 2.10, 'CS', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - CORSE', 2.10, 'CS', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('CD - CORSE', 20.00, 'CS', 'cd');
+
+-- TVA en Guadeloupe/Martinique/Réunion pour les livres, livrets de partitions, livres audio et CD
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE - DOMTOM', 2.10, 'RE,MQ,GP', 'livre');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - DOMTOM', 2.10, 'RE,MQ,GP', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - DOMTOM', 2.10, 'RE,MQ,GP', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('CD - DOMTOM', 8.50, 'RE,MQ,GP', 'cd');
+
+-- TVA des pays UE pour les livres
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE - EU', 10.00, 'AT,CZ,FI,SK', 'livre');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE - EU', 0.00, 'BE,UK,IE', 'livre');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE - EU', 20.00, 'BG', 'livre');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE - EU', 5.00, 'CY,HR,HU,MT,PL', 'livre');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE - EU', 7.00, 'DE', 'livre');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE - EU', 25.00, 'DK', 'livre');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE - EU', 9.00, 'EE,LT,NL', 'livre');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE - EU', 6.00, 'EL,PT,SE', 'livre');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE - EU', 4.00, 'ES,IT', 'livre');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE - EU', 3.00, 'LU', 'livre');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE - EU', 12.00, 'LV', 'livre');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE - EU', 9.50, 'SI', 'livre');
+
+-- TVA des pays UE pour les livrets de partitions et livres audio
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - EU', 20.00, 'AT,BG,EE', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - EU', 20.00, 'AT,BG,EE', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - EU', 21.00, 'BE,CZ,LT,LV', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - EU', 21.00, 'BE,CZ,LT,LV', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - EU', 19.00, 'CY', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - EU', 19.00, 'CY', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - EU', 7.00, 'DE', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - EU', 7.00, 'DE', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - EU', 25.00, 'DK', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - EU', 25.00, 'DK', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - EU', 24.00, 'EL,FI', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - EU', 24.00, 'EL,FI', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - EU', 4.00, 'ES,IT', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - EU', 4.00, 'ES,IT', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - EU', 5.00, 'HR,HU,MT,PL,RO', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - EU', 5.00, 'HR,HU,MT,PL,RO', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - EU', 23.00, 'IE', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - EU', 23.00, 'IE', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - EU', 3.00, 'LU', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - EU', 3.00, 'LU', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - EU', 9.00, 'NL', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - EU', 9.00, 'NL', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - EU', 6.00, 'PT,SE', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - EU', 6.00, 'PT,SE', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - EU', 9.50, 'SI', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - EU', 9.50, 'SI', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - EU', 10.00, 'SK', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - EU', 10.00, 'SK', 'livrepar');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE AUDIO - EU', 0.00, 'UK', 'livreaud');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('LIVRE PART - EU', 0.00, 'UK', 'livrepar');
+
+-- TVA des pays UE pour les CD
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('CD - EU', 20.00, 'AT,BG,EE,SK,UK', 'cd');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('CD - EU', 21.00, 'BE,CZ,ES,LT,LV,NL', 'cd');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('CD - EU', 19.00, 'CY,DE,RO', 'cd');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('CD - EU', 25.00, 'DK,HR,SE', 'cd');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('CD - EU', 24.00, 'EL,FI', 'cd');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('CD - EU', 27.00, 'HU', 'cd');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('CD - EU', 23.00, 'IE,PL,PT', 'cd');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('CD - EU', 22.00, 'IT,SI', 'cd');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('CD - EU', 17.00, 'LU', 'cd');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('CD - EU', 18.00, 'MT', 'cd');
+INSERT INTO regles_taxes (LibTax, Taux, Pays, TypPrd) VALUES ('CD - EU', 18.00, 'MT', 'cd');
+
+-- Activation des pays disponibles à la livraison
+UPDATE tpays SET DispLiv = 1, minLiv = 5, maxLiv = 7, CodPaysPBX = 'FRA', CodPaysPaypal = 'fr_FR' WHERE CodPays IN ('RE', 'GP', 'MQ', 'YT', 'GY', 'PM', 'PF', 'WF', 'NC', 'TF');
+INSERT INTO tpays (CodPays, NomPays, CodPaysPBX, CodPaysPaypal, CodPostaux, MinLiv, MaxLiv, DispLiv) VALUES ('MF', 'Saint-Martin', 'FRA', 'fr_FR', '', 5, 7, 1);
+INSERT INTO tpays (CodPays, NomPays, CodPaysPBX, CodPaysPaypal, CodPostaux, MinLiv, MaxLiv, DispLiv) VALUES ('BL', 'Saint-Barthélemy', 'FRA', 'fr_FR', '', 5, 7, 1);
+
+-- Passage de tous les pays non francophones en anglais
+UPDATE tpays SET DispLiv = 1, CodPaysPBX = 'GBR', CodPaysPaypal = 'en_US' WHERE CodPays IN ('AT','BE','BG','CY','CZ','DE','DK','EE','EL','ES','FI','HR','HU','IE','IT','LT','LU','LV','MT','NL','PL','PT','RO','SE','SI','SK','UK');
+
+INSERT INTO transport (LibPort, Poids, Prix, Pays) VALUES
+('Roche', 0, 0.00, ''),
+('Font', 0, 0.00, ''),
+('Hors France', 500, 12.55, ''),
+('Hors France', 1000, 15.50, ''),
+('Hors France', 2000, 17.55, ''),
+('Hors France', 5000, 22.45, ''),
+('Hors France', 10000, 37.00, ''),
+('Hors France', 30000, 61.50, ''),
+('France', 250, 4.95, 'FR,CS'),
+('France', 500, 6.35, 'FR,CS'),
+('France', 750, 7.25, 'FR,CS'),
+('France', 1000, 7.95, 'FR,CS'),
+('France', 2000, 8.95, 'FR,CS'),
+('France', 5000, 13.75, 'FR,CS'),
+('France', 10000, 20.05, 'FR,CS'),
+('France', 30000, 28.55, 'FR,CS'),
+('OM 1', 500, 9.60, 'RE,GP,MQ,YT,GY,PM,MF,BL'),
+('OM 1', 1000, 14.60, 'RE,GP,MQ,YT,GY,PM,MF,BL'),
+('OM 1', 2000, 19.90, 'RE,GP,MQ,YT,GY,PM,MF,BL'),
+('OM 1', 5000, 29.90, 'RE,GP,MQ,YT,GY,PM,MF,BL'),
+('OM 1', 10000, 47.90, 'RE,GP,MQ,YT,GY,PM,MF,BL'),
+('OM 1', 30000, 106.90, 'RE,GP,MQ,YT,GY,PM,MF,BL'),
+('OM 2', 500, 11.65, 'PF,WF,NC,TF'),
+('OM 2', 1000, 17.45, 'PF,WF,NC,TF'),
+('OM 2', 2000, 30.60, 'PF,WF,NC,TF'),
+('OM 2', 5000, 51.50, 'PF,WF,NC,TF'),
+('OM 2', 10000, 100.50, 'PF,WF,NC,TF'),
+('OM 2', 30000, 245.50, 'PF,WF,NC,TF');

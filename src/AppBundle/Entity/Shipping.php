@@ -46,7 +46,7 @@ class Shipping
     /**
      * @var array
      *
-     * @ORM\Column(name="Pays", type="json", length=65535)
+     * @ORM\Column(name="Pays", type="text", length=65535)
      */
     private $countries;
 
