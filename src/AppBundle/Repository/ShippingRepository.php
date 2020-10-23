@@ -18,17 +18,17 @@ class ShippingRepository
         "FR",
         "CS"
     ];
-    
+
     /**
     * @var EntityManagerInterface
     */
     private $entityManager;
-    
+
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
-  
+
     public function find($id)
     {
         $query = $this->entityManager
@@ -76,7 +76,7 @@ class ShippingRepository
 
     public function findShipping($weight, $country)
     {
-        
+
         // Try to find the matching weight's price for the requested country
         $query = $this->entityManager->createQuery(
             'SELECT s.price 
@@ -114,7 +114,7 @@ class ShippingRepository
             WHERE s.countries LIKE :country AND s.weight > :weight 
             ORDER BY s.weight'
         )
-        ->setParameters(['country' => '[]', 'weight' => $weight])
+        ->setParameters(['country' => '', 'weight' => $weight])
         ->setMaxResults(1);
         $result = $query->getOneOrNullResult();
         if ($result) {
@@ -128,7 +128,7 @@ class ShippingRepository
             WHERE s.countries LIKE :country
             ORDER BY s.weight DESC, s.price DESC'
         )
-        ->setParameter('country', '[]')
+        ->setParameter('country', '')
         ->setMaxResults(1);
         $result = $query->getOneOrNullResult();
         if ($result) {
