@@ -38,6 +38,7 @@ moment.locale(_locale)
 /* Countries */
 
 const _countries = JSON.parse(document.querySelector('.countries-json').innerHTML.trim())
+const _preferredCountries = JSON.parse(document.querySelector('.preferred-countries-json').innerHTML.trim())
 
 /* Variables */
 
@@ -138,6 +139,7 @@ const updateYouFormRender = () => {
     renderYouForm.innerHTML = templateYouForm({
       client: _you,
       countries: _countries,
+      preferredCountries: _preferredCountries,
       civilites: [
         i18n.trans('form.civilite.mr'),
         i18n.trans('form.civilite.mme'),
@@ -159,14 +161,15 @@ const updateConsentFormRender = () => {
 const updateAdlivFormRender = () => {
   renderAdlivForm.innerHTML = templateAdlivForm({
     delivery: _delivery,
-    countries: _countries
+    countries: _countries,
+    preferredCountries: _preferredCountries,
   })
 }
 
 const updateDelayRender = () => {
   if (_delivery.paysliv !== '') {
     renderDelay.innerHTML = templateDelay({
-      country: _countries.find(country => {
+      country: _countries.concat(_preferredCountries).find(country => {
         return country.codpays === _delivery.paysliv
       })
     })

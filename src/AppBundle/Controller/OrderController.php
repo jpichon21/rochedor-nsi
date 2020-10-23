@@ -11,6 +11,7 @@ use AppBundle\Entity\Cart;
 use AppBundle\Entity\Cartline;
 use AppBundle\Entity\Tax;
 use AppBundle\Entity\Tpays;
+use AppBundle\Service\CountryService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -93,6 +94,11 @@ class OrderController extends Controller
      * @var ShippingRepository
      */
     private $shippingRepository;
+
+    /**
+     * @var TpaysRepository
+     */
+    private $tpaysRepository;
 
     /**
      * @var CartRepository
@@ -789,7 +795,7 @@ class OrderController extends Controller
      * @Route("/{_locale}/ordine", name="order-it")
      * @Route("/{_locale}/orden", name="order-es")
      */
-    public function orderAction(Request $request)
+    public function orderAction(Request $request, CountryService $countryService)
     {
         $cancelReturn = false;
 
@@ -803,17 +809,8 @@ class OrderController extends Controller
 
         $cookies = $request->cookies;
 
-        $countriesJSON = array();
         $countries = $this->tpaysRepository->findAllCountry();
-        foreach ($countries as $country) {
-            $countriesJSON[] = array(
-                'codpays' => $country->getCodpays(),
-                'nompays' => $country->getNompays(),
-                'minliv' => $country->getMinliv(),
-                'maxliv' => $country->getMaxliv(),
-                'displiv' => $country->getDispliv()
-            );
-        }
+        list($countriesJSON, $preferredChoices) = $countryService->orderCountryListByPreferenceEditions($countries);
 
         $cartId = $cookies->get('cart');
         $cart = $this->cartRepository->find($cartId);
@@ -857,6 +854,7 @@ class OrderController extends Controller
             ]) : 'false',
             'page' => $page,
             'countries' => $countriesJSON,
+            'preferredCountries' => $preferredChoices,
             'availableLocales' => $availableLocales,
             'cartCount' => $this->cartService->getCartCount($cookies->get('cart'))
         ]);

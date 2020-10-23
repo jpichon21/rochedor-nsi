@@ -228,6 +228,9 @@
 <script type="application/json" class="countries-json">
     {{ countries | json_encode() | raw }}
 </script>
+<script type="text/json" class="preferred-countries-json">
+    {{ preferredCountries | json_encode() | raw }}
+</script>
 <script type="application/json" class="order-json">
     {{ order | raw }}
 </script>
@@ -527,6 +530,13 @@
                 <% } %>
                 <select class="select country" <%= (delivery.destliv == 'Roche' || delivery.destliv == 'Font' || disableCountry) ? 'disabled' : '' %> required name="paysliv">
                     <option style="font-family: lato" <%= !disableCountry ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
+                    <% for (var i = 0; i < preferredCountries.length; i++) { %>
+                        <% var country = preferredCountries[i] %>
+                        <% var selectedCountry = 'FR' %>
+                        <% if (_.escape(delivery.paysliv) != '') { selectedCountry = _.escape(delivery.paysliv) } %>
+                        <option <%= (selectedCountry == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
+                    <% } %>
+                    <option disabled>----------</option>
                     <% for (var i = 0; i < countries.length; i++) { %>
                         <% var country = countries[i] %>
                         <% if (country.displiv) { %>
@@ -596,6 +606,13 @@
         <% } %>
         <select class="select pays <%= (_.escape(client.pays) != '') ? 'white' : '' %>" required name="pays">
             <option style="font-family: lato;" <%= countryNotFound ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
+            <% for (var i = 0; i < preferredCountries.length; i++) { %>
+            <% var country = preferredCountries[i] %>
+            <% var selectedCountry = 'FR' %>
+            <% if (_.escape(client.pays) != '') { selectedCountry = _.escape(client.pays) } %>
+            <option <%= (selectedCountry == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
+            <% } %>
+            <option disabled>----------</option>
             <% for (var i = 0; i < countries.length; i++) { %>
                 <% var country = countries[i] %>
                 <% if (countries[i].displiv) { %>
