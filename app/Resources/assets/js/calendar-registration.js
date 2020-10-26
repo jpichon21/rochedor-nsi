@@ -111,6 +111,13 @@ function updateRegisteredRender () {
   $('.registered-render').html(registeredTemplate({
     registered: _registered.filter(p => p.check)
   }))
+
+  if (_went.length === 0) {
+    $('.went-title').hide()
+  } else {
+    $('.went-title').show()
+  }
+
   $('.went-render').html(wentTemplate({
     registered: _went
   }))
