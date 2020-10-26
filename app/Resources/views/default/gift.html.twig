@@ -18,20 +18,20 @@
                     <h2>{{ 'gift.amount' | trans | raw }}</h2>
                     <div class="panel amount active">
                         <form class="pure-g">
-                            {% if giftData.amount not in [null, 50, 100, 150, 300] %}
+                            {% if giftData.amount not in [null, 10, 20, 50, 1000] %}
                                 {% set amountOther = true %}
                             {% endif %}
+                            <div class="pure-u-1 pure-u-md-1-5">
+                                <button value="10" class="input button radio{% if giftData.amount == 10 %} checked{% endif %}">10 €</button>
+                            </div>
+                            <div class="pure-u-1 pure-u-md-1-5">
+                                <button value="20" class="input button radio{% if giftData.amount == 20 %} checked{% endif %}">20 €</button>
+                            </div>
                             <div class="pure-u-1 pure-u-md-1-5">
                                 <button value="50" class="input button radio{% if giftData.amount == 50 %} checked{% endif %}">50 €</button>
                             </div>
                             <div class="pure-u-1 pure-u-md-1-5">
                                 <button value="100" class="input button radio{% if giftData.amount == 100 %} checked{% endif %}">100 €</button>
-                            </div>
-                            <div class="pure-u-1 pure-u-md-1-5">
-                                <button value="150" class="input button radio{% if giftData.amount == 150 %} checked{% endif %}">150 €</button>
-                            </div>
-                            <div class="pure-u-1 pure-u-md-1-5">
-                                <button value="300" class="input button radio{% if giftData.amount == 300 %} checked{% endif %}">300 €</button>
                             </div>
                             <div class="pure-u-1 pure-u-md-1-5">
                                 <button class="input button radio other{% if amountOther is defined %} checked{% endif %}">{{ 'form.other' | trans | raw }} ?</button>
