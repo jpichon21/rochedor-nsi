@@ -724,6 +724,7 @@ itemParticipants.on('click', '.participate-him', function (event) {
             const selected = parseInt($(this).attr('data-id'))
             const participants = _registered.filter(registered => registered.codco === selected)
             _participant = participants.shift()
+            scrollToElement($('.panel.him'))
           })
           $(this).removeClass('checked')
           return participant
