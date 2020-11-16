@@ -788,6 +788,7 @@ function addParticipant (event) {
   // Une fois un participant ajouté, on peut valider la demande
   if (itemParticipants.find('.validate-participants').hasClass('disabled') && _hasOneParticipant === true) {
     itemParticipants.find('.validate-participants').removeClass('disabled')
+    itemParticipants.find('.validate-participants').attr('title', i18n.trans('calendar.registration.validation-tooltip.ok'))
   }
 }
 itemParticipants.on('click', '.validate-participants', function (event) {
