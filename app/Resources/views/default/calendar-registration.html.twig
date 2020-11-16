@@ -318,10 +318,18 @@
 
     <div class="pure-u-1 pure-u-md-1-2 lieu-wrapper <% if (participant.transport !== 'train') { %> hidden <% } %>">
         <select class="select lieu <%= (_.escape(participant.lieu.toLowerCase()) != '') ? 'white' : '' %>" name="lieu">
+            <% if (registrationLocation === 'ro') { %>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == 'viotte') ? 'selected' : '' %> value="viotte">{{ 'form.lieu.viotte' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == 'besancon-tgv') ? 'selected' : '' %> value="besancon-tgv">{{ 'form.lieu.besancon-tgv' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == 'ne-sait-pas') ? 'selected' : '' %> value="ne-sait-pas">{{ 'form.lieu.ne-sait-pas' | trans | raw }}</option>
+            <% } else { %>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == 'perpignan') ? 'selected' : '' %> value="perpignan">{{ 'form.lieu.perpignan' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == 'maureillas') ? 'selected' : '' %> value="maureillas">{{ 'form.lieu.maureillas' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == 'saint-jean') ? 'selected' : '' %> value="saint-jean">{{ 'form.lieu.saint-jean' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == 'ne-sait-pas') ? 'selected' : '' %> value="ne-sait-pas">{{ 'form.lieu.ne-sait-pas' | trans | raw }}</option>
+            <% } %>
         </select>
     </div>
     <div class="pure-u-1 pure-u-md-1-2 arriv-wrapper <% if (participant.transport !== 'train') { %> hidden <% } %>">

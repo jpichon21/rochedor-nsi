@@ -419,6 +419,9 @@ form.civilite.abbe: Abbé
 calendar.registration.title: '<h2>Votre demande d''inscription est prise en compte</h2>'
 'Email not found': 'Adresse email non trouvée'
 form.lieu.besancon-tgv: 'Besançon Franche-Comté TGV (à 16km de Besançon centre)'
+form.lieu.perpignan: Perpignan
+form.lieu.maureillas: 'Maureillas (car)'
+form.lieu.saint-jean: 'Saint Jean pla de Cots (car)'
 form.lieu.ne-sait-pas: 'Ne sait pas encore'
 contact_us: 'Nous contacter>'
 form.message.required: 'Ce champ est requis'
@@ -491,6 +494,9 @@ train: Train
 besancon-tgv: 'Besançon Franche-Comté TGV'
 viotte: 'Besançon Viotte'
 ne-sait-pas: 'Ne sait pas encore'
+perpignan: Perpignan
+maureillas: 'Maureillas (car)'
+saint-jean: 'Saint Jean pla de Cots (car)'
 calendar.registration.two.title.went: 'Proposition(s) d’inscription'
 form.message.update_participant: 'Merci de vérifier les informations du participant et de renseigner son mode de transport'
 form.message.update_you: 'Merci de vérifier vos informations et de renseigner votre mode de transport'
