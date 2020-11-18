@@ -46,6 +46,11 @@ const itemConnection = $('.item.connection')
 const itemParticipants = $('.item.participants')
 const itemValidation = $('.item.validation')
 
+let _registrationLocation = 'ro'
+if (_infos.sitact.toLowerCase().includes('fontanilles')) {
+  _registrationLocation = 'font'
+}
+
 window.addEventListener('beforeunload', (event) => {
   if (_registrationBegan) {
     event.returnValue = i18n.trans('registration.not_finished')
@@ -111,6 +116,13 @@ function updateRegisteredRender () {
   $('.registered-render').html(registeredTemplate({
     registered: _registered.filter(p => p.check)
   }))
+
+  if (_went.length === 0) {
+    $('.went-title').hide()
+  } else {
+    $('.went-title').show()
+  }
+
   $('.went-render').html(wentTemplate({
     registered: _went
   }))
@@ -133,6 +145,9 @@ function updateEndMessageRender () {
     lieux: {
       'viotte': i18n.trans('viotte'),
       'besancon-tgv': i18n.trans('besancon-tgv'),
+      'perpignan': i18n.trans('form.lieu.perpignan'),
+      'maureillas': i18n.trans('form.lieu.maureillas'),
+      'saint-jean': i18n.trans('form.lieu.saint-jean'),
       'ne-sait-pas': i18n.trans('ne-sait-pas')
     },
     transports: {
@@ -157,7 +172,8 @@ function updateYouFormRender (errors = [], updatedParticipant = {}, register = f
       i18n.trans('form.civilite.frere'),
       i18n.trans('form.civilite.pere'),
       i18n.trans('form.civilite.soeur')
-    ]
+    ],
+    registrationLocation: _registrationLocation
   }))
   Inputmask().mask(document.querySelectorAll('.datnaiss, .input.arriv'))
 }
@@ -717,6 +733,7 @@ itemParticipants.on('click', '.participate-him', function (event) {
             const selected = parseInt($(this).attr('data-id'))
             const participants = _registered.filter(registered => registered.codco === selected)
             _participant = participants.shift()
+            scrollToElement($('.panel.him'))
           })
           $(this).removeClass('checked')
           return participant
@@ -780,6 +797,7 @@ function addParticipant (event) {
   // Une fois un participant ajouté, on peut valider la demande
   if (itemParticipants.find('.validate-participants').hasClass('disabled') && _hasOneParticipant === true) {
     itemParticipants.find('.validate-participants').removeClass('disabled')
+    itemParticipants.find('.validate-participants').attr('title', i18n.trans('calendar.registration.validation-tooltip.ok'))
   }
 }
 itemParticipants.on('click', '.validate-participants', function (event) {

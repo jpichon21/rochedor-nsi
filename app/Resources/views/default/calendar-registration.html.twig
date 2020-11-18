@@ -49,8 +49,7 @@
                             <input autocomplete="off" class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
                         </div>
                     </form>
-                    <a class="option" href="#reset" rel="nofollow">{{ 'form.password.reset'|trans }}</a>
-                    <p>{{ 'reset.password.info' | trans | raw}}</p>
+                    <p>{{ 'form.password.reset.before'|trans }} <a class="option" href="#reset" rel="nofollow">{{ 'form.password.reset'|trans }}</a></p>
                 </div>
                 <div class="panel registration">
                     <h3>{{ 'calendar.registration.one.title.registration' | trans | raw }}</h3>
@@ -89,15 +88,13 @@
                         <h3>{{ 'calendar.registration.two.title.registration' | trans | raw }}</h3>
                         <form class="pure-g him-form-render"></form>
                     </div>
-                    <h3>{{ 'calendar.registration.two.title.you' | trans | raw }}</h3>
                     <div class="panel him">
                         <h3>{{ 'calendar.registration.two.title.modify.him' | trans | raw }}</h3>
                         <form class="pure-g him-form-render"></form>
                     </div>
                     <div class="you-render"></div>
-                    <h3>{{ 'calendar.registration.two.title.registered' | trans | raw }}</h3>
                     <div class="registered-render"></div>
-                    <h3 data-tooltip class="top" tabindex="2" title="{{ 'calendar.registration.tooltip' | trans | raw }}">{{ 'calendar.registration.two.title.went' | trans | raw }}</h3>
+                    <h3 class="went-title" data-tooltip class="top" tabindex="2" title="{{ 'calendar.registration.tooltip' | trans | raw }}">{{ 'calendar.registration.two.title.went' | trans | raw }}</h3>
                     <div class="went-render"></div>
                     <div class="pure-g">
                         <div class="pure-u-1 pure-u-md-1-3">
@@ -131,7 +128,7 @@
                             <tbody class="end-message-render">
                             </tbody>
                         </table>
-                        {{ 'calendar.registration.three.body' | trans | raw }}     
+                        {{ 'calendar.registration.three.body' | trans | raw }}
                         <div class="pure-g">
                             <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1 pure-u-xl-1-3">
                                 <p><a class="button" href="{{ path('logout-message', {'from': 'calendar'}) }}">{{ 'logout.disconnect.title' | trans }}</a></p>
@@ -192,8 +189,6 @@
                     <div class="error-message<%= him.transport !== '' ? ' hidden' : '' %>">{{ 'form.message.no_transport'|trans|capitalize }}</div>
             </div>
         <% } %>
-    <% } else { %>
-        <p class="him">{{ 'form.no_participants' | trans }}</p>
     <% } %>
 </script>
 <script type="text/template" class="registered-template">
@@ -206,8 +201,6 @@
             <a href="#" data-id="<%= _.escape(him.codco) %>" class="modify-him button" rel="nofollow">{{ 'form.modify' | trans | raw }}</a>
         </div>
         <% } %>
-    <% } else { %>
-        <p class="him">{{ 'form.no_participants' | trans }}</p>
     <% } %>
 </script>
 <script type="text/template" class="went-template">
@@ -220,8 +213,6 @@
                 <a href="#" data-id="<%= _.escape(him.codco) %>" class="participate-him button" rel="nofollow">{{ 'form.participate' | trans | raw }}</a>
             </div>
         <% } %>
-    <% } else { %>
-        <p class="him">{{ 'form.no_participants' | trans }}</p>
     <% } %>
 </script>
 <script type="text/template" class="you-form-template">
@@ -308,7 +299,7 @@
         <a href="{{ localePath('aide-saisie', app.request.locale) }}" class="tooltip-password" target="_blank">{{ 'calendar.registration.tooltip-pass' | trans }}</a>
     </div>
     <% } %>
- 
+
     <div class="pure-u-1 pure-u-md-1-2" style="margin-top:16px;">
         <input autocomplete="off" class="input profession" type="text" value="<%= _.escape(participant.profession) %>" name="profession" placeholder="{{ 'form.profession' | trans | raw }}">
     </div>
@@ -324,13 +315,21 @@
         </select>
         <div class="error-message"><%= errors.transport %></div>
     </div>
-    
+
     <div class="pure-u-1 pure-u-md-1-2 lieu-wrapper <% if (participant.transport !== 'train') { %> hidden <% } %>">
         <select class="select lieu <%= (_.escape(participant.lieu.toLowerCase()) != '') ? 'white' : '' %>" name="lieu">
+            <% if (registrationLocation === 'ro') { %>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == 'viotte') ? 'selected' : '' %> value="viotte">{{ 'form.lieu.viotte' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == 'besancon-tgv') ? 'selected' : '' %> value="besancon-tgv">{{ 'form.lieu.besancon-tgv' | trans | raw }}</option>
             <option <%= (_.escape(participant.lieu.toLowerCase()) == 'ne-sait-pas') ? 'selected' : '' %> value="ne-sait-pas">{{ 'form.lieu.ne-sait-pas' | trans | raw }}</option>
+            <% } else { %>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == '') ? 'selected' : '' %> disabled value="">{{ 'form.lieu' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == 'perpignan') ? 'selected' : '' %> value="perpignan">{{ 'form.lieu.perpignan' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == 'maureillas') ? 'selected' : '' %> value="maureillas">{{ 'form.lieu.maureillas' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == 'saint-jean') ? 'selected' : '' %> value="saint-jean">{{ 'form.lieu.saint-jean' | trans | raw }}</option>
+            <option <%= (_.escape(participant.lieu.toLowerCase()) == 'ne-sait-pas') ? 'selected' : '' %> value="ne-sait-pas">{{ 'form.lieu.ne-sait-pas' | trans | raw }}</option>
+            <% } %>
         </select>
     </div>
     <div class="pure-u-1 pure-u-md-1-2 arriv-wrapper <% if (participant.transport !== 'train') { %> hidden <% } %>">
