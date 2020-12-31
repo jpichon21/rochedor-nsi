@@ -44,7 +44,6 @@ class PageService
         if ($contentDocument === null) {
             return null;
         }
-        $contentDocument->setLocale('fr');
         $availableLocales = array();
      
         if ($contentDocument->getLocale() === "fr") {
@@ -61,7 +60,6 @@ class PageService
             $availableLocales['fr'] = $tmpP[0]->getStaticPrefix();
         }
         foreach ($myChild as $childPage) {
-            $childPage->setLocale('fr');
             if ($childPage->getLocale() != $contentDocument->getLocale()) {
                 $key = $childPage->getLocale();
                 $tmp = $childPage->getRoutes()->getValues();

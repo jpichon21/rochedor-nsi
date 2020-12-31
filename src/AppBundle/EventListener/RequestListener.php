@@ -20,6 +20,6 @@ class RequestListener
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $event->getRequest()->setLocale('fr');
+//        $this->doctrine->getConnection()->exec('PRAGMA foreign_keys = ON');
     }
 }
