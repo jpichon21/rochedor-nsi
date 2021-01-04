@@ -63,7 +63,7 @@
                         {{ page.content['sections'][0].body|replace({"<p>": "<span>"})|replace({"</p>":"</span><br />"})|raw }}
                     </p>
                 {% endif %}
-                <a class="button yellow" href="{{ localePath('la-communaute', app.request.locale) }}">Découvrir <img
+                <a class="button yellow" href="{{ localePath('la-communaute', app.request.locale) }}">{{ 'discover'|trans }} <img
                             class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
             </div>
             <div class="scroll-down">
@@ -82,7 +82,7 @@
                             {% if article.url %}
                                 <a class="button black"
                                    href="{{ article.url }}"{% if app.request.uri not in article.url %} target="_blank"{% endif %}>
-                                    Lire la suite <img class="button-arrow visible"
+                                    {{ 'read_more'|trans }} <img class="button-arrow visible"
                                                        src="{{ asset('assets/img/button-arrow-right-black.png') }}">
                                     <img class="button-arrow hidden"
                                          src="{{ asset('assets/img/button-arrow-right-yellow.png') }}">
@@ -114,7 +114,7 @@
                 <p>
                     {{ page.content['sections'][1].body|replace({"<p>": "<span>"})|replace({"</p>":"</span><br />"})|raw }}
                 </p>
-                <a class="button yellow" href="{{ localePath('venir-en-retraite', app.request.locale) }}">Découvrir <img
+                <a class="button yellow" href="{{ localePath('venir-en-retraite', app.request.locale) }}">{{ 'discover'|trans }} <img
                             class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
             </div>
             <div class="scroll-down">
@@ -132,7 +132,7 @@
                 <p>
                     {{ page.content['sections'][2].body|replace({"<p>": "<span>"})|replace({"</p>":"</span><br />"})|raw }}
                 </p>
-                <a class="button yellow" href="{{ path('calendar-choice-site-' ~ app.request.locale) }}">Découvrir <img
+                <a class="button yellow" href="{{ path('calendar-choice-site-' ~ app.request.locale) }}">{{ 'discover'|trans }} <img
                             class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
             </div>
             <div class="scroll-down">
@@ -150,7 +150,7 @@
                 <p>
                     {{ page.content['sections'][3].body|replace({"<p>": "<span>"})|replace({"</p>":"</span><br />"})|raw }}
                 </p>
-                <a class="button yellow" href="{{ localePath('don-ponctuel', app.request.locale) }}">Découvrir <img
+                <a class="button yellow" href="{{ localePath('don-ponctuel', app.request.locale) }}">{{ 'discover'|trans }} <img
                             class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
             </div>
             <div class="scroll-down">
@@ -168,7 +168,7 @@
                 <p>
                     {{ page.content['sections'][4].body|replace({"<p>": "<span>"})|replace({"</p>":"</span><br />"})|raw }}
                 </p>
-                <a class="button yellow" href="https://editionsrochedor.com" target="_blank">Découvrir <img
+                <a class="button yellow" href="https://editionsrochedor.com" target="_blank">{{ 'discover'|trans }} <img
                             class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
             </div>
             <div class="scroll-down">
@@ -186,7 +186,7 @@
                 <p>
                     {{ page.content['sections'][5].body|replace({"<p>": "<span>"})|replace({"</p>":"</span><br />"})|raw }}
                 </p>
-                <a class="button yellow" href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">Découvrir
+                <a class="button yellow" href="{{ localePath('infos-pratiques-de-la-roche-dor', app.request.locale) }}">{{ 'discover'|trans }}
                     <img
                             class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
             </div>
