@@ -23,8 +23,8 @@
         <div class="slide {% if loop.first %} active{% endif %}" data-slide="{{ slide }}">
           <div class="top">
             <a class="full image" title="{{ product.produitcourt }}" href="{{ slide }}"
-              style="{{ asset(slide) | background }}">
-              <img src="{{ asset(slide) }}" alt="{{ product.produitcourt }}">
+              style="{{ asset(slide)|imagine_filter('product_card')|background }}">
+              <img src="{{ asset(slide)|imagine_filter('product_card') }}" alt="{{ product.produitcourt }}">
             </a>
           </div>
         </div>
@@ -39,7 +39,7 @@
     <div class="thumbnails">
       {% for slide in slides %}
       {% if slide != '' %}
-      <div class="thumb {% if loop.first %} active{% endif %}" style="{{ asset(slide) | background }}" data-slide="{{ slide }}"></div>
+      <div class="thumb {% if loop.first %} active{% endif %}" style="{{ asset(slide)|imagine_filter('product_card')|background }}" data-slide="{{ slide }}"></div>
       {% else %}
       <div class="empty"></div>
       {% endif %}
