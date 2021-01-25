@@ -95,6 +95,12 @@
       &.first {
         max-width: 100px;
       }
+
+      .info-total {
+        padding-top: 16px;
+        font-style: italic;
+        font-size: 13px;
+      }
     }
   }
 }

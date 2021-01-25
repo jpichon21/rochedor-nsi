@@ -31,9 +31,9 @@ class Packaging
     /**
      * @var int
      *
-     * @ORM\Column(name="France", type="integer", length=11)
+     * @ORM\Column(name="Europe", type="integer", length=11)
      */
-    private $france;
+    private $europe;
 
     /**
      * @var int
@@ -45,7 +45,7 @@ class Packaging
     public function __construct()
     {
         $this->limit = 0;
-        $this->france = 0;
+        $this->europe = 0;
         $this->international = 0;
     }
 
@@ -84,27 +84,27 @@ class Packaging
     }
 
     /**
-     * Set france.
+     * Set Europe.
      *
-     * @param int $france
+     * @param int $europe
      *
      * @return Packaging
      */
-    public function setFrance($france)
+    public function setEurope($europe)
     {
-        $this->france = $france;
+        $this->europe = $europe;
 
         return $this;
     }
 
     /**
-     * Get france.
+     * Get Europe.
      *
      * @return int
      */
-    public function getFrance()
+    public function getEurope()
     {
-        return $this->france;
+        return $this->europe;
     }
 
     /**

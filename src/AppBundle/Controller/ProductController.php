@@ -85,8 +85,14 @@ class ProductController extends Controller
      */
     public function showProductAction($id, Request $request)
     {
+        $urlBack = $this->generateUrl('collections-' . $request->getLocale());
+        if (!is_null($request->headers->get('referer'))) {
+            $urlBack = $request->headers->get('referer');
+        }
+
         $product = $this->productRepository->findProduct($id);
         $taxRate = 0;
+        $priceHT = 0;
         if (array_key_exists(0, $product) && array_key_exists('typprd', $product[0])) {
             $tax = $this->taxRepository->findTax($product[0]['typprd'], 'FR');
         }
@@ -94,6 +100,7 @@ class ProductController extends Controller
         // force Tax::rate to be a float, in order to correctly handle the display for 1.2 (instead of 1.20) or 1.23
         if (isset($tax) && $tax instanceof Tax) {
             $taxRate = (float) $tax->getRate();
+            $priceHT = round($product[0]['prix'] / (1 + ($taxRate / 100)), 2);
         }
 
         return $this->render(
@@ -101,7 +108,9 @@ class ProductController extends Controller
             [
                 'product' => $product,
                 'taxRate' => $taxRate,
-                'cartCount' => $this->cartService->getCartCount($request->cookies->get('cart'))
+                'cartCount' => $this->cartService->getCartCount($request->cookies->get('cart')),
+                'priceHT' => $priceHT,
+                'urlBack' => $urlBack
             ]
         );
     }

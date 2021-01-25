@@ -15,6 +15,9 @@
 {% include 'parts/popup.html.twig' %}
 <div class="content">
   <div class="left">
+    <div class="back">
+      <a href="{{ urlBack }}">{{ 'editions.produit.back'|trans }}</a>
+    </div>
     <div class="carousel active">
       <div class="slides">
         {% for slide in slides %}
@@ -62,14 +65,17 @@
       <span>{{ 'product.detail.price.ttc'|trans({'%ttc%': product.prix}) | raw }}</span>
       <br>
       <span class="ht">
-        {{ 'product.detail.price.ht'|trans({'%ht%': product.prix * (1 - (taxRate / 100))}) | raw }}
+        {{ 'product.detail.price.ht'|trans({'%ht%': priceHT }) | raw }}
         {% if taxRate != 0 %}
         <span class="tva">{{ 'product.detail.price.tva'|trans({'%tva%': taxRate}) | raw }}</span>
         {% endif %}
       </span>
     </div>
     <div class="description">
-      {{ product.pageprd }}
+      {{ product.pageprd|nl2br }}
+      <div class="availability">
+        {{ constant('AppBundle\\Entity\\Produit::ETATPRD')[product.etatprd]|upper }}
+      </div>
     </div>
     <div class="actions">
       <a class="button addToCart" data-id="{{ product.codprd }}" href="#">{{ 'editions.addtocart' | trans }}</a>
@@ -95,7 +101,7 @@
       <div class="left">
         <div class="line">
           <b>{{ 'editions.technicalreview.dateparution' | trans }}</b>
-          {% if product.datparution %}
+          {% if product.datparution and product.datparution|date('d/m/Y') != '30/11/-0001' %}
           <span>{{ product.datparution|localizeddate('medium', 'none', app.request.locale) }}</span>
           {% else %}
           <span> - </span>

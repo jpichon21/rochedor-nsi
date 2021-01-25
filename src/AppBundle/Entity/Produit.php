@@ -38,6 +38,16 @@ class Produit
         self::TYPE_CD => 'CD'
     ];
 
+    const STATUT_DISPO = '';
+    const STATUT_RUPTURE = 'ruptur';
+    const STATUT_PERIME = 'perime';
+
+    const ETATPRD = [
+        self::STATUT_DISPO => 'Disponible',
+        self::STATUT_RUPTURE => 'En rupture',
+        self::STATUT_PERIME => 'Périmé'
+    ];
+
     /**
      * @var int
      *

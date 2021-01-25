@@ -273,8 +273,8 @@ class OrderController extends Controller
                 /** @var Tax $tax */
                 $tax = $this->taxRepository->findTax($product->getTypprd(), $country);
                 $productTaxRate = ($tax) ? $tax->getRate() : 0;
-                $priceIncludeTaxes = floatval($product->getPrix());
-                $priceHT = floatval(round($product->getPrix() * (1 - ($productTaxRate / 100)), 2));
+                $priceIncludeTaxes = floatval(round($product->getPrix(), 2));
+                $priceHT = floatval(round($priceIncludeTaxes / (1 + ($productTaxRate / 100)), 2));
 
                 // Règle pour les CD
                 // Si la TVA vaut 0, le prix HT est le prix TTC

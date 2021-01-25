@@ -468,6 +468,12 @@ h2 {
           display: none;
         }
       }
+      .serie {
+        font-weight: 400;
+        color: black;
+        margin-bottom: 5px;
+        padding-right: 90px;
+      }
       .title {
         display: block;
         height: 30px;
@@ -786,6 +792,17 @@ h2 {
       .carousel {
         display: flex;
       }
+
+      .back {
+        position: absolute;
+        top: 20px;
+
+        a {
+          color: #ef7d1d;
+          border-bottom: 1px #ffb170 solid;
+          text-decoration: none;
+        }
+      }
     }
     > .right {
       position: relative;
@@ -865,6 +882,12 @@ h2 {
         margin-bottom: 40px;
         font-family: 'lato', lato, sans-serif;
         max-width: 580px;
+
+        .availability {
+          font-family: "azo-sans-web", azo-sans-web, sans-serif;
+          font-weight: 400;
+          padding-top: 20px;
+        }
       }
       .actions {
         margin-bottom: 68px;

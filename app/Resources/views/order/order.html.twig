@@ -194,22 +194,6 @@
     <div class="hole">
     </div>
     <div class="right">
-        {% for section in page.content['sections'] %}
-        <div class="carousel active">
-            <div class="slides">
-                {% for slide in section.slides %}
-                <div class="slide {% if loop.first %}active{% endif %}">
-                    {% include 'parts/carousel/layout-' ~ slide.layout ~ '.html.twig'
-                    with { 'images': slide.images } %}
-                </div>
-                {% endfor %}
-            </div>
-            {% if section.slides|length > 1 %}
-            <div class="prev"></div>
-            <div class="next"></div>
-            {% endif %}
-        </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock %}
@@ -257,18 +241,13 @@
 <script type="text/template" class="you-template">
     <div class="you">
         <p>
-            <%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
+            <% console.log(you) %>
+            <%= _.escape(you.civility) %> <%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
             <% if (you.societe) { %><%= _.escape(you.societe) %><br><% } %>
-            <%= _.escape(you.adresse) %> <%= _.escape(you.cp) %> <%= _.escape(you.ville) %> (<%= _.escape(you.pays) %>)
+            <%= _.escape(you.adresse) %><br>
+            <%= _.escape(you.cp) %> <%= _.escape(you.ville) %><br>
+            <%= _.escape(you.pays) %>
         </p>
-    </div>
-</script>
-<script type="text/template" class="consent-date-template">
-    <div class="consent-date-label">
-        <% if (you.conData) { %>{{'con_data_date'|trans}}<%= moment(you.dateConDonnes.date).format('DD/MM/YYYY') %><br><% } %>
-        <br>
-        <% if (you.conNews) { %>{{'con_news_date'|trans}}<%= moment(you.dateNewsDonnes.date).format('DD/MM/YYYY') %><br><% } %>
-        <br>
     </div>
 </script>
 <script type="text/template" class="terms-template">
@@ -398,7 +377,10 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="5"><span>TOTAL TTC</span><%= parseFloat(sum).toFixed(2) %> €</td>
+                <td colspan="5">
+                    <span>{{ 'edition.order.total_ttc'|trans }}</span><%= parseFloat(sum).toFixed(2) %> €
+                    <div class="info-total">{{ 'edition.order.info_total'|trans }}</div>
+                </td>
             </tr>
         </tfoot>
     </table>

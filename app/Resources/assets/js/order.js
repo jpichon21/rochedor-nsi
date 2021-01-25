@@ -62,7 +62,6 @@ const itemPayment = document.querySelector('.item.payment')
 const templateWelcome = _.template(document.querySelector('.welcome-template').innerHTML)
 const templateCartCount = _.template(document.querySelector('.cartCount-template').innerHTML)
 const templateYou = _.template(document.querySelector('.you-template').innerHTML)
-const templateConsentDate = _.template(document.querySelector('.consent-date-template').innerHTML)
 const templateDelivery = _.template(document.querySelector('.delivery-template').innerHTML)
 const templateTotal = _.template(document.querySelector('.total-template').innerHTML)
 const templateYouForm = _.template(document.querySelector('.you-form-template').innerHTML)
@@ -111,12 +110,6 @@ const updateCartCountRender = () => {
 
 const updateYouRender = () => {
   renderYou.innerHTML = templateYou({
-    you: _you
-  })
-}
-
-const updateConsentDateRender = () => {
-  renderConsentDate.innerHTML = templateConsentDate({
     you: _you
   })
 }
@@ -207,7 +200,6 @@ const afterLogin = user => {
   _delivery.cartId = parseInt(_cartId)
   _you = user
   updateYouRender()
-  updateConsentDateRender()
   updateTotalRender()
   updateCartRender()
   updateDetailcartRender()
@@ -536,7 +528,6 @@ itemCard.onsubmit = event => {
           downLoader()
           _you = client
           updateYouRender()
-          updateConsentDateRender()
           updateDelayRender()
           updateAdlivForm('myAd')
           changeItem(itemShipping).then(() => {
@@ -550,7 +541,6 @@ itemCard.onsubmit = event => {
         downLoader()
         _you = user
         updateYouRender()
-        updateConsentDateRender()
         updateDelayRender()
         updateAdlivForm('myAd')
         changeItem(itemShipping).then(() => {
@@ -793,7 +783,6 @@ if (cancelReturn) {
     _total = data
     updateCartCountRender()
     updateYouRender()
-    updateConsentDateRender()
     updateDeliveryRender()
     updateCartRender()
     updateDetailcartRender()

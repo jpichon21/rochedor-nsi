@@ -3,7 +3,7 @@
     <div class="box">
         <div class="message"></div>
         <div class="button cart"><a class="cart" href= {{ path('order-' ~ app.request.locale) }} rel="nofollow">{{ 'see.cart' | trans }}</a></div>
-        <div class="button continueCart">{{ 'continue.cart' | trans }}</div>
+        <div class="button continueCart"><a class="cart" href="{{ path('collections-' ~ app.request.locale) }}">{{ 'continue.cart' | trans }}</a></div>
         <div class="button continue">{{ 'continue' | trans }}</div>
         <div class="button yes">{{ 'main.yes' | trans }}</div>
         <div class="button no">{{ 'main.no' | trans }}</div>

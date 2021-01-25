@@ -16,7 +16,45 @@ class ShippingRepository
     const SHIPPINGWEIGHT = 40;
     const COUNTRYEXCEPTION = [
         "FR",
-        "CS"
+        "CS",
+        "AT",
+        "AU",
+        "BE",
+        "BG",
+        "CY",
+        "CZ",
+        "DE",
+        "DK",
+        "EE",
+        "ES",
+        "FI",
+        "HR",
+        "HU",
+        "IE",
+        "IT",
+        "LT",
+        "LU",
+        "LV",
+        "MT",
+        "NL",
+        "PL",
+        "PT",
+        "RO",
+        "SE",
+        "SI",
+        "SK",
+        "BA",
+        "BY",
+        "CH",
+        "GB",
+        "GE",
+        "GR",
+        "IS",
+        "LI",
+        "MC",
+        "NO",
+        "RU",
+        "YU",
     ];
 
     /**
@@ -68,7 +106,7 @@ class ShippingRepository
             $result = $query->getOneOrNullResult();
         }
         if (in_array($country, $this::COUNTRYEXCEPTION)) {
-            return $result->getFrance();
+            return $result->getEurope();
         } else {
             return $result->getInternational();
         }

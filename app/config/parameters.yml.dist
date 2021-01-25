@@ -27,6 +27,7 @@ parameters:
     paybox_key: 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
     paypal_url: 'https://www.sandbox.paypal.com/cgi-bin/webscr'
     paypal_email: 'paypal.roche@rochedor.org'
+    paypal_email_edition: secretariat@editionsrochedor.com
     paypal_btn_id: 'GRWYKF7S4BT2U'
     upload_root_path: '%kernel.project_dir%/web'
     bank_name.VieCom: Crédit Mutuel

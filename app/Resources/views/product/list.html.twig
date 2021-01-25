@@ -26,7 +26,7 @@
           <span class="label">{{ 'editions.filter.collections.title' | trans }}</span>
           <form>
             <select class="select" {% if filters_themes != null %}disabled{% endif %} required name="collection">
-              <option disabled value="" {% if filters_collection == null %}selected="selected"{% endif %}>{{ 'editions.filter.collections.choose' | trans }}</option>
+              <option value="" {% if filters_collection == null %}selected="selected"{% endif %}>{{ 'editions.filter.collections.choose' | trans }}</option>
               {% for collection in collections %}
               <option value="{{ collection.codrub }}" {% if filters_collection == collection.codrub %}selected="selected"{% endif %}>
                 {{ collection.rubrique }}
@@ -37,7 +37,7 @@
         </div>
       </div>
       <div class="box no-border-top">
-        <form class="filter-form-themes" method="POST" action="{{ path('collections-' ~ app.request.locale) }}">
+        <form class="filter-form-themes" method="GET" action="{{ path('collections-' ~ app.request.locale) }}">
           <div class="filter themes {% if filters_collection != null %} disabled{% endif %}">
             <span class="label">{{ 'editions.filter.themes.title' | trans }}</span>
               <select class="select" required name="support">

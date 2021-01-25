@@ -1,6 +1,11 @@
 <a href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}" class="product">
     <div class="illustration" style="{{ asset(product.adimg)|imagine_filter('product_card')|background }}"></div>
     <div class="description">
+        {% if product.serie %}
+        <div class="serie">
+            {{ product.serie }}
+        </div>
+        {% endif %}
         <div class="title">
             <h3>{{ product.produitcourt }}</h3>
         </div>
@@ -12,10 +17,10 @@
         </div>
         <div class="text">
             <div class="short">
-                <p>{{ product.pageprd | truncate(110, true) }}</p>
+                {{ product.pageprd | truncate(110, true) | nl2br }}
             </div>
             <div class="long">
-                <p>{{ product.pageprd | truncate(500, true) }}</p>
+                {{ product.pageprd | truncate(500, true) | nl2br }}
             </div>
         </div>
     </div>
