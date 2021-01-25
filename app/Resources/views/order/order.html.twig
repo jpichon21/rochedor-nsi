@@ -138,10 +138,10 @@
                 <div class="panel delay">
                     <div class="delay-render"></div>
                 </div>
-                <div class="panel gift active">
+                <div class="panel orderGift active">
                     <h3>{{ 'order.registration.choose.gift' | trans | raw }}</h3>
                     <p>{{ 'order.gift.text' | trans | raw }}</p>
-                    <form class="form gift">
+                    <form class="form orderGift">
                         <div class="pure-g">
                             <div class="pure-u-1 pure-u-md-1-1">
                                 <textarea class="textarea note" name="note" placeholder="{{ 'form.gift' | trans | raw }}"></textarea>
@@ -186,6 +186,9 @@
                 <div class="pure-g">
                     <div class="pure-u-1">
                         <a href="#pay" class="input button pay disabled">{{ 'validate.order' | trans | raw }}</a>
+                    </div>
+                    <div class="pure-u-1">
+                        <a href="{{ path('order-' ~ app.request.locale) }}" class="button black">{{ 'edition.order.form.go_cart' | trans | raw }}</a>
                     </div>
                 </div>
             </div>
@@ -241,7 +244,6 @@
 <script type="text/template" class="you-template">
     <div class="you">
         <p>
-            <% console.log(you) %>
             <%= _.escape(you.civility) %> <%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
             <% if (you.societe) { %><%= _.escape(you.societe) %><br><% } %>
             <%= _.escape(you.adresse) %><br>
@@ -261,9 +263,11 @@
     <% if (delivery.destliv !== 'myAd') { %>
         <p>
             <b>{{ 'order.summary.title.billing' | trans }}</b>
-            <%= you.prenom %> <%= you.nom %><br>
+            <%= _.escape(you.civility) %> <%= you.prenom %> <%= you.nom %><br>
             <% if (delivery.adliv.societe) { %><%= delivery.adliv.societe %><br><% } %>
-            <%= you.adresse %> <%= you.zipcode %> <%= you.ville %> (<%= you.pays %>)
+            <%= _.escape(you.adresse) %><br>
+            <%= _.escape(you.zipcode) %> <%= _.escape(you.ville) %><br>
+            <%= _.escape(you.pays) %>
         </p>
     <% } %>
     <p>
@@ -272,7 +276,10 @@
         <% if (delivery.adliv.societe) { %><%= delivery.adliv.societe %><br><% } %>
         <% if (delivery.destliv === 'Roche') { %>Librairie de la Roche d'Or<br><% } %>
         <% if (delivery.destliv === 'Font') { %>Librairie des Fontanilles<br><% } %>
-        <%= delivery.adliv.adresse %> <%= delivery.adliv.zipcode %> <%= delivery.adliv.city %> (<%= delivery.paysliv %>)
+        <%= _.escape(delivery.adliv.adresse) %><br>
+        <%= _.escape(delivery.adliv.zipcode) %> <%= _.escape(delivery.adliv.city) %><br>
+        <%= _.escape(delivery.adliv.paysliv) %>
+        <% console.log(delivery) %>
     </p>
 </script>
 <script type="text/template" class="total-template">
@@ -494,8 +501,8 @@
             <input class="input nom" required type="text" name="nom" value="<%= _.escape(delivery.adliv.nom) %>" placeholder="* {{ 'form.name' | trans | raw }}">
         </div>
         <% if (delivery.destliv == 'Other') { %>
-            <div class="pure-u-1 pure-u-md-1-2">
-                <input class="input adresse" required type="text" name="adresse" value="<%= _.escape(delivery.adliv.adresse) %>" placeholder="* {{ 'form.adresse' | trans | raw }}">
+            <div class="pure-u-1 pure-u-md-1">
+                <textarea class="textarea adresse" required name="adresse" placeholder="* {{ 'form.address' | trans | raw }}"><%= _.escape(delivery.adliv.adresse) %></textarea>
             </div>
             <div class="pure-u-1 pure-u-md-1-2">
                 <input class="input zipcode" required type="text" name="zipcode" value="<%= _.escape(delivery.adliv.zipcode) %>" placeholder="* {{ 'form.zipcode' | trans | raw }}">
@@ -510,7 +517,7 @@
                         <% disableCountry = true %>
                     <% } %>
                 <% } %>
-                <select class="select country" <%= (delivery.destliv == 'Roche' || delivery.destliv == 'Font' || disableCountry) ? 'disabled' : '' %> required name="paysliv">
+                <select class="select country" required name="paysliv" <%= (delivery.destliv == 'Roche' || delivery.destliv == 'Font' || disableCountry) ? 'disabled' : '' %>>
                     <option style="font-family: lato" <%= !disableCountry ? 'selected' : '' %> disabled value="">* {{ 'form.country' | trans | raw }}</option>
                     <% for (var i = 0; i < preferredCountries.length; i++) { %>
                         <% var country = preferredCountries[i] %>
@@ -607,7 +614,7 @@
         <input autocomplete="nope" title="{{ 'form.message.phone_invalid'|trans }}" class="input tel" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(client.tel) %>" name="tel" placeholder="* {{ 'form.phone' | trans | raw }}">
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
-        <input autocomplete="nope" title="{{ 'form.message.phone_invalid'|trans }}" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(client.mobil) %>" name="mobil" placeholder="{{ 'form.mobile' | trans | raw }}">
+        <input autocomplete="nope" title="{{ 'form.message.phone_invalid'|trans }}" class="input mobil" type="text" pattern="([0-9][\s]?)+" value="<%= _.escape(client.mobil) %>" name="mobil" placeholder="* {{ 'form.mobile' | trans | raw }}">
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" class="input email" required type="email" value="<%= _.escape(client.email) %>" name="email" placeholder="* {{ 'form.email' | trans | raw }}">

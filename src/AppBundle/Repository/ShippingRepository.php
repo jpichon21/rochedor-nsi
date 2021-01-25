@@ -112,6 +112,15 @@ class ShippingRepository
         }
     }
 
+    public function findMaxWeight()
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT MAX(p.limit) as maxWeight
+        FROM AppBundle\Entity\Packaging p');
+
+        return $query->getOneOrNullResult();
+    }
+
     public function findShipping($weight, $country)
     {
 

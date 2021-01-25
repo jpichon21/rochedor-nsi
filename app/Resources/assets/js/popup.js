@@ -28,6 +28,13 @@ export const upCartBox = html => {
   buttonCC.addEventListener('click', () => { downPopup() })
 }
 
+export const upTooWeight = html => {
+  message.innerHTML = html
+  popup.classList.remove('yes', 'no', 'continue')
+  popup.classList.add('active', 'cart')
+  buttonCC.addEventListener('click', () => { downPopup() })
+}
+
 export const upConfirmbox = html => {
   return new Promise((resolve, reject) => {
     message.innerHTML = html

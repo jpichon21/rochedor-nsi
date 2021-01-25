@@ -455,8 +455,8 @@ table.header.price.total: 'Prix total'
 no.shipping: '(aucun frais de port)'
 validate.order: 'Valider la commande et procéder au paiement'
 form.message.modpaie_invalid: 'Veuillez sélectionner un mode de paiement'
-click.termsPro: 'En cliquant sur <i>Valider la commande et procéder au paiement</i>, <br>vous acceptez les <a href="%link%" target="_blank">Conditions Générales de Vente à destination des professionnels</a>.'
-click.terms: 'En cliquant sur <i>Valider la commande et procéder au paiement</i>, <br>vous acceptez les <a href="%link%" target="_blank">Conditions Générales de Vente</a>.'
+click.termsPro: 'En cliquant sur <i>"Valider la commande et procéder au paiement"</i>, <br> je déclare, selon mon statut de personne physique ou de personne morale, avoir pris préalablement connaissance et accepter sans réserve les <a href="%link%" target="_blank">Conditions Générales de Vente</a>.'
+click.terms: 'En cliquant sur <i>"Valider la commande et procéder au paiement"</i>, <br> je déclare, selon mon statut de personne physique ou de personne morale, avoir pris préalablement connaissance et accepter sans réserve les <a href="%link%" target="_blank">Conditions Générales de Vente</a>.'
 table.header.price.ttc: 'Prix TTC'
 table.header.price.prix.ht: 'Prix HT'
 table.header.tax.rate: TVA
@@ -470,7 +470,7 @@ continue.cart: 'Continuer mes achats'
 form.go.buy: 'Continuer mes achats'
 form.continue.order: 'Passer ma commande'
 order.delay.title: 'Délais de transport'
-order.delay.message: 'Les livraisons sont effectuées dans un délais de %minliv% à %maxliv% jours ouvrés à compter de l''envoi du mail de confirmation de commande du client. La TVA et les frais de transports ont été ajustés à votre adresse de livraison.'
+order.delay.message: 'Les livraisons sont effectuées dans un délai de %minliv% à %maxliv% jours ouvrés à compter de l''envoi du courriel de confirmation de votre commande du client. La TVA et les frais de transports ont été recalculés pour correspondre à votre adresse de livraison.'
 select.bank-cheque: Chèque
 order-return.success-p2: "<p>Votre commande est bien enregistrée sous le numéro %refCom% et nous vous en remercions. Nous vous invitons à conserver ce numéro qui vous sera demandé pour toute question relative à votre commande.</p><p>À titre indicatif, les livraisons sont effectuées dans un délai de %minliv% à %maxliv% jours ouvrés à compter de la réception du paiement de votre commande.</p><p>  <center>Merci libeller votre chèque à l’attention de\_: Éditions Roche d’Or </center><center>et de l’adresser à\_:</center><center>Éditions Roche d’Or</center><center>Chemin du Muenot</center><center>25042 BESANÇON Cedex</center></p>Votre commande sera livrée à l'adresse suivante :<br><br><center>%addCom%</center><br><p>Un message vous est adressé immédiatement par courriel/email. Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou dans les courriers indésirables.</p><p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p><p>Avec toute notre sympathie</p><p>L'équipe des Éditions Roche d’Or</p>"
 order-return.success-p2-withoutDelay: "<p>Votre commande est bien enregistrée sous le numéro %refCom% et nous vous en remercions. Nous vous invitons à conserver ce numéro qui vous sera demandé pour toute question relative à votre commande.</p><p>  <center>Merci libeller votre chèque à l’attention de\_: Éditions Roche d’Or </center>  <center>et de l’adresser à\_:</center>  <center>Éditions Roche d’Or</center>  <center>Chemin du Muenot</center>  <center>25042 BESANÇON Cedex</center></p>Votre commande sera livrée à l'adresse suivante :<br><br><center>%addCom%</center><br><p>Nous restons à votre entière disposition pour tout complément et demande d’informations.</p><p>Avec toute notre sympathie</p><p>L'équipe des Éditions Roche d’Or</p> "
@@ -555,3 +555,5 @@ editions.nb_product_too_many: 'Pour toute commande supérieure à 9 unités, mer
 editions.produit.back: 'Retour à la liste'
 edition.order.total_ttc: 'TOTAL PANIER TTC'
 edition.order.info_total: 'Les frais d''expédition et le montant de la TVA seront calculés une fois l''adresse de livraison connue.'
+edition.order.too_weight: 'Vous ne pouvez envoyer que %maxWeight% KG au maximum, emballage compris.'
+edition.order.form.go_cart: 'Revenir au panier'

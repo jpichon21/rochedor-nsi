@@ -1,6 +1,6 @@
 import moment from 'moment'
 import { getClient, getDelivery } from './sample'
-import { upFlashbag, upConfirmbox } from './popup'
+import { upFlashbag, upConfirmbox, upTooWeight } from './popup'
 import { upLoader, downLoader } from './loader'
 import { changeItem } from './page'
 import { serializeArray } from './youmightnotneedjquery'
@@ -623,7 +623,7 @@ const formatForm = data => {
 }
 
 const submitFormGift = () => {
-  const data = serializeArray(itemShipping.querySelector('form.gift'))
+  const data = serializeArray(itemShipping.querySelector('form.orderGift'))
   const gift = formatForm(data)
   _delivery.memocmd = gift.note
 }
@@ -683,6 +683,10 @@ itemShipping.onclick = event => {
     upLoader()
     valideDelivery(_delivery).then(delivery => {
       getData(_cartId, delivery.paysliv, delivery.destliv).then(data => {
+        if (data.totalWeight > parseInt(data.maxWeight)) {
+          upTooWeight(i18n.trans('edition.order.too_weight').replace('%maxWeight%', parseInt(data.maxWeight) / 1000))
+          return
+        }
         downLoader()
         _total = data
         updateTotalRender()

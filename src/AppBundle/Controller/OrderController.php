@@ -219,10 +219,11 @@ class OrderController extends Controller
     */
     public function xhrGetTaxes(Request $request, $cart_id, $country, $destliv)
     {
-        if ($data = $this->getCartPrices($cart_id, $country, $destliv)) {
+        try {
+            $data = $this->getCartPrices($cart_id, $country, $destliv);
             return ['status' => 'ok','data' => $data];
-        } else {
-            return ['status' => 'ko','error' => 'you must delive a good form'];
+        } catch (\Exception $exception) {
+            return ['status' => 'ko', 'message' => $exception->getMessage()];
         }
     }
 
@@ -297,9 +298,11 @@ class OrderController extends Controller
                 $i++;
             }
         }
+
         $shippingPriceData = $this->findShipping($totalWeight, $country, $destliv);
         $packagingWeight = $shippingPriceData['supplementWeight'];
         $shippingPriceIT = $shippingPriceData['price'];
+        $data['maxWeight'] = $shippingPriceData['maxWeight'];
         $data['packagingWeight'] = $packagingWeight;
         $data['weightOrder'] = $totalWeight;
         $data['totalWeight'] = $totalWeight + $packagingWeight;
@@ -318,8 +321,16 @@ class OrderController extends Controller
         }
         $supplementWeight = $this->shippingRepository->findWeight($weight, $country);
         $weight += $supplementWeight;
+
+        $maxWeight = $this->shippingRepository->findMaxWeight();
+        if (!empty($maxWeight)) {
+            $maxWeight = $maxWeight['maxWeight'];
+        } else {
+            $maxWeight = 0;
+        }
+
         $price = $this->shippingRepository->findShipping($weight, $country);
-        return ['supplementWeight' => $supplementWeight, 'price' => $price['price']];
+        return ['supplementWeight' => $supplementWeight, 'price' => $price['price'], 'maxWeight' => $maxWeight];
     }
 
     /**
@@ -334,7 +345,7 @@ class OrderController extends Controller
 
         $delivery = $request->get('delivery');
         if ($this->getUser() === null) {
-            $user = $this->clientRepository->findClient($delivery['clientId']);
+            $user = $this->clientRepository->findClient($delivery['codcli']);
             $email = $delivery['email'];
         } else {
             $user = $this->getUser();
@@ -661,9 +672,14 @@ class OrderController extends Controller
             'MemoCli' => $user->getMemocli(),
             'Email' => $email
         ];
-        $data = $this->getCartPrices($delivery['cartId'], $delivery['paysliv'], $delivery['destliv']);
 
-        $datpaie = new \DateTime('0000-00-00 00:00:00');
+        try {
+            $data = $this->getCartPrices($delivery['cartId'], $delivery['paysliv'], $delivery['destliv']);
+        } catch (\Exception $exception) {
+            return ['status' => 'ko', 'message' => $exception->getMessage()];
+        }
+
+        $datpaie = new \DateTime();
         $validpaie = $delivery['validpaie'];
         $destliv = $delivery['destliv'];
         $delivery['adliv']['Pays'] = $delivery['paysliv'];
