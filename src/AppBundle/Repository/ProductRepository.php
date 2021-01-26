@@ -6,6 +6,7 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Produit;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\Query\ResultSetMapping;
 
 class ProductRepository
@@ -53,10 +54,32 @@ class ProductRepository
     public function findProducts($rubId, $limit = 99)
     {
         $query = $this->entityManager
-        ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.codrub=:rubId');
+        ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.codrub IN (:rubId)');
         $query->setParameter('rubId', $rubId);
         $query->setMaxResults($limit);
         return $query->getResult();
+    }
+
+    /**
+    * Find Collection of Produit by locale
+    *
+    * @param string $locale
+    * @return Array
+    */
+    public function findCollectionsByLocale($locale, $limit = 99)
+    {
+
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select('DISTINCT(p.codrub)')
+            ->from('AppBundle:Prodrub', 'p')
+            ->andWhere('p.langrub = :locale')
+            ->setParameter('locale', $locale);
+
+dump($qb->getQuery()->getSQL());
+dump($qb->getQuery()->getParameters());
+dump($qb->getQuery()->getResult());
+
+        return $qb->getQuery()->getResult();
     }
 
     /**
@@ -112,9 +135,23 @@ class ProductRepository
     {
         $query = $this->entityManager
         ->createQuery('SELECT r FROM AppBundle\Entity\Prodrub r
-        WHERE r.rubhide=0 AND r.langrub=:locale ORDER BY r.rubrique ASC');
-        $query->setParameter('locale', strtoupper($locale));
+        WHERE r.rubhide=0 ORDER BY LOCATE(:locale, r.langrub) DESC, r.rubrique')
+        ->setParameter('locale', $locale);
         return $query->getResult();
+    }
+
+    /**
+    * Find locales
+    *
+    * @return array
+    */
+    public function findLocales()
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT DISTINCT(r.langrub) as langrub FROM AppBundle\Entity\Prodrub r
+        WHERE r.rubhide=0 ORDER BY r.langrub');
+
+        return array_column($query->getResult(), 'langrub');
     }
 
     /**

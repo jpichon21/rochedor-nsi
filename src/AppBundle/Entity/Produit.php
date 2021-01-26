@@ -48,6 +48,14 @@ class Produit
         self::STATUT_PERIME => 'Périmé'
     ];
 
+    const LOCALES = [
+        'FR' => 'Français',
+        'EN' => 'Anglais',
+        'IT' => 'Italien',
+        'DE' => 'Allemand',
+        'ES' => 'Espagnol'
+    ];
+
     /**
      * @var int
      *

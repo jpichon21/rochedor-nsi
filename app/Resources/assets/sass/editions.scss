@@ -640,12 +640,13 @@ h2 {
       }
       form {
         display: flex;
+        min-width: 430px;
         @include media('<medium') {
           flex-direction: column;
         }
       }
       .select {
-        width: 100%;
+        width: 50%;
         padding: 5px 40px 5px 20px;
         line-height: 20px;
         font-family: 'lato', lato, sans-serif;
@@ -662,6 +663,10 @@ h2 {
         outline: none;
         option {
           background: #fff;
+        }
+
+        &[name="localeFilter"] {
+          margin-left: 5px;
         }
       }
       .label {

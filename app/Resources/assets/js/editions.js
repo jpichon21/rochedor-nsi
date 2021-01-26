@@ -29,9 +29,16 @@ if (themesForm != null) {
 }
 
 if (filtersForm != null) {
-  document.querySelector('.filters form').onchange = event => {
-    event.currentTarget.submit()
-  }
+  $('.filters .collections form select').on('change', function (event) {
+    event.preventDefault()
+    if ($(this).attr('name') === 'localeFilter') {
+      $('.filters form select[name="collection"]').val('')
+    } else {
+      $('.filters form select[name="localeFilter"]').val('')
+    }
+
+    $(this).parents('form').submit()
+  })
 }
 
 function changeThumb (direction) {

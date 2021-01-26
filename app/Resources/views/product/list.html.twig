@@ -9,6 +9,7 @@
 {% block content %}
 {% include 'parts/popup.html.twig' %}
 {% set filters_collection = app.request.get('collection') %}
+{% set filters_locale = app.request.get('localeFilter') %}
 {% set filters_themes = app.request.get('themes') %}
 {% set filters_themes_array = filters_themes|split('|') %}
 {% set collections_array = [] %}
@@ -33,12 +34,20 @@
               </option>
               {% endfor %}
             </select>
+            <select class="select" {% if filters_themes != null %}disabled{% endif %} required name="localeFilter">
+              <option value="" {% if filters_locale == null %}selected="selected"{% endif %}>{{ 'editions.filter.locale.choose' | trans }}</option>
+              {% for locale in locales %}
+              <option value="{{ locale.value }}" {% if filters_locale == locale.value %}selected="selected"{% endif %}>
+                {{ locale.name }}
+              </option>
+              {% endfor %}
+            </select>
           </form>
         </div>
       </div>
       <div class="box no-border-top">
         <form class="filter-form-themes" method="GET" action="{{ path('collections-' ~ app.request.locale) }}">
-          <div class="filter themes {% if filters_collection != null %} disabled{% endif %}">
+          <div class="filter themes {% if filters_collection != null or filters_locale != null %} disabled{% endif %}">
             <span class="label">{{ 'editions.filter.themes.title' | trans }}</span>
               <select class="select" required name="support">
                 <option value="">{{ 'editions.filter.support.choose' | trans }}</option>

@@ -34,6 +34,7 @@ class ProductController extends Controller
     const FILTER_TYPE_AUTHOR = 'author';
     const FILTER_TYPE_GENDER = 'gender';
     const FILTER_TYPE_THEME = 'theme';
+    const FILTER_TYPE_LOCALE = 'locale';
 
     /**
      * @var ProductRepository
@@ -159,8 +160,16 @@ class ProductController extends Controller
         $authorFilter = $request->get('author');
         $genderFilter = $request->get('gender');
         $themeFilter = $request->get('theme');
+        $localeFilter = $request->get('localeFilter');
 
         $collections = $this->productRepository->findCollections($locale);
+        $locales = $this->productRepository->findLocales();
+        $locales = $this->formatDataForFilters(
+            $locales,
+            self::FILTER_TYPE_LOCALE,
+            $localeFilter
+        );
+
         $supports = $this->formatDataForFilters(
             $this->productRepository->findSupports(),
             self::FILTER_TYPE_SUPPORT,
@@ -197,7 +206,16 @@ class ProductController extends Controller
         }
 
         $collection = $request->get('collection');
-        if ($collection) {
+        if ($collection || $localeFilter) {
+            if ($localeFilter) {
+                $collectionsByLocale = $this->productRepository->findCollectionsByLocale($localeFilter);
+                if ($collection) {
+                    $collection = array_merge([$collection], $collectionsByLocale);
+                } else {
+                    $collection = $collectionsByLocale;
+                }
+                dump($collection);
+            }
             $products = $this->productRepository->findProducts($collection);
         }
 
@@ -224,6 +242,7 @@ class ProductController extends Controller
                 'availableLocales' => $availableLocales,
                 'page' => $contentDocument,
                 'collections' => $collections,
+                'locales' => $locales,
                 'productsCategorized' => $productsCategorized,
                 'products' => $products,
                 'cartCount' => $this->cartService->getCartCount($request->cookies->get('cart')),
@@ -261,6 +280,11 @@ class ProductController extends Controller
                 case self::FILTER_TYPE_GENDER:
                     if (array_key_exists($datum, Produit::GENDER)) {
                         $name = Produit::GENDER[$datum];
+                    }
+                    break;
+                case self::FILTER_TYPE_LOCALE:
+                    if (array_key_exists($datum, Produit::LOCALES)) {
+                        $name = Produit::LOCALES[$datum];
                     }
                     break;
             }
