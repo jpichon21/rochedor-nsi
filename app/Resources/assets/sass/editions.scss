@@ -1164,7 +1164,7 @@ h2 {
   background: transparent;
 }
 
-.Éditions, .Editions, .editions, .pageConditions, .pageCondition{
+.Éditions, .Editions, .editions, .Générales, .Général{
   background-image: url('../img/editions-new-s.jpg');
 
   @include media('<=laptop') {
