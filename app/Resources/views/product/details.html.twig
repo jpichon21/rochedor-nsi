@@ -78,7 +78,7 @@
       </div>
     </div>
     <div class="actions">
-      <a class="button addToCart" data-id="{{ product.codprd }}" href="#">{{ 'editions.addtocart' | trans }}</a>
+      <a class="button addToCart{% if constant('AppBundle\\Entity\\Produit::STATUT_RUPTURE') == product.etatprd %} disabled{% endif %}" data-id="{{ product.codprd }}" href="#">{{ 'editions.addtocart' | trans }}</a>
       {% if product.urlPartenaire != '' %}
         {% if product.typprd == 'livre' %}
           <div class="choice">{{ 'editions.or' | trans }}</div>

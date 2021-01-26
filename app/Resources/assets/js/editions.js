@@ -102,6 +102,9 @@ $('.product').on('click', '.description .cart', function (event) {
 })
 
 $('.actions').on('click', '.addToCart', function (event) {
+  if ($(this).hasClass('disabled')) {
+    return
+  }
   addProduct(event, $(this).attr('data-id'))
 })
 

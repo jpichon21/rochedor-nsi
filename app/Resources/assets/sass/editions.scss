@@ -226,7 +226,7 @@ h2 {
   img{
     padding-left: 10px;
   }
-  &:hover, &:focus, &:active{
+  &:not(.disabled):hover, &:not(.disabled):focus, &:not(.disabled):active{
     /*color: #ffffff;
     transition: 0.5s ease-in-out;
     background: linear-gradient(to left, transparent 50%, $roche-orange 50%);
@@ -923,8 +923,15 @@ h2 {
           border: 1px $roche-orange solid;
           font-family: lato, 'lato', 'sans-serif';
 
-          &:hover, &:active, &:focus{
+          &:not(.disabled):hover, &:not(.disabled):active, &:not(.disabled):focus{
             color: #ffffff;
+          }
+
+          &.disabled {
+            color: grey;
+            border-color: grey;
+            opacity: 0.6;
+            cursor: not-allowed;
           }
         }
       }
