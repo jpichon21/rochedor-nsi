@@ -173,7 +173,7 @@ class Commande
         $this->montant = 0;
         $this->modpaie = '';
         $this->modliv = '';
-        $this->datpaie = new \DateTime();
+        $this->datpaie = new \DateTime('0000-00-00');
         $this->validpaie = '';
         $this->destliv = '';
         $this->adliv = '';
@@ -185,9 +185,9 @@ class Commande
         $this->promo = 0;
         $this->textcmd = '';
         $this->memocmd = '';
-        $this->datliv = new \DateTime();
+        $this->datliv = new \DateTime('0000-00-00');
         $this->paysip = '';
-        $this->datenreg = new \DateTime();
+        $this->datenreg = new \DateTime('0000-00-00');
     }
 
     /**

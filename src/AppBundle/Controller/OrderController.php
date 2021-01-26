@@ -679,7 +679,7 @@ class OrderController extends Controller
             return ['status' => 'ko', 'message' => $exception->getMessage()];
         }
 
-        $datpaie = new \DateTime();
+        $datpaie = new \DateTime('0000-00-00 00:00:00');
         $validpaie = $delivery['validpaie'];
         $destliv = $delivery['destliv'];
         $delivery['adliv']['Pays'] = $delivery['paysliv'];
