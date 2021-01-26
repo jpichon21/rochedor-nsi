@@ -75,10 +75,6 @@ class ProductRepository
             ->andWhere('p.langrub = :locale')
             ->setParameter('locale', $locale);
 
-dump($qb->getQuery()->getSQL());
-dump($qb->getQuery()->getParameters());
-dump($qb->getQuery()->getResult());
-
         return $qb->getQuery()->getResult();
     }
 

@@ -214,7 +214,6 @@ class ProductController extends Controller
                 } else {
                     $collection = $collectionsByLocale;
                 }
-                dump($collection);
             }
             $products = $this->productRepository->findProducts($collection);
         }
