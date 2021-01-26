@@ -1,0 +1,94 @@
+code;FR;IT;DE
+; --- site.php ---;;
+duree;Durée;;
+mn;mn;;
+;;;
+; --- BOUTONS ---;;
+btnRetour;Retour;Ritorno;Zurück
+btnVider;Vider le panier;Vuotare il paniere;Warenkorb leeren
+btnSuiv;Continuer;Continuare;Weiter
+btnValid;Valider;Convalidare;Bestätigen
+;;;
+editions;Editions;Edizioni;Ausgaben
+collection;Collection;Collezione;Sammlung
+lesColl;Les collections;Le collezioni;Die Sammlungen
+monPanier;Mon panier;il mio paniero;Mein Warenkorb
+maCmd;Ma commande;La mia ordinazione;Meine Bestellung
+panier;Votre panier;Il vostro paniere;Ihr Warenkorb
+arts;Articles;Articoli;Artikel
+mnt;Montant;Somma;Betrag
+poids;Poids;Peso;Weight
+quant;Quantité;Quantità;Menge
+art;Article;Articolo;Artikel
+total;Total;Totale;Total
+prix;Prix;Prezzo;Preis
+tva;TVA;IVA;MwSt
+ht;HT;Oneri fiscali esclusi;o. MwSt
+ttc;TTC;Tutte le tasse compresse;alles inbegriffen
+port;Port;Spede di spedizione;Porto
+txtFrais;Les frais d'expédition (port) seront calculés après saisie de l'adresse de livraison;Le spese di spedizione saranno calcolate dopo aver ricevuto l'indirizzo di consegna;Die Versandkosten (Porto) werden nach Erfassen der Lieferadresse berechnet
+;;;
+bulPlacer;Placer dans le panier;Porre nel paniere;In den Warenkorb legen
+txtRuptur;En rupture de stock;Interruzionne dello stock;Nicht auf Lager
+epuise;EPUISE;ESAURITO;VERGRIFFEN
+; --- FACTURATION ---;;
+coordFactu;Coordonnées de facturation;Coordinate della fattura;Angaben zur Rechnungsstellung
+civil;Civilité;Civilità;Anrede
+mr;Monsieur;Signore;Herr
+mme;Madame;Signora;Frau
+mlle;Mademoiselle;Signorina;vermissen
+pere;Père;Padre;Vater
+soeur;Soeur;Sorella;Schwester
+frere;Frère;Fratello;Bruder
+nom;Nom;Cognome;Name
+prenom;Prénom;Nome;Vorname
+ad;Adresse;Indirizzo;Adresse
+cp;Code postal;Codice postale;Postleitzahl
+ville;Ville;Cità;Ort
+pays;Pays;Paese;Land
+tel;Téléphone;Telefono;Telefon
+email;e-mail;e-mail;E-Mail
+mp;Mot de passe;Password;Passwort
+mpOubli;Mot de passe oublié;Password dimenticata;Passwort vergessen
+txtCadeau;<b>Pour un cadeau</b>, vous pouvez adresser un message au destinataire de votre achat.;Se si tratta di un regalo, potete rivolgere un messaggio al destinatario del tuo acquisto ;<b>Für ein Geschenk</b> können Sie an den Empfänger Ihres Einkaufs eine Mitteilung senden.
+; --- LIVRAISON ---;;
+coordLiv;Coordonnées de livraison;Coordinate della consegna;Angaben zur Lieferung
+adLiv;Adresse de livraison;Indirizzo della consegna;Lieferadresse
+adLivDif;Adresse de livraison différente de l'adresse de facturation;Indirizzo della consegna se diverso dall’indirizzo della fattura;Andere Lieferadresse als Rechnungsadresse
+delaiTrans;Délais de transport;Tempo del trasporto;Transportfristen
+liv1;Les livraisons sont effectuées dans un délai maximum de cinq (5) jours ouvrés ˆ compter de l'envoi du mail de confirmation de la commande du Client;;Die Lieferungen werden innerhalb einer Frist von maximal fünf (5) Werktagen ab Versand des Bestätigungsmails der Kundenbestellung getätigt
+liv2;pour la France métropolitaine. Ce délai est de 10 jours ouvrés  maximum pour les livraisons hors métropole;;<b>Falls Sie bereits eine Bestellung </b>über diese Website getätigt haben, erfassen Sie<br> einzig Ihr <b>E-Mail</b> und Ihr <b>Passwort</b>
+;;;
+txtConfCmd;Confirmation de commande;Conferma dell’ordinazione;Bestellbestätigung
+;;;
+dim;Dimension;Dimensione;Masse
+pages;Pages;Pagine;Seiten
+;;;
+txtDejaCmd;<b>Si vous avez déjà  fait une commande</b> par l'intermédiaire de ce site,<br> saisir uniquement votre <b>e-mail</b> et votre <b>mot de passe</b>;Se avete già fatto un’ordinazione con l’intermediario di questo sito, date unicamente la vostra e.mail e la vostra password;Falls Sie bereits eine Bestellung über diese Website getŠtigt haben,<br>erfassen Sie einzig Ihre E-Mail-Adresse und Ihr Passwort.
+txtEngage;La société Roche d'Or s'engage à  être le seul destinataire des informations que vous lui communiquez. Elles pourront donner lieu à l'exercice du droit individuel d'accès dans les conditions prévues par la délibération n° 80 du 01/04/1980 de la Commission Informatique et Libertés.;La società Roche d’Or si impegna a essere il solo destinatario delle informazioni che le comunicate. Potranno dar luogo all’esercizio del diritto individuale di accesso nelle condizioni previste dalla delibera n° 80 del 01/04/1980 della Commissione Informatica e Libertà.;"Die Gesellschaft Roche d'Or verpflichtet sich, die alleinige Empfängerin der von Ihnen angegebenen Informationen zu sein. Sie können Anlass sein zur Ausübung des individuellen Zugangsrechts gemäss den im Beschluss Nr. 80 vom 01/04/1980 der Kommission für Informatik und Freiheit (""Commission Informatique et Libertés"") vorgesehenen Bedingungen."
+txtSaisirEmail;Pourquoi saisir votre e-mail ?;Perché dare la vostra e.mail ?;Warum Ihre E-Mail-Adresse erfassen?
+txtSaisirEmail1;Pour vous adresser votre confirmation de commande et si besoin des informations sur votre commande;Per inviarvi la vostra conferma di ordinazione e se necessario, informazioni sulla vostra ordinazione;Um Ihnen Ihre Bestellbestätigung und bei Bedarf Informationen zu Ihrer Bestellung zu senden
+txtSaisirEmail2;Votre e-mail accompagné du mot de passe de votre choix vous permettra ultérieurement d'éviter de saisir vos coordonnées de facturation.<br>Vous pourrez également modifier vos coordonnées y compris votre e-mail et votre mot de passe;La vostra e-mail accompagnato dalla password di vostra scelta vi permetterà ulteriormente di evitare di dare le vostre coordinate di fatturazione. Potrete anche modificare le vostre coordinate comprese la vostra e-mail e la vostra password;Ihr E-Mail mit Ihrem Passwort Ihrer Wahl wird es Ihnen zukünftig ermöglichen, die Angaben zur Rechnungsstellung nicht erneut erfassen zu müssen. <br>Sie können auch Ihre Angaben einschliesslich ihres E-Mails und Ihres Passworts ändern
+txtMp;Si e-mail et mot de passe existent dans la base ˆ l'identique, les autres champs sont remplis automatiquement;Se l’e-mail e la password esistono nella base dell’identità, gli altri campi sono riempiti automaticamente;Sind die eingangs angegebene E-Mail-Adresse und das Passwort identisch, werden die übrigen Felder automatisch ausgefüllt.
+cgvNonAccept;Les conditions générales de vente n'ont pas été acceptées;Le condizioni generali di vendita non sono state accettate;Die Allgemeinen Verkaufsbedingungen wurden nicht angenommen
+;;;
+badMp;Cette adresse mail est bien enregistrée mais le mot de passe ne correspond pas;Questo indirizzo e-mail è ben registrato, ma la password non corrisponde;Diese Mail-Adresse ist zwar registriert, das Passwort entspricht jedoch nicht
+findEmail;Adresse mail non trouvée;Indirizzo e-mail non trovato;Mailadresse nicht gefunden
+noEmail;Vous n'avez pas indiqué votre e-mail;Non avete indicato la vostra e-mail;Sie haben Ihr E-Mail nicht angegeben
+noEnreg;n'est pas enregistré dans la base;Non è registrato nella base;ist in der Datenbank nicht registriert
+emailEnvoye;Votre mot de passe vient d'être envoyé à l'adresse;La vostra password è stata mandata all’indirizzo;Ihr Passwort wurde soeben an die Adresse versandt
+noNom;Le nom n'a pas été indiqué;Non è indicato il nome;Der Name wurde nicht angegeben
+noSov;L'enregistrement n'a pas fonctionné. Merci de le signaler;La registrazione non ha funzionato. Grazie di segnalarlo;Die Registrierung hat nicht funktioniert. Bitte melden
+; --- CHOIX PAIEMENT ---;;
+choixpaiement;Choisissez votre mode de paiement;Scegliete il vostro modo di pagamento;Wählen Sie Ihre Zahlungsart
+parCarte;par carte bancaire;Carta di credito;mittels Bankkarte
+parCH;par chèque;Assegno;mittels Scheck
+paieSecur1;Paiement<br>sécurisé par;Pagamento garantito da;Zahlung geschützt durch
+paieSecur2;Votre paiement est entièrement sécurisé par PAYBOX SYSTEM, les données bancaires ne transitent pas à l'intérieur du site;Il vostro pagamento è totalmente garantito da PAYBOXSYSTEM, i dati bancari non transitano all’interno del sito;Ihre Zahlung ist vollumfänglich durch PAYBOX SYSTEM geschützt. Die Bankdaten werden innerhalb der Webseite nicht weitergeleitet
+notePrepar;<b>A noter</b> : votre commande ne sera préparée qu'après réception de votre paiement;<b>Da notare</b> : la vostra ordinazione sarà preparata solo dopo aver ricevuto il pagamento;<b>Zur Beachtung</b>: Ihre Bestellung wird erst nach Eingang Ihrer Zahlung bearbeitet
+etablirCH;Etablir le chèque à l'ordre de;Stabilire l’assegno all’ordine di;Scheck erstellen an die Order von
+adCH;Adresser votre chèque à;Indirizzare il vostro assegno a;Ihr Scheck adressieren an
+cgv;Conditions générales de vente;Condizioni generali di vendita;Allgemeine Verkaufsbedingungen
+cgvAccept;J'accepte les;Accetto le;Ich nehme die
+txtDsl;Nous sommes désolé, la commande n'a pas été enregistrée. Merci de revenir en arrière;Siamo spiacenti, l’ordinazione non è stata registrata. Grazie di ripetere;Leider wurde Ihre Bestellung nicht registriert. Bitte gehen Sie einen Schritt zurück
+noChoixPaiement;Aucun moyen de paiement n'a été choisi;Nessun mezzo di pagamento è stato scelto;Es wurde keine Zahlungsart gewählt

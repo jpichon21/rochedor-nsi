@@ -1,0 +1,29 @@
+Code;FR;EN;DE
+imprimer;Imprimer;Print;Print
+bonno;Bon de commande n°;Paper n°;Paper n°
+imprimbon;Impression du bon;Impression du bon;Impression du bon
+attentevalid;Commande en attente de validation par le client;Commande en attente de validation par le client;Commande en attente de validation par le client
+pourvalider;Pour valider votre commande, cliquez sur un des choix de paiement;Pour valider votre commande, cliquez sur un des choix de paiement;Pour valider votre commande, cliquez sur un des choix de paiement
+codcli;Code client ;Code client ;Code client 
+adfact;Adresse de facturation;Adresse de facturation;Adresse de facturation
+adliv;Adresse de livraison;Adresse de livraison;Adresse de livraison
+contact;Contact;Contact;Contact
+quant;Quantité;Quantité;Quantité
+ref;Référence;Référence;Référence
+prod;Produit;Produit;Produit
+mnt;Montant;Montant;Montant
+tot;Total;Total;Total
+port;PORT;PORT;PORT
+fraisport;Frais de port;Frais de port;Frais de port
+mnttot;Montant total;Montant total;Montant total
+touteequipe;Toute l'équipe de Partisans d'Arts vous remercie pour votre commande. Elle vous sera expédiée dès réception de votre paiement;Toute l'équipe de Partisans d'Arts vous remercie pour votre commande. Elle vous sera expédiée dès réception de votre paiement;Toute l'équipe de Partisans d'Arts vous remercie pour votre commande. Elle vous sera expédiée dès réception de votre paiement
+choixchq;"Si vous avez choisi de régler par chèque, merci de l'établir à l'ordre de ""SARL Quai des Affaires"" et de l'envoyer à l'adresse indiquée au bas de cette page";"Si vous avez choisi de régler par chèque, merci de l'établir à l'ordre de ""SARL Quai des Affaires"" et de l'envoyer à l'adresse indiquée au bas de cette page";"Si vous avez choisi de régler par chèque, merci de l'établir à l'ordre de ""SARL Quai des Affaires"" et de l'envoyer à l'adresse indiquée au bas de cette page"
+choixvir;Si vous avez choisi de régler par virement, voici notre RIB: Code banque: 12506 Code guichet: 200109 N°de compte: 56001154810 Clé RIB: 12 Domiciliation: BESANCON TEMIS Titulaire du compte;Si vous avez choisi de régler par virement, voici notre RIB: Code banque: 12506 Code guichet: 200109 N°de compte: 56001154810 Clé RIB: 12 Domiciliation: BESANCON TEMIS Titulaire du compte;Si vous avez choisi de régler par virement, voici notre RIB: Code banque: 12506 Code guichet: 200109 N°de compte: 56001154810 Clé RIB: 12 Domiciliation: BESANCON TEMIS Titulaire du compte
+tel;Tél.;Tél.;Tél.
+email;e-mail;e-mail;e-mail
+tva;TVA;TVA;TVA
+mntttc;Montant TTC;Montant TTC;Montant TTC
+MsgPage1;Votre panier a été modifié car un internaute a passé la même commande que vous au même moment.\nVous pouvez revenir au panier pour modifier votre commande ou valider votre commande ajustée.;Votre panier a été modifié car un internaute a passé la même commande que vous au même moment.\nVous pouvez revenir au panier pour modifier votre commande ou valider votre commande ajustée.;Votre panier a été modifié car un internaute a passé la même commande que vous au même moment.\nVous pouvez revenir au panier pour modifier votre commande ou valider votre commande ajustée.
+MessFinCmd;Réactualisation de votre commande;Réactualisation de votre commande;Réactualisation de votre commande
+MsgPage2;Dans ce dernier cas, il vous suffit de réutiliser le moyen de paiement demandé.;Dans ce dernier cas, il vous suffit de réutiliser le moyen de paiement demandé.;Dans ce dernier cas, il vous suffit de réutiliser le moyen de paiement demandé.
+prodcmde;Ce produit vient d'être commandé par un internaute. La quantité en stock est passée à ;Ce produit vient d'être commandé par un internaute. La quantité en stock est passée à ;Ce produit vient d'être commandé par un internaute. La quantité en stock est passée à 

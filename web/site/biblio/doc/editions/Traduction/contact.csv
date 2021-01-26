@@ -1,0 +1,22 @@
+code;FR;IT;DE
+titre;Contactez-nous;Contattarci;Kontakt
+civil;Civilité;Civilta;Anrede
+nom;Nom;Cognome;Name
+email;e-mail;e-mail;E-Mail
+tel;Téléphone;Telefono;Telefon
+noCom;N° de commande;Numero d'ordine;Bestellnummer
+objet;Objet du message;Oggetto del messaggio;Gegenstand der Mitteilung
+msg;Message;Messaggio;Mitteilung
+;;;
+envoyer;ENVOYER;INVIARE;ABSENDEN
+tel2;Tèl.;Tel;Tel.
+fax;Fax;Fax;Fax
+;;;
+msgQuant;Commandes en grande quantité;Ordinazione in grande quantità;Große Bestellmengen
+msgIncid;Incident au moment de la commande;Incidente al momento dell’ordinazione;Störung zum Zeitpunkt der Bestellung
+msgAbs;Absence de confirmation de commande;Assenza di conferma dell’ordinazione;Fehlende Bestellbestätigung
+msgAnnul;Annulation de commande;Annullamento dell’ordinazione;Bestellannullierung
+msgSignal;Signalement de dommage à la livraison;Segnalazione di danno alla consegna;Schadensmeldung die Lieferung betreffend
+msgErrLiv;Erreur de livraison;Errore di consegna;Lieferirrtum
+msgConform;Non conformité;Non conforme;Nichtübereinstimmung
+msgAutres;Autres;Altro;Anderes
