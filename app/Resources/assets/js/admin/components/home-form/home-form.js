@@ -232,8 +232,9 @@ export class HomeForm extends React.Component {
           <DialogTitle>Citation</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              <p>La citation doit être renseignée en <em>italique</em><br />L'auteur doit être renseigné en <strong>gras</strong></p>
-              <p>Exemple :<br /><em>La foi, c'est une confiance, la gratuité d'une amitié.</em> <strong>Florin Callerand</strong></p>
+              Tous les textes doivent être en style "Normal" et le nom de l'auteur doit être en gras.
+              <br />
+              Chaque contenu ici présent est automatiquement formaté pour s'afficher en tant que citation, il est donc inutile de choisir le style "Citation".
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -284,6 +285,11 @@ export class HomeForm extends React.Component {
         </form>
         <Typography variant='display1' className={classes.title}>
           Contenu
+        </Typography>
+        <Typography component='p' style={{'font-style': 'italic', 'margin-bottom': '30px'}}>
+          Tous les textes doivent être en style "Normal" et le nom de l'auteur doit être en gras.
+          <br />
+          Chaque contenu ici présent est automatiquement formaté pour s'afficher en tant que citation, il est donc inutile de choisir le style "Citation".
         </Typography>
         <form className={classes.form}>
           {
@@ -350,22 +356,10 @@ export class HomeForm extends React.Component {
                         editorState={this.state.home.content.sections[indexSection].body}
                         onEditorStateChange={editorState => this.handleChangeTextArea(editorState, indexSection)}
                         toolbar={{
-                          options: ['inline', 'blockType', 'textAlign', 'link'],
+                          options: ['inline'],
                           inline: {
                             inDropdown: true,
-                            options: ['bold', 'italic', 'underline']
-                          },
-                          blockType: {
-                            inDropdown: true,
-                            options: ['Normal', 'Blockquote']
-                          },
-                          textAlign: {
-                            inDropdown: true,
-                            options: ['left', 'center', 'right', 'justify']
-                          },
-                          link: {
-                            inDropdown: true,
-                            options: ['link', 'unlink']
+                            options: ['bold']
                           }
                         }} />
                     </Grid>

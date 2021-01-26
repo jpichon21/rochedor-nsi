@@ -509,3 +509,5 @@ editions.filters.show: Filtrar
 detail.pricettc: '%ttc% € IVA incluido'
 detail.priceht: '%ht% € IVA no incluido'
 detail.tva: '(IVA %tva% %)'
+read_more: 'Leer mas'
+discover: 'Descubrir'

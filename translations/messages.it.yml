@@ -512,3 +512,5 @@ calendar.registration.participants_list: 'Elenco dei partecipanti'
 calendar.registration.participant: Partecipante
 form.message.do_you_have_agreement: 'Voi avete meno di 16 anni.<br>Disponete dell’assenso dei genitori o del tutore per iscrivervi? (GDPR)'
 editions.filter.no_theme: 'Nessun prodotto corrisponde all’insieme dei temi della vostra ricerca.'
+read_more: 'Leggi di più'
+discover: 'Scoprire'

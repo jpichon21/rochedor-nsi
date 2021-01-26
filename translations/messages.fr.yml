@@ -45,14 +45,14 @@ filter.title.speakers: Intervenants
 filter.title.translations: Traductions
 admin.title: 'Tableau de bord'
 calendar.registration.one.title: Identification/Inscription
-calendar.registration.two.title: Participants
+calendar.registration.two.title: 'Demande d''inscription'
 calendar.registration.three.title: Validation
 calendar.registration.three.body: "<p><strong>Une réponse à votre demande vous sera transmise prochainement</strong> par e-mail ou par courrier postal si vous ne disposez pas d'une adresse e-mail. Cette réponse dépend essentiellement des places encore disponibles et de notre capacité à vous accueillir dans les meilleures conditions.</p><p>Si vous ne recevez pas d'e-mail (courriel) dans quelques minutes, nous vous invitons à consulter votre dossier SPAM ou les courriers indésirables.</p><p>En cas <strong>d'empêchement</strong> et de <strong>désistement</strong>, merci d’avertir rapidement par courriel ou par téléphone. La place disponible pourra ainsi être proposée à une autre personne en liste d'attente.</p><p><i>Protection des données personnelles\_: la Roche d’Or s'engage à être le seul et unique destinataire des informations que vous venez de lui communiquer. Pour plus d’information, merci de vous reporter à notre politique de confidentialité qui prend en compte les exigences de la réglementation européenne sur la protection des données (RGPD).</i></p>"
 calendar.registration.one.title.connection: Identification
 calendar.registration.one.title.registration: Inscription
 calendar.registration.summary.title: Récapitulatif
 calendar.registration.summary.title.retreat: Retraite
-calendar.registration.summary.title.participants: Participants
+calendar.registration.summary.title.participants: 'Demande d''inscription'
 calendar.registration.one.body: 'Vous êtes connecté en tant que %name%, voulez-vous continuer ?'
 main.yes: Oui
 main.no: Non
@@ -139,9 +139,10 @@ form.relation: Relation
 form.colp: Organisateur
 calendar.days: j
 filter.raz.button: 'Effacer les filtres'
-form.password.reset: 'Réinitialiser votre mot de passe'
+form.password.reset.before: 'Si vos identifiants sont erronés, vous pouvez les modifier. Cliquer sur :'
+form.password.reset: 'réinitialiser votre mot de passe'
 security.bad_credentials: 'Les identifiants que vous avez saisis sont erronés'
-security.check_inbox: 'Un mail vient de vous être envoyé pour terminer la réinitialisation de votre mot de passe.Si vous n''avez reçu aucun email, veuillez vérifier votre dossier "SPAM"'
+security.check_inbox: 'Un mail vient de vous être envoyé pour terminer la réinitialisation de votre mot de passe.</br>Si vous n''avez reçu aucun email, veuillez vérifier votre dossier "SPAM"'
 news.last_posts.title: 'Les produits à l''honneur'
 editions.seeallproducts: 'Voir toute la collection'
 editions.filters.title: 'Affiner votre recherche'
@@ -418,6 +419,9 @@ form.civilite.abbe: Abbé
 calendar.registration.title: '<h2>Votre demande d''inscription est prise en compte</h2>'
 'Email not found': 'Adresse email non trouvée'
 form.lieu.besancon-tgv: 'Besançon Franche-Comté TGV (à 16km de Besançon centre)'
+form.lieu.perpignan: Perpignan
+form.lieu.maureillas: 'Maureillas (car)'
+form.lieu.saint-jean: 'Saint-Jean-Pla-de-Corts (car)'
 form.lieu.ne-sait-pas: 'Ne sait pas encore'
 contact_us: 'Nous contacter>'
 form.message.required: 'Ce champ est requis'
@@ -490,7 +494,10 @@ train: Train
 besancon-tgv: 'Besançon Franche-Comté TGV'
 viotte: 'Besançon Viotte'
 ne-sait-pas: 'Ne sait pas encore'
-calendar.registration.two.title.went: 'Déjà venus avec vous'
+perpignan: Perpignan
+maureillas: 'Maureillas (car)'
+saint-jean: 'Saint-Jean-Pla-de-Corts (car)'
+calendar.registration.two.title.went: 'Proposition(s) d’inscription'
 form.message.update_participant: 'Merci de vérifier les informations du participant et de renseigner son mode de transport'
 form.message.update_you: 'Merci de vérifier vos informations et de renseigner votre mode de transport'
 'Les Fontanilles': 'Les Fontanilles'
@@ -532,6 +539,7 @@ calendar.translation.title: 'Traduit en %translation%'
 calendar.registration.tooltip-username: 'Qu''est ce qu''un identifiant ?'
 calendar.registration.tooltip-pass: 'Qu''est ce qu''un mot de passe ?'
 calendar.registration.validation-tooltip: 'Vous devez ajouter au moins un participant pour valider votre demande d''inscription.'
+calendar.registration.validation-tooltip.ok: 'Prendre en compte ma demande d''inscription.'
 editions.calameo: 'Feuilleter un extrait'
 editions.bayard.chant: 'Achat de chant à l''unité'
 editions.bayard.partition: 'Achat de partition à l''unité'
@@ -558,3 +566,5 @@ edition.order.info_total: 'Les frais d''expédition et le montant de la TVA sero
 edition.order.too_weight: 'Vous ne pouvez envoyer que %maxWeight% KG au maximum, emballage compris.'
 edition.order.form.go_cart: 'Revenir au panier'
 editions.filter.locale.choose: 'Choisir une langue'
+read_more: 'Lire la suite'
+discover: 'Découvrir'
