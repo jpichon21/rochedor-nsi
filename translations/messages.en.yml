@@ -311,7 +311,7 @@ table.label.vat: VAT
 table.label.shippingPriceIT: 'Delivery costs'
 table.label.consumerPriceIT: 'Total (inc. VAT)'
 order-return.title: 'Editions <small>de la Roche d''Or'
-order-return.success: '<br>You will receive an email within a few minutes.<br>If you do not receive an email within a few minutes, please check your spam folder.<br>Back to <a href="%link%">collections</a>.'
+order-return.success: '<br>You will receive an email within a few minutes.<br>If you do not receive an email within a few minutes, please check your spam folder.<br><br>Back to <a href="%link%">collections</a>.'
 order-return.cancel: 'There has been a problem processing your order. <br>Please go back to <a href="%link%">basket</a>.'
 form.firstname: 'First name'
 form.lastname: Surname

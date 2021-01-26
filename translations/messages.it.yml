@@ -311,7 +311,7 @@ table.label.vat: Iva
 table.label.shippingPriceIT: 'Costi di spedizione'
 table.label.consumerPriceIT: 'Totale (IVA inclusa)'
 order-return.title: 'Edizioni <small>della Roche d''Or'
-order-return.success: '<br>Riceverai un''email entro pochi minuti.<br>Se non ricevi un''email entro pochi minuti, controlla la cartella della posta indesiderata.<br>Torna a <a href="%link%">collezioni</a>.'
+order-return.success: '<br>Riceverai un''email entro pochi minuti.<br>Se non ricevi un''email entro pochi minuti, controlla la cartella della posta indesiderata.<br><br>Torna a <a href="%link%">collezioni</a>.'
 order-return.cancel: 'Si è verificato un problema durante l''elaborazione dell''ordine. <br>Tornare a <a href="%link%">basket</a>.'
 form.firstname: Nome
 form.lastname: Cognome

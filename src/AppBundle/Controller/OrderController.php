@@ -557,10 +557,10 @@ class OrderController extends Controller
                 $withDelay = false;
             } else {
                 $addCom = $commande->getAdLiv();
-                $addCom = join(', ', [
-                    $addCom['Prenom'] . ' ' . $addCom['Nom'],
-                    $addCom['Adresse'],
-                    $addCom['CP'] . ' ' . $addCom['Ville'],
+                $addCom = join('', [
+                    $addCom['Prenom'] . ' ' . $addCom['Nom'] . '<br>',
+                    $addCom['Adresse'] . '<br>',
+                    $addCom['CP'] . ' ' . $addCom['Ville'] . '<br>',
                     $addCom['Pays'],
                 ]);
                 $withDelay = true;
@@ -595,7 +595,6 @@ class OrderController extends Controller
      */
     public function paymentNotifyAction($method, Request $request, PaypalService $paypalService)
     {
-
         $this->logger->info($request);
         if ($method === 'paybox') {
             if (!in_array($request->getClientIp(), $this::AUTHORIZED_PAYMENT_IP_ADRESSES)) {

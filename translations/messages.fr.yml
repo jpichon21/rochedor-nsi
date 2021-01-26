@@ -311,7 +311,7 @@ table.label.vat: 'Dont TVA'
 table.label.shippingPriceIT: 'Frais d''expédition'
 table.label.consumerPriceIT: 'Total TTC'
 order-return.title: 'Les Editions <small>de la Roche d''Or</small>'
-order-return.success: '<br>Vous recevrez un mail de confirmation dans quelques minutes.<br>Si vous ne recevez pas de mail d''ici ces quelques minutes, veuillez vérifier votre dossier SPAM.<br>Retour aux <a href="%link%">collections</a>.'
+order-return.success: '<br>Vous recevrez un mail de confirmation dans quelques minutes.<br>Si vous ne recevez pas de mail d''ici ces quelques minutes, veuillez vérifier votre dossier SPAM.<br><br>Retour aux <a href="%link%">collections</a>.'
 order-return.cancel: 'Un problème est survenu lors de votre commande.<br>Veuillez retourner au <a href="%link%">panier</a>.'
 form.firstname: Prénom
 form.lastname: Nom

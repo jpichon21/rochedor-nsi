@@ -311,7 +311,7 @@ table.label.vat: 'Davon Mehrwertsteuer'
 table.label.shippingPriceIT: Versandkosten
 table.label.consumerPriceIT: 'Gesamtsumme inkl. MwSt'
 order-return.title: 'Roche d''Or Verlag'
-order-return.success: '<br>Sie erhalten in wenigen Minuten eine Bestätigungs-E-Mail. <br>Wenn Sie innerhalb weniger Minuten keine E-Mail erhalten, überprüfen Sie bitte Ihren SPAM-Ordner. <br>Zurück zu <a href="%link%">Sammlungen</a>.'
+order-return.success: '<br>Sie erhalten in wenigen Minuten eine Bestätigungs-E-Mail. <br>Wenn Sie innerhalb weniger Minuten keine E-Mail erhalten, überprüfen Sie bitte Ihren SPAM-Ordner. <br><br>Zurück zu <a href="%link%">Sammlungen</a>.'
 order-return.cancel: 'Bei Ihrer Bestellung ist ein Problem aufgetreten. <br>Kehren Sie bitte zurück zu<a href="%link%">panier</a>.'
 form.firstname: Vorname
 form.lastname: Familienname

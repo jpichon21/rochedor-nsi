@@ -88,10 +88,11 @@ class PaymentService
                 /** @var Contact|bool $contact */
                 $contact = $this->getContact();
                 if ($contact) {
-                    $country = $contact->getCountry();
+                    $country = $contact->getPays();
                 } elseif (array_key_exists('paysliv', $delivery)) {
                     $country = $delivery['paysliv'];
                 }
+
                 return $this->getPaypalUrl(
                     $amount,
                     $objectId,
@@ -101,7 +102,8 @@ class PaymentService
                     $baseRoute,
                     $destDon,
                     $memoDon,
-                    $country
+                    $country,
+                    $baseRoute
                 );
             case self::METHOD_CHEQUE:
                 if ($baseRoute === 'gift' && empty($delivery)) {
@@ -145,12 +147,65 @@ class PaymentService
                 /** @var Contact|bool $contact */
                 $contact = $this->getContact();
                 if ($contact) {
-                    $country = $contact->getCountry();
+                    $country = $contact->getPays();
                 } elseif (array_key_exists('paysliv', $delivery)) {
                     $country = $delivery['paysliv'];
                 }
-                return $this->getPayboxUrl($amount, $objectId, $email, $locale, $baseRoute, $destDon, $memoDon, $country);
+                return $this->getPayboxUrl($amount, $objectId, $email, $locale, $baseRoute, $destDon, $memoDon, $country, $baseRoute);
         }
+    }
+
+    private function getPaypalUrl(
+        $amount,
+        $objectId,
+        $itemName,
+        $email,
+        $locale,
+        $baseRoute,
+        $destDon,
+        $memoDon,
+        $country,
+        $paymentType = 'gift'
+    ) {
+        $businessUrl = $this->container->getParameter('paypal_email');
+        if ($paymentType === 'order') {
+            $businessUrl = $this->container->getParameter('paypal_email_edition');
+        }
+        $params = [
+            'amount' => $amount,
+            'cmd' => '_xclick',
+            'currency_code' => 'EUR',
+            'item_name' => $itemName,
+            'item_number' => $objectId,
+            'rm' => 0,
+            'return' => $this->router->generate(
+                $baseRoute . '_payment_return',
+                ['_locale' => $locale, 'method' => 'paypal', 'status' => 'success', 'Ref' => $objectId],
+                RouterInterface::ABSOLUTE_URL
+            ),
+            'cancel_return' => $this->router->generate(
+                $baseRoute . '-' . $locale,
+                ['giftData' => [
+                    'amount' => $amount,
+                    'destDon' => $destDon,
+                    'giftNote' => $memoDon,
+                    'modDon' => 'PP',
+                    ],
+                ],
+                RouterInterface::ABSOLUTE_URL
+            ),
+            'business' => $businessUrl,
+            'notify_url' => $this->router->generate(
+                $baseRoute . '_payment_notify',
+                ['_locale' => $locale, 'method' => 'paypal'],
+                RouterInterface::ABSOLUTE_URL
+            ),
+            'email' => $email,
+            'lc' => $this->countryCode($this::METHOD_PAYPAL, $country)
+        ];
+        $url = $this->container->getParameter('paypal_url');
+        $url .= '?' . http_build_query($params);
+        return $url;
     }
 
     private function getPayboxUrl(
@@ -161,12 +216,25 @@ class PaymentService
         $baseRoute,
         $destDon,
         $memoDon,
-        $country
+        $country,
+        $paymentType = 'gift'
     ) {
+        $payboxSite = $this->container->getParameter('paybox_site');
+        $payboxRang = $this->container->getParameter('paybox_rang');
+        $payboxIdentifiant = $this->container->getParameter('paybox_identifiant');
+        $payboxUrl = $this->container->getParameter('paybox_url');
+        $payboxKey = $this->container->getParameter('paybox_key');
+        if ($paymentType === 'order') {
+            $payboxSite = $this->container->getParameter('paybox_site_edition');
+            $payboxRang = $this->container->getParameter('paybox_rang_edition');
+            $payboxIdentifiant = $this->container->getParameter('paybox_identifiant_edition');
+            $payboxKey = $this->container->getParameter('paybox_key_edition');
+        }
+
         $params = [
-            'PBX_SITE' => $this->container->getParameter('paybox_site'),
-            'PBX_RANG' => $this->container->getParameter('paybox_rang'),
-            'PBX_IDENTIFIANT' => $this->container->getParameter('paybox_identifiant'),
+            'PBX_SITE' => $payboxSite,
+            'PBX_RANG' => $payboxRang,
+            'PBX_IDENTIFIANT' => $payboxIdentifiant,
             'PBX_TOTAL' => ceil($amount * 100),
             'PBX_DEVISE' => 978,
             'PBX_CMD' => $objectId,
@@ -187,7 +255,7 @@ class PaymentService
                 RouterInterface::ABSOLUTE_URL
             ),
             'PBX_ANNULE' => $this->router->generate(
-                'gift-' . $locale,
+                $baseRoute . '-' . $locale,
                 [],
                 RouterInterface::ABSOLUTE_URL
             ),
@@ -201,60 +269,12 @@ class PaymentService
             'PBX_TIME' => date('c'),
             'PBX_LANGUE' => $this->countryCode($this::METHOD_CB, $country)
         ];
-        $url = $this->container->getParameter('paybox_url');
+        $url = $payboxUrl;
         $url .= '?' . http_build_query($params);
-        $key = $this->container->getParameter('paybox_key');
+        $key = $payboxKey;
         $binKey = pack("H*", $key);
         $hmac = strtoupper(hash_hmac('sha512', urldecode(http_build_query($params)), $binKey));
         return $url . '&PBX_HMAC=' . $hmac;
-    }
-
-    private function getPaypalUrl(
-        $amount,
-        $objectId,
-        $itemName,
-        $email,
-        $locale,
-        $baseRoute,
-        $destDon,
-        $memoDon,
-        $country
-    ) {
-        $params = [
-            'amount' => $amount,
-            'cmd' => '_xclick',
-            'currency_code' => 'EUR',
-            'item_name' => $itemName,
-            'item_number' => $objectId,
-            'rm' => 0,
-            'return' => $this->router->generate(
-                $baseRoute . '_payment_return',
-                ['_locale' => $locale, 'method' => 'paypal', 'status' => 'success', 'Ref' => $objectId],
-                RouterInterface::ABSOLUTE_URL
-            ),
-            'cancel_return' => $this->router->generate(
-                'gift-' . $locale,
-                ['giftData' => [
-                    'amount' => $amount,
-                    'destDon' => $destDon,
-                    'giftNote' => $memoDon,
-                    'modDon' => 'PP',
-                    ],
-                ],
-                RouterInterface::ABSOLUTE_URL
-            ),
-            'business' => $this->container->getParameter('paypal_email'),
-            'notify_url' => $this->router->generate(
-                $baseRoute . '_payment_notify',
-                ['_locale' => $locale, 'method' => 'paypal'],
-                RouterInterface::ABSOLUTE_URL
-            ),
-            'email' => $email,
-            'lc' => $this->countryCode($this::METHOD_PAYPAL, $country)
-        ];
-        $url = $this->container->getParameter('paypal_url');
-        $url .= '?' . http_build_query($params);
-        return $url;
     }
 
     private function getChequeUrlGift($objectId, $locale, $baseRoute, $amount, Contact $contact, $destDon)
