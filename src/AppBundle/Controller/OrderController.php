@@ -436,7 +436,7 @@ class OrderController extends Controller
                 'status' => 'error',
             ]);
         }
-        if ($commande->getModpaie() !== 'CH'
+        if ($commande->getModpaie() !== 'ICH'
             || $user->getCodcli() !== $commande->getCodcli()) {
             return $this->render('order/payment-return.html.twig', [
                 'chequemessage' => true,
@@ -456,8 +456,8 @@ class OrderController extends Controller
             $addCom = $commande->getAdLiv();
             $addCom = join(' ', [
                 $addCom['Prenom'],
-                $addCom['Nom'],
-                $addCom['Adresse'],
+                $addCom['Nom'] . '<br>',
+                $addCom['Adresse'] . '<br>',
                 $addCom['CP'],
                 $addCom['Ville']
             ]);
