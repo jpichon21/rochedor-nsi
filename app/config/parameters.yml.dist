@@ -25,6 +25,10 @@ parameters:
     paybox_rang: '32'
     paybox_identifiant: '2'
     paybox_key: 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
+    paybox_site_edition: '1999888'
+    paybox_rang_edition: '32'
+    paybox_identifiant_edition: '2'
+    paybox_key_edition: 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
     paypal_url: 'https://www.sandbox.paypal.com/cgi-bin/webscr'
     paypal_email: 'paypal.roche@rochedor.org'
     paypal_email_edition: secretariat@editionsrochedor.com
