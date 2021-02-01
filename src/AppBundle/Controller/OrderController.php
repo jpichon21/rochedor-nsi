@@ -764,8 +764,8 @@ class OrderController extends Controller
         $adliv = $order->getAdLiv();
         $adliv = join(' ', [
             $adliv['Prenom'],
-            $adliv['Nom'],
-            $adliv['Adresse'],
+            $adliv['Nom'] . '<br>',
+            $adliv['Adresse'] . '<br>',
             $adliv['CP'],
             $adliv['Ville']
         ]);
