@@ -146,7 +146,7 @@ class DonR
         $this->datVir = new \DateTime();
         $this->virFin = new \DateTime();
         $this->virFreq = '';
-        $this->datTrans = new \DateTime();
+        $this->datTrans = new \DateTime('0000-00-00 00:00:00');
         $this->memodonR = '';
     }
 
