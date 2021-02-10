@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Tpays;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -84,7 +85,7 @@ class ShopSecurityController extends Controller
     public function loginAction(Request $request)
     {
         /**
-         * @var AppBundle\Entity\Client
+         * @var Client $client
          */
         $client = $this->getUser();
 
@@ -93,7 +94,15 @@ class ShopSecurityController extends Controller
                 'status' => 'not logged in'
             ], 201);
         }
-        
+
+        $countryLong = '';
+        if ($client->getPays() !== 'FR') {
+            /** @var Tpays $country */
+            $country = $this->get('AppBundle\Repository\TpaysRepository')
+                ->findCountryByCode($client->getPays());
+            $countryLong = $country->getNompays();
+        }
+
         return new JsonResponse([
             'codcli' => $client->getCodcli(),
             'civil' => $client->getCivil(),
@@ -104,6 +113,7 @@ class ShopSecurityController extends Controller
             'cp' => $client->getCp(),
             'ville' => $client->getVille(),
             'pays' => $client->getPays(),
+            'paysLong' => $countryLong,
             'tel' => $client->getTel(),
             'mobil' => $client->getMobil(),
             'email' => $client->getEmail(),
@@ -320,6 +330,7 @@ class ShopSecurityController extends Controller
         $email = $request->get('email');
         $lastname = $request->get('lastname');
         $firstname = $request->get('firstname');
+        $this->get('session')->set('origin', $request->get('origin'));
         if (!$email || !$lastname || !$firstname) {
             return new JsonResponse(['status' => 'ko', 'message' => 'security.password_request.missing_infos']);
         }
@@ -392,8 +403,8 @@ class ShopSecurityController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $encoder->encodePassword($client, $client->getPassword());
             $client->setPassword($password)
-            ->setResetToken(null)
-            ->setResetTokenExpiresAt(null);
+            ->setResetToken('')
+            ->setResetTokenExpiresAt(new \DateTime('0000-00-00 00:00:00'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($client);
             $em->flush();

@@ -91,6 +91,7 @@ security.reset_password_request.subject: 'Réinitialisation de mot de passe'
 form.label.password_repeat: Répéter
 security.reset.token_not_found: 'Cette demande de réinitialisation n''est plus valide on n''existe pas.'
 security.password_reset_success_message: "<p>Votre nouveau mot de passe a été enregistré.</p><p>Vous pouvez continuer votre demande d'inscription en utilisant votre nouveau mot de passe</p><p><strong>ATTENTION :</strong></p><p><strong>Veiller à utiliser l’identifiant qui vous a été communiqué dans le courriel (email) que vous avez reçu.\L Vous pourrez le modifier, si besoin, dans la fiche qui vous sera présentée pour vérifier votre identité.</strong></p><p>POUR REVENIR à votre inscription en cours, <a href=\"%link%\">cliquer sur ce lien</a>.</p>"
+security.password_reset_success_message.edition: "<p>Votre nouveau mot de passe a été enregistré.</p><p>Vous pouvez continuer vos achats en utilisant votre nouveau mot de passe</p><p><strong>ATTENTION :</strong></p><p><strong>Veiller à utiliser l’identifiant qui vous a été communiqué dans le courriel (email) que vous avez reçu.\L Vous pourrez le modifier, si besoin, dans la fiche qui vous sera présentée pour vérifier votre identité.</strong></p><p>POUR REVENIR à votre panier en cours, <a href=\"%link%\">cliquer sur ce lien</a>.</p>"
 form.label.email: 'Adresse email'
 form.label.connection: Connexion
 form.label.lastname: Nom
@@ -146,7 +147,7 @@ security.check_inbox: 'Un mail vient de vous être envoyé pour terminer la réi
 news.last_posts.title: 'Les produits à l''honneur'
 editions.seeallproducts: 'Voir toute la collection'
 editions.filters.title: 'Affiner votre recherche'
-editions.filter.collections.title: 'Par collection'
+editions.filter.collections.title: 'Par collection ou par langue'
 editions.filter.collections.choose: 'Choisir une collection'
 editions.filter.themes.title: 'Par thème'
 cart.remove: __cart.remove
@@ -265,10 +266,11 @@ security.password_request.missing_infos: 'Informations manquantes'
 form.lastname.please: 'Indiquer votre nom de famille'
 form.firstname.please: 'Indiquer votre prénom'
 security.password_too_small: 'Votre mot de passe doit faire au moins 8 caractères.'
+security.societe.empty: 'Vous devez renseigner le nom de votre société.'
 order.summary.title.cart: Panier
 form.update: 'Modifier vos informations'
 form.tvaintra: 'TVA Intracommunautaire'
-form.memocli: Mémo
+form.memocli: 'Informations complémentaires'
 order.registration.three.title: Livraison
 order.registration.three.title.you: 'Choisissez une adresse de livraison'
 form.message.pro_invalid: 'Le numéro de TVA ou le nom de la société est incomplet'
@@ -566,5 +568,6 @@ edition.order.info_total: 'Les frais d''expédition et le montant de la TVA sero
 edition.order.too_weight: 'Vous ne pouvez envoyer que %maxWeight% KG au maximum, emballage compris.'
 edition.order.form.go_cart: 'Revenir au panier'
 editions.filter.locale.choose: 'Choisir une langue'
+edition.country_not_disp_liv: 'Votre pays n''est pas disponible à la livraison, merci de définir une adresse de livraison différente de la votre.'
 read_more: 'Lire la suite'
 discover: 'Découvrir'

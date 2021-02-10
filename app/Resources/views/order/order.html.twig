@@ -11,7 +11,7 @@
 {% include 'parts/loader.html.twig' %}
 {% include 'parts/popup.html.twig' %}
 <div class="content">
-    <div class="left">
+    <div class="left order">
         <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
         {% if page.content.intro %}
         <div class="intro">
@@ -62,8 +62,9 @@
                             <div class="pure-u-1 pure-u-md-1-2">
                                 <input autocomplete="nope" class="input username" required type="text" name="username" placeholder="* {{ 'form.username' | trans | raw }}">
                             </div>
-                            <div class="pure-u-1 pure-u-md-1-2">
+                            <div class="pure-u-1 pure-u-md-1-2 password-container">
                                 <input autocomplete="nope" class="input password" required type="password" name="password" placeholder="* {{ 'form.password-login' | trans | raw }}">
+                                <a class="toggle-password"></a>
                             </div>
                             <div class="pure-u-1 pure-u-md-1-4">
                                 <input autocomplete="nope" class="input button submit" type="submit" value="{{ 'form.ok' | trans | raw }}">
@@ -122,6 +123,7 @@
                 <h2>{{ 'order.registration.three.title' | trans | raw }}</h2>
                 <div class="pure-g">
                     <div class="pure-u-1">
+                        <div class="hidden country-not-disp-liv">{{ 'edition.country_not_disp_liv'|trans }}</div>
                         <select class="select white select-adliv" name="select_adliv">
                             <option value="myAd">{{ 'select.ad.myAd' | trans | raw }}</option>
                             <option value="Other">{{ 'select.ad.other' | trans | raw }}</option>
@@ -244,11 +246,11 @@
 <script type="text/template" class="you-template">
     <div class="you">
         <p>
-            <%= _.escape(you.civility) %> <%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
+            <%= _.escape(you.civil) %> <%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
             <% if (you.societe) { %><%= _.escape(you.societe) %><br><% } %>
-            <%= _.escape(you.adresse) %><br>
+            <%= you.adresse.replace("\n", "<br>") %><br>
             <%= _.escape(you.cp) %> <%= _.escape(you.ville) %><br>
-            <%= _.escape(you.pays) %>
+            <% if (you.pays !== 'FR') { %> <%= _.escape(you.paysLong) %> <% } %>
         </p>
     </div>
 </script>
@@ -263,23 +265,22 @@
     <% if (delivery.destliv !== 'myAd') { %>
         <p>
             <b>{{ 'order.summary.title.billing' | trans }}</b>
-            <%= _.escape(you.civility) %> <%= you.prenom %> <%= you.nom %><br>
-            <% if (delivery.adliv.societe) { %><%= delivery.adliv.societe %><br><% } %>
-            <%= _.escape(you.adresse) %><br>
-            <%= _.escape(you.zipcode) %> <%= _.escape(you.ville) %><br>
-            <%= _.escape(you.pays) %>
+            <%= _.escape(you.civil) %> <%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
+            <% if (delivery.adliv.societe) { %><%= _.escape(delivery.adliv.societe) %><br><% } %>
+            <%= you.adresse.replace("\n", "<br>") %><br>
+            <%= _.escape(you.cp) %> <%= _.escape(you.ville) %><br>
+            <% if (you.pays !== 'FR') { %> <%= _.escape(you.paysLong) %> <% } %>
         </p>
     <% } %>
     <p>
         <% if (delivery.destliv !== 'myAd') { %><b>{{ 'order.summary.title.delivery' | trans }}</b><% } %>
-        <%= delivery.adliv.prenom %> <%= delivery.adliv.nom %><br>
+        <%= delivery.adliv.civil %> <%= delivery.adliv.prenom %> <%= delivery.adliv.nom %><br>
         <% if (delivery.adliv.societe) { %><%= delivery.adliv.societe %><br><% } %>
         <% if (delivery.destliv === 'Roche') { %>Librairie de la Roche d'Or<br><% } %>
         <% if (delivery.destliv === 'Font') { %>Librairie des Fontanilles<br><% } %>
-        <%= _.escape(delivery.adliv.adresse) %><br>
+        <%= delivery.adliv.adresse.replace("\n", "<br>") %><br>
         <%= _.escape(delivery.adliv.zipcode) %> <%= _.escape(delivery.adliv.city) %><br>
-        <%= _.escape(delivery.adliv.paysliv) %>
-        <% console.log(delivery) %>
+        <% if (_.escape(delivery.paysliv) !== 'FR') { %> <%= _.escape(delivery.payslivLong) %> <% } %>
     </p>
 </script>
 <script type="text/template" class="total-template">
@@ -550,9 +551,9 @@
 <script type="text/template" class="you-form-template">
     <input autocomplete="nope" type="hidden" value="<%= client.codcli %>" name="codcli">
     <input autocomplete="nope" type="hidden" value=<%= client.check %> name="check">
-    <div class="pure-u-1 pure-u-md-1 newfich-wrapper">
-        <a href="#" class="input button radio newfich <%= (client.professionnel === true) ? 'checked' : '' %>" >{{ 'form.pro' | trans | raw }}</a>
-        <input class="hidden checkbox newfich" value="<%= _.escape(client.professionnel) %>" name="professionnel" type="text" >
+    <div class="pure-u-1 pure-u-md-1 newfich-wrapper pro">
+        <a href="#" class="input button radio newfich pro <%= (client.professionnel === true) ? 'checked' : '' %>" >{{ 'form.pro' | trans | raw }}</a>
+        <input class="hidden checkbox newfich pro" value="<%= _.escape(client.professionnel) %>" name="professionnel" type="text" >
     </div>
     <div class="pure-u-1 pure-u-md-1-2">
         <input autocomplete="nope" class="input societe" type="text" value="<%= _.escape(client.societe) %>" name="societe" placeholder="{{ 'form.societe' | trans | raw }}">
@@ -604,9 +605,7 @@
             <option disabled>----------</option>
             <% for (var i = 0; i < countries.length; i++) { %>
                 <% var country = countries[i] %>
-                <% if (countries[i].displiv) { %>
                 <option style="font-family: lato;" <%= (_.escape(client.pays) == country.codpays) ? 'selected' : '' %> value="<%= country.codpays %>"><%= country.nompays %></option>
-                <% } %>
             <% } %>
         </select>
     </div>
@@ -626,12 +625,14 @@
         </div>
         <% } %>
         <% if (!client.codcli) { %>
-        <div class="pure-u-1 pure-u-md-1-2">
+        <div class="pure-u-1 pure-u-md-1-2 password-container">
             <input autocomplete="nope" class="input password" type="password" name="password" placeholder="* {{ 'form.password' | trans | raw }}">
+            <a class="toggle-password"></a>
         </div>
         <% } else { %>
-        <div class="pure-u-1 pure-u-md-1-2">
+        <div class="pure-u-1 pure-u-md-1-2 password-container">
             <input autocomplete="nope" class="input password" type="password" name="password" placeholder="{{ 'form.keep-password' | trans | raw }}">
+            <a class="toggle-password"></a>
         </div>
         <% } %>
         <div class="pure-u-1 pure-u-md-1 newfich-wrapper conNews">

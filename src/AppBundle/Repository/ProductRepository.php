@@ -54,7 +54,7 @@ class ProductRepository
     public function findProducts($rubId, $limit = 99)
     {
         $query = $this->entityManager
-        ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.codrub IN (:rubId)');
+        ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.codrub IN (:rubId) AND p.hide != 1 ORDER BY p.serie ASC, p.rangSelect ASC, p.produitcourt ASC');
         $query->setParameter('rubId', $rubId);
         $query->setMaxResults($limit);
         return $query->getResult();
@@ -105,6 +105,8 @@ class ProductRepository
         if (!empty($theme)) {
             $qb->andWhere('REGEXP(p.themes, :theme) = 1')->setParameter('theme', $theme);
         }
+        $qb->andWhere('p.hide != 1');
+        $qb->orderBy('p.serie, p.rangSelect, p.produitcourt', 'ASC');
 
         return $qb->getQuery()->getResult();
     }
@@ -117,7 +119,7 @@ class ProductRepository
     public function findNewProducts()
     {
         $query = $this->entityManager
-        ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.nouveaute=true ORDER BY p.rang ASC');
+        ->createQuery('SELECT p FROM AppBundle\Entity\Produit p WHERE p.nouveaute=1 AND p.hide != 1 ORDER BY p.serie ASC, p.rangSelect ASC, p.produitcourt ASC');
         $query->setMaxResults(5);
         return $query->getArrayResult();
     }

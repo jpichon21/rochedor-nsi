@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Produit
  *
  * @ORM\Table(name="produit",
- * indexes={@ORM\Index(name="CodRub", columns={"CodRub"}), @ORM\Index(name="CodB", columns={"CodB"})},
+ * indexes={@ORM\Index(name="CodRub", columns={"CodRub"}), @ORM\Index(name="RangSelect", columns={"RangSelect"})},
  * options={"engine":"MyISAM"})
  * )
  * @ORM\Entity
@@ -96,9 +96,9 @@ class Produit
     /**
      * @var int
      *
-     * @ORM\Column(name="CodB", type="integer", nullable=false)
+     * @ORM\Column(name="RangSelect", type="integer", nullable=false)
      */
-    private $codb;
+    private $rangSelect;
 
     /**
      * @var string
@@ -323,7 +323,7 @@ class Produit
         $this->produitcourt = '';
         $this->produitlong = '';
         $this->codrub = 0;
-        $this->codb = 0;
+        $this->rangSelect = 0;
         $this->isbn = 0;
         $this->ean = 0;
         $this->serie = '';
@@ -398,13 +398,13 @@ class Produit
     }
 
     /**
-     * Get codb.
+     * Get rangSelect.
      *
      * @return int
      */
-    public function getCodb()
+    public function getRangSelect()
     {
-        return $this->codb;
+        return $this->rangSelect;
     }
 
     /**
@@ -774,15 +774,15 @@ class Produit
     }
 
     /**
-     * Set codb.
+     * Set rangSelect.
      *
-     * @param int $codb
+     * @param int $rangSelect
      *
      * @return Produit
      */
-    public function setCodb($codb)
+    public function setRangSelect($rangSelect)
     {
-        $this->codb = $codb;
+        $this->rangSelect = $rangSelect;
 
         return $this;
     }

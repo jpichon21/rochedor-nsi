@@ -49,6 +49,7 @@ const client = {
 
 const delivery = {
   adliv: {
+    civil: '',
     prenom: '',
     nom: '',
     adresse: '',
@@ -57,6 +58,7 @@ const delivery = {
   },
   destliv: '',
   paysliv: '',
+  payslivLong: '',
   modpaie: '',
   modliv: '',
   validpaie: '',

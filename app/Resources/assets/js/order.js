@@ -39,6 +39,7 @@ moment.locale(_locale)
 
 const _countries = JSON.parse(document.querySelector('.countries-json').innerHTML.trim())
 const _preferredCountries = JSON.parse(document.querySelector('.preferred-countries-json').innerHTML.trim())
+let _countryDispLiv = true
 
 /* Variables */
 
@@ -272,7 +273,8 @@ itemConnection.onsubmit = event => {
     resetLogin({
       email: event.target.querySelector('.email').value,
       firstname: event.target.querySelector('.firstname').value,
-      lastname: event.target.querySelector('.lastname').value
+      lastname: event.target.querySelector('.lastname').value,
+      origin: 'edition'
     }).then(() => {
       downLoader()
       upFlashbag(i18n.trans('security.check_inbox'))
@@ -373,11 +375,14 @@ itemConnection.onclick = event => {
   }
   if (
     event.target &&
-    event.target.matches('.newfich')
+    event.target.matches('.pro')
   ) {
     event.preventDefault()
     event.target.classList.toggle('checked')
-    itemConnection.querySelector('.newfich-wrapper .checkbox').value = event.target.classList.contains('checked')
+    itemConnection.querySelector('.pro .checkbox').value = event.target.classList.contains('checked')
+    _you.professionnel = event.target.classList.contains('checked')
+    updateYouFormRender()
+    changeItem(itemConnection)
   }
   if (
     event.target &&
@@ -423,6 +428,26 @@ const validatePassword = password => {
     : true
 }
 
+function disableAdlivChoice () {
+  _countryDispLiv = true
+  _preferredCountries.concat(_countries).find(function (item) {
+    if (item.codpays === _you.pays) {
+      _countryDispLiv = item.displiv
+    }
+  })
+  if (!_countryDispLiv) {
+    updateAdlivForm('Other')
+    itemShipping.querySelector('.country-not-disp-liv').classList.remove('hidden')
+    $('.item.shipping .select-adliv option[value="myAd"]').attr('disabled', 'disabled')
+    $('.item.shipping .select-adliv option[value="Other"]').attr('selected', 'selected')
+  } else {
+    updateAdlivForm('myAd')
+    itemShipping.querySelector('.country-not-disp-liv').classList.add('hidden')
+    $('.item.shipping .select-adliv option[value="myAd"]').removeAttr('disabled').attr('selected', 'selected')
+    $('.item.shipping .select-adliv option[value="Other"]').removeAttr('selected')
+  }
+}
+
 itemCard.onclick = event => {
   if (
     event.target &&
@@ -432,6 +457,7 @@ itemCard.onclick = event => {
     updateDelayRender()
     updateTermsRender()
     updateAdlivForm(document.querySelector('.select-adliv').value)
+    disableAdlivChoice()
     changeItem(itemShipping).then(() => {
       itemCard.querySelector('.panel.modify').classList.remove('active')
     })
@@ -477,6 +503,11 @@ const validateClient = (event, form, callback) => {
       upFlashbag(validatedPassword)
       return
     }
+  }
+  if (participant.professionnel && participant.societe.trim() === '') {
+    downLoader()
+    upFlashbag(i18n.trans('security.societe.empty'))
+    return
   }
   if (validatedPhone) {
     if (participant.tvaintra !== '') {
@@ -529,7 +560,7 @@ itemCard.onsubmit = event => {
           _you = client
           updateYouRender()
           updateDelayRender()
-          updateAdlivForm('myAd')
+          disableAdlivChoice()
           changeItem(itemShipping).then(() => {
             itemCard.querySelector('.panel.modify').classList.remove('active')
           })
@@ -542,7 +573,7 @@ itemCard.onsubmit = event => {
         _you = user
         updateYouRender()
         updateDelayRender()
-        updateAdlivForm('myAd')
+        disableAdlivChoice()
         changeItem(itemShipping).then(() => {
           itemCard.querySelector('.panel.modify').classList.remove('active')
         })
@@ -565,6 +596,7 @@ itemShipping.onchange = event => {
     event.target.matches('.select.country')
   ) {
     _delivery.paysliv = event.target.value
+    _delivery.payslivLong = $(event.target).find('option:selected').first().text()
     itemShipping.querySelector('.panel.delay').classList.add('active')
     updateDelayRender()
     changeItem(itemShipping)
@@ -574,6 +606,7 @@ itemShipping.onchange = event => {
 const updateAdlivForm = destliv => {
   switch (destliv) {
     case 'myAd':
+      _delivery.adliv.civil = _you.civil
       _delivery.adliv.prenom = _you.prenom
       _delivery.adliv.nom = _you.nom
       _delivery.adliv.societe = _you.societe
@@ -581,6 +614,7 @@ const updateAdlivForm = destliv => {
       _delivery.adliv.zipcode = _you.cp
       _delivery.adliv.city = _you.ville
       _delivery.paysliv = _you.pays
+      _delivery.payslivLong = _you.paysLong
       break
     case 'Roche':
       _delivery.adliv.prenom = ''
@@ -599,12 +633,14 @@ const updateAdlivForm = destliv => {
       _delivery.paysliv = 'FR'
       break
     case 'Other':
+      _delivery.adliv.civil = ''
       _delivery.adliv.prenom = ''
       _delivery.adliv.nom = ''
       _delivery.adliv.adresse = ''
       _delivery.adliv.zipcode = ''
       _delivery.adliv.city = ''
       _delivery.paysliv = ''
+      _delivery.payslivLong = ''
       break
   }
   _delivery.destliv = destliv
@@ -640,6 +676,7 @@ const submitFormAdliv = () => {
     _delivery.adliv.zipcode = delivery.zipcode
     _delivery.adliv.city = delivery.city
     _delivery.paysliv = delivery.paysliv
+    _delivery.payslivLong = _delivery.payslivLong
   }
   if (_delivery.destliv === 'myAd' && delivery.paysliv !== undefined) {
     _delivery.paysliv = delivery.paysliv
@@ -683,10 +720,6 @@ itemShipping.onclick = event => {
     upLoader()
     valideDelivery(_delivery).then(delivery => {
       getData(_cartId, delivery.paysliv, delivery.destliv).then(data => {
-        if (data.totalWeight > parseInt(data.maxWeight)) {
-          upTooWeight(i18n.trans('edition.order.too_weight').replace('%maxWeight%', parseInt(data.maxWeight) / 1000))
-          return
-        }
         downLoader()
         _total = data
         updateTotalRender()
@@ -755,6 +788,8 @@ itemPayment.onclick = event => {
     event.preventDefault()
     if (_delivery.modpaie === '') {
       upFlashbag(i18n.trans('form.message.modpaie_invalid'))
+    } else if (_total.totalWeight > parseInt(_total.maxWeight)) {
+      upFlashbag(i18n.trans('edition.order.too_weight').replace('%maxWeight%', parseInt(_total.maxWeight) / 1000))
     } else {
       submitFormPayment()
     }

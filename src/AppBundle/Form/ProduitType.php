@@ -23,7 +23,7 @@ class ProduitType extends AbstractType
         ->add('produitcourt')
         ->add('produitlong')
         ->add('codrub')
-        ->add('codb')
+        ->add('rangSelect')
         ->add('isbn')
         ->add('ean')
         ->add('serie')

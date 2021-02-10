@@ -20,7 +20,7 @@
         <div class="left">
           <h2>{{ 'news.title' | trans }}</h2>
           <!-- ici -->
-          <p>{{ featured.memoprd | raw }}</p>
+          <p>{{ featured.memoprd | nl2br }}</p>
           <a class="button right-arrow" href="{{ url('collection-' ~ app.request.locale, { id: featured.codprd }) }}">{{ 'news.button.discover' | trans }}</a>
         </div>
         <div class="right">

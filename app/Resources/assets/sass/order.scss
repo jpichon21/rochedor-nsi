@@ -44,6 +44,12 @@
       .select-adliv {
         margin-bottom: 0;
       }
+
+      &.shipping .country-not-disp-liv {
+        margin-bottom: 16px;
+        font-style: italic;
+        font-size: 13px;
+      }
     }
   }
 }

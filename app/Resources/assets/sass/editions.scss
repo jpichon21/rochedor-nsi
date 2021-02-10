@@ -408,9 +408,6 @@ h2 {
               opacity: 1;
             }
           }
-          .cart {
-            right: 110px;
-          }
           .price {
             bottom: 20px;
             //top: 20px;
@@ -447,20 +444,6 @@ h2 {
       z-index: 1;
       @include media('<=limitMenuReduced', '>large') {
         overflow: auto;
-        width: 106%;
-      }
-      &:after {
-        content: '';
-        position: absolute;
-        bottom: 60px;
-        left: 20px;
-        right: calc(100% - 20px);
-        border-bottom: 1px #cccccc solid;
-        opacity: 0;
-        transition: 0.5s;
-        @include media('<=limitMenuReduced', '>hybrid') {
-          display: none;
-        }
       }
       .serie {
         font-weight: 400;
@@ -485,12 +468,6 @@ h2 {
         position: absolute;
         bottom: 20px;
         right: 20px;
-        transition: 0.5s;
-        @include media('<=limitMenuReduced', '>hybrid') {
-          margin-top: 24px;
-          position: absolute;
-          right: 15px!important;
-        }
       }
       .price {
         position: absolute;
@@ -1111,6 +1088,39 @@ h2 {
           background: #ffffff;
         }
       }
+
+      .password-container {
+        display: flex;
+        height: 36px;
+
+        .toggle-password {
+          padding: 0;
+          margin: 0;
+          background-color: rgba(255,255,255,0);
+          background-image: url('../img/eye-regular.svg');
+          background-size: cover;
+          background-size: 18px;
+          background-repeat: no-repeat;
+          background-position: 50%;
+          top: 0px;
+          right: 0px;
+          height: 31px;
+          border: none;
+          width: 30px;
+          cursor: pointer;
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+
+      .panel.modify {
+        .password-container {
+          margin-top: 0;
+          margin-bottom: 15px;
+        }
+      }
     }
   }
   > {
@@ -1120,6 +1130,17 @@ h2 {
       }
       p {
         color: #000000;
+      }
+    }
+  }
+
+  & > {
+    .left {
+      @include media('>large','<=limitMenuReduced') {
+        padding: 40px 20px 0px 60px;
+        .item{
+          padding-bottom: 0px!important;
+        }
       }
     }
   }

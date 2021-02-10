@@ -319,15 +319,8 @@ class OrderController extends Controller
         if (in_array($destliv, $this::FREE_SHIPPING_EXCEPTION)) {
             return ['supplementWeight' => 0, 'price' => 0];
         }
-        $supplementWeight = $this->shippingRepository->findWeight($weight, $country);
+        list($supplementWeight, $maxWeight) = $this->shippingRepository->findWeight($weight, $country);
         $weight += $supplementWeight;
-
-        $maxWeight = $this->shippingRepository->findMaxWeight();
-        if (!empty($maxWeight)) {
-            $maxWeight = $maxWeight['maxWeight'];
-        } else {
-            $maxWeight = 0;
-        }
 
         $price = $this->shippingRepository->findShipping($weight, $country);
         return ['supplementWeight' => $supplementWeight, 'price' => $price['price'], 'maxWeight' => $maxWeight];

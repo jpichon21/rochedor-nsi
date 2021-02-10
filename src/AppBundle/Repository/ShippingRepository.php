@@ -96,6 +96,7 @@ class ShippingRepository
         ORDER BY p.limit asc');
         $query->setParameters(['weight' => $weight]);
         $query->setMaxResults(1);
+        /** @var Packaging $result */
         $result = $query->getOneOrNullResult();
         if ($result === null) {
             $query = $this->entityManager
@@ -106,19 +107,10 @@ class ShippingRepository
             $result = $query->getOneOrNullResult();
         }
         if (in_array($country, $this::COUNTRYEXCEPTION)) {
-            return $result->getEurope();
+            return [$result->getEurope(), $result->getLimit()];
         } else {
-            return $result->getInternational();
+            return [$result->getInternational(), $result->getLimit()];
         }
-    }
-
-    public function findMaxWeight()
-    {
-        $query = $this->entityManager
-        ->createQuery('SELECT MAX(p.limit) as maxWeight
-        FROM AppBundle\Entity\Packaging p');
-
-        return $query->getOneOrNullResult();
     }
 
     public function findShipping($weight, $country)
