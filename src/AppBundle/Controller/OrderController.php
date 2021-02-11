@@ -478,8 +478,7 @@ class OrderController extends Controller
         if ($commande->getValidpaie() !== 'enAttente') {
             $this->mailer->send(
                 [
-                    $email,
-                    $this->getParameter('email_from_address')
+                    $email
                 ],
                 $this->translator->trans('order.notify.client.subject'),
                 $this->renderView('emails/order-notify-cheque-order-'.$locale.'.html.twig', [
@@ -782,8 +781,7 @@ class OrderController extends Controller
         $dataOrder = $this->get('session')->get('dataOrder');
         $this->mailer->send(
             [
-                $email,
-                $this->getParameter('email_from_address')
+                $email
             ],
             $this->translator->trans('order.notify.client.subject'),
             $this->renderView('emails/order-notify-order-'.$locale.'.html.twig', [
