@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Swagger\Annotations as SWG;
 use AppBundle\Repository\ContactRepository;
@@ -434,6 +435,9 @@ class SecurityController extends Controller
         $session->invalidate();
         switch ($from) {
             case 'edition':
+                $response = new Response();
+                $response->headers->clearCookie('cart');
+                $response->send();
                 return $this->render('default/logout-message-white.html.twig', array());
             case 'calendar':
                 return $this->render('default/logout-message-calendar.html.twig', array('background' => 4));

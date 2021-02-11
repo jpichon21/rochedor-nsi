@@ -1,7 +1,201 @@
+<head>
+    <style>
+        @media (min-width: 1200px) {
+            .detailCart-render .table-mobile {
+                display: none;
+            }
+        }
+
+        @media (max-width: 1199px) {
+            .detailCart-render .table {
+                display: none;
+            }
+        }
+
+        .detailCart-render .table th.first,
+        .detailCart-render .table td.first {
+            max-width: 100px;
+        }
+
+        .detailCart-render .table th .info-total,
+        .detailCart-render .table td .info-total {
+            padding-top: 16px;
+            font-style: italic;
+            font-size: 13px;
+        }
+
+        .table {
+            width: 100%;
+            margin-bottom: 20px;
+            font-family: 'lato', lato, sans-serif;
+            color: #ef7d1d;
+        }
+
+        .table thead {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+        }
+
+        .table thead th {
+            padding: 10px 0;
+            font-size: 15px;
+            font-weight: 400;
+            text-align: center;
+            text-transform: none;
+            letter-spacing: 0;
+            border-bottom: 1px #000000 solid;
+            white-space: nowrap;
+        }
+
+        .table thead th.first {
+            padding-left: 0;
+            text-align: left;
+        }
+
+        .table thead th.last {
+            padding-right: 0;
+            text-align: right;
+        }
+
+        @media (max-width: 1023px) {
+            .table thead th.last {
+                font-size: 0;
+            }
+        }
+
+        .table tbody tr {
+            font-family: 'lato', lato, sans-serif;
+        }
+
+        .table tbody tr:first-child td {
+            padding-top: 15px;
+        }
+
+        .table tbody tr:last-child td {
+            padding-bottom: 15px;
+        }
+
+        .table tbody tr.ttc td {
+            padding-top: 40px;
+            font-size: 16px;
+            text-transform: uppercase;
+            color: #ef7d1d;
+        }
+
+        .table tbody tr td {
+            padding: 10px 0 5px;
+            font-size: 14px;
+            color: #000000;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .table tbody tr td a {
+            color: inherit;
+            border-bottom: none !important;
+        }
+
+        .table tbody tr td.action {
+            font-size: 14px;
+            font-family: lato, 'lato', sans-serif;
+        }
+
+        .table tbody tr td.quantity .minus {
+            margin-right: 10px;
+        }
+
+        .table tbody tr td.quantity .plus {
+            margin-left: 10px;
+        }
+
+        .table tbody tr td.quantity i {
+            color: #ef7d1d;
+        }
+
+        .table tbody tr td.first {
+            padding-left: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: left;
+        }
+
+        .table tbody tr td.last {
+            padding-right: 0;
+            text-align: right;
+        }
+
+        @media (max-width: 1023px) {
+            .table tbody tr td.last a {
+                font-size: 0;
+            }
+
+            .table tbody tr td.last a:before {
+                content: '\274C';
+                font-size: 10px;
+            }
+        }
+
+        .table tfoot td {
+            padding: 15px 0;
+            text-align: right;
+            border-top: 1px #000000 solid;
+            font-family: lato, 'lato', 'sans-serif';
+            font-size: 14px;
+        }
+
+        .table tfoot td span {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
 <h2><center>Confirmation de commande</center></h2>
 
 <p>Votre commande est bien enregistrée sous le numéro <b>{{order.refcom}}</b> et nous vous en remercions. Nous vous invitons à conserver ce numéro qui vous sera demandé pour
 toute question relative à votre commande.</p>
+<p>Votre commande : </p>
+<div class="detailCart-render">
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="first">{{ 'table.header.product' | trans }}</th>
+            <th>{{ 'table.header.price.ttc' | trans }}</th>
+            <th>{{ 'table.header.quantity' | trans }}</th>
+            <th>{{ 'table.header.price.prix.ht' | trans }}</th>
+            <th>{{ 'table.header.tax.rate' | trans }}</th>
+            <th class="last">{{ 'table.header.price.total' | trans }}</th>
+        </tr>
+        </thead>
+        {% set total = 0 %}
+        <tbody>
+        {% set sum = 0 %}
+        {% for product in dataOrder.product %}
+            {% set productTotal = product.priceIT * product.quantity %}
+            <tr>
+                <td class="first" title="{{ product.name }}">{{ product.name }}</td>
+                <td>{{ product.priceIT|number_format(2) }} €</td>
+                <td class="quantity">{{ product.quantity|number_format }} </td>
+                <td>{{ product.price|number_format(2) }} €</td>
+                <td>{{ product.productTaxRate|number_format }} %</td>
+                <td class="last">{{ productTotal|number_format(2) }} €</td>
+                {% set sum = sum + (product.priceIT * product.quantity) %}
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="7">
+                <div style="color: black"><span>{{ 'table.label.totalPriceIT' | trans }}</span>{{ dataOrder.totalPriceIT|number_format(2) }} €</div>
+                <div style="color: black"><span>{{ 'table.label.vat' | trans }}</span>{{ dataOrder.vat|number_format(2) }} €</div>
+                <div style="color: black"><span>{{ 'table.label.shippingPriceIT' | trans }}</span>{{ dataOrder.shippingPriceIT|number_format(2) }} €</div>
+                <div><span>{{ 'table.label.consumerPriceIT' | trans }}</span>{{ dataOrder.consumerPriceIT|number_format(2) }} €</div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
 {% if withDelay == true %}
 <p>À titre indicatif, les livraisons sont effectuées dans un délai de {{minliv}} à {{maxliv}} jours ouvrés à compter de la réception du paiement de votre commande.</p>
 {% endif %}

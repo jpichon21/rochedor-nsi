@@ -157,6 +157,14 @@ const updateAdlivFormRender = () => {
     delivery: _delivery,
     countries: _countries,
     preferredCountries: _preferredCountries,
+    civilites: [
+      i18n.trans('form.civilite.mr'),
+      i18n.trans('form.civilite.mme'),
+      i18n.trans('form.civilite.abbe'),
+      i18n.trans('form.civilite.frere'),
+      i18n.trans('form.civilite.pere'),
+      i18n.trans('form.civilite.soeur')
+    ]
   })
 }
 
@@ -668,6 +676,7 @@ const submitFormAdliv = () => {
   const data = serializeArray(itemShipping.querySelector('form.adliv'))
   const delivery = formatForm(data)
   if (_delivery.destliv !== 'myAd') {
+    _delivery.adliv.civil = delivery.civil
     _delivery.adliv.prenom = delivery.prenom
     _delivery.adliv.nom = delivery.nom
   }
@@ -691,6 +700,7 @@ const noEmptyFields = data => {
 const valideDelivery = delivery => {
   return new Promise((resolve, reject) => {
     if (noEmptyFields([
+      delivery.adliv.civil,
       delivery.adliv.prenom,
       delivery.adliv.nom,
       delivery.adliv.adresse,
@@ -754,7 +764,7 @@ const submitFormPayment = () => {
       }
     }).then(user => {
       _delivery.email = _you.email
-      _delivery.clientId = user.codcli
+      _delivery.codcli = user.codcli
       postOrder(_delivery).then(response => {
         window.location.href = response
       }).catch(error => {

@@ -311,6 +311,8 @@ class OrderController extends Controller
         $data['consumerPrice'] = $data['shippingPriceIT'] + $data['totalPrice'];
 
         $data['vat'] = round($data['totalPriceIT'] - $data['totalPrice'], 2);
+        $this->get('session')->set('dataOrder', $data);
+
         return $data;
     }
 
@@ -345,9 +347,9 @@ class OrderController extends Controller
             $email = $user->getEmail();
             $delivery['email'] = $email;
         }
-        $delivery['nom'] = $user->getNom();
-        $delivery['prenom'] = $user->getPrenom();
-        $delivery['civil'] = $user->getCivil();
+        $delivery['nom'] = $delivery['adliv']['nom'];
+        $delivery['prenom'] = $delivery['adliv']['prenom'] ;
+        $delivery['civil'] = $delivery['adliv']['civil'];
         if (!$delivery) {
             return ['status' => 'ko', 'message' => 'You must provide delivery object'];
         }
@@ -421,7 +423,9 @@ class OrderController extends Controller
             $response->send();
         }
 
+        /** @var Commande $commande */
         $commande = $this->commandeRepository->findByRef($ref);
+        $dataOrder = $this->get('session')->get('dataOrder');
         $user = $this->clientRepository->findClient($commande->getCodcli());
         if ($commande === null || $user == null) {
             return $this->render('order/payment-return.html.twig', [
@@ -448,11 +452,13 @@ class OrderController extends Controller
         } else {
             $addCom = $commande->getAdLiv();
             $addCom = join(' ', [
+                $addCom['Civil'],
                 $addCom['Prenom'],
                 $addCom['Nom'] . '<br>',
-                $addCom['Adresse'] . '<br>',
+                nl2br($addCom['Adresse']) . '<br>',
                 $addCom['CP'],
-                $addCom['Ville']
+                $addCom['Ville'] . '<br>',
+                $this->getCountryFullname($addCom['Pays'])
             ]);
             $withDelay = true;
         }
@@ -481,7 +487,8 @@ class OrderController extends Controller
                     'adliv' => $addCom,
                     'minliv' => $minliv,
                     'maxliv' => $maxliv,
-                    'withDelay' => $withDelay
+                    'withDelay' => $withDelay,
+                    'dataOrder' => $dataOrder
                     ])
             );
 
@@ -551,10 +558,10 @@ class OrderController extends Controller
             } else {
                 $addCom = $commande->getAdLiv();
                 $addCom = join('', [
-                    $addCom['Prenom'] . ' ' . $addCom['Nom'] . '<br>',
-                    $addCom['Adresse'] . '<br>',
+                    $addCom['Civil'] . ' ' . $addCom['Prenom'] . ' ' . $addCom['Nom'] . '<br>',
+                    nl2br($addCom['Adresse']) . '<br>',
                     $addCom['CP'] . ' ' . $addCom['Ville'] . '<br>',
-                    $addCom['Pays'],
+                    $this->getCountryFullname($addCom['Pays'])
                 ]);
                 $withDelay = true;
             }
@@ -677,6 +684,7 @@ class OrderController extends Controller
         $delivery['adliv']['Pays'] = $delivery['paysliv'];
         $delivery['adliv']['Email'] = $delivery['email'];
         $adliv = [
+            'Civil' => $delivery['adliv']['civil'],
             'Nom' => $delivery['adliv']['nom'],
             'Prenom' => $delivery['adliv']['prenom'],
             'Adresse' => $delivery['adliv']['adresse'],
@@ -756,11 +764,13 @@ class OrderController extends Controller
         $maxliv = $paysliv->getMaxliv();
         $adliv = $order->getAdLiv();
         $adliv = join(' ', [
+            $adliv['Civil'],
             $adliv['Prenom'],
             $adliv['Nom'] . '<br>',
-            $adliv['Adresse'] . '<br>',
+            nl2br($adliv['Adresse']) . '<br>',
             $adliv['CP'],
-            $adliv['Ville']
+            $adliv['Ville'] . '<br>',
+            $this->getCountryFullname($adliv['Pays'])
         ]);
 
         if ($user->getEmail() === null) {
@@ -769,6 +779,7 @@ class OrderController extends Controller
             $email = $user->getEmail();
         }
 
+        $dataOrder = $this->get('session')->get('dataOrder');
         $this->mailer->send(
             [
                 $email,
@@ -780,7 +791,8 @@ class OrderController extends Controller
                 'adliv' => $adliv,
                 'minliv' => $minliv,
                 'maxliv' => $maxliv,
-                'withDelay' => $withDelay
+                'withDelay' => $withDelay,
+                'dataOrder' => $dataOrder
                 ])
         );
 
@@ -794,6 +806,18 @@ class OrderController extends Controller
                 'maxliv' => $maxliv
                 ])
         );
+    }
+
+    private function getCountryFullname($codPays)
+    {
+        $countryName = '';
+        if ($codPays !== 'FR') {
+            /** @var Tpays $country */
+            $country = $this->get('AppBundle\Repository\TpaysRepository')->findCountryByCode($codPays);
+            $countryName = $country->getNomPays();
+        }
+
+        return $countryName;
     }
 
     /**
@@ -816,6 +840,9 @@ class OrderController extends Controller
         }
 
         $cookies = $request->cookies;
+        if ($this->get('session')->has('dataOrder')) {
+            $this->get('session')->remove('dataOrder');
+        }
 
         $countries = $this->tpaysRepository->findAllCountry();
         list($countriesJSON, $preferredChoices) = $countryService->orderCountryListByPreferenceEditions($countries);
