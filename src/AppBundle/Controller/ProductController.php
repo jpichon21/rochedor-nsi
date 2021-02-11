@@ -206,19 +206,24 @@ class ProductController extends Controller
         }
 
         $collection = $request->get('collection');
+        $productsCategorized = null;
         if ($collection || $localeFilter) {
             if ($localeFilter) {
-                $collectionsByLocale = $this->productRepository->findCollectionsByLocale($localeFilter);
-                if ($collection) {
-                    $collection = array_merge([$collection], $collectionsByLocale);
-                } else {
-                    $collection = $collectionsByLocale;
+                $collections = $this->productRepository->findCollections($localeFilter);
+
+                $productsCategorized = [];
+                foreach ($collections as $collection) {
+                    $productsCategorized[] = [
+                        'id' => $collection->getCodrub(),
+                        'title' => $collection->getRubrique(),
+                        'products' => $this->productRepository->findProducts($collection->getCodrub(), 2)
+                    ];
                 }
+            } else {
+                $products = $this->productRepository->findProducts($collection);
             }
-            $products = $this->productRepository->findProducts($collection);
         }
 
-        $productsCategorized = null;
         if (!$products) {
             $productsCategorized = [];
             foreach ($collections as $collection) {
