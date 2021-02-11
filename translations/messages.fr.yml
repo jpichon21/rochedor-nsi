@@ -17,7 +17,7 @@ menu.four.two: 'Infos pratiques<br> des Fontanilles'
 menu.four.three: 'Accueil<br> des enfants'
 menu.four.four: 'Liens<br> amis'
 menu.five.one: 'Les Éditions<br> Roche d''Or'
-menu.five.two: 'Les<br> nouveautés'
+menu.five.two: 'Nos<br> sélections'
 menu.five.three: 'Les<br> collections'
 menu.six.one: 'Dons ponctuels<br> ou réguliers'
 menu.six.two: 'Autres formes<br> de dons'
@@ -84,7 +84,7 @@ form.username: Identifiant
 form.modify: Modifier
 form.participate: 'Inscrire avec moi'
 calendar.notify.attendee.subject: 'Demande d''inscription'
-news.title: Nouveautés
+news.title: 'Nos sélections'
 news.button.discover: 'Découvrir le produit'
 form.label.password: 'Mot de passe'
 security.reset_password_request.subject: 'Réinitialisation de mot de passe'
@@ -543,7 +543,7 @@ calendar.registration.tooltip-pass: 'Qu''est ce qu''un mot de passe ?'
 calendar.registration.validation-tooltip: 'Vous devez ajouter au moins un participant pour valider votre demande d''inscription.'
 calendar.registration.validation-tooltip.ok: 'Prendre en compte ma demande d''inscription.'
 editions.calameo: 'Feuilleter un extrait'
-editions.bayard.chant: 'Achat de chant à l''unité'
+editions.bayard.chant: 'Ecouter, Voir et Télécharger'
 editions.bayard.partition: 'Achat de partition à l''unité'
 editions.filter.support.choose: Support
 editions.filter.author.choose: Auteur

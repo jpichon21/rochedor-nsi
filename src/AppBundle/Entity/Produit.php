@@ -39,13 +39,13 @@ class Produit
     ];
 
     const STATUT_DISPO = '';
-    const STATUT_RUPTURE = 'ruptur';
-    const STATUT_PERIME = 'perime';
+    const STATUT_EPUISE = 'epuise';
+    const STATUT_PERIME = 'reimp';
 
     const ETATPRD = [
         self::STATUT_DISPO => 'Disponible',
-        self::STATUT_RUPTURE => 'En rupture',
-        self::STATUT_PERIME => 'Périmé'
+        self::STATUT_EPUISE => 'Epuisé',
+        self::STATUT_PERIME => 'En réimpression'
     ];
 
     const LOCALES = [

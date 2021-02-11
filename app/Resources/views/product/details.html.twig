@@ -78,7 +78,7 @@
       </div>
     </div>
     <div class="actions">
-      <a class="button addToCart{% if constant('AppBundle\\Entity\\Produit::STATUT_RUPTURE') == product.etatprd %} disabled{% endif %}" data-id="{{ product.codprd }}" href="#">{{ 'editions.addtocart' | trans }}</a>
+      <a class="button addToCart{% if constant('AppBundle\\Entity\\Produit::STATUT_EPUISE') == product.etatprd %} disabled{% endif %}" data-id="{{ product.codprd }}" href="#">{{ 'editions.addtocart' | trans }}</a>
       {% if product.urlPartenaire != '' %}
         {% if product.typprd == 'livre' %}
           <div class="choice">{{ 'editions.or' | trans }}</div>
@@ -88,7 +88,7 @@
           <a class="button" target="_blank" href="{{ product.urlPartenaire }}">{{ 'editions.bayard.chant' | trans }}</a>
         {% elseif product.typprd == 'livrepar' %}
           <div class="choice">{{ 'editions.or' | trans }}</div>
-          <a class="button" target="_blank" href="{{ product.urlPartenaire }}">{{ 'editions.bayard.partition' | trans }}</a>
+          <a class="button" target="_blank" href="{{ product.urlPartenaire }}">{{ 'editions.bayard.chant' | trans }}</a>
         {% endif %}
       {% endif %}
       {% if product.urlbook != '' %}
