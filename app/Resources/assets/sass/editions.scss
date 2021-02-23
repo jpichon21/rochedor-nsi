@@ -418,27 +418,30 @@ h2 {
     .illustration {
       position: relative;
       height: 295px;
-      background-size: cover;
-      background-position:  center;
+      //background-size: cover;
+      //background-position:  center;
       z-index: 0;
+      background-repeat:no-repeat;
+      background-size:contain;
+      background-position:center;
 
       @include media('>=laptop') {
         height: 450px;
-        background-size: initial;
+      //  //background-size: initial;
       }
-
-      @include media('>=xxlarge', '<laptop') {
-        background-size: contain;
-      }
-
+      //
+      //@include media('>=xxlarge', '<laptop') {
+      //  background-size: contain;
+      //}
+      //
       @include media('>=large', '<xlarge') {
         height: 337px;
-        background-size: contain;
+      //  background-size: contain;
       }
-
-      @include media('>=medium', '<large') {
-        background-size: contain;
-      }
+      //
+      //@include media('>=medium', '<large') {
+      //  background-size: contain;
+      //}
     }
     .description {
       position: absolute;
