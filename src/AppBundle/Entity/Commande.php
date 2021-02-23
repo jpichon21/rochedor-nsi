@@ -87,7 +87,7 @@ class Commande
     /**
      * @var array
      *
-     * @ORM\Column(name="Adliv", type="json", length=65535)
+     * @ORM\Column(name="AdLiv", type="json", length=65535)
      */
     private $adliv;
 

@@ -51,10 +51,9 @@
       <div class="products">
       {% for product in others %}
         {% include 'parts/product.html.twig'
-          with { 'product': product } %}
+          with { 'product': product, 'page': 'selections' } %}
       {% endfor %}
       </div>
-      <a href="{{ url('collections-' ~ app.request.locale) }}" class="button right-arrow">{{ 'editions.seeallproducts' | trans }}</a>
     </div>
 </div>
 {% endblock %}

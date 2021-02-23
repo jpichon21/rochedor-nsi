@@ -25,7 +25,7 @@ toute question relative à votre commande.</p>
                 <td>{{ product.priceIT|number_format(2) }} €</td>
                 <td class="quantity">{{ product.quantity|number_format }} </td>
                 <td>{{ product.price|number_format(2) }} €</td>
-                <td>{{ product.productTaxRate|number_format }} %</td>
+                <td>{{ product.productTaxRate|number_format(2) }} %</td>
                 <td class="last">{{ productTotal|number_format(2) }} €</td>
                 {% set sum = sum + (product.priceIT * product.quantity) %}
             </tr>

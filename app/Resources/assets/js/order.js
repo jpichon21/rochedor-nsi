@@ -512,7 +512,7 @@ const validateClient = (event, form, callback) => {
       return
     }
   }
-  if (participant.professionnel && participant.societe.trim() === '') {
+  if (participant.professionnel === 'true' && participant.societe.trim() === '') {
     downLoader()
     upFlashbag(i18n.trans('security.societe.empty'))
     return
@@ -642,6 +642,7 @@ const updateAdlivForm = destliv => {
       break
     case 'Other':
       _delivery.adliv.civil = ''
+      _delivery.adliv.societe = ''
       _delivery.adliv.prenom = ''
       _delivery.adliv.nom = ''
       _delivery.adliv.adresse = ''
@@ -677,10 +678,12 @@ const submitFormAdliv = () => {
   const delivery = formatForm(data)
   if (_delivery.destliv !== 'myAd') {
     _delivery.adliv.civil = delivery.civil
+    _delivery.adliv.societe = delivery.societe
     _delivery.adliv.prenom = delivery.prenom
     _delivery.adliv.nom = delivery.nom
   }
   if (_delivery.destliv === 'Other') {
+    _delivery.adliv.societe = delivery.societe
     _delivery.adliv.adresse = delivery.adresse
     _delivery.adliv.zipcode = delivery.zipcode
     _delivery.adliv.city = delivery.city

@@ -52,6 +52,18 @@
       }
     }
   }
+
+  & > {
+    .left {
+      @include media('>large','<=limitMenuReduced') {
+        padding: 40px 20px 0px 60px;
+      }
+
+      .item{
+        padding-bottom: 0px!important;
+      }
+    }
+  }
 }
 .modify-you {
   display: table;

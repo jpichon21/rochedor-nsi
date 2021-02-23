@@ -451,15 +451,29 @@ class OrderController extends Controller
             $withDelay = false;
         } else {
             $addCom = $commande->getAdLiv();
-            $addCom = join(' ', [
-                $addCom['Civil'],
-                $addCom['Prenom'],
-                $addCom['Nom'] . '<br>',
-                nl2br($addCom['Adresse']) . '<br>',
-                $addCom['CP'],
-                $addCom['Ville'] . '<br>',
-                $this->getCountryFullname($addCom['Pays'])
-            ]);
+            if (empty($addCom['Societe'])) {
+                $adLiv = [
+                    $addCom['Civil'],
+                    $addCom['Prenom'],
+                    $addCom['Nom'] . '<br>',
+                    nl2br($addCom['Adresse']) . '<br>',
+                    $addCom['CP'],
+                    $addCom['Ville'] . '<br>',
+                    $this->getCountryFullname($addCom['Pays'])
+                ];
+            } else {
+                $adLiv = [
+                    $addCom['Societe'] . '<br>',
+                    $addCom['Civil'],
+                    $addCom['Prenom'],
+                    $addCom['Nom'] . '<br>',
+                    nl2br($addCom['Adresse']) . '<br>',
+                    $addCom['CP'],
+                    $addCom['Ville'] . '<br>',
+                    $this->getCountryFullname($addCom['Pays'])
+                ];
+            }
+            $addCom = join(' ', $adLiv);
             $withDelay = true;
         }
 
@@ -557,6 +571,7 @@ class OrderController extends Controller
             } else {
                 $addCom = $commande->getAdLiv();
                 $addCom = join('', [
+                    empty($addCom['Societe']) ? '' : ($addCom['Societe'] . '<br>'),
                     $addCom['Civil'] . ' ' . $addCom['Prenom'] . ' ' . $addCom['Nom'] . '<br>',
                     nl2br($addCom['Adresse']) . '<br>',
                     $addCom['CP'] . ' ' . $addCom['Ville'] . '<br>',
@@ -683,6 +698,7 @@ class OrderController extends Controller
         $delivery['adliv']['Pays'] = $delivery['paysliv'];
         $delivery['adliv']['Email'] = $delivery['email'];
         $adliv = [
+            'Societe' => $delivery['adliv']['societe'],
             'Civil' => $delivery['adliv']['civil'],
             'Nom' => $delivery['adliv']['nom'],
             'Prenom' => $delivery['adliv']['prenom'],
@@ -762,15 +778,29 @@ class OrderController extends Controller
         $minliv = $paysliv->getMinliv();
         $maxliv = $paysliv->getMaxliv();
         $adliv = $order->getAdLiv();
-        $adliv = join(' ', [
-            $adliv['Civil'],
-            $adliv['Prenom'],
-            $adliv['Nom'] . '<br>',
-            nl2br($adliv['Adresse']) . '<br>',
-            $adliv['CP'],
-            $adliv['Ville'] . '<br>',
-            $this->getCountryFullname($adliv['Pays'])
-        ]);
+        if (empty($adliv['Societe'])) {
+            $adLivFormatted = [
+                $adliv['Civil'],
+                $adliv['Prenom'],
+                $adliv['Nom'] . '<br>',
+                nl2br($adliv['Adresse']) . '<br>',
+                $adliv['CP'],
+                $adliv['Ville'] . '<br>',
+                $this->getCountryFullname($adliv['Pays'])
+            ];
+        } else {
+            $adLivFormatted = [
+                $adliv['Societe'] . '<br>',
+                $adliv['Civil'],
+                $adliv['Prenom'],
+                $adliv['Nom'] . '<br>',
+                nl2br($adliv['Adresse']) . '<br>',
+                $adliv['CP'],
+                $adliv['Ville'] . '<br>',
+                $this->getCountryFullname($adliv['Pays'])
+            ];
+        }
+        $adliv = join(' ', $adLivFormatted);
 
         if ($user->getEmail() === null) {
             $email = $order->getAdLiv()['email'];

@@ -17,10 +17,18 @@
         </div>
         <div class="text">
             <div class="short">
-                {{ product.presentation | truncate(110, true) | nl2br }}
+                {% if page is defined and page == 'selections' %}
+                    {{ product.memoprd | truncate(110, true) | nl2br }}
+                {% else %}
+                    {{ product.presentation | truncate(110, true) | nl2br }}
+                {% endif %}
             </div>
             <div class="long">
-                {{ product.presentation | truncate(500, true) | nl2br }}
+                {% if page is defined and page == 'selections' %}
+                    {{ product.memoprd | truncate(500, true) | nl2br }}
+                {% else %}
+                    {{ product.presentation | truncate(500, true) | nl2br }}
+                {% endif %}
             </div>
         </div>
     </div>

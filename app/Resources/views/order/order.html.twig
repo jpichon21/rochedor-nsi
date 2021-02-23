@@ -246,9 +246,9 @@
 <script type="text/template" class="you-template">
     <div class="you">
         <p>
-            <%= _.escape(you.civil) %> <%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
             <% if (you.societe) { %><%= _.escape(you.societe) %><br><% } %>
-            <%= you.adresse.replace("\n", "<br>") %><br>
+            <%= _.escape(you.civil) %> <%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
+            <%= you.adresse.replace(/(\r\n|\n|\r)/gm, "<br>") %><br>
             <%= _.escape(you.cp) %> <%= _.escape(you.ville) %><br>
             <% if (you.pays !== 'FR') { %> <%= _.escape(you.paysLong) %> <% } %>
         </p>
@@ -265,20 +265,20 @@
     <% if (delivery.destliv !== 'myAd') { %>
         <p>
             <b>{{ 'order.summary.title.billing' | trans }}</b>
+            <% if (you.societe) { %><%= _.escape(you.societe) %><br><% } %>
             <%= _.escape(you.civil) %> <%= _.escape(you.prenom) %> <%= _.escape(you.nom) %><br>
-            <% if (delivery.adliv.societe) { %><%= _.escape(delivery.adliv.societe) %><br><% } %>
-            <%= you.adresse.replace("\n", "<br>") %><br>
+            <%= you.adresse.replace(/(\r\n|\n|\r)/gm, "<br>") %><br>
             <%= _.escape(you.cp) %> <%= _.escape(you.ville) %><br>
             <% if (you.pays !== 'FR') { %> <%= _.escape(you.paysLong) %> <% } %>
         </p>
     <% } %>
     <p>
         <% if (delivery.destliv !== 'myAd') { %><b>{{ 'order.summary.title.delivery' | trans }}</b><% } %>
-        <%= delivery.adliv.civil %> <%= delivery.adliv.prenom %> <%= delivery.adliv.nom %><br>
         <% if (delivery.adliv.societe) { %><%= delivery.adliv.societe %><br><% } %>
+        <%= delivery.adliv.civil %> <%= delivery.adliv.prenom %> <%= delivery.adliv.nom %><br>
         <% if (delivery.destliv === 'Roche') { %>Librairie de la Roche d'Or<br><% } %>
         <% if (delivery.destliv === 'Font') { %>Librairie des Fontanilles<br><% } %>
-        <%= delivery.adliv.adresse.replace("\n", "<br>") %><br>
+        <%= delivery.adliv.adresse.replace(/(\r\n|\n|\r)/gm, "<br>") %><br>
         <%= _.escape(delivery.adliv.zipcode) %> <%= _.escape(delivery.adliv.city) %><br>
         <% if (_.escape(delivery.paysliv) !== 'FR') { %> <%= _.escape(delivery.payslivLong) %> <% } %>
     </p>
@@ -502,6 +502,9 @@
                 <option <%= (delivery.adliv.civil == civilites[i]) ? 'selected' : '' %> value="<%= civilites[i] %>"><%= civilites[i] %></option>
                 <% } %>
             </select>
+        </div>
+        <div class="pure-u-1 pure-u-md-1-2">
+            <input autocomplete="nope" class="input societe" type="text" value="<%= _.escape(delivery.adliv.societe) %>" name="societe" placeholder="{{ 'form.societe' | trans | raw }}">
         </div>
         <div class="pure-u-1 pure-u-md-1-2">
             <input class="input prenom" required type="text" name="prenom" value="<%= _.escape(delivery.adliv.prenom) %>" placeholder="* {{ 'form.surname' | trans | raw }}">

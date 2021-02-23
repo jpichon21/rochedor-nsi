@@ -209,7 +209,7 @@ class ProductController extends Controller
         $productsCategorized = null;
         if ($collection || $localeFilter) {
             if ($localeFilter) {
-                $collections = $this->productRepository->findCollections($localeFilter);
+                $collections = $this->productRepository->findCollectionsByLocale($localeFilter);
 
                 $productsCategorized = [];
                 foreach ($collections as $collection) {

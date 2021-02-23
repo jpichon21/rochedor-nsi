@@ -417,14 +417,28 @@ h2 {
     }
     .illustration {
       position: relative;
-      //height: 250px;
       height: 295px;
-      @include media('>=laptop') {
-        height: 450px;
-      }
       background-size: cover;
       background-position:  center;
       z-index: 0;
+
+      @include media('>=laptop') {
+        height: 450px;
+        background-size: initial;
+      }
+
+      @include media('>=xxlarge', '<laptop') {
+        background-size: contain;
+      }
+
+      @include media('>=large', '<xlarge') {
+        height: 337px;
+        background-size: contain;
+      }
+
+      @include media('>=medium', '<large') {
+        background-size: contain;
+      }
     }
     .description {
       position: absolute;
@@ -1130,17 +1144,6 @@ h2 {
       }
       p {
         color: #000000;
-      }
-    }
-  }
-
-  & > {
-    .left {
-      @include media('>large','<=limitMenuReduced') {
-        padding: 40px 20px 0px 60px;
-        .item{
-          padding-bottom: 0px!important;
-        }
       }
     }
   }

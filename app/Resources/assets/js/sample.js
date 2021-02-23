@@ -26,7 +26,7 @@ const contact = {
 }
 
 const client = {
-  professionnel: '',
+  professionnel: false,
   tvaintra: '',
   societe: '',
   nom: '',

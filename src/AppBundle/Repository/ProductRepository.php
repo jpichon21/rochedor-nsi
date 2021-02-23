@@ -61,24 +61,6 @@ class ProductRepository
     }
 
     /**
-    * Find Collection of Produit by locale
-    *
-    * @param string $locale
-    * @return Array
-    */
-    public function findCollectionsByLocale($locale, $limit = 99)
-    {
-
-        $qb = $this->entityManager->createQueryBuilder();
-        $qb->select('DISTINCT(p.codrub)')
-            ->from('AppBundle:Prodrub', 'p')
-            ->andWhere('p.langrub = :locale')
-            ->setParameter('locale', $locale);
-
-        return $qb->getQuery()->getResult();
-    }
-
-    /**
     * Find Collection of Produit by theme filters
     *
     * @param string $support
@@ -134,6 +116,20 @@ class ProductRepository
         $query = $this->entityManager
         ->createQuery('SELECT r FROM AppBundle\Entity\Prodrub r
         WHERE r.rubhide=0 ORDER BY LOCATE(:locale, r.langrub) DESC, r.rubrique')
+        ->setParameter('locale', $locale);
+        return $query->getResult();
+    }
+
+    /**
+    * Find collections for one locale
+    *
+    * @return array
+    */
+    public function findCollectionsByLocale($locale)
+    {
+        $query = $this->entityManager
+        ->createQuery('SELECT r FROM AppBundle\Entity\Prodrub r
+        WHERE r.rubhide=0 AND r.langrub = :locale ORDER BY r.rubrique')
         ->setParameter('locale', $locale);
         return $query->getResult();
     }

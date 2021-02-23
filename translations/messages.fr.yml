@@ -565,7 +565,7 @@ editions.nb_product_too_many: 'Pour toute commande supérieure à 9 unités, mer
 editions.produit.back: 'Retour à la liste'
 edition.order.total_ttc: 'TOTAL PANIER TTC'
 edition.order.info_total: 'Les frais d''expédition et le montant de la TVA seront calculés une fois l''adresse de livraison connue.'
-edition.order.too_weight: 'Vous ne pouvez envoyer que %maxWeight% KG au maximum, emballage compris.'
+edition.order.too_weight: 'Vous ne pouvez envoyer que %maxWeight% KG au maximum, emballage compris.<br>Adapter les quantités dans le panier qui récapitule vos achats.<br>Le total du poids s’ajuste à mesure.'
 edition.order.form.go_cart: 'Revenir au panier'
 editions.filter.locale.choose: 'Choisir une langue'
 edition.country_not_disp_liv: 'Votre pays n''est pas disponible à la livraison, merci de définir une adresse de livraison différente de la votre.'
