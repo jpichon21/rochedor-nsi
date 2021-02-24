@@ -1,64 +1,34 @@
-{% set featured = products|first %}
-{% set others = products|slice(1) %}
-{% set slides = [featured.adimg, featured.adimg2, featured.adimg3] %}
-{% set slidesCount = 0 %}
 {% set bodyClass = "editions news" %}
 {% set bodyBackground = 7 %}
 {% block title %}{{ page.title ~ ' ' ~ page.subTitle }} - La Roche d'Or{% endblock %}
-{% block metadescription %}<meta name="description" content="{{ page.description }}">{% endblock %}
+{% block metadescription %}
+    <meta name="description" content="{{ page.description }}">{% endblock %}
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('assets/css/carousel.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/editions.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/editions.css') }}">
 {% endblock %}
 {% block content %}
-{% include 'parts/popup.html.twig' %}
-<div class="content">
-    <div class="zone">
-      <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
-      <div class="featured">
-        <div class="left">
-          <h2>{{ 'news.title' | trans }}</h2>
-          <!-- ici -->
-          <p>{{ featured.memoprd | nl2br }}</p>
-          <a class="button right-arrow" href="{{ url('collection-' ~ app.request.locale, { id: featured.codprd }) }}">{{ 'news.button.discover' | trans }}</a>
-        </div>
-        <div class="right">
-          <div class="carousel active">
-            <div class="slides">
-              {% for slide in slides %}
-              {% if slide != '' %}
-              {% set slidesCount = slidesCount + 1 %}
-              <div class="slide {% if loop.first %}active{% endif %}">
-                <div class="top">
-                  <a class="full"
-                    title="{{ featured.produitcourt }}"
-                    href="{{ url('collection-' ~ app.request.locale, { id: featured.codprd }) }}"
-                    style="{{ asset(slide)|imagine_filter('product_highlight')|background }}">
-                  </a>
+    {% include 'parts/popup.html.twig' %}
+    <div class="content">
+        <div class="zone">
+            <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
+            {% for product in products %}
+                <div class="featured">
+                    <div class="left">
+                        <h3>{{ 'news.title' | trans }}</h3>
+                        <h2>{{ product.produitcourt }}</h2>
+                        <p>{{ product.memoprd | truncate(170, true) | nl2br }}</p>
+                        <a class="button right-arrow" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">{{ 'news.button.discover' | trans }}</a>
+                    </div>
+                    <div class="right" style="{{ asset(product.adimg)|imagine_filter('product_card')|background }}"></div>
                 </div>
-              </div>
-              {% endif %}
-              {% endfor %}
-            </div>
-            {% if slidesCount > 1 %}
-            <div class="prev"></div>
-            <div class="next"></div>
-            {% endif %}
-          </div>
+            {% endfor %}
         </div>
-      </div>
-      <div class="products">
-      {% for product in others %}
-        {% include 'parts/product.html.twig'
-          with { 'product': product, 'page': 'selections' } %}
-      {% endfor %}
-      </div>
     </div>
-</div>
 {% endblock %}
 {% block javascripts %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
-<script src="{{ asset("assets/js/carousel.js") }}"></script>
-<script src="{{ asset("assets/js/editions.js") }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+    <script src="{{ asset("assets/js/carousel.js") }}"></script>
+    <script src="{{ asset("assets/js/editions.js") }}"></script>
 {% endblock %}

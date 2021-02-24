@@ -248,20 +248,34 @@ h2 {
 }
 
 .featured {
-  display: flex;
+  display: inline-flex;
   position: relative;
-  width: 100%;
-  height: 500px;
+  width: 40%;
+  height: 460px;
   margin-bottom: 50px;
+
+  &:nth-child(even) {
+    margin-right: 150px;
+  }
+
+  @include media('<laptop') {
+    width: 45%;
+    margin-right: 50px !important;
+  }
+
+  @include media('<xxxlarge') {
+    width: 100%;
+    margin-right: 0 !important;
+  }
+
   @include media('<large') {
-    flex-direction: column;
-    width: auto;
-    //height: auto;
+    display: flex;
     margin: 0 -20px 40px;
+    width: 100%;
   }
   .left {
     position: relative;
-    width: 500px;
+    width: 60%;
     padding: 80px;
     background-color: #ffffff;
     box-sizing: border-box;
@@ -269,14 +283,14 @@ h2 {
     @include media('<large') {
       width: 100%;
       padding: 20px;
-      order: 2;
     }
     h2 {
       font-size: 28px;
       font-weight: 300;
       letter-spacing: 1.4px;
       text-transform: uppercase;
-      margin-bottom: 50px;
+      margin-bottom: 30px;
+      margin-right: 5px;
       @include media('<large') {
         font-size: 18px;
         margin: 20px 0;
@@ -288,6 +302,7 @@ h2 {
       font-style: italic;
       line-height: 28px;
       letter-spacing: 0.2px;
+      margin-right: 10px;
       @include media('<large') {
         font-size: 16px;
         line-height: 20px;
@@ -295,9 +310,9 @@ h2 {
     }
     .button {
       position: absolute;
-      right: 50px;
+      right: 20px;
       bottom: 10px;
-      margin-bottom: 26px;
+      margin-bottom: 5px;
       @include media('<large') {
         position: relative;
         right: auto;
@@ -310,16 +325,15 @@ h2 {
     position: relative;
     flex: 1;
     order: 2;
+    background-size:cover;
+    background-position:center;
+
     @include media('<large') {
-      height: 80vw;
-      order: 1;
-      .carousel {
-        .prev,
-        .next {
-          top: 100%;
-          margin-top: -45px;
-        }
-      }
+      padding: 49px 150px !important;
+    }
+
+    @include media('<medium') {
+      padding: 49px 110px !important;
     }
   }
 }

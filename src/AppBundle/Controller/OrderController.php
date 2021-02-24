@@ -311,7 +311,6 @@ class OrderController extends Controller
         $data['consumerPrice'] = $data['shippingPriceIT'] + $data['totalPrice'];
 
         $data['vat'] = round($data['totalPriceIT'] - $data['totalPrice'], 2);
-        $this->get('session')->set('dataOrder', $data);
 
         return $data;
     }
@@ -425,7 +424,7 @@ class OrderController extends Controller
 
         /** @var Commande $commande */
         $commande = $this->commandeRepository->findByRef($ref);
-        $dataOrder = $this->get('session')->get('dataOrder');
+        $dataOrder = $this->getDataOrderForNotify($commande);
         $user = $this->clientRepository->findClient($commande->getCodcli());
         if ($commande === null || $user == null) {
             return $this->render('order/payment-return.html.twig', [
@@ -771,7 +770,7 @@ class OrderController extends Controller
         return $order;
     }
 
-    private function notifyClient($order, $locale, $user, $withDelay)
+    private function notifyClient(Commande $order, $locale, $user, $withDelay)
     {
         /** @var Tpays $paysliv */
         $paysliv = $this->tpaysRepository->findCountryByCode($order->getAdFact()['Pays']);
@@ -808,7 +807,7 @@ class OrderController extends Controller
             $email = $user->getEmail();
         }
 
-        $dataOrder = $this->get('session')->get('dataOrder');
+        $dataOrder = $this->getDataOrderForNotify($order);
         $this->mailer->send(
             [
                 $email
@@ -834,6 +833,59 @@ class OrderController extends Controller
                 'maxliv' => $maxliv
                 ])
         );
+    }
+
+    private function getDataOrderForNotify(Commande $order)
+    {
+        $dataOrder = [
+            "totalPrice" => $order->getMontant() - $order->getPort(),
+            "totalPriceIT" => $order->getMontant() - $order->getPort() + $order->getTva(),
+            "product" => [],
+            "shippingPriceIT" => $order->getPort(),
+            "consumerPriceIT" => floatval($order->getTtc()),
+            "consumerPrice" => floatval($order->getMontant()),
+            "vat" => floatval($order->getTva())
+        ];
+
+        $productRepository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Produit');
+        $orderLines = $this->getDoctrine()->getManager()->getRepository('AppBundle:Comprd')->findBy(['codcom' => $order->getCodcom()]);
+        $country = 'FR';
+        if (!empty($order->getAdliv()['Pays'])) {
+            $country = $order->getAdliv()['Pays'];
+        }
+
+        /** @var Comprd $orderLine */
+        foreach ($orderLines as $k => $orderLine) {
+            $i = 1;
+            while ($i <= $orderLine->getQuant()) {
+                /** @var Produit $product */
+                $product = $productRepository->findOneBy(['codprd' => $orderLine->getCodprd()]);
+
+                /** @var Tax $tax */
+                $tax = $this->taxRepository->findTax($product->getTypprd(), $country);
+                $productTaxRate = ($tax) ? $tax->getRate() : 0;
+                $priceIncludeTaxes = floatval(round($product->getPrix(), 2));
+                $priceHT = floatval(round($priceIncludeTaxes / (1 + ($productTaxRate / 100)), 2));
+
+                // Règle pour les CD
+                // Si la TVA vaut 0, le prix HT est le prix TTC
+                if ($product->getTypprd() === Produit::TYPE_CD && 0 === $productTaxRate) {
+                    $priceHT = floatval($product->getPrix());
+                }
+
+                $dataOrder['product'][$k]['productTaxRate'] = $productTaxRate;
+                $dataOrder['product'][$k]['price'] = $priceHT;
+                $dataOrder['product'][$k]['codprd'] = $product->getCodprd();
+                $dataOrder['product'][$k]['quantity'] = $orderLine->getQuant();
+                $dataOrder['product'][$k]['name'] = $product->getProduitcourt();
+                $dataOrder['product'][$k]['priceIT'] = $priceIncludeTaxes;
+                $dataOrder['product'][$k]['vatProduct'] = round($dataOrder['product'][$k]['priceIT'] - $dataOrder['product'][$k]['price'], 2);
+
+                $i++;
+            }
+        }
+
+        return $dataOrder;
     }
 
     private function getCountryFullname($codPays)
@@ -868,10 +920,6 @@ class OrderController extends Controller
         }
 
         $cookies = $request->cookies;
-        if ($this->get('session')->has('dataOrder')) {
-            $this->get('session')->remove('dataOrder');
-        }
-
         $countries = $this->tpaysRepository->findAllCountry();
         list($countriesJSON, $preferredChoices) = $countryService->orderCountryListByPreferenceEditions($countries);
 
