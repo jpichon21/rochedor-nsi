@@ -117,7 +117,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/editions-nouveautes", name="collections-news-fr")
+     * @Route("/editions-nos-selections", name="collections-news-fr")
      * @Route("/publications-news", name="collections-news-en")
      * @Route("/publikationen-neu", name="collections-news-de")
      * @Route("/publicaciones-nuevo", name="collections-news-es")
