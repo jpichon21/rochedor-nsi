@@ -61,6 +61,12 @@
       <b>{{ 'editions.collection' | trans }}</b>
       {{ product.rubrique }}
     </div>
+    {% if product.serie is not empty %}
+    <div class="subtitle">
+      <b>{{ 'editions.serie' | trans }}</b>
+      {{ product.serie }}
+    </div>
+    {% endif %}
     <div class="price">
       <span>{{ 'product.detail.price.ttc'|trans({'%ttc%': product.prix}) | raw }}</span>
       <br>

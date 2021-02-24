@@ -154,6 +154,7 @@ cart.remove: __cart.remove
 cart.empty: __cart.empty
 editions.author: Auteur
 editions.collection: Collection
+editions.serie: Série
 editions.addtocart: 'Ajouter au panier'
 editions.ebookversion: 'Version ebook'
 order.registration.cart.title.1: 'Votre Panier'
