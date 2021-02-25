@@ -432,26 +432,18 @@ h2 {
     .illustration {
       position: relative;
       height: 295px;
-      //background-size: cover;
-      //background-position:  center;
       z-index: 0;
-      background-repeat:no-repeat;
+      background-repeat:initial;
       background-size:contain;
       background-position:center;
 
       @include media('>=laptop') {
         height: 450px;
-      //  //background-size: initial;
       }
-      //
-      //@include media('>=xxlarge', '<laptop') {
-      //  background-size: contain;
-      //}
-      //
-      //@include media('>=large', '<xlarge') {
-        //height: 337px;
-      //  background-size: contain;
-      //}
+
+      @include media('>=large', '<xlarge') {
+        height: 340px;
+      }
 
       @include media('<medium') {
         background-size: cover;
@@ -460,11 +452,16 @@ h2 {
     .description {
       position: absolute;
       width: 100%;
-      //top: 190px;
       top: 295px;
+
       @include media('>=laptop') {
         top: 450px;
       }
+
+      @include media('>=large', '<xlarge') {
+        top: 320px;
+      }
+
       bottom: 0;
       padding: 20px;
       font-size: 12px;
@@ -473,9 +470,6 @@ h2 {
       transition: 0.5s;
       box-sizing: border-box;
       z-index: 1;
-      @include media('<=limitMenuReduced', '>large') {
-        overflow: auto;
-      }
       .serie {
         font-weight: 400;
         color: black;
