@@ -16,7 +16,6 @@
             {% for product in products %}
                 <div class="featured">
                     <div class="left">
-                        <h3>{{ 'news.title' | trans }}</h3>
                         <h2>{{ product.produitcourt }}</h2>
                         <p>{{ product.memoprd | truncate(170, true) | nl2br }}</p>
                         <a class="button right-arrow" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">{{ 'news.button.discover' | trans }}</a>
