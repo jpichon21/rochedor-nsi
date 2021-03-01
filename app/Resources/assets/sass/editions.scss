@@ -275,6 +275,10 @@ h2 {
     margin-right: 0 !important;
   }
 
+  @include media('<mobile') {
+    margin: 0 !important;
+  }
+
   &:nth-child(even) {
     margin-right: 150px;
   }
