@@ -56,6 +56,12 @@
           @include media('<medium') {
             min-height: 50px !important;
           }
+
+          &.conData {
+            @include media('<medium') {
+              min-height: 75px!important;
+            }
+          }
         }
 
         &.pay {
