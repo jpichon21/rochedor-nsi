@@ -21,6 +21,10 @@ JsBarcode('.barcode').init()
 const themesForm = document.querySelector('form.filter-form-themes')
 const filtersForm = document.querySelector('.filters form')
 
+$('.featured .right').on('click', function() {
+  location = $(this).data('href')
+})
+
 if (themesForm != null) {
   $('.buttons-filter .button.search').on('click', function (event) {
     event.preventDefault()

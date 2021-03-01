@@ -14,14 +14,14 @@
         <div class="zone">
             <h1><small>{{ page.title }} </small>{{ page.subTitle }}</h1>
             {% for product in products %}
-                <div class="featured">
-                    <div class="left">
-                        <h2>{{ product.produitcourt }}</h2>
-                        <p>{{ product.memoprd | truncate(170, true) | nl2br }}</p>
-                        <a class="button right-arrow" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">{{ 'news.button.discover' | trans }}</a>
+                    <div class="featured">
+                        <div class="left">
+                            <h2>{{ product.produitcourt }}</h2>
+                            <p>{{ product.memoprd | truncate(170, true) | nl2br }}</p>
+                            <a class="button right-arrow" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">{{ 'news.button.discover' | trans }}</a>
+                        </div>
+                        <div class="right" data-href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}" style="{{ asset(product.adimg)|imagine_filter('product_card')|background }}"></div>
                     </div>
-                    <div class="right" style="{{ asset(product.adimg)|imagine_filter('product_card')|background }}"></div>
-                </div>
             {% endfor %}
         </div>
     </div>
