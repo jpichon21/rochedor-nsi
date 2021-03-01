@@ -251,18 +251,18 @@ h2 {
   display: inline-flex;
   position: relative;
   width: 40%;
-  height: 460px;
+  height: 525px;
   margin-bottom: 50px;
+
+  @include media('<1610px') {
+    height: 610px;
+  }
 
   @include media('<large') {
     flex-direction: column;
     width: auto;
     margin: 0 -20px 40px;
     min-height: 890px;
-  }
-
-  &:nth-child(even) {
-    margin-right: 150px;
   }
 
   @include media('<laptop') {
@@ -273,6 +273,10 @@ h2 {
   @include media('<xxxlarge') {
     width: 100%;
     margin-right: 0 !important;
+  }
+
+  &:nth-child(even) {
+    margin-right: 150px;
   }
 
   .left {
