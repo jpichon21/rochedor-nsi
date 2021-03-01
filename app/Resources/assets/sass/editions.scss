@@ -488,11 +488,16 @@ h2 {
         letter-spacing: 1px;
         text-transform: uppercase;
         text-decoration: none;
+
+        @include media('<medium') {
+          margin-bottom: 5px;
+        }
       }
       .cart {
         position: absolute;
         bottom: 20px;
         right: 20px;
+        z-index: 10;
       }
       .price {
         position: absolute;
@@ -591,6 +596,11 @@ h2 {
       &.themes {
         select {
           width: 23%;
+
+          @include media('<medium') {
+            width: 77%;
+            margin-bottom: 10px;
+          }
         }
         &.disabled {
           label {
@@ -657,12 +667,22 @@ h2 {
         background-color: transparent;
         -webkit-appearance: none;
         outline: none;
+
+        @include media('<medium') {
+          width: 60%;
+        }
+
         option {
           background: #fff;
         }
 
         &[name="localeFilter"] {
           margin-left: 5px;
+
+          @include media('<medium') {
+            margin-top: 10px;
+            margin-left: 0;
+          }
         }
       }
       .label {
@@ -680,8 +700,11 @@ h2 {
       background-color: $roche-brown;
       white-space: nowrap;
       @include media('<=mobile'){
-        width: 100%;
+        width: 95%;
         text-align: center;
+        margin-left: 0;
+        margin-bottom: 10px;
+        padding-left: 0;
       }
       @include media('>=xxlarge'){
         margin-top: 22px;
@@ -692,8 +715,11 @@ h2 {
         white-space: nowrap;
         margin-right: 3px;
         @include media('<=mobile'){
-          width: 100%;
+          width: 94%;
           text-align: center;
+          margin-left: 0;
+          margin-bottom: 10px;
+          padding-left: 0;
         }
         @include media('>=xxlarge'){
           margin-top: 22px;
@@ -792,11 +818,19 @@ h2 {
     > .left {
       .carousel {
         display: flex;
+
+        @include media('<xxlarge') {
+          margin-top: 20px;
+        }
       }
 
       .back {
         position: absolute;
         top: 20px;
+
+        @include media('<xxlarge') {
+          top: 5px;
+        }
 
         a {
           color: #ef7d1d;

@@ -50,6 +50,20 @@
         font-style: italic;
         font-size: 13px;
       }
+
+      .button {
+        &.radio {
+          @include media('<medium') {
+            min-height: 50px !important;
+          }
+        }
+
+        &.pay {
+          @include media('<medium') {
+            min-height: 38px !important;
+          }
+        }
+      }
     }
   }
 

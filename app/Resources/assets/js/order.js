@@ -21,6 +21,7 @@ import {
   getCartCount,
   checkMail
 } from './order-api.js'
+import $ from 'jquery'
 
 /* Cancel Return */
 
@@ -201,6 +202,19 @@ const updateDetailcartRender = () => {
   })
 }
 
+function scrollToElement ($element) {
+  setTimeout(() => {
+    // a bit bruteforced, but it works ...
+    // for mobile
+    if ($('body').hasClass('menuReduced')) {
+      window.scrollTo({ top: $element.offset().top, left: 0, behavior: 'smooth' })
+    }
+    // for screen
+    // watch out for the forced offset of -120 if you reuse this method
+    document.querySelector('.content').scroll({ top: ($element.offset().top - 120), left: 0, behavior: 'smooth' })
+  }, 200)
+}
+
 /* Actions */
 
 const afterLogin = user => {
@@ -349,6 +363,7 @@ itemConnection.onclick = event => {
         itemConnection.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'))
         itemConnection.querySelector(`.panel.${which}`).classList.add('active')
         changeItem(itemConnection)
+        scrollToElement($(`.panel.${which}`))
         break
       case 'registration':
         _you = getClient()
@@ -357,10 +372,12 @@ itemConnection.onclick = event => {
         itemConnection.querySelector(`.panel.${which}`).classList.add('active')
         updateConsentFormRender()
         changeItem(itemConnection)
+        scrollToElement($(`.panel.${which}`))
         break
       case 'reset':
         itemConnection.querySelector('.panel.reset').classList.add('active')
         changeItem(itemConnection)
+        scrollToElement($(`.panel.${which}`))
         break
       case 'continue':
         upLoader()
@@ -372,6 +389,7 @@ itemConnection.onclick = event => {
         } else {
           downLoader()
           changeItem(itemCard)
+        scrollToElement($(`.panel.${which}`))
         }
         break
       case 'retry':
@@ -479,6 +497,7 @@ itemCard.onclick = event => {
     itemCard.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'))
     itemCard.querySelector('.panel.modify').classList.add('active')
     changeItem(itemCard)
+    scrollToElement($('.panel.modify'))
   }
   if (
     event.target &&
