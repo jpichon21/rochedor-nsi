@@ -12,41 +12,41 @@
     set('shared_dirs', ['vendor', 'web/uploads', 'var/cache', 'var/logs', 'node_modules', 'web/biblio']);
     set('bin/php', '/usr/local/bin/ea-php72 -c deploy/deploy.ini');
 
-    host('rochedor.fr')
-    ->stage('prod')
-    ->user('root')
-    ->hostname('rochedor.fr')
-    ->set('account_dir', 'rochedor')
-    ->set('branch', 'prod')
-    ->set('encore_config_name', 'configDev')
-    ->set('deploy_path', '/home/{{account_dir}}/nsi_staging');
-
-    host('nsi.rochedor.fr')
-    ->stage('dev')
-    ->user('root')
-    ->hostname('rochedor.fr')
-    ->set('account_dir', 'rochedor')
-    ->set('branch', 'dev')
-    ->set('encore_config_name', 'configDev')
-    ->set('deploy_path', '/home/{{account_dir}}/nsi_dev');
-    
-    host('demo-front.rochedor.fr')
-    ->stage('demo_front')
-    ->user('root')
-    ->hostname('rochedor.fr')
-    ->set('account_dir', 'rochedor')
-    ->set('branch', 'demo_front')
-    ->set('encore_config_name', 'configDev')
-    ->set('deploy_path', '/home/{{account_dir}}/nsi_demo_front');
-
 //    host('rochedor.fr')
 //    ->stage('prod')
 //    ->user('root')
 //    ->hostname('rochedor.fr')
 //    ->set('account_dir', 'rochedor')
-//    ->set('branch', 'master')
-//    ->set('encore_config_name', 'configProd')
-//    ->set('deploy_path', '/home/{{account_dir}}/nsi_prod');
+//    ->set('branch', 'prod')
+//    ->set('encore_config_name', 'configDev')
+//    ->set('deploy_path', '/home/{{account_dir}}/nsi_staging');
+//
+//    host('nsi.rochedor.fr')
+//    ->stage('dev')
+//    ->user('root')
+//    ->hostname('rochedor.fr')
+//    ->set('account_dir', 'rochedor')
+//    ->set('branch', 'dev')
+//    ->set('encore_config_name', 'configDev')
+//    ->set('deploy_path', '/home/{{account_dir}}/nsi_dev');
+//
+//    host('demo-front.rochedor.fr')
+//    ->stage('demo_front')
+//    ->user('root')
+//    ->hostname('rochedor.fr')
+//    ->set('account_dir', 'rochedor')
+//    ->set('branch', 'demo_front')
+//    ->set('encore_config_name', 'configDev')
+//    ->set('deploy_path', '/home/{{account_dir}}/nsi_demo_front');
+
+    host('staging.rochedor.fr')
+        ->stage('staging')
+        ->user('root')
+        ->hostname('rochedor.fr')
+        ->set('account_dir', 'rochedor')
+        ->set('branch', 'staging')
+        ->set('encore_config_name', 'configDev')
+        ->set('deploy_path', '/home/{{account_dir}}/nsi/src_staging');
 
     task('deploy', [
         'deploy:info',
