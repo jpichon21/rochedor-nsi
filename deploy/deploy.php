@@ -10,7 +10,7 @@
     set('default_stage', 'dev');
     set('shared_files', ['web/.htaccess', 'web/robots.txt', 'app/config/parameters.yml']);
     set('shared_dirs', ['vendor', 'web/uploads', 'var/cache', 'var/logs', 'node_modules', 'web/biblio']);
-    set('bin/php', '/usr/local/bin/ea-php72 -c deploy/deploy.ini');
+    set('bin/php', '/usr/local/bin/php -c deploy/deploy.ini');
 
     host('staging.rochedor.fr')
         ->stage('staging')
