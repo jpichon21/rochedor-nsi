@@ -21,6 +21,15 @@
         ->set('encore_config_name', 'configDev')
         ->set('deploy_path', '/home/{{account_dir}}/public_html/nsi/src_staging');
 
+    host('rochedor.fr')
+        ->stage('prod')
+        ->user('root')
+        ->hostname('54.36.109.76')
+        ->set('account_dir', 'rochedor')
+        ->set('branch', 'prod')
+        ->set('encore_config_name', 'configDev')
+        ->set('deploy_path', '/home/{{account_dir}}/public_html/nsi/src_prod');
+
     task('deploy', [
         'deploy:info',
         'deploy:prepare',
