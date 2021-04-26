@@ -168,7 +168,7 @@
                 <p>
                     {{ page.content['sections'][4].body|replace({"<p>": "<span>"})|replace({"</p>":"</span><br />"})|raw }}
                 </p>
-                <a class="button yellow" href="https://editionsrochedor.com" target="_blank">{{ 'discover'|trans }} <img
+                <a class="button yellow" href="{{ path('home') }}">{{ 'discover'|trans }} <img
                             class="button-arrow" src="{{ asset('assets/img/button-arrow-right-yellow.png') }}"></a>
             </div>
             <div class="scroll-down">
