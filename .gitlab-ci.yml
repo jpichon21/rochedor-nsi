@@ -4,7 +4,7 @@ stages:
 variables:
   IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
 
-deploy_dev:
+deploy_staging:
   stage: deploy
   image: php:7-cli-alpine
   before_script:
@@ -13,13 +13,13 @@ deploy_dev:
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | ssh-add -
   environment:
-    name: dev
-    url: https://nsi.rochedor.fr
+    name: staging
+    url: https://staging.rochedor.fr
   only:
-    - dev
+    - staging
   script:
         - curl -L https://deployer.org/releases/v6.4.3/deployer.phar > /usr/local/bin/deployer && chmod +x /usr/local/bin/deployer
-        - deployer -f=deploy/deploy.php deploy dev
+        - deployer -f=deploy/deploy.php deploy staging
 
 deploy_prod:
   stage: deploy
