@@ -23,11 +23,11 @@
         {% for slide in slides %}
         {% if slide != '' %}
         {% set slidesCount = slidesCount + 1 %}
-        <div class="slide {% if loop.first %} active{% endif %}" data-slide="{{ slide }}">
+        <div class="slide {% if loop.first %} active{% endif %}" data-slide="{{ (kiwi_host ~ slide)|url_encode|replace({'%2F':'/', '%3A': ':'}) }}">
           <div class="top">
-            <a class="full image" title="{{ product.produitcourt }}" href="{{ slide }}"
-              style="{{ (kiwi_host ~ slide)|background }}">
-              <img src="{{ (kiwi_host ~ slide) }}" alt="{{ product.produitcourt }}">
+            <a class="full image" title="{{ product.produitcourt }}" href="{{ (kiwi_host ~ slide)|url_encode|replace({'%2F':'/', '%3A': ':'}) }}"
+              style="{{ (kiwi_host ~ slide)|url_encode|replace({'%2F':'/', '%3A': ':'})|background }}">
+              <img src="{{ (kiwi_host ~ slide)|url_encode|replace({'%2F':'/', '%3A': ':'}) }}" alt="{{ product.produitcourt }}">
             </a>
           </div>
         </div>
@@ -42,7 +42,7 @@
     <div class="thumbnails">
       {% for slide in slides %}
       {% if slide != '' %}
-      <div class="thumb {% if loop.first %} active{% endif %}" style="{{ (kiwi_host ~ slide)|background }}" data-slide="{{ slide }}"></div>
+      <div class="thumb {% if loop.first %} active{% endif %}" style="{{ (kiwi_host ~ slide)|url_encode|replace({'%2F':'/', '%3A': ':'})|background }}" data-slide="{{ slide }}"></div>
       {% else %}
       <div class="empty"></div>
       {% endif %}

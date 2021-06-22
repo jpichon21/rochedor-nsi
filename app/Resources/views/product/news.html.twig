@@ -20,7 +20,7 @@
                             <p>{{ product.memoprd | truncate(170, true) | nl2br }}</p>
                             <a class="button right-arrow" href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}">{{ 'news.button.discover' | trans }}</a>
                         </div>
-                        <div class="right" data-href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}" style="{{ (kiwi_host ~ product.adimg)|background }}"></div>
+                        <div class="right" data-href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}" style="{{ (kiwi_host ~ product.adimg)|url_encode|replace({'%2F':'/', '%3A': ':'})|background }}"></div>
                     </div>
             {% endfor %}
         </div>
