@@ -53,6 +53,7 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         locales: ['fr', 'en', 'es', 'de', 'it']
+        kiwi_host: '%kiwi_host%'
     form_themes: ['bootstrap_4_layout.html.twig']
 
 # Doctrine Configuration
