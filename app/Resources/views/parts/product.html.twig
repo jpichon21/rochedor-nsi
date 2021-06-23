@@ -1,5 +1,5 @@
 <a href="{{ url('collection-' ~ app.request.locale, { id: product.codprd }) }}" class="product">
-    <div class="illustration" style="{{ asset(product.adimg)|imagine_filter('product_card')|background }}"></div>
+    <div class="illustration" style="{{ (kiwi_host ~ (product.adimg)|url_encode|replace({'%2F':'/', '%3A': ':'}))|background }}"></div>
     <div class="description">
         {% if product.serie %}
         <div class="serie">
