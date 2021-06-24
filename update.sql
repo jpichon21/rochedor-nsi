@@ -118,3 +118,16 @@ INSERT INTO transport (LibPort, Poids, Prix, Pays) VALUES
 ('OM 2', 5000, 51.50, 'PF,WF,NC,TF'),
 ('OM 2', 10000, 100.50, 'PF,WF,NC,TF'),
 ('OM 2', 30000, 245.50, 'PF,WF,NC,TF');
+
+-- Modification de l'URL de la page "Les nouveautés" en "Nos sélections" dans toutes les langues
+UPDATE page SET SubTitle = 'Nos Sélections', Description = 'Editions nos sélections', ImmutableId = 'editions-nos-selections' WHERE id = 36;
+UPDATE page SET SubTitle = 'Our Selections', Description = 'Editions our selections', ImmutableId = 'editions-nos-selections' WHERE id = 69;
+UPDATE page SET SubTitle = 'Unsere Auswahl', Description = 'Verlag unsere Auswahl', ImmutableId = 'editions-nos-selections' WHERE id = 100;
+UPDATE page SET SubTitle = 'Nuestras selecciones', Description = 'Ediciones nuestras selecciones', ImmutableId = 'editions-nos-selections' WHERE id = 127;
+UPDATE page SET SubTitle = 'Le nostre selezioni', Description = 'Edizioni le nostre selezioni', ImmutableId = 'editions-nos-selections' WHERE id = 154;
+
+UPDATE orm_routes SET staticPrefix = '/fr/editions-nos-selections', name = 'editions-nos-selections' WHERE id = 41;
+UPDATE orm_routes SET staticPrefix = '/en/publications-news', name = 'editions-our-selections' WHERE id = 71;
+UPDATE orm_routes SET staticPrefix = '/de/publikationen-neu', name = 'verlag-unsere-auswahl' WHERE id = 101;
+UPDATE orm_routes SET staticPrefix = '/es/publicaciones-nuevo', name = 'ediciones-nuestras-selecciones' WHERE id = 128;
+UPDATE orm_routes SET staticPrefix = '/it/pubblicazioni-nuovo', name = 'edizioni-le-nostre-selezioni' WHERE id = 155;
