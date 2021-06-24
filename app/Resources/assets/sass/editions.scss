@@ -760,7 +760,6 @@ h2 {
       height: 600px;
       margin-right: 20px;
       @include media('<=laptop') {
-        width: 100%;
         height: 442px;
       }
       @include media('<=xxlarge') {
