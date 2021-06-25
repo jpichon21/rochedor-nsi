@@ -781,6 +781,22 @@ h2 {
   .button {
     margin-right: 20px;
   }
+
+  .empty-collection {
+    width: 239px;
+    height: 33px;
+    margin-right: 20px;
+    float: right;
+    margin-bottom: 86px;
+    padding: 9px 10px;
+    font-size: 12px;
+    letter-spacing: 1.4px;
+    color: #000000;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.5s ease-in-out;
+    background-position: 100% 0%;
+  }
 }
 
 .details {
