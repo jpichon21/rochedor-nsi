@@ -67,10 +67,11 @@ class DefaultController extends Controller
         }
         $availableLocales = $this->pageService->getAvailableLocales($page);
         $speakers = $this->getDoctrine()->getRepository('AppBundle:Speaker')->findAllOrderByPos();
+        /** @var Speaker $speaker */
         foreach ($speakers as $speaker) {
             $localSpeaker = new Speaker;
-            $localeTitle = $speaker->getTitle()[$page->getLocale()];
-            $localeDesc = $speaker->getDescription()[$page->getLocale()];
+            $localeTitle = $speaker->getTitle()[$request->getLocale()];
+            $localeDesc = $speaker->getDescription()[$request->getLocale()];
             $localSpeaker->setName($speaker->getName());
             $localSpeaker->setTitle($localeTitle);
             $localSpeaker->setDescription($localeDesc);
