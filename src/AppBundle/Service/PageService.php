@@ -66,14 +66,12 @@ class PageService
             $availableLocales['fr'] = $tmpP[0]->getStaticPrefix();
         }
         foreach ($myChild as $childPage) {
-            // Solution temporaire pour n'activer que les langues FR et ES
-            if (!in_array($childPage->getLocale(), ['fr', 'es'])) {
-                $childPage->setLocale('fr');
-            }
             if ($childPage->getLocale() != $contentDocument->getLocale()) {
                 $key = $childPage->getLocale();
                 $tmp = $childPage->getRoutes()->getValues();
-                if ($tmp) {
+
+                // Solution temporaire pour n'activer que les langues FR et ES
+                if ($tmp && in_array($key, ['fr', 'es'])) {
                     $availableLocales[$key] = $tmp[0]->getStaticPrefix();
                 }
             }
