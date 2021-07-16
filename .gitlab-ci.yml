@@ -18,7 +18,7 @@ deploy_staging:
   only:
     - staging
   script:
-        - curl -L https://deployer.org/releases/v6.4.3/deployer.phar > /usr/local/bin/deployer && chmod +x /usr/local/bin/deployer
+        - curl -L https://deployer.org/releases/v6.8.0/deployer.phar > /usr/local/bin/deployer && chmod +x /usr/local/bin/deployer
         - deployer -f=deploy/deploy.php deploy staging
 
 deploy_prod:
