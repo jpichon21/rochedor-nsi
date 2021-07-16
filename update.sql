@@ -131,3 +131,6 @@ UPDATE orm_routes SET staticPrefix = '/en/publications-news', name = 'editions-o
 UPDATE orm_routes SET staticPrefix = '/de/publikationen-neu', name = 'verlag-unsere-auswahl' WHERE id = 101;
 UPDATE orm_routes SET staticPrefix = '/es/publicaciones-nuevo', name = 'ediciones-nuestras-selecciones' WHERE id = 128;
 UPDATE orm_routes SET staticPrefix = '/it/pubblicazioni-nuovo', name = 'edizioni-le-nostre-selezioni' WHERE id = 155;
+
+-- Modification de l'URL espagnol de "Dons ponctuels"
+UPDATE orm_routes SET staticPrefix = '/es/donacion-de-una-sola-vez', name = 'donacion-de-una-sola-vez' WHERE staticPrefix = '/es/donacin-de-una-sola-vez';
