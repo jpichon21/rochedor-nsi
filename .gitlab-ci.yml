@@ -9,9 +9,9 @@ deploy_staging:
   image: php:7-cli-alpine
   before_script:
     - apk add --update git openssh-client
-#    - mkdir -p ~/.ssh && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-#    - eval $(ssh-agent -s)
-#    - echo "$SSH_PRIVATE_KEY" | ssh-add -
+    - mkdir -p ~/.ssh && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | ssh-add -
   environment:
     name: staging
     url: https://staging.rochedor.fr
@@ -24,11 +24,11 @@ deploy_staging:
 deploy_prod:
   stage: deploy
   image: php:7-cli-alpine
-#  before_script:
-#    - apk add --update git openssh-client
-#    - mkdir -p ~/.ssh && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-#    - eval $(ssh-agent -s)
-#    - echo "$SSH_PRIVATE_KEY" | ssh-add -
+  before_script:
+    - apk add --update git openssh-client
+    - mkdir -p ~/.ssh && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | ssh-add -
   environment:
     name: prod
     url: https://rochedor.fr
@@ -42,11 +42,11 @@ deploy_prod:
 deploy_demo:
   stage: deploy
   image: php:7-cli-alpine
-#  before_script:
-#    - apk add --update git openssh-client
-#    - mkdir -p ~/.ssh && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-#    - eval $(ssh-agent -s)
-#    - echo "$SSH_PRIVATE_KEY" | ssh-add -
+  before_script:
+    - apk add --update git openssh-client
+    - mkdir -p ~/.ssh && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | ssh-add -
   environment:
     name: demo_front
     url: https://demo_front.cartron.fr
