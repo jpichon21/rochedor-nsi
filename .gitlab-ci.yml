@@ -7,8 +7,8 @@ variables:
 deploy_staging:
   stage: deploy
   image: php:7-cli-alpine
-#  before_script:
-#    - apk add --update git openssh-client
+  before_script:
+    - apk add --update git openssh-client
 #    - mkdir -p ~/.ssh && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 #    - eval $(ssh-agent -s)
 #    - echo "$SSH_PRIVATE_KEY" | ssh-add -
