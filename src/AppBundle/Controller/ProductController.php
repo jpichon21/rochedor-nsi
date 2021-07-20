@@ -78,11 +78,11 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{_locale}/edition/{id}", requirements={"id"="\d+"}, name="collection-fr")
-     * @Route("/{_locale}/publication/{id}", requirements={"id"="\d+"}, name="collection-en")
-     * @Route("/{_locale}/veroffentlichung/{id}", requirements={"id"="\d+"}, name="collection-de")
-     * @Route("/{_locale}/publicacion/{id}", requirements={"id"="\d+"}, name="collection-es")
-     * @Route("/{_locale}/pubblicazione/{id}", requirements={"id"="\d+"}, name="collection-it")
+     * @Route("/edition/{id}", requirements={"id"="\d+"}, name="collection-fr")
+     * @Route("/publication/{id}", requirements={"id"="\d+"}, name="collection-en")
+     * @Route("/veroffentlichung/{id}", requirements={"id"="\d+"}, name="collection-de")
+     * @Route("/publicacion/{id}", requirements={"id"="\d+"}, name="collection-es")
+     * @Route("/pubblicazione/{id}", requirements={"id"="\d+"}, name="collection-it")
      */
     public function showProductAction($id, Request $request)
     {
@@ -117,11 +117,11 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{_locale}/editions-nos-selections", name="collections-news-fr")
-     * @Route("/{_locale}/publications-news", name="collections-news-en")
-     * @Route("/{_locale}/publikationen-neu", name="collections-news-de")
-     * @Route("/{_locale}/publicaciones-nuevo", name="collections-news-es")
-     * @Route("/{_locale}/pubblicazioni-nuovo", name="collections-news-it")
+     * @Route("/editions-nos-selections", name="collections-news-fr")
+     * @Route("/publications-news", name="collections-news-en")
+     * @Route("/publikationen-neu", name="collections-news-de")
+     * @Route("/publicaciones-nuevo", name="collections-news-es")
+     * @Route("/pubblicazioni-nuovo", name="collections-news-it")
      */
     public function showNewProductsAction(Request $request)
     {
@@ -143,11 +143,11 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{_locale}/editions-collections", name="collections-fr")
-     * @Route("/{_locale}/publications-collections", name="collections-en")
-     * @Route("/{_locale}/publikationen-collections", name="collections-de")
-     * @Route("/{_locale}/publicaciones-collections", name="collections-es")
-     * @Route("/{_locale}/pubblicazioni-collections", name="collections-it")
+     * @Route("/editions-collections", name="collections-fr")
+     * @Route("/publications-collections", name="collections-en")
+     * @Route("/publikationen-collections", name="collections-de")
+     * @Route("/publicaciones-collections", name="collections-es")
+     * @Route("/pubblicazioni-collections", name="collections-it")
      *
      * @param Request $request
      * @return Response
