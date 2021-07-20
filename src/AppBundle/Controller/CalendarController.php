@@ -123,7 +123,7 @@ class CalendarController extends Controller
      * @Route("/registration-retreat", name="register_calendar-en")
      * @Route("/anmeldung-ruhestand", name="register_calendar-de")
      * @Route("/iscrizione-ritiro", name="register_calendar-it")
-     * @Route("/registro-jubilado", name="register_calendar-es")
+     * @Route("/inscripcion", name="register_calendar-es")
      */
     public function calendarRegistrationAction(Request $request, CountryService $countryService)
     {
