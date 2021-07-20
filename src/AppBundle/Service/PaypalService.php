@@ -67,7 +67,7 @@ class PaypalService
     public function verifyIPN()
     {
         if (! count($_POST)) {
-            throw new Exception("Missing POST Data");
+            throw new \Exception("Missing POST Data");
         }
         $raw_post_data = file_get_contents('php://input');
         $raw_post_array = explode('&', $raw_post_data);
@@ -126,13 +126,13 @@ class PaypalService
             $errstr = curl_error($ch);
             curl_close($ch);
             $this->logger->error("PAYPAL IPN VERIFICATION cURL error: [$errno] $errstr");
-            throw new Exception("cURL error: [$errno] $errstr");
+            throw new \Exception("cURL error: [$errno] $errstr");
         }
         $info = curl_getinfo($ch);
         $http_code = $info['http_code'];
         if ($http_code != 200) {
             $this->logger->error("PAYPAL IPN VERIFICATION PayPal responded with http code $http_code");
-            throw new Exception("PayPal responded with http code $http_code");
+            throw new \Exception("PayPal responded with http code $http_code");
         }
         curl_close($ch);
         // Check if PayPal verifies the IPN data, and if so, return true.

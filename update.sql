@@ -134,3 +134,18 @@ UPDATE orm_routes SET staticPrefix = '/it/pubblicazioni-nuovo', name = 'edizioni
 
 -- Modification de l'URL espagnol de "Dons ponctuels"
 UPDATE orm_routes SET staticPrefix = '/es/donacion-de-una-sola-vez', name = 'donacion-de-una-sola-vez' WHERE staticPrefix = '/es/donacin-de-una-sola-vez';
+
+-- Modification de plusieurs URLs (20/07/21)
+UPDATE orm_routes SET name = 'en-los-origenes', staticPrefix = '/es/en-los-origenes' WHERE name = 'fundadores';
+UPDATE orm_routes SET name = 'zu-den-ursprungen', staticPrefix = '/de/zu-den-ursprungen' WHERE name = 'grunder';
+UPDATE orm_routes SET name = 'alle-origini', staticPrefix = '/it/alle-origini' WHERE name = 'fondatori';
+UPDATE orm_routes SET name = 'the-beginning', staticPrefix = '/en/the-beginning' WHERE name = 'founders';
+UPDATE orm_routes SET name = 'los-conferenciantes', staticPrefix = '/es/los-conferenciantes' WHERE name = 'altavoces';
+UPDATE orm_routes SET name = 'participar-en-un-retiro', staticPrefix = '/es/participar-en-un-retiro' WHERE name = 'venir-de-retiro';
+UPDATE orm_routes SET name = 'les-fontanilles-es', staticPrefix = '/es/les-fontanilles-es' WHERE name = 'fontanilles-es';
+UPDATE orm_routes SET name = 'informaciones-practicas-de-la-roche-d-or', staticPrefix = '/es/informaciones-practicas-de-la-roche-d-or' WHERE name = 'informaciones-utiles-de-la-roche-dor';
+UPDATE orm_routes SET name = 'informaciones-practicas-de-fontanilles', staticPrefix = '/es/informaciones-practicas-de-fontanilles' WHERE name = 'informaciones-utiles-de-fontanilles';
+UPDATE orm_routes SET name = 'nuestros-enlaces', staticPrefix = '/es/nuestros-enlaces' WHERE name = 'enlaces-de-interes';
+UPDATE orm_routes SET name = 'otras-formas-de-donacion', staticPrefix = '/es/otras-formas-de-donacion' WHERE name = 'donacion';
+UPDATE orm_routes SET name = 'donaciones-puntuales-o-regulares', staticPrefix = '/es/donaciones-puntuales-o-regulares' WHERE name = 'donacion-de-una-sola-vez';
+UPDATE orm_routes SET name = 'inscripcion', staticPrefix = '/es/inscripcion' WHERE name = 'registro-jubilado';
