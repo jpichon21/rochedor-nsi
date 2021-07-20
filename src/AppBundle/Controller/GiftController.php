@@ -107,7 +107,7 @@ class GiftController extends Controller
      * @Route("/{_locale}/one-time-donation", name="gift-en")
      * @Route("/{_locale}/einmalige-spende", name="gift-de")
      * @Route("/{_locale}/donazione-una-tantum", name="gift-it")
-     * @Route("/{_locale}/donacion-de-una-sola-vez", name="gift-es")
+     * @Route("/{_locale}/donaciones-puntuales-o-regulares", name="gift-es")
      */
     public function giftAction(Request $request, CountryService $countryService)
     {
