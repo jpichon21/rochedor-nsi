@@ -32,8 +32,7 @@ class DefaultController extends Controller
     {
         $locale = $this->get('translator')->getLocale();
 
-        // Solution temporaire pour n'activer que les langues FR et ES
-        if (!in_array($locale, ['fr', 'es'])) {
+        if (!in_array($locale, $this->getParameter('locales_activated'))) {
             $locale = 'fr';
         }
 

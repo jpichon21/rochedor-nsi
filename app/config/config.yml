@@ -37,7 +37,7 @@ framework:
         engines: ['twig']
 
 translation:
-    locales: ['fr', 'es']
+    locales: '%locales_activated%'
     configs:
         app:
             dirs: ["%kernel.root_dir%/Resources/views", "%kernel.project_dir%/src"]
@@ -132,7 +132,7 @@ cmf_routing:
             orm:
                 enabled: true
         auto_locale_pattern: true
-        locales: ['fr', 'es']
+        locales: '%locales_activated%'
         generic_controller: AppBundle:Default:showPage
         route_collection_limit: 200
 

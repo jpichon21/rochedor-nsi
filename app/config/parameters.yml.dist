@@ -54,3 +54,4 @@ parameters:
     bank_account.Libre: 56039987469
     bank_iban.Libre: FR76 1250 6200 4956 0399 8746 932
     bank_bic.Libre: AGRIFRPP825
+    locales_activated: ['fr', 'es']
