@@ -45,6 +45,7 @@ services:
             $contentRepository: '@cmf_routing.content_repository'
             $routeProvider: '@cmf_routing.route_provider'
             $locales: '%locales%'
+            $localesActivated: '%locales_activated%'
     AppBundle\Repository\:
         resource: ../../src/AppBundle/Repository
     Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository: '@cmf_routing.orm_content_repository'
@@ -69,10 +70,3 @@ services:
             $roleHierarchy: '@security.role_hierarchy'
         public: true
         tags: ['controller.service_arguments']
-
-    AppBundle\EventListener\RequestListener:
-        class: AppBundle\EventListener\RequestListener
-        arguments:
-            - '@doctrine'
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, priority: 20 }

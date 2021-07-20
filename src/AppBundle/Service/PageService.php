@@ -15,17 +15,20 @@ class PageService
     private $routeProvider;
     private $locales;
     private $urlGenerator;
+    private $localesActivated;
 
     public function __construct(
         ContentRepository $contentRepository,
         RouteProvider $routeProvider,
-        String $locales,
-        UrlGeneratorInterface $urlGenerator
+        string $locales,
+        UrlGeneratorInterface $urlGenerator,
+        array $localesActivated
     ) {
         $this->contentRepository = $contentRepository;
         $this->routeProvider = $routeProvider;
         $this->locales = explode('|', $locales);
         $this->urlGenerator = $urlGenerator;
+        $this->localesActivated = $localesActivated;
     }
 
     public function getContent($route)
@@ -44,9 +47,14 @@ class PageService
         if ($contentDocument === null) {
             return null;
         }
-        $contentDocument->setLocale('fr');
+
+        // Solution temporaire pour n'activer que les langues FR et ES
+        if (!in_array($contentDocument->getLocale(), $this->localesActivated)) {
+            $contentDocument->setLocale('fr');
+        }
+
         $availableLocales = array();
-     
+
         if ($contentDocument->getLocale() === "fr") {
             $cm = $contentDocument->getChildren();
             $myChild = $cm->getValues();
@@ -61,11 +69,10 @@ class PageService
             $availableLocales['fr'] = $tmpP[0]->getStaticPrefix();
         }
         foreach ($myChild as $childPage) {
-            $childPage->setLocale('fr');
             if ($childPage->getLocale() != $contentDocument->getLocale()) {
                 $key = $childPage->getLocale();
                 $tmp = $childPage->getRoutes()->getValues();
-                if ($tmp) {
+                if ($tmp && in_array($childPage->getLocale(), $this->localesActivated)) {
                     $availableLocales[$key] = $tmp[0]->getStaticPrefix();
                 }
             }
