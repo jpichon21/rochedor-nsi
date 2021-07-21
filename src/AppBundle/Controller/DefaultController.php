@@ -67,7 +67,7 @@ class DefaultController extends Controller
         $name = substr($path, 1);
         $page = $this->pageService->getContentFromRequest($request);
         if (!$page) {
-            throw $this->createNotFoundException($this->translator->trans('global.page-not-found'));
+            throw $this->createNotFoundException($this->get('translator')->trans('global.page-not-found'));
         }
         $availableLocales = $this->pageService->getAvailableLocales($page);
         $speakers = $this->getDoctrine()->getRepository('AppBundle:Speaker')->findAllOrderByPos();
