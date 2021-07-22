@@ -60,8 +60,9 @@ class ContactRepository
             AND REPLACE(REPLACE(UPPER(c.prenom), \'-\', \'\'), \' \', \'\')=UPPER(:firstname)
             AND c.email=:email
             AND c.username <> \'\'
-            AND c.username IS NOT NULL'
-        );
+            AND c.username IS NOT NULL
+            ORDER BY c.codco'
+        )->setMaxResults(1);
         $query->setParameters(['lastname' => $lastname, 'firstname' => $firstname, 'email' => $email]);
         return $query->getResult();
     }
