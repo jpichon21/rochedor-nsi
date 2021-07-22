@@ -4,7 +4,7 @@ form.continue.order: 'Hacer mi pedido'
 form.go.buy: 'Seguir comprando'
 order.registration.one.title: 'Iniciar sesión/Registrarse'
 order.registration.one.body.connected: 'Está conectado como <i>%name%</i>, ¿desea continuar?'
-form.continue: Siguiente
+form.continue: Continuar
 form.disconnect: Desconectar
 order.registration.one.body.disconnected: '¿Ha hecho previamente algún pedido en las Ediciones Roche d’Or? (nos gustaría saber si disponemos de sus datos)'
 form.yes: Sí
@@ -283,14 +283,14 @@ choice_site.text: 'La Roche d''Or se compromete a ser el único destinatario de 
 register_roche: 'Inscripción Roche d’Or'
 register_fontanilles: 'Inscripción Fontanilles'
 logout.disconnect.dons: 'Se ha desconectado del módulo de donaciones. Para hacer una nueva donación, haga clic en Apoyarnos y luego en Donaciones puntuales o regulares.'
-gift.title: 'Donación puntual <small>en ligne</small>'
-gift.intro: 'Está a punto de hacer una donación puntual on line. Por favor, rellene el siguiente formulario o volver a la <a href="%link%"> página de donaciones</a>.'
+gift.title: 'Donaciones puntuales o regulares'
+gift.intro: 'Para unirse al movimiento solidario Amigos de La Roche d''Or y apoyar nuestra acción evangélica, indique su elección.'
 gift.amount: 'Cantidad de su donación'
 its.a.gift: Regalo
 form.its.a.gift: Regalo
 form.validate.gift: 'Confirmar el mensaje'
 form.other: Otros
-gift.four.title: Asignación
+gift.four.title: 'Elección de asignación'
 gift.choose.allocation: 'Elija una asignación'
 form.choose.allocation: Asignaciones
 select.allocation.libre: 'Ninguna asignación'
@@ -316,6 +316,7 @@ payment.paypal: 'Donación puntual on line mediante Paypal'
 payment.virement: 'Donación puntual mediante transferencia bancaria'
 payment.cheque: 'Donación puntual mediante cheque'
 payment.virement_reg: 'Donación regular mediante transferencia bancaria'
+gift.invalid_form.amount: '    Seleccione una cantidad, una asignación y un método de pago para continuar.'
 tax.title: 'Si está sujeto a impuestos'
 global.tax-code: 'Si usted paga impuestos en Francia y en los países europeos que lo permiten, se beneficia de una reducción de impuestos. .<br>Si está sujeto al impuesto francés, la reducción equivale al 66% del importe de su donación, hasta un límite del 20% de su renta imponible. El exceso puede ser trasladado durante los próximos 5 años y da derecho a la reducción de impuestos en las mismas condiciones (artículo 200 del CGI). Para acceder al Código General de Impuestos, haga clic en <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000018619914&cidTexte=LEGITEXT000006069577" target= "_blank">ICI</a>.<br> Desde 2009, la posibilidad de expedir un recibo fiscal se ha ampliado a las donaciones y los pagos efectuados a organizaciones extranjeras establecidas en un Estado miembro de la Unión Europea o en un Estado miembro del Espacio Económico Europeo que haya celebrado un tratado fiscal con Francia que contenga una cláusula de asistencia administrativa para luchar contra el fraude o la evasión fiscal. Este es, por ejemplo, el caso de Bélgica (entre otros)'
 global.secure-datas: 'Seguridad de datos'
