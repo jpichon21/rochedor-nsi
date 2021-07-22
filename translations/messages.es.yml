@@ -149,8 +149,8 @@ form.title.registration: 'Formulario de inscripción'
 form.password.repeat: 'Repetir contraseña'
 form.validate: Confirmar
 security.reset.token_not_found: 'No se puede restablecer porque no es válido o ya no existe.'
-security.reset.title: '<small>Restablecer </small>Contraseña'
-security.reset.intro: 'Por favor escriba su nueva contraseña en el formulario adjunto'
+security.reset.title: '<small>Restablecer su</small>Contraseña'
+security.reset.intro: 'Por favor crear su nueva contraseña en el siguiente formulario'
 form.label.submit: Ok
 form.label.password: Contraseña
 form.label.password_repeat: Repetir
@@ -519,3 +519,4 @@ Mlle: 'Srta.'
 Père: 'Padre'
 Frère: 'Hermano'
 Soeur: 'Hermana'
+formulaire: Formulario
