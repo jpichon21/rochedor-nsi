@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Swagger\Annotations as SWG;
 use AppBundle\Repository\ContactRepository;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -312,8 +313,11 @@ class SecurityController extends Controller
     /**
     * @Route("/password-request", name="password-request", requirements={"methods": "POST"})
     */
-    public function passwordRequestAction(Request $request, ContactRepository $repository)
+    public function passwordRequestAction(Request $request, ContactRepository $repository, TranslatorInterface $translator)
     {
+        $request->setLocale($request->get('_locale'));
+        $translator->setLocale($request->get('_locale'));
+
         $email = $request->get('email');
         $lastname = $request->get('lastname');
         $firstname = $request->get('firstname');
@@ -337,12 +341,12 @@ class SecurityController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($contact);
             $em->flush();
-            $link = $this->generateUrl('password-reset', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+            $link = $this->generateUrl('password-reset', array('token' => $token, '_locale' => $request->get('_locale')), UrlGeneratorInterface::ABSOLUTE_URL);
             $this->mailer->send(
                 $email,
                 $this->translator->trans('security.reset_password_request.subject'),
                 $this->renderView(
-                    'emails/security-reset-password-request-'.$request->getLocale().'.html.twig',
+                    'emails/security-reset-password-request-'.$request->get('_locale').'.html.twig',
                     ['link' => $link, 'contact' => $contact]
                 )
             );
