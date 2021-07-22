@@ -2,14 +2,14 @@ order.registration.intro:
 order.summary.title: 'Mi cesta'
 form.continue.order: 'Hacer mi pedido'
 form.go.buy: 'Seguir comprando'
-order.registration.one.title: 'Iniciar sesión/Registrarse'
+order.registration.one.title: 'Tu información personal/Registrarse'
 order.registration.one.body.connected: 'Está conectado como <i>%name%</i>, ¿desea continuar?'
 form.continue: Continuar
 form.disconnect: Desconectar
 order.registration.one.body.disconnected: '¿Ha hecho previamente algún pedido en las Ediciones Roche d’Or? (nos gustaría saber si disponemos de sus datos)'
 form.yes: Sí
 form.no: No
-order.registration.one.title.connection: 'Iniciar sesión'
+order.registration.one.title.connection: 'Tu información personal'
 order.registration.cart.title.1: 'Su cesta'
 form.username: Usuario
 form.password-login: Contraseña
@@ -170,11 +170,11 @@ gift.payment.mail.virement: "Hola %civility% %name%,<br><br>Junto con toda la Co
 gift.payment.mail.cheque: "Hola %civility% %name%,<br><br>Junto con toda la Comunidad quiero agradecerle su generosidad.<br><br>Con su contribución de %amount% euros en %affectation%, usted se une al movimiento de solidaridad de los Amigos de La Roche d'Or.<br><br>Por favor, envíe su cheque a\_:<br>         <div style=\"margin-left: 50px;\">             Comunidad de La Roche d’Or\L<br>             25042 BESANÇON CEDEX<br><br>         </div>Permítame una vez más expresar nuestro agradecimiento por su contribución a nuestra misión de evangelización y que, a través de esta donación, se convertirá también en la suya.<br><br>         Danièle VALÈS<br><br>Contactar con el secretariado: +33(0)3 81 41 47 47 o secretariat@rochedor.org<br>Nuestra página web: www.rochedor.fr"
 admin.title: 'Panel de control'
 calendar.registration.intro: 'Está a punto de inscribirse a un retiro.<br> Rellene los siguientes datos si quiere continuar, sino para volver al programa clicar <a href="%link%">ici</a>.'
-calendar.registration.one.title: 'Iniciar sesión/Registrarse'
+calendar.registration.one.title: 'Tu información personal/Registrarse'
 calendar.registration.one.body: 'Está registrado como %name%, ¿quiere continuar?'
 calendar.registration.one.body.connected: 'Está conectado como <i>%name%</i>, ¿desea continuar?'
 calendar.registration.one.body.disconnected: '¿Ha participado en algún retiro anterioren la Roche d’Or o en Fontanilles? (nos gustaría saber si disponemos de sus datos)'
-calendar.registration.one.title.connection: 'Iniciar sesión'
+calendar.registration.one.title.connection: 'Tu información personal'
 reset.password.info: '<p><strong> Primer registro o primera donación en esta nueva página web?</strong></p><p> Por razones de seguridad nos hemos visto obligados a cambiar su usuario. Esto se le comunicará por correo electrónico haciendo clic en "Restablecer la contraseña"</p>.'
 calendar.registration.one.title.registration: 'Registrarse'
 form.email.please: 'Escriba su correo electrónico'
@@ -336,10 +336,10 @@ select.period.trimestre: Trimestral
 select.period.semestre: Semestral
 gift.virement.descr: 'Todos los datos para proceder a su transferencia bancaria, según la asignación de su donación, le serán enviadas por correo electrónico (e-mail). Si no recibe el correo dentro de unos minutos, por favor consulte su carpeta SPAM o sus correos no deseados.'
 form.back: Volver
-gift.one.title: 'Iniciar sesión/registrarse'
+gift.one.title: 'Tu información personal/registrarse'
 gift.one.body.connected: 'Está conectado como %name%, ¿desea continuar?'
 gift.one.body.disconnected: '¿Alguna vez ha hecho una donación on line? (nos gustaría saber si ya tenemos sus datos)'
-gift.one.title.connection: 'Iniciar sesión'
+gift.one.title.connection: 'Tu información personal'
 gift.one.title.registration: Registro
 gift.summary.reduction: 'Si pago impuestos en Francia, esta donación tiene %reduction% fiscal'
 global.page-not-found: 'La página a la que intenta acceder ya no existe o ha sido movida.'
