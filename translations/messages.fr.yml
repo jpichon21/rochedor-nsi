@@ -84,7 +84,7 @@ form.username: Identifiant
 form.modify: Modifier
 form.participate: 'Inscrire avec moi'
 calendar.notify.attendee.subject: 'Demande d''inscription'
-news.title: 'Les<br> nouveautés'
+news.title: 'Nouveautés'
 news.button.discover: 'Découvrir le produit'
 form.label.password: 'Mot de passe'
 security.reset_password_request.subject: 'Réinitialisation de mot de passe'

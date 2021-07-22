@@ -71,7 +71,7 @@
             </div>
             {% if news|length %}
                 <div class="nouveautes">
-                    <h2>{{ 'news.title'|trans }}</h2>
+                    <h2>{{ 'news.title'|trans|raw }}</h2>
                     {% for article in news %}
                         <div data-index="{{ loop.index0 }}"
                              class="cnews{% if loop.first %} active{% endif %}{% if article.url %} with-link{% endif %}">
