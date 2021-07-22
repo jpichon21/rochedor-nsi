@@ -149,8 +149,8 @@ form.title.registration: 'Formulario de inscripción'
 form.password.repeat: 'Repetir contraseña'
 form.validate: Confirmar
 security.reset.token_not_found: 'No se puede restablecer porque no es válido o ya no existe.'
-security.reset.title: '<small>Restablecer </small>Contraseña'
-security.reset.intro: 'Por favor escriba su nueva contraseña en el formulario adjunto'
+security.reset.title: '<small>Restablecer su</small>Contraseña'
+security.reset.intro: 'Por favor crear su nueva contraseña en el siguiente formulario'
 form.label.submit: Ok
 form.label.password: Contraseña
 form.label.password_repeat: Repetir
@@ -337,7 +337,7 @@ select.period.semestre: Semestral
 gift.virement.descr: 'Todos los datos para proceder a su transferencia bancaria, según la asignación de su donación, le serán enviadas por correo electrónico (e-mail). Si no recibe el correo dentro de unos minutos, por favor consulte su carpeta SPAM o sus correos no deseados.'
 form.back: Volver
 gift.one.title: 'Iniciar sesión/registrarse'
-gift.one.body.connected: 'Está conectado como %nombre%, ¿desea continuar?'
+gift.one.body.connected: 'Está conectado como %name%, ¿desea continuar?'
 gift.one.body.disconnected: '¿Alguna vez ha hecho una donación on line? (nos gustaría saber si ya tenemos sus datos)'
 gift.one.title.connection: 'Iniciar sesión'
 gift.one.title.registration: Registro
@@ -513,3 +513,10 @@ detail.tva: '(IVA %tva% %)'
 read_more: 'Leer mas'
 discover: 'Descubrir'
 form.message.update_you: 'Verifique su información e ingrese su modo de transporte'
+M.: 'Sr.'
+Mme: 'Sra.'
+Mlle: 'Srta.'
+Père: 'Padre'
+Frère: 'Hermano'
+Soeur: 'Hermana'
+formulaire: Formulario

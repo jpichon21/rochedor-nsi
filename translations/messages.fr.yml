@@ -84,7 +84,7 @@ form.username: Identifiant
 form.modify: Modifier
 form.participate: 'Inscrire avec moi'
 calendar.notify.attendee.subject: 'Demande d''inscription'
-news.title: 'Nos sélections'
+news.title: 'Nouveautés'
 news.button.discover: 'Découvrir le produit'
 form.label.password: 'Mot de passe'
 security.reset_password_request.subject: 'Réinitialisation de mot de passe'
@@ -572,3 +572,4 @@ editions.filter.locale.choose: 'Choisir une langue'
 edition.country_not_disp_liv: 'Votre pays n''est pas disponible à la livraison, merci de définir une adresse de livraison différente de la votre.'
 read_more: 'Lire la suite'
 discover: 'Découvrir'
+formulaire: 'Formulaire'
